@@ -14,7 +14,8 @@ const config = {
   tailwindConfig: "./packages/ui/tailwind.config.cjs",
   importOrder: [
     "^(react/(.*)$)|^(react$)",
-    "^(remix/(.*)$)|^(remix$)",
+    "^(@remix-run/(.*)$)|^(@remix-run$)",
+    "^(accelerate-cms-ui/(.*)$)|^(accelerate-cms-ui$)",
     "<THIRD_PARTY_MODULES>",
     "^~/utils/(.*)$",
     "^~/components/(.*)$",

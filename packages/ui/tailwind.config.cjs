@@ -4,77 +4,37 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        neutral: {
-          50: "#E6E7F0",
-          100: "#CFD2E2",
+        light: {
+          // White-based colors
+          200: "#E6E9F0",
+          500: "#BCC4D6",
+        },
+        dark: {
+          // DarkBlue-based colors
           200: "#A0A5C5",
-          300: "#7078A8",
-          400: "#4B527C",
+          400: "#3C4162",
           500: "#2F334D",
           600: "#25283C",
           700: "#1D1F30",
-          800: "#131520",
-          900: "#0A0A10",
         },
         primary: {
-          50: "#E6F9F6",
-          100: "#C9F3EB",
-          200: "#97E7D9",
+          // Teal-based colors
           300: "#61DBC5",
-          400: "#2FD0B2",
-          500: "#239984",
-          600: "#1C7D6B",
-          700: "#155B4E",
-          800: "#0E3E35",
-          900: "#071D19",
+          500: "#2FD0B2",
         },
-        secondary: {
-          50: "#FFF0F2",
-          100: "#FFDBE1",
-          200: "#FFBDC8",
-          300: "#FF99AA",
-          400: "#FF758C",
-          500: "#FF5370",
-          600: "#FF0F37",
-          700: "#CC0022",
-          800: "#8A0017",
-          900: "#42000B",
-        },
-        tertiary: {
-          50: "#F9F5FF",
-          100: "#F2EBFF",
-          200: "#E6D6FF",
-          300: "#D9C2FF",
-          400: "#CDADFF",
-          500: "#C099FF",
-          600: "#8E47FF",
-          700: "#5E00F5",
-          800: "#3F00A3",
-          900: "#1F0052",
-        },
-        ghost: {
-          50: "#F9F9FB",
-          100: "#F2F4F7",
-          200: "#E6E9F0",
-          300: "#D6DBE6",
-          400: "#C9CFDE",
-          500: "#BCC4D6",
-          600: "#8A98B7",
-          700: "#5B6C95",
-          800: "#3E4A65",
-          900: "#1F2533",
-        },
-        sublime: {
-          50: "#F5F8FF",
-          100: "#E5EEFF",
-          200: "#CCDCFF",
-          300: "#B3CBFF",
-          400: "#99B9FF",
-          500: "#82AAFF",
-          600: "#3374FF",
-          700: "#0049E6",
-          800: "#003099",
-          900: "#00184D",
+        accent: {
+          strong: {
+            // Pink-based colors
+            400: "#FF758C",
+          },
+          warn: {
+            // Yellow-based colors
+            400: "#F4CA64",
+          },
+          subtle: {
+            // Cloudy/Blue-based colors
+            400: "#82AAFF",
+          },
         },
       },
     },

@@ -8,12 +8,13 @@ const config = {
   trailingComma: "all",
   tabWidth: 2,
   plugins: [
-    require.resolve("prettier-plugin-tailwindcss"),
     require.resolve("@ianvs/prettier-plugin-sort-imports"),
+    require.resolve("prettier-plugin-tailwindcss"),
   ],
-  tailwindConfig: "./packages/ui/tailwind.config.js",
+  pluginSearchDirs: false,
+  tailwindConfig: "./packages/ui/tailwind.config.cjs",
   importOrder: [
-    "^(react/(.*)$)|^(react$)",
+    "^(react(.*)/(.*)$)|^(react(.*)$)",
     "^(@remix-run/(.*)$)|^(@remix-run$)",
     "^(accelerate-cms-ui/(.*)$)|^(accelerate-cms-ui$)",
     "<THIRD_PARTY_MODULES>",

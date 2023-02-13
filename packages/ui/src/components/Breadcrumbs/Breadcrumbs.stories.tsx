@@ -1,17 +1,16 @@
 import type { Meta, StoryObj } from "@storybook/react";
 
-import { Header as HeaderComponent } from "./Header";
+import { Breadcrumbs as BreadcrumbsComponent } from "./Breadcrumbs";
 
 const meta = {
-  component: HeaderComponent,
-} satisfies Meta<typeof HeaderComponent>;
+  component: BreadcrumbsComponent,
+} satisfies Meta<typeof BreadcrumbsComponent>;
 
 type Story = StoryObj<typeof meta>;
 
-export const Header = {
+export const Breadcrumbs = {
   args: {
-    title: "Header",
-    breadcrumbs: [
+    items: [
       {
         label: "Home",
         href: "#",
@@ -21,7 +20,6 @@ export const Header = {
         href: "",
       },
     ],
-    contentLabel: "Collection Level 2",
   },
 } satisfies Story;
 

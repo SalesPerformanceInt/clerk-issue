@@ -12,8 +12,8 @@
     "**/*.tsx",
     "**/*.cjs",
     "**/*.mjs",
-    "tailwind.config.js",
-    "postcss.config.js"
+    "tailwind.config.cjs",
+    "postcss.config.cjs"
   ],
   "exclude": []
 }

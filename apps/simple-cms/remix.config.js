@@ -4,7 +4,7 @@ const glob = require("glob");
 const packages = glob
   .sync("packages/**/package.json", {
     cwd: path.join(__dirname, "..", ".."),
-    ignore: ["**/node_modules/**"],
+    ignore: ["**/node_modules/**", "**/dist/components/**"],
     absolute: true,
   })
   .map((pkg) => path.dirname(pkg));
@@ -21,7 +21,5 @@ module.exports = {
   serverDependenciesToBundle: ["accelerate-cms-ui"],
   clientDependenciesToBundle: ["accelerate-cms-ui"],
 
-  watchPaths() {
-    return packages;
-  },
+  watchPaths: packages,
 };

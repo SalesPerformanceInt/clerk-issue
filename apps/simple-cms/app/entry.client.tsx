@@ -1,6 +1,7 @@
-import { RemixBrowser } from "@remix-run/react";
-import { startTransition, StrictMode } from "react";
+import { StrictMode, startTransition } from "react";
 import { hydrateRoot } from "react-dom/client";
+
+import { RemixBrowser } from "@remix-run/react";
 
 function hydrate() {
   startTransition(() => {
@@ -8,7 +9,7 @@ function hydrate() {
       document,
       <StrictMode>
         <RemixBrowser />
-      </StrictMode>
+      </StrictMode>,
     );
   });
 }

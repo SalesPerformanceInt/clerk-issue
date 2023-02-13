@@ -2,6 +2,7 @@
   "name": "accelerate-cms-ui",
   "private": true,
   "version": "0.0.0",
+  "type": "module",
   "scripts": {
     "sb": "storybook dev -p 6006",
     "dev": "tsc && vite build --watch",
@@ -13,6 +14,7 @@
     "react-dom": "^18.2.0"
   },
   "devDependencies": {
+    "@radix-ui/react-icons": "^1.1.1",
     "@storybook/addon-actions": "^7.0.0-beta.45",
     "@storybook/addon-essentials": "^7.0.0-beta.45",
     "@storybook/addon-interactions": "^7.0.0-beta.45",
@@ -29,6 +31,7 @@
     "@typescript-eslint/parser": "^5.51.0",
     "@vitejs/plugin-react": "^3.1.0",
     "autoprefixer": "^10.4.13",
+    "classnames": "^2.3.2",
     "eslint": "^8.33.0",
     "eslint-plugin-jsx-a11y": "^6.7.1",
     "eslint-plugin-prettier": "^4.2.1",

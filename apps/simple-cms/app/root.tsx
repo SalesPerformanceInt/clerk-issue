@@ -8,15 +8,20 @@ import {
   ScrollRestoration,
 } from "@remix-run/react";
 
+import styles from "./style.css";
 import uiStyles from "accelerate-cms-ui/dist/style.css";
 
+import { Header } from "./components/Header";
+import { Sidebar } from "./components/Sidebar";
+
 export const links: LinksFunction = () => [
+  { rel: "stylesheet", href: styles },
   { rel: "stylesheet", href: uiStyles },
 ];
 
 export const meta: MetaFunction = () => ({
   charset: "utf-8",
-  title: "New Remix App",
+  title: "Accelerate CMS",
   viewport: "width=device-width,initial-scale=1",
 });
 
@@ -27,7 +32,11 @@ export default function App() {
         <Meta />
         <Links />
       </head>
-      <body>
+      <body className="flex bg-dark-500">
+        <Sidebar />
+
+        <Header />
+
         <Outlet />
         <ScrollRestoration />
         <Scripts />

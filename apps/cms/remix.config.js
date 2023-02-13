@@ -17,6 +17,7 @@ module.exports = {
   ignoredRouteFiles: ["**/.*", "**/*.css", "**/*.test.{js,jsx,ts,tsx}"],
   serverDependenciesToBundle: ["accelerate-cms-ui"],
   clientDependenciesToBundle: ["accelerate-cms-ui"],
+  devServerPort: 3000,
   watchPaths() {
     return packages;
   },

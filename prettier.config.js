@@ -11,7 +11,7 @@ const config = {
     require.resolve("prettier-plugin-tailwindcss"),
     require.resolve("@ianvs/prettier-plugin-sort-imports"),
   ],
-  tailwindConfig: "./packages/ui/tailwind.config.cjs",
+  tailwindConfig: "./packages/ui/tailwind.config.js",
   importOrder: [
     "^(react/(.*)$)|^(react$)",
     "^(@remix-run/(.*)$)|^(@remix-run$)",

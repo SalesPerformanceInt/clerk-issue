@@ -1,5 +1,5 @@
 /** @type {import("eslint").Linter.Config} */
-const config = {
+module.exports = {
   extends: [
     "../../.eslintrc.js",
     "plugin:storybook/recommended",
@@ -8,5 +8,3 @@ const config = {
   ],
   plugins: ["react", "react-hooks", "storybook"],
 };
-
-module.exports = config;

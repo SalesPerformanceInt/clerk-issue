@@ -2,7 +2,6 @@
   "name": "accelerate-cms-ui",
   "private": true,
   "version": "0.0.0",
-  "type": "module",
   "scripts": {
     "sb": "storybook dev -p 6006",
     "dev": "tsc && vite build --watch",

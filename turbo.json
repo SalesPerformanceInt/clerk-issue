@@ -7,9 +7,7 @@
       "outputs": ["dist/**", ".next/**"]
     },
     "dev": {
-      "cache": false,
-      "dependsOn": ["^accelerate-cms-ui#build"],
-      "outputs": ["dist/**", ".next/**"]
+      "cache": false
     },
     "sb": {
       "outputs": []

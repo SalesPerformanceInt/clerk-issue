@@ -4,7 +4,7 @@ const glob = require("glob");
 const packages = glob
   .sync("packages/**/package.json", {
     cwd: path.join(__dirname, "..", ".."),
-    ignore: ["**/node_modules/**", "**/dist/components/**"],
+    ignore: ["**/node_modules/**"],
     absolute: true,
   })
   .map((pkg) => path.dirname(pkg));

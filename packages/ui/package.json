@@ -5,8 +5,8 @@
   "type": "module",
   "scripts": {
     "sb": "storybook dev -p 6006",
-    "dev": "tsc && vite build --watch",
-    "build": "npm run clean && tsc && vite build",
+    "dev": "npm run build -- --watch",
+    "build": "npm run clean && tsup src/index.tsx --format esm,cjs --dts --external react",
     "clean": "rimraf dist storybook-static"
   },
   "dependencies": {
@@ -27,8 +27,6 @@
     "@tailwindcss/forms": "^0.5.3",
     "@types/react": "^18.0.27",
     "@types/react-dom": "^18.0.10",
-    "@typescript-eslint/eslint-plugin": "^5.51.0",
-    "@typescript-eslint/parser": "^5.51.0",
     "@vitejs/plugin-react": "^3.1.0",
     "autoprefixer": "^10.4.13",
     "classnames": "^2.3.2",
@@ -38,28 +36,27 @@
     "eslint-plugin-react": "^7.32.2",
     "eslint-plugin-react-hooks": "^4.6.0",
     "eslint-plugin-storybook": "^0.6.10",
-    "npm-run-all": "^4.1.5",
     "postcss": "^8.4.21",
     "prettier": "latest",
     "storybook": "^7.0.0-beta.45",
     "tailwindcss": "^3.2.6",
+    "tsup": "^6.6.3",
     "typescript": "^4.9.3",
     "vite": "^4.1.0",
     "vite-plugin-dts": "^1.7.2"
   },
-  "main": "./dist/index.cjs.js",
-  "module": "./dist/index.es.js",
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "files": [
-    "/dist",
-    "/dist/style.css"
+    "dist/**"
   ],
   "exports": {
     ".": {
-      "import": "./dist/index.es.js",
-      "require": "./dist/index.cjs.js"
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs"
     },
     "./package.json": "./package.json",
-    "./dist/style.css": "./dist/style.css"
+    "./dist/index.css": "./dist/index.css"
   }
 }

@@ -9,7 +9,7 @@ import {
 } from "@remix-run/react";
 
 import styles from "./style.css";
-import uiStyles from "accelerate-cms-ui/dist/style.css";
+import uiStyles from "accelerate-cms-ui/dist/index.css";
 
 import { Header } from "./components/Header";
 import { Sidebar } from "./components/Sidebar";

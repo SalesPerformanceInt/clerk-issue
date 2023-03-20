@@ -21,5 +21,9 @@ module.exports = {
   serverDependenciesToBundle: ["accelerate-cms-ui"],
   clientDependenciesToBundle: ["accelerate-cms-ui"],
 
+  future: {
+    unstable_tailwind: true,
+  },
+
   watchPaths: packages,
 };

@@ -1,4 +1,4 @@
-import tailwind from "accelerate-cms-ui/tailwind.config.cjs";
+const tailwind = require("accelerate-cms-ui/tailwind.config");
 
 /** @type {import('tailwindcss').Config} */
 module.exports = {

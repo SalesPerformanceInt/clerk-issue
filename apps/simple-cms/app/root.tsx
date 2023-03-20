@@ -8,6 +8,7 @@ import {
   ScrollRestoration,
 } from "@remix-run/react";
 
+import { Container } from "accelerate-cms-ui";
 import uiStyles from "accelerate-cms-ui/dist/index.css";
 
 import tailwind from "~/tailwind.css";
@@ -36,9 +37,12 @@ export default function App() {
       <body className="flex flex-wrap bg-dark-500">
         <Sidebar />
 
-        <Header />
+        <Container>
+          <Header />
 
-        <Outlet />
+          <Outlet />
+        </Container>
+
         <ScrollRestoration />
         <Scripts />
         <LiveReload />

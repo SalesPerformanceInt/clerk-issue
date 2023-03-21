@@ -2,6 +2,7 @@ import React from "react";
 
 import {
   Container,
+  Datatable,
   Section,
   Sidenav,
   type SidenavItemProps,
@@ -37,6 +38,16 @@ export default function Entries() {
               titleQty={6}
               buttonTitle="+ New Entry"
             />
+
+            <Datatable>
+              <Datatable.Selected selectedQty={2}>
+                <button> Unpublish </button>
+
+                <button> Publish </button>
+              </Datatable.Selected>
+
+              <Datatable.Content />
+            </Datatable>
           </Section>
         </Container.Main>
       </Container.Main>

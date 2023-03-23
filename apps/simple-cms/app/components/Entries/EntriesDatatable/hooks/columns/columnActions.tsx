@@ -1,0 +1,9 @@
+import { Datatable } from "accelerate-cms-ui";
+
+import type { EntriesColumn } from "./types";
+
+export const columnActions = (columnHelper: EntriesColumn) =>
+  columnHelper.accessor("createdAt", {
+    header: () => <Datatable.HeaderItem className="flex-[0.75]" />,
+    cell: () => <Datatable.Item.Actions />,
+  });

@@ -10,6 +10,7 @@ export const Checkbox = ({
   value,
   checked,
   legend,
+  onChange,
 }: CheckboxProps) => {
   return (
     <fieldset className="flex flex-wrap">
@@ -22,6 +23,7 @@ export const Checkbox = ({
         checked={checked}
         type="checkbox"
         className="h-0 w-0 opacity-0 [&:checked~label>div]:border-primary-300 [&:checked~label>div]:bg-primary-300 [&:checked~label>div_svg]:visible"
+        onChange={onChange}
       />
 
       <label htmlFor={id} className="flex cursor-pointer items-center gap-3">

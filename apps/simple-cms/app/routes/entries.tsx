@@ -1,55 +1,31 @@
 import React from "react";
 
-import {
-  Container,
-  Datatable,
-  Section,
-  Sidenav,
-  type SidenavItemProps,
-} from "accelerate-cms-ui";
+import { json, type LoaderArgs } from "@remix-run/node";
+import { useLoaderData } from "@remix-run/react";
+
+import { Container } from "accelerate-cms-ui";
+
+import { EntriesDatatable, EntriesSidenav } from "~/components/Entries";
+
+import { entriesMockData, type EntriesType } from "~/data/entries";
+
+export const loader = async ({ request }: LoaderArgs) => {
+  const entries: EntriesType[] = await new Promise((res) =>
+    res(entriesMockData),
+  );
+
+  return json({ entries });
+};
 
 export default function Entries() {
-  const contentItems: SidenavItemProps[] = [
-    { name: "All Entries", id: "allEntries" },
-    { name: "Collection", id: "collection" },
-  ];
-
-  const otherItems: SidenavItemProps[] = [{ name: "Other", id: "other" }];
+  const { entries } = useLoaderData<typeof loader>();
 
   return (
     <>
       <Container.Main>
-        <Container.Side className="max-w-[220px]">
-          <Sidenav>
-            <Sidenav.List
-              items={contentItems}
-              listTitle="Content Type"
-              buttonTitle="New Content Type"
-            />
+        <EntriesSidenav />
 
-            <Sidenav.List items={otherItems} listTitle="Other" />
-          </Sidenav>
-        </Container.Side>
-
-        <Container.Main>
-          <Section>
-            <Section.Header
-              title="Entries"
-              titleQty={6}
-              buttonTitle="+ New Entry"
-            />
-
-            <Datatable>
-              <Datatable.Selected selectedQty={2}>
-                <button> Unpublish </button>
-
-                <button> Publish </button>
-              </Datatable.Selected>
-
-              <Datatable.Content />
-            </Datatable>
-          </Section>
-        </Container.Main>
+        <EntriesDatatable entries={entries} />
       </Container.Main>
     </>
   );

@@ -1,7 +1,7 @@
 import type { ReactNode } from "react";
 
 export type DatatableHeaderItemProps = {
-  title?: string | null;
+  title?: ReactNode;
   className?: string;
   children?: ReactNode;
 };

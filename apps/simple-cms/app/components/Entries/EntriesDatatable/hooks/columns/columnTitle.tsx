@@ -7,7 +7,7 @@ export const columnTitle = (columnHelper: EntriesColumn) =>
     header: ({ table, header }) => (
       <Datatable.HeaderItem
         title="Title"
-        className="flex flex-[2] items-center gap-2"
+        className="flex !flex-[2] items-center gap-2"
       >
         <Form.Checkbox
           id={header.id}
@@ -21,7 +21,7 @@ export const columnTitle = (columnHelper: EntriesColumn) =>
     cell: ({ row, getValue, cell }) => (
       <Datatable.Item.Control
         title={getValue()}
-        className="flex-[2]"
+        className="!flex-[2]"
         id={cell.id}
         name="entries"
         value={getValue()}

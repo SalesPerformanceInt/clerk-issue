@@ -1,5 +1,5 @@
-import type { EntriesType } from "~/data/entries";
+import type { AllQuestionItems } from "~/models/questionItem";
 
 export type EntriesDatatableProps = {
-  entries: EntriesType[];
+  entries: AllQuestionItems;
 };

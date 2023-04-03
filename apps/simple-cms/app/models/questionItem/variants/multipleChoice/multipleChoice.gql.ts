@@ -1,4 +1,4 @@
-export const getAllMultipleChoice = () => `
+export const allMultipleChoiceQuery = () => `
   QuestionitemVariantsMcquestion {
     __typename
     mcquestion {

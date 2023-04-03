@@ -6,39 +6,38 @@ import { useLoaderData } from "@remix-run/react";
 
 import { Container } from "accelerate-cms-ui";
 
-import { graphQLClient } from "~/utils/server";
-
 import { EntriesDatatable, EntriesSidenav } from "~/components/Entries";
 
-import { entriesMockData, type EntriesType } from "~/data/entries";
-import {
-  getAllQuestionItems,
-  type AllQuestionItems,
-} from "~/models/questionItem";
+import { getAllQuestionItems } from "~/models/questionItem";
+
+/**
+ * TODO: Need to fetch the Content Type
+ * TODO: Publish Status only returns an id currently
+ */
+
+/**
+ * Route Loader
+ */
 
 export const loader = async ({ request }: LoaderArgs) => {
-  const entries: EntriesType[] = await new Promise((res) =>
-    res(entriesMockData),
-  );
+  const { questionItems } = await getAllQuestionItems();
 
-  const { data: questionItems } = await graphQLClient.query<AllQuestionItems>({
-    query: getAllQuestionItems(),
-  });
-
-  return json({ entries, questionItems });
+  return json({ questionItems });
 };
 
-export default function Entries() {
-  const { entries, questionItems } = useLoaderData<typeof loader>();
+/**
+ * Route Component
+ */
 
-  console.log(questionItems);
+export default function Entries() {
+  const { questionItems } = useLoaderData<typeof loader>();
 
   return (
     <>
       <Container.Main>
         <EntriesSidenav />
 
-        <EntriesDatatable entries={entries} />
+        <EntriesDatatable entries={questionItems} />
       </Container.Main>
     </>
   );

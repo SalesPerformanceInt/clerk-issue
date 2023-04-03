@@ -1,2 +1,2 @@
-export * from "./questionItem.gql";
+export * from "./questionItem.api";
 export * from "./questionItem.types";

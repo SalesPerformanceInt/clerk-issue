@@ -36,3 +36,7 @@ export type AllQuestionItems = {
   items: QuestionItem[];
   total: number;
 };
+
+export type QueryAllQuestionItems = {
+  all_questionitem: AllQuestionItems;
+};

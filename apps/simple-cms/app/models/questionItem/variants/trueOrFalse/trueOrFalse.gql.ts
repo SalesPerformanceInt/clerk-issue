@@ -1,4 +1,4 @@
-export const getAllTrueOrFalse = () => `
+export const allTrueOrFalseQuery = () => `
   QuestionitemVariantsTfquestion {
     __typename
     tfquestion {

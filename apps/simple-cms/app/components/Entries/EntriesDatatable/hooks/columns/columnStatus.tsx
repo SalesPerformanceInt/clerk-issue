@@ -25,10 +25,10 @@ const statusMap = new MatchedMap<PublishStatus, StatusMap>([
 ]);
 
 export const columnStatus = (columnHelper: EntriesColumn) =>
-  columnHelper.accessor("status", {
+  columnHelper.accessor("system.uid", {
     header: () => <Datatable.HeaderItem title="Publish Status" />,
     cell: (info) => {
-      const { title, color } = statusMap.get(info.getValue() as PublishStatus);
+      const { title, color } = statusMap.get("published");
 
       return <Datatable.Item.Status status={title} className={color} />;
     },

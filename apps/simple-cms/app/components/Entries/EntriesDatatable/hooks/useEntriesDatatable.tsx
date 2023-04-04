@@ -4,7 +4,7 @@ import {
   useReactTable,
 } from "@tanstack/react-table";
 
-import type { EntriesType } from "~/data/entries";
+import type { QuestionItem } from "~/models/questionItem";
 
 import {
   columnActions,
@@ -16,8 +16,8 @@ import {
   columnVersion,
 } from "./columns";
 
-export const useEntriesDatatable = (entries: EntriesType[]) => {
-  const columnHelper = createColumnHelper<EntriesType>();
+export const useEntriesDatatable = (entries: QuestionItem[]) => {
+  const columnHelper = createColumnHelper<QuestionItem>();
 
   const columns = [
     columnTitle(columnHelper),

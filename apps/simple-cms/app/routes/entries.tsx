@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import React from "react";
 
 import { json, type LoaderArgs } from "@remix-run/node";
@@ -7,25 +8,36 @@ import { Container } from "accelerate-cms-ui";
 
 import { EntriesDatatable, EntriesSidenav } from "~/components/Entries";
 
-import { entriesMockData, type EntriesType } from "~/data/entries";
+import { getAllQuestionItems } from "~/models/questionItem";
+
+/**
+ * TODO: Need to fetch the Content Type
+ * TODO: Publish Status only returns an id currently
+ */
+
+/**
+ * Route Loader
+ */
 
 export const loader = async ({ request }: LoaderArgs) => {
-  const entries: EntriesType[] = await new Promise((res) =>
-    res(entriesMockData),
-  );
+  const { questionItems } = await getAllQuestionItems();
 
-  return json({ entries });
+  return json({ questionItems });
 };
 
+/**
+ * Route Component
+ */
+
 export default function Entries() {
-  const { entries } = useLoaderData<typeof loader>();
+  const { questionItems } = useLoaderData<typeof loader>();
 
   return (
     <>
       <Container.Main>
         <EntriesSidenav />
 
-        <EntriesDatatable entries={entries} />
+        <EntriesDatatable entries={questionItems} />
       </Container.Main>
     </>
   );

@@ -1,5 +1,5 @@
 import type { ColumnHelper } from "@tanstack/react-table";
 
-import type { EntriesType } from "~/data/entries";
+import type { QuestionItem } from "~/models/questionItem";
 
-export type EntriesColumn = ColumnHelper<EntriesType>;
+export type EntriesColumn = ColumnHelper<QuestionItem>;

@@ -8,14 +8,16 @@ import {
   ScrollRestoration,
 } from "@remix-run/react";
 
-import styles from "./style.css";
+import { Container } from "accelerate-cms-ui";
 import uiStyles from "accelerate-cms-ui/dist/index.css";
+
+import tailwind from "~/tailwind.css";
 
 import { Header } from "./components/Header";
 import { Sidebar } from "./components/Sidebar";
 
 export const links: LinksFunction = () => [
-  { rel: "stylesheet", href: styles },
+  { rel: "stylesheet", href: tailwind },
   { rel: "stylesheet", href: uiStyles },
 ];
 
@@ -32,12 +34,15 @@ export default function App() {
         <Meta />
         <Links />
       </head>
-      <body className="flex bg-dark-500">
+      <body className="flex flex-wrap bg-dark-500">
         <Sidebar />
 
-        <Header />
+        <Container>
+          <Header />
 
-        <Outlet />
+          <Outlet />
+        </Container>
+
         <ScrollRestoration />
         <Scripts />
         <LiveReload />

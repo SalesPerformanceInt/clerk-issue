@@ -14,13 +14,20 @@ export const DatatableItemControl = ({
   value,
   checked,
   className,
+  onChange,
 }: DatatableItemControlProps) => {
   return (
     <DatatableItemCell
       title={title}
       className={classNames("flex items-center gap-2", className)}
     >
-      <Form.Checkbox id={id} name={name} value={value} checked={checked} />
+      <Form.Checkbox
+        id={id}
+        name={name}
+        value={value}
+        checked={checked}
+        onChange={onChange}
+      />
     </DatatableItemCell>
   );
 };

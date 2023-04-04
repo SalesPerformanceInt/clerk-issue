@@ -6,4 +6,5 @@ export type CheckboxProps = {
   label?: string;
   legend?: string;
   className?: string;
+  onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
 };

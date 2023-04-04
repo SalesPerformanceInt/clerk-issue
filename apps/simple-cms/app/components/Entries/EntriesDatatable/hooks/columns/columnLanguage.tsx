@@ -8,12 +8,13 @@ const languageMap = new MatchedMap<string, string>([
 ]);
 
 export const columnLanguage = (columnHelper: EntriesColumn) =>
-  columnHelper.accessor("system.locale", {
+  columnHelper.accessor("locale", {
     header: () => (
       <Datatable.HeaderItem title="Language" className="!flex-[1.5]" />
     ),
-    cell: (info) => {
-      const language = languageMap.get(info.getValue());
+
+    cell: ({ getValue }) => {
+      const language = languageMap.get(getValue());
 
       return <Datatable.Item.Cell title={language} className="!flex-[1.5]" />;
     },

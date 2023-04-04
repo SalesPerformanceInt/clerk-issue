@@ -18,6 +18,7 @@ export const columnTitle = (columnHelper: EntriesColumn) =>
         />
       </Datatable.HeaderItem>
     ),
+
     cell: ({ row, getValue, cell }) => (
       <Datatable.Item.Control
         title={getValue()}

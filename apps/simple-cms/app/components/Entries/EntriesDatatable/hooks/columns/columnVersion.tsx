@@ -3,13 +3,14 @@ import { Datatable } from "accelerate-cms-ui";
 import type { EntriesColumn } from "./types";
 
 export const columnVersion = (columnHelper: EntriesColumn) =>
-  columnHelper.accessor("system.version", {
+  columnHelper.accessor("_version", {
     header: () => (
       <Datatable.HeaderItem title="Version" className="!flex-[0.75]" />
     ),
-    cell: (info) => (
+
+    cell: ({ getValue }) => (
       <Datatable.Item.Cell
-        title={info.getValue().toString()}
+        title={getValue().toString()}
         className="!flex-[0.75]"
       />
     ),

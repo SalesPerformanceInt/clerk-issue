@@ -10,7 +10,7 @@ This Monorepo uses [pnpm](https://pnpm.io/) and [turborepo](https://turborepo.or
 
 ```
 /apps
-  /cms
+  /simple-cms
   /[possible-new-app]
 /packages
   /ui

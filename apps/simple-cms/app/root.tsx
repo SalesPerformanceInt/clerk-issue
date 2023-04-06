@@ -13,9 +13,10 @@ import tailwind from "~/tailwind.css";
 import { Container } from "accelerate-cms-ui";
 import uiStyles from "accelerate-cms-ui/dist/index.css";
 
+import { useTheme } from "./utils/themes";
+
 import { Header } from "./components/Header";
 import { Sidebar } from "./components/Sidebar";
-import { useTheme } from "./utils/themes";
 
 export const links: LinksFunction = () => [
   { rel: "stylesheet", href: tailwind },

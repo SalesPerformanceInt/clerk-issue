@@ -12,3 +12,18 @@ export const mockTheme = {
   "--accent-warn-400": "#f4ca64",
   "--accent-subtle-400": "#82aaff",
 };
+
+export const alternateTheme = {
+  "--light-200": "#19160f",
+  "--light-500": "#433b29",
+  "--dark-200": "#5f5a3a",
+  "--dark-400": "#c3be9d",
+  "--dark-500": "#d0ccb2",
+  "--dark-600": "#dad7c3",
+  "--dark-700": "#e2e0cf",
+  "--primary-300": "#9e243a",
+  "--primary-500": "#d02f4d",
+  "--accent-strong-400": "#ff758c",
+  "--accent-warn-400": "#f4ca64",
+  "--accent-subtle-400": "#82aaff",
+};

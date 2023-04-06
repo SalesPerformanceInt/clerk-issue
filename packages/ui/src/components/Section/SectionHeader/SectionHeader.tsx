@@ -6,7 +6,7 @@ import { SectionHeaderProps } from "./SectionHeader.types";
 export const SectionHeader = ({
   title,
   titleQty,
-  buttonTitle,
+  buttonProps,
 }: SectionHeaderProps) => {
   if (!title) return null;
 
@@ -24,7 +24,7 @@ export const SectionHeader = ({
         )}
       </div>
 
-      <Button.Outline title={buttonTitle} />
+      <Button.Outline {...buttonProps} />
     </header>
   );
 };

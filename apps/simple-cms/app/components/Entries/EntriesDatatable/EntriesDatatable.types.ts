@@ -1,3 +1,5 @@
+import type { ButtonProps } from "accelerate-cms-ui";
+
 import type { Entries } from "~/models/entry";
 
 /**
@@ -6,4 +8,5 @@ import type { Entries } from "~/models/entry";
 
 export type EntriesDatatableProps = {
   entries: Entries;
+  newEntry: ButtonProps["onClick"];
 };

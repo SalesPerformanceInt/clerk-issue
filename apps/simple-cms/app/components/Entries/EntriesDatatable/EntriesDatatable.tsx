@@ -8,7 +8,10 @@ import type { EntriesDatatableProps } from "./EntriesDatatable.types";
  * EntriesDatatable Component
  */
 
-export const EntriesDatatable = ({ entries }: EntriesDatatableProps) => {
+export const EntriesDatatable = ({
+  entries,
+  newEntry,
+}: EntriesDatatableProps) => {
   const { table } = useEntriesDatatable(entries.items);
 
   return (
@@ -17,7 +20,10 @@ export const EntriesDatatable = ({ entries }: EntriesDatatableProps) => {
         <Section.Header
           title="Entries"
           titleQty={entries.items.length}
-          buttonTitle="+ New Entry"
+          buttonProps={{
+            title: "Toggle Theme",
+            onClick: newEntry,
+          }}
         />
 
         <Datatable>

@@ -6,6 +6,8 @@ import { typedjson, useTypedLoaderData } from "remix-typedjson";
 
 import { Container } from "accelerate-cms-ui";
 
+import { mockTheme } from "~/utils/themes";
+
 import { getAllEntries } from "~/models/entry/entry.api";
 
 import { EntriesDatatable, EntriesSidenav } from "~/components/Entries";
@@ -21,7 +23,7 @@ import { EntriesDatatable, EntriesSidenav } from "~/components/Entries";
 export const loader = async ({ request }: LoaderArgs) => {
   const contentItems = await getAllEntries({ contentTypeUid: "questionitem" });
 
-  return typedjson({ contentItems });
+  return typedjson({ contentItems, theme: mockTheme });
 };
 
 /**

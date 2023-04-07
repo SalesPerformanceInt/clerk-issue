@@ -5,35 +5,29 @@ module.exports = {
     extend: {
       colors: {
         light: {
-          // White-based colors
-          200: "#E6E9F0",
-          500: "#BCC4D6",
+          200: "var(--light-200)",
+          500: "var(--light-500)",
         },
         dark: {
-          // DarkBlue-based colors
-          200: "#A0A5C5",
-          400: "#3C4162",
-          500: "#2F334D",
-          600: "#25283C",
-          700: "#1D1F30",
+          200: "var(--dark-200)",
+          400: "var(--dark-400)",
+          500: "var(--dark-500)",
+          600: "var(--dark-600)",
+          700: "var(--dark-700)",
         },
         primary: {
-          // Teal-based colors
-          300: "#61DBC5",
-          500: "#2FD0B2",
+          300: "var(--primary-300)",
+          500: "var(--primary-500)",
         },
         accent: {
           strong: {
-            // Pink-based colors
-            400: "#FF758C",
+            400: "var(--accent-strong-400)",
           },
           warn: {
-            // Yellow-based colors
-            400: "#F4CA64",
+            400: "var(--accent-warn-400)",
           },
           subtle: {
-            // Cloudy/Blue-based colors
-            400: "#82AAFF",
+            400: "var(--accent-subtle-400)",
           },
         },
       },

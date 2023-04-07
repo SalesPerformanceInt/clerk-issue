@@ -1,5 +1,7 @@
+import type { ButtonProps } from "~/components/Button";
+
 export type SectionHeaderProps = {
   title: string;
   titleQty?: number;
-  buttonTitle?: string;
+  buttonProps?: ButtonProps;
 };

@@ -16,13 +16,18 @@ export const loader = async ({ request }: LoaderArgs) => {
     params.entries(),
   ) as unknown as LivePreviewQuery & Pick<Query, "entry_uid">;
 
+  console.log(contentStackEntry);
+
+  contentStackClient.livePreviewQuery({
+    content_type_uid: contentStackEntry.content_type_uid,
+    live_preview: contentStackEntry.live_preview,
+  });
+
   const contentStackEntryData = await contentStackClient
     .ContentType(contentStackEntry.content_type_uid)
     .Entry(contentStackEntry.entry_uid)
     .toJSON()
     .fetch();
-
-  contentStackClient.livePreviewQuery(contentStackEntry);
 
   addEditableTags(
     contentStackEntryData,
@@ -42,9 +47,11 @@ export default function Index() {
 
   console.log(contentStackEntryData);
 
+  if (!contentStackEntryData) return null;
+
   return (
     <>
-      <h2 {...contentStackEntryData.$.title}>{contentStackEntryData.title}</h2>
+      <h2>{contentStackEntryData.title}</h2>
     </>
   );
 }

@@ -1,9 +1,17 @@
 import { Container, Datatable, Section } from "accelerate-cms-ui";
 
-import type { EntriesDatatableProps } from "./EntriesDatatable.types";
 import { useEntriesDatatable } from "./hooks/useEntriesDatatable";
 
-export const EntriesDatatable = ({ entries }: EntriesDatatableProps) => {
+import type { EntriesDatatableProps } from "./EntriesDatatable.types";
+
+/**
+ * EntriesDatatable Component
+ */
+
+export const EntriesDatatable = ({
+  entries,
+  newEntry,
+}: EntriesDatatableProps) => {
   const { table } = useEntriesDatatable(entries.items);
 
   return (
@@ -11,8 +19,11 @@ export const EntriesDatatable = ({ entries }: EntriesDatatableProps) => {
       <Section>
         <Section.Header
           title="Entries"
-          titleQty={entries.total}
-          buttonTitle="+ New Entry"
+          titleQty={entries.items.length}
+          buttonProps={{
+            title: "Toggle Theme",
+            onClick: newEntry,
+          }}
         />
 
         <Datatable>

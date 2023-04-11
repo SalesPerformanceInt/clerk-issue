@@ -1,18 +1,19 @@
-/* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import React from "react";
 
-import { json, type LoaderArgs } from "@remix-run/node";
-import { useLoaderData } from "@remix-run/react";
+import { type LoaderArgs } from "@remix-run/node";
+
+import { typedjson, useTypedLoaderData } from "remix-typedjson";
 
 import { Container } from "accelerate-cms-ui";
 
+import { getTheme, useToggleTheme } from "~/utils/themes";
+
+import { getAllEntries } from "~/models/entry/entry.api";
+
 import { EntriesDatatable, EntriesSidenav } from "~/components/Entries";
 
-import { getAllQuestionItems } from "~/models/questionItem";
-
 /**
- * TODO: Need to fetch the Content Type
- * TODO: Publish Status only returns an id currently
+ * TODO: Need to fetch the Content Types
  */
 
 /**
@@ -20,9 +21,14 @@ import { getAllQuestionItems } from "~/models/questionItem";
  */
 
 export const loader = async ({ request }: LoaderArgs) => {
-  const { questionItems } = await getAllQuestionItems();
+  const contentItems = await getAllEntries({ contentTypeUid: "questionitem" });
 
-  return json({ questionItems });
+  const { theme } = getTheme({ request });
+
+  return typedjson({
+    contentItems,
+    ...(theme && { theme }),
+  });
 };
 
 /**
@@ -30,14 +36,16 @@ export const loader = async ({ request }: LoaderArgs) => {
  */
 
 export default function Entries() {
-  const { questionItems } = useLoaderData<typeof loader>();
+  const { contentItems } = useTypedLoaderData<typeof loader>();
+
+  const { toggleTheme } = useToggleTheme();
 
   return (
     <>
       <Container.Main>
         <EntriesSidenav />
 
-        <EntriesDatatable entries={questionItems} />
+        <EntriesDatatable entries={contentItems} newEntry={toggleTheme} />
       </Container.Main>
     </>
   );

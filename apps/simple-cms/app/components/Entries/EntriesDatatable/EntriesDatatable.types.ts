@@ -1,5 +1,12 @@
-import type { AllQuestionItems } from "~/models/questionItem";
+import type { ButtonProps } from "accelerate-cms-ui";
+
+import type { Entries } from "~/models/entry";
+
+/**
+ * EntriesDatatable Props
+ */
 
 export type EntriesDatatableProps = {
-  entries: AllQuestionItems;
+  entries: Entries;
+  newEntry: ButtonProps["onClick"];
 };

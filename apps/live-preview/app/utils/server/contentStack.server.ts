@@ -33,7 +33,7 @@ export const contentStackClient = ({
   contentStack.Stack({
     api_key: ENV.CS_API_KEY,
     delivery_token: ENV.CS_DELIVERY_TOKEN,
-    environment: environment || ENV.CS_ENV,
+    environment: "",
     live_preview: {
       enable: true,
       management_token: ENV.CS_MANAGEMENT_TOKEN,

@@ -30,8 +30,9 @@ const getEntryQuery = ({ request }: GetEntryQueryProps) => {
 
 const getEntryData = async <T extends EntryLivePreviewData>({
   entryQuery,
+  params,
 }: GetEntryDataProps) => {
-  const contentStackAPI = contentStackClient();
+  const contentStackAPI = contentStackClient({ environment: params.env });
 
   contentStackAPI.livePreviewQuery(entryQuery);
 
@@ -50,10 +51,11 @@ const getEntryData = async <T extends EntryLivePreviewData>({
 
 export const getEntry = async <T extends EntryLivePreviewData>({
   request,
+  params,
 }: GetEntryProps) => {
   const { entryQuery } = getEntryQuery({ request });
 
-  const { entryData } = await getEntryData<T>({ entryQuery });
+  const { entryData } = await getEntryData<T>({ entryQuery, params });
 
   addEditableTags(entryData, entryQuery.content_type_uid, true);
 

@@ -11,6 +11,7 @@ This Monorepo uses [pnpm](https://pnpm.io/) and [turborepo](https://turborepo.or
 ```
 /apps
   /simple-cms
+  /live-preview
   /[possible-new-app]
 /packages
   /ui

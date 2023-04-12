@@ -29,12 +29,11 @@ export type GetEntryProps = GetEntryQueryProps &
  */
 
 export type EntryLivePreviewData = {
-  ACL: {
-    $: unknown;
-  };
   created_at: string;
   created_by: string;
-  key_behavior: unknown;
+  content_type: {
+    uid: string;
+  };
   lastModifiedDate: string;
   locale: string;
   publish_details: PublishDetail[];
@@ -44,7 +43,7 @@ export type EntryLivePreviewData = {
   uid: string;
   updated_at: string;
   updated_by: string;
-  $: {
+  $?: {
     _in_progress: DataCslp;
     _version: DataCslp;
     created_at: DataCslp;

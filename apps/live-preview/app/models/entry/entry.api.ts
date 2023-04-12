@@ -28,10 +28,8 @@ const getEntryQuery = ({ request }: GetEntryQueryProps) => {
  * Get Entry Data
  */
 
-const getEntryData = async <T extends EntryLivePreviewData>({
-  entryQuery,
-  params,
-}: GetEntryDataProps) => {
+// TODO: Include __typename
+const getEntryData = async ({ entryQuery, params }: GetEntryDataProps) => {
   const contentStackAPI = contentStackClient({ environment: params.env });
 
   contentStackAPI.livePreviewQuery(entryQuery);
@@ -39,8 +37,9 @@ const getEntryData = async <T extends EntryLivePreviewData>({
   const entryData = (await contentStackAPI
     .ContentType(entryQuery.content_type_uid)
     .Entry(entryQuery.entry_uid)
+    .includeContentType()
     .toJSON()
-    .fetch()) as T;
+    .fetch()) as Required<EntryLivePreviewData>;
 
   return { entryData };
 };
@@ -49,13 +48,10 @@ const getEntryData = async <T extends EntryLivePreviewData>({
  * Get Entry
  */
 
-export const getEntry = async <T extends EntryLivePreviewData>({
-  request,
-  params,
-}: GetEntryProps) => {
+export const getEntry = async ({ request, params }: GetEntryProps) => {
   const { entryQuery } = getEntryQuery({ request });
 
-  const { entryData } = await getEntryData<T>({ entryQuery, params });
+  const { entryData } = await getEntryData({ entryQuery, params });
 
   addEditableTags(entryData, entryQuery.content_type_uid, true);
 

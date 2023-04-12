@@ -18,15 +18,12 @@ export type Choice = {
       feedback: DataCslp;
     };
   };
-  $: unknown;
 };
 
 export type MCQuestion = {
   mcquestion: {
     prompt: string;
     _metadata: Metadata;
-    video_file: unknown;
-    video_caption_file: unknown;
     stem: string;
     instruction: string;
     choices: Choice[];
@@ -36,5 +33,4 @@ export type MCQuestion = {
       instruction: DataCslp;
     };
   };
-  $: unknown;
 };

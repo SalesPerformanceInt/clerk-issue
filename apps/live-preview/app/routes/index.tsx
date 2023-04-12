@@ -1,3 +1,8 @@
 export default function Index() {
-  return <></>;
+  return (
+    <>
+      Please route to a ContentStack Environment like
+      <a href="/localdev"> localdev</a>
+    </>
+  );
 }

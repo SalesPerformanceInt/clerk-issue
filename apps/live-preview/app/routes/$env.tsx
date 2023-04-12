@@ -6,6 +6,7 @@ import { Await, useLoaderData } from "@remix-run/react";
 
 import { MatchedMap } from "~/utils/matchedMap";
 
+import { questionItemMock } from "~/mocks/questionItem";
 import { getEntry } from "~/models/entry";
 
 import { QuestionItem } from "~/components/QuestionItem";
@@ -14,7 +15,10 @@ import { QuestionItem } from "~/components/QuestionItem";
  * Entry Map
  */
 
-const entryComponentMap = new MatchedMap<string, typeof QuestionItem>([
+const entryComponentMap = new MatchedMap<
+  string | undefined,
+  typeof QuestionItem
+>([
   ["questionitem", QuestionItem],
   ["_", () => <></>],
 ]);
@@ -35,16 +39,17 @@ export const loader = async ({ request, params }: LoaderArgs) => {
 
 export default function Env() {
   const { entryData } = useLoaderData<typeof loader>();
+  const mockedEntryData = questionItemMock;
 
-  console.log({ entryData });
+  console.log({ entryData, mockedEntryData });
 
   return (
     <Suspense fallback={<></>}>
       <Await resolve={entryData}>
         {(entryData) => {
-          const Entry = entryComponentMap.get(entryData.content_type.uid);
+          const Entry = entryComponentMap.get(entryData.content_type?.uid);
 
-          return <Entry entryData={entryData} />;
+          return <Entry entryData={mockedEntryData} />;
         }}
       </Await>
     </Suspense>

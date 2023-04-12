@@ -19,6 +19,7 @@
     "@types/node": "^18.11.18",
     "@vercel/node": "^2.9.13",
     "accelerate-cms-ui": "workspace:0.0.0",
+    "contentstack-graphql": "workspace:0.0.0",
     "contentstack": "^3.17.0",
     "isbot": "latest",
     "react": "^18.2.0",

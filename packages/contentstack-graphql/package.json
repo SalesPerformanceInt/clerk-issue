@@ -3,10 +3,12 @@
   "private": true,
   "version": "0.0.0",
   "type": "module",
-  "main": "index.js",
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
   "scripts": {
     "dev": "concurrently \"pnpm run build -- --watch\" \"pnpm run codegen --watch\"",
-    "build": "pnpm run clean && tsup src/index.ts --format esm,cjs --dts --external react",
+    "build": "pnpm run clean && tsup src/index.ts --format esm,cjs --dts",
     "codegen": "graphql-codegen",
     "clean": "rimraf dist"
   },

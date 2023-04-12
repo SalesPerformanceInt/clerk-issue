@@ -5,8 +5,8 @@
   "type": "module",
   "scripts": {
     "sb": "storybook dev -p 6006",
-    "dev": "npm run build -- --watch",
-    "build": "npm run clean && tsup src/index.tsx --format esm,cjs --dts --external react",
+    "dev": "pnpm run build -- --watch",
+    "build": "pnpm run clean && tsup src/index.tsx --format esm,cjs --dts --external react",
     "clean": "rimraf dist storybook-static"
   },
   "dependencies": {

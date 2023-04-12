@@ -28,6 +28,7 @@ const getEntryQuery = ({ request }: GetEntryQueryProps) => {
  * Get Entry Data
  */
 
+// TODO: Include __typename
 const getEntryData = async ({ entryQuery, params }: GetEntryDataProps) => {
   const contentStackAPI = contentStackClient({ environment: params.env });
 
@@ -38,7 +39,7 @@ const getEntryData = async ({ entryQuery, params }: GetEntryDataProps) => {
     .Entry(entryQuery.entry_uid)
     .includeContentType()
     .toJSON()
-    .fetch()) as EntryLivePreviewData;
+    .fetch()) as Required<EntryLivePreviewData>;
 
   return { entryData };
 };

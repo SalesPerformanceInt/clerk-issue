@@ -1,0 +1,1683 @@
+type AllItem {
+  items: [Item]
+  total: Int
+}
+
+type AllItemModularNested {
+  items: [ItemModularNested]
+  total: Int
+}
+
+type AllQuestionitem {
+  items: [Questionitem]
+  total: Int
+}
+
+type AllSysAsset {
+  items: [SysAsset]
+  total: Int
+}
+
+type AllTaxonBottomUp {
+  items: [TaxonBottomUp]
+  total: Int
+}
+
+"""
+This field accepts both ISODateString and ISODateTimeStringexample: 1992-08-14 or 1992-08-14T03:42:00.000Z
+"""
+scalar DateTime
+
+type DeletedReferencesConnection {
+  edges: [DeletedReferencesEdge]
+  totalCount: Int
+}
+
+type DeletedReferencesEdge {
+  node: String
+}
+
+type EntrySystemField {
+  branch: String
+  content_type_uid: String
+  created_at: DateTime
+  created_by: String
+  extensionConnection(limit: Int = 25, skip: Int = 0): SysExtensionConnection
+  locale: String
+  publish_details: SystemPublishDetails
+  tags: [String]
+  uid: String
+  updated_at: DateTime
+  updated_by: String
+  version: Int
+}
+
+enum EvalReferenceEnum {
+  ALL
+  ANY
+}
+
+type Item {
+  categorization: ItemCategorization
+  concept: ItemConcept
+  concept_words: [ItemConceptWords]
+  matching: ItemMatching
+  matching_pairs: [ItemMatchingPairs]
+  multiple_choice: ItemMultipleChoice
+  multiple_choice_choices: [ItemMultipleChoiceChoices]
+  ordering: ItemOrdering
+  ordering_entries: [ItemOrderingEntries]
+  passive_learning: ItemPassiveLearning
+  system: EntrySystemField
+  taxonomyConnection(limit: Int = 100, skip: Int = 0): DeletedReferencesConnection
+  title: String
+  true_false_statement: ItemTrueFalseStatement
+}
+
+type ItemCategorization {
+  cat_answer: String
+  cat_answer_points: Float
+  cat_detractor: String
+  cat_detractor_points: Float
+  cat_instruction: String
+  cat_prompt: String
+  cat_stem: String
+}
+
+input ItemCategorizationWhere {
+  cat_answer: String
+  cat_answer_exists: Boolean
+  cat_answer_in: [String]
+  cat_answer_ne: String
+  cat_answer_nin: [String]
+  cat_answer_points: Float
+  cat_answer_points_exists: Boolean
+  cat_answer_points_gt: Float
+  cat_answer_points_gte: Float
+  cat_answer_points_in: [Float]
+  cat_answer_points_lt: Float
+  cat_answer_points_lte: Float
+  cat_answer_points_ne: Float
+  cat_answer_points_nin: [Float]
+  cat_detractor: String
+  cat_detractor_exists: Boolean
+  cat_detractor_in: [String]
+  cat_detractor_ne: String
+  cat_detractor_nin: [String]
+  cat_detractor_points: Float
+  cat_detractor_points_exists: Boolean
+  cat_detractor_points_gt: Float
+  cat_detractor_points_gte: Float
+  cat_detractor_points_in: [Float]
+  cat_detractor_points_lt: Float
+  cat_detractor_points_lte: Float
+  cat_detractor_points_ne: Float
+  cat_detractor_points_nin: [Float]
+  cat_instruction: String
+  cat_instruction_exists: Boolean
+  cat_instruction_in: [String]
+  cat_instruction_ne: String
+  cat_instruction_nin: [String]
+  cat_prompt: String
+  cat_prompt_exists: Boolean
+  cat_prompt_in: [String]
+  cat_prompt_ne: String
+  cat_prompt_nin: [String]
+  cat_stem: String
+  cat_stem_exists: Boolean
+  cat_stem_in: [String]
+  cat_stem_ne: String
+  cat_stem_nin: [String]
+}
+
+type ItemConcept {
+  concept_instruction: String
+  concept_points: Float
+  concept_prompt: String
+  concept_stem: String
+}
+
+input ItemConceptWhere {
+  concept_instruction: String
+  concept_instruction_exists: Boolean
+  concept_instruction_in: [String]
+  concept_instruction_ne: String
+  concept_instruction_nin: [String]
+  concept_points: Float
+  concept_points_exists: Boolean
+  concept_points_gt: Float
+  concept_points_gte: Float
+  concept_points_in: [Float]
+  concept_points_lt: Float
+  concept_points_lte: Float
+  concept_points_ne: Float
+  concept_points_nin: [Float]
+  concept_prompt: String
+  concept_prompt_exists: Boolean
+  concept_prompt_in: [String]
+  concept_prompt_ne: String
+  concept_prompt_nin: [String]
+  concept_stem: String
+  concept_stem_exists: Boolean
+  concept_stem_in: [String]
+  concept_stem_ne: String
+  concept_stem_nin: [String]
+}
+
+union ItemConceptWords = ItemConceptWordsConceptWordChoice
+
+type ItemConceptWordsConceptWordChoice {
+  concept_word_choice: ItemConceptWordsConceptWordChoiceBlock
+}
+
+type ItemConceptWordsConceptWordChoiceBlock {
+  concept_word_choice_answer: String
+  concept_word_choice_detractor: String
+}
+
+input ItemConceptWordsConceptWordChoiceBlockWhere {
+  concept_word_choice_answer: String
+  concept_word_choice_answer_exists: Boolean
+  concept_word_choice_answer_in: [String]
+  concept_word_choice_answer_ne: String
+  concept_word_choice_answer_nin: [String]
+  concept_word_choice_detractor: String
+  concept_word_choice_detractor_exists: Boolean
+  concept_word_choice_detractor_in: [String]
+  concept_word_choice_detractor_ne: String
+  concept_word_choice_detractor_nin: [String]
+}
+
+input ItemConceptWordsWhere {
+  concept_word_choice: ItemConceptWordsConceptWordChoiceBlockWhere
+  concept_word_choice_exists: Boolean
+}
+
+type ItemMatching {
+  matching_instruction: String
+  matching_points: Float
+  matching_prompt: String
+}
+
+union ItemMatchingPairs = ItemMatchingPairsMatchingDetractors | ItemMatchingPairsMatchingPairChoice
+
+type ItemMatchingPairsMatchingDetractors {
+  matching_detractors: ItemMatchingPairsMatchingDetractorsBlock
+}
+
+type ItemMatchingPairsMatchingDetractorsBlock {
+  matching_detractor_text: String
+}
+
+input ItemMatchingPairsMatchingDetractorsBlockWhere {
+  matching_detractor_text: String
+  matching_detractor_text_exists: Boolean
+  matching_detractor_text_in: [String]
+  matching_detractor_text_ne: String
+  matching_detractor_text_nin: [String]
+}
+
+type ItemMatchingPairsMatchingPairChoice {
+  matching_pair_choice: ItemMatchingPairsMatchingPairChoiceBlock
+}
+
+type ItemMatchingPairsMatchingPairChoiceBlock {
+  matching_pair_choice_a: String
+  matching_pair_choice_b: String
+}
+
+input ItemMatchingPairsMatchingPairChoiceBlockWhere {
+  matching_pair_choice_a: String
+  matching_pair_choice_a_exists: Boolean
+  matching_pair_choice_a_in: [String]
+  matching_pair_choice_a_ne: String
+  matching_pair_choice_a_nin: [String]
+  matching_pair_choice_b: String
+  matching_pair_choice_b_exists: Boolean
+  matching_pair_choice_b_in: [String]
+  matching_pair_choice_b_ne: String
+  matching_pair_choice_b_nin: [String]
+}
+
+input ItemMatchingPairsWhere {
+  matching_detractors: ItemMatchingPairsMatchingDetractorsBlockWhere
+  matching_detractors_exists: Boolean
+  matching_pair_choice: ItemMatchingPairsMatchingPairChoiceBlockWhere
+  matching_pair_choice_exists: Boolean
+}
+
+input ItemMatchingWhere {
+  matching_instruction: String
+  matching_instruction_exists: Boolean
+  matching_instruction_in: [String]
+  matching_instruction_ne: String
+  matching_instruction_nin: [String]
+  matching_points: Float
+  matching_points_exists: Boolean
+  matching_points_gt: Float
+  matching_points_gte: Float
+  matching_points_in: [Float]
+  matching_points_lt: Float
+  matching_points_lte: Float
+  matching_points_ne: Float
+  matching_points_nin: [Float]
+  matching_prompt: String
+  matching_prompt_exists: Boolean
+  matching_prompt_in: [String]
+  matching_prompt_ne: String
+  matching_prompt_nin: [String]
+}
+
+type ItemModularNested {
+  modular_blocks: [ItemModularNestedModularBlocks]
+  system: EntrySystemField
+  taxonomyConnection(limit: Int = 100, skip: Int = 0): DeletedReferencesConnection
+  title: String
+}
+
+union ItemModularNestedModularBlocks = ItemModularNestedModularBlocksCategorisation | ItemModularNestedModularBlocksConcept | ItemModularNestedModularBlocksMatching | ItemModularNestedModularBlocksMcQuestion | ItemModularNestedModularBlocksOrdering | ItemModularNestedModularBlocksTfQuestion
+
+type ItemModularNestedModularBlocksCategorisation {
+  categorisation: ItemModularNestedModularBlocksCategorisationBlock
+}
+
+type ItemModularNestedModularBlocksCategorisationBlock {
+  cat_options: [ItemModularNestedModularBlocksCategorisationBlockCatOptions]
+  categorisation_instruction: String
+  categorisation_prompt: String
+  categorisation_stem: String
+}
+
+union ItemModularNestedModularBlocksCategorisationBlockCatOptions = ItemModularNestedModularBlocksCategorisationBlockCatOptionsCatOption
+
+type ItemModularNestedModularBlocksCategorisationBlockCatOptionsCatOption {
+  cat_option: ItemModularNestedModularBlocksCategorisationBlockCatOptionsCatOptionBlock
+}
+
+type ItemModularNestedModularBlocksCategorisationBlockCatOptionsCatOptionBlock {
+  cat_option_scoring: Float
+  cat_option_text: String
+}
+
+input ItemModularNestedModularBlocksCategorisationBlockCatOptionsCatOptionBlockWhere {
+  cat_option_scoring: Float
+  cat_option_scoring_exists: Boolean
+  cat_option_scoring_gt: Float
+  cat_option_scoring_gte: Float
+  cat_option_scoring_in: [Float]
+  cat_option_scoring_lt: Float
+  cat_option_scoring_lte: Float
+  cat_option_scoring_ne: Float
+  cat_option_scoring_nin: [Float]
+  cat_option_text: String
+  cat_option_text_exists: Boolean
+  cat_option_text_in: [String]
+  cat_option_text_ne: String
+  cat_option_text_nin: [String]
+}
+
+input ItemModularNestedModularBlocksCategorisationBlockCatOptionsWhere {
+  cat_option: ItemModularNestedModularBlocksCategorisationBlockCatOptionsCatOptionBlockWhere
+  cat_option_exists: Boolean
+}
+
+input ItemModularNestedModularBlocksCategorisationBlockWhere {
+  cat_options: ItemModularNestedModularBlocksCategorisationBlockCatOptionsWhere
+  cat_options_exists: Boolean
+  categorisation_instruction: String
+  categorisation_instruction_exists: Boolean
+  categorisation_instruction_in: [String]
+  categorisation_instruction_ne: String
+  categorisation_instruction_nin: [String]
+  categorisation_prompt: String
+  categorisation_prompt_exists: Boolean
+  categorisation_prompt_in: [String]
+  categorisation_prompt_ne: String
+  categorisation_prompt_nin: [String]
+  categorisation_stem: String
+  categorisation_stem_exists: Boolean
+  categorisation_stem_in: [String]
+  categorisation_stem_ne: String
+  categorisation_stem_nin: [String]
+}
+
+type ItemModularNestedModularBlocksConcept {
+  concept: ItemModularNestedModularBlocksConceptBlock
+}
+
+type ItemModularNestedModularBlocksConceptBlock {
+  concept_instruction: String
+  concept_prompt: String
+  concept_stem: String
+  concept_words: [ItemModularNestedModularBlocksConceptBlockConceptWords]
+}
+
+union ItemModularNestedModularBlocksConceptBlockConceptWords = ItemModularNestedModularBlocksConceptBlockConceptWordsConceptWordChoice
+
+type ItemModularNestedModularBlocksConceptBlockConceptWordsConceptWordChoice {
+  concept_word_choice: ItemModularNestedModularBlocksConceptBlockConceptWordsConceptWordChoiceBlock
+}
+
+type ItemModularNestedModularBlocksConceptBlockConceptWordsConceptWordChoiceBlock {
+  concept_word_choice_antonym: String
+  concept_word_choice_text: String
+}
+
+input ItemModularNestedModularBlocksConceptBlockConceptWordsConceptWordChoiceBlockWhere {
+  concept_word_choice_antonym: String
+  concept_word_choice_antonym_exists: Boolean
+  concept_word_choice_antonym_in: [String]
+  concept_word_choice_antonym_ne: String
+  concept_word_choice_antonym_nin: [String]
+  concept_word_choice_text: String
+  concept_word_choice_text_exists: Boolean
+  concept_word_choice_text_in: [String]
+  concept_word_choice_text_ne: String
+  concept_word_choice_text_nin: [String]
+}
+
+input ItemModularNestedModularBlocksConceptBlockConceptWordsWhere {
+  concept_word_choice: ItemModularNestedModularBlocksConceptBlockConceptWordsConceptWordChoiceBlockWhere
+  concept_word_choice_exists: Boolean
+}
+
+input ItemModularNestedModularBlocksConceptBlockWhere {
+  concept_instruction: String
+  concept_instruction_exists: Boolean
+  concept_instruction_in: [String]
+  concept_instruction_ne: String
+  concept_instruction_nin: [String]
+  concept_prompt: String
+  concept_prompt_exists: Boolean
+  concept_prompt_in: [String]
+  concept_prompt_ne: String
+  concept_prompt_nin: [String]
+  concept_stem: String
+  concept_stem_exists: Boolean
+  concept_stem_in: [String]
+  concept_stem_ne: String
+  concept_stem_nin: [String]
+  concept_words: ItemModularNestedModularBlocksConceptBlockConceptWordsWhere
+  concept_words_exists: Boolean
+}
+
+type ItemModularNestedModularBlocksMatching {
+  matching: ItemModularNestedModularBlocksMatchingBlock
+}
+
+type ItemModularNestedModularBlocksMatchingBlock {
+  matching_instruction: String
+  matching_pairs: [ItemModularNestedModularBlocksMatchingBlockMatchingPairs]
+  matching_prompt: String
+}
+
+union ItemModularNestedModularBlocksMatchingBlockMatchingPairs = ItemModularNestedModularBlocksMatchingBlockMatchingPairsMatchingPairChoice | ItemModularNestedModularBlocksMatchingBlockMatchingPairsMatchingPairDetractors
+
+type ItemModularNestedModularBlocksMatchingBlockMatchingPairsMatchingPairChoice {
+  matching_pair_choice: ItemModularNestedModularBlocksMatchingBlockMatchingPairsMatchingPairChoiceBlock
+}
+
+type ItemModularNestedModularBlocksMatchingBlockMatchingPairsMatchingPairChoiceBlock {
+  matching_pair_choice_a: String
+  matching_pair_choice_b: String
+}
+
+input ItemModularNestedModularBlocksMatchingBlockMatchingPairsMatchingPairChoiceBlockWhere {
+  matching_pair_choice_a: String
+  matching_pair_choice_a_exists: Boolean
+  matching_pair_choice_a_in: [String]
+  matching_pair_choice_a_ne: String
+  matching_pair_choice_a_nin: [String]
+  matching_pair_choice_b: String
+  matching_pair_choice_b_exists: Boolean
+  matching_pair_choice_b_in: [String]
+  matching_pair_choice_b_ne: String
+  matching_pair_choice_b_nin: [String]
+}
+
+type ItemModularNestedModularBlocksMatchingBlockMatchingPairsMatchingPairDetractors {
+  matching_pair_detractors: ItemModularNestedModularBlocksMatchingBlockMatchingPairsMatchingPairDetractorsBlock
+}
+
+type ItemModularNestedModularBlocksMatchingBlockMatchingPairsMatchingPairDetractorsBlock {
+  matching_pair_detractor_text: String
+}
+
+input ItemModularNestedModularBlocksMatchingBlockMatchingPairsMatchingPairDetractorsBlockWhere {
+  matching_pair_detractor_text: String
+  matching_pair_detractor_text_exists: Boolean
+  matching_pair_detractor_text_in: [String]
+  matching_pair_detractor_text_ne: String
+  matching_pair_detractor_text_nin: [String]
+}
+
+input ItemModularNestedModularBlocksMatchingBlockMatchingPairsWhere {
+  matching_pair_choice: ItemModularNestedModularBlocksMatchingBlockMatchingPairsMatchingPairChoiceBlockWhere
+  matching_pair_choice_exists: Boolean
+  matching_pair_detractors: ItemModularNestedModularBlocksMatchingBlockMatchingPairsMatchingPairDetractorsBlockWhere
+  matching_pair_detractors_exists: Boolean
+}
+
+input ItemModularNestedModularBlocksMatchingBlockWhere {
+  matching_instruction: String
+  matching_instruction_exists: Boolean
+  matching_instruction_in: [String]
+  matching_instruction_ne: String
+  matching_instruction_nin: [String]
+  matching_pairs: ItemModularNestedModularBlocksMatchingBlockMatchingPairsWhere
+  matching_pairs_exists: Boolean
+  matching_prompt: String
+  matching_prompt_exists: Boolean
+  matching_prompt_in: [String]
+  matching_prompt_ne: String
+  matching_prompt_nin: [String]
+}
+
+type ItemModularNestedModularBlocksMcQuestion {
+  mc_question: ItemModularNestedModularBlocksMcQuestionBlock
+}
+
+type ItemModularNestedModularBlocksMcQuestionBlock {
+  mc_answers: [ItemModularNestedModularBlocksMcQuestionBlockMcAnswers]
+  mc_detractors: [ItemModularNestedModularBlocksMcQuestionBlockMcDetractors]
+  mc_instruction: String
+  mc_prompt: String
+  mc_stem: String
+}
+
+union ItemModularNestedModularBlocksMcQuestionBlockMcAnswers = ItemModularNestedModularBlocksMcQuestionBlockMcAnswersMcAnswerChoice
+
+type ItemModularNestedModularBlocksMcQuestionBlockMcAnswersMcAnswerChoice {
+  mc_answer_choice: ItemModularNestedModularBlocksMcQuestionBlockMcAnswersMcAnswerChoiceBlock
+}
+
+type ItemModularNestedModularBlocksMcQuestionBlockMcAnswersMcAnswerChoiceBlock {
+  mc_answer_choice_points: Float
+  mc_answer_choice_text: String
+}
+
+input ItemModularNestedModularBlocksMcQuestionBlockMcAnswersMcAnswerChoiceBlockWhere {
+  mc_answer_choice_points: Float
+  mc_answer_choice_points_exists: Boolean
+  mc_answer_choice_points_gt: Float
+  mc_answer_choice_points_gte: Float
+  mc_answer_choice_points_in: [Float]
+  mc_answer_choice_points_lt: Float
+  mc_answer_choice_points_lte: Float
+  mc_answer_choice_points_ne: Float
+  mc_answer_choice_points_nin: [Float]
+  mc_answer_choice_text: String
+  mc_answer_choice_text_exists: Boolean
+  mc_answer_choice_text_in: [String]
+  mc_answer_choice_text_ne: String
+  mc_answer_choice_text_nin: [String]
+}
+
+input ItemModularNestedModularBlocksMcQuestionBlockMcAnswersWhere {
+  mc_answer_choice: ItemModularNestedModularBlocksMcQuestionBlockMcAnswersMcAnswerChoiceBlockWhere
+  mc_answer_choice_exists: Boolean
+}
+
+union ItemModularNestedModularBlocksMcQuestionBlockMcDetractors = ItemModularNestedModularBlocksMcQuestionBlockMcDetractorsMcDetractorChoice
+
+type ItemModularNestedModularBlocksMcQuestionBlockMcDetractorsMcDetractorChoice {
+  mc_detractor_choice: ItemModularNestedModularBlocksMcQuestionBlockMcDetractorsMcDetractorChoiceBlock
+}
+
+type ItemModularNestedModularBlocksMcQuestionBlockMcDetractorsMcDetractorChoiceBlock {
+  mc_detractor_choice_points: Float
+  mc_detractor_choice_text: String
+}
+
+input ItemModularNestedModularBlocksMcQuestionBlockMcDetractorsMcDetractorChoiceBlockWhere {
+  mc_detractor_choice_points: Float
+  mc_detractor_choice_points_exists: Boolean
+  mc_detractor_choice_points_gt: Float
+  mc_detractor_choice_points_gte: Float
+  mc_detractor_choice_points_in: [Float]
+  mc_detractor_choice_points_lt: Float
+  mc_detractor_choice_points_lte: Float
+  mc_detractor_choice_points_ne: Float
+  mc_detractor_choice_points_nin: [Float]
+  mc_detractor_choice_text: String
+  mc_detractor_choice_text_exists: Boolean
+  mc_detractor_choice_text_in: [String]
+  mc_detractor_choice_text_ne: String
+  mc_detractor_choice_text_nin: [String]
+}
+
+input ItemModularNestedModularBlocksMcQuestionBlockMcDetractorsWhere {
+  mc_detractor_choice: ItemModularNestedModularBlocksMcQuestionBlockMcDetractorsMcDetractorChoiceBlockWhere
+  mc_detractor_choice_exists: Boolean
+}
+
+input ItemModularNestedModularBlocksMcQuestionBlockWhere {
+  mc_answers: ItemModularNestedModularBlocksMcQuestionBlockMcAnswersWhere
+  mc_answers_exists: Boolean
+  mc_detractors: ItemModularNestedModularBlocksMcQuestionBlockMcDetractorsWhere
+  mc_detractors_exists: Boolean
+  mc_instruction: String
+  mc_instruction_exists: Boolean
+  mc_instruction_in: [String]
+  mc_instruction_ne: String
+  mc_instruction_nin: [String]
+  mc_prompt: String
+  mc_prompt_exists: Boolean
+  mc_prompt_in: [String]
+  mc_prompt_ne: String
+  mc_prompt_nin: [String]
+  mc_stem: String
+  mc_stem_exists: Boolean
+  mc_stem_in: [String]
+  mc_stem_ne: String
+  mc_stem_nin: [String]
+}
+
+type ItemModularNestedModularBlocksOrdering {
+  ordering: ItemModularNestedModularBlocksOrderingBlock
+}
+
+type ItemModularNestedModularBlocksOrderingBlock {
+  ordering_instruction: String
+  ordering_options: [ItemModularNestedModularBlocksOrderingBlockOrderingOptions]
+  ordering_prompt: String
+  ordering_stem: String
+}
+
+union ItemModularNestedModularBlocksOrderingBlockOrderingOptions = ItemModularNestedModularBlocksOrderingBlockOrderingOptionsOrderingOption
+
+type ItemModularNestedModularBlocksOrderingBlockOrderingOptionsOrderingOption {
+  ordering_option: ItemModularNestedModularBlocksOrderingBlockOrderingOptionsOrderingOptionBlock
+}
+
+type ItemModularNestedModularBlocksOrderingBlockOrderingOptionsOrderingOptionBlock {
+  ordering_option_order: Float
+  ordering_option_text: String
+}
+
+input ItemModularNestedModularBlocksOrderingBlockOrderingOptionsOrderingOptionBlockWhere {
+  ordering_option_order: Float
+  ordering_option_order_exists: Boolean
+  ordering_option_order_gt: Float
+  ordering_option_order_gte: Float
+  ordering_option_order_in: [Float]
+  ordering_option_order_lt: Float
+  ordering_option_order_lte: Float
+  ordering_option_order_ne: Float
+  ordering_option_order_nin: [Float]
+  ordering_option_text: String
+  ordering_option_text_exists: Boolean
+  ordering_option_text_in: [String]
+  ordering_option_text_ne: String
+  ordering_option_text_nin: [String]
+}
+
+input ItemModularNestedModularBlocksOrderingBlockOrderingOptionsWhere {
+  ordering_option: ItemModularNestedModularBlocksOrderingBlockOrderingOptionsOrderingOptionBlockWhere
+  ordering_option_exists: Boolean
+}
+
+input ItemModularNestedModularBlocksOrderingBlockWhere {
+  ordering_instruction: String
+  ordering_instruction_exists: Boolean
+  ordering_instruction_in: [String]
+  ordering_instruction_ne: String
+  ordering_instruction_nin: [String]
+  ordering_options: ItemModularNestedModularBlocksOrderingBlockOrderingOptionsWhere
+  ordering_options_exists: Boolean
+  ordering_prompt: String
+  ordering_prompt_exists: Boolean
+  ordering_prompt_in: [String]
+  ordering_prompt_ne: String
+  ordering_prompt_nin: [String]
+  ordering_stem: String
+  ordering_stem_exists: Boolean
+  ordering_stem_in: [String]
+  ordering_stem_ne: String
+  ordering_stem_nin: [String]
+}
+
+type ItemModularNestedModularBlocksTfQuestion {
+  tf_question: ItemModularNestedModularBlocksTfQuestionBlock
+}
+
+type ItemModularNestedModularBlocksTfQuestionBlock {
+  tf_instruction: String
+  tf_prompt: String
+  tf_stems: [ItemModularNestedModularBlocksTfQuestionBlockTfStems]
+}
+
+union ItemModularNestedModularBlocksTfQuestionBlockTfStems = ItemModularNestedModularBlocksTfQuestionBlockTfStemsTfStemChoice
+
+type ItemModularNestedModularBlocksTfQuestionBlockTfStemsTfStemChoice {
+  tf_stem_choice: ItemModularNestedModularBlocksTfQuestionBlockTfStemsTfStemChoiceBlock
+}
+
+type ItemModularNestedModularBlocksTfQuestionBlockTfStemsTfStemChoiceBlock {
+  tf_stem_choice_text: String
+  tf_stem_choice_true: Boolean
+}
+
+input ItemModularNestedModularBlocksTfQuestionBlockTfStemsTfStemChoiceBlockWhere {
+  tf_stem_choice_text: String
+  tf_stem_choice_text_exists: Boolean
+  tf_stem_choice_text_in: [String]
+  tf_stem_choice_text_ne: String
+  tf_stem_choice_text_nin: [String]
+  tf_stem_choice_true: Boolean
+  tf_stem_choice_true_exists: Boolean
+  tf_stem_choice_true_ne: Boolean
+}
+
+input ItemModularNestedModularBlocksTfQuestionBlockTfStemsWhere {
+  tf_stem_choice: ItemModularNestedModularBlocksTfQuestionBlockTfStemsTfStemChoiceBlockWhere
+  tf_stem_choice_exists: Boolean
+}
+
+input ItemModularNestedModularBlocksTfQuestionBlockWhere {
+  tf_instruction: String
+  tf_instruction_exists: Boolean
+  tf_instruction_in: [String]
+  tf_instruction_ne: String
+  tf_instruction_nin: [String]
+  tf_prompt: String
+  tf_prompt_exists: Boolean
+  tf_prompt_in: [String]
+  tf_prompt_ne: String
+  tf_prompt_nin: [String]
+  tf_stems: ItemModularNestedModularBlocksTfQuestionBlockTfStemsWhere
+  tf_stems_exists: Boolean
+}
+
+input ItemModularNestedModularBlocksWhere {
+  categorisation: ItemModularNestedModularBlocksCategorisationBlockWhere
+  categorisation_exists: Boolean
+  concept: ItemModularNestedModularBlocksConceptBlockWhere
+  concept_exists: Boolean
+  matching: ItemModularNestedModularBlocksMatchingBlockWhere
+  matching_exists: Boolean
+  mc_question: ItemModularNestedModularBlocksMcQuestionBlockWhere
+  mc_question_exists: Boolean
+  ordering: ItemModularNestedModularBlocksOrderingBlockWhere
+  ordering_exists: Boolean
+  tf_question: ItemModularNestedModularBlocksTfQuestionBlockWhere
+  tf_question_exists: Boolean
+}
+
+enum ItemModularNestedOrderBy {
+  created_at_ASC
+  created_at_DESC
+  updated_at_ASC
+  updated_at_DESC
+}
+
+input ItemModularNestedWhere {
+  AND: [ItemModularNestedWhere]
+  OR: [ItemModularNestedWhere]
+  created_at: DateTime
+  created_at_gt: DateTime
+  created_at_gte: DateTime
+  created_at_in: [DateTime]
+  created_at_lt: DateTime
+  created_at_lte: DateTime
+  created_at_ne: DateTime
+  created_at_nin: [DateTime]
+  locale: String
+  locale_exists: Boolean
+  locale_in: [String]
+  locale_ne: String
+  locale_nin: [String]
+  modular_blocks: ItemModularNestedModularBlocksWhere
+  modular_blocks_exists: Boolean
+  tags_in: [String]
+  tags_nin: [String]
+  taxonomy_count: Int
+  taxonomy_exists: Boolean
+  title: String
+  title_exists: Boolean
+  title_in: [String]
+  title_ne: String
+  title_nin: [String]
+  uid: String
+  uid_exists: Boolean
+  uid_in: [String]
+  uid_ne: String
+  uid_nin: [String]
+  updated_at: DateTime
+  updated_at_gt: DateTime
+  updated_at_gte: DateTime
+  updated_at_in: [DateTime]
+  updated_at_lt: DateTime
+  updated_at_lte: DateTime
+  updated_at_ne: DateTime
+  updated_at_nin: [DateTime]
+}
+
+type ItemMultipleChoice {
+  mc_instruction: String
+  mc_prompt: String
+  mc_stem: String
+}
+
+union ItemMultipleChoiceChoices = ItemMultipleChoiceChoicesMcChoiceAnswer | ItemMultipleChoiceChoicesMcChoiceDetractor
+
+type ItemMultipleChoiceChoicesMcChoiceAnswer {
+  mc_choice_answer: ItemMultipleChoiceChoicesMcChoiceAnswerBlock
+}
+
+type ItemMultipleChoiceChoicesMcChoiceAnswerBlock {
+  mc_choice_answer_points: Float
+  mc_choice_answer_text: String
+}
+
+input ItemMultipleChoiceChoicesMcChoiceAnswerBlockWhere {
+  mc_choice_answer_points: Float
+  mc_choice_answer_points_exists: Boolean
+  mc_choice_answer_points_gt: Float
+  mc_choice_answer_points_gte: Float
+  mc_choice_answer_points_in: [Float]
+  mc_choice_answer_points_lt: Float
+  mc_choice_answer_points_lte: Float
+  mc_choice_answer_points_ne: Float
+  mc_choice_answer_points_nin: [Float]
+  mc_choice_answer_text: String
+  mc_choice_answer_text_exists: Boolean
+  mc_choice_answer_text_in: [String]
+  mc_choice_answer_text_ne: String
+  mc_choice_answer_text_nin: [String]
+}
+
+type ItemMultipleChoiceChoicesMcChoiceDetractor {
+  mc_choice_detractor: ItemMultipleChoiceChoicesMcChoiceDetractorBlock
+}
+
+type ItemMultipleChoiceChoicesMcChoiceDetractorBlock {
+  mc_choice_detractor_points: Float
+  mc_choice_detractor_text: String
+}
+
+input ItemMultipleChoiceChoicesMcChoiceDetractorBlockWhere {
+  mc_choice_detractor_points: Float
+  mc_choice_detractor_points_exists: Boolean
+  mc_choice_detractor_points_gt: Float
+  mc_choice_detractor_points_gte: Float
+  mc_choice_detractor_points_in: [Float]
+  mc_choice_detractor_points_lt: Float
+  mc_choice_detractor_points_lte: Float
+  mc_choice_detractor_points_ne: Float
+  mc_choice_detractor_points_nin: [Float]
+  mc_choice_detractor_text: String
+  mc_choice_detractor_text_exists: Boolean
+  mc_choice_detractor_text_in: [String]
+  mc_choice_detractor_text_ne: String
+  mc_choice_detractor_text_nin: [String]
+}
+
+input ItemMultipleChoiceChoicesWhere {
+  mc_choice_answer: ItemMultipleChoiceChoicesMcChoiceAnswerBlockWhere
+  mc_choice_answer_exists: Boolean
+  mc_choice_detractor: ItemMultipleChoiceChoicesMcChoiceDetractorBlockWhere
+  mc_choice_detractor_exists: Boolean
+}
+
+input ItemMultipleChoiceWhere {
+  mc_instruction: String
+  mc_instruction_exists: Boolean
+  mc_instruction_in: [String]
+  mc_instruction_ne: String
+  mc_instruction_nin: [String]
+  mc_prompt: String
+  mc_prompt_exists: Boolean
+  mc_prompt_in: [String]
+  mc_prompt_ne: String
+  mc_prompt_nin: [String]
+  mc_stem: String
+  mc_stem_exists: Boolean
+  mc_stem_in: [String]
+  mc_stem_ne: String
+  mc_stem_nin: [String]
+}
+
+enum ItemOrderBy {
+  created_at_ASC
+  created_at_DESC
+  updated_at_ASC
+  updated_at_DESC
+}
+
+type ItemOrdering {
+  ordering_instruction: String
+  ordering_prompt: String
+  ordering_stem: String
+}
+
+union ItemOrderingEntries = ItemOrderingEntriesOrderingEntry
+
+type ItemOrderingEntriesOrderingEntry {
+  ordering_entry: ItemOrderingEntriesOrderingEntryBlock
+}
+
+type ItemOrderingEntriesOrderingEntryBlock {
+  ordering_entry_order: Float
+  ordering_entry_text: String
+}
+
+input ItemOrderingEntriesOrderingEntryBlockWhere {
+  ordering_entry_order: Float
+  ordering_entry_order_exists: Boolean
+  ordering_entry_order_gt: Float
+  ordering_entry_order_gte: Float
+  ordering_entry_order_in: [Float]
+  ordering_entry_order_lt: Float
+  ordering_entry_order_lte: Float
+  ordering_entry_order_ne: Float
+  ordering_entry_order_nin: [Float]
+  ordering_entry_text: String
+  ordering_entry_text_exists: Boolean
+  ordering_entry_text_in: [String]
+  ordering_entry_text_ne: String
+  ordering_entry_text_nin: [String]
+}
+
+input ItemOrderingEntriesWhere {
+  ordering_entry: ItemOrderingEntriesOrderingEntryBlockWhere
+  ordering_entry_exists: Boolean
+}
+
+input ItemOrderingWhere {
+  ordering_instruction: String
+  ordering_instruction_exists: Boolean
+  ordering_instruction_in: [String]
+  ordering_instruction_ne: String
+  ordering_instruction_nin: [String]
+  ordering_prompt: String
+  ordering_prompt_exists: Boolean
+  ordering_prompt_in: [String]
+  ordering_prompt_ne: String
+  ordering_prompt_nin: [String]
+  ordering_stem: String
+  ordering_stem_exists: Boolean
+  ordering_stem_in: [String]
+  ordering_stem_ne: String
+  ordering_stem_nin: [String]
+}
+
+type ItemPassiveLearning {
+  passive_content_block: String
+  video_explainer_closed_caption_fileConnection: SysAssetConnection
+  video_explainer_fileConnection: SysAssetConnection
+  video_explainer_prompt: String
+  video_explainer_text_caption: String
+}
+
+input ItemPassiveLearningWhere {
+  passive_content_block: String
+  passive_content_block_exists: Boolean
+  passive_content_block_in: [String]
+  passive_content_block_ne: String
+  passive_content_block_nin: [String]
+  video_explainer_closed_caption_file: SysAssetWhere
+  video_explainer_closed_caption_file_exists: Boolean
+  video_explainer_file: SysAssetWhere
+  video_explainer_file_exists: Boolean
+  video_explainer_prompt: String
+  video_explainer_prompt_exists: Boolean
+  video_explainer_prompt_in: [String]
+  video_explainer_prompt_ne: String
+  video_explainer_prompt_nin: [String]
+  video_explainer_text_caption: String
+  video_explainer_text_caption_exists: Boolean
+  video_explainer_text_caption_in: [String]
+  video_explainer_text_caption_ne: String
+  video_explainer_text_caption_nin: [String]
+}
+
+type ItemTrueFalseStatement {
+  tf_instruction: String
+  tf_is_true: Boolean
+  tf_points: Float
+  tf_prompt: String
+  tf_stem: String
+}
+
+input ItemTrueFalseStatementWhere {
+  tf_instruction: String
+  tf_instruction_exists: Boolean
+  tf_instruction_in: [String]
+  tf_instruction_ne: String
+  tf_instruction_nin: [String]
+  tf_is_true: Boolean
+  tf_is_true_exists: Boolean
+  tf_is_true_ne: Boolean
+  tf_points: Float
+  tf_points_exists: Boolean
+  tf_points_gt: Float
+  tf_points_gte: Float
+  tf_points_in: [Float]
+  tf_points_lt: Float
+  tf_points_lte: Float
+  tf_points_ne: Float
+  tf_points_nin: [Float]
+  tf_prompt: String
+  tf_prompt_exists: Boolean
+  tf_prompt_in: [String]
+  tf_prompt_ne: String
+  tf_prompt_nin: [String]
+  tf_stem: String
+  tf_stem_exists: Boolean
+  tf_stem_in: [String]
+  tf_stem_ne: String
+  tf_stem_nin: [String]
+}
+
+input ItemWhere {
+  AND: [ItemWhere]
+  OR: [ItemWhere]
+  categorization: ItemCategorizationWhere
+  categorization_exists: Boolean
+  concept: ItemConceptWhere
+  concept_exists: Boolean
+  concept_words: ItemConceptWordsWhere
+  concept_words_exists: Boolean
+  created_at: DateTime
+  created_at_gt: DateTime
+  created_at_gte: DateTime
+  created_at_in: [DateTime]
+  created_at_lt: DateTime
+  created_at_lte: DateTime
+  created_at_ne: DateTime
+  created_at_nin: [DateTime]
+  locale: String
+  locale_exists: Boolean
+  locale_in: [String]
+  locale_ne: String
+  locale_nin: [String]
+  matching: ItemMatchingWhere
+  matching_exists: Boolean
+  matching_pairs: ItemMatchingPairsWhere
+  matching_pairs_exists: Boolean
+  multiple_choice: ItemMultipleChoiceWhere
+  multiple_choice_choices: ItemMultipleChoiceChoicesWhere
+  multiple_choice_choices_exists: Boolean
+  multiple_choice_exists: Boolean
+  ordering: ItemOrderingWhere
+  ordering_entries: ItemOrderingEntriesWhere
+  ordering_entries_exists: Boolean
+  ordering_exists: Boolean
+  passive_learning: ItemPassiveLearningWhere
+  passive_learning_exists: Boolean
+  tags_in: [String]
+  tags_nin: [String]
+  taxonomy_count: Int
+  taxonomy_exists: Boolean
+  title: String
+  title_exists: Boolean
+  title_in: [String]
+  title_ne: String
+  title_nin: [String]
+  true_false_statement: ItemTrueFalseStatementWhere
+  true_false_statement_exists: Boolean
+  uid: String
+  uid_exists: Boolean
+  uid_in: [String]
+  uid_ne: String
+  uid_nin: [String]
+  updated_at: DateTime
+  updated_at_gt: DateTime
+  updated_at_gte: DateTime
+  updated_at_in: [DateTime]
+  updated_at_lt: DateTime
+  updated_at_lte: DateTime
+  updated_at_ne: DateTime
+  updated_at_nin: [DateTime]
+}
+
+"""
+The `JSON` scalar type represents JSON values as specified by [ECMA-404](http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf).
+"""
+scalar JSON
+
+type Query {
+  all_assets(fallback_locale: Boolean = false, limit: Int = 25, locale: String = "en-us", order_by: [SysAssetOrderBy] = [updated_at_DESC], skip: Int = 0, where: SysAssetWhere): AllSysAsset
+  all_item(fallback_locale: Boolean = false, limit: Int = 25, locale: String! = "en-us", order_by: [ItemOrderBy] = [updated_at_DESC], skip: Int = 0, where: ItemWhere): AllItem
+  all_item_modular_nested(fallback_locale: Boolean = false, limit: Int = 25, locale: String! = "en-us", order_by: [ItemModularNestedOrderBy] = [updated_at_DESC], skip: Int = 0, where: ItemModularNestedWhere): AllItemModularNested
+  all_questionitem(fallback_locale: Boolean = false, limit: Int = 25, locale: String! = "en-us", order_by: [QuestionitemOrderBy] = [updated_at_DESC], skip: Int = 0, where: QuestionitemWhere): AllQuestionitem
+  all_taxon_bottom_up(fallback_locale: Boolean = false, limit: Int = 25, locale: String! = "en-us", order_by: [TaxonBottomUpOrderBy] = [updated_at_DESC], skip: Int = 0, where: TaxonBottomUpWhere): AllTaxonBottomUp
+  assets(fallback_locale: Boolean = false, locale: String = "en-us", uid: String!): SysAsset
+  item(fallback_locale: Boolean = false, locale: String! = "en-us", uid: String!): Item
+  item_modular_nested(fallback_locale: Boolean = false, locale: String! = "en-us", uid: String!): ItemModularNested
+  questionitem(fallback_locale: Boolean = false, locale: String! = "en-us", uid: String!): Questionitem
+  taxon_bottom_up(fallback_locale: Boolean = false, locale: String! = "en-us", uid: String!): TaxonBottomUp
+}
+
+type Questionitem {
+  client_list: [String]
+  key_behavior: String
+  system: EntrySystemField
+  taxonomyConnection: QuestionitemTaxonomyConnection
+  title: String
+  variants: [QuestionitemVariants]
+}
+
+enum QuestionitemOrderBy {
+  created_at_ASC
+  created_at_DESC
+  updated_at_ASC
+  updated_at_DESC
+}
+
+type QuestionitemTaxonomyConnection {
+  edges: [QuestionitemTaxonomyEdge]
+  totalCount: Int
+}
+
+type QuestionitemTaxonomyEdge {
+  node: QuestionitemTaxonomyNode
+}
+
+union QuestionitemTaxonomyNode = TaxonBottomUp
+
+input QuestionitemTaxonomyWhere {
+  MATCH: EvalReferenceEnum
+  taxon_bottom_up: TaxonBottomUpWhere
+}
+
+union QuestionitemVariants = QuestionitemVariantsMcquestion | QuestionitemVariantsTfquestion
+
+type QuestionitemVariantsMcquestion {
+  mcquestion: QuestionitemVariantsMcquestionBlock
+}
+
+type QuestionitemVariantsMcquestionBlock {
+  choices: [QuestionitemVariantsMcquestionBlockChoices]
+  instruction: String
+  prompt: String
+  stem: String
+  video_caption_fileConnection: SysAssetConnection
+  video_fileConnection: SysAssetConnection
+}
+
+union QuestionitemVariantsMcquestionBlockChoices = QuestionitemVariantsMcquestionBlockChoicesChoice
+
+type QuestionitemVariantsMcquestionBlockChoicesChoice {
+  choice: QuestionitemVariantsMcquestionBlockChoicesChoiceBlock
+}
+
+type QuestionitemVariantsMcquestionBlockChoicesChoiceBlock {
+  body: String
+  correct: Boolean
+  feedback: String
+  points: Float
+}
+
+input QuestionitemVariantsMcquestionBlockChoicesChoiceBlockWhere {
+  body: String
+  body_exists: Boolean
+  body_in: [String]
+  body_ne: String
+  body_nin: [String]
+  correct: Boolean
+  correct_exists: Boolean
+  correct_ne: Boolean
+  feedback: String
+  feedback_exists: Boolean
+  feedback_in: [String]
+  feedback_ne: String
+  feedback_nin: [String]
+  points: Float
+  points_exists: Boolean
+  points_gt: Float
+  points_gte: Float
+  points_in: [Float]
+  points_lt: Float
+  points_lte: Float
+  points_ne: Float
+  points_nin: [Float]
+}
+
+input QuestionitemVariantsMcquestionBlockChoicesWhere {
+  choice: QuestionitemVariantsMcquestionBlockChoicesChoiceBlockWhere
+  choice_exists: Boolean
+}
+
+input QuestionitemVariantsMcquestionBlockWhere {
+  choices: QuestionitemVariantsMcquestionBlockChoicesWhere
+  choices_exists: Boolean
+  instruction: String
+  instruction_exists: Boolean
+  instruction_in: [String]
+  instruction_ne: String
+  instruction_nin: [String]
+  prompt: String
+  prompt_exists: Boolean
+  prompt_in: [String]
+  prompt_ne: String
+  prompt_nin: [String]
+  stem: String
+  stem_exists: Boolean
+  stem_in: [String]
+  stem_ne: String
+  stem_nin: [String]
+  video_caption_file: SysAssetWhere
+  video_caption_file_exists: Boolean
+  video_file: SysAssetWhere
+  video_file_exists: Boolean
+}
+
+type QuestionitemVariantsTfquestion {
+  tfquestion: QuestionitemVariantsTfquestionBlock
+}
+
+type QuestionitemVariantsTfquestionBlock {
+  correct: Boolean
+  feedback: String
+  incorrect_feedback: String
+  instruction: String
+  points: Float
+  prompt: String
+  stem: String
+  video_caption_fileConnection: SysAssetConnection
+  video_fileConnection: SysAssetConnection
+}
+
+input QuestionitemVariantsTfquestionBlockWhere {
+  correct: Boolean
+  correct_exists: Boolean
+  correct_ne: Boolean
+  feedback: String
+  feedback_exists: Boolean
+  feedback_in: [String]
+  feedback_ne: String
+  feedback_nin: [String]
+  incorrect_feedback: String
+  incorrect_feedback_exists: Boolean
+  incorrect_feedback_in: [String]
+  incorrect_feedback_ne: String
+  incorrect_feedback_nin: [String]
+  instruction: String
+  instruction_exists: Boolean
+  instruction_in: [String]
+  instruction_ne: String
+  instruction_nin: [String]
+  points: Float
+  points_exists: Boolean
+  points_gt: Float
+  points_gte: Float
+  points_in: [Float]
+  points_lt: Float
+  points_lte: Float
+  points_ne: Float
+  points_nin: [Float]
+  prompt: String
+  prompt_exists: Boolean
+  prompt_in: [String]
+  prompt_ne: String
+  prompt_nin: [String]
+  stem: String
+  stem_exists: Boolean
+  stem_in: [String]
+  stem_ne: String
+  stem_nin: [String]
+  video_caption_file: SysAssetWhere
+  video_caption_file_exists: Boolean
+  video_file: SysAssetWhere
+  video_file_exists: Boolean
+}
+
+input QuestionitemVariantsWhere {
+  mcquestion: QuestionitemVariantsMcquestionBlockWhere
+  mcquestion_exists: Boolean
+  tfquestion: QuestionitemVariantsTfquestionBlockWhere
+  tfquestion_exists: Boolean
+}
+
+input QuestionitemWhere {
+  AND: [QuestionitemWhere]
+  OR: [QuestionitemWhere]
+  client_list: String
+  client_list_exists: Boolean
+  client_list_in: [String]
+  client_list_ne: String
+  client_list_nin: [String]
+  created_at: DateTime
+  created_at_gt: DateTime
+  created_at_gte: DateTime
+  created_at_in: [DateTime]
+  created_at_lt: DateTime
+  created_at_lte: DateTime
+  created_at_ne: DateTime
+  created_at_nin: [DateTime]
+  key_behavior: String
+  key_behavior_exists: Boolean
+  key_behavior_in: [String]
+  key_behavior_ne: String
+  key_behavior_nin: [String]
+  locale: String
+  locale_exists: Boolean
+  locale_in: [String]
+  locale_ne: String
+  locale_nin: [String]
+  tags_in: [String]
+  tags_nin: [String]
+  taxonomy: QuestionitemTaxonomyWhere
+  taxonomy_exists: Boolean
+  title: String
+  title_exists: Boolean
+  title_in: [String]
+  title_ne: String
+  title_nin: [String]
+  uid: String
+  uid_exists: Boolean
+  uid_in: [String]
+  uid_ne: String
+  uid_nin: [String]
+  updated_at: DateTime
+  updated_at_gt: DateTime
+  updated_at_gte: DateTime
+  updated_at_in: [DateTime]
+  updated_at_lt: DateTime
+  updated_at_lte: DateTime
+  updated_at_ne: DateTime
+  updated_at_nin: [DateTime]
+  variants: QuestionitemVariantsWhere
+  variants_exists: Boolean
+}
+
+type SysAsset {
+  content_type: String
+  description: String
+  dimension: SysAssetDimension
+  file_size: Int
+  filename: String
+  metadata: JSON
+  system: SysAssetSystemField
+  title: String
+  unique_identifier: String
+  url(
+    """
+    Contentstack Image Delivery API is used to retrieve, manipulate and/or convert image files of your Contentstack account and deliver it to your web or mobile properties
+    """
+    transform: SysAssetTransformUrl
+  ): String
+}
+
+"""WEBP images are usually lower in size and have good quality."""
+enum SysAssetAutoValues {
+  WEBP
+}
+
+type SysAssetConnection {
+  edges: [SysAssetEdge]
+  totalCount: Int
+}
+
+type SysAssetDimension {
+  height: Int
+  width: Int
+}
+
+input SysAssetDimensionWhere {
+  height: Int
+  height_exists: Boolean
+  height_gt: Int
+  height_gte: Int
+  height_in: [Int]
+  height_lt: Int
+  height_lte: Int
+  height_ne: Int
+  height_nin: [Int]
+  width: Int
+  width_exists: Boolean
+  width_gt: Int
+  width_gte: Int
+  width_in: [Int]
+  width_lt: Int
+  width_lte: Int
+  width_ne: Int
+  width_nin: [Int]
+}
+
+enum SysAssetDisableValues {
+  """
+  UPSCALE is always enabled, in which the image is upscaled if the output image (by specifying the width or height) is bigger than the source image
+  """
+  UPSCALE
+}
+
+"""This parameter allows an image to be downloaded or rendered on page"""
+enum SysAssetDispositionValues {
+  """Allows to download an image"""
+  ATTACHMENT
+
+  """Allows an image to be rendered on page"""
+  INLINE
+}
+
+type SysAssetEdge {
+  node: SysAsset
+}
+
+enum SysAssetFitValues {
+  BOUNDS
+  CROP
+}
+
+enum SysAssetImageFormats {
+  """Convert an image to GIF format"""
+  GIF
+
+  """Convert an image to JPEG format"""
+  JPG
+
+  """
+  A Progressive JPEG is an image file created using a compression method that displays higher detail in progression
+  """
+  PJPG
+
+  """Convert an image to PNG format"""
+  PNG
+
+  """WEBP images are usually lower in size and have good quality"""
+  WEBP
+
+  """WEBP Lossless format"""
+  WEBPLL
+
+  """WEBP Lossy format"""
+  WEBPLY
+}
+
+enum SysAssetOrderBy {
+  created_at_ASC
+  created_at_DESC
+  updated_at_ASC
+  updated_at_DESC
+}
+
+enum SysAssetOrientValues {
+  """Flip image horizontally and vertically"""
+  BOTH
+
+  """Set image to default"""
+  DEFAULT
+
+  """Flip image horizontally"""
+  HORIZONTALLY
+
+  """Flip image horizontally and then rotate 90 degrees towards left"""
+  ROTATE90LEFT
+
+  """Rotate image 90 degrees towards right"""
+  ROTATE90RIGHT
+
+  """Flip image vertically"""
+  VERTICALLY
+}
+
+"""
+The overlay_align parameter allows you to put one image on top of another
+"""
+enum SysAssetOverlayAlignValues {
+  """Align the overlay image to the bottom of the actual image"""
+  BOTTOM
+
+  """
+  Align the overlay image to the center (horizontally) of the actual image
+  """
+  CENTER
+
+  """Align the overlay image to the left of the actual image"""
+  LEFT
+
+  """Align the overlay image to the middle (vertically) of the actual image"""
+  MIDDLE
+
+  """Align the overlay image to the right of the actual image"""
+  RIGHT
+
+  """Align the overlay image to the top of the actual image"""
+  TOP
+}
+
+enum SysAssetOverlayRepeatValues {
+  """Horizontal and vertical repetition"""
+  BOTH
+
+  """Horizontal repetition"""
+  X
+
+  """Vertical repetition"""
+  Y
+}
+
+type SysAssetSystemField {
+  branch: String
+  content_type_uid: String
+  created_at: DateTime
+  created_by: String
+  extensionConnection(limit: Int = 25, skip: Int = 0): SysExtensionConnection
+  publish_details: SystemPublishDetails
+  tags: [String]
+  uid: String
+  updated_at: DateTime
+  updated_by: String
+  version: Int
+}
+
+input SysAssetTransformUrl {
+  """
+  When the auto parameter is set to webp, it enables WebP image support. WebP images have higher compression rate with minimum loss of quality.
+  """
+  auto: SysAssetAutoValues
+
+  """
+  The bg-color parameter lets you set a backgroud color for the given image. This is useful when applying padding or for replacing the transparent pixels of an image
+  """
+  bg_color: String
+  crop: String
+
+  """
+  The disable parameter disables the functionality that is enabled by default
+  """
+  disable: SysAssetDisableValues
+
+  """The disposition parameter lets you allow image to download or render. """
+  disposition: SysAssetDispositionValues
+
+  """
+  The dpr parameter lets you deliver images with appropriate size to devices that come with a defined device pixel ratio. The device pixel ratio of any device determines the screen resolution that its CSS would interpret
+  """
+  dpr: String
+
+  """
+  Fit parameter enables you to fit the given image properly within the specified height and width
+  """
+  fit: SysAssetFitValues
+
+  """
+  Format parameter lets you converts a given image from one format to another
+  """
+  format: SysAssetImageFormats
+  height: String
+
+  """
+  The orient parameter lets you control the cardinal orientation of the given image
+  """
+  orient: SysAssetOrientValues
+  overlay: String
+  overlay_align: SysAssetOverlayAlignValues
+
+  """
+  The value for this parameter can be set in pixels or percentage. For pixel value, use any whole number between 1 and 8192. For percentage value, use any decimal number between 0.0 and 0.99. When height is defined in percentage, it relative to the output image
+  """
+  overlay_height: String
+
+  """
+  The overlay_repeat parameter lets you define how the overlay image will be repeated on the given image
+  """
+  overlay_repeat: SysAssetOverlayRepeatValues
+
+  """
+  The value for this parameter can be set in pixels or percentage. For pixel value, use any whole number between 1 and 8192. For percentage value, use any decimal number between 0.0 and 0.99. When width is defined in percentage, it is relative to the output image
+  """
+  overlay_width: String
+
+  """
+  This parameter lets you add extra pixels to the edges of an image. You can specify values for top, right, bottom, and left padding for an image
+  """
+  pad: String
+  quality: Int
+  trim: String
+  width: String
+}
+
+input SysAssetWhere {
+  AND: [SysAssetWhere]
+  OR: [SysAssetWhere]
+  created_at: DateTime
+  created_at_gt: DateTime
+  created_at_gte: DateTime
+  created_at_in: [DateTime]
+  created_at_lt: DateTime
+  created_at_lte: DateTime
+  created_at_ne: DateTime
+  created_at_nin: [DateTime]
+  description: String
+  description_exists: Boolean
+  description_in: [String]
+  description_ne: String
+  description_nin: [String]
+  dimension: SysAssetDimensionWhere
+  dimension_exists: Boolean
+  file_size: Int
+  file_size_exists: Boolean
+  file_size_gt: Int
+  file_size_gte: Int
+  file_size_in: [Int]
+  file_size_lt: Int
+  file_size_lte: Int
+  file_size_ne: Int
+  file_size_nin: [Int]
+  filename: String
+  filename_exists: Boolean
+  filename_in: [String]
+  filename_ne: String
+  filename_nin: [String]
+  tags: String
+  tags_in: [String]
+  tags_nin: [String]
+  title: String
+  title_exists: Boolean
+  title_in: [String]
+  title_ne: String
+  title_nin: [String]
+  uid: String
+  uid_exists: Boolean
+  uid_in: [String]
+  uid_ne: String
+  uid_nin: [String]
+  updated_at: DateTime
+  updated_at_gt: DateTime
+  updated_at_gte: DateTime
+  updated_at_in: [DateTime]
+  updated_at_lt: DateTime
+  updated_at_lte: DateTime
+  updated_at_ne: DateTime
+  updated_at_nin: [DateTime]
+  url: String
+  url_exists: Boolean
+  url_in: [String]
+  url_ne: String
+  url_nin: [String]
+}
+
+type SysExtensionConnection {
+  edges: [SysExtensionEdge]
+  totalCount: Int
+}
+
+type SysExtensionEdge {
+  node: SysMetadata
+}
+
+type SysMetadata {
+  extension_uid: String
+  metadata: [JSON]
+}
+
+type SystemPublishDetails {
+  environment: String
+  locale: String
+  time: DateTime
+  user: String
+}
+
+type TaxonBottomUp {
+  parent_taxonomiesConnection(limit: Int = 100, skip: Int = 0): TaxonBottomUpParentTaxonomiesConnection
+  system: EntrySystemField
+  title: String
+}
+
+enum TaxonBottomUpOrderBy {
+  created_at_ASC
+  created_at_DESC
+  updated_at_ASC
+  updated_at_DESC
+}
+
+type TaxonBottomUpParentTaxonomiesConnection {
+  edges: [TaxonBottomUpParentTaxonomiesEdge]
+  totalCount: Int
+}
+
+type TaxonBottomUpParentTaxonomiesEdge {
+  node: TaxonBottomUpParentTaxonomiesNode
+}
+
+union TaxonBottomUpParentTaxonomiesNode = TaxonBottomUp
+
+input TaxonBottomUpParentTaxonomiesWhere {
+  MATCH: EvalReferenceEnum
+  taxon_bottom_up: TaxonBottomUpWhere
+}
+
+input TaxonBottomUpWhere {
+  AND: [TaxonBottomUpWhere]
+  OR: [TaxonBottomUpWhere]
+  created_at: DateTime
+  created_at_gt: DateTime
+  created_at_gte: DateTime
+  created_at_in: [DateTime]
+  created_at_lt: DateTime
+  created_at_lte: DateTime
+  created_at_ne: DateTime
+  created_at_nin: [DateTime]
+  locale: String
+  locale_exists: Boolean
+  locale_in: [String]
+  locale_ne: String
+  locale_nin: [String]
+  parent_taxonomies: TaxonBottomUpParentTaxonomiesWhere
+  parent_taxonomies_count: Int
+  parent_taxonomies_exists: Boolean
+  tags_in: [String]
+  tags_nin: [String]
+  title: String
+  title_exists: Boolean
+  title_in: [String]
+  title_ne: String
+  title_nin: [String]
+  uid: String
+  uid_exists: Boolean
+  uid_in: [String]
+  uid_ne: String
+  uid_nin: [String]
+  updated_at: DateTime
+  updated_at_gt: DateTime
+  updated_at_gte: DateTime
+  updated_at_in: [DateTime]
+  updated_at_lt: DateTime
+  updated_at_lte: DateTime
+  updated_at_ne: DateTime
+  updated_at_nin: [DateTime]
+}

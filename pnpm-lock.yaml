@@ -135,6 +135,7 @@ importers:
       autoprefixer: ^10.4.14
       date-fns: ^2.29.3
       eslint: ^8.36.0
+      glob: ^10.0.0
       isbot: latest
       postcss: ^8.4.21
       prettier: latest
@@ -159,6 +160,7 @@ importers:
       '@types/node': 18.15.11
       '@vercel/node': 2.10.3
       accelerate-cms-ui: link:../../packages/ui
+      glob: 10.0.0
       isbot: 3.6.8
       react: 18.2.0
       react-dom: 18.2.0_react@18.2.0

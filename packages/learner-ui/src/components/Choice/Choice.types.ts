@@ -1,5 +1,11 @@
+export type ChoiceData = {
+  body: string;
+  correct: boolean;
+};
+
 export type ChoiceProps = {
+  choice: ChoiceData;
   selected?: boolean;
-  onClick: () => void;
   disabled?: boolean;
+  onClick: () => void;
 };

@@ -16,12 +16,16 @@ export const MultipleChoice = {
     question: {
       choices: [
         {
-          body: "Choice 1",
-          correct: true,
+          choice: {
+            body: "Choice 1",
+            correct: true,
+          },
         },
         {
-          body: "Choice 2",
-          correct: false,
+          choice: {
+            body: "Choice 2",
+            correct: false,
+          },
         },
       ],
       instruction: "Instruction",

@@ -17,8 +17,8 @@ export const MultipleChoiceChoices = ({
   return (
     <AnimatePresence initial={false}>
       {choices
-        .filter((choice) => !selected || hash(choice) === hash(selected))
-        .map((choice) => {
+        .filter(({ choice }) => !selected || hash(choice) === hash(selected))
+        .map(({ choice }) => {
           const choiceHash = hash(choice);
 
           return (

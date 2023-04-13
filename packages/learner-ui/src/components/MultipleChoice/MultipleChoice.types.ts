@@ -4,7 +4,7 @@ export type MCQuestion = {
   prompt: string;
   stem: string;
   instruction: string;
-  choices: ChoiceData[];
+  choices: Pick<ChoiceProps, "choice">[];
 };
 
 export type MultipleChoiceProps = {

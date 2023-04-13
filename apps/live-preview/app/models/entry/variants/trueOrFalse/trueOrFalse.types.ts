@@ -8,8 +8,6 @@ export type TFQuestion = {
   tfquestion: {
     prompt: string;
     _metadata: Metadata;
-    video_file: unknown;
-    video_caption_file: unknown;
     stem: string;
     instruction: string;
     correct: boolean;
@@ -26,5 +24,4 @@ export type TFQuestion = {
       incorrect_feedback: DataCslp;
     };
   };
-  $: unknown;
 };

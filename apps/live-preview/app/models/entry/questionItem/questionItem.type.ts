@@ -6,6 +6,6 @@ import type { TFQuestion } from "../variants/trueOrFalse";
  * QuestionItem Typings
  */
 
-export type QuestionItem = EntryLivePreviewData & {
+export type QuestionItemData = EntryLivePreviewData & {
   variants: (MCQuestion | TFQuestion)[];
 };

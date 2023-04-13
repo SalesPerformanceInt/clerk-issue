@@ -3,25 +3,29 @@ import React from "react";
 import classNames from "classnames";
 
 import {
+  buttonBehaviorStyles,
   buttonStyles,
   selectedStyles,
   unselectedStyles,
 } from "./Choice.styles";
 import type { ChoiceProps } from "./Choice.types";
 
-export const Choice = ({ onClick, selected, disabled }: ChoiceProps) => {
+export const Choice = ({
+  onClick,
+  selected,
+  disabled,
+  choice,
+}: ChoiceProps) => {
   return (
     <button
+      type="button"
       disabled={disabled}
       onClick={onClick}
-      className={classNames(
-        "w-full rounded-lg border  px-3 py-2 text-left text-sm transition duration-150 ease-in-out",
-        {
-          [selectedStyles]: selected,
-          [unselectedStyles]: !selected,
-          [buttonStyles]: !disabled,
-        },
-      )}
+      className={classNames(buttonStyles, buttonBehaviorStyles, {
+        [selectedStyles]: selected,
+        [unselectedStyles]: !selected,
+      })}
+      dangerouslySetInnerHTML={{ __html: choice.body ?? "" }}
     />
   );
 };

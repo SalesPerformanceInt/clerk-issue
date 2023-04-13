@@ -33,6 +33,7 @@ const config = {
             caughtErrorsIgnorePattern: "^_",
           },
         ],
+        "react/no-unescaped-entities": "off",
       },
     },
   ],

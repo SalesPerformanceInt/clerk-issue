@@ -10,7 +10,14 @@ const meta = {
 type Story = StoryObj<typeof meta>;
 
 export const Choice = {
-  args: {},
+  args: {
+    selected: false,
+    disabled: false,
+    choice: {
+      body: "Choice 1",
+      correct: false,
+    },
+  },
 } satisfies Story;
 
 export default meta;

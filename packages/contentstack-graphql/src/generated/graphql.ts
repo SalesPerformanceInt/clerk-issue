@@ -1266,6 +1266,7 @@ export type QuestionitemVariantsMcquestion = {
 export type QuestionitemVariantsMcquestionBlock = {
   __typename?: 'QuestionitemVariantsMcquestionBlock';
   choices?: Maybe<Array<Maybe<QuestionitemVariantsMcquestionBlockChoices>>>;
+  custom?: Maybe<Scalars['JSON']>;
   instruction?: Maybe<Scalars['String']>;
   prompt?: Maybe<Scalars['String']>;
   stem?: Maybe<Scalars['String']>;
@@ -1321,6 +1322,8 @@ export type QuestionitemVariantsMcquestionBlockChoicesWhere = {
 export type QuestionitemVariantsMcquestionBlockWhere = {
   choices?: InputMaybe<QuestionitemVariantsMcquestionBlockChoicesWhere>;
   choices_exists?: InputMaybe<Scalars['Boolean']>;
+  custom?: InputMaybe<Scalars['JSON']>;
+  custom_exists?: InputMaybe<Scalars['Boolean']>;
   instruction?: InputMaybe<Scalars['String']>;
   instruction_exists?: InputMaybe<Scalars['Boolean']>;
   instruction_in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;

@@ -1090,6 +1090,7 @@ type QuestionitemVariantsMcquestion {
 
 type QuestionitemVariantsMcquestionBlock {
   choices: [QuestionitemVariantsMcquestionBlockChoices]
+  custom: JSON
   instruction: String
   prompt: String
   stem: String
@@ -1143,6 +1144,8 @@ input QuestionitemVariantsMcquestionBlockChoicesWhere {
 input QuestionitemVariantsMcquestionBlockWhere {
   choices: QuestionitemVariantsMcquestionBlockChoicesWhere
   choices_exists: Boolean
+  custom: JSON
+  custom_exists: Boolean
   instruction: String
   instruction_exists: Boolean
   instruction_in: [String]

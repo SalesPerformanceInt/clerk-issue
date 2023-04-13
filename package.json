@@ -13,6 +13,7 @@
     "dev:learner-ui": "turbo run dev --scope=accelerate-learner-ui",
     "dev:cms": "turbo run dev --scope=accelerate-cms-simple-app",
     "dev:live": "turbo run dev --scope=live-preview",
+    "dev:qc": "turbo run dev --scope=quick-check",
     "build": "turbo run build",
     "lint": "turbo run lint",
     "format": "prettier --write \"**/*.{ts,tsx,md}\""

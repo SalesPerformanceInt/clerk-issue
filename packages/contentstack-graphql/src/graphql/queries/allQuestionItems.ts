@@ -1,6 +1,7 @@
-import { graphql } from "~/generated";
+import { graphql } from "~/generated/";
+import { QuestionItemsQuery } from "~/generated/graphql";
+import type { ContentStackGraphQLClient } from "~/graphql";
 
-import { graphQLClient } from "~/graphql/server/apollo.server";
 export const ALL_QUESTION_ITEMS = graphql(/* GraphQL */ `
   query QuestionItems {
     all_questionitem {
@@ -12,12 +13,12 @@ export const ALL_QUESTION_ITEMS = graphql(/* GraphQL */ `
   }
 `);
 
-export const getAllQuestionItems = async () => {
-  const { data } = await graphQLClient.query({
+export async function getAllQuestionItems(
+  this: ContentStackGraphQLClient,
+): Promise<QuestionItemsQuery["all_questionitem"]> {
+  const { data } = await this.client.query({
     query: ALL_QUESTION_ITEMS,
   });
 
-  return {
-    questionItems: data.all_questionitem,
-  };
-};
+  return data.all_questionitem;
+}

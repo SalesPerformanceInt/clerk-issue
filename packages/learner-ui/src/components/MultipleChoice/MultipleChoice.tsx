@@ -33,7 +33,7 @@ export const MultipleChoice = ({
         />
 
         <div
-          className="mb-6 [&>*]:!mb-4 [&>*]:max-w-full [&>p]:text-sm first:[&>p]:text-2xl"
+          className="question-stem mb-6 [&>*]:!mb-4 [&>*]:max-w-full [&>p]:text-2xl"
           dangerouslySetInnerHTML={{
             __html: question.stem ?? "",
           }}

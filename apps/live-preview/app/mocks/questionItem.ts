@@ -49,7 +49,7 @@ export const questionItemMock = {
         ],
         instruction: "Choose from the following",
         prompt: "Answer the following",
-        stem: '<p>What is the name of a baby turkey?</p><p></p><img src="https://images.contentstack.io/v3/assets/blt6ce48de9245bc0a9/blte990779bc7203764/641dd5c38fb92c3c39ea9d98/Baby-turkey_JR.jpeg" height="auto"/>',
+        stem: '<p>What is the name of a baby turkey?</p><p></p><img src="https://images.contentstack.io/v3/assets/blt6ce48de9245bc0a9/blte990779bc7203764/641dd5c38fb92c3c39ea9d98/Baby-turkey_JR.jpeg" height="auto"/><p>Look at this little guy!</p>',
       },
     },
     {

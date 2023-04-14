@@ -23,11 +23,11 @@ export const MultipleChoice = ({
   });
 
   return (
-    <div className="flex-1 rounded-3xl bg-white p-8">
+    <div className="flex-1 p-8 bg-white rounded-3xl">
       <div className="mb-5">
         <MultipleChoiceSection
           text={question.prompt}
-          feedback={isFeedbackActive}
+          hidden={!selected}
           className="mb-5 text-sm"
           $={{ text: question.$?.prompt }}
         />
@@ -42,7 +42,7 @@ export const MultipleChoice = ({
 
         <MultipleChoiceSection
           text={question.instruction}
-          feedback={isFeedbackActive}
+          hidden={!selected}
           className="text-sm"
           $={{ text: question.$?.instruction }}
         />

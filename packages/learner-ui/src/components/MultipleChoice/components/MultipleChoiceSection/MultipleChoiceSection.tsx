@@ -7,10 +7,10 @@ import type { MultipleChoiceSectionProps } from "./MultipleChoiceSection.types";
 
 export const MultipleChoiceSection = ({
   text,
-  feedback,
+  hidden,
   $,
 }: MultipleChoiceSectionProps) => {
-  if (feedback || !text) return null;
+  if (hidden || !text) return null;
 
   return (
     <AnimatePresence initial={false}>

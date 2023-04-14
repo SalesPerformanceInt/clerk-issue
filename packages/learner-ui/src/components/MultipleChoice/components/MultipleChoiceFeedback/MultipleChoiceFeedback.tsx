@@ -19,9 +19,9 @@ export const MultipleChoiceFeedback = ({
   return (
     <>
       <AnimatePresence>
-        <motion.div
+        <motion.section
           key="correct"
-          className="flex items-center space-x-2 "
+          title="Response Feedback"
           initial={{ opacity: 0 }}
           animate={{
             opacity: 1,
@@ -30,16 +30,21 @@ export const MultipleChoiceFeedback = ({
           {...selected.$?.feedback}
         >
           <>
-            <img className="h-5 w-5 rounded-full" alt="close" src={icon} />
+            <div className="flex items-center space-x-2">
+              <img className="w-5 h-5 rounded-full" alt="close" src={icon} />
 
-            <p
-              className={classNames("text-sm font-bold", color)}
+              <p className={classNames("text-sm font-bold", color)}>
+                {feedbackText}
+              </p>
+            </div>
+            <div
+              className="mt-2 text-sm display-block"
               dangerouslySetInnerHTML={{
-                __html: selected.feedback || feedbackText,
+                __html: selected.feedback || "",
               }}
-            />
+            ></div>
           </>
-        </motion.div>
+        </motion.section>
       </AnimatePresence>
 
       <MultipleChoiceConfidence

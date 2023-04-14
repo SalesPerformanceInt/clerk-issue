@@ -55,7 +55,6 @@ export const QuestionitemVariantsFragment = graphql(/* GraphQL */ `
 
 export const QuestionItemFragment = graphql(/* GraphQL */ `
   fragment QuestionItemFragment on Questionitem {
-    key_behavior
     title
     variants {
       ... on QuestionitemVariantsMcquestion {

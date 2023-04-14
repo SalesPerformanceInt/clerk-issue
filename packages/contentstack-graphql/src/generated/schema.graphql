@@ -1052,7 +1052,6 @@ type Query {
 
 type Questionitem {
   client_list: [String]
-  key_behavior: String
   system: EntrySystemField
   taxonomyConnection: QuestionitemTaxonomyConnection
   title: String
@@ -1250,11 +1249,6 @@ input QuestionitemWhere {
   created_at_lte: DateTime
   created_at_ne: DateTime
   created_at_nin: [DateTime]
-  key_behavior: String
-  key_behavior_exists: Boolean
-  key_behavior_in: [String]
-  key_behavior_ne: String
-  key_behavior_nin: [String]
   locale: String
   locale_exists: Boolean
   locale_in: [String]

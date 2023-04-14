@@ -1,3 +1,4 @@
+import { type LinksFunction } from "@remix-run/node";
 import {
   Links,
   LiveReload,
@@ -6,6 +7,14 @@ import {
   Scripts,
   ScrollRestoration,
 } from "@remix-run/react";
+
+import uiStyles from "accelerate-learner-ui/dist/index.css";
+import tailwind from "~/tailwind.css";
+
+export const links: LinksFunction = () => [
+  { rel: "stylesheet", href: tailwind },
+  { rel: "stylesheet", href: uiStyles },
+];
 
 export default function App() {
   return (

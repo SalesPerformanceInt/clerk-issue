@@ -14,12 +14,17 @@ export async function getQuestionItem(
   this: ContentStackGraphQLClient,
   uid: string,
 ) {
-  const { data } = await this.client.query({
-    query: QUESTION_ITEM,
-    variables: { uid },
-  });
+  try {
+    const { data } = await this.client.query({
+      query: QUESTION_ITEM,
+      variables: { uid },
+    });
 
-  if (!data.questionitem) return null;
+    if (!data.questionitem) return null;
 
-  return data.questionitem;
+    return data.questionitem;
+  } catch (error) {
+    console.log("ERROR", error);
+    return null;
+  }
 }

@@ -6,7 +6,7 @@
   "scripts": {
     "sb": "storybook dev -p 6006",
     "dev": "npm run build -- --watch",
-    "build": "npm run clean && tsup src/index.tsx --format esm,cjs --dts --external react",
+    "build": "tsup src/index.tsx --format esm,cjs --dts --external react",
     "clean": "rimraf dist storybook-static"
   },
   "dependencies": {

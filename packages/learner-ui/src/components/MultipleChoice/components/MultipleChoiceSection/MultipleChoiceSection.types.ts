@@ -1,5 +1,5 @@
 export type MultipleChoiceSectionProps = {
-  text: string;
+  text?: string | null;
   feedback: boolean;
   className?: string;
 };

@@ -16,6 +16,7 @@ export const Choice = ({
   disabled,
   choice,
 }: ChoiceProps) => {
+  if (!choice) return null;
   return (
     <button
       type="button"

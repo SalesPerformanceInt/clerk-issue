@@ -1,15 +1,15 @@
 import { json, type LoaderArgs } from "@remix-run/node";
 import { Link, useLoaderData, type V2_MetaFunction } from "@remix-run/react";
 
-import { contentStackGraphQLClient } from "~/utils/server/apollo.server";
+import { contentStack } from "~/contentstack.server";
 
 export const loader = async ({ request }: LoaderArgs) => {
-  const questionItems = await contentStackGraphQLClient.getAllQuestionItems();
-  const questionItem = await contentStackGraphQLClient.getQuestionItem(
+  // const questionItems = await contentStack.getAllQuestionItems();
+  const questionItem = await contentStack.getQuestionItem(
     "blt9babc1c5d666bcb9",
   );
 
-  return json({ questionItems, questionItem });
+  return json({ questionItem });
 };
 
 export const meta: V2_MetaFunction = () => {
@@ -26,10 +26,10 @@ export default function Index() {
       <div className="relative pb-16 pt-8">
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
           <Link
-            to="/czi8gz2p3q"
+            to="/question/blt9babc1c5d666bcb9"
             className="flex items-center justify-center rounded-md bg-red-500 px-4 py-3 font-medium text-white hover:bg-red-600"
           >
-            /czi8gz2p3q
+            /question/blt9babc1c5d666bcb9
           </Link>
         </div>
       </div>

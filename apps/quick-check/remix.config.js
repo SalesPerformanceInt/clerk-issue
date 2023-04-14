@@ -28,5 +28,8 @@ module.exports = {
     unstable_tailwind: true,
   },
 
+  serverDependenciesToBundle: ["accelerate-learner-ui"],
+  clientDependenciesToBundle: ["accelerate-learner-ui"],
+
   watchPaths: packages,
 };

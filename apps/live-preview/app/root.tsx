@@ -31,7 +31,7 @@ export default function App() {
         <Meta />
         <Links />
       </head>
-      <body className="flex pb-20">
+      <body>
         <Outlet />
 
         <ScrollRestoration />

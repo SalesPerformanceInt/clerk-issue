@@ -1,4 +1,4 @@
-import { ContentStackGraphQLClient } from "contentstack-graphql";
+import { ContentStackGraphQLClient } from "accelerate-learner-ui";
 
 import { CS_DELIVERY_TOKEN, SCHEMA_URL } from "~/utils/server/envs.server";
 

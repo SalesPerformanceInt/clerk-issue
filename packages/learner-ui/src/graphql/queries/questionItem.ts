@@ -1,7 +1,6 @@
-import type { ContentStackGraphQLClient } from "~/client";
 import { graphql } from "~/generated";
+import type { ContentStackGraphQLClient } from "~/graphql/client";
 
-// import { graphQLClient } from "~/graphql/server/apollo.server";
 export const QUESTION_ITEM = graphql(/* GraphQL */ `
   query QuestionItem($uid: String!) {
     questionitem(uid: $uid) {

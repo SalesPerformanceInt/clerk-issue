@@ -1,2 +1,2 @@
-export * from "./generated";
-export * from "./graphql";
+export * from "~/generated/graphql";
+export * from "~/client";

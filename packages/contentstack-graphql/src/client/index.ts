@@ -6,29 +6,21 @@ import {
   NormalizedCacheObject,
   concat,
 } from "@apollo/client";
-import { CS_DELIVERY_TOKEN, SCHEMA_URL } from "~/config/env";
 import { getAllQuestionItems, getQuestionItem } from "~/graphql/queries";
 
-export const getClient = (deliveryToken: string, schemaUrl: string) => {
+const getClient = (deliveryToken: string, schemaUrl: string) => {
   const httpLink = new HttpLink({ uri: schemaUrl });
 
   const authMiddleware = new ApolloLink((operation, forward) => {
-    operation.setContext({
-      headers: {
-        access_token: deliveryToken,
-      },
-    });
-
+    operation.setContext({ headers: { access_token: deliveryToken } });
     return forward(operation);
   });
 
-  const x = new ApolloClient({
+  return new ApolloClient({
     ssrMode: true,
     cache: new InMemoryCache(),
     link: concat(authMiddleware, httpLink),
   });
-
-  return x;
 };
 
 export class ContentStackGraphQLClient {

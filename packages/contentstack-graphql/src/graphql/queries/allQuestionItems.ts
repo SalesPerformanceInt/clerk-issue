@@ -1,6 +1,6 @@
+import type { ContentStackGraphQLClient } from "~/client";
 import { graphql } from "~/generated/";
 import { QuestionItemsQuery } from "~/generated/graphql";
-import type { ContentStackGraphQLClient } from "~/graphql";
 
 export const ALL_QUESTION_ITEMS = graphql(/* GraphQL */ `
   query QuestionItems {

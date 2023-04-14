@@ -26,10 +26,10 @@ export const QuestionItem = ({ entryData }: QuestionItemProps) => {
   } = useQuestionItem({ questionItem });
 
   return (
-    <div className="flex w-full scale-100 justify-center overflow-hidden bg-indigo-950 pb-4">
+    <div className="flex justify-center w-full pb-4 overflow-hidden scale-100 bg-indigo-950">
       <Container>
         <Header
-          currentTopic={questionItem.title}
+          currentTopic={`Unknown`}
           $={{
             currentTopic: questionItem.$?.title,
           }}

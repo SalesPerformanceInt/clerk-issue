@@ -63,6 +63,7 @@ importers:
       postcss: ^8.4.21
       prettier: latest
       react: ^18.2.0
+      react-confetti: ^6.1.0
       react-dom: ^18.2.0
       remix-auth: ^3.4.0
       remix-auth-form: ^1.3.0
@@ -90,6 +91,7 @@ importers:
       glob: 10.0.0
       isbot: 3.6.8
       react: 18.2.0
+      react-confetti: 6.1.0_react@18.2.0
       react-dom: 18.2.0_react@18.2.0
       remix-auth: 3.4.0_nyeq57bzgvlvwld35fitcwaqyi
       remix-auth-form: 1.3.0_o5oabaop3dsgmzkyzxwxjjppni

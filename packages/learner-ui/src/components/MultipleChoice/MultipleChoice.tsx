@@ -27,7 +27,7 @@ export const MultipleChoice = ({
       <div className="mb-5">
         <MultipleChoiceSection
           text={question.prompt}
-          hidden={!selected}
+          hidden={Boolean(selected)}
           className="mb-5 text-sm"
           $={{ text: question.$?.prompt }}
         />
@@ -42,7 +42,7 @@ export const MultipleChoice = ({
 
         <MultipleChoiceSection
           text={question.instruction}
-          hidden={!selected}
+          hidden={Boolean(selected)}
           className="text-sm"
           $={{ text: question.$?.instruction }}
         />

@@ -15,11 +15,11 @@ module.exports = {
   ignoredRouteFiles: ["**/.*"],
   assetsBuildDirectory: "public/build",
 
-  serverBuildTarget: "vercel",
+  serverBuildPath: "api/index.js",
   server: process.env.NODE_ENV === "development" ? undefined : "./server.js",
 
-  serverDependenciesToBundle: ["accelerate-cms-ui"],
-  clientDependenciesToBundle: ["accelerate-cms-ui"],
+  serverDependenciesToBundle: ["accelerate-learner-ui"],
+  clientDependenciesToBundle: ["accelerate-learner-ui"],
 
   future: {
     unstable_tailwind: true,

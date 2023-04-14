@@ -5,6 +5,7 @@ import type { DataCslp, Metadata } from "~/utils/server";
  */
 
 export type TFQuestion = {
+  __typename?: string;
   tfquestion: {
     prompt: string;
     _metadata: Metadata;

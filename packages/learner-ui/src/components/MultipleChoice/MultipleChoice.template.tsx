@@ -2,7 +2,7 @@ import React, { useState } from "react";
 
 import type { Decorator } from "@storybook/react";
 
-import type { ChoiceData, ChoiceProps } from "~/components/Choice";
+import type { ChoiceItem } from "~/components/Choice";
 
 import type { MultipleChoiceProps } from "./MultipleChoice.types";
 
@@ -10,9 +10,9 @@ export const MultipleChoiceDecorator: Decorator<MultipleChoiceProps> = (
   Story,
   { args },
 ) => {
-  const [selected, setSelected] = useState<ChoiceData | null>(null);
+  const [selected, setSelected] = useState<ChoiceItem["choice"] | null>(null);
 
-  const onChoiceSelect = ({ choice }: Pick<ChoiceProps, "choice">) => {
+  const onChoiceSelect = ({ choice }: ChoiceItem) => {
     setSelected(selected ? null : choice);
   };
 

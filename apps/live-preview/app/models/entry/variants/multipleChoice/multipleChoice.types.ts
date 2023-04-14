@@ -1,3 +1,5 @@
+import type { ChoiceItem } from "accelerate-learner-ui";
+
 import type { DataCslp, Metadata } from "~/utils/server";
 
 /**
@@ -21,6 +23,7 @@ export type Choice = {
 };
 
 export type MCQuestion = {
+  __typename?: string;
   mcquestion: {
     prompt: string;
     _metadata: Metadata;
@@ -33,4 +36,5 @@ export type MCQuestion = {
       instruction: DataCslp;
     };
   };
+  selected: ChoiceItem["choice"];
 };

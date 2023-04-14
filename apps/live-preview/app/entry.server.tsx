@@ -1,6 +1,9 @@
-import { renderToString } from "react-dom/server";
+/* eslint-disable @typescript-eslint/unbound-method */
+import { PassThrough } from "stream";
 
-import type { EntryContext } from "@remix-run/node";
+import { renderToPipeableStream } from "react-dom/server";
+
+import { Response, type EntryContext } from "@remix-run/node";
 import { RemixServer } from "@remix-run/react";
 
 import { getCSENV } from "./utils/server/env.server";
@@ -13,14 +16,25 @@ export default function handleRequest(
   responseHeaders: Headers,
   remixContext: EntryContext,
 ) {
-  const markup = renderToString(
-    <RemixServer context={remixContext} url={request.url} />,
-  );
+  return new Promise((resolve) => {
+    const { pipe } = renderToPipeableStream(
+      <RemixServer context={remixContext} url={request.url} />,
+      {
+        onShellReady() {
+          const body = new PassThrough();
 
-  responseHeaders.set("Content-Type", "text/html");
+          responseHeaders.set("Content-Type", "text/html");
 
-  return new Response("<!DOCTYPE html>" + markup, {
-    headers: responseHeaders,
-    status: responseStatusCode,
+          resolve(
+            new Response(body, {
+              headers: responseHeaders,
+              status: responseStatusCode,
+            }),
+          );
+
+          pipe(body);
+        },
+      },
+    );
   });
 }

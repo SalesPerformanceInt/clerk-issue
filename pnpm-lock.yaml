@@ -55,7 +55,7 @@ importers:
       accelerate-learner-ui: workspace:*
       autoprefixer: ^10.4.14
       contentstack: ^3.17.0
-      contentstack-graphql: workspace:0.0.0
+      contentstack-graphql: workspace:*
       date-fns: ^2.29.3
       eslint: ^8.36.0
       glob: ^10.0.0

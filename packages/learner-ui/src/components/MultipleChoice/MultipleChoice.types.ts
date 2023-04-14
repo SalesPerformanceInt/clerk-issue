@@ -1,3 +1,5 @@
+import type { DataCslp } from "~/utils/liveEdit";
+
 import type { ChoiceItem } from "../Choice/Choice.types";
 
 export type MCQuestion = {
@@ -5,6 +7,11 @@ export type MCQuestion = {
   stem: string;
   instruction: string;
   choices: ChoiceItem[];
+  $?: {
+    prompt?: DataCslp;
+    stem?: DataCslp;
+    instruction?: DataCslp;
+  };
 };
 
 export type MultipleChoiceProps = {

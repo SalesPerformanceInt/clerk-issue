@@ -8,6 +8,7 @@ import type { MultipleChoiceSectionProps } from "./MultipleChoiceSection.types";
 export const MultipleChoiceSection = ({
   text,
   feedback,
+  $,
 }: MultipleChoiceSectionProps) => {
   if (feedback || !text) return null;
 
@@ -19,6 +20,7 @@ export const MultipleChoiceSection = ({
         initial="initial"
         animate="animate"
         exit="exit"
+        {...$?.text}
       >
         {text}
       </motion.p>

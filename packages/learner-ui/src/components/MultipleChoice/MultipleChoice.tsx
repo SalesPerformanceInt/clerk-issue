@@ -29,6 +29,7 @@ export const MultipleChoice = ({
           text={question.prompt}
           feedback={isFeedbackActive}
           className="mb-5 text-sm"
+          $={{ text: question.$?.prompt }}
         />
 
         <div
@@ -36,12 +37,14 @@ export const MultipleChoice = ({
           dangerouslySetInnerHTML={{
             __html: question.stem ?? "",
           }}
+          {...question.$?.stem}
         />
 
         <MultipleChoiceSection
           text={question.instruction}
           feedback={isFeedbackActive}
           className="text-sm"
+          $={{ text: question.$?.instruction }}
         />
       </div>
 

@@ -27,13 +27,17 @@ export const MultipleChoiceFeedback = ({
             opacity: 1,
             transition: { delay: 0.5, duration: 0.25 },
           }}
+          {...selected.$?.feedback}
         >
           <>
             <img className="h-5 w-5 rounded-full" alt="close" src={icon} />
 
-            <p className={classNames("text-sm font-bold", color)}>
-              {feedbackText}
-            </p>
+            <p
+              className={classNames("text-sm font-bold", color)}
+              dangerouslySetInnerHTML={{
+                __html: selected.feedback || feedbackText,
+              }}
+            />
           </>
         </motion.div>
       </AnimatePresence>

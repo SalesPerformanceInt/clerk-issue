@@ -5,7 +5,7 @@ export const choiceFeedback = new MatchedMap([
     true,
     {
       feedbackText: "Correct",
-      icon: "green-check-medalion.svg",
+      icon: "/green-check-medalion.svg",
       color: "text-lime-700",
     },
   ],
@@ -13,7 +13,7 @@ export const choiceFeedback = new MatchedMap([
     false,
     {
       feedbackText: "Incorrect",
-      icon: "red-circle-x.svg",
+      icon: "/red-circle-x.svg",
       color: "text-orange-700",
     },
   ],

@@ -28,7 +28,12 @@ export const QuestionItem = ({ entryData }: QuestionItemProps) => {
   return (
     <div className="flex w-full scale-100 justify-center overflow-hidden bg-indigo-950 pb-4">
       <Container>
-        <Header currentTopic={questionItem.title} />
+        <Header
+          currentTopic={questionItem.title}
+          $={{
+            currentTopic: questionItem.$?.title,
+          }}
+        />
 
         {variants.map(({ VariantComponent, variantData, variantId }) => (
           <VariantComponent

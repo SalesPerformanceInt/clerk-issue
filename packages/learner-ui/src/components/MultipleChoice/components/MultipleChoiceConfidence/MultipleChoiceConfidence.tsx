@@ -26,7 +26,7 @@ export const MultipleChoiceConfidence = ({
         <img
           className="h-5 w-5 rounded-full"
           alt="close"
-          src="arrow-circle-left.svg"
+          src="/arrow-circle-left.svg"
         />
         <p className="text-neutral-70 text-sm">Choose another answer</p>
       </motion.button>

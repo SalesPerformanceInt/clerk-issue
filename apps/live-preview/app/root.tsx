@@ -9,9 +9,8 @@ import {
 } from "@remix-run/react";
 
 import contentStackStyles from "@contentstack/live-preview-utils/dist/main.css";
+import uiStyles from "accelerate-learner-ui/dist/index.css";
 import tailwind from "~/tailwind.css";
-
-import uiStyles from "accelerate-cms-ui/dist/index.css";
 
 export const links: LinksFunction = () => [
   { rel: "stylesheet", href: tailwind },
@@ -32,7 +31,7 @@ export default function App() {
         <Meta />
         <Links />
       </head>
-      <body className="flex flex-wrap">
+      <body className="flex pb-20">
         <Outlet />
 
         <ScrollRestoration />

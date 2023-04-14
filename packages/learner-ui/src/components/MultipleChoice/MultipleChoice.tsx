@@ -23,7 +23,7 @@ export const MultipleChoice = ({
   });
 
   return (
-    <div className="flex-1 rounded-t-3xl bg-white p-8">
+    <div className="flex-1 rounded-3xl bg-white p-8">
       <div className="mb-5">
         <MultipleChoiceSection
           text={question.prompt}
@@ -62,6 +62,7 @@ export const MultipleChoice = ({
         <MultipleChoiceFeedback
           feedback={isFeedbackActive}
           selected={selected}
+          onGoBackClick={onGoBackClick}
         />
       </div>
     </div>

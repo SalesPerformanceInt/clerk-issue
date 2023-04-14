@@ -4,7 +4,7 @@ import { Suspense } from "react";
 import { defer, type LoaderArgs } from "@remix-run/node";
 import { Await, useLoaderData } from "@remix-run/react";
 
-import { MatchedMap } from "~/utils/matchedMap";
+import { MatchedMap } from "accelerate-learner-ui";
 
 import { questionItemMock } from "~/mocks/questionItem";
 import { getEntry } from "~/models/entry";
@@ -27,10 +27,10 @@ const entryComponentMap = new MatchedMap<
  * Route Loader
  */
 
-export const loader = async ({ request, params }: LoaderArgs) => {
-  const { entryData } = await getEntry({ request, params });
+export const loader = ({ request, params }: LoaderArgs) => {
+  const entryDataPromise = getEntry({ request, params });
 
-  return defer({ entryData });
+  return defer({ entryDataPromise });
 };
 
 /**
@@ -38,18 +38,19 @@ export const loader = async ({ request, params }: LoaderArgs) => {
  */
 
 export default function Env() {
-  const { entryData } = useLoaderData<typeof loader>();
-  const mockedEntryData = questionItemMock;
-
-  console.log({ entryData, mockedEntryData });
+  const { entryDataPromise } = useLoaderData<typeof loader>();
 
   return (
     <Suspense fallback={<></>}>
-      <Await resolve={entryData}>
-        {(entryData) => {
-          const Entry = entryComponentMap.get(entryData.content_type?.uid);
+      <Await resolve={entryDataPromise}>
+        {({ entryData }) => {
+          const currentEntryData = entryData ?? questionItemMock;
 
-          return <Entry entryData={mockedEntryData} />;
+          const Entry = entryComponentMap.get(
+            currentEntryData.content_type?.uid,
+          );
+
+          return <Entry entryData={currentEntryData} />;
         }}
       </Await>
     </Suspense>

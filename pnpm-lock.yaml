@@ -52,7 +52,7 @@ importers:
       '@types/react': ^18.0.28
       '@types/react-dom': ^18.0.11
       '@vercel/node': ^2.9.13
-      accelerate-cms-ui: workspace:0.0.0
+      accelerate-learner-ui: workspace:*
       autoprefixer: ^10.4.14
       contentstack: ^3.17.0
       contentstack-graphql: workspace:0.0.0
@@ -84,7 +84,7 @@ importers:
       '@tanstack/react-table': 8.8.5_biqbaboplfbrettd7655fr4n2y
       '@types/node': 18.15.11
       '@vercel/node': 2.10.3
-      accelerate-cms-ui: link:../../packages/ui
+      accelerate-learner-ui: link:../../packages/learner-ui
       contentstack: 3.17.0
       contentstack-graphql: link:../../packages/contentstack-graphql
       glob: 10.0.0

@@ -1,16 +1,16 @@
-import type { ChoiceData, ChoiceProps } from "../Choice/Choice.types";
+import type { ChoiceItem } from "../Choice/Choice.types";
 
 export type MCQuestion = {
   prompt: string;
   stem: string;
   instruction: string;
-  choices: Pick<ChoiceProps, "choice">[];
+  choices: ChoiceItem[];
 };
 
 export type MultipleChoiceProps = {
   question: MCQuestion;
-  selected: ChoiceData | null;
+  selected: ChoiceItem["choice"] | null;
   showConfidence: boolean;
-  onChoiceSelect: ({ choice }: Pick<ChoiceProps, "choice">) => void;
+  onChoiceSelect: ({ choice }: ChoiceItem) => void;
   onGoBackClick: () => void;
 };

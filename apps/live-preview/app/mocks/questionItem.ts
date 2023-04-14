@@ -2,6 +2,9 @@ export const questionItemMock = {
   client_list: null,
   key_behavior: null,
   title: "What is the name of a baby turkey?",
+  content_type: {
+    uid: "questionitem",
+  },
   variants: [
     {
       __typename: "QuestionitemVariantsMcquestion",
@@ -10,37 +13,37 @@ export const questionItemMock = {
           {
             __typename: "QuestionitemVariantsMcquestionBlockChoicesChoice",
             choice: {
-              body: null,
-              correct: null,
-              feedback: null,
-              points: null,
+              body: "Poult. Aenean pellentesque nulla vel tortor aliquet, vitae maximus elit lacinia. Etiam sed convallis lectus. In tristique ultrices vulputate. Curabitur faucibus pulvinar nisl. Integer vel quam magna.",
+              correct: true,
+              feedback: "Yep!",
+              points: 4,
             },
           },
           {
             __typename: "QuestionitemVariantsMcquestionBlockChoicesChoice",
             choice: {
-              body: null,
-              correct: null,
-              feedback: null,
-              points: null,
+              body: "Chick. Cras non nibh ut sapien fringilla efficitur non sit amet nulla. Pellentesque vel condimentum sapien. In euismod sapien nec vulputate tempor. In et nisi sapien.",
+              correct: false,
+              feedback: "Nope",
+              points: 0,
             },
           },
           {
             __typename: "QuestionitemVariantsMcquestionBlockChoicesChoice",
             choice: {
-              body: null,
-              correct: null,
-              feedback: null,
-              points: null,
+              body: "Hatchling",
+              correct: false,
+              feedback: "Sorry",
+              points: 0,
             },
           },
           {
             __typename: "QuestionitemVariantsMcquestionBlockChoicesChoice",
             choice: {
-              body: null,
-              correct: null,
-              feedback: null,
-              points: null,
+              body: "Giblet. Nullam lacinia quam ante. Ut tincidunt quis nibh ut posuere.",
+              correct: false,
+              feedback: "Not quite.",
+              points: 0,
             },
           },
         ],
@@ -55,7 +58,7 @@ export const questionItemMock = {
         correct: true,
         feedback: "<p>You got it right</p>",
         incorrect_feedback: null,
-        instruction: "",
+        instruction: "Is the following statement correct?",
         points: 10,
         prompt: "",
         stem: '<p>A baby turkey is called a "poult".</p>',

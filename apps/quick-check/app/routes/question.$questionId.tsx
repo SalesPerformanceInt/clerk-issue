@@ -70,6 +70,8 @@ export default function Page() {
   const totalScore = 1200;
   const topicPercentage = 77;
 
+  console.log("mcquestion.mcquestion", mcquestion.mcquestion);
+
   return (
     <>
       <div className="flex min-h-screen w-full justify-center bg-indigo-950">

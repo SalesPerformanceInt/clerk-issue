@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "sb": "storybook dev -p 6006",
-    "dev": "npm run build -- --watch",
+    "dev": "concurrently \"pnpm run build -- --watch\" \"pnpm run codegen --watch\"",
     "build": "tsup src/index.tsx --format esm,cjs --dts --external react",
     "clean": "rimraf dist storybook-static",
     "codegen": "graphql-codegen"

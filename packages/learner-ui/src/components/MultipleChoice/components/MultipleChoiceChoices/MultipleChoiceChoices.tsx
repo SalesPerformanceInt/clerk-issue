@@ -14,12 +14,16 @@ export const MultipleChoiceChoices = ({
   feedback,
   onChoiceSelect,
 }: MultipleChoiceChoicesProps) => {
+  if (!choices) return null;
   return (
     <AnimatePresence initial={false}>
       {choices
-        .filter(({ choice }) => !selected || hash(choice) === hash(selected))
-        .map(({ choice }) => {
-          const choiceHash = hash(choice);
+        ?.filter(
+          (choice) =>
+            !selected || hash(choice?.choice ?? "") === hash(selected),
+        )
+        .map((choice) => {
+          const choiceHash = hash(choice?.choice ?? "");
 
           return (
             <motion.div
@@ -31,10 +35,10 @@ export const MultipleChoiceChoices = ({
               exit="exit"
             >
               <Choice
-                choice={choice}
+                choice={choice?.choice}
                 selected={choiceHash === hash(selected)}
                 disabled={feedback}
-                onClick={() => onChoiceSelect({ choice })}
+                onClick={() => onChoiceSelect({ choice: choice?.choice })}
               />
             </motion.div>
           );

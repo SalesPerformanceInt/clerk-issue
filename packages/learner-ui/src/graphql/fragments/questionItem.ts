@@ -1,16 +1,27 @@
 import { graphql } from "~/generated";
 
-export const QuestionitemVariantsMcquestionFragment = graphql(/* GraphQL */ `
-  fragment QuestionitemVariantsMcquestionFragment on QuestionitemVariantsMcquestion {
-    __typename
-    mcquestion {
-      choices {
-        ...QuestionitemVariantsMcquestionBlockChoicesFragment
-      }
-      instruction
-      prompt
-      stem
+// export const QuestionitemVariantsMcquestionFragment = graphql(/* GraphQL */ `
+//   fragment QuestionitemVariantsMcquestionFragment on QuestionitemVariantsMcquestion {
+//     __typename
+//     mcquestion {
+//       choices {
+//         ...QuestionitemVariantsMcquestionBlockChoicesFragment
+//       }
+//       instruction
+//       prompt
+//       stem
+//     }
+//   }
+// `);
+
+export const MCQuestionFragment = graphql(/* GraphQL */ `
+  fragment MCQuestionFragment on QuestionitemVariantsMcquestionBlock {
+    choices {
+      ...QuestionitemVariantsMcquestionBlockChoicesFragment
     }
+    instruction
+    prompt
+    stem
   }
 `);
 
@@ -42,23 +53,15 @@ export const QuestionitemVariantsTfquestionFragment = graphql(/* GraphQL */ `
   }
 `);
 
-export const QuestionitemVariantsFragment = graphql(/* GraphQL */ `
-  fragment QuestionitemVariantsFragment on QuestionitemVariants {
-    ... on QuestionitemVariantsMcquestion {
-      ...QuestionitemVariantsMcquestionFragment
-    }
-    ... on QuestionitemVariantsTfquestion {
-      ...QuestionitemVariantsTfquestionFragment
-    }
-  }
-`);
-
 export const QuestionItemFragment = graphql(/* GraphQL */ `
   fragment QuestionItemFragment on Questionitem {
     title
     variants {
       ... on QuestionitemVariantsMcquestion {
-        ...QuestionitemVariantsMcquestionFragment
+        __typename
+        mcquestion {
+          ...MCQuestionFragment
+        }
       }
       ... on QuestionitemVariantsTfquestion {
         ...QuestionitemVariantsTfquestionFragment

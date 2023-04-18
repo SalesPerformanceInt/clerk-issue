@@ -1,9 +1,8 @@
-import type {
-  MCQuestion,
-  MultipleChoiceProps,
-} from "../../MultipleChoice.types";
+import { McQuestionFragmentFragment } from "~/generated/graphql";
+
+import type { MultipleChoiceProps } from "../../MultipleChoice.types";
 
 export type MultipleChoiceChoicesProps = {
   feedback: boolean;
 } & Pick<MultipleChoiceProps, "selected" | "onChoiceSelect"> &
-  Pick<MCQuestion, "choices">;
+  Pick<McQuestionFragmentFragment, "choices">;

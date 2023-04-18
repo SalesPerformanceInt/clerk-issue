@@ -1,0 +1,2 @@
+schema: "packages/learner-ui/src/generated/schema.graphql"
+documents: "packages/learner-ui/src/graphql/**/*.ts"

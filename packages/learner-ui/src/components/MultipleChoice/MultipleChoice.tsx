@@ -15,6 +15,9 @@ export const MultipleChoice = ({
   showConfidence,
   onChoiceSelect,
   onGoBackClick,
+  currentTopic,
+  totalScore,
+  topicPercentage,
 }: MultipleChoiceProps) => {
   const { choices, isFeedbackActive } = useMultipleChoices({
     question,
@@ -62,6 +65,9 @@ export const MultipleChoice = ({
         <MultipleChoiceFeedback
           feedback={isFeedbackActive}
           selected={selected}
+          currentTopic={currentTopic}
+          totalScore={totalScore}
+          topicPercentage={topicPercentage}
         />
       </div>
     </div>

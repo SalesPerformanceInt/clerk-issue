@@ -14,6 +14,9 @@ ChartJS.register(ArcElement);
 export const MultipleChoiceFeedback = ({
   feedback,
   selected,
+  currentTopic,
+  totalScore,
+  topicPercentage,
 }: MultipleChoiceFeedbackProps) => {
   return (
     <AnimatePresence>
@@ -60,13 +63,14 @@ export const MultipleChoiceFeedback = ({
           )}
           <div className="mt-6 flex flex-col items-center">
             <p>
-              Total Score: <strong className="text-lime-700">{1200}</strong>
+              Total Score:{" "}
+              <strong className="text-lime-700">{totalScore}</strong>
             </p>
           </div>
           <div className="flex items-center justify-between">
             <div className="flex-col">
               <p className="text-sm font-bold">Mastery:</p>
-              <p className="text-lg">Access Power</p>
+              <p className="text-lg">{currentTopic}</p>
             </div>
             <div className="relative h-32 w-32">
               <Doughnut
@@ -74,7 +78,7 @@ export const MultipleChoiceFeedback = ({
                 data={{
                   datasets: [
                     {
-                      data: [77, 23],
+                      data: [topicPercentage, 100 - topicPercentage],
                       backgroundColor: [
                         "rgba(229, 229, 229, 1)",
                         "rgba(229, 229, 229, 0)",
@@ -89,7 +93,7 @@ export const MultipleChoiceFeedback = ({
                 }}
               />
               <p className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 text-2xl font-bold text-neutral-400">
-                75%
+                {`${topicPercentage}%`}
               </p>
             </div>
           </div>

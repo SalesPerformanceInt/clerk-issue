@@ -12,4 +12,7 @@ export type MultipleChoiceProps = {
   showConfidence: boolean;
   onChoiceSelect: ({ choice }: Pick<ChoiceProps, "choice">) => void;
   onGoBackClick?: () => void;
+  currentTopic: string;
+  totalScore: number;
+  topicPercentage: number;
 };

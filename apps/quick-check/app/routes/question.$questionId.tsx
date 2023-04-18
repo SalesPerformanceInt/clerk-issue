@@ -66,17 +66,24 @@ export default function Page() {
     setShowConfidence(false);
   };
 
+  const currentTopic = "Foo Bar the Topic";
+  const totalScore = 1200;
+  const topicPercentage = 77;
+
   return (
     <>
       <div className="flex min-h-screen w-full justify-center bg-indigo-950">
         <Container>
-          <Header currentTopic="Foo Bar the Topic" />
+          <Header currentTopic={currentTopic} />
           <MultipleChoice
             question={mcquestion.mcquestion}
             selected={selected}
             onChoiceSelect={onChoiceSelect}
             showConfidence={showConfidence}
             onGoBackClick={onGoBackClick}
+            currentTopic={currentTopic}
+            topicPercentage={topicPercentage}
+            totalScore={totalScore}
           />
           <ConfidenceModal
             show={showConfidence}

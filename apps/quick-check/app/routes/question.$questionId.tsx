@@ -61,6 +61,11 @@ export default function Page() {
     }
   };
 
+  const onGoBackClick = () => {
+    setSelected(null);
+    setShowConfidence(false);
+  };
+
   return (
     <>
       <div className="flex min-h-screen w-full justify-center bg-indigo-950">
@@ -71,6 +76,7 @@ export default function Page() {
             selected={selected}
             onChoiceSelect={onChoiceSelect}
             showConfidence={showConfidence}
+            onGoBackClick={onGoBackClick}
           />
           <ConfidenceModal
             show={showConfidence}

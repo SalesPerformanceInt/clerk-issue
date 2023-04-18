@@ -1,19 +1,5 @@
 import { graphql } from "~/generated";
 
-// export const QuestionitemVariantsMcquestionFragment = graphql(/* GraphQL */ `
-//   fragment QuestionitemVariantsMcquestionFragment on QuestionitemVariantsMcquestion {
-//     __typename
-//     mcquestion {
-//       choices {
-//         ...QuestionitemVariantsMcquestionBlockChoicesFragment
-//       }
-//       instruction
-//       prompt
-//       stem
-//     }
-//   }
-// `);
-
 export const MCQuestionFragment = graphql(/* GraphQL */ `
   fragment MCQuestionFragment on QuestionitemVariantsMcquestionBlock {
     choices {

@@ -17,7 +17,7 @@ module.exports = {
   // so we default back to the standard build output.
   server: process.env.NODE_ENV === "development" ? undefined : "./server.js",
   serverBuildPath: "api/index.js",
-  devServerPort: 4010,
+  devServerPort: 4011,
   // appDirectory: "app",
   // assetsBuildDirectory: "public/build",
   // publicPath: "/build/",
@@ -29,7 +29,12 @@ module.exports = {
     unstable_tailwind: true,
   },
 
-  serverDependenciesToBundle: ["accelerate-learner-ui", "@apollo/client"],
+  serverDependenciesToBundle: [
+    "accelerate-learner-ui",
+    "@apollo/client",
+    "ts-invariant",
+    "zen-observable-ts",
+  ],
   clientDependenciesToBundle: ["accelerate-learner-ui"],
 
   watchPaths: packages,

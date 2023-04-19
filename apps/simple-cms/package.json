@@ -3,7 +3,7 @@
   "private": true,
   "sideEffects": false,
   "scripts": {
-    "dev": "remix dev",
+    "dev": "PORT=4020 remix dev",
     "build": "remix build",
     "typecheck": "tsc"
   },

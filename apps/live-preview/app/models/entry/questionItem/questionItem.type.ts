@@ -1,5 +1,5 @@
 import type { EntryLivePreviewData } from "../entry.types";
-import type { MCQuestion } from "../variants/multipleChoice";
+import type { MCQuestionVariant } from "../variants/multipleChoice";
 import type { TFQuestion } from "../variants/trueOrFalse";
 
 /**
@@ -7,5 +7,5 @@ import type { TFQuestion } from "../variants/trueOrFalse";
  */
 
 export type QuestionItemData = EntryLivePreviewData & {
-  variants: (MCQuestion | TFQuestion)[];
+  variants: (MCQuestionVariant | TFQuestion)[];
 };

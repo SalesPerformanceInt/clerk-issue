@@ -17,8 +17,9 @@ module.exports = {
 
   serverBuildPath: "api/index.js",
   server: process.env.NODE_ENV === "development" ? undefined : "./server.js",
+  devServerPort: 4000,
 
-  serverDependenciesToBundle: ["accelerate-learner-ui"],
+  serverDependenciesToBundle: ["accelerate-learner-ui", "@apollo/client"],
   clientDependenciesToBundle: ["accelerate-learner-ui"],
 
   future: {

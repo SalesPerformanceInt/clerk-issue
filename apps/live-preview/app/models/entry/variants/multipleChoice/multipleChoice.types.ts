@@ -1,6 +1,6 @@
-import type { DataCslp, Metadata } from "~/utils/server";
+import type { ChoiceData, MCQuestion } from "accelerate-learner-ui";
 
-export type { MCQuestion } from "accelerate-learner-ui";
+import type { DataCslp, Metadata } from "~/utils/server";
 
 /**
  * Multiple Choice Typings
@@ -20,4 +20,10 @@ export type Choice = {
       feedback: DataCslp;
     };
   };
+};
+
+export type MCQuestionVariant = {
+  __typename?: string;
+  mcquestion: MCQuestion;
+  selected: ChoiceData | null;
 };

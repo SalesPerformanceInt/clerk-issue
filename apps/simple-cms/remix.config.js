@@ -17,6 +17,7 @@ module.exports = {
 
   serverBuildTarget: "vercel",
   server: process.env.NODE_ENV === "development" ? undefined : "./server.js",
+  devServerPort: 4020,
 
   serverDependenciesToBundle: ["accelerate-cms-ui"],
   clientDependenciesToBundle: ["accelerate-cms-ui"],

@@ -17,5 +17,5 @@
     "noUncheckedIndexedAccess": true
   },
   "include": [".eslintrc.js"],
-  "exclude": ["**/dist"]
+  "exclude": ["**/dist", "**/node_modules", "**/.turbo", "**/cache"]
 }

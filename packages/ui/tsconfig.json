@@ -14,6 +14,5 @@
     "**/*.mjs",
     "tailwind.config.cjs",
     "postcss.config.cjs"
-  ],
-  "exclude": []
+  ]
 }

@@ -46,6 +46,7 @@ export const MultipleChoiceFeedback = ({
             )}
           </div>
           <div
+            {...selected.$?.feedback}
             className="mt-6 text-sm"
             dangerouslySetInnerHTML={{ __html: selected.feedback ?? "" }}
           />

@@ -6,7 +6,7 @@ import { WhiteCircleX } from "~/components/images/WhiteCircleX";
 
 import type { HeaderProps } from "./Header.types";
 
-export const Header = ({ currentTopic }: HeaderProps) => {
+export const Header = ({ currentTopic, $ }: HeaderProps) => {
   return (
     <div className="flex flex-col flex-wrap bg-indigo-950 px-5 pb-3 pt-4">
       <Link to="/logout" className="items-cente flex p-2">
@@ -14,7 +14,7 @@ export const Header = ({ currentTopic }: HeaderProps) => {
       </Link>
 
       <div className="self-end">
-        <p className="text-white">
+        <p className="text-white" {...$?.currentTopic}>
           Current Topic: <strong> {currentTopic} </strong>
         </p>
       </div>

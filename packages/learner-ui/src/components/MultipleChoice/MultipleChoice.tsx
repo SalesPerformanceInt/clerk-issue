@@ -26,25 +26,28 @@ export const MultipleChoice = ({
   });
 
   return (
-    <div className="flex-1 rounded-t-3xl bg-white p-8">
+    <div className="flex-1 rounded-3xl bg-white p-8">
       <div className="mb-5">
         <MultipleChoiceSection
           text={question.prompt}
-          feedback={isFeedbackActive}
+          hidden={Boolean(selected)}
           className="mb-5 text-sm"
+          $={{ text: question.$?.prompt }}
         />
 
         <div
-          className="mb-6 [&>*]:!mb-4 [&>*]:max-w-full [&>p]:text-sm first:[&>p]:text-2xl"
+          className="question-stem mb-6 [&>*]:!mb-4 [&>*]:max-w-full [&>p]:text-2xl"
           dangerouslySetInnerHTML={{
             __html: question.stem ?? "",
           }}
+          {...question.$?.stem}
         />
 
         <MultipleChoiceSection
           text={question.instruction}
-          feedback={isFeedbackActive}
+          hidden={Boolean(selected)}
           className="text-sm"
+          $={{ text: question.$?.instruction }}
         />
       </div>
 

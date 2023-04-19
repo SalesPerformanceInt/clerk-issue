@@ -1,17 +1,23 @@
 import { McQuestionFragmentFragment } from "~/generated/graphql";
 
-import type { ChoiceData, ChoiceProps } from "../Choice/Choice.types";
+import type { DataCslp } from "~/utils/liveEdit";
 
-export type Y = McQuestionFragmentFragment;
+import type { ChoiceData, ChoiceItem } from "../Choice/Choice.types";
 
-export type OnChoiceSelect = ({ choice }: Pick<ChoiceProps, "choice">) => void;
+export type MCQuestion = McQuestionFragmentFragment & {
+  $?: {
+    prompt?: DataCslp;
+    stem?: DataCslp;
+    instruction?: DataCslp;
+  };
+};
 
 export type MultipleChoiceProps = {
-  question: McQuestionFragmentFragment;
+  question: MCQuestion;
   selected: ChoiceData | null;
   showConfidence: boolean;
-  onChoiceSelect: ({ choice }: Pick<ChoiceProps, "choice">) => void;
-  onGoBackClick?: () => void;
+  onChoiceSelect: ({ choice }: ChoiceItem) => void;
+  onGoBackClick: () => void;
   currentTopic: string;
   totalScore: number;
   topicPercentage: number;

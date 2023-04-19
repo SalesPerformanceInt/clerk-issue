@@ -1,10 +1,10 @@
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import { Suspense } from "react";
 
-import { defer, type LoaderArgs } from "@remix-run/node";
-import { Await, useLoaderData } from "@remix-run/react";
+import { json, type LoaderArgs } from "@remix-run/node";
+import { useLoaderData } from "@remix-run/react";
 
-import { MatchedMap } from "~/utils/matchedMap";
+import { MatchedMap } from "accelerate-learner-ui";
 
 import { questionItemMock } from "~/mocks/questionItem";
 import { getEntry } from "~/models/entry";
@@ -30,7 +30,7 @@ const entryComponentMap = new MatchedMap<
 export const loader = async ({ request, params }: LoaderArgs) => {
   const { entryData } = await getEntry({ request, params });
 
-  return defer({ entryData });
+  return json({ entryData });
 };
 
 /**
@@ -39,19 +39,14 @@ export const loader = async ({ request, params }: LoaderArgs) => {
 
 export default function Env() {
   const { entryData } = useLoaderData<typeof loader>();
-  const mockedEntryData = questionItemMock;
 
-  console.log({ entryData, mockedEntryData });
+  const currentEntryData = entryData ?? questionItemMock;
+
+  const Entry = entryComponentMap.get(currentEntryData.content_type?.uid);
 
   return (
     <Suspense fallback={<></>}>
-      <Await resolve={entryData}>
-        {(entryData) => {
-          const Entry = entryComponentMap.get(entryData.content_type?.uid);
-
-          return <Entry entryData={mockedEntryData} />;
-        }}
-      </Await>
+      <Entry entryData={currentEntryData} />
     </Suspense>
   );
 }

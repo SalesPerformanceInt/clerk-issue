@@ -8,7 +8,8 @@
     "dev": "concurrently \"pnpm run build --watch\" \"pnpm run codegen --watch\"",
     "build": "tsup src/index.tsx --format esm,cjs --dts --external react",
     "clean": "rimraf dist storybook-static",
-    "codegen": "graphql-codegen"
+    "codegen": "graphql-codegen",
+    "typecheck": "tsc"
   },
   "dependencies": {
     "@apollo/client": "^3.7.11",

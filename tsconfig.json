@@ -16,5 +16,6 @@
     "jsx": "preserve",
     "noUncheckedIndexedAccess": true
   },
-  "include": [".eslintrc.js"]
+  "include": [".eslintrc.js"],
+  "exclude": ["**/dist"]
 }

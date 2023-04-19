@@ -27,6 +27,7 @@ export const Choice = ({
         [unselectedStyles]: !selected,
       })}
       dangerouslySetInnerHTML={{ __html: choice.body ?? "" }}
+      {...choice.$?.body}
     />
   );
 };

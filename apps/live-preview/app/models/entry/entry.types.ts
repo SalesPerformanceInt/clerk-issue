@@ -31,3 +31,8 @@ export type EntryLivePreviewData = {
   content_type?: { uid: string };
   $?: { title: DataCslp };
 };
+
+export type EntryLivePreviewVariant = {
+  __typename?: string;
+  [key: string]: unknown;
+};

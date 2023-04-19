@@ -1,8 +1,13 @@
-import { McQuestionFragmentFragment } from "~/generated/graphql";
+import type { Expand } from "~/utils/expand";
 
-import type { MultipleChoiceProps } from "../../MultipleChoice.types";
+import type {
+  MCQuestion,
+  MultipleChoiceProps,
+} from "../../MultipleChoice.types";
 
-export type MultipleChoiceChoicesProps = {
-  feedback: boolean;
-} & Pick<MultipleChoiceProps, "selected" | "onChoiceSelect"> &
-  Pick<McQuestionFragmentFragment, "choices">;
+export type MultipleChoiceChoicesProps = Expand<
+  {
+    feedback: boolean;
+  } & Pick<MultipleChoiceProps, "selected" | "onChoiceSelect"> &
+    Pick<MCQuestion, "choices">
+>;

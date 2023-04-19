@@ -9,7 +9,7 @@ export const Confetti: FC<RCConfettiProps> = (props) => {
     setLoaded(true);
   }, []);
 
-  return loaded ? (
-    <RCConfetti width={width} height={height} {...props} />
-  ) : null;
+  if (!loaded) return null;
+
+  return <RCConfetti width={width} height={height} {...props} />;
 };

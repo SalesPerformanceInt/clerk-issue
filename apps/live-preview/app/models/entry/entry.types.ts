@@ -25,6 +25,7 @@ export type GetEntryProps = GetEntryQueryProps &
  * Entry Live Preview Data
  */
 
+// Maybe
 export type EntryLivePreviewData = {
   title: string;
   uid?: string;

@@ -1,11 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React, { FC, useEffect, useState } from "react";
 import RCConfetti, { type Props as RCConfettiProps } from "react-confetti";
 import { useWindowSize } from "react-use";
 
-export const Confetti = (props: RCConfettiProps) => {
-  const [loaded, setLoaded] = useState(false);
+export const Confetti: FC<RCConfettiProps> = (props) => {
   const { width, height } = useWindowSize();
-
+  const [loaded, setLoaded] = useState(false);
   useEffect(() => {
     setLoaded(true);
   }, []);

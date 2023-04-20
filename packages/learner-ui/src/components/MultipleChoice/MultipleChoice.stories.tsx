@@ -13,18 +13,28 @@ type Story = StoryObj<typeof meta>;
 
 export const MultipleChoice = {
   args: {
+    currentTopic: "Foo Bar the Topic",
+    totalScore: 1200,
+    topicPercentage: 77,
     question: {
+      __typename: "QuestionitemVariantsMcquestionBlock",
       choices: [
         {
+          __typename: "QuestionitemVariantsMcquestionBlockChoicesChoice",
           choice: {
+            __typename: "QuestionitemVariantsMcquestionBlockChoicesChoiceBlock",
             body: "Choice 1",
             correct: true,
+            feedback: "Feedback for Chocie 1.",
           },
         },
         {
+          __typename: "QuestionitemVariantsMcquestionBlockChoicesChoice",
           choice: {
+            __typename: "QuestionitemVariantsMcquestionBlockChoicesChoiceBlock",
             body: "Choice 2",
             correct: false,
+            feedback: "Feedback for Chocie 2.",
           },
         },
       ],

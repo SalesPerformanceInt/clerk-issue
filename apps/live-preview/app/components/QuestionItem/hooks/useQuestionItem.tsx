@@ -1,6 +1,7 @@
 import { useMemo, useState } from "react";
 
 import type {
+  QuestionItemChoice,
   QuestionItemData,
   QuestionItemSelected,
   QuestionItemVariantList,
@@ -48,8 +49,8 @@ export const useQuestionItem = ({ questionItem }: UseQuestionItemProps) => {
    * UseQuestionItem Handlers
    */
 
-  const onVariantSelect = (variantChoice: QuestionItemSelected) => {
-    setSelected(selected ? null : variantChoice);
+  const onVariantSelect = ({ choice }: QuestionItemChoice) => {
+    setSelected(selected ? null : choice);
 
     setShowConfidence(!showConfidence);
   };

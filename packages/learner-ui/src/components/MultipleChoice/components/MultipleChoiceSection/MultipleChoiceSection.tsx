@@ -10,20 +10,20 @@ export const MultipleChoiceSection = ({
   hidden,
   $,
 }: MultipleChoiceSectionProps) => {
-  if (hidden || !text) return null;
-
   return (
     <AnimatePresence initial={false}>
-      <motion.p
-        className="mb-5 text-sm"
-        variants={fadeAndCollapse}
-        initial="initial"
-        animate="animate"
-        exit="exit"
-        {...$?.text}
-      >
-        {text}
-      </motion.p>
+      {!hidden && text && (
+        <motion.p
+          className="mb-5 text-sm"
+          variants={fadeAndCollapse}
+          initial="initial"
+          animate="animate"
+          exit="exit"
+          {...$?.text}
+        >
+          {text}
+        </motion.p>
+      )}
     </AnimatePresence>
   );
 };

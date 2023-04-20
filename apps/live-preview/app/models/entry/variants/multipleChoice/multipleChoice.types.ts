@@ -1,4 +1,4 @@
-import type { ChoiceItem } from "accelerate-learner-ui";
+import type { ChoiceData, MCQuestion } from "accelerate-learner-ui";
 
 import type { DataCslp, Metadata } from "~/utils/server";
 
@@ -22,19 +22,8 @@ export type Choice = {
   };
 };
 
-export type MCQuestion = {
+export type MCQuestionVariant = {
   __typename?: string;
-  mcquestion: {
-    prompt: string;
-    _metadata: Metadata;
-    stem: string;
-    instruction: string;
-    choices: Choice[];
-    $: {
-      prompt: DataCslp;
-      stem: DataCslp;
-      instruction: DataCslp;
-    };
-  };
-  selected: ChoiceItem["choice"];
+  mcquestion: MCQuestion;
+  selected: ChoiceData | null;
 };

@@ -1,23 +1,29 @@
+import { McQuestionFragmentFragment } from "~/generated/graphql";
+
+import type { Expand } from "~/utils/expand";
 import type { DataCslp } from "~/utils/liveEdit";
 
-import type { ChoiceItem } from "../Choice/Choice.types";
+import type { ChoiceData, ChoiceItem } from "../Choice/Choice.types";
 
-export type MCQuestion = {
-  prompt: string;
-  stem: string;
-  instruction: string;
-  choices: ChoiceItem[];
-  $?: {
-    prompt?: DataCslp;
-    stem?: DataCslp;
-    instruction?: DataCslp;
-  };
-};
+export type MCQuestion = Expand<
+  McQuestionFragmentFragment & {
+    $?: {
+      prompt?: DataCslp;
+      stem?: DataCslp;
+      instruction?: DataCslp;
+    };
+  }
+>;
+
+export type OnChoiceSelect = ({ choice }: ChoiceItem) => void;
 
 export type MultipleChoiceProps = {
   question: MCQuestion;
-  selected: ChoiceItem["choice"] | null;
+  selected: ChoiceData | null;
   showConfidence: boolean;
-  onChoiceSelect: ({ choice }: ChoiceItem) => void;
+  onChoiceSelect: OnChoiceSelect;
   onGoBackClick: () => void;
+  currentTopic: string;
+  totalScore: number;
+  topicPercentage: number;
 };

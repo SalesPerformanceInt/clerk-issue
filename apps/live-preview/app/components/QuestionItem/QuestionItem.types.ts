@@ -1,4 +1,10 @@
 import type {
+  ChoiceData,
+  ChoiceItem,
+  OnChoiceSelect,
+} from "accelerate-learner-ui";
+
+import type {
   EntryLivePreviewData,
   EntryLivePreviewVariant,
 } from "~/models/entry";
@@ -13,14 +19,13 @@ export type QuestionItemProps = {
   entryData: EntryLivePreviewData;
 };
 
-export type QuestionItemSelected = {
-  correct: boolean;
-} | null;
+export type QuestionItemChoice = ChoiceItem;
+export type QuestionItemSelected = ChoiceData | null | undefined;
 
 export type QuestionItemVariant = {
   selected: QuestionItemSelected;
   showConfidence: boolean;
-  onVariantSelect: (selected: QuestionItemSelected) => void;
+  onVariantSelect: OnChoiceSelect;
   onGoBackClick: () => void;
 } & EntryLivePreviewVariant;
 

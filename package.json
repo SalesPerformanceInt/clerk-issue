@@ -7,14 +7,16 @@
     "packages/*"
   ],
   "scripts": {
-    "sb:cms-ui": "turbo run sb --scope=accelerate-cms-ui",
-    "sb:learner-ui": "turbo run sb --scope=accelerate-learner-ui",
-    "dev:cms-ui": "turbo run dev --scope=accelerate-cms-ui",
-    "dev:learner-ui": "turbo run dev --scope=accelerate-learner-ui",
-    "dev:cms": "turbo run dev --scope=accelerate-cms-simple-app",
-    "dev:live": "turbo run dev --scope=live-preview",
+    "sb:cms-ui": "turbo run sb --filter=accelerate-cms-ui",
+    "sb:learner-ui": "turbo run sb --filter=accelerate-learner-ui",
+    "dev:cms-ui": "turbo run dev --filter=accelerate-cms-ui",
+    "dev:learner-ui": "turbo run dev --filter=accelerate-learner-ui",
+    "dev:cms": "turbo run dev --filter=accelerate-cms-simple-app...",
+    "dev:live": "turbo run dev --filter=live-preview...",
+    "dev:qc": "turbo run dev --filter=quick-check...",
     "build": "turbo run build",
     "lint": "turbo run lint",
+    "typecheck": "turbo run typecheck",
     "format": "prettier --write \"**/*.{ts,tsx,md}\""
   },
   "devDependencies": {

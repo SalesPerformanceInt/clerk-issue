@@ -1,10 +1,11 @@
+
 import type { Expand } from "~/utils/expand";
 import type { DataCslp } from "~/utils/liveEdit";
 
-type ChoiceData = {
-  body: string;
-  correct: boolean;
-  feedback?: string;
+export type ChoiceData = {
+  body?: string | null;
+  correct?: boolean | null;
+  feedback?: string | null;
   $?: {
     body?: DataCslp;
     feedback?: DataCslp;
@@ -12,7 +13,7 @@ type ChoiceData = {
 };
 
 export type ChoiceItem = {
-  choice: ChoiceData;
+  choice?: ChoiceData | null;
 };
 
 export type ChoiceProps = Expand<

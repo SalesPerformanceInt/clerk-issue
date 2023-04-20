@@ -1,3 +1,1 @@
-export type DataCslp = {
-  [key: string]: string;
-};
+export type DataCslp = Record<string, string>;

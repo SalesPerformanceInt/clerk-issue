@@ -21,8 +21,11 @@ export const MultipleChoiceVariant = (props: QuestionItemVariant) => {
       question={mcquestion}
       selected={selected}
       showConfidence={showConfidence}
-      onChoiceSelect={({ choice }) => onVariantSelect(choice)}
+      onChoiceSelect={onVariantSelect}
       onGoBackClick={() => onGoBackClick()}
+      currentTopic="Foo Bar the Topic"
+      totalScore={1200}
+      topicPercentage={77}
     />
   );
 };

@@ -5,22 +5,31 @@
   "type": "module",
   "scripts": {
     "sb": "storybook dev -p 6006",
-    "dev": "npm run build -- --watch",
+    "dev": "concurrently \"pnpm run build --watch\" \"pnpm run codegen --watch\"",
     "build": "tsup src/index.tsx --format esm,cjs --dts --external react",
-    "clean": "rimraf dist storybook-static"
+    "clean": "rimraf dist storybook-static",
+    "codegen": "graphql-codegen",
+    "typecheck": "tsc"
   },
   "dependencies": {
+    "@apollo/client": "^3.7.11",
     "@remix-run/react": "^1.14.3",
     "@remix-run/testing": "^1.15.0",
     "@storybook/client-api": "^7.0.4",
     "@tanstack/react-table": "^8.7.9",
+    "chart.js": "^4.2.1",
+    "graphql": "^16.6.0",
     "object-hash": "^3.0.0",
     "react": "^18.2.0",
+    "react-chartjs-2": "^5.2.0",
     "react-confetti": "^6.1.0",
     "react-dom": "^18.2.0",
     "react-use": "^17.4.0"
   },
   "devDependencies": {
+    "@graphql-codegen/cli": "^3.3.0",
+    "@graphql-codegen/client-preset": "^3.0.0",
+    "@graphql-typed-document-node/core": "^3.2.0",
     "@radix-ui/react-icons": "^1.2.0",
     "@storybook/addon-actions": "^7.0.0-rc.4",
     "@storybook/addon-essentials": "^7.0.0-rc.4",
@@ -38,6 +47,8 @@
     "@vitejs/plugin-react": "^3.1.0",
     "autoprefixer": "^10.4.14",
     "classnames": "^2.3.2",
+    "concurrently": "^8.0.1",
+    "dotenv": "^16.0.3",
     "eslint": "^8.36.0",
     "eslint-plugin-jsx-a11y": "^6.7.1",
     "eslint-plugin-prettier": "^4.2.1",

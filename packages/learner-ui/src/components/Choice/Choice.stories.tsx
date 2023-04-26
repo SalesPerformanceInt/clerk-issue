@@ -16,6 +16,8 @@ export const Choice = {
     choice: {
       body: "Choice 1",
       correct: false,
+      _metadata: { uid: "123" },
+      feedback: "Choice 1 feedback",
     },
   },
 } satisfies Story;

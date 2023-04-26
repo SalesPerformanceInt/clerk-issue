@@ -1,13 +1,8 @@
 import type { LoaderArgs } from "@remix-run/node";
 import type { Params } from "@remix-run/react";
 
+import type { QuestionItem, Taxon } from "accelerate-learner-ui";
 import type { LivePreviewQuery, Query } from "contentstack";
-
-import type { DataCslp } from "~/utils/server";
-
-/**
- * API
- */
 
 export type EntryLivePreviewQuery = LivePreviewQuery & Pick<Query, "entry_uid">;
 
@@ -21,19 +16,14 @@ export type GetEntryDataProps = {
 export type GetEntryProps = GetEntryQueryProps &
   Pick<GetEntryDataProps, "params">;
 
-/**
- * Entry Live Preview Data
- */
-
-// Maybe
-export type EntryLivePreviewData = {
-  title: string;
-  uid?: string;
-  content_type?: { uid: string };
-  $?: { title: DataCslp };
+type WithContentType<T, ContentType extends string> = T & {
+  content_type: { uid: ContentType };
 };
 
-export type EntryLivePreviewVariant = {
-  __typename?: string;
-  [key: string]: unknown;
-};
+export type QuestionItemLivePreview = WithContentType<
+  QuestionItem,
+  "questionitem"
+>;
+export type TaxonLivePreview = WithContentType<Taxon, "taxon_bottom_up">;
+
+export type EntryLivePreviewData = QuestionItemLivePreview | TaxonLivePreview;

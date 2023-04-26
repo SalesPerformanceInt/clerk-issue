@@ -16,7 +16,7 @@ export const MultipleChoice = {
     currentTopic: "Foo Bar the Topic",
     totalScore: 1200,
     topicPercentage: 77,
-    question: {
+    mcquestion: {
       __typename: "QuestionitemVariantsMcquestionBlock",
       choices: [
         {

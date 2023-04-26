@@ -1,9 +1,9 @@
 import type { Expand } from "~/utils/expand";
 
-import type { MultipleChoiceProps } from "../../MultipleChoice.types";
+import type { MCSelected, OnGoBackClick } from "../../MultipleChoice.types";
 
-export type MultipleChoiceConfidenceProps = Expand<
-  {
-    feedback: boolean;
-  } & Pick<MultipleChoiceProps, "selected" | "onGoBackClick">
->;
+export type MultipleChoiceConfidenceProps = Expand<{
+  feedback: boolean;
+  selected: MCSelected;
+  onGoBackClick: OnGoBackClick;
+}>;

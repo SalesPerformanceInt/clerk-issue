@@ -1,5 +1,3 @@
 export * from "./entry.api";
-export type {
-  EntryLivePreviewData,
-  EntryLivePreviewVariant,
-} from "./entry.types";
+export type { EntryLivePreviewData } from "./entry.types";
+export * from "./Entry";

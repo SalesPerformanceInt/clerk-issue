@@ -10,7 +10,7 @@ export const choiceFeedback = new MatchedMap([
     },
   ],
   [
-    false,
+    "_",
     {
       feedbackText: "Incorrect",
       icon: "/red-circle-x.svg",

@@ -1,17 +1,7 @@
-import { useState } from "react";
-
 import { json, type LoaderArgs } from "@remix-run/node";
-import { useLoaderData } from "@remix-run/react";
+import { useLoaderData, useNavigate } from "@remix-run/react";
 
-import {
-  Confetti,
-  ConfidenceModal,
-  Container,
-  Header,
-  MultipleChoice,
-  type ChoiceData,
-  type OnChoiceSelect,
-} from "accelerate-learner-ui";
+import { QuestionVariant } from "accelerate-learner-ui";
 import invariant from "tiny-invariant";
 import { contentStack } from "~/contentstack.server";
 
@@ -28,80 +18,21 @@ export const loader = async ({ params, request }: LoaderArgs) => {
 
 export default function Page() {
   const { questionItem } = useLoaderData<typeof loader>();
-
-  const variants = questionItem?.variants;
-  invariant(variants, "no variants found");
-
-  const mcquestion = variants.find(
-    (variant) => variant?.__typename === "QuestionitemVariantsMcquestion",
-  );
-
-  invariant(
-    mcquestion?.__typename === "QuestionitemVariantsMcquestion",
-    "no multiple choice found",
-  );
-
-  invariant(mcquestion.mcquestion, "no multiple choice found");
-
-  const [selected, setSelected] = useState<ChoiceData | null>(null);
-  const [showConfidence, setShowConfidence] = useState(false);
-  const [numberOfConfettiPieces, setNumberOfConfettiPieces] = useState<
-    number | null
-  >(null);
-
-  const onConfidenceClick = (numberOfPieces: number) => {
-    setShowConfidence(false);
-    if (selected?.correct) setNumberOfConfettiPieces(numberOfPieces);
-  };
-
-  const onChoiceSelect: OnChoiceSelect = ({ choice }) => {
-    if (choice) {
-      setSelected(selected ? null : choice);
-      setShowConfidence(!showConfidence);
-    }
-  };
-
-  const onGoBackClick = () => {
-    setSelected(null);
-    setShowConfidence(false);
-  };
+  const navigate = useNavigate();
 
   const currentTopic = "Foo Bar the Topic";
   const totalScore = 1200;
   const topicPercentage = 77;
 
-  console.log("mcquestion.mcquestion", mcquestion.mcquestion);
-
   return (
-    <>
-      <div className="flex min-h-screen w-full justify-center bg-indigo-950">
-        <Container>
-          <Header currentTopic={currentTopic} />
-          <MultipleChoice
-            question={mcquestion.mcquestion}
-            selected={selected}
-            onChoiceSelect={onChoiceSelect}
-            showConfidence={showConfidence}
-            onGoBackClick={onGoBackClick}
-            currentTopic={currentTopic}
-            topicPercentage={topicPercentage}
-            totalScore={totalScore}
-          />
-          <ConfidenceModal
-            show={showConfidence}
-            onConfidenceClick={onConfidenceClick}
-          />
-        </Container>
-      </div>
-      {numberOfConfettiPieces && (
-        <Confetti
-          recycle={false}
-          gravity={0.2}
-          numberOfPieces={numberOfConfettiPieces}
-          onConfettiComplete={() => setNumberOfConfettiPieces(null)}
-        />
-      )}
-    </>
+    <QuestionVariant
+      variant="mcquestion"
+      onClose={() => navigate("/")}
+      questionItem={questionItem}
+      currentTopic={currentTopic}
+      topicPercentage={topicPercentage}
+      totalScore={totalScore}
+    />
   );
 }
 

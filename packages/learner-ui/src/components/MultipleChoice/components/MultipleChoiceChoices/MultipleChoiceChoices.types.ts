@@ -1,13 +1,12 @@
+import type { MCQuestion } from "~/contentstack";
+
 import type { Expand } from "~/utils/expand";
 
-import type {
-  MCQuestion,
-  MultipleChoiceProps,
-} from "../../MultipleChoice.types";
+import type { MCSelected, OnChoiceSelect } from "../../MultipleChoice.types";
 
-export type MultipleChoiceChoicesProps = Expand<
-  {
-    feedback: boolean;
-  } & Pick<MultipleChoiceProps, "selected" | "onChoiceSelect"> &
-    Pick<MCQuestion, "choices">
->;
+export type MultipleChoiceChoicesProps = Expand<{
+  feedback: boolean;
+  selected: MCSelected;
+  onChoiceSelect: OnChoiceSelect;
+  choices: MCQuestion["mcquestion"]["choices"];
+}>;

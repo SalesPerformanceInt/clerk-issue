@@ -1,8 +1,13 @@
-import { ContentStackGraphQLClient } from "accelerate-learner-ui";
+import { ContentStackSDKClient } from "accelerate-learner-ui";
 
-import { CS_DELIVERY_TOKEN, SCHEMA_URL } from "~/utils/server/envs.server";
-
-export const contentStack = new ContentStackGraphQLClient(
+import {
+  CS_API_KEY,
   CS_DELIVERY_TOKEN,
-  SCHEMA_URL,
+  CS_ENV,
+} from "~/utils/server/envs.server";
+
+export const contentStack = new ContentStackSDKClient(
+  CS_DELIVERY_TOKEN,
+  CS_API_KEY,
+  CS_ENV,
 );

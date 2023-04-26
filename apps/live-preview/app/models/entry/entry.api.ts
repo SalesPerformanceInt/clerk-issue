@@ -39,7 +39,7 @@ const getEntryData = async ({ entryQuery, params }: GetEntryDataProps) => {
     .Entry(entryQuery.entry_uid)
     .includeContentType()
     .toJSON()
-    .fetch()) as Required<EntryLivePreviewData>;
+    .fetch()) as EntryLivePreviewData;
 
   return { entryData };
 };

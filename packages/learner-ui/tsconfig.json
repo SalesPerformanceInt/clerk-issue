@@ -13,6 +13,7 @@
     "**/*.cjs",
     "**/*.mjs",
     "tailwind.config.cjs",
-    "postcss.config.cjs"
+    "postcss.config.cjs",
+    ".eslintrc.cjs"
   ]
 }

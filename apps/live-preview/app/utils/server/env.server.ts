@@ -1,9 +1,12 @@
 /* eslint-disable no-var */
 export const getCSENV = () => ({
-  CS_API_KEY: process.env.CS_API_KEY as string,
-  CS_DELIVERY_TOKEN: process.env.CS_DELIVERY_TOKEN as string,
-  CS_ENV: process.env.CS_ENV as string,
-  CS_MANAGEMENT_TOKEN: process.env.CS_MANAGEMENT_TOKEN as string,
+  QC_CONTENTSTACK_STACK_KEY: process.env.QC_CONTENTSTACK_STACK_KEY as string,
+  QC_CONTENTSTACK_DELIVERY_TOKEN: process.env
+    .QC_CONTENTSTACK_DELIVERY_TOKEN as string,
+  QC_CONTENTSTACK_ENVIRONMENT: process.env
+    .QC_CONTENTSTACK_ENVIRONMENT as string,
+  QC_CONTENTSTACK_MANAGEMENT_TOKEN: process.env
+    .QC_CONTENTSTACK_MANAGEMENT_TOKEN as string,
 });
 
 export type CSENV = ReturnType<typeof getCSENV>;

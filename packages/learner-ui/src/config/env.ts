@@ -2,8 +2,11 @@ import dotenv from "dotenv";
 
 dotenv.config();
 
-export const CS_DELIVERY_TOKEN = process.env.CS_DELIVERY_TOKEN ?? "";
-export const CS_API_KEY = process.env.CS_API_KEY ?? "";
+export const QC_CONTENTSTACK_DELIVERY_TOKEN =
+  process.env.QC_CONTENTSTACK_DELIVERY_TOKEN ?? "";
+export const QC_CONTENTSTACK_STACK_KEY =
+  process.env.QC_CONTENTSTACK_STACK_KEY ?? "";
 export const CS_API_HOST = process.env.CS_API_HOST ?? "";
-export const CS_ENV = process.env.CS_ENV ?? "";
-export const SCHEMA_URL = `${CS_API_HOST}/stacks/${CS_API_KEY}?environment=${CS_ENV}`;
+export const QC_CONTENTSTACK_ENVIRONMENT =
+  process.env.QC_CONTENTSTACK_ENVIRONMENT ?? "";
+export const SCHEMA_URL = `${CS_API_HOST}/stacks/${QC_CONTENTSTACK_STACK_KEY}?environment=${QC_CONTENTSTACK_ENVIRONMENT}`;

@@ -4,6 +4,10 @@ export type Metadata = {
   uid: string;
 };
 
+/**
+ * Multiple Choice
+ */
+
 export type QuestionItemChoice = WithLiveData<{
   choice: {
     correct: boolean;
@@ -24,6 +28,10 @@ export type MCQuestion = WithLiveData<{
   };
 }>;
 
+/**
+ * True Or False
+ */
+
 export type TFQuestion = WithLiveData<{
   tfquestion: {
     prompt?: string;
@@ -39,7 +47,35 @@ export type TFQuestion = WithLiveData<{
   };
 }>;
 
-export type QuestionItemVariant = MCQuestion | TFQuestion;
+/**
+ * Fill Blanks
+ */
+
+export type FillBlanksQuestionWord = WithLiveData<{
+  draggable_word: {
+    _metadata: Metadata;
+    word: string;
+    order: number;
+  };
+}>;
+
+export type FillBlanksQuestion = WithLiveData<{
+  fillblanksquestion: {
+    prompt?: string;
+    _metadata: Metadata;
+    instruction: string;
+    stem: string;
+    draggable_words: FillBlanksQuestionWord[];
+    feedback: string;
+    incorrect_feedback: string;
+  };
+}>;
+
+/**
+ * Question Item
+ */
+
+export type QuestionItemVariant = MCQuestion | TFQuestion | FillBlanksQuestion;
 
 export type QuestionItem = WithLiveData<{
   title: string;

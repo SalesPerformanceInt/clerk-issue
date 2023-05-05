@@ -60,7 +60,6 @@ export const Question: FC<QuestionProps> = ({
             <QuestionVariant
               questionItem={questionItem}
               variant={variant}
-              onClose={onClose}
               currentTopic={currentTopic}
               topicPercentage={topicPercentage}
               totalScore={totalScore}

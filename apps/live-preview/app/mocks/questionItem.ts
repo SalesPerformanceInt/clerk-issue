@@ -95,6 +95,10 @@ export const questionItemMock = {
         },
       },
     },
+    {
+      __typename: "QuestionitemVariantsFillBlanksquestion",
+      fillblanksquestion: {},
+    },
   ],
   tags: [],
   taxonomy: [

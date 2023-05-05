@@ -17,6 +17,7 @@ export const FeedbackSection: FC<FeedbackSectionProps> = ({
   currentTopic,
   totalScore,
   topicPercentage,
+  children,
 }) => {
   return (
     <AnimatePresence>
@@ -45,6 +46,9 @@ export const FeedbackSection: FC<FeedbackSectionProps> = ({
               </>
             )}
           </div>
+
+          {children}
+
           <div
             {...selected?.feedbackLiveEdit}
             className="mt-6 text-sm"

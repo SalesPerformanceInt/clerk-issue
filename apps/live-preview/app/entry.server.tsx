@@ -1,4 +1,6 @@
+/* eslint-disable @typescript-eslint/no-unsafe-call */
 /* eslint-disable @typescript-eslint/unbound-method */
+
 import { PassThrough } from "stream";
 
 import { renderToPipeableStream } from "react-dom/server";

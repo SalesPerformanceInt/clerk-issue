@@ -3,7 +3,7 @@ import React, { FC } from "react";
 import invariant from "tiny-invariant";
 
 import type { QuestionVariantProps } from "./QuestionVariant.types";
-import { MultipleChoice, TrueFalseQuestion } from "./components";
+import { FillBlanks, MultipleChoice, TrueFalseQuestion } from "./variants";
 
 const getMCQuestion = (questionItem: QuestionVariantProps["questionItem"]) => {
   try {
@@ -31,10 +31,29 @@ const getTFQuestion = (questionItem: QuestionVariantProps["questionItem"]) => {
   }
 };
 
+const getFillBlanksQuestion = (
+  questionItem: QuestionVariantProps["questionItem"],
+) => {
+  try {
+    const variants = questionItem?.variants;
+    invariant(variants, "no variants found");
+    const fillblanksquestion = variants.find(
+      (variant) => "fillblanksquestion" in variant,
+    );
+    invariant(fillblanksquestion, "no matching variant found");
+    invariant(
+      "fillblanksquestion" in fillblanksquestion,
+      "no matching variant found",
+    );
+    return fillblanksquestion.fillblanksquestion;
+  } catch {
+    return null;
+  }
+};
+
 export const QuestionVariant: FC<QuestionVariantProps> = ({
   questionItem,
   variant,
-  onClose,
   currentTopic,
   topicPercentage,
   totalScore,
@@ -44,12 +63,10 @@ export const QuestionVariant: FC<QuestionVariantProps> = ({
   if (variant === "mcquestion" && mcquestion) {
     return (
       <MultipleChoice
-        onClose={onClose}
         mcquestion={mcquestion}
         currentTopic={currentTopic}
         topicPercentage={topicPercentage}
         totalScore={totalScore}
-        offset={offset}
       />
     );
   }
@@ -59,11 +76,22 @@ export const QuestionVariant: FC<QuestionVariantProps> = ({
     return (
       <TrueFalseQuestion
         tfquestion={tfquestion}
-        onClose={onClose}
         currentTopic={currentTopic}
         topicPercentage={topicPercentage}
         totalScore={totalScore}
         offset={offset}
+      />
+    );
+  }
+
+  const fillblanksquestion = getFillBlanksQuestion(questionItem);
+  if (variant === "fillblanksquestion" && fillblanksquestion) {
+    return (
+      <FillBlanks
+        fillblanksquestion={fillblanksquestion}
+        currentTopic={currentTopic}
+        topicPercentage={topicPercentage}
+        totalScore={totalScore}
       />
     );
   }

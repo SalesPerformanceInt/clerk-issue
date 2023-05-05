@@ -19,8 +19,8 @@ export const useQuestion = () => {
   };
 
   const onSelection = (selection: Selection) => {
-    setSelected(hasSelected ? null : selection);
-    setShowConfidence(!showConfidence);
+    setSelected(selection);
+    setShowConfidence(true);
   };
 
   const onGoBackClick = () => {

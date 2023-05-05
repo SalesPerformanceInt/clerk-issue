@@ -1,6 +1,10 @@
 import type { DataCSLP, QuestionItem } from "~/contentstack";
 
-export const variants = ["mcquestion", "tfquestion"] as const;
+export const variants = [
+  "mcquestion",
+  "tfquestion",
+  "fillblanksquestion",
+] as const;
 
 export type Variant = (typeof variants)[number];
 
@@ -8,6 +12,7 @@ export type Selection = {
   correct: boolean;
   feedback: string;
   feedbackLiveEdit?: DataCSLP;
+  uid?: string;
 };
 
 export type QuestionProps = {

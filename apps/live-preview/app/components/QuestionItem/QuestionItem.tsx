@@ -5,7 +5,13 @@ import { Question, variants, type Variant } from "accelerate-learner-ui";
 import type { QuestionItemProps } from "./QuestionItem.types";
 
 export const QuestionItem = ({ questionItem }: QuestionItemProps) => {
-  const [variant, setVariant] = useState<Variant>("mcquestion");
+  const availableVariants = variants.filter((variant) =>
+    questionItem.variants.find((_variant) => variant in _variant),
+  );
+
+  const [variant, setVariant] = useState<Variant>(
+    availableVariants[0] || "mcquestion",
+  );
 
   const onClose = () => {
     window.location.reload();
@@ -31,9 +37,9 @@ export const QuestionItem = ({ questionItem }: QuestionItemProps) => {
           value={variant}
           onChange={(e) => setVariant(e.target.value as Variant)}
         >
-          {variants.map((value) => (
-            <option value={value} key={value}>
-              {value}
+          {availableVariants.map((variant) => (
+            <option value={variant} key={variant}>
+              {variant}
             </option>
           ))}
         </select>

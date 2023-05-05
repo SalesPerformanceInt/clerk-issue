@@ -1,7 +1,6 @@
 import React from "react";
 
 import { AnimatePresence, motion } from "framer-motion";
-import hash from "object-hash";
 import { fadeAndCollapse } from "~/config/animations";
 
 import { Choice } from "~/components/Question/components/QuestionVariant/components/Choice";
@@ -15,19 +14,17 @@ export const MultipleChoiceChoices = ({
   onChoiceSelect,
 }: MultipleChoiceChoicesProps) => {
   if (!choices) return null;
+
   return (
     <AnimatePresence initial={false}>
       {choices
         ?.filter(
-          (choice) =>
-            !selected || hash(choice?.choice ?? "") === hash(selected),
+          ({ choice }) => !selected || choice._metadata.uid === selected.uid,
         )
-        .map((choice) => {
-          const choiceHash = hash(choice?.choice ?? "");
-
+        .map(({ choice }) => {
           return (
             <motion.div
-              key={choiceHash}
+              key={choice._metadata.uid}
               className="transition-spacing relative"
               variants={fadeAndCollapse}
               initial="initial"
@@ -35,10 +32,10 @@ export const MultipleChoiceChoices = ({
               exit="exit"
             >
               <Choice
-                choice={choice?.choice}
-                selected={choiceHash === hash(selected)}
+                choice={choice}
+                selected={choice._metadata.uid === selected?.uid}
                 disabled={feedback}
-                onClick={() => onChoiceSelect({ choice: choice?.choice })}
+                onClick={() => onChoiceSelect({ choice })}
               />
             </motion.div>
           );

@@ -25,6 +25,7 @@ export const useMultipleChoices = ({ mcquestion }: UseMultipleChoiceProps) => {
       correct: choice.correct,
       feedback: choice.feedback,
       feedbackLiveEdit: choice.$?.feedback,
+      uid: choice._metadata.uid,
     });
   };
 

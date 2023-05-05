@@ -1,10 +1,12 @@
-import React from "react";
+import React, { useState } from "react";
 
-import { QuestionVariant } from "accelerate-learner-ui";
+import { Question, variants, type Variant } from "accelerate-learner-ui";
 
 import type { QuestionItemProps } from "./QuestionItem.types";
 
 export const QuestionItem = ({ questionItem }: QuestionItemProps) => {
+  const [variant, setVariant] = useState<Variant>("mcquestion");
+
   const onClose = () => {
     window.location.reload();
   };
@@ -14,13 +16,28 @@ export const QuestionItem = ({ questionItem }: QuestionItemProps) => {
   const topicPercentage = 77;
 
   return (
-    <QuestionVariant
-      variant="mcquestion"
-      onClose={onClose}
-      questionItem={questionItem}
-      currentTopic={currentTopic}
-      topicPercentage={topicPercentage}
-      totalScore={totalScore}
-    />
+    <>
+      <Question
+        variant={variant}
+        onClose={onClose}
+        questionItem={questionItem}
+        currentTopic={currentTopic}
+        topicPercentage={topicPercentage}
+        totalScore={totalScore}
+        offset={50}
+      />
+      <div className="absolute right-3 top-3">
+        <select
+          value={variant}
+          onChange={(e) => setVariant(e.target.value as Variant)}
+        >
+          {variants.map((value) => (
+            <option value={value} key={value}>
+              {value}
+            </option>
+          ))}
+        </select>
+      </div>
+    </>
   );
 };

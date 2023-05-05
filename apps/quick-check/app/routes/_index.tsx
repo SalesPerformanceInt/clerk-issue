@@ -19,8 +19,6 @@ export const meta: V2_MetaFunction = () => {
 export default function Index() {
   const data = useLoaderData<typeof loader>();
 
-  console.log("_index.tsx", data);
-
   return (
     <main className="relative flex min-h-screen items-center justify-center bg-white">
       <div className="relative pb-16 pt-8">

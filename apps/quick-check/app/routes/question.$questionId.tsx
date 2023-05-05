@@ -1,7 +1,7 @@
 import { json, type LoaderArgs } from "@remix-run/node";
 import { useLoaderData, useNavigate } from "@remix-run/react";
 
-import { QuestionVariant } from "accelerate-learner-ui";
+import { Question } from "accelerate-learner-ui";
 import invariant from "tiny-invariant";
 import { contentStack } from "~/contentstack.server";
 
@@ -25,7 +25,7 @@ export default function Page() {
   const topicPercentage = 77;
 
   return (
-    <QuestionVariant
+    <Question
       variant="mcquestion"
       onClose={() => navigate("/")}
       questionItem={questionItem}

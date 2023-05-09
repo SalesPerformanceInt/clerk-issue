@@ -6,3 +6,9 @@ export const QC_CONTENTSTACK_STACK_KEY =
 
 export const QC_CONTENTSTACK_ENVIRONMENT =
   process.env.QC_CONTENTSTACK_ENVIRONMENT ?? "";
+
+export const HASURA_AUTH_TOKEN = process.env.HASURA_AUTH_TOKEN ?? "";
+
+export const HASURA_API_URL = process.env.HASURA_API_URL ?? "";
+
+export const SESSION_SECRET = process.env.SESSION_SECRET ?? "";

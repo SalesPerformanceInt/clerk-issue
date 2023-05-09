@@ -56,7 +56,6 @@ export const MultipleChoice: FC<MultipleChoiceProps> = ({
       <div className="space-y-4">
         <MultipleChoiceChoices
           choices={choices}
-          feedback={isFeedbackActive}
           selected={selected}
           onChoiceSelect={onChoiceSelect}
         />

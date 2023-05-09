@@ -10,7 +10,7 @@ export const QuestionItem = ({ questionItem }: QuestionItemProps) => {
   );
 
   const [variant, setVariant] = useState<Variant>(
-    availableVariants[0] || "mcquestion",
+    availableVariants[0] ?? "mcquestion",
   );
 
   const onClose = () => {

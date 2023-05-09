@@ -72,10 +72,38 @@ export type FillBlanksQuestion = WithLiveData<{
 }>;
 
 /**
+ * Reorder List
+ */
+
+export type ReorderListQuestionItem = WithLiveData<{
+  item: {
+    _metadata: Metadata;
+    text: string;
+    order: number;
+  };
+}>;
+
+export type ReorderListQuestion = WithLiveData<{
+  reorderlistquestion: {
+    prompt?: string;
+    _metadata: Metadata;
+    stem: string;
+    instruction: string;
+    feedback: string;
+    incorrect_feedback: string;
+    list: ReorderListQuestionItem[];
+  };
+}>;
+
+/**
  * Question Item
  */
 
-export type QuestionItemVariant = MCQuestion | TFQuestion | FillBlanksQuestion;
+export type QuestionItemVariant =
+  | MCQuestion
+  | TFQuestion
+  | FillBlanksQuestion
+  | ReorderListQuestion;
 
 export type QuestionItem = WithLiveData<{
   title: string;

@@ -252,6 +252,8 @@ importers:
   packages/learner-ui:
     specifiers:
       '@dnd-kit/core': ^6.0.8
+      '@dnd-kit/sortable': ^7.0.2
+      '@dnd-kit/utilities': ^3.2.1
       '@radix-ui/react-icons': ^1.2.0
       '@remix-run/react': ^1.14.3
       '@remix-run/testing': ^1.15.0
@@ -311,6 +313,8 @@ importers:
       react-use: 17.4.0_biqbaboplfbrettd7655fr4n2y
     devDependencies:
       '@dnd-kit/core': 6.0.8_biqbaboplfbrettd7655fr4n2y
+      '@dnd-kit/sortable': 7.0.2_52scne4zmdeyjh2otzkgz2xfvu
+      '@dnd-kit/utilities': 3.2.1_react@18.2.0
       '@radix-ui/react-icons': 1.3.0_react@18.2.0
       '@storybook/addon-actions': 7.0.4_biqbaboplfbrettd7655fr4n2y
       '@storybook/addon-essentials': 7.0.4_biqbaboplfbrettd7655fr4n2y
@@ -1839,6 +1843,18 @@ packages:
       '@dnd-kit/utilities': 3.2.1_react@18.2.0
       react: 18.2.0
       react-dom: 18.2.0_react@18.2.0
+      tslib: 2.5.0
+    dev: true
+
+  /@dnd-kit/sortable/7.0.2_52scne4zmdeyjh2otzkgz2xfvu:
+    resolution: {integrity: sha512-wDkBHHf9iCi1veM834Gbk1429bd4lHX4RpAwT0y2cHLf246GAvU2sVw/oxWNpPKQNQRQaeGXhAVgrOl1IT+iyA==}
+    peerDependencies:
+      '@dnd-kit/core': ^6.0.7
+      react: '>=16.8.0'
+    dependencies:
+      '@dnd-kit/core': 6.0.8_biqbaboplfbrettd7655fr4n2y
+      '@dnd-kit/utilities': 3.2.1_react@18.2.0
+      react: 18.2.0
       tslib: 2.5.0
     dev: true
 

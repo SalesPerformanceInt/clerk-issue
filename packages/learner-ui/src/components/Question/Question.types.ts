@@ -4,6 +4,7 @@ export const variants = [
   "mcquestion",
   "tfquestion",
   "fillblanksquestion",
+  "reorderlistquestion",
 ] as const;
 
 export type Variant = (typeof variants)[number];

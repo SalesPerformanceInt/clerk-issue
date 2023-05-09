@@ -1,11 +1,30 @@
 import { json, type LoaderArgs } from "@remix-run/node";
 import { useLoaderData, useNavigate } from "@remix-run/react";
 
-import { Question } from "accelerate-learner-ui";
+import {
+  Question,
+  variants,
+  type QuestionItemVariant,
+} from "accelerate-learner-ui";
+import { compact, first, map, pipe } from "remeda";
 import invariant from "tiny-invariant";
 import { contentStack } from "~/contentstack.server";
+import { getUserFromSession, requireUserSession } from "~/session.server";
+
+const getVariantNames = (questionItemVariants: QuestionItemVariant[]) =>
+  pipe(
+    questionItemVariants,
+    map((variant) => variants.find((_variant) => _variant in variant)),
+    compact,
+  );
+
+const getFirstVariant = (questionItemVariants: QuestionItemVariant[]) =>
+  pipe(questionItemVariants, getVariantNames, first());
 
 export const loader = async ({ params, request }: LoaderArgs) => {
+  await requireUserSession(request);
+  const user = await getUserFromSession(request);
+
   invariant(params.questionId, "questionId not found");
 
   const questionItem = await contentStack.getQuestionItem(params.questionId);
@@ -13,11 +32,17 @@ export const loader = async ({ params, request }: LoaderArgs) => {
     throw new Response("Not Found", { status: 404 });
   }
 
-  return json({ questionItem });
+  const variant = getFirstVariant(questionItem.variants);
+
+  if (!variant) {
+    throw new Response("Not Found", { status: 404 });
+  }
+
+  return json({ questionItem, user, variant });
 };
 
 export default function Page() {
-  const { questionItem } = useLoaderData<typeof loader>();
+  const { questionItem, variant } = useLoaderData<typeof loader>();
   const navigate = useNavigate();
 
   const currentTopic = "Foo Bar the Topic";
@@ -26,7 +51,7 @@ export default function Page() {
 
   return (
     <Question
-      variant="mcquestion"
+      variant={variant}
       onClose={() => navigate("/")}
       questionItem={questionItem}
       currentTopic={currentTopic}

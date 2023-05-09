@@ -10,7 +10,6 @@ import type { MultipleChoiceChoicesProps } from "./MultipleChoiceChoices.types";
 export const MultipleChoiceChoices = ({
   choices,
   selected,
-  feedback,
   onChoiceSelect,
 }: MultipleChoiceChoicesProps) => {
   if (!choices) return null;
@@ -34,7 +33,7 @@ export const MultipleChoiceChoices = ({
               <Choice
                 choice={choice}
                 selected={choice._metadata.uid === selected?.uid}
-                disabled={feedback}
+                disabled={!!selected}
                 onClick={() => onChoiceSelect({ choice })}
               />
             </motion.div>

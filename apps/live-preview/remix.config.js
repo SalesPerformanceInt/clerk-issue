@@ -13,23 +13,13 @@ const packages = glob
 module.exports = {
   appDirectory: "app",
   ignoredRouteFiles: ["**/.*"],
-  assetsBuildDirectory: "public/build",
 
-  serverBuildPath: "api/index.js",
   server: process.env.NODE_ENV === "development" ? undefined : "./server.js",
+  serverBuildPath: "api/index.js",
   devServerPort: 4001,
 
-  serverDependenciesToBundle: [
-    "accelerate-learner-ui",
-    "@apollo/client",
-    "ts-invariant",
-    "zen-observable-ts",
-  ],
-  clientDependenciesToBundle: ["accelerate-learner-ui"],
-
-  future: {
-    unstable_tailwind: true,
-  },
+  tailwind: true,
+  serverDependenciesToBundle: [/.*/],
 
   watchPaths: packages,
 };

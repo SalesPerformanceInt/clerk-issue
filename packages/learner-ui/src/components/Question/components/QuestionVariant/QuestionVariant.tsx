@@ -3,7 +3,12 @@ import React, { FC } from "react";
 import invariant from "tiny-invariant";
 
 import type { QuestionVariantProps } from "./QuestionVariant.types";
-import { FillBlanks, MultipleChoice, TrueFalseQuestion } from "./variants";
+import {
+  FillBlanks,
+  MultipleChoice,
+  ReorderList,
+  TrueFalseQuestion,
+} from "./variants";
 
 const getMCQuestion = (questionItem: QuestionVariantProps["questionItem"]) => {
   try {
@@ -51,6 +56,26 @@ const getFillBlanksQuestion = (
   }
 };
 
+const getReorderListQuestion = (
+  questionItem: QuestionVariantProps["questionItem"],
+) => {
+  try {
+    const variants = questionItem?.variants;
+    invariant(variants, "no variants found");
+    const reorderlistquestion = variants.find(
+      (variant) => "reorderlistquestion" in variant,
+    );
+    invariant(reorderlistquestion, "no matching variant found");
+    invariant(
+      "reorderlistquestion" in reorderlistquestion,
+      "no matching variant found",
+    );
+    return reorderlistquestion.reorderlistquestion;
+  } catch {
+    return null;
+  }
+};
+
 export const QuestionVariant: FC<QuestionVariantProps> = ({
   questionItem,
   variant,
@@ -89,6 +114,18 @@ export const QuestionVariant: FC<QuestionVariantProps> = ({
     return (
       <FillBlanks
         fillblanksquestion={fillblanksquestion}
+        currentTopic={currentTopic}
+        topicPercentage={topicPercentage}
+        totalScore={totalScore}
+      />
+    );
+  }
+
+  const reorderlistquestion = getReorderListQuestion(questionItem);
+  if (variant === "reorderlistquestion" && reorderlistquestion) {
+    return (
+      <ReorderList
+        reorderlistquestion={reorderlistquestion}
         currentTopic={currentTopic}
         topicPercentage={topicPercentage}
         totalScore={totalScore}

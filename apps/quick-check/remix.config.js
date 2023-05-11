@@ -11,31 +11,22 @@ const packages = glob
 
 /** @type {import('@remix-run/dev').AppConfig} */
 module.exports = {
+  appDirectory: "app",
   ignoredRouteFiles: ["**/.*"],
-  // When running locally in development mode, we use the built-in remix
-  // server. This does not understand the vercel lambda module format,
-  // so we default back to the standard build output.
+
   server: process.env.NODE_ENV === "development" ? undefined : "./server.js",
   serverBuildPath: "api/index.js",
   devServerPort: 4011,
-  // appDirectory: "app",
-  // assetsBuildDirectory: "public/build",
-  // publicPath: "/build/",
+
+  tailwind: true,
   future: {
     v2_errorBoundary: true,
     v2_meta: true,
     v2_normalizeFormMethod: true,
     v2_routeConvention: true,
-    unstable_tailwind: true,
   },
 
-  serverDependenciesToBundle: [
-    "accelerate-learner-ui",
-    "@apollo/client",
-    "ts-invariant",
-    "zen-observable-ts",
-  ],
-  clientDependenciesToBundle: ["accelerate-learner-ui"],
+  serverDependenciesToBundle: [/.*/],
 
   watchPaths: packages,
 };

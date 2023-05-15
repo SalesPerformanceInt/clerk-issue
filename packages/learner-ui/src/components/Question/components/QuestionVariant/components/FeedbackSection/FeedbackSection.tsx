@@ -4,6 +4,8 @@ import { Doughnut } from "react-chartjs-2";
 import { ArcElement, Chart as ChartJS } from "chart.js";
 import { AnimatePresence, motion } from "framer-motion";
 
+import { cleanHTML } from "~/utils/cleanHtml";
+
 import { GreenCheckMedallion } from "~/components/images/GreenCheckMedallion";
 import { RedCircleX } from "~/components/images/RedCircleX";
 
@@ -52,7 +54,9 @@ export const FeedbackSection: FC<FeedbackSectionProps> = ({
           <div
             {...selected?.feedbackLiveEdit}
             className="mt-6 text-sm"
-            dangerouslySetInnerHTML={{ __html: selected?.feedback ?? "" }}
+            dangerouslySetInnerHTML={{
+              __html: cleanHTML(selected?.feedback ?? ""),
+            }}
           />
           {selected?.correct && (
             <motion.div

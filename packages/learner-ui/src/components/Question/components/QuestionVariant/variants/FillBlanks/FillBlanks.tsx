@@ -2,6 +2,8 @@ import React, { Fragment, type FC } from "react";
 
 import { DndContext } from "@dnd-kit/core";
 
+import { cleanHTML } from "~/utils/cleanHtml";
+
 import { FadeOutText } from "~/components/FadeOutText";
 import { FeedbackSection } from "~/components/Question/components/QuestionVariant/components/FeedbackSection";
 
@@ -43,7 +45,7 @@ export const FillBlanks: FC<FillBlanksProps> = ({
                 <span
                   className="text-2xl leading-[48px] [&>*]:inline-block"
                   dangerouslySetInnerHTML={{
-                    __html: stem,
+                    __html: cleanHTML(stem),
                   }}
                   {...fillblanksquestion.$?.stem}
                 />

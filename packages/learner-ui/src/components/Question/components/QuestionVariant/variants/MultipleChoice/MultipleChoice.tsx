@@ -1,5 +1,7 @@
 import React, { type FC } from "react";
 
+import { cleanHTML } from "~/utils/cleanHtml";
+
 import { FadeOutText } from "~/components/FadeOutText";
 import { ChooseAnotherAnswer } from "~/components/Question/components/QuestionVariant/components/ChooseAnotherAnswer";
 import { FeedbackSection } from "~/components/Question/components/QuestionVariant/components/FeedbackSection";
@@ -40,7 +42,7 @@ export const MultipleChoice: FC<MultipleChoiceProps> = ({
         <div
           className="question-stem mb-6 [&>*]:!mb-4 [&>*]:max-w-full [&>p]:text-2xl"
           dangerouslySetInnerHTML={{
-            __html: mcquestion.stem,
+            __html: cleanHTML(mcquestion.stem),
           }}
           {...mcquestion.$?.stem}
         />

@@ -45,7 +45,8 @@ export default function Page() {
   const { questionItem, variant } = useLoaderData<typeof loader>();
   const navigate = useNavigate();
 
-  const currentTopic = "Foo Bar the Topic";
+  console.log("questionItem", questionItem);
+
   const totalScore = 1200;
   const topicPercentage = 77;
 
@@ -54,7 +55,6 @@ export default function Page() {
       variant={variant}
       onClose={() => navigate("/")}
       questionItem={questionItem}
-      currentTopic={currentTopic}
       topicPercentage={topicPercentage}
       totalScore={totalScore}
     />

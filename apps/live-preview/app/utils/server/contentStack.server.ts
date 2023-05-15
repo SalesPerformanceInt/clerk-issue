@@ -9,21 +9,6 @@ type ContentStackClientProps = {
 };
 
 /**
- * Content Stack Live Preview Types
- */
-
-export type DataCslp = {
-  [key: string]: string;
-};
-
-export type Metadata = {
-  uid: string;
-  $: {
-    uid: DataCslp;
-  };
-};
-
-/**
  * ContentStack Client
  */
 

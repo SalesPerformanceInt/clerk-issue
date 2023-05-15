@@ -19,7 +19,6 @@ export const Question: FC<QuestionProps> = ({
   questionItem,
   variant,
   onClose,
-  currentTopic,
   topicPercentage,
   totalScore,
   offset = 0,
@@ -37,6 +36,7 @@ export const Question: FC<QuestionProps> = ({
   } = useQuestion();
 
   const confidenceHeight = CONFIDENCE_HEIGHT + 70 + offset;
+  const currentTopic = questionItem.taxonomy[0]?.title ?? "";
 
   return (
     <QuestionContext.Provider

@@ -1,4 +1,6 @@
-export const questionItemMock = {
+import { QuestionItem } from "../types";
+
+export const questionItemMock: QuestionItem & Record<string, unknown> = {
   _version: 10,
   locale: "en-us",
   uid: "bltc3d9181c17e53307",
@@ -63,56 +65,56 @@ export const questionItemMock = {
         ],
       },
     },
-    {
-      reorderlistquestion: {
-        prompt: "Given the following assertment",
-        _metadata: {
-          uid: "csd5ea71287be35520",
-        },
-        stem: "<p>Something something something asdf qwertyuiop</p>",
-        instruction: "Reorder the following list correctly",
-        feedback: "<p>This is correct because I said so.</p>",
-        incorrect_feedback: "<p>This is incorrect because I said so.</p>",
-        list: [
-          {
-            item: {
-              text: "List Item C",
-              _metadata: {
-                uid: "cs8dd6e01f02656733",
-              },
-              order: 3,
-            },
-          },
-          {
-            item: {
-              text: "List Item A",
-              _metadata: {
-                uid: "csed53077c194dcb47",
-              },
-              order: 1,
-            },
-          },
-          {
-            item: {
-              text: "List Item B",
-              _metadata: {
-                uid: "csf43068f025a454cc",
-              },
-              order: 2,
-            },
-          },
-          {
-            item: {
-              text: "List Item D",
-              _metadata: {
-                uid: "cs93b52116b3ee0128",
-              },
-              order: 4,
-            },
-          },
-        ],
-      },
-    },
+    // {
+    //   reorderlistquestion: {
+    //     prompt: "Given the following assertment",
+    //     _metadata: {
+    //       uid: "csd5ea71287be35520",
+    //     },
+    //     stem: "<p>Something something something asdf qwertyuiop</p>",
+    //     instruction: "Reorder the following list correctly",
+    //     feedback: "<p>This is correct because I said so.</p>",
+    //     incorrect_feedback: "<p>This is incorrect because I said so.</p>",
+    //     list: [
+    //       {
+    //         item: {
+    //           text: "List Item C",
+    //           _metadata: {
+    //             uid: "cs8dd6e01f02656733",
+    //           },
+    //           order: 3,
+    //         },
+    //       },
+    //       {
+    //         item: {
+    //           text: "List Item A",
+    //           _metadata: {
+    //             uid: "csed53077c194dcb47",
+    //           },
+    //           order: 1,
+    //         },
+    //       },
+    //       {
+    //         item: {
+    //           text: "List Item B",
+    //           _metadata: {
+    //             uid: "csf43068f025a454cc",
+    //           },
+    //           order: 2,
+    //         },
+    //       },
+    //       {
+    //         item: {
+    //           text: "List Item D",
+    //           _metadata: {
+    //             uid: "cs93b52116b3ee0128",
+    //           },
+    //           order: 4,
+    //         },
+    //       },
+    //     ],
+    //   },
+    // },
   ],
   publish_details: {
     environment: "bltd1842900da34b609",

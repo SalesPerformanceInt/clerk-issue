@@ -38,6 +38,7 @@ const getEntryData = async ({ entryQuery, params }: GetEntryDataProps) => {
     .ContentType(entryQuery.content_type_uid)
     .Entry(entryQuery.entry_uid)
     .includeContentType()
+    .includeReference(["taxonomy", "taxonomy.parent_taxonomies"])
     .toJSON()
     .fetch()) as EntryLivePreviewData;
 

@@ -31,7 +31,7 @@ export const FillBlanks: FC<FillBlanksProps> = ({
           text={fillblanksquestion.prompt}
           hidden={false}
           className="mb-5 text-sm"
-          $={{ text: fillblanksquestion.$?.prompt }}
+          liveEdit={fillblanksquestion.$?.prompt}
         />
 
         <div className="mb-6">

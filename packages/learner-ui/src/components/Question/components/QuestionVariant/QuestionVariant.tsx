@@ -1,8 +1,11 @@
 import React, { FC } from "react";
 
-import invariant from "tiny-invariant";
+import { Variant } from "~/components/Question";
 
-import type { QuestionVariantProps } from "./QuestionVariant.types";
+import type {
+  QuestionVariantProps,
+  RestrictQuestionItemVariant,
+} from "./QuestionVariant.types";
 import {
   FillBlanks,
   MultipleChoice,
@@ -10,70 +13,15 @@ import {
   TrueFalseQuestion,
 } from "./variants";
 
-const getMCQuestion = (questionItem: QuestionVariantProps["questionItem"]) => {
-  try {
-    const variants = questionItem?.variants;
-    invariant(variants, "no variants found");
-    const mcquestion = variants.find((variant) => "mcquestion" in variant);
-    invariant(mcquestion, "no multiple choice found");
-    invariant("mcquestion" in mcquestion, "no multiple choice found");
-    return mcquestion.mcquestion;
-  } catch {
-    return null;
-  }
-};
-
-const getTFQuestion = (questionItem: QuestionVariantProps["questionItem"]) => {
-  try {
-    const variants = questionItem?.variants;
-    invariant(variants, "no variants found");
-    const tfquestion = variants.find((variant) => "tfquestion" in variant);
-    invariant(tfquestion, "no matching variant found");
-    invariant("tfquestion" in tfquestion, "no matching variant found");
-    return tfquestion.tfquestion;
-  } catch {
-    return null;
-  }
-};
-
-const getFillBlanksQuestion = (
+const getVariant = <V extends Variant>(
   questionItem: QuestionVariantProps["questionItem"],
+  variant: V,
 ) => {
-  try {
-    const variants = questionItem?.variants;
-    invariant(variants, "no variants found");
-    const fillblanksquestion = variants.find(
-      (variant) => "fillblanksquestion" in variant,
-    );
-    invariant(fillblanksquestion, "no matching variant found");
-    invariant(
-      "fillblanksquestion" in fillblanksquestion,
-      "no matching variant found",
-    );
-    return fillblanksquestion.fillblanksquestion;
-  } catch {
-    return null;
-  }
-};
+  const questionVariant = questionItem.variants.find(
+    (_variant) => variant in _variant,
+  );
 
-const getReorderListQuestion = (
-  questionItem: QuestionVariantProps["questionItem"],
-) => {
-  try {
-    const variants = questionItem?.variants;
-    invariant(variants, "no variants found");
-    const reorderlistquestion = variants.find(
-      (variant) => "reorderlistquestion" in variant,
-    );
-    invariant(reorderlistquestion, "no matching variant found");
-    invariant(
-      "reorderlistquestion" in reorderlistquestion,
-      "no matching variant found",
-    );
-    return reorderlistquestion.reorderlistquestion;
-  } catch {
-    return null;
-  }
+  return questionVariant as RestrictQuestionItemVariant<V>;
 };
 
 export const QuestionVariant: FC<QuestionVariantProps> = ({
@@ -84,11 +32,13 @@ export const QuestionVariant: FC<QuestionVariantProps> = ({
   totalScore,
   offset,
 }) => {
-  const mcquestion = getMCQuestion(questionItem);
-  if (variant === "mcquestion" && mcquestion) {
+  const questionVariant = getVariant(questionItem, variant);
+  if (!questionVariant) return null;
+
+  if ("mcquestion" in questionVariant) {
     return (
       <MultipleChoice
-        mcquestion={mcquestion}
+        mcquestion={questionVariant.mcquestion}
         currentTopic={currentTopic}
         topicPercentage={topicPercentage}
         totalScore={totalScore}
@@ -96,11 +46,10 @@ export const QuestionVariant: FC<QuestionVariantProps> = ({
     );
   }
 
-  const tfquestion = getTFQuestion(questionItem);
-  if (variant === "tfquestion" && tfquestion) {
+  if ("tfquestion" in questionVariant) {
     return (
       <TrueFalseQuestion
-        tfquestion={tfquestion}
+        tfquestion={questionVariant.tfquestion}
         currentTopic={currentTopic}
         topicPercentage={topicPercentage}
         totalScore={totalScore}
@@ -109,11 +58,10 @@ export const QuestionVariant: FC<QuestionVariantProps> = ({
     );
   }
 
-  const fillblanksquestion = getFillBlanksQuestion(questionItem);
-  if (variant === "fillblanksquestion" && fillblanksquestion) {
+  if ("fillblanksquestion" in questionVariant) {
     return (
       <FillBlanks
-        fillblanksquestion={fillblanksquestion}
+        fillblanksquestion={questionVariant.fillblanksquestion}
         currentTopic={currentTopic}
         topicPercentage={topicPercentage}
         totalScore={totalScore}
@@ -121,11 +69,10 @@ export const QuestionVariant: FC<QuestionVariantProps> = ({
     );
   }
 
-  const reorderlistquestion = getReorderListQuestion(questionItem);
-  if (variant === "reorderlistquestion" && reorderlistquestion) {
+  if ("reorderlistquestion" in questionVariant) {
     return (
       <ReorderList
-        reorderlistquestion={reorderlistquestion}
+        reorderlistquestion={questionVariant.reorderlistquestion}
         currentTopic={currentTopic}
         topicPercentage={topicPercentage}
         totalScore={totalScore}

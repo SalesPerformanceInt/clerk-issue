@@ -42,6 +42,7 @@ const config = {
     "**/*.config.js",
     "**/*.config.cjs",
     "packages/config/**",
+    "**/generated.d.ts",
   ],
 };
 

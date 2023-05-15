@@ -3,7 +3,8 @@ import { Suspense } from "react";
 import { json, type LoaderArgs } from "@remix-run/node";
 import { useLoaderData } from "@remix-run/react";
 
-import { questionItemMock } from "~/mocks/questionItem";
+import { questionItemMock } from "accelerate-learner-ui";
+
 import { Entry, getEntry } from "~/models/entry";
 
 export const loader = async ({ request, params }: LoaderArgs) => {

@@ -7,7 +7,11 @@ export async function getQuestionItem(
 ) {
   try {
     const contentType = this.client.ContentType("questionitem");
-    const entry = contentType.Entry(uid).includeContentType().toJSON();
+    const entry = contentType
+      .Entry(uid)
+      .includeContentType()
+      .includeReference(["taxonomy", "taxonomy.parent_taxonomies"])
+      .toJSON();
     return (await entry.fetch()) as QuestionItem;
   } catch (error) {
     console.log("ERROR", error);

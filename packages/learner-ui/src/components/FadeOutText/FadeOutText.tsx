@@ -5,7 +5,11 @@ import { fadeAndCollapse } from "~/config/animations";
 
 import type { FadeOutTextProps } from "./FadeOutText.types";
 
-export const FadeOutText: FC<FadeOutTextProps> = ({ text, hidden, $ }) => {
+export const FadeOutText: FC<FadeOutTextProps> = ({
+  text,
+  hidden,
+  liveEdit,
+}) => {
   return (
     <AnimatePresence initial={false}>
       {!hidden && text && (
@@ -15,7 +19,7 @@ export const FadeOutText: FC<FadeOutTextProps> = ({ text, hidden, $ }) => {
           initial="initial"
           animate="animate"
           exit="exit"
-          {...$?.text}
+          {...liveEdit}
         >
           {text}
         </motion.p>

@@ -109,13 +109,16 @@ export type QuestionItem = WithLiveData<{
   title: string;
   uid: string;
   locale: string;
+  created_at: string;
   variants: QuestionItemVariant[];
+  taxonomy: Taxon[];
 }>;
 
 export type Taxon = WithLiveData<{
   title: string;
   uid: string;
   locale: string;
+  parent_taxonomies?: Taxon[];
 }>;
 
 export type ContentType = QuestionItem | Taxon;

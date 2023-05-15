@@ -17,7 +17,6 @@ export const QuestionItem = ({ questionItem }: QuestionItemProps) => {
     window.location.reload();
   };
 
-  const currentTopic = "Foo Bar the Topic";
   const totalScore = 1200;
   const topicPercentage = 77;
 
@@ -27,7 +26,6 @@ export const QuestionItem = ({ questionItem }: QuestionItemProps) => {
         variant={variant}
         onClose={onClose}
         questionItem={questionItem}
-        currentTopic={currentTopic}
         topicPercentage={topicPercentage}
         totalScore={totalScore}
         offset={50}

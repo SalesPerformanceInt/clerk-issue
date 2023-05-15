@@ -1,7 +1,7 @@
-import type { DataCslp } from "~/utils/liveEdit";
+import type { DataCSLP } from "~/contentstack";
 
 export type HeaderProps = {
   currentTopic: string;
   onClose: () => void;
-  $?: { currentTopic?: DataCslp };
+  currentTopicLiveEdit?: DataCSLP;
 };

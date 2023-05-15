@@ -1,10 +1,8 @@
-import type { DataCslp } from "~/utils/liveEdit";
+import type { DataCSLP } from "~/contentstack";
 
 export type FadeOutTextProps = {
   text?: string | null;
   hidden: boolean;
   className?: string;
-  $?: {
-    text?: DataCslp;
-  };
+  liveEdit?: DataCSLP;
 };

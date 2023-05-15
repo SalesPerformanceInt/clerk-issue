@@ -20,7 +20,6 @@ export type QuestionProps = {
   questionItem: QuestionItem;
   variant: Variant;
   onClose: () => void;
-  currentTopic: string;
   totalScore: number;
   topicPercentage: number;
   offset?: number;

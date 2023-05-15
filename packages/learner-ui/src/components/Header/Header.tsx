@@ -4,7 +4,11 @@ import { WhiteCircleX } from "~/components/images/WhiteCircleX";
 
 import type { HeaderProps } from "./Header.types";
 
-export const Header = ({ currentTopic, $, onClose }: HeaderProps) => {
+export const Header = ({
+  currentTopic,
+  currentTopicLiveEdit,
+  onClose,
+}: HeaderProps) => {
   return (
     <div className="flex flex-col flex-wrap bg-indigo-950 px-5 pb-3 pt-4">
       <button onClick={onClose} className="items-cente flex p-2">
@@ -12,7 +16,7 @@ export const Header = ({ currentTopic, $, onClose }: HeaderProps) => {
       </button>
 
       <div className="self-end">
-        <p className="text-white" {...$?.currentTopic}>
+        <p className="text-white" {...currentTopicLiveEdit}>
           Current Topic: <strong> {currentTopic} </strong>
         </p>
       </div>

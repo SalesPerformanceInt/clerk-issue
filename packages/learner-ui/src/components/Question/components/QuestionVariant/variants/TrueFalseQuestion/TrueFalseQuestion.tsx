@@ -37,7 +37,7 @@ export const TrueFalseQuestion: FC<TrueFalseQuestionProps> = ({
           text={tfquestion.prompt}
           hidden={hasSelected}
           className="mb-5 text-sm"
-          $={{ text: tfquestion.$?.prompt }}
+          liveEdit={tfquestion.$?.prompt}
         />
 
         <div
@@ -52,7 +52,7 @@ export const TrueFalseQuestion: FC<TrueFalseQuestionProps> = ({
           text={tfquestion.instruction}
           hidden={hasSelected}
           className="text-sm"
-          $={{ text: tfquestion.$?.instruction }}
+          liveEdit={tfquestion.$?.instruction}
         />
       </div>
 

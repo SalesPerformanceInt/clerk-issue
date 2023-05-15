@@ -36,7 +36,7 @@ export const MultipleChoice: FC<MultipleChoiceProps> = ({
           text={mcquestion.prompt}
           hidden={hasSelected}
           className="mb-5 text-sm"
-          $={{ text: mcquestion.$?.prompt }}
+          liveEdit={mcquestion.$?.prompt}
         />
 
         <div
@@ -51,7 +51,7 @@ export const MultipleChoice: FC<MultipleChoiceProps> = ({
           text={mcquestion.instruction}
           hidden={hasSelected}
           className="text-sm"
-          $={{ text: mcquestion.$?.instruction }}
+          liveEdit={mcquestion.$?.instruction}
         />
       </div>
 

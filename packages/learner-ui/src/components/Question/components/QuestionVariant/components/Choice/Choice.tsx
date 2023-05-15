@@ -2,6 +2,8 @@ import React from "react";
 
 import classNames from "classnames";
 
+import { cleanHTML } from "~/utils/cleanHtml";
+
 import {
   buttonBehaviorStyles,
   buttonStyles,
@@ -26,7 +28,7 @@ export const Choice = ({
         [selectedStyles]: selected,
         [unselectedStyles]: !selected,
       })}
-      dangerouslySetInnerHTML={{ __html: choice.body ?? "" }}
+      dangerouslySetInnerHTML={{ __html: cleanHTML(choice.body ?? "") }}
       {...choice.$?.body}
     />
   );

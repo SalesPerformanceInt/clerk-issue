@@ -1,5 +1,7 @@
 import React, { FC } from "react";
 
+import { cleanHTML } from "~/utils/cleanHtml";
+
 import { FadeOutText } from "~/components/FadeOutText";
 import { ChooseAnotherAnswer } from "~/components/Question/components/QuestionVariant/components/ChooseAnotherAnswer";
 import { FeedbackSection } from "~/components/Question/components/QuestionVariant/components/FeedbackSection";
@@ -41,7 +43,7 @@ export const TrueFalseQuestion: FC<TrueFalseQuestionProps> = ({
         <div
           className="question-stem mb-6 [&>*]:!mb-4 [&>*]:max-w-full [&>p]:text-2xl"
           dangerouslySetInnerHTML={{
-            __html: tfquestion.stem ?? "",
+            __html: cleanHTML(tfquestion.stem ?? ""),
           }}
           {...tfquestion.$?.stem}
         />

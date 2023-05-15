@@ -58,6 +58,8 @@ export const FillBlanks: FC<FillBlanksProps> = ({
                         id={currentWord._metadata.uid}
                         text={currentWord.word}
                         order={currentWord.order}
+                        liveEdit={currentWord.$}
+                        disabled={isFeedbackActive}
                       />
                     )}
                   </DroppableBlank>
@@ -83,6 +85,8 @@ export const FillBlanks: FC<FillBlanksProps> = ({
                     id={word._metadata.uid}
                     text={word.word}
                     order={word.order}
+                    liveEdit={word.$}
+                    disabled={isFeedbackActive}
                   />
                 ),
             )}

@@ -1,25 +1,22 @@
 import React, { type FC } from "react";
 
-import { useDraggable } from "@dnd-kit/core";
+import { useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
 
-import type { DraggableWordProps } from "./DraggableWord.types";
+import type { ReorderableItemProps } from "./ReorderableItem.types";
 
-export const DraggableWord: FC<DraggableWordProps> = ({
+export const ReorderableItem: FC<ReorderableItemProps> = ({
   id,
   text,
-  order,
   disabled,
   liveEdit,
 }) => {
-  const { attributes, listeners, setNodeRef, transform } = useDraggable({
-    id,
-    disabled,
-    data: { order },
-  });
+  const { attributes, listeners, setNodeRef, transform, transition } =
+    useSortable({ id, disabled });
 
   const style = {
-    transform: CSS.Translate.toString(transform),
+    transform: CSS.Transform.toString(transform),
+    transition,
   };
 
   return (
@@ -29,7 +26,7 @@ export const DraggableWord: FC<DraggableWordProps> = ({
       style={style}
       {...listeners}
       {...attributes}
-      {...liveEdit?.word}
+      {...liveEdit?.text}
       suppressHydrationWarning
       aria-describedby=""
     >

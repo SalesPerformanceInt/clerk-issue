@@ -3,7 +3,7 @@ import React, { type FC } from "react";
 import { DndContext } from "@dnd-kit/core";
 import { SortableContext } from "@dnd-kit/sortable";
 
-import { FadeOutText } from "~/components/FadeOutText";
+import { FadeOutText } from "~/components";
 import { FeedbackSection } from "~/components/Question/components/QuestionVariant/components/FeedbackSection";
 
 import { ReorderableItem } from "./components";
@@ -12,13 +12,8 @@ import { useReorderList } from "./hooks/useReorderList";
 
 import type { ReorderListProps } from "./ReorderList.types";
 
-export const ReorderList: FC<ReorderListProps> = ({
-  reorderlistquestion,
-  currentTopic,
-  totalScore,
-  topicPercentage,
-}) => {
-  const { listItems, onDrop, selected, isFeedbackActive } = useReorderList({
+export const ReorderList: FC<ReorderListProps> = ({ reorderlistquestion }) => {
+  const { listItems, onDrop, isFeedbackActive } = useReorderList({
     reorderlistquestion,
   });
 
@@ -29,7 +24,7 @@ export const ReorderList: FC<ReorderListProps> = ({
           text={reorderlistquestion.prompt}
           hidden={false}
           className="mb-5 text-sm"
-          $={{ text: reorderlistquestion.$?.prompt }}
+          liveEdit={reorderlistquestion.$?.prompt}
         />
 
         <div
@@ -44,7 +39,7 @@ export const ReorderList: FC<ReorderListProps> = ({
           text={reorderlistquestion.instruction}
           hidden={false}
           className="text-sm"
-          $={{ text: reorderlistquestion.$?.instruction }}
+          liveEdit={reorderlistquestion.$?.instruction}
         />
       </div>
 
@@ -61,13 +56,7 @@ export const ReorderList: FC<ReorderListProps> = ({
           ))}
         </SortableContext>
 
-        <FeedbackSection
-          show={isFeedbackActive}
-          selected={selected}
-          currentTopic={currentTopic}
-          totalScore={totalScore}
-          topicPercentage={topicPercentage}
-        />
+        <FeedbackSection />
       </div>
     </DndContext>
   );

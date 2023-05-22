@@ -1,4 +1,4 @@
-import { useQuestionContext } from "~/components/Question/context/QuestionContext";
+import { useQuestionContext } from "~/components/Question";
 
 import type {
   OnTFChoiceSelect,
@@ -16,6 +16,7 @@ export const useTrueFalseQuestion = ({
     onGoBackClick,
     selected,
     hasSelected,
+    offset = 0,
   } = useQuestionContext();
 
   const onChoiceSelect: OnTFChoiceSelect = (choice) => {
@@ -33,5 +34,6 @@ export const useTrueFalseQuestion = ({
     isFeedbackActive,
     selected,
     hasSelected,
+    offset,
   };
 };

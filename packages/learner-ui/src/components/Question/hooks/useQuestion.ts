@@ -1,4 +1,5 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
+import { useMeasure } from "react-use";
 
 import type { Selection } from "../Question.types";
 
@@ -8,6 +9,10 @@ export const useQuestion = () => {
   const [numberOfConfettiPieces, setNumberOfConfettiPieces] = useState<
     number | null
   >(null);
+  const [onBreak, setOnBreak] = useState(false);
+
+  const bottomRef = useRef<HTMLDivElement>(null);
+  const [bodyRef, { height: bodyHeight }] = useMeasure<HTMLDivElement>();
 
   const hasSelected = selected !== null;
 
@@ -16,6 +21,10 @@ export const useQuestion = () => {
   const onConfidenceClick = (numberOfPieces: number) => {
     setShowConfidence(false);
     if (selected?.correct) setNumberOfConfettiPieces(numberOfPieces);
+    setTimeout(
+      () => bottomRef.current?.scrollIntoView({ behavior: "smooth" }),
+      500,
+    );
   };
 
   const onSelection = (selection: Selection) => {
@@ -28,7 +37,11 @@ export const useQuestion = () => {
     setShowConfidence(false);
   };
 
-  const onConfettiComplete = () => setNumberOfConfettiPieces(null);
+  const onConfettiComplete = () => {
+    setNumberOfConfettiPieces(null);
+  };
+
+  const goOnBreak = () => setOnBreak(true);
 
   return {
     showConfidence,
@@ -40,5 +53,10 @@ export const useQuestion = () => {
     onGoBackClick,
     onSelection,
     onConfettiComplete,
+    bottomRef,
+    onBreak,
+    goOnBreak,
+    bodyRef,
+    bodyHeight,
   };
 };

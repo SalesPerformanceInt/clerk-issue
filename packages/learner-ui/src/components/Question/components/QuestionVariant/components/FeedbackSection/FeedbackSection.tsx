@@ -6,6 +6,8 @@ import { AnimatePresence, motion } from "framer-motion";
 
 import { cleanHTML } from "~/utils/cleanHtml";
 
+import { Button } from "~/components";
+import { useQuestionContext } from "~/components/Question";
 import { GreenCheckMedallion } from "~/components/images/GreenCheckMedallion";
 import { RedCircleX } from "~/components/images/RedCircleX";
 
@@ -13,17 +15,18 @@ import type { FeedbackSectionProps } from "./FeedbackSection.types";
 
 ChartJS.register(ArcElement);
 
-export const FeedbackSection: FC<FeedbackSectionProps> = ({
-  show,
-  selected,
-  currentTopic,
-  totalScore,
-  topicPercentage,
-  children,
-}) => {
+export const FeedbackSection: FC<FeedbackSectionProps> = ({ children }) => {
+  const {
+    goOnBreak,
+    isFeedbackActive,
+    selected,
+    currentTopic,
+    totalScore,
+    topicPercentage,
+  } = useQuestionContext();
   return (
     <AnimatePresence>
-      {show && (
+      {isFeedbackActive && (
         <motion.div
           className="flex flex-col justify-center"
           initial={{ opacity: 0 }}
@@ -105,6 +108,17 @@ export const FeedbackSection: FC<FeedbackSectionProps> = ({
                 {`${topicPercentage}%`}
               </p>
             </div>
+          </div>
+          <div className="mt-14 flex justify-center space-x-5">
+            <Button
+              onClick={goOnBreak}
+              className="max-w-[100px] flex-1 bg-stone-300 hover:bg-stone-400"
+            >
+              Take a break
+            </Button>
+            <Button className="max-w-[200px] bg-lime-200 hover:bg-lime-300">
+              Continue
+            </Button>
           </div>
         </motion.div>
       )}

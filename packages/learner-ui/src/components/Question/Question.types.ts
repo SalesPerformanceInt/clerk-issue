@@ -1,5 +1,7 @@
 import type { DataCSLP, QuestionItem } from "~/contentstack";
 
+export { QuestionItem };
+
 export const variants = [
   "mcquestion",
   "tfquestion",

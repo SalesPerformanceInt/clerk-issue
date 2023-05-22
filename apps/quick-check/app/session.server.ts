@@ -51,9 +51,7 @@ export async function getUserFromSession(request: Request) {
   if (!userId) return null;
 
   const user = await getUserById(userId);
-  if (user) return user;
-
-  throw await logout(request);
+  return user;
 }
 
 export async function requireUserSession(

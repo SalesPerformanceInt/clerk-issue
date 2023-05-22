@@ -1,6 +1,6 @@
 import { compact } from "remeda";
 
-import { useQuestionContext } from "~/components/Question/context/QuestionContext";
+import { useQuestionContext } from "~/components/Question";
 
 import type {
   MultipleChoiceProps,

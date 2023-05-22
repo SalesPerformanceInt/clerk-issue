@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import { useMemo, useState } from "react";
 
-import { useQuestionContext } from "~/components/Question/context/QuestionContext";
+import { useQuestionContext } from "~/components/Question";
 
 import type {
   DraggableWord,
@@ -14,8 +14,7 @@ const SLOTS_REGEX = /_{2,}/g;
 type UseFillBlanksProps = Pick<FillBlanksProps, "fillblanksquestion">;
 
 export const useFillBlanks = ({ fillblanksquestion }: UseFillBlanksProps) => {
-  const { isFeedbackActive, onSelection, selected, hasSelected } =
-    useQuestionContext();
+  const { isFeedbackActive, onSelection } = useQuestionContext();
 
   /**
    * Set Slots
@@ -94,7 +93,5 @@ export const useFillBlanks = ({ fillblanksquestion }: UseFillBlanksProps) => {
     words,
     isFeedbackActive,
     onDrop,
-    selected,
-    hasSelected,
   };
 };

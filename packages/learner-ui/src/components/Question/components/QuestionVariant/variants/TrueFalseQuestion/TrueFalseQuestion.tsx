@@ -2,7 +2,7 @@ import React, { FC } from "react";
 
 import { cleanHTML } from "~/utils/cleanHtml";
 
-import { FadeOutText } from "~/components/FadeOutText";
+import { FadeOutText } from "~/components";
 import { ChooseAnotherAnswer } from "~/components/Question/components/QuestionVariant/components/ChooseAnotherAnswer";
 import { FeedbackSection } from "~/components/Question/components/QuestionVariant/components/FeedbackSection";
 
@@ -15,10 +15,6 @@ import type { TrueFalseQuestionProps } from "./TrueFalseQuestion.types";
 
 export const TrueFalseQuestion: FC<TrueFalseQuestionProps> = ({
   tfquestion,
-  currentTopic,
-  totalScore,
-  topicPercentage,
-  offset = 0,
 }: TrueFalseQuestionProps) => {
   const {
     isFeedbackActive,
@@ -26,6 +22,7 @@ export const TrueFalseQuestion: FC<TrueFalseQuestionProps> = ({
     onGoBackClick,
     selected,
     hasSelected,
+    offset = 0,
   } = useTrueFalseQuestion({
     tfquestion,
   });
@@ -68,13 +65,7 @@ export const TrueFalseQuestion: FC<TrueFalseQuestionProps> = ({
           onGoBackClick={onGoBackClick}
         />
 
-        <FeedbackSection
-          show={isFeedbackActive}
-          selected={selected}
-          currentTopic={currentTopic}
-          totalScore={totalScore}
-          topicPercentage={topicPercentage}
-        />
+        <FeedbackSection />
       </div>
       <TFChoices
         show={!hasSelected}

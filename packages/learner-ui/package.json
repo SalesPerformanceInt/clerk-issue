@@ -24,10 +24,12 @@
     "@storybook/testing-library": "^0.0.14-next.1",
     "@storybook/theming": "^7.0.0-rc.4",
     "contentstack": "^3.17.0",
+    "lodash": "^4.17.21",
     "react": "^18.2.0",
     "react-confetti": "^6.1.0",
     "react-dom": "^18.2.0",
-    "storybook": "^7.0.0-rc.4"
+    "storybook": "^7.0.0-rc.4",
+    "tailwind-merge": "^1.12.0"
   },
   "devDependencies": {
     "@dnd-kit/core": "^6.0.8",

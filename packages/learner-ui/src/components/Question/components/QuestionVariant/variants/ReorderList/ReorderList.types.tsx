@@ -13,9 +13,5 @@ export type ReorderableListItem = Pick<
 };
 
 export type ReorderListProps = Expand<
-  {
-    currentTopic: string;
-    totalScore: number;
-    topicPercentage: number;
-  } & Pick<ReorderListQuestion, "reorderlistquestion">
+  Pick<ReorderListQuestion, "reorderlistquestion">
 >;

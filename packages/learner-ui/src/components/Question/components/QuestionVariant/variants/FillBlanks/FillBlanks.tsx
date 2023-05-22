@@ -4,7 +4,7 @@ import { DndContext } from "@dnd-kit/core";
 
 import { cleanHTML } from "~/utils/cleanHtml";
 
-import { FadeOutText } from "~/components/FadeOutText";
+import { BottomDrawer, Container, FadeOutText } from "~/components";
 import { FeedbackSection } from "~/components/Question/components/QuestionVariant/components/FeedbackSection";
 
 import { DraggableWord, DroppableBlank } from "./components";
@@ -13,16 +13,10 @@ import { useFillBlanks } from "./hooks/useFillBlanks";
 
 import type { FillBlanksProps } from "./FillBlanks.types";
 
-export const FillBlanks: FC<FillBlanksProps> = ({
-  fillblanksquestion,
-  currentTopic,
-  totalScore,
-  topicPercentage,
-}) => {
-  const { stems, slots, words, onDrop, isFeedbackActive, selected } =
-    useFillBlanks({
-      fillblanksquestion,
-    });
+export const FillBlanks: FC<FillBlanksProps> = ({ fillblanksquestion }) => {
+  const { stems, slots, words, onDrop, isFeedbackActive } = useFillBlanks({
+    fillblanksquestion,
+  });
 
   return (
     <DndContext onDragEnd={onDrop}>
@@ -70,8 +64,8 @@ export const FillBlanks: FC<FillBlanksProps> = ({
         </div>
       </div>
 
-      {!isFeedbackActive && (
-        <div className="fixed bottom-0 left-0 right-0 flex h-2/6 flex-col border-t-2 border-t-gray-200 bg-yellow-50 p-8">
+      <BottomDrawer height={"33%"} show={!isFeedbackActive}>
+        <Container className="flex-col border-t-2 border-t-gray-200 bg-yellow-50 p-8">
           <p className="mb-8 text-sm" {...fillblanksquestion.$?.instruction}>
             {fillblanksquestion.instruction ?? ""}
           </p>
@@ -91,16 +85,10 @@ export const FillBlanks: FC<FillBlanksProps> = ({
                 ),
             )}
           </div>
-        </div>
-      )}
+        </Container>
+      </BottomDrawer>
 
-      <FeedbackSection
-        show={isFeedbackActive}
-        selected={selected}
-        currentTopic={currentTopic}
-        totalScore={totalScore}
-        topicPercentage={topicPercentage}
-      >
+      <FeedbackSection>
         <div className="mt-2 flex flex-wrap gap-4">
           {words.map(
             (word) =>

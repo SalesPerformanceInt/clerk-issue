@@ -1,14 +1,13 @@
-import React from "react";
+import React, { FC } from "react";
 
+import { useQuestionContext } from "~/components/Question";
 import { WhiteCircleX } from "~/components/images/WhiteCircleX";
 
-import type { HeaderProps } from "./Header.types";
+export const Header: FC = () => {
+  const { currentTopic, onClose, onBreak } = useQuestionContext();
 
-export const Header = ({
-  currentTopic,
-  currentTopicLiveEdit,
-  onClose,
-}: HeaderProps) => {
+  if (onBreak) return null;
+
   return (
     <div className="flex flex-col flex-wrap bg-indigo-950 px-5 pb-3 pt-4">
       <button onClick={onClose} className="items-cente flex p-2">
@@ -16,7 +15,7 @@ export const Header = ({
       </button>
 
       <div className="self-end">
-        <p className="text-white" {...currentTopicLiveEdit}>
+        <p className="text-white">
           Current Topic: <strong> {currentTopic} </strong>
         </p>
       </div>

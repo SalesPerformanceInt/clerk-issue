@@ -45,8 +45,6 @@ export default function Page() {
   const { questionItem, variant } = useLoaderData<typeof loader>();
   const navigate = useNavigate();
 
-  console.log("questionItem", questionItem);
-
   const totalScore = 1200;
   const topicPercentage = 77;
 

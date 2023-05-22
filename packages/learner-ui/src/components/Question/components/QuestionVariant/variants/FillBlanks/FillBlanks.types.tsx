@@ -14,9 +14,5 @@ export type WordDragEvent = DragEndEvent & {
 };
 
 export type FillBlanksProps = Expand<
-  {
-    currentTopic: string;
-    totalScore: number;
-    topicPercentage: number;
-  } & Pick<FillBlanksQuestion, "fillblanksquestion">
+  Pick<FillBlanksQuestion, "fillblanksquestion">
 >;

@@ -2,7 +2,7 @@ import React, { type FC } from "react";
 
 import { cleanHTML } from "~/utils/cleanHtml";
 
-import { FadeOutText } from "~/components/FadeOutText";
+import { FadeOutText } from "~/components";
 import { ChooseAnotherAnswer } from "~/components/Question/components/QuestionVariant/components/ChooseAnotherAnswer";
 import { FeedbackSection } from "~/components/Question/components/QuestionVariant/components/FeedbackSection";
 
@@ -12,12 +12,7 @@ import { useMultipleChoices } from "./hooks/useMultipleChoice";
 
 import type { MultipleChoiceProps } from "./MultipleChoice.types";
 
-export const MultipleChoice: FC<MultipleChoiceProps> = ({
-  mcquestion,
-  currentTopic,
-  totalScore,
-  topicPercentage,
-}) => {
+export const MultipleChoice: FC<MultipleChoiceProps> = ({ mcquestion }) => {
   const {
     choices,
     isFeedbackActive,
@@ -67,13 +62,7 @@ export const MultipleChoice: FC<MultipleChoiceProps> = ({
           onGoBackClick={onGoBackClick}
         />
 
-        <FeedbackSection
-          show={isFeedbackActive}
-          selected={selected}
-          currentTopic={currentTopic}
-          totalScore={totalScore}
-          topicPercentage={topicPercentage}
-        />
+        <FeedbackSection />
       </div>
     </>
   );

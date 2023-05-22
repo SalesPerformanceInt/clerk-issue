@@ -3,7 +3,7 @@ import { useState } from "react";
 import type { DragEndEvent } from "@dnd-kit/core";
 import { arrayMove } from "@dnd-kit/sortable";
 
-import { useQuestionContext } from "~/components/Question/context/QuestionContext";
+import { useQuestionContext } from "~/components/Question";
 
 import type {
   ReorderListProps,
@@ -15,7 +15,7 @@ type UseReorderListProps = Pick<ReorderListProps, "reorderlistquestion">;
 export const useReorderList = ({
   reorderlistquestion,
 }: UseReorderListProps) => {
-  const { isFeedbackActive, onSelection, selected } = useQuestionContext();
+  const { isFeedbackActive, onSelection } = useQuestionContext();
 
   /**
    * Set List Items
@@ -74,6 +74,5 @@ export const useReorderList = ({
     listItems,
     onDrop,
     isFeedbackActive,
-    selected,
   };
 };

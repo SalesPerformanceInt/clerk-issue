@@ -6,6 +6,9 @@ import {
   concat,
   type NormalizedCacheObject,
 } from "@apollo/client";
+import { createLearningRecord } from "~/graphql/mutations/createLearningRecord";
+import { resetUser } from "~/graphql/mutations/resetUser";
+import { updateNextQuestionId } from "~/graphql/mutations/updateNextQuestionId";
 import { getLinkToken } from "~/graphql/queries/getLinkToken";
 import { getUser } from "~/graphql/queries/getUser";
 
@@ -32,6 +35,9 @@ export class GraphQLClient {
   client: ApolloClient<NormalizedCacheObject>;
   getLinkToken = getLinkToken;
   getUser = getUser;
+  createLearningRecord = createLearningRecord;
+  updateNextQuestionId = updateNextQuestionId;
+  resetUser = resetUser;
 
   constructor() {
     this.client = getClient();

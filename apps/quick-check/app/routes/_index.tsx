@@ -32,14 +32,17 @@ export default function Index() {
 
   const message = searchParams.get("message");
 
-  const LogInButton = () =>
-    isDevelopment ? (
+  const LogInButton = () => {
+    if (!isDevelopment) return <AccelerateButton />;
+
+    if (user) return <Button onClick={() => navigate("/reset")}>Reset</Button>;
+
+    return (
       <Button onClick={() => navigate("/t/b777d1541630")}>
         t/b777d1541630
       </Button>
-    ) : (
-      <AccelerateButton />
     );
+  };
 
   return (
     <PageLayout>
@@ -64,7 +67,10 @@ export default function Index() {
           <div className="rounded-t-3xl bg-white px-8 py-6">
             <div className="flex justify-center space-x-11">
               <LogInButton />
-              <Button className="bg-lime-200 hover:bg-lime-300">
+              <Button
+                onClick={() => navigate("/nq")}
+                className="bg-lime-200 hover:bg-lime-300"
+              >
                 Return to questions
               </Button>
             </div>

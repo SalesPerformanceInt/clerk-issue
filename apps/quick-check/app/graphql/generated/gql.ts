@@ -13,6 +13,9 @@ import type { TypedDocumentNode as DocumentNode } from '@graphql-typed-document-
  * Therefore it is highly recommended to use the babel or swc plugin for production.
  */
 const documents = {
+    "\n  mutation CreateLearningRecord(\n    $learning_record: learning_record_insert_input!\n  ) {\n    insert_learning_record_one(object: $learning_record) {\n      created_at\n      data\n      event_type\n      id\n      user_id\n    }\n  }\n": types.CreateLearningRecordDocument,
+    "\n  mutation ResetUser($user_id: uuid!, $next_question_id: String) {\n    update_user_by_pk(\n      pk_columns: { user_id: $user_id }\n      _set: { next_question_id: $next_question_id }\n    ) {\n      user_id\n      next_question_id\n      learning_records {\n        id\n      }\n    }\n    delete_learning_record(where: { user_id: { _eq: $user_id } }) {\n      affected_rows\n    }\n  }\n": types.ResetUserDocument,
+    "\n  mutation UpdateNextQuestionId($user_id: uuid!, $next_question_id: String) {\n    update_user_by_pk(\n      pk_columns: { user_id: $user_id }\n      _set: { next_question_id: $next_question_id }\n    ) {\n      user_id\n      next_question_id\n    }\n  }\n": types.UpdateNextQuestionIdDocument,
     "\n  query GetLinkToken($id: String!) {\n    link_token_by_pk(id: $id) {\n      id\n      user_id\n      created_at\n      user {\n        created_at\n        first_name\n        last_name\n        next_question_id\n        user_id\n      }\n    }\n  }\n": types.GetLinkTokenDocument,
     "\n  query GetUser($userId: uuid!) {\n    user_by_pk(user_id: $userId) {\n      account\n      email\n      first_name\n      language_preference\n      last_name\n      next_question_id\n      phone_number\n      timezone\n      user_id\n      learning_records {\n        data\n        event_type\n        id\n      }\n    }\n  }\n": types.GetUserDocument,
 };
@@ -31,6 +34,18 @@ const documents = {
  */
 export function graphql(source: string): unknown;
 
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(source: "\n  mutation CreateLearningRecord(\n    $learning_record: learning_record_insert_input!\n  ) {\n    insert_learning_record_one(object: $learning_record) {\n      created_at\n      data\n      event_type\n      id\n      user_id\n    }\n  }\n"): (typeof documents)["\n  mutation CreateLearningRecord(\n    $learning_record: learning_record_insert_input!\n  ) {\n    insert_learning_record_one(object: $learning_record) {\n      created_at\n      data\n      event_type\n      id\n      user_id\n    }\n  }\n"];
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(source: "\n  mutation ResetUser($user_id: uuid!, $next_question_id: String) {\n    update_user_by_pk(\n      pk_columns: { user_id: $user_id }\n      _set: { next_question_id: $next_question_id }\n    ) {\n      user_id\n      next_question_id\n      learning_records {\n        id\n      }\n    }\n    delete_learning_record(where: { user_id: { _eq: $user_id } }) {\n      affected_rows\n    }\n  }\n"): (typeof documents)["\n  mutation ResetUser($user_id: uuid!, $next_question_id: String) {\n    update_user_by_pk(\n      pk_columns: { user_id: $user_id }\n      _set: { next_question_id: $next_question_id }\n    ) {\n      user_id\n      next_question_id\n      learning_records {\n        id\n      }\n    }\n    delete_learning_record(where: { user_id: { _eq: $user_id } }) {\n      affected_rows\n    }\n  }\n"];
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(source: "\n  mutation UpdateNextQuestionId($user_id: uuid!, $next_question_id: String) {\n    update_user_by_pk(\n      pk_columns: { user_id: $user_id }\n      _set: { next_question_id: $next_question_id }\n    ) {\n      user_id\n      next_question_id\n    }\n  }\n"): (typeof documents)["\n  mutation UpdateNextQuestionId($user_id: uuid!, $next_question_id: String) {\n    update_user_by_pk(\n      pk_columns: { user_id: $user_id }\n      _set: { next_question_id: $next_question_id }\n    ) {\n      user_id\n      next_question_id\n    }\n  }\n"];
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */

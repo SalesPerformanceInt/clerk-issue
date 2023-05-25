@@ -17,17 +17,14 @@ export const QuestionItem = ({ questionItem }: QuestionItemProps) => {
     window.location.reload();
   };
 
-  const totalScore = 1200;
-  const topicPercentage = 77;
-
   return (
     <>
       <Question
+        onSubmit={() => undefined}
         variant={variant}
         onClose={onClose}
+        onContinue={onClose}
         questionItem={questionItem}
-        topicPercentage={topicPercentage}
-        totalScore={totalScore}
         offset={50}
       />
       <div className="absolute right-3 top-3">

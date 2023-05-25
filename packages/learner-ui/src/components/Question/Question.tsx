@@ -4,10 +4,9 @@ import { PageLayout } from "~/components";
 import { ConfidenceModal } from "~/components/Question/components";
 
 import {
-  Body,
   BottomAnchor,
-  BreakBackground,
   Header,
+  QuestionBody,
   QuestionConfetti,
 } from "./components";
 
@@ -19,8 +18,7 @@ export const Question: FC<QuestionProps> = (props) => {
     <QuestionContextProvider {...props}>
       <PageLayout>
         <Header />
-        <BreakBackground />
-        <Body />
+        <QuestionBody />
         <BottomAnchor />
       </PageLayout>
       <ConfidenceModal />

@@ -1,9 +1,13 @@
 import { useRef, useState } from "react";
 import { useMeasure } from "react-use";
 
-import type { Selection } from "../Question.types";
+import invariant from "tiny-invariant";
 
-export const useQuestion = () => {
+import type { Confidence, Selection } from "../../Question.types";
+import { confidenceMap } from "../utils/condienceMap";
+import type { useQuestionProps } from "./useQuestion.types";
+
+export const useQuestion = ({ onSubmit }: useQuestionProps) => {
   const [showConfidence, setShowConfidence] = useState(false);
   const [selected, setSelected] = useState<Selection | null>(null);
   const [numberOfConfettiPieces, setNumberOfConfettiPieces] = useState<
@@ -18,9 +22,18 @@ export const useQuestion = () => {
 
   const isFeedbackActive = hasSelected && !showConfidence;
 
-  const onConfidenceClick = (numberOfPieces: number) => {
+  const onConfidenceClick = (confidence: Confidence) => {
+    invariant(selected, "Missing selection");
+
     setShowConfidence(false);
-    if (selected?.correct) setNumberOfConfettiPieces(numberOfPieces);
+
+    if (selected?.correct) {
+      const numberOfConfettiPieces = confidenceMap.get(confidence);
+      setNumberOfConfettiPieces(numberOfConfettiPieces);
+    }
+
+    onSubmit(selected, confidence);
+
     setTimeout(
       () => bottomRef.current?.scrollIntoView({ behavior: "smooth" }),
       500,

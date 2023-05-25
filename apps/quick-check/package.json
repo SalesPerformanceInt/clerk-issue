@@ -23,7 +23,9 @@
     "isbot": "^3.6.5",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "remeda": "^1.14.0"
+    "react-use": "^17.4.0",
+    "remeda": "^1.14.0",
+    "zod": "^3.21.4"
   },
   "devDependencies": {
     "@graphql-codegen/cli": "^3.3.1",

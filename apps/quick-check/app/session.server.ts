@@ -5,7 +5,7 @@ import type { User } from "~/graphql";
 
 import { SESSION_SECRET } from "~/utils/server/envs.server";
 
-import { getUserById } from "~/models/user.server";
+import { getUserById } from "~/models/user";
 
 invariant(SESSION_SECRET, "SESSION_SECRET must be set");
 

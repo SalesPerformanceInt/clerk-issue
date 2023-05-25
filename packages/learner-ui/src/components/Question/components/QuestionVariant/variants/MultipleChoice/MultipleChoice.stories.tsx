@@ -13,9 +13,6 @@ type Story = StoryObj<typeof meta>;
 
 export const MultipleChoice = {
   args: {
-    currentTopic: "Foo Bar the Topic",
-    totalScore: 1200,
-    topicPercentage: 77,
     mcquestion: {
       _metadata: { uid: "mcquestion-1" },
       choices: [

@@ -5,3 +5,4 @@ export * from "./FadeOutText";
 export * from "./PageLayout";
 export * from "./Button";
 export * from "./BottomDrawer";
+export * from "./Break";

@@ -19,19 +19,19 @@ export const ConfidenceModal = () => {
         </p>
         <div className="flex justify-center space-x-5">
           <Button
-            onClick={() => onConfidenceClick(50)}
+            onClick={() => onConfidenceClick("low")}
             className="bg-sky-200hover:bg-sky-300 flex-1"
           >
             I don't know
           </Button>
           <Button
-            onClick={() => onConfidenceClick(200)}
+            onClick={() => onConfidenceClick("medium")}
             className="flex-1 bg-yellow-100 hover:bg-yellow-200"
           >
             I'm not sure
           </Button>
           <Button
-            onClick={() => onConfidenceClick(1000)}
+            onClick={() => onConfidenceClick("high")}
             className="lex-1 bg-orange-200 hover:bg-orange-300"
           >
             I know this

@@ -2,7 +2,7 @@ import React, { FC, useMemo } from "react";
 
 import { sample } from "lodash";
 
-import { useQuestionContext } from "~/components/Question";
+import { BreakBackgroundTypes } from "./BreakBackground.types";
 
 const quotes = [
   `Almost everything will work again if you unplug it for a few minutes...including you.
@@ -19,12 +19,13 @@ const quotes = [
   -- Cornell Univ. Health`,
 ];
 
-export const BreakBackground: FC = () => {
-  const { onBreak, bodyHeight } = useQuestionContext();
-
+export const BreakBackground: FC<BreakBackgroundTypes> = ({
+  show,
+  bodyHeight,
+}) => {
   const quote = useMemo(() => sample(quotes), []);
 
-  if (!onBreak) return null;
+  if (!show) return null;
   return (
     <>
       <div className="flex flex-grow" />

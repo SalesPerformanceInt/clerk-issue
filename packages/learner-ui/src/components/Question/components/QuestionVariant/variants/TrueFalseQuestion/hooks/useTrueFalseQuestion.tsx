@@ -25,6 +25,7 @@ export const useTrueFalseQuestion = ({
       correct,
       feedback: correct ? tfquestion.feedback : tfquestion.incorrect_feedback,
       feedbackLiveEdit: tfquestion.$?.feedback,
+      uid: JSON.stringify(choice),
     });
   };
 

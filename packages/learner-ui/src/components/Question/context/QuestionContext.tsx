@@ -1,7 +1,8 @@
 import React, { FC, createContext, createRef, useContext } from "react";
 
+import { useQuestion } from "./hooks/useQuestion";
+
 import type { QuestionItem, Selection } from "../Question.types";
-import { useQuestion } from "../hooks/useQuestion";
 import type {
   QuestionContextProps,
   QuestionContextProviderProps,
@@ -21,13 +22,13 @@ const defaultProps: QuestionContextProps = {
   onClose: () => undefined,
   questionItem: {} as QuestionItem,
   variant: "mcquestion",
-  totalScore: 0,
-  topicPercentage: 0,
   showConfidence: false,
   onConfidenceClick: () => undefined,
   onConfettiComplete: () => undefined,
   numberOfConfettiPieces: null,
   bottomRef: createRef(),
+  onSubmit: () => undefined,
+  onContinue: () => undefined,
 };
 
 export const QuestionContext =
@@ -39,17 +40,13 @@ export const QuestionContextProvider: FC<QuestionContextProviderProps> = ({
   children,
   ...props
 }) => {
-  const questionProps = useQuestion();
+  const questionProps = useQuestion(props);
 
   const currentTopic = props.questionItem.taxonomy[0]?.title ?? "";
 
   return (
     <QuestionContext.Provider
-      value={{
-        currentTopic,
-        ...props,
-        ...questionProps,
-      }}
+      value={{ currentTopic, ...props, ...questionProps }}
     >
       {children}
     </QuestionContext.Provider>

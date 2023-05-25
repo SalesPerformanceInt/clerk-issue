@@ -63,6 +63,7 @@ export const useReorderList = ({
       feedbackLiveEdit: correct
         ? reorderlistquestion.$?.feedback
         : reorderlistquestion.$?.incorrect_feedback,
+      uid: JSON.stringify(userAnswerItems.map(({ id }) => id)),
     });
   };
 

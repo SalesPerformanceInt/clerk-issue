@@ -24,7 +24,7 @@ export const loader = async ({ params, request }: LoaderArgs) => {
     invariant(user?.next_question_id, "next question not found");
 
     return createUserSession({
-      redirectTo: `/q/${user.next_question_id}`,
+      redirectTo: "/nq",
       remember: true,
       request,
       userId: user.user_id,

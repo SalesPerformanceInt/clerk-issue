@@ -13,7 +13,7 @@ export const DroppableContainer: FC<DroppableContainerProps> = ({
   return (
     <div
       ref={setNodeRef}
-      className="flex h-full min-h-[48px] w-full flex-wrap items-center rounded border-2 border-solid border-gray-200 px-4 py-2"
+      className="flex h-full min-h-[48px] w-full flex-wrap items-center gap-x-6 gap-y-4 rounded border-2 border-solid border-gray-200 px-4 py-2"
     >
       {children}
     </div>

@@ -15,54 +15,66 @@ export const questionItemMock: QuestionItem & Record<string, unknown> = {
   updated_at: "2023-05-09T18:46:46.429Z",
   updated_by: "blt9d12ed8d9273558d",
   variants: [
+    // {
+    //   fillblanksquestion: {
+    //     prompt: "Fill the blanks below",
+    //     _metadata: {
+    //       uid: "cse14bcdc8118fbe7f",
+    //     },
+    //     instruction: "Drag the missing words",
+    //     feedback: "<p>This is correct because I said so.</p>",
+    //     incorrect_feedback: "<p>This is incorrect because I said so.</p>",
+    //     stem: "<p>When my main __ is not a senior stakeholder for this opportunity, I ask my contact if they object to me reaching out to the ___ with an idea or competitive insight.</p>",
+    //     draggable_words: [
+    //       {
+    //         draggable_word: {
+    //           word: "customer contact",
+    //           _metadata: {
+    //             uid: "cs3453e40432875f90",
+    //           },
+    //           order: 1,
+    //         },
+    //       },
+    //       {
+    //         draggable_word: {
+    //           word: "senior contact",
+    //           _metadata: {
+    //             uid: "csd19ffc0c09577055",
+    //           },
+    //           order: 2,
+    //         },
+    //       },
+    //       {
+    //         draggable_word: {
+    //           word: "homeboy",
+    //           _metadata: {
+    //             uid: "csbf0a8e9bea17f7b0",
+    //           },
+    //           order: 0,
+    //         },
+    //       },
+    //       {
+    //         draggable_word: {
+    //           word: "CEO",
+    //           _metadata: {
+    //             uid: "cs8be512e7c5706a87",
+    //           },
+    //           order: 0,
+    //         },
+    //       },
+    //     ],
+    //   },
+    // },
     {
-      fillblanksquestion: {
-        prompt: "Fill the blanks below",
+      reorderwordsquestion: {
+        prompt: "Given the following list of words",
         _metadata: {
-          uid: "cse14bcdc8118fbe7f",
+          uid: "csd5ea71287be35520",
         },
-        instruction: "Drag the missing words",
+        stem: "The quick brown fox jumps over a lazy dog and bites some cat",
+        instruction: "Reorder them in a correct order",
         feedback: "<p>This is correct because I said so.</p>",
         incorrect_feedback: "<p>This is incorrect because I said so.</p>",
-        stem: "<p>When my main __ is not a senior stakeholder for this opportunity, I ask my contact if they object to me reaching out to the ___ with an idea or competitive insight.</p>",
-        draggable_words: [
-          {
-            draggable_word: {
-              word: "customer contact",
-              _metadata: {
-                uid: "cs3453e40432875f90",
-              },
-              order: 1,
-            },
-          },
-          {
-            draggable_word: {
-              word: "senior contact",
-              _metadata: {
-                uid: "csd19ffc0c09577055",
-              },
-              order: 2,
-            },
-          },
-          {
-            draggable_word: {
-              word: "homeboy",
-              _metadata: {
-                uid: "csbf0a8e9bea17f7b0",
-              },
-              order: 0,
-            },
-          },
-          {
-            draggable_word: {
-              word: "CEO",
-              _metadata: {
-                uid: "cs8be512e7c5706a87",
-              },
-              order: 0,
-            },
-          },
-        ],
       },
     },
     // {

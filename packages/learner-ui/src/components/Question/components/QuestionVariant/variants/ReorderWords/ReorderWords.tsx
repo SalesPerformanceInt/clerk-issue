@@ -2,8 +2,10 @@
 import React, { type FC } from "react";
 import { createPortal } from "react-dom";
 
-import { DndContext, DragOverlay } from "@dnd-kit/core";
+import { DragOverlay } from "@dnd-kit/core";
 import { SortableContext } from "@dnd-kit/sortable";
+
+import { DndContext } from "~/utils/dnd";
 
 import { BottomDrawer, Container, FadeOutText } from "~/components";
 

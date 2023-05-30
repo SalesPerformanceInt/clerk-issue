@@ -1,7 +1,8 @@
 import React, { type FC } from "react";
 
-import { useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
+
+import { useSortable } from "~/utils/dnd";
 
 import type { ReorderableWordProps } from "./ReorderableWord.types";
 

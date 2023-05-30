@@ -1,7 +1,8 @@
 import React, { type FC } from "react";
 
-import { useDroppable } from "@dnd-kit/core";
 import classNames from "classnames";
+
+import { useDroppable } from "~/utils/dnd";
 
 import type { DroppableContainerProps } from "./DroppableContainer.types";
 

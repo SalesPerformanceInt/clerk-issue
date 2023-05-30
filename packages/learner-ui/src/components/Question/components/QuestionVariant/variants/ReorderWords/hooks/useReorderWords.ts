@@ -2,9 +2,10 @@
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
 import { useMemo, useState } from "react";
 
-import type { DragOverEvent, DragStartEvent } from "@dnd-kit/core";
 import { arrayMove } from "@dnd-kit/sortable";
 import objectHash from "object-hash";
+
+import type { DragOverEvent, DragStartEvent } from "~/utils/dnd";
 
 import type {
   ReorderWordsProps,
@@ -47,14 +48,14 @@ export const useReorderWords = ({
   const handleDragStart = ({ active }: DragStartEvent) => {
     setActiveWord({
       id: active.id,
-      text: active.data.current?.text,
+      text: active.data.current.text,
     });
   };
 
   const handleDragOver = ({ active, over }: DragOverEvent) => {
     if (!over || !over.id) return null;
 
-    const activeContainer = active.data.current?.container as Items;
+    const activeContainer = active.data.current.container as Items;
     const overContainer = (over.data.current?.container || over.id) as Items;
 
     setReorderableWords((words) => {

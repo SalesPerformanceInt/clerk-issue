@@ -93,19 +93,19 @@ type DragEvent<Active = undefined, Over = undefined> = Omit<
   over: TypesafeOver<Over> | null;
 };
 
-export type DragStartEvent<Active = undefined> = Pick<
+export type DragStartEvent<Active = AnyData> = Pick<
   DragEvent<Active>,
   "active"
 >;
-export type DragMoveEvent<Active = undefined, Over = undefined> = DragEvent<
+export type DragMoveEvent<Active = AnyData, Over = AnyData> = DragEvent<
   Active,
   Over | undefined
 >;
-export type DragOverEvent<Active = undefined, Over = undefined> = DragEvent<
+export type DragOverEvent<Active = AnyData, Over = AnyData> = DragEvent<
   Active,
   Over | undefined
 >;
-export type DragEndEvent<Active = undefined, Over = undefined> = DragEvent<
+export type DragEndEvent<Active = AnyData, Over = AnyData> = DragEvent<
   Active,
   Over | undefined
 >;
@@ -114,16 +114,19 @@ export type DragEndEvent<Active = undefined, Over = undefined> = DragEvent<
  * DnD Context
  */
 
-export type DndContextTypesafeProps = Omit<
+export type DndContextTypesafeProps<Active = AnyData, Over = AnyData> = Omit<
   DndContextProps,
   "onDragStart" | "onDragMove" | "onDragOver" | "onDragEnd"
 > & {
-  onDragStart?: (event: DragStartEvent) => void;
-  onDragMove?: (event: DragMoveEvent) => void;
-  onDragOver?: (event: DragOverEvent) => void;
-  onDragEnd?: (event: DragEndEvent) => void;
+  onDragStart?: (event: DragStartEvent<Active>) => void;
+  onDragMove?: (event: DragMoveEvent<Active, Over>) => void;
+  onDragOver?: (event: DragOverEvent<Active, Over>) => void;
+  onDragEnd?: (event: DragEndEvent<Active, Over>) => void;
 };
 
-export function DndContext(props: DndContextTypesafeProps) {
+export function DndContext<
+  Active extends AnyData = AnyData,
+  Over extends AnyData = AnyData,
+>(props: DndContextTypesafeProps<Active, Over>) {
   return <DndContextCore {...props} />;
 }

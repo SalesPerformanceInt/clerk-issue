@@ -1,8 +1,11 @@
 import type { UniqueIdentifier } from "@dnd-kit/core";
 
-export type ReorderableWordProps = {
-  text: UniqueIdentifier;
-  id: UniqueIdentifier;
+export type ReorderableWordData = {
+  text: string;
   container?: UniqueIdentifier;
-  disabled: boolean;
 };
+
+export type ReorderableWordProps = {
+  id: UniqueIdentifier;
+  disabled: boolean;
+} & ReorderableWordData;

@@ -2,10 +2,15 @@ import type { FillBlanksQuestionWord } from "~/contentstack";
 
 import type { Expand } from "~/utils/expand";
 
-export type DraggableWordProps = Expand<{
-  text: string;
-  id: string;
+export type DraggableWordData = {
   order: number;
-  disabled: boolean;
-  liveEdit?: FillBlanksQuestionWord["draggable_word"]["$"];
-}>;
+};
+
+export type DraggableWordProps = Expand<
+  {
+    text: string;
+    id: string;
+    disabled: boolean;
+    liveEdit?: FillBlanksQuestionWord["draggable_word"]["$"];
+  } & Pick<DraggableWordData, "order">
+>;

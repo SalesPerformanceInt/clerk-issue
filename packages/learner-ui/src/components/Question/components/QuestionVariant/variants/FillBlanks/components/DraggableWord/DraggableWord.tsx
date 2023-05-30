@@ -1,9 +1,13 @@
 import React, { type FC } from "react";
 
-import { useDraggable } from "@dnd-kit/core";
 import { CSS } from "@dnd-kit/utilities";
 
-import type { DraggableWordProps } from "./DraggableWord.types";
+import { useDraggable } from "~/utils/dnd";
+
+import type {
+  DraggableWordData,
+  DraggableWordProps,
+} from "./DraggableWord.types";
 
 export const DraggableWord: FC<DraggableWordProps> = ({
   id,
@@ -12,11 +16,12 @@ export const DraggableWord: FC<DraggableWordProps> = ({
   disabled,
   liveEdit,
 }) => {
-  const { attributes, listeners, setNodeRef, transform } = useDraggable({
-    id,
-    disabled,
-    data: { order },
-  });
+  const { attributes, listeners, setNodeRef, transform } =
+    useDraggable<DraggableWordData>({
+      id,
+      disabled,
+      data: { order },
+    });
 
   const style = {
     transform: CSS.Translate.toString(transform),

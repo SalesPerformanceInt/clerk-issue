@@ -4,7 +4,10 @@ import { CSS } from "@dnd-kit/utilities";
 
 import { useSortable } from "~/utils/dnd";
 
-import type { ReorderableWordProps } from "./ReorderableWord.types";
+import type {
+  ReorderableWordData,
+  ReorderableWordProps,
+} from "./ReorderableWord.types";
 
 export const ReorderableWord: FC<ReorderableWordProps> = ({
   id,
@@ -13,7 +16,11 @@ export const ReorderableWord: FC<ReorderableWordProps> = ({
   disabled,
 }) => {
   const { attributes, listeners, setNodeRef, transform, transition } =
-    useSortable({ id, disabled, data: { text, container } });
+    useSortable<ReorderableWordData>({
+      id,
+      disabled,
+      data: { text, container },
+    });
 
   const style = {
     transform: CSS.Transform.toString(transform),

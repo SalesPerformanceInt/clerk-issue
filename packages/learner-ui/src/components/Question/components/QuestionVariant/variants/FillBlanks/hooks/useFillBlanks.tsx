@@ -1,13 +1,11 @@
-/* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import { useMemo, useState } from "react";
+
+import type { DragEndEvent } from "~/utils/dnd";
 
 import { useQuestionContext } from "~/components/Question";
 
-import type {
-  DraggableWord,
-  FillBlanksProps,
-  WordDragEvent,
-} from "../FillBlanks.types";
+import type { DraggableWord, FillBlanksProps } from "../FillBlanks.types";
+import type { DraggableWordData } from "../components/DraggableWord/DraggableWord.types";
 
 const SLOTS_REGEX = /_{2,}/g;
 
@@ -48,17 +46,19 @@ export const useFillBlanks = ({ fillblanksquestion }: UseFillBlanksProps) => {
    * Handlers
    */
 
-  const onDrop = (event: WordDragEvent) => {
+  const onDrop = (
+    event: DragEndEvent<DraggableWordData, DraggableWordData>,
+  ) => {
     if (!event.over) return null;
 
     const newWords = words.map((word) => ({
       ...word,
       order:
         event.active.id !== word._metadata.uid
-          ? event.over.data.current.order === word.order
+          ? event.over?.data.current?.order === word.order
             ? event.active.data.current.order
             : word.order
-          : event.over.data.current.order || word.order,
+          : event.over?.data.current?.order || word.order,
     }));
 
     const filledSlots = newWords.filter((word) => word.order !== 0);

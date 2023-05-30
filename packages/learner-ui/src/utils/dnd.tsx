@@ -8,7 +8,6 @@ import {
   type DndContextProps,
   type DragMoveEvent as DragMoveEventCore,
   type Over,
-  type UniqueIdentifier,
   type UseDraggableArguments,
   type UseDroppableArguments,
 } from "@dnd-kit/core";
@@ -18,18 +17,25 @@ import {
 } from "@dnd-kit/sortable";
 
 /**
+ * Utility Types
+ */
+
+type AnyData = Record<string, unknown>;
+
+/**
  * Droppable
  */
 
-type DroppableData = {
-  order: number;
+type UseDroppableTypesafeArgs<T = undefined> = Omit<
+  UseDroppableArguments,
+  "data"
+> & {
+  data?: T;
 };
 
-type UseDroppableTypesafeArgs = Omit<UseDroppableArguments, "data"> & {
-  data?: DroppableData;
-};
-
-export function useDroppable(props: UseDroppableTypesafeArgs) {
+export function useDroppable<T extends AnyData>(
+  props: UseDroppableTypesafeArgs<T>,
+) {
   return useDroppableCore(props);
 }
 
@@ -37,15 +43,16 @@ export function useDroppable(props: UseDroppableTypesafeArgs) {
  * Draggable
  */
 
-type DraggableData = {
-  order: number;
+type UseDraggableTypesafeArgs<T = undefined> = Omit<
+  UseDraggableArguments,
+  "data"
+> & {
+  data?: T;
 };
 
-type UseDraggableTypesafeArgs = Omit<UseDraggableArguments, "data"> & {
-  data?: DraggableData;
-};
-
-export function useDraggable(props: UseDraggableTypesafeArgs) {
+export function useDraggable<T extends AnyData>(
+  props: UseDraggableTypesafeArgs<T>,
+) {
   return useDraggableCore(props);
 }
 
@@ -53,16 +60,16 @@ export function useDraggable(props: UseDraggableTypesafeArgs) {
  * Sortable
  */
 
-type SortableData = {
-  container?: UniqueIdentifier;
-  text: string;
+type UseSortableTypesafeArgs<T = undefined> = Omit<
+  UseSortableArguments,
+  "data"
+> & {
+  data?: T;
 };
 
-type UseSortableTypesafeArgs = Omit<UseSortableArguments, "data"> & {
-  data: SortableData;
-};
-
-export function useSortable(props: UseSortableTypesafeArgs) {
+export function useSortable<T extends AnyData>(
+  props: UseSortableTypesafeArgs<T>,
+) {
   return useSortableCore(props);
 }
 
@@ -70,23 +77,38 @@ export function useSortable(props: UseSortableTypesafeArgs) {
  * Drag Handlers
  */
 
-type TypesafeActive = Omit<Active, "data"> & {
-  data: MutableRefObject<SortableData>;
+type TypesafeActive<T = undefined> = Omit<Active, "data"> & {
+  data: MutableRefObject<T>;
 };
 
-type TypesafeOver = Omit<Over, "data"> & {
-  data: MutableRefObject<SortableData | undefined>;
+type TypesafeOver<T = undefined> = Omit<Over, "data"> & {
+  data: MutableRefObject<T>;
 };
 
-type DragEvent = Omit<DragMoveEventCore, "active" | "over"> & {
-  active: TypesafeActive;
-  over: TypesafeOver | null;
+type DragEvent<Active = undefined, Over = undefined> = Omit<
+  DragMoveEventCore,
+  "active" | "over"
+> & {
+  active: TypesafeActive<Active>;
+  over: TypesafeOver<Over> | null;
 };
 
-export type DragStartEvent = Pick<DragEvent, "active">;
-export type DragMoveEvent = DragEvent;
-export type DragOverEvent = DragEvent;
-export type DragEndEvent = DragEvent;
+export type DragStartEvent<Active = undefined> = Pick<
+  DragEvent<Active>,
+  "active"
+>;
+export type DragMoveEvent<Active = undefined, Over = undefined> = DragEvent<
+  Active,
+  Over | undefined
+>;
+export type DragOverEvent<Active = undefined, Over = undefined> = DragEvent<
+  Active,
+  Over | undefined
+>;
+export type DragEndEvent<Active = undefined, Over = undefined> = DragEvent<
+  Active,
+  Over | undefined
+>;
 
 /**
  * DnD Context

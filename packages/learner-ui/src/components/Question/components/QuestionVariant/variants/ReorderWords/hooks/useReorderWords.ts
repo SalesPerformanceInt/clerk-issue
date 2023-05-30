@@ -1,5 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unsafe-assignment */
-/* eslint-disable @typescript-eslint/no-unsafe-member-access */
 import { useMemo, useState } from "react";
 
 import { arrayMove } from "@dnd-kit/sortable";
@@ -12,6 +10,7 @@ import type {
   ReorderableItem,
   ReorderableWords,
 } from "../ReorderWords.types";
+import type { ReorderableWordData } from "../components/ReorderableWord/ReorderableWord.types";
 
 type UseReorderWordsProps = Pick<ReorderWordsProps, "reorderwordsquestion">;
 
@@ -45,14 +44,17 @@ export const useReorderWords = ({
    * Handlers
    */
 
-  const handleDragStart = ({ active }: DragStartEvent) => {
+  const handleDragStart = ({ active }: DragStartEvent<ReorderableWordData>) => {
     setActiveWord({
       id: active.id,
       text: active.data.current.text,
     });
   };
 
-  const handleDragOver = ({ active, over }: DragOverEvent) => {
+  const handleDragOver = ({
+    active,
+    over,
+  }: DragOverEvent<ReorderableWordData, ReorderableWordData>) => {
     if (!over || !over.id) return null;
 
     const activeContainer = active.data.current.container as Items;

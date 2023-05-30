@@ -24,13 +24,16 @@ export const useReorderWords = ({
    */
 
   const correctWordsOrder = useMemo(
-    () => reorderwordsquestion.stem.split(" "),
+    () =>
+      reorderwordsquestion.stem
+        .split(" ")
+        .map((word) => word.charAt(0).toUpperCase() + word.slice(1)),
     [reorderwordsquestion],
   );
   const [reorderableWords, setReorderableWords] = useState<ReorderableWords>({
     answer: [],
-    words: correctWordsOrder.map((word) => ({
-      id: objectHash(word),
+    words: correctWordsOrder.map((word, index) => ({
+      id: objectHash({ word, index }),
       text: word,
     })),
   });

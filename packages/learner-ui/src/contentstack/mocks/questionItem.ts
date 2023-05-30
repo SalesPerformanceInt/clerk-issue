@@ -71,7 +71,7 @@ export const questionItemMock: QuestionItem & Record<string, unknown> = {
         _metadata: {
           uid: "csd5ea71287be35520",
         },
-        stem: "The quick brown fox jumps over a lazy dog and bites some cat",
+        stem: "The quick brown fox jumps over the lazy dog",
         instruction: "Reorder them in a correct order",
         feedback: "<p>This is correct because I said so.</p>",
         incorrect_feedback: "<p>This is incorrect because I said so.</p>",

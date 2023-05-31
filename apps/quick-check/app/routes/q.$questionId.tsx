@@ -47,7 +47,8 @@ export const loader = async ({ params, request }: LoaderArgs) => {
 
 export const action: ActionFunction = async ({ request }) => {
   const result = await saveAnswer(request);
-  await generateNextQuestion(request);
+  const userId = await requireUserSession(request);
+  await generateNextQuestion(userId);
 
   return json({ result });
 };

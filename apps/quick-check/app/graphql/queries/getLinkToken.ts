@@ -6,6 +6,7 @@ export const GET_LINK_TOKEN = graphql(/* GraphQL */ `
       id
       user_id
       created_at
+      active
       user {
         created_at
         first_name

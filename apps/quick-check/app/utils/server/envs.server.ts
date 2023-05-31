@@ -15,4 +15,9 @@ export const SESSION_SECRET = process.env.SESSION_SECRET ?? "";
 
 export const NODE_ENV = process.env.NODE_ENV ?? "";
 
+export const TWILIO_ACCOUNT_SID = process.env.TWILIO_ACCOUNT_SID ?? "";
+export const TWILIO_AUTH_TOKEN = process.env.TWILIO_AUTH_TOKEN ?? "";
+export const TWILIO_SMS_FROM = process.env.TWILIO_SMS_FROM ?? "";
+export const TWILIO_WHATSAPP_FROM = process.env.TWILIO_WHATSAPP_FROM ?? "";
+
 export const isDevelopment = NODE_ENV === "development";

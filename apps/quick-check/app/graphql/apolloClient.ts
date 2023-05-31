@@ -6,11 +6,13 @@ import {
   concat,
   type NormalizedCacheObject,
 } from "@apollo/client";
-import { createLearningRecord } from "~/graphql/mutations/createLearningRecord";
-import { resetUser } from "~/graphql/mutations/resetUser";
-import { updateNextQuestionId } from "~/graphql/mutations/updateNextQuestionId";
-import { getLinkToken } from "~/graphql/queries/getLinkToken";
-import { getUser } from "~/graphql/queries/getUser";
+import {
+  createLearningRecord,
+  generateNewToken,
+  resetUser,
+  updateNextQuestionId,
+} from "~/graphql/mutations";
+import { getAllUsers, getLinkToken, getUser } from "~/graphql/queries";
 
 import { HASURA_API_URL, HASURA_AUTH_TOKEN } from "~/utils/server/envs.server";
 
@@ -38,6 +40,8 @@ export class GraphQLClient {
   createLearningRecord = createLearningRecord;
   updateNextQuestionId = updateNextQuestionId;
   resetUser = resetUser;
+  getAllUsers = getAllUsers;
+  generateNewToken = generateNewToken;
 
   constructor() {
     this.client = getClient();

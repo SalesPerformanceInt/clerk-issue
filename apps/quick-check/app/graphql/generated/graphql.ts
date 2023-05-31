@@ -20,6 +20,19 @@ export type Scalars = {
   uuid: UUID;
 };
 
+/** Boolean expression to compare columns of type "Boolean". All fields are combined with logical 'AND'. */
+export type Boolean_Comparison_Exp = {
+  _eq?: InputMaybe<Scalars['Boolean']>;
+  _gt?: InputMaybe<Scalars['Boolean']>;
+  _gte?: InputMaybe<Scalars['Boolean']>;
+  _in?: InputMaybe<Array<Scalars['Boolean']>>;
+  _is_null?: InputMaybe<Scalars['Boolean']>;
+  _lt?: InputMaybe<Scalars['Boolean']>;
+  _lte?: InputMaybe<Scalars['Boolean']>;
+  _neq?: InputMaybe<Scalars['Boolean']>;
+  _nin?: InputMaybe<Array<Scalars['Boolean']>>;
+};
+
 /** Boolean expression to compare columns of type "Int". All fields are combined with logical 'AND'. */
 export type Int_Comparison_Exp = {
   _eq?: InputMaybe<Scalars['Int']>;
@@ -360,6 +373,7 @@ export type Learning_Record_Updates = {
 /** columns and relationships of "link_token" */
 export type Link_Token = {
   __typename?: 'link_token';
+  active: Scalars['Boolean'];
   created_at: Scalars['timestamptz'];
   id: Scalars['String'];
   /** An object relationship */
@@ -372,6 +386,33 @@ export type Link_Token_Aggregate = {
   __typename?: 'link_token_aggregate';
   aggregate?: Maybe<Link_Token_Aggregate_Fields>;
   nodes: Array<Link_Token>;
+};
+
+export type Link_Token_Aggregate_Bool_Exp = {
+  bool_and?: InputMaybe<Link_Token_Aggregate_Bool_Exp_Bool_And>;
+  bool_or?: InputMaybe<Link_Token_Aggregate_Bool_Exp_Bool_Or>;
+  count?: InputMaybe<Link_Token_Aggregate_Bool_Exp_Count>;
+};
+
+export type Link_Token_Aggregate_Bool_Exp_Bool_And = {
+  arguments: Link_Token_Select_Column_Link_Token_Aggregate_Bool_Exp_Bool_And_Arguments_Columns;
+  distinct?: InputMaybe<Scalars['Boolean']>;
+  filter?: InputMaybe<Link_Token_Bool_Exp>;
+  predicate: Boolean_Comparison_Exp;
+};
+
+export type Link_Token_Aggregate_Bool_Exp_Bool_Or = {
+  arguments: Link_Token_Select_Column_Link_Token_Aggregate_Bool_Exp_Bool_Or_Arguments_Columns;
+  distinct?: InputMaybe<Scalars['Boolean']>;
+  filter?: InputMaybe<Link_Token_Bool_Exp>;
+  predicate: Boolean_Comparison_Exp;
+};
+
+export type Link_Token_Aggregate_Bool_Exp_Count = {
+  arguments?: InputMaybe<Array<Link_Token_Select_Column>>;
+  distinct?: InputMaybe<Scalars['Boolean']>;
+  filter?: InputMaybe<Link_Token_Bool_Exp>;
+  predicate: Int_Comparison_Exp;
 };
 
 /** aggregate fields of "link_token" */
@@ -389,11 +430,26 @@ export type Link_Token_Aggregate_FieldsCountArgs = {
   distinct?: InputMaybe<Scalars['Boolean']>;
 };
 
+/** order by aggregate values of table "link_token" */
+export type Link_Token_Aggregate_Order_By = {
+  count?: InputMaybe<Order_By>;
+  max?: InputMaybe<Link_Token_Max_Order_By>;
+  min?: InputMaybe<Link_Token_Min_Order_By>;
+};
+
+/** input type for inserting array relation for remote table "link_token" */
+export type Link_Token_Arr_Rel_Insert_Input = {
+  data: Array<Link_Token_Insert_Input>;
+  /** upsert condition */
+  on_conflict?: InputMaybe<Link_Token_On_Conflict>;
+};
+
 /** Boolean expression to filter rows from the table "link_token". All fields are combined with a logical 'AND'. */
 export type Link_Token_Bool_Exp = {
   _and?: InputMaybe<Array<Link_Token_Bool_Exp>>;
   _not?: InputMaybe<Link_Token_Bool_Exp>;
   _or?: InputMaybe<Array<Link_Token_Bool_Exp>>;
+  active?: InputMaybe<Boolean_Comparison_Exp>;
   created_at?: InputMaybe<Timestamptz_Comparison_Exp>;
   id?: InputMaybe<String_Comparison_Exp>;
   user?: InputMaybe<User_Bool_Exp>;
@@ -408,6 +464,7 @@ export enum Link_Token_Constraint {
 
 /** input type for inserting data into table "link_token" */
 export type Link_Token_Insert_Input = {
+  active?: InputMaybe<Scalars['Boolean']>;
   created_at?: InputMaybe<Scalars['timestamptz']>;
   id?: InputMaybe<Scalars['String']>;
   user?: InputMaybe<User_Obj_Rel_Insert_Input>;
@@ -422,12 +479,26 @@ export type Link_Token_Max_Fields = {
   user_id?: Maybe<Scalars['uuid']>;
 };
 
+/** order by max() on columns of table "link_token" */
+export type Link_Token_Max_Order_By = {
+  created_at?: InputMaybe<Order_By>;
+  id?: InputMaybe<Order_By>;
+  user_id?: InputMaybe<Order_By>;
+};
+
 /** aggregate min on columns */
 export type Link_Token_Min_Fields = {
   __typename?: 'link_token_min_fields';
   created_at?: Maybe<Scalars['timestamptz']>;
   id?: Maybe<Scalars['String']>;
   user_id?: Maybe<Scalars['uuid']>;
+};
+
+/** order by min() on columns of table "link_token" */
+export type Link_Token_Min_Order_By = {
+  created_at?: InputMaybe<Order_By>;
+  id?: InputMaybe<Order_By>;
+  user_id?: InputMaybe<Order_By>;
 };
 
 /** response of any mutation on the table "link_token" */
@@ -448,6 +519,7 @@ export type Link_Token_On_Conflict = {
 
 /** Ordering options when selecting data from "link_token". */
 export type Link_Token_Order_By = {
+  active?: InputMaybe<Order_By>;
   created_at?: InputMaybe<Order_By>;
   id?: InputMaybe<Order_By>;
   user?: InputMaybe<User_Order_By>;
@@ -462,6 +534,8 @@ export type Link_Token_Pk_Columns_Input = {
 /** select columns of table "link_token" */
 export enum Link_Token_Select_Column {
   /** column name */
+  Active = 'active',
+  /** column name */
   CreatedAt = 'created_at',
   /** column name */
   Id = 'id',
@@ -469,8 +543,21 @@ export enum Link_Token_Select_Column {
   UserId = 'user_id'
 }
 
+/** select "link_token_aggregate_bool_exp_bool_and_arguments_columns" columns of table "link_token" */
+export enum Link_Token_Select_Column_Link_Token_Aggregate_Bool_Exp_Bool_And_Arguments_Columns {
+  /** column name */
+  Active = 'active'
+}
+
+/** select "link_token_aggregate_bool_exp_bool_or_arguments_columns" columns of table "link_token" */
+export enum Link_Token_Select_Column_Link_Token_Aggregate_Bool_Exp_Bool_Or_Arguments_Columns {
+  /** column name */
+  Active = 'active'
+}
+
 /** input type for updating data in table "link_token" */
 export type Link_Token_Set_Input = {
+  active?: InputMaybe<Scalars['Boolean']>;
   created_at?: InputMaybe<Scalars['timestamptz']>;
   id?: InputMaybe<Scalars['String']>;
   user_id?: InputMaybe<Scalars['uuid']>;
@@ -486,6 +573,7 @@ export type Link_Token_Stream_Cursor_Input = {
 
 /** Initial value of the column from where the streaming should start */
 export type Link_Token_Stream_Cursor_Value_Input = {
+  active?: InputMaybe<Scalars['Boolean']>;
   created_at?: InputMaybe<Scalars['timestamptz']>;
   id?: InputMaybe<Scalars['String']>;
   user_id?: InputMaybe<Scalars['uuid']>;
@@ -493,6 +581,8 @@ export type Link_Token_Stream_Cursor_Value_Input = {
 
 /** update columns of table "link_token" */
 export enum Link_Token_Update_Column {
+  /** column name */
+  Active = 'active',
   /** column name */
   CreatedAt = 'created_at',
   /** column name */
@@ -954,8 +1044,13 @@ export type User = {
   learning_records: Array<Learning_Record>;
   /** An aggregate relationship */
   learning_records_aggregate: Learning_Record_Aggregate;
+  /** An array relationship */
+  link_tokens: Array<Link_Token>;
+  /** An aggregate relationship */
+  link_tokens_aggregate: Link_Token_Aggregate;
   next_question_id?: Maybe<Scalars['String']>;
   phone_number?: Maybe<Scalars['String']>;
+  sms_enabled: Scalars['Boolean'];
   timezone: Scalars['String'];
   user_id: Scalars['uuid'];
 };
@@ -978,6 +1073,26 @@ export type UserLearning_Records_AggregateArgs = {
   offset?: InputMaybe<Scalars['Int']>;
   order_by?: InputMaybe<Array<Learning_Record_Order_By>>;
   where?: InputMaybe<Learning_Record_Bool_Exp>;
+};
+
+
+/** columns and relationships of "user" */
+export type UserLink_TokensArgs = {
+  distinct_on?: InputMaybe<Array<Link_Token_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Array<Link_Token_Order_By>>;
+  where?: InputMaybe<Link_Token_Bool_Exp>;
+};
+
+
+/** columns and relationships of "user" */
+export type UserLink_Tokens_AggregateArgs = {
+  distinct_on?: InputMaybe<Array<Link_Token_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Array<Link_Token_Order_By>>;
+  where?: InputMaybe<Link_Token_Bool_Exp>;
 };
 
 /** aggregated selection of "user" */
@@ -1015,8 +1130,11 @@ export type User_Bool_Exp = {
   last_name?: InputMaybe<String_Comparison_Exp>;
   learning_records?: InputMaybe<Learning_Record_Bool_Exp>;
   learning_records_aggregate?: InputMaybe<Learning_Record_Aggregate_Bool_Exp>;
+  link_tokens?: InputMaybe<Link_Token_Bool_Exp>;
+  link_tokens_aggregate?: InputMaybe<Link_Token_Aggregate_Bool_Exp>;
   next_question_id?: InputMaybe<String_Comparison_Exp>;
   phone_number?: InputMaybe<String_Comparison_Exp>;
+  sms_enabled?: InputMaybe<Boolean_Comparison_Exp>;
   timezone?: InputMaybe<String_Comparison_Exp>;
   user_id?: InputMaybe<Uuid_Comparison_Exp>;
 };
@@ -1036,8 +1154,10 @@ export type User_Insert_Input = {
   language_preference?: InputMaybe<Scalars['String']>;
   last_name?: InputMaybe<Scalars['String']>;
   learning_records?: InputMaybe<Learning_Record_Arr_Rel_Insert_Input>;
+  link_tokens?: InputMaybe<Link_Token_Arr_Rel_Insert_Input>;
   next_question_id?: InputMaybe<Scalars['String']>;
   phone_number?: InputMaybe<Scalars['String']>;
+  sms_enabled?: InputMaybe<Scalars['Boolean']>;
   timezone?: InputMaybe<Scalars['String']>;
   user_id?: InputMaybe<Scalars['uuid']>;
 };
@@ -1104,8 +1224,10 @@ export type User_Order_By = {
   language_preference?: InputMaybe<Order_By>;
   last_name?: InputMaybe<Order_By>;
   learning_records_aggregate?: InputMaybe<Learning_Record_Aggregate_Order_By>;
+  link_tokens_aggregate?: InputMaybe<Link_Token_Aggregate_Order_By>;
   next_question_id?: InputMaybe<Order_By>;
   phone_number?: InputMaybe<Order_By>;
+  sms_enabled?: InputMaybe<Order_By>;
   timezone?: InputMaybe<Order_By>;
   user_id?: InputMaybe<Order_By>;
 };
@@ -1134,6 +1256,8 @@ export enum User_Select_Column {
   /** column name */
   PhoneNumber = 'phone_number',
   /** column name */
+  SmsEnabled = 'sms_enabled',
+  /** column name */
   Timezone = 'timezone',
   /** column name */
   UserId = 'user_id'
@@ -1149,6 +1273,7 @@ export type User_Set_Input = {
   last_name?: InputMaybe<Scalars['String']>;
   next_question_id?: InputMaybe<Scalars['String']>;
   phone_number?: InputMaybe<Scalars['String']>;
+  sms_enabled?: InputMaybe<Scalars['Boolean']>;
   timezone?: InputMaybe<Scalars['String']>;
   user_id?: InputMaybe<Scalars['uuid']>;
 };
@@ -1171,6 +1296,7 @@ export type User_Stream_Cursor_Value_Input = {
   last_name?: InputMaybe<Scalars['String']>;
   next_question_id?: InputMaybe<Scalars['String']>;
   phone_number?: InputMaybe<Scalars['String']>;
+  sms_enabled?: InputMaybe<Scalars['Boolean']>;
   timezone?: InputMaybe<Scalars['String']>;
   user_id?: InputMaybe<Scalars['uuid']>;
 };
@@ -1193,6 +1319,8 @@ export enum User_Update_Column {
   NextQuestionId = 'next_question_id',
   /** column name */
   PhoneNumber = 'phone_number',
+  /** column name */
+  SmsEnabled = 'sms_enabled',
   /** column name */
   Timezone = 'timezone',
   /** column name */
@@ -1219,12 +1347,27 @@ export type Uuid_Comparison_Exp = {
   _nin?: InputMaybe<Array<Scalars['uuid']>>;
 };
 
+export type BaseLearningRecordFragment = { __typename: 'learning_record', data: JSONB, event_type: string, id: UUID };
+
+export type BaseLinkTokenFragment = { __typename: 'link_token', id: string, created_at: TIMESTAMPTZ, active: boolean, user_id: UUID };
+
+export type UserWithActiveTokenFragment = { __typename: 'user', account: string, email: string, first_name: string, language_preference: string, last_name: string, next_question_id?: string | null, phone_number?: string | null, timezone: string, user_id: UUID, sms_enabled: boolean, active_tokens: Array<{ __typename: 'link_token', id: string, created_at: TIMESTAMPTZ, active: boolean, user_id: UUID }>, learning_records: Array<{ __typename: 'learning_record', data: JSONB, event_type: string, id: UUID }> };
+
+export type BaseUserFragment = { __typename: 'user', account: string, email: string, first_name: string, language_preference: string, last_name: string, next_question_id?: string | null, phone_number?: string | null, timezone: string, user_id: UUID, sms_enabled: boolean, learning_records: Array<{ __typename: 'learning_record', data: JSONB, event_type: string, id: UUID }> };
+
 export type CreateLearningRecordMutationVariables = Exact<{
   learning_record: Learning_Record_Insert_Input;
 }>;
 
 
 export type CreateLearningRecordMutation = { __typename?: 'mutation_root', insert_learning_record_one?: { __typename?: 'learning_record', created_at: TIMESTAMPTZ, data: JSONB, event_type: string, id: UUID, user_id: UUID } | null };
+
+export type GenerateNewTokenMutationVariables = Exact<{
+  userId: Scalars['uuid'];
+}>;
+
+
+export type GenerateNewTokenMutation = { __typename?: 'mutation_root', update_link_token?: { __typename?: 'link_token_mutation_response', returning: Array<{ __typename?: 'link_token', active: boolean, created_at: TIMESTAMPTZ, id: string, user_id: UUID }> } | null, insert_link_token_one?: { __typename?: 'link_token', active: boolean, created_at: TIMESTAMPTZ, id: string, user: { __typename?: 'user', user_id: UUID, first_name: string, last_name: string, phone_number?: string | null, sms_enabled: boolean } } | null };
 
 export type ResetUserMutationVariables = Exact<{
   user_id: Scalars['uuid'];
@@ -1242,23 +1385,33 @@ export type UpdateNextQuestionIdMutationVariables = Exact<{
 
 export type UpdateNextQuestionIdMutation = { __typename?: 'mutation_root', update_user_by_pk?: { __typename?: 'user', user_id: UUID, next_question_id?: string | null } | null };
 
+export type GetAllUserQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type GetAllUserQuery = { __typename?: 'query_root', user: Array<{ __typename: 'user', account: string, email: string, first_name: string, language_preference: string, last_name: string, next_question_id?: string | null, phone_number?: string | null, timezone: string, user_id: UUID, sms_enabled: boolean, active_tokens: Array<{ __typename: 'link_token', id: string, created_at: TIMESTAMPTZ, active: boolean, user_id: UUID }>, learning_records: Array<{ __typename: 'learning_record', data: JSONB, event_type: string, id: UUID }> }> };
+
 export type GetLinkTokenQueryVariables = Exact<{
   id: Scalars['String'];
 }>;
 
 
-export type GetLinkTokenQuery = { __typename?: 'query_root', link_token_by_pk?: { __typename?: 'link_token', id: string, user_id: UUID, created_at: TIMESTAMPTZ, user: { __typename?: 'user', created_at: TIMESTAMPTZ, first_name: string, last_name: string, next_question_id?: string | null, user_id: UUID } } | null };
+export type GetLinkTokenQuery = { __typename?: 'query_root', link_token_by_pk?: { __typename?: 'link_token', id: string, user_id: UUID, created_at: TIMESTAMPTZ, active: boolean, user: { __typename?: 'user', created_at: TIMESTAMPTZ, first_name: string, last_name: string, next_question_id?: string | null, user_id: UUID } } | null };
 
 export type GetUserQueryVariables = Exact<{
   userId: Scalars['uuid'];
 }>;
 
 
-export type GetUserQuery = { __typename?: 'query_root', user_by_pk?: { __typename?: 'user', account: string, email: string, first_name: string, language_preference: string, last_name: string, next_question_id?: string | null, phone_number?: string | null, timezone: string, user_id: UUID, learning_records: Array<{ __typename?: 'learning_record', data: JSONB, event_type: string, id: UUID }> } | null };
+export type GetUserQuery = { __typename?: 'query_root', user_by_pk?: { __typename: 'user', account: string, email: string, first_name: string, language_preference: string, last_name: string, next_question_id?: string | null, phone_number?: string | null, timezone: string, user_id: UUID, sms_enabled: boolean, active_tokens: Array<{ __typename: 'link_token', id: string, created_at: TIMESTAMPTZ, active: boolean, user_id: UUID }>, learning_records: Array<{ __typename: 'learning_record', data: JSONB, event_type: string, id: UUID }> } | null };
 
-
+export const BaseLearningRecordFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"BaseLearningRecord"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"learning_record"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"__typename"}},{"kind":"Field","name":{"kind":"Name","value":"data"}},{"kind":"Field","name":{"kind":"Name","value":"event_type"}},{"kind":"Field","name":{"kind":"Name","value":"id"}}]}}]} as unknown as DocumentNode<BaseLearningRecordFragment, unknown>;
+export const BaseUserFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"BaseUser"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"user"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"__typename"}},{"kind":"Field","name":{"kind":"Name","value":"account"}},{"kind":"Field","name":{"kind":"Name","value":"email"}},{"kind":"Field","name":{"kind":"Name","value":"first_name"}},{"kind":"Field","name":{"kind":"Name","value":"language_preference"}},{"kind":"Field","name":{"kind":"Name","value":"last_name"}},{"kind":"Field","name":{"kind":"Name","value":"next_question_id"}},{"kind":"Field","name":{"kind":"Name","value":"phone_number"}},{"kind":"Field","name":{"kind":"Name","value":"timezone"}},{"kind":"Field","name":{"kind":"Name","value":"user_id"}},{"kind":"Field","name":{"kind":"Name","value":"sms_enabled"}},{"kind":"Field","name":{"kind":"Name","value":"learning_records"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"BaseLearningRecord"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"BaseLearningRecord"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"learning_record"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"__typename"}},{"kind":"Field","name":{"kind":"Name","value":"data"}},{"kind":"Field","name":{"kind":"Name","value":"event_type"}},{"kind":"Field","name":{"kind":"Name","value":"id"}}]}}]} as unknown as DocumentNode<BaseUserFragment, unknown>;
+export const BaseLinkTokenFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"BaseLinkToken"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"link_token"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"__typename"}},{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"created_at"}},{"kind":"Field","name":{"kind":"Name","value":"active"}},{"kind":"Field","name":{"kind":"Name","value":"user_id"}}]}}]} as unknown as DocumentNode<BaseLinkTokenFragment, unknown>;
+export const UserWithActiveTokenFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"UserWithActiveToken"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"user"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"BaseUser"}},{"kind":"Field","alias":{"kind":"Name","value":"active_tokens"},"name":{"kind":"Name","value":"link_tokens"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"where"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"active"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"_eq"},"value":{"kind":"BooleanValue","value":true}}]}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"BaseLinkToken"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"BaseLearningRecord"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"learning_record"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"__typename"}},{"kind":"Field","name":{"kind":"Name","value":"data"}},{"kind":"Field","name":{"kind":"Name","value":"event_type"}},{"kind":"Field","name":{"kind":"Name","value":"id"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"BaseUser"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"user"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"__typename"}},{"kind":"Field","name":{"kind":"Name","value":"account"}},{"kind":"Field","name":{"kind":"Name","value":"email"}},{"kind":"Field","name":{"kind":"Name","value":"first_name"}},{"kind":"Field","name":{"kind":"Name","value":"language_preference"}},{"kind":"Field","name":{"kind":"Name","value":"last_name"}},{"kind":"Field","name":{"kind":"Name","value":"next_question_id"}},{"kind":"Field","name":{"kind":"Name","value":"phone_number"}},{"kind":"Field","name":{"kind":"Name","value":"timezone"}},{"kind":"Field","name":{"kind":"Name","value":"user_id"}},{"kind":"Field","name":{"kind":"Name","value":"sms_enabled"}},{"kind":"Field","name":{"kind":"Name","value":"learning_records"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"BaseLearningRecord"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"BaseLinkToken"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"link_token"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"__typename"}},{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"created_at"}},{"kind":"Field","name":{"kind":"Name","value":"active"}},{"kind":"Field","name":{"kind":"Name","value":"user_id"}}]}}]} as unknown as DocumentNode<UserWithActiveTokenFragment, unknown>;
 export const CreateLearningRecordDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"CreateLearningRecord"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"learning_record"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"learning_record_insert_input"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"insert_learning_record_one"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"object"},"value":{"kind":"Variable","name":{"kind":"Name","value":"learning_record"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"created_at"}},{"kind":"Field","name":{"kind":"Name","value":"data"}},{"kind":"Field","name":{"kind":"Name","value":"event_type"}},{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"user_id"}}]}}]}}]} as unknown as DocumentNode<CreateLearningRecordMutation, CreateLearningRecordMutationVariables>;
+export const GenerateNewTokenDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"GenerateNewToken"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"userId"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"uuid"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"update_link_token"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"where"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"user_id"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"_eq"},"value":{"kind":"Variable","name":{"kind":"Name","value":"userId"}}}]}}]}},{"kind":"Argument","name":{"kind":"Name","value":"_set"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"active"},"value":{"kind":"BooleanValue","value":false}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"returning"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"active"}},{"kind":"Field","name":{"kind":"Name","value":"created_at"}},{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"user_id"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"insert_link_token_one"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"object"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"user_id"},"value":{"kind":"Variable","name":{"kind":"Name","value":"userId"}}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"active"}},{"kind":"Field","name":{"kind":"Name","value":"created_at"}},{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"user"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"user_id"}},{"kind":"Field","name":{"kind":"Name","value":"first_name"}},{"kind":"Field","name":{"kind":"Name","value":"last_name"}},{"kind":"Field","name":{"kind":"Name","value":"phone_number"}},{"kind":"Field","name":{"kind":"Name","value":"sms_enabled"}}]}}]}}]}}]} as unknown as DocumentNode<GenerateNewTokenMutation, GenerateNewTokenMutationVariables>;
 export const ResetUserDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"ResetUser"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"user_id"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"uuid"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"next_question_id"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"update_user_by_pk"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"pk_columns"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"user_id"},"value":{"kind":"Variable","name":{"kind":"Name","value":"user_id"}}}]}},{"kind":"Argument","name":{"kind":"Name","value":"_set"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"next_question_id"},"value":{"kind":"Variable","name":{"kind":"Name","value":"next_question_id"}}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"user_id"}},{"kind":"Field","name":{"kind":"Name","value":"next_question_id"}},{"kind":"Field","name":{"kind":"Name","value":"learning_records"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"delete_learning_record"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"where"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"user_id"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"_eq"},"value":{"kind":"Variable","name":{"kind":"Name","value":"user_id"}}}]}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"affected_rows"}}]}}]}}]} as unknown as DocumentNode<ResetUserMutation, ResetUserMutationVariables>;
 export const UpdateNextQuestionIdDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"UpdateNextQuestionId"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"user_id"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"uuid"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"next_question_id"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"update_user_by_pk"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"pk_columns"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"user_id"},"value":{"kind":"Variable","name":{"kind":"Name","value":"user_id"}}}]}},{"kind":"Argument","name":{"kind":"Name","value":"_set"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"next_question_id"},"value":{"kind":"Variable","name":{"kind":"Name","value":"next_question_id"}}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"user_id"}},{"kind":"Field","name":{"kind":"Name","value":"next_question_id"}}]}}]}}]} as unknown as DocumentNode<UpdateNextQuestionIdMutation, UpdateNextQuestionIdMutationVariables>;
-export const GetLinkTokenDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetLinkToken"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"id"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"link_token_by_pk"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"id"},"value":{"kind":"Variable","name":{"kind":"Name","value":"id"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"user_id"}},{"kind":"Field","name":{"kind":"Name","value":"created_at"}},{"kind":"Field","name":{"kind":"Name","value":"user"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"created_at"}},{"kind":"Field","name":{"kind":"Name","value":"first_name"}},{"kind":"Field","name":{"kind":"Name","value":"last_name"}},{"kind":"Field","name":{"kind":"Name","value":"next_question_id"}},{"kind":"Field","name":{"kind":"Name","value":"user_id"}}]}}]}}]}}]} as unknown as DocumentNode<GetLinkTokenQuery, GetLinkTokenQueryVariables>;
-export const GetUserDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetUser"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"userId"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"uuid"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"user_by_pk"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"user_id"},"value":{"kind":"Variable","name":{"kind":"Name","value":"userId"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"account"}},{"kind":"Field","name":{"kind":"Name","value":"email"}},{"kind":"Field","name":{"kind":"Name","value":"first_name"}},{"kind":"Field","name":{"kind":"Name","value":"language_preference"}},{"kind":"Field","name":{"kind":"Name","value":"last_name"}},{"kind":"Field","name":{"kind":"Name","value":"next_question_id"}},{"kind":"Field","name":{"kind":"Name","value":"phone_number"}},{"kind":"Field","name":{"kind":"Name","value":"timezone"}},{"kind":"Field","name":{"kind":"Name","value":"user_id"}},{"kind":"Field","name":{"kind":"Name","value":"learning_records"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"data"}},{"kind":"Field","name":{"kind":"Name","value":"event_type"}},{"kind":"Field","name":{"kind":"Name","value":"id"}}]}}]}}]}}]} as unknown as DocumentNode<GetUserQuery, GetUserQueryVariables>;
+export const GetAllUserDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetAllUser"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"user"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"UserWithActiveToken"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"BaseLearningRecord"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"learning_record"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"__typename"}},{"kind":"Field","name":{"kind":"Name","value":"data"}},{"kind":"Field","name":{"kind":"Name","value":"event_type"}},{"kind":"Field","name":{"kind":"Name","value":"id"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"BaseUser"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"user"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"__typename"}},{"kind":"Field","name":{"kind":"Name","value":"account"}},{"kind":"Field","name":{"kind":"Name","value":"email"}},{"kind":"Field","name":{"kind":"Name","value":"first_name"}},{"kind":"Field","name":{"kind":"Name","value":"language_preference"}},{"kind":"Field","name":{"kind":"Name","value":"last_name"}},{"kind":"Field","name":{"kind":"Name","value":"next_question_id"}},{"kind":"Field","name":{"kind":"Name","value":"phone_number"}},{"kind":"Field","name":{"kind":"Name","value":"timezone"}},{"kind":"Field","name":{"kind":"Name","value":"user_id"}},{"kind":"Field","name":{"kind":"Name","value":"sms_enabled"}},{"kind":"Field","name":{"kind":"Name","value":"learning_records"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"BaseLearningRecord"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"BaseLinkToken"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"link_token"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"__typename"}},{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"created_at"}},{"kind":"Field","name":{"kind":"Name","value":"active"}},{"kind":"Field","name":{"kind":"Name","value":"user_id"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"UserWithActiveToken"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"user"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"BaseUser"}},{"kind":"Field","alias":{"kind":"Name","value":"active_tokens"},"name":{"kind":"Name","value":"link_tokens"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"where"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"active"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"_eq"},"value":{"kind":"BooleanValue","value":true}}]}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"BaseLinkToken"}}]}}]}}]} as unknown as DocumentNode<GetAllUserQuery, GetAllUserQueryVariables>;
+export const GetLinkTokenDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetLinkToken"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"id"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"link_token_by_pk"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"id"},"value":{"kind":"Variable","name":{"kind":"Name","value":"id"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"user_id"}},{"kind":"Field","name":{"kind":"Name","value":"created_at"}},{"kind":"Field","name":{"kind":"Name","value":"active"}},{"kind":"Field","name":{"kind":"Name","value":"user"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"created_at"}},{"kind":"Field","name":{"kind":"Name","value":"first_name"}},{"kind":"Field","name":{"kind":"Name","value":"last_name"}},{"kind":"Field","name":{"kind":"Name","value":"next_question_id"}},{"kind":"Field","name":{"kind":"Name","value":"user_id"}}]}}]}}]}}]} as unknown as DocumentNode<GetLinkTokenQuery, GetLinkTokenQueryVariables>;
+export const GetUserDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetUser"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"userId"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"uuid"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"user_by_pk"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"user_id"},"value":{"kind":"Variable","name":{"kind":"Name","value":"userId"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"UserWithActiveToken"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"BaseLearningRecord"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"learning_record"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"__typename"}},{"kind":"Field","name":{"kind":"Name","value":"data"}},{"kind":"Field","name":{"kind":"Name","value":"event_type"}},{"kind":"Field","name":{"kind":"Name","value":"id"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"BaseUser"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"user"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"__typename"}},{"kind":"Field","name":{"kind":"Name","value":"account"}},{"kind":"Field","name":{"kind":"Name","value":"email"}},{"kind":"Field","name":{"kind":"Name","value":"first_name"}},{"kind":"Field","name":{"kind":"Name","value":"language_preference"}},{"kind":"Field","name":{"kind":"Name","value":"last_name"}},{"kind":"Field","name":{"kind":"Name","value":"next_question_id"}},{"kind":"Field","name":{"kind":"Name","value":"phone_number"}},{"kind":"Field","name":{"kind":"Name","value":"timezone"}},{"kind":"Field","name":{"kind":"Name","value":"user_id"}},{"kind":"Field","name":{"kind":"Name","value":"sms_enabled"}},{"kind":"Field","name":{"kind":"Name","value":"learning_records"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"BaseLearningRecord"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"BaseLinkToken"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"link_token"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"__typename"}},{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"created_at"}},{"kind":"Field","name":{"kind":"Name","value":"active"}},{"kind":"Field","name":{"kind":"Name","value":"user_id"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"UserWithActiveToken"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"user"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"BaseUser"}},{"kind":"Field","alias":{"kind":"Name","value":"active_tokens"},"name":{"kind":"Name","value":"link_tokens"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"where"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"active"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"_eq"},"value":{"kind":"BooleanValue","value":true}}]}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"BaseLinkToken"}}]}}]}}]} as unknown as DocumentNode<GetUserQuery, GetUserQueryVariables>;

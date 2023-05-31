@@ -21,10 +21,12 @@
     "graphql-scalars": "^1.21.3",
     "graphql-tag": "^2.12.6",
     "isbot": "^3.6.5",
+    "lodash": "^4.17.21",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-use": "^17.4.0",
     "remeda": "^1.14.0",
+    "twilio": "^4.11.1",
     "zod": "^3.21.4"
   },
   "devDependencies": {
@@ -39,6 +41,7 @@
     "@remix-run/dev": "^1.15.0",
     "@remix-run/eslint-config": "^1.15.0",
     "@remix-run/serve": "^1.15.0",
+    "@types/lodash": "^4.14.194",
     "@types/node": "^18.11.18",
     "@types/react": "^18.0.25",
     "@types/react-dom": "^18.0.8",

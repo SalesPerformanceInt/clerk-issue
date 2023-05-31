@@ -3,20 +3,7 @@ import { graphql, type GraphQLClient } from "~/graphql";
 export const GET_USER = graphql(/* GraphQL */ `
   query GetUser($userId: uuid!) {
     user_by_pk(user_id: $userId) {
-      account
-      email
-      first_name
-      language_preference
-      last_name
-      next_question_id
-      phone_number
-      timezone
-      user_id
-      learning_records {
-        data
-        event_type
-        id
-      }
+      ...UserWithActiveToken
     }
   }
 `);

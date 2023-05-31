@@ -32,7 +32,7 @@ export const ConfidenceModal = () => {
           </Button>
           <Button
             onClick={() => onConfidenceClick("high")}
-            className="lex-1 bg-orange-200 hover:bg-orange-300"
+            className="flex-1 bg-orange-200 hover:bg-orange-300"
           >
             I know this
           </Button>

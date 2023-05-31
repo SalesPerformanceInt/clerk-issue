@@ -1,0 +1,37 @@
+import invariant from "tiny-invariant";
+import twilio from "twilio";
+import { type BaseUserFragment } from "~/graphql";
+
+import {
+  TWILIO_ACCOUNT_SID,
+  TWILIO_AUTH_TOKEN,
+  TWILIO_SMS_FROM,
+  TWILIO_WHATSAPP_FROM,
+} from "~/utils/server/envs.server";
+
+const twilioClient = twilio(TWILIO_ACCOUNT_SID, TWILIO_AUTH_TOKEN);
+
+const shouldWeNotify = (user: BaseUserFragment | null) =>
+  user?.sms_enabled === true;
+
+const whichFrom = (phoneNumber: string) =>
+  phoneNumber?.substring(0, 8) === "whatsapp"
+    ? TWILIO_WHATSAPP_FROM
+    : TWILIO_SMS_FROM;
+
+export const sendTwilioMessage = async (
+  user: BaseUserFragment,
+  message: string,
+) => {
+  if (!shouldWeNotify(user)) return null;
+
+  const phoneNumber = user?.phone_number;
+
+  invariant(phoneNumber, "Missing phone number");
+
+  return await twilioClient.messages.create({
+    body: message,
+    from: whichFrom(phoneNumber),
+    to: phoneNumber,
+  });
+};

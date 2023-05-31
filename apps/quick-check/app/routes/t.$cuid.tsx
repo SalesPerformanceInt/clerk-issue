@@ -18,6 +18,7 @@ export const loader = async ({ params, request }: LoaderArgs) => {
 
     const token = await apolloClient.getLinkToken(cuid);
     invariant(token, "token not found");
+    invariant(token.active, "token expired");
 
     const user = await apolloClient.getUser(token.user_id);
     invariant(user?.user_id, "user not found");

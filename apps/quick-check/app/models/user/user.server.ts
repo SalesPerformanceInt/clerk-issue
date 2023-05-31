@@ -1,6 +1,6 @@
-import { compact, difference, filter, first, map, pipe } from "remeda";
+import { sample } from "lodash";
+import { compact, difference, filter, map, pipe } from "remeda";
 import { apolloClient } from "~/graphql";
-import { requireUserSession } from "~/session.server";
 
 import { ANSWER, parseAnswer } from "~/models/answer";
 
@@ -21,8 +21,7 @@ export const QUESTION_IDS = [
   "bltbdc7d20e6f1dea0f",
 ] as const;
 
-export const generateNextQuestion = async (request: Request) => {
-  const userId = await requireUserSession(request);
+export const generateNextQuestion = async (userId: string) => {
   const user = await apolloClient.getUser(userId);
   const learning_records = user?.learning_records ?? [];
 
@@ -35,9 +34,13 @@ export const generateNextQuestion = async (request: Request) => {
   );
 
   const unansweredQuestionIds = difference(QUESTION_IDS, answeredQuestionIds);
-  const nextQuestionId = first(unansweredQuestionIds);
+  const nextQuestionId = sample(unansweredQuestionIds);
 
   await apolloClient.updateNextQuestionId(userId, nextQuestionId);
 
   return nextQuestionId;
+};
+
+export const generateNewToken = async (userId: string) => {
+  return await apolloClient.generateNewToken(userId);
 };

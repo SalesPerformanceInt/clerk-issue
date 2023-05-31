@@ -1,7 +1,10 @@
 import type { ReactNode } from "react";
 
+export type DroppableBlankData = {
+  order: number;
+};
+
 export type DroppableBlankProps = {
   children: ReactNode;
   id: string;
-  order: number;
-};
+} & Pick<DroppableBlankData, "order">;

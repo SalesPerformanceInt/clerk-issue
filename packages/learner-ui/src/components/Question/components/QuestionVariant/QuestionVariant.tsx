@@ -11,6 +11,7 @@ import {
   FillBlanks,
   MultipleChoice,
   ReorderList,
+  ReorderWords,
   TrueFalseQuestion,
 } from "./variants";
 
@@ -45,6 +46,13 @@ export const QuestionVariant: FC = () => {
   if ("reorderlistquestion" in questionVariant)
     return (
       <ReorderList reorderlistquestion={questionVariant.reorderlistquestion} />
+    );
+
+  if ("reorderwordsquestion" in questionVariant)
+    return (
+      <ReorderWords
+        reorderwordsquestion={questionVariant.reorderwordsquestion}
+      />
     );
 
   return null;

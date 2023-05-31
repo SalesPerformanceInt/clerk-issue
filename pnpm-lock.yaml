@@ -349,6 +349,7 @@ importers:
       '@storybook/theming': 7.0.4_biqbaboplfbrettd7655fr4n2y
       contentstack: 3.17.0
       lodash: 4.17.21
+      object-hash: 3.0.0
       react: 18.2.0
       react-confetti: 6.1.0_react@18.2.0
       react-dom: 18.2.0_react@18.2.0
@@ -377,7 +378,6 @@ importers:
       eslint-plugin-react-hooks: 4.6.0_eslint@8.38.0
       eslint-plugin-storybook: 0.6.11_ze6bmax3gcsfve3yrzu6npguhe
       framer-motion: 10.12.9_biqbaboplfbrettd7655fr4n2y
-      object-hash: 3.0.0
       postcss: 8.4.21
       prettier: 2.8.8
       react-chartjs-2: 5.2.0_t5yjg6ab35jnsudnh2qdighszm

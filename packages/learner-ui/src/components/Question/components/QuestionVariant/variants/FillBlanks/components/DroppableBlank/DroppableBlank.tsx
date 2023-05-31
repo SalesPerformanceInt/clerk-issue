@@ -1,15 +1,21 @@
 import React, { type FC } from "react";
 
-import { useDroppable } from "@dnd-kit/core";
+import { useDroppable } from "~/utils/dnd";
 
-import type { DroppableBlankProps } from "./DroppableBlank.types";
+import type {
+  DroppableBlankData,
+  DroppableBlankProps,
+} from "./DroppableBlank.types";
 
 export const DroppableBlank: FC<DroppableBlankProps> = ({
   children,
   id,
   order,
 }) => {
-  const { setNodeRef } = useDroppable({ id, data: { order } });
+  const { setNodeRef } = useDroppable<DroppableBlankData>({
+    id,
+    data: { order },
+  });
 
   return (
     <div

@@ -2,29 +2,29 @@ import React, { type FC } from "react";
 
 import { CSS } from "@dnd-kit/utilities";
 
-import { useDraggable } from "~/utils/dnd";
+import { useSortable } from "~/utils/dnd";
 
 import type {
-  DraggableWordData,
-  DraggableWordProps,
-} from "./DraggableWord.types";
+  ReorderableWordData,
+  ReorderableWordProps,
+} from "./ReorderableWord.types";
 
-export const DraggableWord: FC<DraggableWordProps> = ({
+export const ReorderableWord: FC<ReorderableWordProps> = ({
   id,
   text,
-  order,
+  container,
   disabled,
-  liveEdit,
 }) => {
-  const { attributes, listeners, setNodeRef, transform } =
-    useDraggable<DraggableWordData>({
+  const { attributes, listeners, setNodeRef, transform, transition } =
+    useSortable<ReorderableWordData>({
       id,
       disabled,
-      data: { order },
+      data: { text, container },
     });
 
   const style = {
-    transform: CSS.Translate.toString(transform),
+    transform: CSS.Transform.toString(transform),
+    transition,
   };
 
   return (
@@ -34,7 +34,6 @@ export const DraggableWord: FC<DraggableWordProps> = ({
       style={style}
       {...listeners}
       {...attributes}
-      {...liveEdit?.word}
       suppressHydrationWarning
       aria-describedby=""
     >

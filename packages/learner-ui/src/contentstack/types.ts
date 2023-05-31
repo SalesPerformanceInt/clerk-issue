@@ -96,6 +96,21 @@ export type ReorderListQuestion = WithLiveData<{
 }>;
 
 /**
+ * Reorder Words
+ */
+
+export type ReorderWordsQuestion = WithLiveData<{
+  reorderwordsquestion: {
+    prompt?: string;
+    _metadata: Metadata;
+    stem: string;
+    instruction: string;
+    feedback: string;
+    incorrect_feedback: string;
+  };
+}>;
+
+/**
  * Question Item
  */
 
@@ -103,7 +118,8 @@ export type QuestionItemVariant =
   | MCQuestion
   | TFQuestion
   | FillBlanksQuestion
-  | ReorderListQuestion;
+  | ReorderListQuestion
+  | ReorderWordsQuestion;
 
 export type QuestionItem = WithLiveData<{
   title: string;

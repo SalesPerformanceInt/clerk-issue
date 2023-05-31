@@ -5,6 +5,8 @@ import objectHash from "object-hash";
 
 import type { DragOverEvent, DragStartEvent } from "~/utils/dnd";
 
+import { useQuestionContext } from "~/components/Question";
+
 import type {
   ReorderWordsProps,
   ReorderableItem,
@@ -19,6 +21,8 @@ type Items = "words" | "answer";
 export const useReorderWords = ({
   reorderwordsquestion,
 }: UseReorderWordsProps) => {
+  const { isFeedbackActive, onSelection } = useQuestionContext();
+
   /**
    * Set Sortable Items
    */
@@ -94,6 +98,31 @@ export const useReorderWords = ({
 
   const handleDragEnd = () => {
     setActiveWord(null);
+
+    handleCompleteAnswer();
+  };
+
+  /**
+   * Complete Answer
+   */
+
+  const handleCompleteAnswer = () => {
+    if (reorderableWords.answer.length !== correctWordsOrder.length) return;
+
+    const correct = reorderableWords.answer.every(
+      (word, index) => word.text === correctWordsOrder[index],
+    );
+
+    onSelection({
+      correct,
+      feedback: correct
+        ? reorderwordsquestion.feedback
+        : reorderwordsquestion.incorrect_feedback,
+      feedbackLiveEdit: correct
+        ? reorderwordsquestion.$?.feedback
+        : reorderwordsquestion.$?.incorrect_feedback,
+      uid: reorderwordsquestion._metadata.uid,
+    });
   };
 
   /**
@@ -106,5 +135,6 @@ export const useReorderWords = ({
     handleDragStart,
     handleDragOver,
     handleDragEnd,
+    isFeedbackActive,
   };
 };

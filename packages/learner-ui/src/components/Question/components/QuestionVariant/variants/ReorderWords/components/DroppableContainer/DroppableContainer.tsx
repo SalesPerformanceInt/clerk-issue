@@ -10,11 +10,12 @@ export const DroppableContainer: FC<DroppableContainerProps> = ({
   children,
   id,
   className,
+  liveEdit,
 }) => {
   const { setNodeRef } = useDroppable({ id });
 
   return (
-    <div ref={setNodeRef} className={classNames(className)}>
+    <div ref={setNodeRef} className={classNames(className)} {...liveEdit}>
       {children}
     </div>
   );

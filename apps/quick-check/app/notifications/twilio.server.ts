@@ -1,4 +1,3 @@
-import { first } from "remeda";
 import invariant from "tiny-invariant";
 import twilio from "twilio";
 import {
@@ -43,13 +42,10 @@ export const sendTwilioMessage = async (
 
 const generateTokenMessage = (
   user: UserWithActiveTokenFragment,
+  token: string,
   origin: string,
 ) => {
-  const activeToken = first(user.active_tokens);
-
-  invariant(activeToken, "No active token");
-
-  const message = `Hey there ${user.first_name}, your next question is available at ${origin}/t/${activeToken.id}`;
+  const message = `Hey there ${user.first_name}, your next question is available at ${origin}/t/${token}`;
   return message;
 };
 
@@ -58,8 +54,10 @@ export const generateTokenAndSendSMS = async (
   request: Request,
 ) => {
   const token = await apolloClient.generateNewToken(user.user_id);
+  invariant(token, "No token generated");
+
   const { origin } = new URL(request.url);
-  const message = generateTokenMessage(user, origin);
+  const message = generateTokenMessage(user, token.id, origin);
   await sendTwilioMessage(user, message);
   return token;
 };

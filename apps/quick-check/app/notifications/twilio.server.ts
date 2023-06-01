@@ -1,6 +1,11 @@
+import { first } from "remeda";
 import invariant from "tiny-invariant";
 import twilio from "twilio";
-import { type BaseUserFragment } from "~/graphql";
+import {
+  apolloClient,
+  type BaseUserFragment,
+  type UserWithActiveTokenFragment,
+} from "~/graphql";
 
 import {
   TWILIO_ACCOUNT_SID,
@@ -34,4 +39,27 @@ export const sendTwilioMessage = async (
     from: whichFrom(phoneNumber),
     to: phoneNumber,
   });
+};
+
+const generateTokenMessage = (
+  user: UserWithActiveTokenFragment,
+  origin: string,
+) => {
+  const activeToken = first(user.active_tokens);
+
+  invariant(activeToken, "No active token");
+
+  const message = `Hey there ${user.first_name}, your next question is available at ${origin}/t/${activeToken.id}`;
+  return message;
+};
+
+export const generateTokenAndSendSMS = async (
+  user: UserWithActiveTokenFragment,
+  request: Request,
+) => {
+  const token = await apolloClient.generateNewToken(user.user_id);
+  const { origin } = new URL(request.url);
+  const message = generateTokenMessage(user, origin);
+  await sendTwilioMessage(user, message);
+  return token;
 };

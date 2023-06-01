@@ -11,14 +11,12 @@ import hamburger from "~/images/hamburger.png";
 import dashboardLogo from "~/images/qc_dashboard.png";
 import { getUserFromSession } from "~/session.server";
 
-import { isDevelopment } from "~/utils/server/envs.server";
-
 import { AccelerateButton } from "~/components";
 
 export const loader = async ({ request }: LoaderArgs) => {
   const user = await getUserFromSession(request);
 
-  return json({ user, isDevelopment });
+  return json({ user });
 };
 
 export const meta: V2_MetaFunction = () => {
@@ -26,23 +24,11 @@ export const meta: V2_MetaFunction = () => {
 };
 
 export default function Index() {
-  const { user, isDevelopment } = useLoaderData<typeof loader>();
+  const { user } = useLoaderData<typeof loader>();
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
 
   const message = searchParams.get("message");
-
-  const LogInButton = () => {
-    if (!isDevelopment) return <AccelerateButton />;
-
-    if (user) return <Button onClick={() => navigate("/reset")}>Reset</Button>;
-
-    return (
-      <Button onClick={() => navigate("/t/b777d1541630")}>
-        t/b777d1541630
-      </Button>
-    );
-  };
 
   return (
     <PageLayout>
@@ -66,7 +52,7 @@ export default function Index() {
           </div>
           <div className="rounded-t-3xl bg-white px-8 py-6">
             <div className="flex justify-center space-x-11">
-              <LogInButton />
+              <Button onClick={() => navigate("/reset")}>Reset</Button>
               <Button
                 onClick={() => navigate("/nq")}
                 className="bg-lime-200 hover:bg-lime-300"
@@ -79,7 +65,7 @@ export default function Index() {
       ) : (
         <div className="flex h-full flex-col items-center justify-center space-y-4">
           {message && <p className="text-sm text-white">{message}</p>}
-          <LogInButton />
+          <AccelerateButton />
         </div>
       )}
     </PageLayout>

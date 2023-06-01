@@ -1,36 +1,15 @@
 import { json, type LoaderArgs } from "@remix-run/node";
 import { useLoaderData } from "@remix-run/react";
 
-import { compact, first, map, pipe } from "remeda";
-import invariant from "tiny-invariant";
-import { apolloClient, type UserWithActiveTokenFragment } from "~/graphql";
-import { sendTwilioMessage } from "~/notifications/twilio.server";
-
-const generateTokenMessage = (
-  user: UserWithActiveTokenFragment,
-  origin: string,
-) => {
-  const activeToken = first(user.active_tokens);
-
-  invariant(activeToken, "No active token");
-
-  const message = `Hey there ${user.first_name}, your next question is available at ${origin}/t/${activeToken.id}`;
-  return message;
-};
+import { apolloClient } from "~/graphql";
+import { generateTokenAndSendSMS } from "~/notifications/twilio.server";
 
 export const loader = async ({ request }: LoaderArgs) => {
-  const { origin } = new URL(request.url);
-
   try {
     const users = (await apolloClient.getAllUsers()) ?? [];
 
     const tokens = await Promise.all(
-      users.map(async (user) => {
-        const token = await apolloClient.generateNewToken(user.user_id);
-        const message = generateTokenMessage(user, origin);
-        await sendTwilioMessage(user, message);
-        return token;
-      }),
+      users.map((user) => generateTokenAndSendSMS(user, request)),
     );
 
     return json({ tokens }, { status: 200 });

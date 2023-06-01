@@ -10,6 +10,7 @@ import {
   createLearningRecord,
   generateNewToken,
   resetUser,
+  toggleUserSMSEnabled,
   updateNextQuestionId,
 } from "~/graphql/mutations";
 import { getAllUsers, getLinkToken, getUser } from "~/graphql/queries";
@@ -42,6 +43,7 @@ export class GraphQLClient {
   resetUser = resetUser;
   getAllUsers = getAllUsers;
   generateNewToken = generateNewToken;
+  toggleUserSMSEnabled = toggleUserSMSEnabled;
 
   constructor() {
     this.client = getClient();

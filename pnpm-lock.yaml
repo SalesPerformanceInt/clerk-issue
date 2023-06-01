@@ -137,6 +137,7 @@ importers:
       '@types/react-dom': ^18.0.8
       '@vercel/node': ^2.6.2
       accelerate-learner-ui: workspace:*
+      awesome-phonenumber: ^5.7.0
       concurrently: ^8.0.1
       contentstack: ^3.17.0
       dotenv: ^16.0.3
@@ -166,6 +167,7 @@ importers:
       '@remix-run/vercel': 1.15.0_@vercel+node@2.10.3
       '@vercel/node': 2.10.3
       accelerate-learner-ui: link:../../packages/learner-ui
+      awesome-phonenumber: 5.7.0
       glob: 10.0.0
       graphql: 16.6.0
       graphql-scalars: 1.21.3_graphql@16.6.0
@@ -5714,6 +5716,11 @@ packages:
   /available-typed-arrays/1.0.5:
     resolution: {integrity: sha512-DMD0KiN46eipeziST1LPP/STfDU0sufISXmjSgvVsoU2tqxctQeASejWcfNtxYKqETM1UxQ8sp2OrSBWpHY6sw==}
     engines: {node: '>= 0.4'}
+
+  /awesome-phonenumber/5.7.0:
+    resolution: {integrity: sha512-oKJesiZu6Gn4T300juf+SsbB/0ibqFoSoFKu/u8ttuvJz4+VpfPnFG/hcTmKbNo0bQGufWFhFGCVHvrLifn+qw==}
+    engines: {node: '>=14'}
+    dev: false
 
   /axe-core/4.6.3:
     resolution: {integrity: sha512-/BQzOX780JhsxDnPpH4ZiyrJAzcd8AfzFPkv+89veFSr1rcMjuq2JDCwypKaPeB6ljHp9KjXhPpjgCvQlWYuqg==}

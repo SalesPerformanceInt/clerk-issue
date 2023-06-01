@@ -16,6 +16,7 @@
     "@remix-run/vercel": "^1.15.0",
     "@vercel/node": "^2.6.2",
     "accelerate-learner-ui": "workspace:*",
+    "awesome-phonenumber": "^5.7.0",
     "glob": "^10.0.0",
     "graphql": "^16.6.0",
     "graphql-scalars": "^1.21.3",

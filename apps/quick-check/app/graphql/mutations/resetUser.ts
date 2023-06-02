@@ -8,11 +8,7 @@ export const RESET_USER = graphql(/* GraphQL */ `
       pk_columns: { user_id: $user_id }
       _set: { next_question_id: $next_question_id }
     ) {
-      user_id
-      next_question_id
-      learning_records {
-        id
-      }
+      ...BaseUser
     }
     delete_learning_record(where: { user_id: { _eq: $user_id } }) {
       affected_rows

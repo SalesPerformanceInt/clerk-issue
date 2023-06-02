@@ -2,11 +2,12 @@ import { useEffect, useState, type FC } from "react";
 
 import {
   json,
-  type ActionFunction,
+  redirect,
+  type ActionArgs,
   type LoaderArgs,
   type SerializeFrom,
 } from "@remix-run/node";
-import { useLoaderData, useNavigate, useSubmit } from "@remix-run/react";
+import { useLoaderData, useNavigation, useSubmit } from "@remix-run/react";
 
 import { Button } from "accelerate-learner-ui";
 import { parsePhoneNumber } from "awesome-phonenumber";
@@ -19,13 +20,16 @@ import refreshIcon from "~/images/refresh.svg";
 import { generateTokenAndSendSMS } from "~/notifications/twilio.server";
 
 interface AdminAction {
-  action: "TOGGLE_SMS_ENABLED" | "GENERATE_TOKEN_AND_SEND_SMS" | "RESET_USER";
+  type:
+    | "TOGGLE_SMS_ENABLED"
+    | "GENERATE_TOKEN_AND_SEND_SMS"
+    | "RESET_USER"
+    | "LOGIN_USER";
   userId: string;
 }
 
-const parseAdminActionRequest = async (request: Request) => {
-  const formData = await request.formData();
-  const data = formData.get("data");
+const parseAdminActionRequest = (formData?: FormData) => {
+  const data = formData?.get("data");
   if (isString(data)) {
     return JSON.parse(data) as AdminAction;
   }
@@ -39,27 +43,37 @@ export const loader = async ({ request }: LoaderArgs) => {
   return json({ users, origin }, { status: 200 });
 };
 
-export const action: ActionFunction = async ({ request }) => {
+export const action = async ({ request }: ActionArgs) => {
   try {
-    const adminAction = await parseAdminActionRequest(request);
+    const formData = await request.formData();
+    const adminAction = parseAdminActionRequest(formData);
 
-    if (adminAction?.action === "TOGGLE_SMS_ENABLED") {
+    if (adminAction?.type === "TOGGLE_SMS_ENABLED") {
       await apolloClient.toggleUserSMSEnabled(adminAction.userId);
     }
 
-    if (adminAction?.action === "GENERATE_TOKEN_AND_SEND_SMS") {
+    if (adminAction?.type === "GENERATE_TOKEN_AND_SEND_SMS") {
       const user = await apolloClient.getUser(adminAction.userId);
       invariant(user, "No user found");
       await generateTokenAndSendSMS(user, request);
     }
 
-    if (adminAction?.action === "RESET_USER") {
+    if (adminAction?.type === "RESET_USER") {
       await apolloClient.resetUser(adminAction.userId);
     }
 
-    return json({}, { status: 200 });
+    if (adminAction?.type === "LOGIN_USER") {
+      const user = await apolloClient.getUser(adminAction.userId);
+      invariant(user, "No user found");
+      const activeToken = user.active_tokens[0]?.id ?? "";
+      return redirect(`/t/${activeToken}`);
+    }
+
+    const { type, userId } = adminAction ?? {};
+
+    return json({ type, userId, ...adminAction }, { status: 200 });
   } catch (error) {
-    return json({ error }, { status: 500 });
+    return json({ type: undefined, userId: undefined, error }, { status: 500 });
   }
 };
 
@@ -122,8 +136,9 @@ const UserRow: FC<{
   row: number;
   origin: string;
 }> = ({ user, row, origin }) => {
-  const navigate = useNavigate();
   const submit = useSubmit();
+
+  const navigationData = useNavigation();
 
   const [checked, setChecked] = useState(user.sms_enabled);
 
@@ -131,12 +146,22 @@ const UserRow: FC<{
     setChecked(user.sms_enabled);
   }, [user.sms_enabled]);
 
+  const isLoading = (actionType: AdminAction["type"]) => {
+    if (navigationData.state === "idle") return false;
+    const data = parseAdminActionRequest(navigationData.formData);
+    return data?.userId === user.user_id && actionType === data?.type;
+  };
+
   const createUserAction =
-    (action: AdminAction["action"], callback?: () => void) => () => {
+    (type: AdminAction["type"], callback?: () => void) => () => {
       callback?.();
-      const payload: AdminAction = { action, userId: user.user_id };
+      const payload: AdminAction = { type, userId: user.user_id };
       const data = JSON.stringify(payload);
-      submit({ data }, { method: "POST" });
+
+      const formData = new FormData();
+      formData.append("data", data);
+
+      submit(formData, { method: "POST" });
     };
 
   const activeToken = user.active_tokens[0]?.id ?? "";
@@ -162,8 +187,9 @@ const UserRow: FC<{
       </td>
       <td className="whitespace-nowrap px-6 py-4 text-center">
         <Button
+          loading={isLoading("GENERATE_TOKEN_AND_SEND_SMS")}
           onClick={createUserAction("GENERATE_TOKEN_AND_SEND_SMS")}
-          className="h-8 w-auto py-0 disabled:border-slate-200 disabled:bg-slate-50 disabled:text-slate-500 disabled:hover:bg-slate-50"
+          className="h-8 w-auto py-0 "
         >
           <img src={keyIcon} alt="Generate token" />
         </Button>
@@ -171,14 +197,16 @@ const UserRow: FC<{
       <td className="whitespace-nowrap px-6 py-4 text-center">
         <Button
           disabled={!activeToken}
-          onClick={() => navigate(`/t/${activeToken}`)}
-          className="h-8 w-auto py-0 disabled:border-slate-200 disabled:bg-slate-50 disabled:text-slate-500 disabled:hover:bg-slate-50"
+          loading={isLoading("LOGIN_USER")}
+          onClick={createUserAction("LOGIN_USER")}
+          className="h-8 w-auto py-0"
         >
           <img src={loginIcon} alt="Login" />
         </Button>
       </td>
       <td className="whitespace-nowrap px-6 py-4 text-center">
         <Button
+          loading={isLoading("RESET_USER")}
           onClick={createUserAction("RESET_USER")}
           className="h-8 w-auto py-0"
         >

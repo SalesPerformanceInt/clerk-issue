@@ -8,11 +8,7 @@ export const GET_LINK_TOKEN = graphql(/* GraphQL */ `
       created_at
       active
       user {
-        created_at
-        first_name
-        last_name
-        next_question_id
-        user_id
+        ...BaseUser
       }
     }
   }

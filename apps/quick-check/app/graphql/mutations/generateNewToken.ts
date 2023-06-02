@@ -7,22 +7,13 @@ export const GENERATE_NEW_TOKEN = graphql(/* GraphQL */ `
       _set: { active: false }
     ) {
       returning {
-        active
-        created_at
-        id
-        user_id
+        ...BaseLinkToken
       }
     }
-    insert_link_token_one(object: { user_id: $userId }) {
-      active
-      created_at
-      id
+    insert_link_token_one(object: { user_id: $userId, active: true }) {
+      ...BaseLinkToken
       user {
-        user_id
-        first_name
-        last_name
-        phone_number
-        sms_enabled
+        ...UserWithActiveToken
       }
     }
   }

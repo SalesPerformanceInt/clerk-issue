@@ -12,6 +12,7 @@ export async function getAllUsers(this: GraphQLClient) {
   try {
     const { data } = await this.client.query({
       query: GET_ALL_USERS,
+      fetchPolicy: "network-only",
     });
 
     return data.user;

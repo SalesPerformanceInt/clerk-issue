@@ -6,8 +6,7 @@ export const UPDATE_NEXT_QUESTION_ID = graphql(/* GraphQL */ `
       pk_columns: { user_id: $user_id }
       _set: { next_question_id: $next_question_id }
     ) {
-      user_id
-      next_question_id
+      ...BaseUser
     }
   }
 `);

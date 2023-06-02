@@ -9,11 +9,7 @@ export const CREATE_LEARNING_RECORD = graphql(/* GraphQL */ `
     $learning_record: learning_record_insert_input!
   ) {
     insert_learning_record_one(object: $learning_record) {
-      created_at
-      data
-      event_type
-      id
-      user_id
+      ...BaseLearningRecord
     }
   }
 `);

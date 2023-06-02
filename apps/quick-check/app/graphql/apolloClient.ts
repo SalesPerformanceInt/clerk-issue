@@ -31,6 +31,20 @@ const getClient = () => {
     ssrMode: true,
     cache: new InMemoryCache(),
     link: concat(authMiddleware, httpLink),
+    defaultOptions: {
+      watchQuery: {
+        fetchPolicy: "no-cache",
+        errorPolicy: "all",
+      },
+      query: {
+        fetchPolicy: "no-cache",
+        errorPolicy: "all",
+      },
+      mutate: {
+        fetchPolicy: "no-cache",
+        errorPolicy: "all",
+      },
+    },
   });
 };
 

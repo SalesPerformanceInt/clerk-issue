@@ -13,8 +13,10 @@ export async function getUser(this: GraphQLClient, userId: string) {
     const { data } = await this.client.query({
       query: GET_USER,
       variables: { userId },
-      fetchPolicy: "network-only",
+      fetchPolicy: "no-cache",
     });
+
+    console.log("getUser", data);
 
     if (!data.user_by_pk) return null;
 

@@ -20,15 +20,11 @@ export const loader = async ({ params, request }: LoaderArgs) => {
     invariant(token, "token not found");
     invariant(token.active, "token expired");
 
-    const user = await apolloClient.getUser(token.user_id);
-    invariant(user?.user_id, "user not found");
-    invariant(user?.next_question_id, "next question not found");
-
     return createUserSession({
       redirectTo: "/nq",
       remember: true,
       request,
-      userId: user.user_id,
+      userId: token.user_id,
     });
   } catch {
     return invalidTokenRedirect();

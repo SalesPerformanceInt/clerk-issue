@@ -25,10 +25,12 @@ export const TFSelectedChoice: FC<TFSelectedChoiceProps> = ({
             You chose:
             <span
               className={`${
-                selected ? "bg-lime-200" : "bg-red-300"
+                selected?.correct ? "bg-lime-200" : "bg-red-300"
               } -m-1 ml-2 p-1 font-bold`}
             >
-              {selected ? tfquestion.truthy_label : tfquestion.falsey_label}
+              {selected?.correct
+                ? tfquestion.truthy_label
+                : tfquestion.falsey_label}
             </span>
           </p>
         </motion.div>

@@ -1,9 +1,8 @@
-import {
-  TFSelected,
-  TrueFalseQuestionProps,
-} from "../../TrueFalseQuestion.types";
+import type { Selection } from "~/index";
+
+import type { TrueFalseQuestionProps } from "../../TrueFalseQuestion.types";
 
 export type TFSelectedChoiceProps = {
   show: boolean;
-  selected: TFSelected;
+  selected: Selection | null;
 } & Pick<TrueFalseQuestionProps, "tfquestion">;

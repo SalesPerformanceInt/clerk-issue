@@ -19,11 +19,7 @@ export type Selection = {
   uid: string;
 };
 
-export const confidences = ["low", "medium", "high"] as const;
-
-export type Confidence = (typeof confidences)[number];
-
-export type OnSubmit = (selection: Selection, confidence: Confidence) => void;
+export type OnSubmit = (selection: Selection) => void;
 
 export type QuestionProps = {
   questionItem: QuestionItem;

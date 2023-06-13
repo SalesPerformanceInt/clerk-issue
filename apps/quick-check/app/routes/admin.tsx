@@ -1,51 +1,58 @@
-import { useEffect, useState, type FC } from "react";
-
 import {
   json,
   redirect,
   type ActionArgs,
   type LoaderArgs,
-  type SerializeFrom,
 } from "@remix-run/node";
-import { useLoaderData, useNavigation, useSubmit } from "@remix-run/react";
+import { useLoaderData } from "@remix-run/react";
 
-import { Button } from "accelerate-learner-ui";
-import { parsePhoneNumber } from "awesome-phonenumber";
-import { isString } from "remeda";
 import invariant from "tiny-invariant";
-import { apolloClient, type UserWithActiveTokenFragment } from "~/graphql";
-import keyIcon from "~/images/key.svg";
-import loginIcon from "~/images/login.svg";
-import refreshIcon from "~/images/refresh.svg";
+import { z } from "zod";
+import { apolloClient } from "~/graphql";
+import { createUserActionSchema } from "~/graphql/mutations";
 import { generateTokenAndSendSMS } from "~/notifications/twilio.server";
 
-interface AdminAction {
-  type:
-    | "TOGGLE_SMS_ENABLED"
-    | "GENERATE_TOKEN_AND_SEND_SMS"
-    | "RESET_USER"
-    | "LOGIN_USER";
-  userId: string;
-}
+import { parseSchema } from "~/utils/parseSchema";
 
-const parseAdminActionRequest = (formData?: FormData) => {
+import { CreateUserForm, UsersTable } from "~/components";
+
+export const adminActionSchema = z.object({
+  type: z.enum([
+    "TOGGLE_SMS_ENABLED",
+    "GENERATE_TOKEN_AND_SEND_SMS",
+    "RESET_USER",
+    "LOGIN_USER",
+  ]),
+  userId: z.string(),
+});
+
+export type AdminAction = z.infer<typeof adminActionSchema>;
+
+export const parseAdminActionRequest = (formData?: FormData) => {
   const data = formData?.get("data");
-  if (isString(data)) {
-    return JSON.parse(data) as AdminAction;
-  }
+  return parseSchema(data, adminActionSchema);
+};
+
+const parseCreateUserRequest = (formData?: FormData) => {
+  const data = formData && Object.fromEntries([...formData.entries()]);
+  return parseSchema(data, createUserActionSchema);
 };
 
 export const loader = async ({ request }: LoaderArgs) => {
-  const { origin } = new URL(request.url);
-
   const users = (await apolloClient.getAllUsers()) ?? [];
-
-  return json({ users, origin }, { status: 200 });
+  return json({ users }, { status: 200 });
 };
 
 export const action = async ({ request }: ActionArgs) => {
   try {
     const formData = await request.formData();
+
+    const createUserInput = parseCreateUserRequest(formData);
+
+    if (createUserInput) {
+      await apolloClient.createUser(createUserInput);
+    }
+
     const adminAction = parseAdminActionRequest(formData);
 
     if (adminAction?.type === "TOGGLE_SMS_ENABLED") {
@@ -78,141 +85,20 @@ export const action = async ({ request }: ActionArgs) => {
 };
 
 export default function Page() {
-  const { users, origin } = useLoaderData<typeof loader>();
+  const { users } = useLoaderData<typeof loader>();
 
   return (
-    <div className="flex h-full w-full items-center justify-center bg-indigo-950 p-8">
+    <div className="bg-indigo-950 p-8">
       <div className="flex w-full flex-col">
         <div className="overflow-x-auto sm:-mx-6 lg:-mx-8">
           <div className="inline-block min-w-full py-2 sm:px-6 lg:px-8">
-            <div className="overflow-hidden">
-              <table className="min-w-full table-auto text-left text-sm">
-                <thead className="border-b bg-white font-medium">
-                  <tr>
-                    <th scope="col" className="px-6 py-4">
-                      Name
-                    </th>
-                    <th scope="col" className="px-6 py-4">
-                      Email
-                    </th>
-                    <th scope="col" className="px-6 py-4">
-                      Phone
-                    </th>
-                    <th scope="col" className="w-1 whitespace-nowrap px-6 py-4">
-                      SMS Enabled
-                    </th>
-                    <th scope="col" className="w-1 whitespace-nowrap px-6 py-4">
-                      New Token
-                    </th>
-                    <th scope="col" className="w-1 whitespace-nowrap px-6 py-4">
-                      Login
-                    </th>
-                    <th scope="col" className="w-1 whitespace-nowrap px-6 py-4">
-                      Reset
-                    </th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {users.map((user, index) => (
-                    <UserRow
-                      key={user.user_id}
-                      user={user}
-                      row={index}
-                      origin={origin}
-                    />
-                  ))}
-                </tbody>
-              </table>
+            <div className="mb-8 overflow-hidden">
+              <UsersTable users={users} />
             </div>
+            <CreateUserForm />
           </div>
         </div>
       </div>
     </div>
   );
 }
-
-const UserRow: FC<{
-  user: SerializeFrom<UserWithActiveTokenFragment>;
-  row: number;
-  origin: string;
-}> = ({ user, row, origin }) => {
-  const submit = useSubmit();
-
-  const navigationData = useNavigation();
-
-  const [checked, setChecked] = useState(user.sms_enabled);
-
-  useEffect(() => {
-    setChecked(user.sms_enabled);
-  }, [user.sms_enabled]);
-
-  const isLoading = (actionType: AdminAction["type"]) => {
-    if (navigationData.state === "idle") return false;
-    const data = parseAdminActionRequest(navigationData.formData);
-    return data?.userId === user.user_id && actionType === data?.type;
-  };
-
-  const createUserAction =
-    (type: AdminAction["type"], callback?: () => void) => () => {
-      callback?.();
-      const payload: AdminAction = { type, userId: user.user_id };
-      const data = JSON.stringify(payload);
-
-      const formData = new FormData();
-      formData.append("data", data);
-
-      submit(formData, { method: "POST" });
-    };
-
-  const activeToken = user.active_tokens[0]?.id ?? "";
-
-  return (
-    <tr className={`border-b ${row % 2 === 0 ? "bg-neutral-100" : "bg-white"}`}>
-      <td className="whitespace-nowrap px-6 py-4">{`${user.first_name} ${user.last_name}`}</td>
-      <td className="whitespace-nowrap px-6 py-4">{user.email}</td>
-      <td className="whitespace-nowrap px-6 py-4">
-        {parsePhoneNumber(user.phone_number ?? "").number?.national}
-      </td>
-      <td className="whitespace-nowrap px-6 py-4 text-center">
-        <input
-          checked={checked}
-          onChange={createUserAction("TOGGLE_SMS_ENABLED", () =>
-            setChecked(!checked),
-          )}
-          id="default-checkbox"
-          type="checkbox"
-          value=""
-          className="h-4 w-4 rounded border-gray-300 bg-gray-100 text-blue-600"
-        />
-      </td>
-      <td className="whitespace-nowrap px-6 py-4 text-center">
-        <Button
-          loading={isLoading("GENERATE_TOKEN_AND_SEND_SMS")}
-          onClick={createUserAction("GENERATE_TOKEN_AND_SEND_SMS")}
-          className="h-8 w-auto py-0 "
-        >
-          <img src={keyIcon} alt="Generate token" />
-        </Button>
-      </td>
-      <td className="whitespace-nowrap px-6 py-4 text-center">
-        <Button
-          disabled={!activeToken}
-          loading={isLoading("LOGIN_USER")}
-          onClick={createUserAction("LOGIN_USER")}
-          className="h-8 w-auto py-0"
-        >
-          <img src={loginIcon} alt="Login" />
-        </Button>
-      </td>
-      <td className="whitespace-nowrap px-6 py-4 text-center">
-        <Button
-          loading={isLoading("RESET_USER")}
-          onClick={createUserAction("RESET_USER")}
-          className="h-8 w-auto py-0"
-        >
-          <img src={refreshIcon} alt="Reset" />
-        </Button>
-      </td>
-    </tr>
-  );
-};

@@ -11,7 +11,7 @@ import {
   TWILIO_AUTH_TOKEN,
   TWILIO_SMS_FROM,
   TWILIO_WHATSAPP_FROM,
-} from "~/utils/server/envs.server";
+} from "~/utils/envs.server";
 
 const twilioClient = twilio(TWILIO_ACCOUNT_SID, TWILIO_AUTH_TOKEN);
 

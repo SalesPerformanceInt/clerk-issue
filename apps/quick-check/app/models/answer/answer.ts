@@ -1,6 +1,7 @@
 import { confidences, variants } from "accelerate-learner-ui";
-import { isString } from "remeda";
 import { z } from "zod";
+
+import { parseSchema } from "~/utils/parseSchema";
 
 export const answerSchema = z.object({
   questionId: z.string(),
@@ -12,13 +13,4 @@ export const answerSchema = z.object({
 
 export type Answer = z.infer<typeof answerSchema>;
 
-export const parseAnswer = (value: unknown) => {
-  try {
-    if (isString(value)) {
-      return answerSchema.parse(JSON.parse(value));
-    } else {
-      return answerSchema.parse(value);
-    }
-  } catch {}
-  return null;
-};
+export const parseAnswer = (value: unknown) => parseSchema(value, answerSchema);

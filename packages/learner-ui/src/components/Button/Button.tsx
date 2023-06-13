@@ -19,12 +19,12 @@ export const Button: FC<ButtonProps> = ({
     disabled={loading || disabled}
     {...props}
   >
-    {loading && <Spinner />}
+    {loading && <LoadingSpinner />}
     {<div className={loading ? "opacity-0" : ""}>{children}</div>}
   </button>
 );
 
-const Spinner = () => (
+const LoadingSpinner = () => (
   <svg
     aria-hidden="true"
     role="status"

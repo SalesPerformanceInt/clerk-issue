@@ -16,8 +16,6 @@ export async function getUser(this: GraphQLClient, userId: string) {
       fetchPolicy: "no-cache",
     });
 
-    console.log("getUser", data);
-
     if (!data.user_by_pk) return null;
 
     return data.user_by_pk;

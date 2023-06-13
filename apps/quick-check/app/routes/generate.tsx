@@ -1,5 +1,4 @@
 import { json, type LoaderArgs } from "@remix-run/node";
-import { useLoaderData } from "@remix-run/react";
 
 import { apolloClient } from "~/graphql";
 import { generateTokenAndSendSMS } from "~/notifications/twilio.server";
@@ -19,10 +18,6 @@ export const loader = async ({ request }: LoaderArgs) => {
 };
 
 export default function Page() {
-  const { tokens } = useLoaderData<typeof loader>();
-
-  console.log(tokens);
-
   return (
     <div className="flex h-full w-full items-center justify-center bg-blue-600 p-8">
       <h1 className="text-7xl">👍</h1>

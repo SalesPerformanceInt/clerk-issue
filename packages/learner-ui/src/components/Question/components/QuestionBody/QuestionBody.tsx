@@ -2,6 +2,7 @@ import React, { FC } from "react";
 
 import classNames from "classnames";
 import { motion } from "framer-motion";
+import { fade } from "~/config/animations";
 
 import { BreakAction, BreakBackground } from "~/components";
 import { useQuestionContext } from "~/components/Question";
@@ -42,7 +43,18 @@ export const QuestionBody: FC = () => {
               paddingBottom: showConfidence ? confidenceHeight : BOTTOM_PADDING,
             }}
           >
-            {!onBreak ? <QuestionVariant /> : <BreakAction onClose={onClose} />}
+            {!onBreak ? (
+              <motion.div
+                variants={fade(0.5)}
+                initial="initial"
+                animate="animate"
+                exit="exit"
+              >
+                <QuestionVariant />
+              </motion.div>
+            ) : (
+              <BreakAction onClose={onClose} />
+            )}
           </motion.div>
         </motion.div>
       </motion.div>

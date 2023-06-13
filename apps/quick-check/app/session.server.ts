@@ -3,7 +3,7 @@ import { createCookieSessionStorage, redirect } from "@remix-run/node";
 import invariant from "tiny-invariant";
 import type { User } from "~/graphql";
 
-import { SESSION_SECRET } from "~/utils/server/envs.server";
+import { SESSION_SECRET } from "~/utils/envs.server";
 
 import { getUserById } from "~/models/user";
 

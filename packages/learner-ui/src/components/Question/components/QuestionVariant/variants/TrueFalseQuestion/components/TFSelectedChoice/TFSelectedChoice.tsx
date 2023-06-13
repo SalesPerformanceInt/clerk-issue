@@ -16,7 +16,7 @@ export const TFSelectedChoice: FC<TFSelectedChoiceProps> = ({
         <motion.div
           key="go-back"
           className="flex"
-          variants={fade}
+          variants={fade()}
           initial="initial"
           animate="animate"
           exit="exit"

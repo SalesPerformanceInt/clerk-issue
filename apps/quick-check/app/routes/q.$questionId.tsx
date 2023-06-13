@@ -58,13 +58,12 @@ export default function Page() {
   const navigate = useNavigate();
 
   const submit = useSubmit();
-  const onSubmit: OnSubmit = (selection, confidence) => {
+  const onSubmit: OnSubmit = (selection) => {
     const answer: Answer = {
       questionId: questionItem.uid,
       correct: selection.correct,
       uid: selection.uid,
       variant,
-      confidence,
     };
     const data = JSON.stringify(answer);
     submit({ data }, { method: "POST" });

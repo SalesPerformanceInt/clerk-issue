@@ -1,11 +1,11 @@
 import React, { FC } from "react";
 
 import { PageLayout } from "~/components";
-import { ConfidenceModal } from "~/components/Question/components";
 
 import {
   BottomAnchor,
   Header,
+  QuestionAction,
   QuestionBody,
   QuestionConfetti,
 } from "./components";
@@ -18,10 +18,14 @@ export const Question: FC<QuestionProps> = (props) => {
     <QuestionContextProvider {...props}>
       <PageLayout>
         <Header />
+
         <QuestionBody />
+
         <BottomAnchor />
       </PageLayout>
-      <ConfidenceModal />
+
+      <QuestionAction />
+
       <QuestionConfetti />
     </QuestionContextProvider>
   );

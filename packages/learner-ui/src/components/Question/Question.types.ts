@@ -12,11 +12,12 @@ export const variants = [
 
 export type Variant = (typeof variants)[number];
 
-export type Selection = {
+export type Selection<T = unknown> = {
   correct: boolean;
   feedback: string;
   feedbackLiveEdit?: DataCSLP;
   uid: string;
+  value?: T;
 };
 
 export const confidences = ["low", "medium", "high"] as const;

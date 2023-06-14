@@ -7,7 +7,7 @@ import { fade } from "~/config/animations";
 import { BreakAction, BreakBackground } from "~/components";
 import { useQuestionContext } from "~/components/Question";
 import {
-  CONFIDENCE_HEIGHT,
+  DRAWER_HEIGHT,
   QuestionVariant,
 } from "~/components/Question/components";
 
@@ -17,12 +17,12 @@ export const QuestionBody: FC = () => {
     bodyRef,
     bodyHeight,
     offset = 0,
-    showConfidence,
+    showAction,
     onClose,
   } = useQuestionContext();
 
   const BOTTOM_PADDING = 32 + offset;
-  const confidenceHeight = CONFIDENCE_HEIGHT + 38 + BOTTOM_PADDING;
+  const actionHeight = DRAWER_HEIGHT + 38 + BOTTOM_PADDING;
 
   return (
     <>
@@ -40,7 +40,7 @@ export const QuestionBody: FC = () => {
               ["flex-1"]: !onBreak,
             })}
             style={{
-              paddingBottom: showConfidence ? confidenceHeight : BOTTOM_PADDING,
+              paddingBottom: showAction ? actionHeight : BOTTOM_PADDING,
             }}
           >
             {!onBreak ? (

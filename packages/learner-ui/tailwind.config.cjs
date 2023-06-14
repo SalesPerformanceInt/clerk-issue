@@ -6,6 +6,12 @@ module.exports = {
       transitionProperty: {
         spacing: "margin, padding",
       },
+      colors: {
+        plum: {
+          75: "#564874",
+          100: "#21154A",
+        },
+      },
     },
   },
   plugins: [require("@tailwindcss/forms")],

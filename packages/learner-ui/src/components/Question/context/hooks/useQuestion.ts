@@ -3,12 +3,11 @@ import { useMeasure } from "react-use";
 
 import invariant from "tiny-invariant";
 
-import type { Confidence, Selection } from "../../Question.types";
-import { confidenceMap } from "../utils/condienceMap";
+import type { Selection } from "../../Question.types";
 import type { useQuestionProps } from "./useQuestion.types";
 
 export const useQuestion = ({ onSubmit }: useQuestionProps) => {
-  const [showConfidence, setShowConfidence] = useState(false);
+  const [showAction, setShowAction] = useState(false);
   const [selected, setSelected] = useState<Selection | null>(null);
   const [numberOfConfettiPieces, setNumberOfConfettiPieces] = useState<
     number | null
@@ -20,19 +19,18 @@ export const useQuestion = ({ onSubmit }: useQuestionProps) => {
 
   const hasSelected = selected !== null;
 
-  const isFeedbackActive = hasSelected && !showConfidence;
+  const isFeedbackActive = hasSelected && !showAction;
 
-  const onConfidenceClick = (confidence: Confidence) => {
+  const onActionClick = () => {
     invariant(selected, "Missing selection");
 
-    setShowConfidence(false);
+    setShowAction(false);
 
     if (selected?.correct) {
-      const numberOfConfettiPieces = confidenceMap.get(confidence);
-      setNumberOfConfettiPieces(numberOfConfettiPieces);
+      setNumberOfConfettiPieces(1000);
     }
 
-    onSubmit(selected, confidence);
+    onSubmit(selected);
 
     setTimeout(
       () => bottomRef.current?.scrollIntoView({ behavior: "smooth" }),
@@ -42,12 +40,12 @@ export const useQuestion = ({ onSubmit }: useQuestionProps) => {
 
   const onSelection = (selection: Selection) => {
     setSelected(selection);
-    setShowConfidence(true);
+    setShowAction(true);
   };
 
   const onGoBackClick = () => {
     setSelected(null);
-    setShowConfidence(false);
+    setShowAction(false);
   };
 
   const onConfettiComplete = () => {
@@ -57,12 +55,12 @@ export const useQuestion = ({ onSubmit }: useQuestionProps) => {
   const goOnBreak = () => setOnBreak(true);
 
   return {
-    showConfidence,
+    showAction,
     selected,
     numberOfConfettiPieces,
     hasSelected,
     isFeedbackActive,
-    onConfidenceClick,
+    onActionClick,
     onGoBackClick,
     onSelection,
     onConfettiComplete,

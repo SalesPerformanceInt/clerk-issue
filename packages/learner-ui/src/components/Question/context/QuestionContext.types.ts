@@ -1,7 +1,7 @@
 import { ReactNode, RefObject } from "react";
 import { useMeasure } from "react-use";
 
-import type { Confidence, QuestionProps, Selection } from "../Question.types";
+import type { QuestionProps, Selection } from "../Question.types";
 
 export interface QuestionContextProps extends QuestionProps {
   selected: Selection | null;
@@ -14,8 +14,8 @@ export interface QuestionContextProps extends QuestionProps {
   bodyRef: BodyRef;
   bodyHeight: number;
   currentTopic: string;
-  showConfidence: boolean;
-  onConfidenceClick: (confidence: Confidence) => void;
+  showAction: boolean;
+  onActionClick: () => void;
   onConfettiComplete: () => void;
   numberOfConfettiPieces: number | null;
   bottomRef: RefObject<HTMLDivElement>;

@@ -10,6 +10,8 @@ export const TFSelectedChoice: FC<TFSelectedChoiceProps> = ({
   selected,
   tfquestion,
 }) => {
+  const selectedChoice = selected && Boolean(JSON.parse(selected.value));
+
   return (
     <AnimatePresence>
       {show && (
@@ -25,10 +27,10 @@ export const TFSelectedChoice: FC<TFSelectedChoiceProps> = ({
             You chose:
             <span
               className={`${
-                selected?.correct ? "bg-lime-200" : "bg-red-300"
+                selectedChoice ? "bg-lime-200" : "bg-red-300"
               } -m-1 ml-2 p-1 font-bold`}
             >
-              {selected?.correct
+              {selectedChoice
                 ? tfquestion.truthy_label
                 : tfquestion.falsey_label}
             </span>

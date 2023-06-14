@@ -121,7 +121,7 @@ export const useReorderWords = ({
       feedbackLiveEdit: correct
         ? reorderwordsquestion.$?.feedback
         : reorderwordsquestion.$?.incorrect_feedback,
-      uid: reorderwordsquestion._metadata.uid,
+      value: reorderwordsquestion._metadata.uid,
     });
   };
 

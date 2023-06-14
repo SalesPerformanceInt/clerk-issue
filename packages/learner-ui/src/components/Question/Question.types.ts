@@ -16,7 +16,7 @@ export type Selection = {
   correct: boolean;
   feedback: string;
   feedbackLiveEdit?: DataCSLP;
-  uid: string;
+  value: string;
 };
 
 export const confidences = ["low", "medium", "high"] as const;

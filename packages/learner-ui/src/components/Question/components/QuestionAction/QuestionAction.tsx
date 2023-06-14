@@ -13,7 +13,7 @@ export const QuestionAction = () => {
     <BottomDrawer height={DRAWER_HEIGHT + offset} show={showAction}>
       <Container className="bg-plum-100 p-4">
         <Button
-          className="bg-plum-75 hover:bg-plum-75 relative max-w-full text-base text-white"
+          className="bg-plum-75 hover:bg-plum-75/[.2] relative max-w-full text-base text-white"
           onClick={onActionClick}
         >
           Check Answer

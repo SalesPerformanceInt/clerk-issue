@@ -17,7 +17,7 @@ export const ChooseAnotherAnswer: FC<ChooseAnotherAnswerProps> = ({
         <motion.button
           key="go-back"
           className="btn 0 flex items-center space-x-2 hover:!opacity-80"
-          variants={fade}
+          variants={fade()}
           initial="initial"
           animate="animate"
           exit="exit"

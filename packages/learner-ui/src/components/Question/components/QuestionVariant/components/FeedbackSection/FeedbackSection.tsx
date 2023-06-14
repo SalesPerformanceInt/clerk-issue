@@ -1,4 +1,4 @@
-import React, { FC } from "react";
+import React, { useState, type FC } from "react";
 
 import { ArcElement, Chart as ChartJS } from "chart.js";
 import { AnimatePresence, motion } from "framer-motion";
@@ -17,6 +17,9 @@ ChartJS.register(ArcElement);
 export const FeedbackSection: FC<FeedbackSectionProps> = ({ children }) => {
   const { goOnBreak, isFeedbackActive, selected, onContinue } =
     useQuestionContext();
+
+  const [navigating, setNavigating] = useState(false);
+
   return (
     <AnimatePresence>
       {isFeedbackActive && (
@@ -62,7 +65,11 @@ export const FeedbackSection: FC<FeedbackSectionProps> = ({ children }) => {
               Take a break
             </Button>
             <Button
-              onClick={onContinue}
+              loading={navigating}
+              onClick={() => {
+                setNavigating(true);
+                onContinue();
+              }}
               className="max-w-[200px] bg-lime-200 hover:bg-lime-300"
             >
               Continue

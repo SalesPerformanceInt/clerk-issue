@@ -4,7 +4,7 @@ import {
   QC_CONTENTSTACK_DELIVERY_TOKEN,
   QC_CONTENTSTACK_ENVIRONMENT,
   QC_CONTENTSTACK_STACK_KEY,
-} from "~/utils/server/envs.server";
+} from "~/utils/envs.server";
 
 export const contentStack = new ContentStackSDKClient(
   QC_CONTENTSTACK_DELIVERY_TOKEN,

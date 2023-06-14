@@ -21,16 +21,16 @@ export const fadeAndCollapse: Variants = {
   },
 };
 
-export const fade: Variants = {
+export const fade = (duration = 0.25): Variants => ({
   initial: {
     opacity: 0,
   },
   animate: {
     opacity: 1,
-    transition: { duration: 0.25 },
+    transition: { duration },
   },
   exit: {
     opacity: 0,
-    transition: { duration: 0.25 },
+    transition: { duration },
   },
-};
+});

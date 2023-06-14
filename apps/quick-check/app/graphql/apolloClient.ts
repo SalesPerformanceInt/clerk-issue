@@ -8,6 +8,7 @@ import {
 } from "@apollo/client";
 import {
   createLearningRecord,
+  createUser,
   generateNewToken,
   resetUser,
   toggleUserSMSEnabled,
@@ -15,7 +16,7 @@ import {
 } from "~/graphql/mutations";
 import { getAllUsers, getLinkToken, getUser } from "~/graphql/queries";
 
-import { HASURA_API_URL, HASURA_AUTH_TOKEN } from "~/utils/server/envs.server";
+import { HASURA_API_URL, HASURA_AUTH_TOKEN } from "~/utils/envs.server";
 
 const getClient = () => {
   const httpLink = new HttpLink({ uri: HASURA_API_URL });
@@ -58,6 +59,7 @@ export class GraphQLClient {
   getAllUsers = getAllUsers;
   generateNewToken = generateNewToken;
   toggleUserSMSEnabled = toggleUserSMSEnabled;
+  createUser = createUser;
 
   constructor() {
     this.client = getClient();

@@ -1,3 +1,5 @@
+import { useState } from "react";
+
 import { json, type LoaderArgs } from "@remix-run/node";
 import {
   useLoaderData,
@@ -27,6 +29,8 @@ export default function Index() {
   const { user } = useLoaderData<typeof loader>();
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
+  const [navigating, setNavigating] = useState(false);
+  const [resetting, setResetting] = useState(false);
 
   const message = searchParams.get("message");
 
@@ -52,9 +56,21 @@ export default function Index() {
           </div>
           <div className="rounded-t-3xl bg-white px-8 py-6">
             <div className="flex justify-center space-x-11">
-              <Button onClick={() => navigate("/reset")}>Reset</Button>
               <Button
-                onClick={() => navigate("/nq")}
+                loading={resetting}
+                onClick={() => {
+                  setResetting(true);
+                  navigate("/reset");
+                }}
+              >
+                Reset
+              </Button>
+              <Button
+                loading={navigating}
+                onClick={() => {
+                  setNavigating(true);
+                  navigate("/nq");
+                }}
                 className="bg-lime-200 hover:bg-lime-300"
               >
                 Return to questions

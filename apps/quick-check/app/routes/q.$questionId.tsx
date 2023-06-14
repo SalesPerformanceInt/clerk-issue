@@ -48,9 +48,9 @@ export const loader = async ({ params, request }: LoaderArgs) => {
 export const action: ActionFunction = async ({ request }) => {
   const result = await saveAnswer(request);
   const userId = await requireUserSession(request);
-  await generateNextQuestion(userId);
+  const nextQuestionId = await generateNextQuestion(userId);
 
-  return json({ result });
+  return json({ result, nextQuestionId });
 };
 
 export default function Page() {

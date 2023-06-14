@@ -21,13 +21,11 @@ export const useTrueFalseQuestion = ({
 
   const onChoiceSelect: OnTFChoiceSelect = (choice) => {
     const correct = choice === tfquestion.correct;
-
-    onSelection<boolean>({
+    onSelection({
       correct,
       feedback: correct ? tfquestion.feedback : tfquestion.incorrect_feedback,
       feedbackLiveEdit: tfquestion.$?.feedback,
-      uid: JSON.stringify(choice),
-      value: choice,
+      value: JSON.stringify(choice),
     });
   };
 

@@ -84,7 +84,7 @@ export const useFillBlanks = ({ fillblanksquestion }: UseFillBlanksProps) => {
       feedbackLiveEdit: correct
         ? fillblanksquestion.$?.feedback
         : fillblanksquestion.$?.incorrect_feedback,
-      uid: JSON.stringify(filledSlots.map(({ _metadata }) => _metadata.uid)),
+      value: JSON.stringify(filledSlots.map(({ _metadata }) => _metadata.uid)),
     });
   };
 

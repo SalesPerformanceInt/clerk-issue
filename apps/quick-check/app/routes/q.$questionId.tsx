@@ -62,7 +62,7 @@ export default function Page() {
     const answer: Answer = {
       questionId: questionItem.uid,
       correct: selection.correct,
-      uid: selection.uid,
+      uid: selection.value,
       variant,
       confidence,
     };

@@ -18,7 +18,7 @@ export const MultipleChoiceChoices = ({
     <AnimatePresence initial={false}>
       {choices
         ?.filter(
-          ({ choice }) => !selected || choice._metadata.uid === selected.uid,
+          ({ choice }) => !selected || choice._metadata.uid === selected.value,
         )
         .map(({ choice }) => {
           return (
@@ -32,7 +32,7 @@ export const MultipleChoiceChoices = ({
             >
               <Choice
                 choice={choice}
-                selected={choice._metadata.uid === selected?.uid}
+                selected={choice._metadata.uid === selected?.value}
                 disabled={!!selected}
                 onClick={() => onChoiceSelect({ choice })}
               />

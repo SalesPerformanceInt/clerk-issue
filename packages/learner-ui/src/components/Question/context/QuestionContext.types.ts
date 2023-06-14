@@ -8,7 +8,7 @@ export interface QuestionContextProps extends QuestionProps {
   hasSelected: boolean;
   isFeedbackActive: boolean;
   onGoBackClick: () => void;
-  onSelection: <T>(selection: Selection<T>) => void;
+  onSelection: (selection: Selection) => void;
   onBreak: boolean;
   goOnBreak: () => void;
   bodyRef: BodyRef;

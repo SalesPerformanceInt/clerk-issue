@@ -4,5 +4,5 @@ import type { TrueFalseQuestionProps } from "../../TrueFalseQuestion.types";
 
 export type TFSelectedChoiceProps = {
   show: boolean;
-  selected: Selection<boolean> | null;
+  selected: Selection | null;
 } & Pick<TrueFalseQuestionProps, "tfquestion">;

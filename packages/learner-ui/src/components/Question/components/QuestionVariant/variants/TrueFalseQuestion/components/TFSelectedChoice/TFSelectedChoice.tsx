@@ -10,7 +10,7 @@ export const TFSelectedChoice: FC<TFSelectedChoiceProps> = ({
   selected,
   tfquestion,
 }) => {
-  const selectedChoice = selected && (JSON.parse(selected?.value) as boolean);
+  const selectedChoice = selected && Boolean((JSON.parse(selected?.value)));
 
   return (
     <AnimatePresence>

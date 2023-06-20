@@ -13,7 +13,7 @@ export type StatusMap = {
 
 const statusMap = new MatchedMap<boolean, StatusMap>([
   [true, { title: "Published", color: "text-primary-300" }],
-  [false, { title: "Not Published", color: "" }],
+  ["_", { title: "Not Published", color: "" }],
 ]);
 
 /**

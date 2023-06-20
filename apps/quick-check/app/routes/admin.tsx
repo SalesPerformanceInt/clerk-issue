@@ -8,7 +8,7 @@ import { useLoaderData } from "@remix-run/react";
 
 import invariant from "tiny-invariant";
 import { z } from "zod";
-import { apolloClient } from "~/graphql";
+import { getAdminApolloClient } from "~/graphql";
 import { createUserActionSchema } from "~/graphql/mutations";
 import { generateTokenAndSendSMS } from "~/notifications/twilio.server";
 
@@ -39,7 +39,7 @@ const parseCreateUserRequest = (formData?: FormData) => {
 };
 
 export const loader = async ({ request }: LoaderArgs) => {
-  const users = (await apolloClient.getAllUsers()) ?? [];
+  const users = (await getAdminApolloClient().getAllUsers()) ?? [];
   return json({ users }, { status: 200 });
 };
 
@@ -50,27 +50,27 @@ export const action = async ({ request }: ActionArgs) => {
     const createUserInput = parseCreateUserRequest(formData);
 
     if (createUserInput) {
-      await apolloClient.createUser(createUserInput);
+      await getAdminApolloClient().createUser(createUserInput);
     }
 
     const adminAction = parseAdminActionRequest(formData);
 
     if (adminAction?.type === "TOGGLE_SMS_ENABLED") {
-      await apolloClient.toggleUserSMSEnabled(adminAction.userId);
+      await getAdminApolloClient().toggleUserSMSEnabled(adminAction.userId);
     }
 
     if (adminAction?.type === "GENERATE_TOKEN_AND_SEND_SMS") {
-      const user = await apolloClient.getUser(adminAction.userId);
+      const user = await getAdminApolloClient().getUser(adminAction.userId);
       invariant(user, "No user found");
       await generateTokenAndSendSMS(user, request);
     }
 
     if (adminAction?.type === "RESET_USER") {
-      await apolloClient.resetUser(adminAction.userId);
+      await getAdminApolloClient().resetUser(adminAction.userId);
     }
 
     if (adminAction?.type === "LOGIN_USER") {
-      const user = await apolloClient.getUser(adminAction.userId);
+      const user = await getAdminApolloClient().getUser(adminAction.userId);
       invariant(user, "No user found");
       const activeToken = user.active_tokens[0]?.id ?? "";
       return redirect(`/t/${activeToken}`);

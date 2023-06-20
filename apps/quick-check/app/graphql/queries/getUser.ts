@@ -1,4 +1,4 @@
-import { graphql, type GraphQLClient } from "~/graphql";
+import { graphql, type WithApolloClient } from "~/graphql";
 
 export const GET_USER = graphql(/* GraphQL */ `
   query GetUser($userId: uuid!) {
@@ -8,7 +8,7 @@ export const GET_USER = graphql(/* GraphQL */ `
   }
 `);
 
-export async function getUser(this: GraphQLClient, userId: string) {
+export async function getUser(this: WithApolloClient, userId: string) {
   try {
     const { data } = await this.client.query({
       query: GET_USER,
@@ -16,7 +16,7 @@ export async function getUser(this: GraphQLClient, userId: string) {
       fetchPolicy: "no-cache",
     });
 
-    if (!data.user_by_pk) return null;
+    if (!data?.user_by_pk) return null;
 
     return data.user_by_pk;
   } catch (error) {

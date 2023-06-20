@@ -12,7 +12,7 @@ export const UserWithActiveToken = graphql(/* GraphQL */ `
 export const BaseUser = graphql(/* GraphQL */ `
   fragment BaseUser on user {
     __typename
-    account
+    tenant_id
     email
     first_name
     language_preference

@@ -1,11 +1,11 @@
 import { json, type LoaderArgs } from "@remix-run/node";
 
-import { apolloClient } from "~/graphql";
+import { getAdminApolloClient } from "~/graphql";
 import { generateTokenAndSendSMS } from "~/notifications/twilio.server";
 
 export const loader = async ({ request }: LoaderArgs) => {
   try {
-    const users = (await apolloClient.getAllUsers()) ?? [];
+    const users = (await getAdminApolloClient().getAllUsers()) ?? [];
 
     const tokens = await Promise.all(
       users.map((user) => generateTokenAndSendSMS(user, request)),

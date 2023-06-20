@@ -1,21 +1,23 @@
-import { apolloClient, type Learning_Record_Insert_Input } from "~/graphql";
-import { getUserIdFromSession } from "~/session.server";
+import {
+  getUserApolloClientFromRequest,
+  type Learning_Record_Insert_Input,
+} from "~/graphql";
 
 import { parseAnswer } from "./answer";
 
 export const ANSWER = "ANSWER";
 
 export const saveAnswer = async (request: Request) => {
-  const user_id = await getUserIdFromSession(request);
+  const userApolloClient = await getUserApolloClientFromRequest(request);
 
   const formData = await request.formData();
   const data = parseAnswer(formData.get("data"));
 
   const learningRecord: Learning_Record_Insert_Input = {
-    user_id,
+    user_id: userApolloClient.userId,
     event_type: "ANSWER",
     data,
   };
 
-  return await apolloClient.createLearningRecord(learningRecord);
+  return await userApolloClient.createLearningRecord(learningRecord);
 };

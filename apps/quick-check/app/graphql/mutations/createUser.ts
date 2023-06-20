@@ -1,8 +1,10 @@
 import { parsePhoneNumber } from "libphonenumber-js";
 import { z } from "zod";
-import { graphql, type GraphQLClient } from "~/graphql";
+import { graphql, type WithApolloClient } from "~/graphql";
 
-import { QUESTION_IDS, generateNewToken } from "~/models/user";
+import { QUESTION_IDS } from "~/models/user";
+
+import { generateNewToken } from "./generateNewToken";
 
 export const CREATE_USER = graphql(/* GraphQL */ `
   mutation createUser(
@@ -35,7 +37,7 @@ export const createUserActionSchema = z.object({
 
 export type UserInput = z.infer<typeof createUserActionSchema>;
 
-export async function createUser(this: GraphQLClient, user: UserInput) {
+export async function createUser(this: WithApolloClient, user: UserInput) {
   try {
     const { data } = await this.client.mutate({
       mutation: CREATE_USER,
@@ -51,7 +53,7 @@ export async function createUser(this: GraphQLClient, user: UserInput) {
 
     const userId = data?.insert_user_one?.user_id;
 
-    if (userId) await generateNewToken(userId);
+    if (userId) await generateNewToken.call(this, userId);
 
     return data?.insert_user_one ?? null;
   } catch (error) {

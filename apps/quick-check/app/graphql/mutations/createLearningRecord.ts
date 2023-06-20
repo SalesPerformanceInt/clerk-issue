@@ -1,7 +1,7 @@
 import {
   graphql,
-  type GraphQLClient,
   type Learning_Record_Insert_Input,
+  type WithApolloClient,
 } from "~/graphql";
 
 export const CREATE_LEARNING_RECORD = graphql(/* GraphQL */ `
@@ -15,7 +15,7 @@ export const CREATE_LEARNING_RECORD = graphql(/* GraphQL */ `
 `);
 
 export async function createLearningRecord(
-  this: GraphQLClient,
+  this: WithApolloClient,
   learning_record: Learning_Record_Insert_Input,
 ) {
   try {

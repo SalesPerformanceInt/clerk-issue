@@ -8,8 +8,8 @@ export const QC_CONTENTSTACK_ENVIRONMENT =
   process.env.QC_CONTENTSTACK_ENVIRONMENT ?? "";
 
 export const HASURA_AUTH_TOKEN = process.env.HASURA_AUTH_TOKEN ?? "";
-
 export const HASURA_API_URL = process.env.HASURA_API_URL ?? "";
+export const HASURA_SECRET_KEY = process.env.HASURA_SECRET_KEY ?? "";
 
 export const SESSION_SECRET = process.env.SESSION_SECRET ?? "";
 

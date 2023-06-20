@@ -1,4 +1,4 @@
-import { graphql, type GraphQLClient } from "~/graphql";
+import { graphql, type WithApolloClient } from "~/graphql";
 
 import { QUESTION_IDS } from "~/models/user";
 
@@ -16,7 +16,7 @@ export const RESET_USER = graphql(/* GraphQL */ `
   }
 `);
 
-export async function resetUser(this: GraphQLClient, user_id: string) {
+export async function resetUser(this: WithApolloClient, user_id: string) {
   try {
     const { data } = await this.client.mutate({
       mutation: RESET_USER,

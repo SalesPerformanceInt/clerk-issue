@@ -5,12 +5,13 @@ import type { User } from "~/graphql";
 
 import { SESSION_SECRET } from "~/utils/envs.server";
 
-import { getUserById } from "~/models/user";
+import { getUserFromRequest } from "~/models/user";
 
 invariant(SESSION_SECRET, "SESSION_SECRET must be set");
 
 type SessionData = {
   userId: string;
+  tenantId: string;
 };
 
 type SessionFlashData = {
@@ -31,45 +32,39 @@ export const sessionStorage = createCookieSessionStorage<
   },
 });
 
-const USER_SESSION_KEY = "userId";
+const USER_ID_SESSION_KEY = "userId";
+const TENANT_ID_SESSION_KEY = "tenantId";
 
 export async function getSession(request: Request) {
   const cookie = request.headers.get("Cookie");
   return sessionStorage.getSession(cookie);
 }
 
-export async function getUserIdFromSession(
+export async function getUserDataFromFromSession(
   request: Request,
-): Promise<User["user_id"] | undefined> {
+): Promise<[User["user_id"] | undefined, User["tenant_id"] | undefined]> {
   const session = await getSession(request);
-  const userId = session.get(USER_SESSION_KEY);
-  return userId;
-}
-
-export async function getUserFromSession(request: Request) {
-  const userId = await getUserIdFromSession(request);
-  if (!userId) return null;
-
-  const user = await getUserById(userId);
-  return user;
+  const userId = session.get(USER_ID_SESSION_KEY);
+  const tenantId = session.get(TENANT_ID_SESSION_KEY);
+  return [userId, tenantId];
 }
 
 export async function requireUserSession(
   request: Request,
   redirectTo: string = new URL(request.url).pathname,
 ) {
-  const userId = await getUserIdFromSession(request);
-  if (!userId) {
+  const [userId, tenantId] = await getUserDataFromFromSession(request);
+  if (!userId || !tenantId) {
     const searchParams = new URLSearchParams([["redirectTo", redirectTo]]);
     throw redirect(`/?${searchParams.toString()}`);
   }
-  return userId;
+  return [userId, tenantId];
 }
 
 export async function requireUser(request: Request) {
-  const userId = await requireUserSession(request);
+  await requireUserSession(request);
 
-  const user = await getUserById(userId);
+  const user = await getUserFromRequest(request);
   if (user) return user;
 
   throw await logout(request);
@@ -78,17 +73,20 @@ export async function requireUser(request: Request) {
 export async function createUserSession({
   request,
   userId,
+  tenantId,
   remember,
   redirectTo,
 }: {
   request: Request;
   userId: string;
+  tenantId: string;
   remember: boolean;
   redirectTo: string;
 }) {
   const session = await getSession(request);
 
-  session.set(USER_SESSION_KEY, userId);
+  session.set(USER_ID_SESSION_KEY, userId);
+  session.set(TENANT_ID_SESSION_KEY, tenantId);
 
   return redirect(redirectTo, {
     headers: {

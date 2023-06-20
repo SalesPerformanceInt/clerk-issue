@@ -6,6 +6,8 @@ import {
   concat,
   type NormalizedCacheObject,
 } from "@apollo/client";
+import { SignJWT } from "jose";
+import invariant from "tiny-invariant";
 import {
   createLearningRecord,
   createUser,
@@ -15,15 +17,22 @@ import {
   updateNextQuestionId,
 } from "~/graphql/mutations";
 import { getAllUsers, getLinkToken, getUser } from "~/graphql/queries";
+import { getUserDataFromFromSession } from "~/session.server";
 
-import { HASURA_API_URL, HASURA_AUTH_TOKEN } from "~/utils/envs.server";
+import {
+  HASURA_API_URL,
+  HASURA_AUTH_TOKEN,
+  HASURA_SECRET_KEY,
+} from "~/utils/envs.server";
 
-const getClient = () => {
+type GraphQLHeaders = Record<string, string>;
+
+const getClient = (headers: GraphQLHeaders) => {
   const httpLink = new HttpLink({ uri: HASURA_API_URL });
 
   const authMiddleware = new ApolloLink((operation, forward) => {
     operation.setContext({
-      headers: { "x-hasura-admin-secret": HASURA_AUTH_TOKEN },
+      headers,
     });
     return forward(operation);
   });
@@ -49,8 +58,13 @@ const getClient = () => {
   });
 };
 
-export class GraphQLClient {
+export interface WithApolloClient {
   client: ApolloClient<NormalizedCacheObject>;
+}
+
+export class GraphQLClient implements WithApolloClient {
+  client: WithApolloClient["client"];
+
   getLinkToken = getLinkToken;
   getUser = getUser;
   createLearningRecord = createLearningRecord;
@@ -61,9 +75,66 @@ export class GraphQLClient {
   toggleUserSMSEnabled = toggleUserSMSEnabled;
   createUser = createUser;
 
-  constructor() {
-    this.client = getClient();
+  constructor(headers: GraphQLHeaders) {
+    this.client = getClient(headers);
   }
 }
 
-export const apolloClient = new GraphQLClient();
+export const getAdminApolloClient = () =>
+  new GraphQLClient({ "x-hasura-admin-secret": HASURA_AUTH_TOKEN });
+
+const getJWTHeader = (jwt: string) => ({ Authorization: `Bearer ${jwt}` });
+
+export class UserGraphQLClient extends GraphQLClient {
+  getUser = () => getUser.call(this, this.userId);
+  resetUser = () => resetUser.call(this, this.userId);
+  updateNextQuestionId = (nextQuestionId?: string) =>
+    updateNextQuestionId.call(this, this.userId, nextQuestionId);
+
+  constructor(jwt: string, public userId: string) {
+    super(getJWTHeader(jwt));
+  }
+}
+
+const secretKey = new TextEncoder().encode(HASURA_SECRET_KEY);
+
+const getHasuraJWT = async (claims: Record<string, unknown>) =>
+  new SignJWT({
+    "https://hasura.io/jwt/claims": claims,
+  })
+    .setProtectedHeader({ alg: "HS256", typ: "JWT" })
+    .setIssuedAt()
+    .setExpirationTime("2h")
+    .sign(secretKey);
+
+export const getUnauthenticatedApolloClient = async (token?: string) => {
+  const jwt = await getHasuraJWT({
+    "x-hasura-default-role": "unauthenticated",
+    "x-hasura-allowed-roles": ["unauthenticated"],
+    "x-hasura-token-id": token,
+  });
+
+  return new GraphQLClient(getJWTHeader(jwt));
+};
+
+export const getUserApolloClient = async <U extends string>(
+  userId: U,
+  tenantId: string,
+) => {
+  const jwt = await getHasuraJWT({
+    "x-hasura-default-role": "user",
+    "x-hasura-allowed-roles": ["user"],
+    "x-hasura-user-id": userId,
+    "x-hasura-tenant-id": tenantId,
+  });
+
+  return new UserGraphQLClient(jwt, userId);
+};
+
+export const getUserApolloClientFromRequest = async (request: Request) => {
+  const [userId, tenantId] = await getUserDataFromFromSession(request);
+  invariant(userId, "Missing User ID");
+  invariant(tenantId, "Missing Tenant ID");
+
+  return getUserApolloClient(userId, tenantId);
+};

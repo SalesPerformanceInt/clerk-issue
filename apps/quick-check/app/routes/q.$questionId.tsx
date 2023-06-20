@@ -10,10 +10,10 @@ import {
 import { compact, first, map, pipe } from "remeda";
 import invariant from "tiny-invariant";
 import { contentStack } from "~/contentstack.server";
-import { getUserFromSession, requireUserSession } from "~/session.server";
+import { requireUserSession } from "~/session.server";
 
 import { saveAnswer, type Answer } from "~/models/answer";
-import { generateNextQuestion } from "~/models/user";
+import { generateNextQuestion, getUserFromRequest } from "~/models/user";
 
 const getVariantNames = (questionItemVariants: QuestionItemVariant[]) =>
   pipe(
@@ -27,7 +27,7 @@ const getFirstVariant = (questionItemVariants: QuestionItemVariant[]) =>
 
 export const loader = async ({ params, request }: LoaderArgs) => {
   await requireUserSession(request);
-  const user = await getUserFromSession(request);
+  const user = await getUserFromRequest(request);
 
   invariant(params.questionId, "questionId not found");
 
@@ -47,8 +47,7 @@ export const loader = async ({ params, request }: LoaderArgs) => {
 
 export const action: ActionFunction = async ({ request }) => {
   const result = await saveAnswer(request);
-  const userId = await requireUserSession(request);
-  const nextQuestionId = await generateNextQuestion(userId);
+  const nextQuestionId = await generateNextQuestion(request);
 
   return json({ result, nextQuestionId });
 };

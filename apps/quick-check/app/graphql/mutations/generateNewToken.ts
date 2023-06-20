@@ -1,4 +1,4 @@
-import { graphql, type GraphQLClient } from "~/graphql";
+import { graphql, type WithApolloClient } from "~/graphql";
 
 export const GENERATE_NEW_TOKEN = graphql(/* GraphQL */ `
   mutation GenerateNewToken($userId: uuid!) {
@@ -19,7 +19,7 @@ export const GENERATE_NEW_TOKEN = graphql(/* GraphQL */ `
   }
 `);
 
-export async function generateNewToken(this: GraphQLClient, userId: string) {
+export async function generateNewToken(this: WithApolloClient, userId: string) {
   try {
     const { data } = await this.client.mutate({
       mutation: GENERATE_NEW_TOKEN,

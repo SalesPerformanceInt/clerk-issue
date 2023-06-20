@@ -1,4 +1,4 @@
-import { graphql, type GraphQLClient } from "~/graphql";
+import { graphql, type WithApolloClient } from "~/graphql";
 
 export const UPDATE_NEXT_QUESTION_ID = graphql(/* GraphQL */ `
   mutation UpdateNextQuestionId($user_id: uuid!, $next_question_id: String) {
@@ -12,7 +12,7 @@ export const UPDATE_NEXT_QUESTION_ID = graphql(/* GraphQL */ `
 `);
 
 export async function updateNextQuestionId(
-  this: GraphQLClient,
+  this: WithApolloClient,
   user_id: string,
   next_question_id?: string,
 ) {

@@ -1,7 +1,7 @@
 import { redirect, type LoaderArgs } from "@remix-run/node";
 
 import invariant from "tiny-invariant";
-import { apolloClient } from "~/graphql";
+import { getUnauthenticatedApolloClient } from "~/graphql";
 import { createUserSession } from "~/session.server";
 
 const invalidTokenRedirect = () => {
@@ -16,7 +16,10 @@ export const loader = async ({ params, request }: LoaderArgs) => {
     const { cuid } = params;
     invariant(cuid, "cuid not found");
 
-    const token = await apolloClient.getLinkToken(cuid);
+    const unauthenticatedApolloClient = await getUnauthenticatedApolloClient(
+      cuid,
+    );
+    const token = await unauthenticatedApolloClient.getLinkToken(cuid);
     invariant(token, "token not found");
     invariant(token.active, "token expired");
 
@@ -25,6 +28,7 @@ export const loader = async ({ params, request }: LoaderArgs) => {
       remember: true,
       request,
       userId: token.user_id,
+      tenantId: token.tenant_id,
     });
   } catch {
     return invalidTokenRedirect();

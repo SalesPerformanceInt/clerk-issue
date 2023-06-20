@@ -11,12 +11,13 @@ import {
 import { Button, PageLayout } from "accelerate-learner-ui";
 import hamburger from "~/images/hamburger.png";
 import dashboardLogo from "~/images/qc_dashboard.png";
-import { getUserFromSession } from "~/session.server";
+
+import { getUserFromRequest } from "~/models/user";
 
 import { AccelerateButton } from "~/components";
 
 export const loader = async ({ request }: LoaderArgs) => {
-  const user = await getUserFromSession(request);
+  const user = await getUserFromRequest(request);
 
   return json({ user });
 };

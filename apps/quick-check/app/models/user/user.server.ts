@@ -1,11 +1,16 @@
 import { sample } from "lodash";
 import { compact, difference, filter, map, pipe } from "remeda";
-import { apolloClient } from "~/graphql";
+import { getUserApolloClientFromRequest } from "~/graphql";
 
 import { ANSWER, parseAnswer } from "~/models/answer";
 
-export const getUserById = async (userId: string) => {
-  return await apolloClient.getUser(userId);
+export const getUserFromRequest = async (request: Request) => {
+  try {
+    const userApolloClient = await getUserApolloClientFromRequest(request);
+    return await userApolloClient.getUser();
+  } catch (error) {
+    return null;
+  }
 };
 
 export const QUESTION_IDS = [
@@ -21,8 +26,9 @@ export const QUESTION_IDS = [
   "bltbdc7d20e6f1dea0f",
 ] as const;
 
-export const generateNextQuestion = async (userId: string) => {
-  const user = await apolloClient.getUser(userId);
+export const generateNextQuestion = async (request: Request) => {
+  const userApolloClient = await getUserApolloClientFromRequest(request);
+  const user = await userApolloClient.getUser();
   const learning_records = user?.learning_records ?? [];
 
   const answeredQuestionIds = pipe(
@@ -36,11 +42,7 @@ export const generateNextQuestion = async (userId: string) => {
   const unansweredQuestionIds = difference(QUESTION_IDS, answeredQuestionIds);
   const nextQuestionId = sample(unansweredQuestionIds);
 
-  await apolloClient.updateNextQuestionId(userId, nextQuestionId);
+  await userApolloClient.updateNextQuestionId(nextQuestionId);
 
   return nextQuestionId;
-};
-
-export const generateNewToken = async (userId: string) => {
-  return await apolloClient.generateNewToken(userId);
 };

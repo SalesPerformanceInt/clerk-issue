@@ -25,9 +25,9 @@
     "@storybook/theming": "^7.0.0-rc.4",
     "contentstack": "^3.17.0",
     "lodash": "^4.17.21",
+    "object-hash": "^3.0.0",
     "react": "^18.2.0",
     "react-confetti": "^6.1.0",
-    "object-hash": "^3.0.0",
     "react-dom": "^18.2.0",
     "storybook": "^7.0.0-rc.4",
     "tailwind-merge": "^1.12.0"
@@ -46,7 +46,6 @@
     "@vitejs/plugin-react": "^3.1.0",
     "autoprefixer": "^10.4.14",
     "chart.js": "^4.2.1",
-    "classnames": "^2.3.2",
     "dotenv": "^16.0.3",
     "eslint": "^8.36.0",
     "eslint-plugin-jsx-a11y": "^6.7.1",

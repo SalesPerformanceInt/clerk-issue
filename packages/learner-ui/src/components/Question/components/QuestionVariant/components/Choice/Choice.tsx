@@ -1,6 +1,6 @@
 import React from "react";
 
-import classNames from "classnames";
+import { twMerge } from "tailwind-merge";
 
 import { cleanHTML } from "~/utils/cleanHtml";
 
@@ -8,7 +8,6 @@ import {
   buttonBehaviorStyles,
   buttonStyles,
   selectedStyles,
-  unselectedStyles,
 } from "./Choice.styles";
 import type { ChoiceProps } from "./Choice.types";
 
@@ -24,10 +23,11 @@ export const Choice = ({
       type="button"
       disabled={disabled}
       onClick={onClick}
-      className={classNames(buttonStyles, buttonBehaviorStyles, {
-        [selectedStyles]: selected,
-        [unselectedStyles]: !selected,
-      })}
+      className={twMerge(
+        buttonStyles,
+        buttonBehaviorStyles,
+        selected && selectedStyles,
+      )}
       dangerouslySetInnerHTML={{ __html: cleanHTML(choice.body ?? "") }}
       {...choice.$?.body}
     />

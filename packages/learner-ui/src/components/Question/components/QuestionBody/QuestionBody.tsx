@@ -1,7 +1,7 @@
 import React, { FC } from "react";
 
-import classNames from "classnames";
 import { motion } from "framer-motion";
+import { twMerge } from "tailwind-merge";
 import { fade } from "~/config/animations";
 
 import { BreakAction, BreakBackground } from "~/components";
@@ -30,15 +30,11 @@ export const QuestionBody: FC = () => {
       <motion.div
         animate={{ height: bodyHeight || "auto" }}
         transition={{ duration: 0.5 }}
-        className={classNames("rounded-t-3xl bg-white", {
-          ["flex-1"]: !onBreak,
-        })}
+        className={twMerge("rounded-t-3xl bg-white", !onBreak && "flex-1")}
       >
         <motion.div ref={bodyRef}>
           <motion.div
-            className={classNames("p-8", {
-              ["flex-1"]: !onBreak,
-            })}
+            className={twMerge("p-8", !onBreak && "flex-1")}
             style={{
               paddingBottom: showAction ? actionHeight : BOTTOM_PADDING,
             }}

@@ -26,6 +26,7 @@ const documents = {
     "\n  query GetAllUser {\n    user(order_by: { created_at: asc }) {\n      ...UserWithActiveToken\n    }\n  }\n": types.GetAllUserDocument,
     "\n  query GetLinkToken($id: String!) {\n    link_token_by_pk(id: $id) {\n      id\n      user_id\n      tenant_id\n      created_at\n      active\n    }\n  }\n": types.GetLinkTokenDocument,
     "\n  query GetUser($userId: uuid!) {\n    user_by_pk(user_id: $userId) {\n      ...UserWithActiveToken\n    }\n  }\n": types.GetUserDocument,
+    "\n  query GetUserTheme($userId: uuid!) {\n    user_by_pk(user_id: $userId) {\n      tenant {\n        theme_id\n      }\n    }\n  }\n": types.GetUserThemeDocument,
 };
 
 /**
@@ -94,6 +95,10 @@ export function graphql(source: "\n  query GetLinkToken($id: String!) {\n    lin
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function graphql(source: "\n  query GetUser($userId: uuid!) {\n    user_by_pk(user_id: $userId) {\n      ...UserWithActiveToken\n    }\n  }\n"): (typeof documents)["\n  query GetUser($userId: uuid!) {\n    user_by_pk(user_id: $userId) {\n      ...UserWithActiveToken\n    }\n  }\n"];
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(source: "\n  query GetUserTheme($userId: uuid!) {\n    user_by_pk(user_id: $userId) {\n      tenant {\n        theme_id\n      }\n    }\n  }\n"): (typeof documents)["\n  query GetUserTheme($userId: uuid!) {\n    user_by_pk(user_id: $userId) {\n      tenant {\n        theme_id\n      }\n    }\n  }\n"];
 
 export function graphql(source: string) {
   return (documents as any)[source] ?? {};

@@ -7,10 +7,14 @@ module.exports = {
         spacing: "margin, padding",
       },
       colors: {
-        plum: {
-          75: "#564874",
-          100: "#21154A",
+        primary: {
+          medium: "var(--color-primary-medium)",
+          dark: "var(--color-primary-dark)",
         },
+      },
+      fontFamily: {
+        body: ["var(--font-face, sans-serif)", "sans-serif"],
+        sans: ["var(--font-face, sans-serif)", "sans-serif"],
       },
     },
   },

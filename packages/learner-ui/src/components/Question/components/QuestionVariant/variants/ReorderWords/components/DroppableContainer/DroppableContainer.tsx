@@ -1,6 +1,6 @@
 import React, { type FC } from "react";
 
-import classNames from "classnames";
+import { twMerge } from "tailwind-merge";
 
 import { useDroppable } from "~/utils/dnd";
 
@@ -15,7 +15,7 @@ export const DroppableContainer: FC<DroppableContainerProps> = ({
   const { setNodeRef } = useDroppable({ id });
 
   return (
-    <div ref={setNodeRef} className={classNames(className)} {...liveEdit}>
+    <div ref={setNodeRef} className={twMerge(className)} {...liveEdit}>
       {children}
     </div>
   );

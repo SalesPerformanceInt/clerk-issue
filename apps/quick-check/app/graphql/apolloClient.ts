@@ -16,7 +16,12 @@ import {
   toggleUserSMSEnabled,
   updateNextQuestionId,
 } from "~/graphql/mutations";
-import { getAllUsers, getLinkToken, getUser } from "~/graphql/queries";
+import {
+  getAllUsers,
+  getLinkToken,
+  getUser,
+  getUserTheme,
+} from "~/graphql/queries";
 import { getUserDataFromFromSession } from "~/session.server";
 
 import {
@@ -74,6 +79,7 @@ export class GraphQLClient implements WithApolloClient {
   generateNewToken = generateNewToken;
   toggleUserSMSEnabled = toggleUserSMSEnabled;
   createUser = createUser;
+  getUserTheme = getUserTheme;
 
   constructor(headers: GraphQLHeaders) {
     this.client = getClient(headers);
@@ -90,6 +96,7 @@ export class UserGraphQLClient extends GraphQLClient {
   resetUser = () => resetUser.call(this, this.userId);
   updateNextQuestionId = (nextQuestionId?: string) =>
     updateNextQuestionId.call(this, this.userId, nextQuestionId);
+  getUserTheme = () => getUserTheme.call(this, this.userId);
 
   constructor(jwt: string, public userId: string) {
     super(getJWTHeader(jwt));
@@ -117,10 +124,7 @@ export const getUnauthenticatedApolloClient = async (token?: string) => {
   return new GraphQLClient(getJWTHeader(jwt));
 };
 
-export const getUserApolloClient = async <U extends string>(
-  userId: U,
-  tenantId: string,
-) => {
+export const getUserApolloClient = async (userId: string, tenantId: string) => {
   const jwt = await getHasuraJWT({
     "x-hasura-default-role": "user",
     "x-hasura-allowed-roles": ["user"],
@@ -133,8 +137,19 @@ export const getUserApolloClient = async <U extends string>(
 
 export const getUserApolloClientFromRequest = async (request: Request) => {
   const [userId, tenantId] = await getUserDataFromFromSession(request);
+
   invariant(userId, "Missing User ID");
   invariant(tenantId, "Missing Tenant ID");
 
   return getUserApolloClient(userId, tenantId);
+};
+
+export const getOptionalUserApolloClientFromRequest = async (
+  request: Request,
+) => {
+  const [userId, tenantId] = await getUserDataFromFromSession(request);
+
+  if (userId && tenantId) return getUserApolloClient(userId, tenantId);
+
+  return null;
 };

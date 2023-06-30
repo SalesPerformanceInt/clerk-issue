@@ -137,4 +137,11 @@ export type Taxon = WithLiveData<{
   parent_taxonomies?: Taxon[];
 }>;
 
+export type QuickcheckTheme = WithLiveData<{
+  title: string;
+  uid: string;
+  css_theme: string;
+  custom_styles: string;
+}>;
+
 export type ContentType = QuestionItem | Taxon;

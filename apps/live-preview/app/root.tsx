@@ -12,10 +12,33 @@ import contentStackStyles from "@contentstack/live-preview-utils/dist/main.css";
 import uiStyles from "accelerate-learner-ui/dist/index.css";
 import tailwind from "~/tailwind.css";
 
+const theme = `
+:root { 
+  --color-primary-medium: #564874;
+  --color-primary-dark: #21154A;
+  --font-face: Open Sans
+}`;
+
 export const links: LinksFunction = () => [
   { rel: "stylesheet", href: tailwind },
   { rel: "stylesheet", href: uiStyles },
   { rel: "stylesheet", href: contentStackStyles },
+
+  {
+    rel: "preconnect",
+    href: "https://fonts.googleapis.com",
+    crossOrigin: "anonymous",
+  },
+  {
+    rel: "preconnect",
+    href: "https://fonts.gstatic.com",
+    crossOrigin: "anonymous",
+  },
+  {
+    rel: "stylesheet",
+    href: "https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;700&display=swap",
+    crossOrigin: "anonymous",
+  },
 ];
 
 export const meta: MetaFunction = () => ({
@@ -30,6 +53,7 @@ export default function App() {
       <head>
         <Meta />
         <Links />
+        <style>{theme}</style>
       </head>
       <body>
         <Outlet />

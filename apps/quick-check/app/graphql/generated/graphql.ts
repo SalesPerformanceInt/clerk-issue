@@ -637,6 +637,10 @@ export type Mutation_Root = {
   delete_link_token?: Maybe<Link_Token_Mutation_Response>;
   /** delete single row from the table: "link_token" */
   delete_link_token_by_pk?: Maybe<Link_Token>;
+  /** delete data from the table: "tenant" */
+  delete_tenant?: Maybe<Tenant_Mutation_Response>;
+  /** delete single row from the table: "tenant" */
+  delete_tenant_by_pk?: Maybe<Tenant>;
   /** delete data from the table: "user" */
   delete_user?: Maybe<User_Mutation_Response>;
   /** delete single row from the table: "user" */
@@ -649,6 +653,10 @@ export type Mutation_Root = {
   insert_link_token?: Maybe<Link_Token_Mutation_Response>;
   /** insert a single row into the table: "link_token" */
   insert_link_token_one?: Maybe<Link_Token>;
+  /** insert data into the table: "tenant" */
+  insert_tenant?: Maybe<Tenant_Mutation_Response>;
+  /** insert a single row into the table: "tenant" */
+  insert_tenant_one?: Maybe<Tenant>;
   /** insert data into the table: "user" */
   insert_user?: Maybe<User_Mutation_Response>;
   /** insert a single row into the table: "user" */
@@ -665,6 +673,12 @@ export type Mutation_Root = {
   update_link_token_by_pk?: Maybe<Link_Token>;
   /** update multiples rows of table: "link_token" */
   update_link_token_many?: Maybe<Array<Maybe<Link_Token_Mutation_Response>>>;
+  /** update data of the table: "tenant" */
+  update_tenant?: Maybe<Tenant_Mutation_Response>;
+  /** update single row of the table: "tenant" */
+  update_tenant_by_pk?: Maybe<Tenant>;
+  /** update multiples rows of table: "tenant" */
+  update_tenant_many?: Maybe<Array<Maybe<Tenant_Mutation_Response>>>;
   /** update data of the table: "user" */
   update_user?: Maybe<User_Mutation_Response>;
   /** update single row of the table: "user" */
@@ -695,6 +709,18 @@ export type Mutation_RootDelete_Link_TokenArgs = {
 /** mutation root */
 export type Mutation_RootDelete_Link_Token_By_PkArgs = {
   id: Scalars['String'];
+};
+
+
+/** mutation root */
+export type Mutation_RootDelete_TenantArgs = {
+  where: Tenant_Bool_Exp;
+};
+
+
+/** mutation root */
+export type Mutation_RootDelete_Tenant_By_PkArgs = {
+  tenant_id: Scalars['String'];
 };
 
 
@@ -735,6 +761,20 @@ export type Mutation_RootInsert_Link_TokenArgs = {
 export type Mutation_RootInsert_Link_Token_OneArgs = {
   object: Link_Token_Insert_Input;
   on_conflict?: InputMaybe<Link_Token_On_Conflict>;
+};
+
+
+/** mutation root */
+export type Mutation_RootInsert_TenantArgs = {
+  objects: Array<Tenant_Insert_Input>;
+  on_conflict?: InputMaybe<Tenant_On_Conflict>;
+};
+
+
+/** mutation root */
+export type Mutation_RootInsert_Tenant_OneArgs = {
+  object: Tenant_Insert_Input;
+  on_conflict?: InputMaybe<Tenant_On_Conflict>;
 };
 
 
@@ -803,6 +843,26 @@ export type Mutation_RootUpdate_Link_Token_ManyArgs = {
 
 
 /** mutation root */
+export type Mutation_RootUpdate_TenantArgs = {
+  _set?: InputMaybe<Tenant_Set_Input>;
+  where: Tenant_Bool_Exp;
+};
+
+
+/** mutation root */
+export type Mutation_RootUpdate_Tenant_By_PkArgs = {
+  _set?: InputMaybe<Tenant_Set_Input>;
+  pk_columns: Tenant_Pk_Columns_Input;
+};
+
+
+/** mutation root */
+export type Mutation_RootUpdate_Tenant_ManyArgs = {
+  updates: Array<Tenant_Updates>;
+};
+
+
+/** mutation root */
 export type Mutation_RootUpdate_UserArgs = {
   _set?: InputMaybe<User_Set_Input>;
   where: User_Bool_Exp;
@@ -851,6 +911,12 @@ export type Query_Root = {
   link_token_aggregate: Link_Token_Aggregate;
   /** fetch data from the table: "link_token" using primary key columns */
   link_token_by_pk?: Maybe<Link_Token>;
+  /** fetch data from the table: "tenant" */
+  tenant: Array<Tenant>;
+  /** fetch aggregated fields from the table: "tenant" */
+  tenant_aggregate: Tenant_Aggregate;
+  /** fetch data from the table: "tenant" using primary key columns */
+  tenant_by_pk?: Maybe<Tenant>;
   /** fetch data from the table: "user" */
   user: Array<User>;
   /** fetch aggregated fields from the table: "user" */
@@ -906,6 +972,29 @@ export type Query_RootLink_Token_By_PkArgs = {
 };
 
 
+export type Query_RootTenantArgs = {
+  distinct_on?: InputMaybe<Array<Tenant_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Array<Tenant_Order_By>>;
+  where?: InputMaybe<Tenant_Bool_Exp>;
+};
+
+
+export type Query_RootTenant_AggregateArgs = {
+  distinct_on?: InputMaybe<Array<Tenant_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Array<Tenant_Order_By>>;
+  where?: InputMaybe<Tenant_Bool_Exp>;
+};
+
+
+export type Query_RootTenant_By_PkArgs = {
+  tenant_id: Scalars['String'];
+};
+
+
 export type Query_RootUserArgs = {
   distinct_on?: InputMaybe<Array<User_Select_Column>>;
   limit?: InputMaybe<Scalars['Int']>;
@@ -946,6 +1035,14 @@ export type Subscription_Root = {
   link_token_by_pk?: Maybe<Link_Token>;
   /** fetch data from the table in a streaming manner: "link_token" */
   link_token_stream: Array<Link_Token>;
+  /** fetch data from the table: "tenant" */
+  tenant: Array<Tenant>;
+  /** fetch aggregated fields from the table: "tenant" */
+  tenant_aggregate: Tenant_Aggregate;
+  /** fetch data from the table: "tenant" using primary key columns */
+  tenant_by_pk?: Maybe<Tenant>;
+  /** fetch data from the table in a streaming manner: "tenant" */
+  tenant_stream: Array<Tenant>;
   /** fetch data from the table: "user" */
   user: Array<User>;
   /** fetch aggregated fields from the table: "user" */
@@ -1017,6 +1114,36 @@ export type Subscription_RootLink_Token_StreamArgs = {
 };
 
 
+export type Subscription_RootTenantArgs = {
+  distinct_on?: InputMaybe<Array<Tenant_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Array<Tenant_Order_By>>;
+  where?: InputMaybe<Tenant_Bool_Exp>;
+};
+
+
+export type Subscription_RootTenant_AggregateArgs = {
+  distinct_on?: InputMaybe<Array<Tenant_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Array<Tenant_Order_By>>;
+  where?: InputMaybe<Tenant_Bool_Exp>;
+};
+
+
+export type Subscription_RootTenant_By_PkArgs = {
+  tenant_id: Scalars['String'];
+};
+
+
+export type Subscription_RootTenant_StreamArgs = {
+  batch_size: Scalars['Int'];
+  cursor: Array<InputMaybe<Tenant_Stream_Cursor_Input>>;
+  where?: InputMaybe<Tenant_Bool_Exp>;
+};
+
+
 export type Subscription_RootUserArgs = {
   distinct_on?: InputMaybe<Array<User_Select_Column>>;
   limit?: InputMaybe<Scalars['Int']>;
@@ -1044,6 +1171,147 @@ export type Subscription_RootUser_StreamArgs = {
   batch_size: Scalars['Int'];
   cursor: Array<InputMaybe<User_Stream_Cursor_Input>>;
   where?: InputMaybe<User_Bool_Exp>;
+};
+
+/** columns and relationships of "tenant" */
+export type Tenant = {
+  __typename?: 'tenant';
+  tenant_id: Scalars['String'];
+  theme_id?: Maybe<Scalars['String']>;
+};
+
+/** aggregated selection of "tenant" */
+export type Tenant_Aggregate = {
+  __typename?: 'tenant_aggregate';
+  aggregate?: Maybe<Tenant_Aggregate_Fields>;
+  nodes: Array<Tenant>;
+};
+
+/** aggregate fields of "tenant" */
+export type Tenant_Aggregate_Fields = {
+  __typename?: 'tenant_aggregate_fields';
+  count: Scalars['Int'];
+  max?: Maybe<Tenant_Max_Fields>;
+  min?: Maybe<Tenant_Min_Fields>;
+};
+
+
+/** aggregate fields of "tenant" */
+export type Tenant_Aggregate_FieldsCountArgs = {
+  columns?: InputMaybe<Array<Tenant_Select_Column>>;
+  distinct?: InputMaybe<Scalars['Boolean']>;
+};
+
+/** Boolean expression to filter rows from the table "tenant". All fields are combined with a logical 'AND'. */
+export type Tenant_Bool_Exp = {
+  _and?: InputMaybe<Array<Tenant_Bool_Exp>>;
+  _not?: InputMaybe<Tenant_Bool_Exp>;
+  _or?: InputMaybe<Array<Tenant_Bool_Exp>>;
+  tenant_id?: InputMaybe<String_Comparison_Exp>;
+  theme_id?: InputMaybe<String_Comparison_Exp>;
+};
+
+/** unique or primary key constraints on table "tenant" */
+export enum Tenant_Constraint {
+  /** unique or primary key constraint on columns "tenant_id" */
+  TenantPkey = 'tenant_pkey'
+}
+
+/** input type for inserting data into table "tenant" */
+export type Tenant_Insert_Input = {
+  tenant_id?: InputMaybe<Scalars['String']>;
+  theme_id?: InputMaybe<Scalars['String']>;
+};
+
+/** aggregate max on columns */
+export type Tenant_Max_Fields = {
+  __typename?: 'tenant_max_fields';
+  tenant_id?: Maybe<Scalars['String']>;
+  theme_id?: Maybe<Scalars['String']>;
+};
+
+/** aggregate min on columns */
+export type Tenant_Min_Fields = {
+  __typename?: 'tenant_min_fields';
+  tenant_id?: Maybe<Scalars['String']>;
+  theme_id?: Maybe<Scalars['String']>;
+};
+
+/** response of any mutation on the table "tenant" */
+export type Tenant_Mutation_Response = {
+  __typename?: 'tenant_mutation_response';
+  /** number of rows affected by the mutation */
+  affected_rows: Scalars['Int'];
+  /** data from the rows affected by the mutation */
+  returning: Array<Tenant>;
+};
+
+/** input type for inserting object relation for remote table "tenant" */
+export type Tenant_Obj_Rel_Insert_Input = {
+  data: Tenant_Insert_Input;
+  /** upsert condition */
+  on_conflict?: InputMaybe<Tenant_On_Conflict>;
+};
+
+/** on_conflict condition type for table "tenant" */
+export type Tenant_On_Conflict = {
+  constraint: Tenant_Constraint;
+  update_columns?: Array<Tenant_Update_Column>;
+  where?: InputMaybe<Tenant_Bool_Exp>;
+};
+
+/** Ordering options when selecting data from "tenant". */
+export type Tenant_Order_By = {
+  tenant_id?: InputMaybe<Order_By>;
+  theme_id?: InputMaybe<Order_By>;
+};
+
+/** primary key columns input for table: tenant */
+export type Tenant_Pk_Columns_Input = {
+  tenant_id: Scalars['String'];
+};
+
+/** select columns of table "tenant" */
+export enum Tenant_Select_Column {
+  /** column name */
+  TenantId = 'tenant_id',
+  /** column name */
+  ThemeId = 'theme_id'
+}
+
+/** input type for updating data in table "tenant" */
+export type Tenant_Set_Input = {
+  tenant_id?: InputMaybe<Scalars['String']>;
+  theme_id?: InputMaybe<Scalars['String']>;
+};
+
+/** Streaming cursor of the table "tenant" */
+export type Tenant_Stream_Cursor_Input = {
+  /** Stream column input with initial value */
+  initial_value: Tenant_Stream_Cursor_Value_Input;
+  /** cursor ordering */
+  ordering?: InputMaybe<Cursor_Ordering>;
+};
+
+/** Initial value of the column from where the streaming should start */
+export type Tenant_Stream_Cursor_Value_Input = {
+  tenant_id?: InputMaybe<Scalars['String']>;
+  theme_id?: InputMaybe<Scalars['String']>;
+};
+
+/** update columns of table "tenant" */
+export enum Tenant_Update_Column {
+  /** column name */
+  TenantId = 'tenant_id',
+  /** column name */
+  ThemeId = 'theme_id'
+}
+
+export type Tenant_Updates = {
+  /** sets the columns of the filtered rows to the given values */
+  _set?: InputMaybe<Tenant_Set_Input>;
+  /** filter the rows which have to be updated */
+  where: Tenant_Bool_Exp;
 };
 
 /** Boolean expression to compare columns of type "timestamptz". All fields are combined with logical 'AND'. */
@@ -1079,6 +1347,8 @@ export type User = {
   next_question_id?: Maybe<Scalars['String']>;
   phone_number?: Maybe<Scalars['String']>;
   sms_enabled: Scalars['Boolean'];
+  /** An object relationship */
+  tenant?: Maybe<Tenant>;
   tenant_id: Scalars['String'];
   timezone: Scalars['String'];
   user_id: Scalars['uuid'];
@@ -1164,6 +1434,7 @@ export type User_Bool_Exp = {
   next_question_id?: InputMaybe<String_Comparison_Exp>;
   phone_number?: InputMaybe<String_Comparison_Exp>;
   sms_enabled?: InputMaybe<Boolean_Comparison_Exp>;
+  tenant?: InputMaybe<Tenant_Bool_Exp>;
   tenant_id?: InputMaybe<String_Comparison_Exp>;
   timezone?: InputMaybe<String_Comparison_Exp>;
   user_id?: InputMaybe<Uuid_Comparison_Exp>;
@@ -1188,6 +1459,7 @@ export type User_Insert_Input = {
   next_question_id?: InputMaybe<Scalars['String']>;
   phone_number?: InputMaybe<Scalars['String']>;
   sms_enabled?: InputMaybe<Scalars['Boolean']>;
+  tenant?: InputMaybe<Tenant_Obj_Rel_Insert_Input>;
   tenant_id?: InputMaybe<Scalars['String']>;
   timezone?: InputMaybe<Scalars['String']>;
   user_id?: InputMaybe<Scalars['uuid']>;
@@ -1261,6 +1533,7 @@ export type User_Order_By = {
   next_question_id?: InputMaybe<Order_By>;
   phone_number?: InputMaybe<Order_By>;
   sms_enabled?: InputMaybe<Order_By>;
+  tenant?: InputMaybe<Tenant_Order_By>;
   tenant_id?: InputMaybe<Order_By>;
   timezone?: InputMaybe<Order_By>;
   user_id?: InputMaybe<Order_By>;
@@ -1463,6 +1736,13 @@ export type GetUserQueryVariables = Exact<{
 
 export type GetUserQuery = { __typename?: 'query_root', user_by_pk?: { __typename: 'user', tenant_id: string, email: string, first_name: string, language_preference: string, last_name: string, next_question_id?: string | null, phone_number?: string | null, timezone: string, user_id: UUID, sms_enabled: boolean, active_tokens: Array<{ __typename: 'link_token', id: string, created_at: TIMESTAMPTZ, active: boolean, user_id: UUID }>, learning_records: Array<{ __typename: 'learning_record', created_at: TIMESTAMPTZ, data: JSONB, event_type: string, id: UUID, user_id: UUID }> } | null };
 
+export type GetUserThemeQueryVariables = Exact<{
+  userId: Scalars['uuid'];
+}>;
+
+
+export type GetUserThemeQuery = { __typename?: 'query_root', user_by_pk?: { __typename?: 'user', tenant?: { __typename?: 'tenant', theme_id?: string | null } | null } | null };
+
 export const BaseLearningRecordFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"BaseLearningRecord"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"learning_record"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"__typename"}},{"kind":"Field","name":{"kind":"Name","value":"created_at"}},{"kind":"Field","name":{"kind":"Name","value":"data"}},{"kind":"Field","name":{"kind":"Name","value":"event_type"}},{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"user_id"}}]}}]} as unknown as DocumentNode<BaseLearningRecordFragment, unknown>;
 export const BaseUserFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"BaseUser"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"user"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"__typename"}},{"kind":"Field","name":{"kind":"Name","value":"tenant_id"}},{"kind":"Field","name":{"kind":"Name","value":"email"}},{"kind":"Field","name":{"kind":"Name","value":"first_name"}},{"kind":"Field","name":{"kind":"Name","value":"language_preference"}},{"kind":"Field","name":{"kind":"Name","value":"last_name"}},{"kind":"Field","name":{"kind":"Name","value":"next_question_id"}},{"kind":"Field","name":{"kind":"Name","value":"phone_number"}},{"kind":"Field","name":{"kind":"Name","value":"timezone"}},{"kind":"Field","name":{"kind":"Name","value":"user_id"}},{"kind":"Field","name":{"kind":"Name","value":"sms_enabled"}},{"kind":"Field","name":{"kind":"Name","value":"learning_records"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"BaseLearningRecord"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"BaseLearningRecord"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"learning_record"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"__typename"}},{"kind":"Field","name":{"kind":"Name","value":"created_at"}},{"kind":"Field","name":{"kind":"Name","value":"data"}},{"kind":"Field","name":{"kind":"Name","value":"event_type"}},{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"user_id"}}]}}]} as unknown as DocumentNode<BaseUserFragment, unknown>;
 export const BaseLinkTokenFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"BaseLinkToken"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"link_token"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"__typename"}},{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"created_at"}},{"kind":"Field","name":{"kind":"Name","value":"active"}},{"kind":"Field","name":{"kind":"Name","value":"user_id"}}]}}]} as unknown as DocumentNode<BaseLinkTokenFragment, unknown>;
@@ -1476,3 +1756,4 @@ export const UpdateNextQuestionIdDocument = {"kind":"Document","definitions":[{"
 export const GetAllUserDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetAllUser"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"user"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"order_by"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"created_at"},"value":{"kind":"EnumValue","value":"asc"}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"UserWithActiveToken"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"BaseLearningRecord"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"learning_record"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"__typename"}},{"kind":"Field","name":{"kind":"Name","value":"created_at"}},{"kind":"Field","name":{"kind":"Name","value":"data"}},{"kind":"Field","name":{"kind":"Name","value":"event_type"}},{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"user_id"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"BaseUser"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"user"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"__typename"}},{"kind":"Field","name":{"kind":"Name","value":"tenant_id"}},{"kind":"Field","name":{"kind":"Name","value":"email"}},{"kind":"Field","name":{"kind":"Name","value":"first_name"}},{"kind":"Field","name":{"kind":"Name","value":"language_preference"}},{"kind":"Field","name":{"kind":"Name","value":"last_name"}},{"kind":"Field","name":{"kind":"Name","value":"next_question_id"}},{"kind":"Field","name":{"kind":"Name","value":"phone_number"}},{"kind":"Field","name":{"kind":"Name","value":"timezone"}},{"kind":"Field","name":{"kind":"Name","value":"user_id"}},{"kind":"Field","name":{"kind":"Name","value":"sms_enabled"}},{"kind":"Field","name":{"kind":"Name","value":"learning_records"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"BaseLearningRecord"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"BaseLinkToken"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"link_token"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"__typename"}},{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"created_at"}},{"kind":"Field","name":{"kind":"Name","value":"active"}},{"kind":"Field","name":{"kind":"Name","value":"user_id"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"UserWithActiveToken"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"user"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"BaseUser"}},{"kind":"Field","alias":{"kind":"Name","value":"active_tokens"},"name":{"kind":"Name","value":"link_tokens"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"where"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"active"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"_eq"},"value":{"kind":"BooleanValue","value":true}}]}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"BaseLinkToken"}}]}}]}}]} as unknown as DocumentNode<GetAllUserQuery, GetAllUserQueryVariables>;
 export const GetLinkTokenDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetLinkToken"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"id"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"link_token_by_pk"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"id"},"value":{"kind":"Variable","name":{"kind":"Name","value":"id"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"user_id"}},{"kind":"Field","name":{"kind":"Name","value":"tenant_id"}},{"kind":"Field","name":{"kind":"Name","value":"created_at"}},{"kind":"Field","name":{"kind":"Name","value":"active"}}]}}]}}]} as unknown as DocumentNode<GetLinkTokenQuery, GetLinkTokenQueryVariables>;
 export const GetUserDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetUser"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"userId"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"uuid"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"user_by_pk"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"user_id"},"value":{"kind":"Variable","name":{"kind":"Name","value":"userId"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"UserWithActiveToken"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"BaseLearningRecord"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"learning_record"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"__typename"}},{"kind":"Field","name":{"kind":"Name","value":"created_at"}},{"kind":"Field","name":{"kind":"Name","value":"data"}},{"kind":"Field","name":{"kind":"Name","value":"event_type"}},{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"user_id"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"BaseUser"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"user"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"__typename"}},{"kind":"Field","name":{"kind":"Name","value":"tenant_id"}},{"kind":"Field","name":{"kind":"Name","value":"email"}},{"kind":"Field","name":{"kind":"Name","value":"first_name"}},{"kind":"Field","name":{"kind":"Name","value":"language_preference"}},{"kind":"Field","name":{"kind":"Name","value":"last_name"}},{"kind":"Field","name":{"kind":"Name","value":"next_question_id"}},{"kind":"Field","name":{"kind":"Name","value":"phone_number"}},{"kind":"Field","name":{"kind":"Name","value":"timezone"}},{"kind":"Field","name":{"kind":"Name","value":"user_id"}},{"kind":"Field","name":{"kind":"Name","value":"sms_enabled"}},{"kind":"Field","name":{"kind":"Name","value":"learning_records"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"BaseLearningRecord"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"BaseLinkToken"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"link_token"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"__typename"}},{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"created_at"}},{"kind":"Field","name":{"kind":"Name","value":"active"}},{"kind":"Field","name":{"kind":"Name","value":"user_id"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"UserWithActiveToken"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"user"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"BaseUser"}},{"kind":"Field","alias":{"kind":"Name","value":"active_tokens"},"name":{"kind":"Name","value":"link_tokens"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"where"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"active"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"_eq"},"value":{"kind":"BooleanValue","value":true}}]}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"BaseLinkToken"}}]}}]}}]} as unknown as DocumentNode<GetUserQuery, GetUserQueryVariables>;
+export const GetUserThemeDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetUserTheme"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"userId"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"uuid"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"user_by_pk"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"user_id"},"value":{"kind":"Variable","name":{"kind":"Name","value":"userId"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"tenant"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"theme_id"}}]}}]}}]}}]} as unknown as DocumentNode<GetUserThemeQuery, GetUserThemeQueryVariables>;

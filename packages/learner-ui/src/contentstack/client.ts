@@ -1,5 +1,9 @@
 import { Stack } from "contentstack";
-import { getQuestionItem, getQuestionItems } from "~/contentstack/queries";
+import {
+  getQuestionItem,
+  getQuestionItems,
+  getTheme,
+} from "~/contentstack/queries";
 
 const getContentStackSDKClient = (
   deliveryToken: string,
@@ -17,6 +21,7 @@ export class ContentStackSDKClient {
   client: Stack;
   getQuestionItems = getQuestionItems;
   getQuestionItem = getQuestionItem;
+  getTheme = getTheme;
 
   constructor(deliveryToken: string, apiKey: string, environment: string) {
     this.client = getContentStackSDKClient(deliveryToken, apiKey, environment);

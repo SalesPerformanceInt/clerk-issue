@@ -1,0 +1,38 @@
+@import url("https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;700&display=swap");
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --primary: 254 56% 19%;
+    --primary-75: 259 23% 37%;
+    --primary-50: 261 15% 57%;
+    --primary-25: 261 15% 78%;
+
+    --secondary: 349 26% 58%;
+
+    --text: 0 0% 7%;
+    --contrast: 0 0% 100%;
+
+    --background: 0 0% 100%;
+    --background-secondary: 0 12% 92%;
+
+    --success: 63 79% 27%;
+    --success-50: 83 34% 54%;
+
+    --warning: 342 82% 28%;
+    --warning-50: 347 71% 65%;
+
+    --highlight: 350 24% 75%;
+
+    --font-face: Open Sans;
+  }
+}
+
+@layer base {
+  body {
+    @apply bg-background text-text;
+  }
+}

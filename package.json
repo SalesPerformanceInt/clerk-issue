@@ -9,8 +9,10 @@
   "scripts": {
     "sb:cms-ui": "turbo run sb --filter=accelerate-cms-ui",
     "sb:learner-ui": "turbo run sb --filter=accelerate-learner-ui",
+    "sb:qc-shared": "turbo run sb --filter=quickcheck-shared",
     "dev:cms-ui": "turbo run dev --filter=accelerate-cms-ui",
     "dev:learner-ui": "turbo run dev --filter=accelerate-learner-ui",
+    "dev:qc-shared": "turbo run dev --filter=quickcheck-shared",
     "dev:cms": "turbo run dev --filter=accelerate-cms-simple-app...",
     "dev:live": "turbo run dev --filter=live-preview...",
     "dev:qc": "turbo run dev --filter=quick-check...",
@@ -29,7 +31,7 @@
     "eslint-config-prettier": "^8.7.0",
     "npm-run-all": "^4.1.5",
     "prettier": "latest",
-    "prettier-plugin-tailwindcss": "^0.2.5",
+    "prettier-plugin-tailwindcss": "^0.2.7",
     "rimraf": "^4.4.0",
     "turbo": "latest",
     "typescript": "^4.9.5"

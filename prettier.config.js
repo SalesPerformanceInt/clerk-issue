@@ -9,7 +9,7 @@ const config = {
   tabWidth: 2,
   plugins: [
     require.resolve("@ianvs/prettier-plugin-sort-imports"),
-    require.resolve("prettier-plugin-tailwindcss"),
+    // require.resolve("prettier-plugin-tailwindcss"),
   ],
   pluginSearchDirs: false,
   tailwindConfig: "./packages/ui/tailwind.config.cjs",

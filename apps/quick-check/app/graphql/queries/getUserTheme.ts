@@ -27,7 +27,7 @@ export async function getUserTheme(this: WithApolloClient, userId: string) {
 
     return null;
   } catch (error) {
-    console.log("ERROR", error);
+    console.log("ERROR - getUserTheme", error);
     return null;
   }
 }

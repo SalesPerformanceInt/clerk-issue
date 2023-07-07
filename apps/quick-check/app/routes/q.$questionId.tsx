@@ -6,7 +6,7 @@ import {
   variants,
   type OnSubmit,
   type QuestionItemVariant,
-} from "accelerate-learner-ui";
+} from "quickcheck-shared";
 import { compact, first, map, pipe } from "remeda";
 import invariant from "tiny-invariant";
 import { contentStack } from "~/contentstack.server";

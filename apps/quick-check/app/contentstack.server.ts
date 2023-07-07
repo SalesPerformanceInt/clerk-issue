@@ -1,4 +1,4 @@
-import { ContentStackSDKClient } from "accelerate-learner-ui";
+import { ContentStackSDKClient } from "quickcheck-shared";
 
 import {
   QC_CONTENTSTACK_DELIVERY_TOKEN,

@@ -9,24 +9,19 @@ import {
   useLoaderData,
 } from "@remix-run/react";
 
+import fontAwesome from "@fortawesome/fontawesome-svg-core/styles.css";
 import uiStyles from "accelerate-learner-ui/dist/index.css";
+import sharedStyles from "quickcheck-shared/dist/index.css";
 import tailwind from "~/tailwind.css";
 
 import { getOptionalUserApolloClientFromRequest } from "./graphql";
-
-const defaultTheme = `
-:root { 
-  --color-primary-medium: #564874;
-  --color-primary-dark: #21154A;
-  --font-face: Open Sans
-}`;
 
 export const loader = async ({ request }: LoaderArgs) => {
   const userApolloClient = await getOptionalUserApolloClientFromRequest(
     request,
   );
 
-  const theme = (await userApolloClient?.getUserTheme()) ?? defaultTheme;
+  const theme = await userApolloClient?.getUserTheme();
 
   return json({ theme });
 };
@@ -34,6 +29,8 @@ export const loader = async ({ request }: LoaderArgs) => {
 export const links: LinksFunction = () => [
   { rel: "stylesheet", href: tailwind },
   { rel: "stylesheet", href: uiStyles },
+  { rel: "stylesheet", href: sharedStyles },
+  { rel: "stylesheet", href: fontAwesome },
 
   {
     rel: "preconnect",
@@ -44,6 +41,10 @@ export const links: LinksFunction = () => [
     rel: "preconnect",
     href: "https://fonts.gstatic.com",
     crossOrigin: "anonymous",
+  },
+  {
+    rel: "stylesheet",
+    href: "https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;600;700&display=swap",
   },
 ];
 
@@ -59,7 +60,7 @@ export default function App() {
         <Links />
         {theme && <style>{theme}</style>}
       </head>
-      <body className="h-full overflow-auto">
+      <body className="h-full overflow-auto bg-background-secondary">
         <Outlet />
         <ScrollRestoration />
         <Scripts />

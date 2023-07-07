@@ -11,7 +11,7 @@ export async function getTheme(this: ContentStackSDKClient, uid: string) {
       .toJSON();
     return (await entry.fetch()) as QuickcheckTheme;
   } catch (error) {
-    console.log("ERROR", error);
+    console.log("ERROR - getTheme", error);
     return null;
   }
 }

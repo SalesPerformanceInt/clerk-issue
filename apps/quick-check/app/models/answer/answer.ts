@@ -1,4 +1,4 @@
-import { variants } from "accelerate-learner-ui";
+import { variants } from "quickcheck-shared";
 import { z } from "zod";
 
 import { parseSchema } from "~/utils/parseSchema";

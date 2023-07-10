@@ -10,7 +10,6 @@ import {
 } from "@remix-run/react";
 
 import fontAwesome from "@fortawesome/fontawesome-svg-core/styles.css";
-import uiStyles from "accelerate-learner-ui/dist/index.css";
 import sharedStyles from "quickcheck-shared/dist/index.css";
 import tailwind from "~/tailwind.css";
 
@@ -28,7 +27,6 @@ export const loader = async ({ request }: LoaderArgs) => {
 
 export const links: LinksFunction = () => [
   { rel: "stylesheet", href: tailwind },
-  { rel: "stylesheet", href: uiStyles },
   { rel: "stylesheet", href: sharedStyles },
   { rel: "stylesheet", href: fontAwesome },
 

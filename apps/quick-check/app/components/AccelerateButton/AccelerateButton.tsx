@@ -2,7 +2,7 @@ import React, { type FC } from "react";
 
 import { useNavigate } from "@remix-run/react";
 
-import { Button } from "accelerate-learner-ui";
+import { Button } from "quickcheck-shared";
 
 export const AccelerateButton: FC = () => {
   const navigate = useNavigate();

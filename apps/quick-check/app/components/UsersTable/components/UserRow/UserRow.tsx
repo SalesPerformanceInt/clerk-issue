@@ -2,8 +2,8 @@ import { useEffect, useState, type FC } from "react";
 
 import { useNavigation, useSubmit } from "@remix-run/react";
 
-import { Button } from "accelerate-learner-ui";
 import { parsePhoneNumber } from "libphonenumber-js";
+import { Button } from "quickcheck-shared";
 import keyIcon from "~/images/key.svg";
 import loginIcon from "~/images/login.svg";
 import refreshIcon from "~/images/refresh.svg";
@@ -63,7 +63,7 @@ export const UserRow: FC<UserRowProps> = ({ user, row }) => {
       </td>
       <td className="whitespace-nowrap px-6 py-4 text-center">
         <Button
-          loading={isLoading("GENERATE_TOKEN_AND_SEND_SMS")}
+          // loading={isLoading("GENERATE_TOKEN_AND_SEND_SMS")}
           onClick={makeUserAction("GENERATE_TOKEN_AND_SEND_SMS")}
           className="h-8 w-auto py-0 "
         >
@@ -73,7 +73,7 @@ export const UserRow: FC<UserRowProps> = ({ user, row }) => {
       <td className="whitespace-nowrap px-6 py-4 text-center">
         <Button
           disabled={!activeToken}
-          loading={isLoading("LOGIN_USER")}
+          // loading={isLoading("LOGIN_USER")}
           onClick={makeUserAction("LOGIN_USER")}
           className="h-8 w-auto py-0"
         >
@@ -82,7 +82,7 @@ export const UserRow: FC<UserRowProps> = ({ user, row }) => {
       </td>
       <td className="whitespace-nowrap px-6 py-4 text-center">
         <Button
-          loading={isLoading("RESET_USER")}
+          // loading={isLoading("RESET_USER")}
           onClick={makeUserAction("RESET_USER")}
           className="h-8 w-auto py-0"
         >

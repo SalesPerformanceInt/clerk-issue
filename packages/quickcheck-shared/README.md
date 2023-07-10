@@ -12,7 +12,7 @@
 
 ## Getting Started
 
-First, follow the steps mentioned at the root [README](https://github.com/SalesPerformanceInt/accelerate_cms).
+First, follow the steps mentioned at the root [README](https://github.com/SalesPerformanceInt/accelerate-quick-check).
 
 Then, you can either run the Storybook from this folder, or at the root folder.
 
@@ -45,5 +45,5 @@ $ pnpm build
 # OR
 
 # To build only the library
-$ pnpm build --scope=accelerate-cms-ui
+$ pnpm build --scope=quickcheck-shared
 ```

@@ -1,5 +1,5 @@
 {
-  "name": "accelerate_cms",
+  "name": "accelerate_quick_check",
   "version": "0.0.0",
   "private": true,
   "workspaces": [
@@ -7,15 +7,10 @@
     "packages/*"
   ],
   "scripts": {
-    "sb:cms-ui": "turbo run sb --filter=accelerate-cms-ui",
-    "sb:learner-ui": "turbo run sb --filter=accelerate-learner-ui",
     "sb:qc-shared": "turbo run sb --filter=quickcheck-shared",
-    "dev:cms-ui": "turbo run dev --filter=accelerate-cms-ui",
-    "dev:learner-ui": "turbo run dev --filter=accelerate-learner-ui",
     "dev:qc-shared": "turbo run dev --filter=quickcheck-shared",
-    "dev:cms": "turbo run dev --filter=accelerate-cms-simple-app...",
-    "dev:live": "turbo run dev --filter=live-preview...",
     "dev:qc": "turbo run dev --filter=quick-check...",
+    "dev:live": "turbo run dev --filter=live-preview...",
     "build": "turbo run build",
     "lint": "turbo run lint",
     "typecheck": "turbo run typecheck",

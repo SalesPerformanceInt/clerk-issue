@@ -17,7 +17,7 @@ const config = {
     "^(react(.*)/(.*)$)|^(react(.*)$)",
     "^(@remix-run/(.*)$)|^(@remix-run$)",
     "<THIRD_PARTY_MODULES>",
-    "^(accelerate-cms-ui/(.*)$)|^(accelerate-cms-ui$)",
+    "^(quickcheck-shared/(.*)$)|^(quickcheck-shared$)",
     "^~/utils/(.*)$",
     "^~/models/(.*)$|^~/mocks/(.*)$",
     "^~/components/(.*)$|^~/components$",

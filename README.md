@@ -1,6 +1,6 @@
-# Accelerate CMS!
+# Quick Check!
 
-This is a Turborepo containing both a `Storybook React Components library` and a `Remix application` to be used as a `CMS`.
+This is a Turborepo containing both a `Storybook React Components library` (quickcheck-shared) and two `Remix applications`, one being the `Quick Check app` and the other a `Live Preview app` based on Quick Check.
 
 ## General Info
 
@@ -10,15 +10,15 @@ This Monorepo uses [pnpm](https://pnpm.io/) and [turborepo](https://turborepo.or
 
 ```
 /apps
-  /simple-cms
+  /quick-check
   /live-preview
   /[possible-new-app]
 /packages
-  /ui
+  /quickcheck-shared
   /[possible-new-package]
 ```
 
-## CMS
+## QuickCheck
 
 ### Built with:
 
@@ -26,7 +26,7 @@ This Monorepo uses [pnpm](https://pnpm.io/) and [turborepo](https://turborepo.or
 - [Typescript](https://www.typescriptlang.org/)
 - [Tailwind](https://tailwindcss.com/)
 
-## UI
+## QuickCheck Shared
 
 ### Built with:
 
@@ -56,7 +56,7 @@ $ nvm install
 $ npm i -g pnpm
 ```
 
-### -> Then, install everything at the root of `accelerate_cms`:
+### -> Then, install everything at the root of `accelerate-quick-check`:
 
 ```shell
 $ pnpm i
@@ -66,8 +66,9 @@ $ pnpm i
 
 ### Apps
 
-- [CMS](https://github.com/SalesPerformanceInt/accelerate_cms/tree/main/apps/cms)
+- [Live Preview](https://github.com/SalesPerformanceInt/accelerate-quick-check/tree/main/apps/live-preview)
+- [QuickCheck](https://github.com/SalesPerformanceInt/accelerate-quick-check/tree/main/apps/quick-check)
 
 ### Packages
 
-- [UI](https://github.com/SalesPerformanceInt/accelerate_cms/tree/main/packages/ui)
+- [QuickCheck Shared](https://github.com/SalesPerformanceInt/accelerate-quick-check/tree/main/packages/quickcheck-shared)

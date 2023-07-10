@@ -9,19 +9,13 @@ import {
 } from "@remix-run/react";
 
 import contentStackStyles from "@contentstack/live-preview-utils/dist/main.css";
-import uiStyles from "accelerate-learner-ui/dist/index.css";
 import tailwind from "~/tailwind.css";
 
-const theme = `
-:root { 
-  --color-primary-medium: #564874;
-  --color-primary-dark: #21154A;
-  --font-face: Open Sans
-}`;
+import sharedStyles from "quickcheck-shared/dist/index.css";
 
 export const links: LinksFunction = () => [
   { rel: "stylesheet", href: tailwind },
-  { rel: "stylesheet", href: uiStyles },
+  { rel: "stylesheet", href: sharedStyles },
   { rel: "stylesheet", href: contentStackStyles },
 
   {
@@ -43,21 +37,19 @@ export const links: LinksFunction = () => [
 
 export const meta: MetaFunction = () => ({
   charset: "utf-8",
-  title: "Accelerate CMS",
+  title: "Accelerate QuickCheck",
   viewport: "width=device-width,initial-scale=1",
 });
 
 export default function App() {
   return (
-    <html lang="en">
+    <html lang="en" className="h-full overflow-hidden">
       <head>
         <Meta />
         <Links />
-        <style>{theme}</style>
       </head>
-      <body>
+      <body className="h-full overflow-auto bg-background-secondary">
         <Outlet />
-
         <ScrollRestoration />
         <Scripts />
         <LiveReload />

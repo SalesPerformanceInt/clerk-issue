@@ -8,9 +8,10 @@ import {
   type V2_MetaFunction,
 } from "@remix-run/react";
 
-import { Button, PageLayout } from "accelerate-learner-ui";
 import hamburger from "~/images/hamburger.png";
 import dashboardLogo from "~/images/qc_dashboard.png";
+
+import { Button, ResponsiveContainer } from "quickcheck-shared";
 
 import { getUserFromRequest } from "~/models/user";
 
@@ -36,7 +37,7 @@ export default function Index() {
   const message = searchParams.get("message");
 
   return (
-    <PageLayout>
+    <ResponsiveContainer>
       {user ? (
         <>
           <div className="flex h-full flex-col items-center justify-between space-y-4 p-14">
@@ -85,6 +86,6 @@ export default function Index() {
           <AccelerateButton />
         </div>
       )}
-    </PageLayout>
+    </ResponsiveContainer>
   );
 }

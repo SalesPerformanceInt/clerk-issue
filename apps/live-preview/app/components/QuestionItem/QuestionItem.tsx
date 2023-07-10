@@ -5,7 +5,7 @@ import {
   useLocalStorage,
   variants,
   type Variant,
-} from "accelerate-learner-ui";
+} from "quickcheck-shared";
 
 import type { QuestionItemProps } from "./QuestionItem.types";
 
@@ -40,12 +40,13 @@ export const QuestionItem = ({ questionItem }: QuestionItemProps) => {
   return (
     <>
       <Question
+        key={questionItem.uid}
         onSubmit={() => undefined}
         variant={variant}
         onClose={onClose}
         onContinue={onClose}
         questionItem={questionItem}
-        offset={50}
+        offset={72}
       />
       <div className="absolute right-3 top-3">
         <select value={variant} onChange={onChangeVariant}>

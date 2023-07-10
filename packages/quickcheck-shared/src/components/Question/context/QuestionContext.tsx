@@ -21,6 +21,7 @@ const defaultProps: QuestionContextProps = {
   submitAnswer: () => undefined,
   onSubmit: () => undefined,
   onContinue: () => undefined,
+  offset: 0,
 };
 
 export const QuestionContext =
@@ -30,6 +31,7 @@ export const useQuestionContext = () => useContext(QuestionContext);
 
 export const QuestionContextProvider: FC<QuestionContextProviderProps> = ({
   children,
+  offset = 0,
   ...props
 }) => {
   const questionProps = useQuestion(props);
@@ -38,7 +40,7 @@ export const QuestionContextProvider: FC<QuestionContextProviderProps> = ({
 
   return (
     <QuestionContext.Provider
-      value={{ currentTopic, ...props, ...questionProps }}
+      value={{ currentTopic, ...props, ...questionProps, offset }}
     >
       {children}
     </QuestionContext.Provider>

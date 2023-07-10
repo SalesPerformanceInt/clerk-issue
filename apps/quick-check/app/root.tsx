@@ -1,4 +1,9 @@
-import { json, type LinksFunction, type LoaderArgs } from "@remix-run/node";
+import {
+  json,
+  type LinksFunction,
+  type LoaderArgs,
+  type V2_MetaFunction,
+} from "@remix-run/node";
 import {
   Links,
   LiveReload,
@@ -10,9 +15,9 @@ import {
 } from "@remix-run/react";
 
 import fontAwesome from "@fortawesome/fontawesome-svg-core/styles.css";
-import uiStyles from "accelerate-learner-ui/dist/index.css";
-import sharedStyles from "quickcheck-shared/dist/index.css";
 import tailwind from "~/tailwind.css";
+
+import sharedStyles from "quickcheck-shared/dist/index.css";
 
 import { getOptionalUserApolloClientFromRequest } from "./graphql";
 
@@ -28,7 +33,6 @@ export const loader = async ({ request }: LoaderArgs) => {
 
 export const links: LinksFunction = () => [
   { rel: "stylesheet", href: tailwind },
-  { rel: "stylesheet", href: uiStyles },
   { rel: "stylesheet", href: sharedStyles },
   { rel: "stylesheet", href: fontAwesome },
 
@@ -48,14 +52,18 @@ export const links: LinksFunction = () => [
   },
 ];
 
+export const meta: V2_MetaFunction = () => [
+  { charset: "utf-8" },
+  { title: "QuickCheck" },
+  { name: "viewport", content: "width=device-width,initial-scale=1" },
+];
+
 export default function App() {
   const { theme } = useLoaderData<typeof loader>();
 
   return (
     <html lang="en" className="h-full overflow-hidden">
       <head>
-        <meta charSet="utf-8" />
-        <meta name="viewport" content="width=device-width,initial-scale=1" />
         <Meta />
         <Links />
         {theme && <style>{theme}</style>}

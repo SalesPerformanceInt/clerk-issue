@@ -1,11 +1,13 @@
 import * as React from "react";
 
 import type { IconDefinition } from "@fortawesome/pro-light-svg-icons";
+import { faSpinner } from "@fortawesome/pro-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { cva, type VariantProps } from "class-variance-authority";
 import { twMerge } from "tailwind-merge";
 import { cn } from "~/utils";
-import {useIsDesktop} from '~/utils/useIsDesktop'
+
+import { useIsDesktop } from "~/utils/useIsDesktop";
 
 const buttonVariants = cva(
   "px-6 py-2 inline-flex items-center relative justify-center box-border rounded-sm text-base text-contrast font-base ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:text-primary-50",
@@ -53,6 +55,7 @@ export interface ButtonProps
     "isDesktop"
   > {
   rightIcon?: IconDefinition;
+  loading?: boolean;
 }
 
 const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
@@ -63,6 +66,7 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
       variant = "primary",
       rightIcon,
       children,
+      loading,
       ...props
     },
     ref,
@@ -77,20 +81,26 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
         ref={ref}
         {...props}
       >
-        {children}
-        {rightIcon && (
-          <div
-            className={twMerge(
-              "flex items-center",
-              !isDesktop && "absolute bottom-2 right-6 top-2",
-              isDesktop && "ml-4",
+        {loading ? (
+          <FontAwesomeIcon icon={faSpinner} spinPulse />
+        ) : (
+          <>
+            {children}
+            {rightIcon && (
+              <div
+                className={twMerge(
+                  "flex items-center",
+                  !isDesktop && "absolute bottom-2 right-6 top-2",
+                  isDesktop && "ml-4",
+                )}
+              >
+                <FontAwesomeIcon
+                  icon={rightIcon}
+                  className="text-center text-base font-light leading-6"
+                />
+              </div>
             )}
-          >
-            <FontAwesomeIcon
-              icon={rightIcon}
-              className="text-center text-base font-light leading-6"
-            />
-          </div>
+          </>
         )}
       </button>
     );

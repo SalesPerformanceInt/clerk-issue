@@ -3,7 +3,7 @@ import { Suspense } from "react";
 import { json, type LoaderArgs } from "@remix-run/node";
 import { useLoaderData } from "@remix-run/react";
 
-import { questionItemMock } from "accelerate-learner-ui";
+import { questionItemMock } from "quickcheck-shared";
 
 import { Entry, getEntry } from "~/models/entry";
 

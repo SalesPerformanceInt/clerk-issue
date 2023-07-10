@@ -1,9 +1,10 @@
 import { useNavigation, useSubmit } from "@remix-run/react";
 
 import { withZod } from "@remix-validated-form/with-zod";
-import { Button } from "accelerate-learner-ui";
 import { ValidatedForm } from "remix-validated-form";
 import { createUserActionSchema } from "~/graphql/mutations";
+
+import { Button } from "quickcheck-shared";
 
 import { parseSchema } from "~/utils/parseSchema";
 

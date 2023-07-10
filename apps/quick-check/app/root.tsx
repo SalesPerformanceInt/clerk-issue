@@ -10,8 +10,9 @@ import {
 } from "@remix-run/react";
 
 import fontAwesome from "@fortawesome/fontawesome-svg-core/styles.css";
-import sharedStyles from "quickcheck-shared/dist/index.css";
 import tailwind from "~/tailwind.css";
+
+import sharedStyles from "quickcheck-shared/dist/index.css";
 
 import { getOptionalUserApolloClientFromRequest } from "./graphql";
 

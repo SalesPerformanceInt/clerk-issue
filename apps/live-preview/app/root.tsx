@@ -9,15 +9,9 @@ import {
 } from "@remix-run/react";
 
 import contentStackStyles from "@contentstack/live-preview-utils/dist/main.css";
-import sharedStyles from "quickcheck-shared/dist/index.css";
 import tailwind from "~/tailwind.css";
 
-const theme = `
-:root { 
-  --color-primary-medium: #564874;
-  --color-primary-dark: #21154A;
-  --font-face: Open Sans
-}`;
+import sharedStyles from "quickcheck-shared/dist/index.css";
 
 export const links: LinksFunction = () => [
   { rel: "stylesheet", href: tailwind },
@@ -49,15 +43,13 @@ export const meta: MetaFunction = () => ({
 
 export default function App() {
   return (
-    <html lang="en">
+    <html lang="en" className="h-full overflow-hidden">
       <head>
         <Meta />
         <Links />
-        <style>{theme}</style>
       </head>
-      <body>
+      <body className="h-full overflow-auto bg-background-secondary">
         <Outlet />
-
         <ScrollRestoration />
         <Scripts />
         <LiveReload />

@@ -11,6 +11,7 @@ export interface QuestionContextProps extends QuestionProps {
   currentTopic: string;
   submitted: boolean;
   submitAnswer: () => void;
+  offset: number;
 }
 
 export interface QuestionContextProviderProps extends QuestionProps {

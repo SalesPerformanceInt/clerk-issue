@@ -46,7 +46,7 @@ export const QuestionItem = ({ questionItem }: QuestionItemProps) => {
         onClose={onClose}
         onContinue={onClose}
         questionItem={questionItem}
-        offset={50}
+        offset={72}
       />
       <div className="absolute right-3 top-3">
         <select value={variant} onChange={onChangeVariant}>

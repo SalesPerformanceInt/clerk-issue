@@ -52,7 +52,6 @@ importers:
       '@types/react': ^18.0.28
       '@types/react-dom': ^18.0.11
       '@vercel/node': ^2.9.13
-      accelerate-learner-ui: workspace:*
       autoprefixer: ^10.4.14
       contentstack: ^3.17.0
       date-fns: ^2.29.3
@@ -61,6 +60,7 @@ importers:
       isbot: latest
       postcss: ^8.4.21
       prettier: latest
+      quickcheck-shared: workspace:*
       react: ^18.2.0
       react-dom: ^18.2.0
       remix-auth: ^3.4.0
@@ -81,9 +81,9 @@ importers:
       '@remix-run/server-runtime': 1.15.0
       '@remix-run/vercel': 1.15.0_@vercel+node@2.10.3
       '@vercel/node': 2.10.3
-      accelerate-learner-ui: link:../../packages/learner-ui
       glob: 10.0.0
       isbot: 3.6.12
+      quickcheck-shared: link:../../packages/quickcheck-shared
       react: 18.2.0
       react-dom: 18.2.0_react@18.2.0
       remix-auth: 3.4.0_nyeq57bzgvlvwld35fitcwaqyi
@@ -105,7 +105,7 @@ importers:
       date-fns: 2.29.3
       eslint: 8.38.0
       postcss: 8.4.21
-      prettier: 2.8.8
+      prettier: 3.0.0
       remix-validated-form: 4.6.11_k7we6yhsxenilcbxtip2vqzzsu
       tailwindcss: 3.3.1_aesdjsunmf4wiehhujt67my7tu
       ts-node: 10.9.1_o6avl3oodj6mwqsx3rm2wfkgv4
@@ -139,7 +139,6 @@ importers:
       '@types/react-dom': ^18.0.8
       '@types/react-helmet': ^6.1.6
       '@vercel/node': ^2.6.2
-      accelerate-learner-ui: workspace:*
       concurrently: ^8.0.1
       contentstack: ^3.17.0
       dotenv: ^16.0.3
@@ -177,7 +176,6 @@ importers:
       '@remix-run/vercel': 1.15.0_@vercel+node@2.10.3
       '@remix-validated-form/with-zod': 2.0.5_4psyb7nsstftmzhdcol65mlqwi
       '@vercel/node': 2.10.3
-      accelerate-learner-ui: link:../../packages/learner-ui
       framer-motion: 10.12.9_biqbaboplfbrettd7655fr4n2y
       glob: 10.0.0
       graphql: 16.6.0
@@ -292,7 +290,7 @@ importers:
       date-fns: 2.29.3
       eslint: 8.38.0
       postcss: 8.4.21
-      prettier: 2.8.8
+      prettier: 3.0.0
       remix-validated-form: 4.6.11_k7we6yhsxenilcbxtip2vqzzsu
       tailwindcss: 3.3.1_aesdjsunmf4wiehhujt67my7tu
       typescript: 4.9.5
@@ -391,13 +389,13 @@ importers:
       dotenv: 16.0.3
       eslint: 8.38.0
       eslint-plugin-jsx-a11y: 6.7.1_eslint@8.38.0
-      eslint-plugin-prettier: 4.2.1_ycdz5lq7xjhthay5d4yjlceo2e
+      eslint-plugin-prettier: 4.2.1_q4ibzofjdpv7aoolc77pepwqvq
       eslint-plugin-react: 7.32.2_eslint@8.38.0
       eslint-plugin-react-hooks: 4.6.0_eslint@8.38.0
       eslint-plugin-storybook: 0.6.11_ze6bmax3gcsfve3yrzu6npguhe
       framer-motion: 10.12.9_biqbaboplfbrettd7655fr4n2y
       postcss: 8.4.21
-      prettier: 2.8.8
+      prettier: 3.0.0
       react-chartjs-2: 5.2.0_t5yjg6ab35jnsudnh2qdighszm
       react-use: 17.4.0_biqbaboplfbrettd7655fr4n2y
       remeda: 1.14.0
@@ -513,13 +511,13 @@ importers:
       dotenv: 16.0.3
       eslint: 8.38.0
       eslint-plugin-jsx-a11y: 6.7.1_eslint@8.38.0
-      eslint-plugin-prettier: 4.2.1_ycdz5lq7xjhthay5d4yjlceo2e
+      eslint-plugin-prettier: 4.2.1_q4ibzofjdpv7aoolc77pepwqvq
       eslint-plugin-react: 7.32.2_eslint@8.38.0
       eslint-plugin-react-hooks: 4.6.0_eslint@8.38.0
       eslint-plugin-storybook: 0.6.11_ze6bmax3gcsfve3yrzu6npguhe
       framer-motion: 10.12.9_biqbaboplfbrettd7655fr4n2y
       postcss: 8.4.21
-      prettier: 2.8.8
+      prettier: 3.0.0
       react-use: 17.4.0_biqbaboplfbrettd7655fr4n2y
       remeda: 1.14.0
       tailwindcss: 3.3.1_postcss@8.4.21
@@ -589,11 +587,11 @@ importers:
       classnames: 2.3.2
       eslint: 8.38.0
       eslint-plugin-jsx-a11y: 6.7.1_eslint@8.38.0
-      eslint-plugin-prettier: 4.2.1_ycdz5lq7xjhthay5d4yjlceo2e
+      eslint-plugin-prettier: 4.2.1_q4ibzofjdpv7aoolc77pepwqvq
       eslint-plugin-react: 7.32.2_eslint@8.38.0
       eslint-plugin-react-hooks: 4.6.0_eslint@8.38.0
       eslint-plugin-storybook: 0.6.11_ze6bmax3gcsfve3yrzu6npguhe
-      prettier: 2.8.8
+      prettier: 3.0.0
       storybook: 7.0.4
       tsup: 6.7.0_uujdqti2krmttzhqvubwnsmcci
       typescript: 4.9.5
@@ -8215,7 +8213,7 @@ packages:
       semver: 6.3.0
     dev: true
 
-  /eslint-plugin-prettier/4.2.1_ycdz5lq7xjhthay5d4yjlceo2e:
+  /eslint-plugin-prettier/4.2.1_q4ibzofjdpv7aoolc77pepwqvq:
     resolution: {integrity: sha512-f/0rXLXUt0oFYs8ra4w49wYZBG5GKZpAYsJSm6rnYL5uVDjd+zowwMwVZHnAjf4edNrKpCDYfXDgmRE/Ak7QyQ==}
     engines: {node: '>=12.0.0'}
     peerDependencies:
@@ -8227,7 +8225,7 @@ packages:
         optional: true
     dependencies:
       eslint: 8.38.0
-      prettier: 2.8.8
+      prettier: 3.0.0
       prettier-linter-helpers: 1.0.0
     dev: true
 

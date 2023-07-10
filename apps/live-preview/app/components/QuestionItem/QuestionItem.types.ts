@@ -1,4 +1,4 @@
-import type { QuestionItem } from "accelerate-learner-ui";
+import type { QuestionItem } from "quickcheck-shared";
 
 export type QuestionItemProps = {
   questionItem: QuestionItem;

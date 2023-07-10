@@ -1,9 +1,10 @@
 import { useNavigation, useSubmit } from "@remix-run/react";
 
 import { withZod } from "@remix-validated-form/with-zod";
-import { Button } from "quickcheck-shared";
 import { ValidatedForm } from "remix-validated-form";
 import { createUserActionSchema } from "~/graphql/mutations";
+
+import { Button } from "quickcheck-shared";
 
 import { parseSchema } from "~/utils/parseSchema";
 
@@ -60,7 +61,7 @@ export const CreateUserForm = () => {
                 </td>
                 <td className="whitespace-nowrap px-6 py-4">
                   <Button
-                    // loading={isLoading()}
+                    loading={isLoading()}
                     id="createUserSubmit"
                     type="submit"
                     className="mb-7 mt-5 h-12 border border-transparent"

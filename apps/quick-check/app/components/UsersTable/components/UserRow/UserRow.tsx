@@ -2,12 +2,16 @@ import { useEffect, useState, type FC } from "react";
 
 import { useNavigation, useSubmit } from "@remix-run/react";
 
+import {
+  faArrowsRotate,
+  faKey,
+  faRightToBracket,
+} from "@fortawesome/pro-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { parsePhoneNumber } from "libphonenumber-js";
-import { Button } from "quickcheck-shared";
-import keyIcon from "~/images/key.svg";
-import loginIcon from "~/images/login.svg";
-import refreshIcon from "~/images/refresh.svg";
 import { parseAdminActionRequest, type AdminAction } from "~/routes/admin";
+
+import { Button } from "quickcheck-shared";
 
 import type { UserRowProps } from "./UserRow.types";
 
@@ -63,30 +67,30 @@ export const UserRow: FC<UserRowProps> = ({ user, row }) => {
       </td>
       <td className="whitespace-nowrap px-6 py-4 text-center">
         <Button
-          // loading={isLoading("GENERATE_TOKEN_AND_SEND_SMS")}
+          loading={isLoading("GENERATE_TOKEN_AND_SEND_SMS")}
           onClick={makeUserAction("GENERATE_TOKEN_AND_SEND_SMS")}
           className="h-8 w-auto py-0 "
         >
-          <img src={keyIcon} alt="Generate token" />
+          <FontAwesomeIcon icon={faKey} />
         </Button>
       </td>
       <td className="whitespace-nowrap px-6 py-4 text-center">
         <Button
           disabled={!activeToken}
-          // loading={isLoading("LOGIN_USER")}
+          loading={isLoading("LOGIN_USER")}
           onClick={makeUserAction("LOGIN_USER")}
           className="h-8 w-auto py-0"
         >
-          <img src={loginIcon} alt="Login" />
+          <FontAwesomeIcon icon={faRightToBracket} />
         </Button>
       </td>
       <td className="whitespace-nowrap px-6 py-4 text-center">
         <Button
-          // loading={isLoading("RESET_USER")}
+          loading={isLoading("RESET_USER")}
           onClick={makeUserAction("RESET_USER")}
           className="h-8 w-auto py-0"
         >
-          <img src={refreshIcon} alt="Reset" />
+          <FontAwesomeIcon icon={faArrowsRotate} />
         </Button>
       </td>
     </tr>

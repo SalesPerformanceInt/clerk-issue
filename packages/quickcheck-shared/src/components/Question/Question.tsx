@@ -16,8 +16,8 @@ export type QuestionProps = {
 
 export const Question: FC<QuestionProps> = (props) => {
   useEffect(() => {
-    document.body.scrollTo({ top: 0, behavior: 'smooth' })
-  }, [])
+    document.body.scrollTo({ top: 0, behavior: "smooth" });
+  }, []);
 
   return (
     <QuestionContextProvider {...props}>

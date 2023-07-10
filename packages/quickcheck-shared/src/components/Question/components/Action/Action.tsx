@@ -15,8 +15,6 @@ export const Action: FC = () => {
 
   const [ref, { height }] = useMeasure<HTMLDivElement>();
 
-  console.log("Action", offset);
-
   return (
     <>
       <div style={{ height }} />

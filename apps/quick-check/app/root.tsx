@@ -2,7 +2,7 @@ import {
   json,
   type LinksFunction,
   type LoaderArgs,
-  type MetaFunction,
+  type V2_MetaFunction,
 } from "@remix-run/node";
 import {
   Links,
@@ -52,11 +52,11 @@ export const links: LinksFunction = () => [
   },
 ];
 
-export const meta: MetaFunction = () => ({
-  charset: "utf-8",
-  title: "QuickCheck",
-  viewport: "width=device-width,initial-scale=1",
-});
+export const meta: V2_MetaFunction = () => [
+  { charset: "utf-8" },
+  { title: "QuickCheck" },
+  { name: "viewport", content: "width=device-width,initial-scale=1" },
+];
 
 export default function App() {
   const { theme } = useLoaderData<typeof loader>();

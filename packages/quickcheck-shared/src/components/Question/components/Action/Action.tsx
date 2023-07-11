@@ -5,7 +5,7 @@ import { faArrowRight } from "@fortawesome/pro-light-svg-icons";
 
 import { ResponsiveContainer } from "~/components";
 import { useQuestionContext } from "~/components/Question";
-import { Button } from "~/components/ui/button";
+import { Button } from "~/components/ui/Button";
 
 import { Feedback } from "./Feedback";
 

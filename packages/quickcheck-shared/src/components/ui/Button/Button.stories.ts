@@ -1,8 +1,8 @@
 import { faArrowRight } from "@fortawesome/pro-light-svg-icons";
 import type { Meta, StoryObj } from "@storybook/react";
 
-import { Button as ButtonComponent } from "./button";
-import { ButtonDecorator } from "./button.template";
+import { Button as ButtonComponent } from "./Button";
+import { ButtonDecorator } from "./Button.template";
 
 const meta = {
   component: ButtonComponent,

@@ -1,5 +1,15 @@
-import { json, type ActionFunction, type LoaderArgs } from "@remix-run/node";
+import {
+  json,
+  redirect,
+  type ActionFunction,
+  type LoaderArgs,
+} from "@remix-run/node";
 import { useLoaderData, useNavigate, useSubmit } from "@remix-run/react";
+
+import { compact, first, map, pipe } from "remeda";
+import invariant from "tiny-invariant";
+import { contentStack } from "~/contentstack.server";
+import { requireUserSession } from "~/session.server";
 
 import {
   Question,
@@ -7,10 +17,6 @@ import {
   type OnSubmit,
   type QuestionItemVariant,
 } from "quickcheck-shared";
-import { compact, first, map, pipe } from "remeda";
-import invariant from "tiny-invariant";
-import { contentStack } from "~/contentstack.server";
-import { requireUserSession } from "~/session.server";
 
 import { saveAnswer, type Answer } from "~/models/answer";
 import { generateNextQuestion, getUserFromRequest } from "~/models/user";
@@ -31,13 +37,14 @@ export const loader = async ({ params, request }: LoaderArgs) => {
 
   invariant(params.questionId, "questionId not found");
 
+  if (user?.next_question_id !== params.questionId) return redirect("/");
+
   const questionItem = await contentStack.getQuestionItem(params.questionId);
   if (!questionItem) {
     throw new Response("Not Found", { status: 404 });
   }
 
   const variant = getFirstVariant(questionItem.variants);
-
   if (!variant) {
     throw new Response("Not Found", { status: 404 });
   }

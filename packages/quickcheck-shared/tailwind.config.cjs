@@ -26,6 +26,9 @@ module.exports = {
         DEFAULT:
           "color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter, border-width",
       },
+      maxWidth: {
+        desktop: "928px",
+      },
       colors: {
         primary: {
           DEFAULT: "hsl(var(--primary))",

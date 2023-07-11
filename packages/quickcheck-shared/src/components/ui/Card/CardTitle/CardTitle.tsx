@@ -1,36 +1,18 @@
 import React, { type FC, type ReactNode } from "react";
 
-import { twMerge } from "tailwind-merge";
-
 type CardTitleProps = {
-  customClassNames?: {
-    qty?: string;
-    title?: string;
-  };
   qty: number;
   title: ReactNode;
 };
 
-const CardTitle: FC<CardTitleProps> = ({ customClassNames, qty, title }) => {
+const CardTitle: FC<CardTitleProps> = ({ qty, title }) => {
   return (
     <div className="flex items-center gap-2">
-      <span
-        className={twMerge(
-          "w-6 h-6 flex items-center justify-center rounded-full bg-secondary text-contrast text-xs",
-          customClassNames?.qty,
-        )}
-      >
+      <span className="w-6 h-6 flex items-center justify-center rounded-full bg-secondary text-contrast text-xs">
         {qty}
       </span>
 
-      <h3
-        className={twMerge(
-          "text-text font-light uppercase",
-          customClassNames?.title,
-        )}
-      >
-        {title}
-      </h3>
+      <h3 className="text-text font-light uppercase">{title}</h3>
     </div>
   );
 };

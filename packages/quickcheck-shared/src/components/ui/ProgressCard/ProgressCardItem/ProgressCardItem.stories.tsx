@@ -12,10 +12,17 @@ const meta = {
 type Story = StoryObj<typeof meta>;
 
 export const ProgressCardItem = {
-  args: {},
-  argTypes: {
-    className: { control: { disable: true } },
+  args: {
+    title: "Six Critical Skills",
+    ranking: "1",
+    score: "1,234",
+    progress: {
+      attempted: 8,
+      retired: 2,
+      total: 20,
+    },
   },
+  argTypes: {},
 } satisfies Story;
 
 export default meta;

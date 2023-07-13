@@ -2,9 +2,9 @@ import React from "react";
 
 import type { Decorator } from "@storybook/react";
 
-import type { ProgressCardProps } from "./ProgressCard";
+import type { ProgressItemProps } from "./ProgressItem";
 
-export const ProgressCardDecorator: Decorator<ProgressCardProps> = (
+export const ProgressItemDecorator: Decorator<ProgressItemProps> = (
   Story,
   { args },
 ) => {

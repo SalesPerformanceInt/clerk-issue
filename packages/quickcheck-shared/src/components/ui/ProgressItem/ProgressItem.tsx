@@ -8,7 +8,7 @@ import {
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Progress, ProgressIndicator } from "@radix-ui/react-progress";
 
-type ProgressCardItemProps = {
+type ProgressItemProps = {
   title: string;
   ranking: string | number;
   score: string | number;
@@ -19,7 +19,7 @@ type ProgressCardItemProps = {
   };
 };
 
-const ProgressCardItem: FC<ProgressCardItemProps> = ({
+const ProgressItem: FC<ProgressItemProps> = ({
   title,
   ranking,
   score,
@@ -99,4 +99,4 @@ const ProgressCardItem: FC<ProgressCardItemProps> = ({
   );
 };
 
-export { ProgressCardItem, type ProgressCardItemProps };
+export { ProgressItem, type ProgressItemProps };

@@ -7,23 +7,28 @@ import {
 } from "@fortawesome/pro-light-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Progress, ProgressIndicator } from "@radix-ui/react-progress";
+import { twMerge } from "tailwind-merge";
 
 type ProgressItemProps = {
-  title: string;
-  ranking: string | number;
-  score: string | number;
+  id: string;
+  title?: string;
+  ranking?: string | number;
+  score?: string | number;
   progress: {
     attempted: number;
     retired: number;
     total: number;
   };
+  onClick?: (id: string) => void;
 };
 
 const ProgressItem: FC<ProgressItemProps> = ({
+  id,
   title,
   ranking,
   score,
   progress,
+  onClick,
 }) => {
   const progressBarValues = {
     retired: (progress.retired / progress.total) * 100,
@@ -31,27 +36,36 @@ const ProgressItem: FC<ProgressItemProps> = ({
   };
 
   return (
-    <div className="flex items-center justify-between p-6 gap-6 cursor-pointer border-b border-b-background-secondary last:border-b-0">
-      <div className="flex flex-col gap-2 w-full">
-        <div className="flex items-center justify-between text-text font-normal">
-          <h5 className="whitespace-nowrap overflow-hidden text-ellipsis">
-            {title}
-          </h5>
+    <div
+      className="flex items-center justify-between p-6 gap-6 cursor-pointer border-b border-b-background-secondary last:border-b-0"
+      onClick={() => onClick?.(id)}
+    >
+      <div className={twMerge("flex flex-col gap-2 w-full", !title && "gap-4")}>
+        {title && (
+          <div className="flex items-center justify-between text-text font-normal">
+            <h5 className="whitespace-nowrap overflow-hidden text-ellipsis">
+              {title}
+            </h5>
 
-          <div className="flex items-center gap-4">
-            <div className="flex items-center gap-1">
-              <FontAwesomeIcon icon={faShapes} size="xs" />
+            <div className="flex items-center gap-4">
+              {ranking && (
+                <div className="flex items-center gap-1">
+                  <FontAwesomeIcon icon={faShapes} size="xs" />
 
-              <span> {`#${ranking}`} </span>
-            </div>
+                  <span> {`#${ranking}`} </span>
+                </div>
+              )}
 
-            <div className="flex items-center gap-1">
-              <FontAwesomeIcon icon={faMedal} size="xs" />
+              {score && (
+                <div className="flex items-center gap-1">
+                  <FontAwesomeIcon icon={faMedal} size="xs" />
 
-              <span> {score} </span>
+                  <span> {score} </span>
+                </div>
+              )}
             </div>
           </div>
-        </div>
+        )}
 
         <Progress className="relative overflow-hidden bg-primary-25 h-2 w-full rounded-full">
           <ProgressIndicator

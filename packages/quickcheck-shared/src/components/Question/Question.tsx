@@ -1,6 +1,6 @@
 import React, { FC, useEffect } from "react";
 
-import { Action, Header, QuestionVariant } from "./components";
+import { Action, QuestionHeader, QuestionVariant } from "./components";
 
 import type { OnSubmit, QuestionItem, Variant } from "./Question.types";
 import { QuestionContextProvider } from "./context/QuestionContext";
@@ -21,7 +21,7 @@ export const Question: FC<QuestionProps> = (props) => {
 
   return (
     <QuestionContextProvider {...props}>
-      <Header />
+      <QuestionHeader />
       <QuestionVariant />
       <Action />
     </QuestionContextProvider>

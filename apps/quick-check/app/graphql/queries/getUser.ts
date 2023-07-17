@@ -1,4 +1,4 @@
-import { graphql, type WithApolloClient } from "~/graphql";
+import { graphql, type GetUserQuery, type WithApolloClient } from "~/graphql";
 
 export const GET_USER = graphql(/* GraphQL */ `
   query GetUser($userId: uuid!) {
@@ -24,3 +24,5 @@ export async function getUser(this: WithApolloClient, userId: string) {
     return null;
   }
 }
+
+export type GetUser = GetUserQuery["user_by_pk"];

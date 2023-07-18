@@ -21,6 +21,7 @@ type Story = StoryObj<typeof meta>;
 
 export const ProgressItem = {
   args: {
+    id: "Progress Item 1",
     title: "Six Critical Skills",
     ranking: "1",
     score: "1,234",
@@ -39,7 +40,7 @@ export const ProgressItem = {
 
 export const ProgressCard = {
   render: (args) => (
-    <Card className="w-96">
+    <Card className="flex flex-col w-96">
       <CardTitle qty={4} title="Active Enrollments" className="p-6 pb-0" />
 
       <ProgressItemComponent {...args} />
@@ -49,6 +50,7 @@ export const ProgressCard = {
     </Card>
   ),
   args: {
+    id: "Progress Card 2",
     title: "Six Critical Skills",
     ranking: "1",
     score: "1,234",

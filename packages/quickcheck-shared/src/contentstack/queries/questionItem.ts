@@ -7,6 +7,7 @@ export async function getQuestionItem(
 ) {
   try {
     const contentType = this.client.ContentType("questionitem");
+
     const entry = contentType
       .Entry(uid)
       .includeContentType()

@@ -6,9 +6,7 @@ type CardProps = HTMLAttributes<HTMLDivElement>;
 
 const Card: FC<CardProps> = ({ children, className }) => {
   return (
-    <div
-      className={twMerge("shadow-card rounded w-fit flex flex-col", className)}
-    >
+    <div className={twMerge("shadow-card rounded bg-background", className)}>
       {children}
     </div>
   );

@@ -14,7 +14,7 @@ export const AccelerateButton: FC = () => {
     <Button
       onClick={() => navigate("/")}
       variant="secondary"
-      className="uppercase text-xs px-4"
+      className="uppercase text-xs px-4 w-auto"
     >
       <AccelerateIcon className="mr-2" dark />
       Accelerate

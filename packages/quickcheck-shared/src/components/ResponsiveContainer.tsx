@@ -13,7 +13,7 @@ export const ResponsiveContainer = forwardRef<
 >(({ className, children }, ref) => {
   return (
     <div ref={ref} className={twMerge("w-full flex justify-center", className)}>
-      <div className="w-full max-w-desktop">{children}</div>
+      <div className="w-full max-w-desktop sm:px-6 lg:px-0">{children}</div>
     </div>
   );
 });

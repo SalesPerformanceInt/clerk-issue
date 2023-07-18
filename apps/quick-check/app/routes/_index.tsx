@@ -1,5 +1,3 @@
-import { useState } from "react";
-
 import { json, type LoaderArgs } from "@remix-run/node";
 import { useLoaderData, useSearchParams } from "@remix-run/react";
 

@@ -3,6 +3,7 @@ import { type FC } from "react";
 import { useNavigate } from "@remix-run/react";
 
 import { faArrowRight } from "@fortawesome/pro-light-svg-icons";
+import { useDashboardContext } from "~/pages/Dashboard";
 
 import {
   Avatar,
@@ -14,17 +15,12 @@ import {
 
 import { getUserIntials } from "~/utils/getUserInitials";
 
-import type { FetchedUser } from "~/models/user";
-
 import { AccelerateButton } from "~/components";
 
-interface DashboardHeaderProps {
-  user: FetchedUser;
-}
-
-export const DashboardHeader: FC<DashboardHeaderProps> = ({ user }) => {
+export const DashboardHeader: FC = () => {
   const navigate = useNavigate();
   const isDesktop = useIsDesktop();
+  const { user } = useDashboardContext();
 
   return (
     <Header

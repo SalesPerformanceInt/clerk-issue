@@ -1,4 +1,4 @@
-import React, { FC, createContext, useContext } from "react";
+import React, { createContext, useContext, type FC } from "react";
 
 import { useQuestion } from "./hooks/useQuestion";
 

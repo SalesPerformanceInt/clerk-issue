@@ -18,7 +18,7 @@ type Story = StoryObj<typeof meta>;
 export const Card = {
   args: {
     children: "Card Content",
-    className: "gap-6 p-6",
+    className: "flex gap-6 p-6",
   },
   argTypes: {
     className: { control: { disable: true } },
@@ -28,7 +28,7 @@ export const Card = {
 export const CardWithTitle = {
   args: {
     children: <CardTitleComponent {...CardTitle.args} />,
-    className: "gap-6 p-6",
+    className: "flex flex-col gap-6 p-6",
   },
   argTypes: {
     children: { control: { disable: true } },

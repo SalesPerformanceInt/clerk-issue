@@ -20,9 +20,17 @@ export const QuestionItem = ({ questionItem }: QuestionItemProps) => {
     questionItem.variants.find((_variant) => variant in _variant),
   );
 
-  const variant = useMemo<Variant>(
-    () => localVariant ?? availableVariants[0] ?? "mcquestion",
+  const localVariantAvailable = useMemo(
+    () =>
+      availableVariants.find((variant) => variant === localVariant)
+        ? localVariant
+        : availableVariants[0],
     [localVariant, availableVariants],
+  );
+
+  const variant = useMemo<Variant>(
+    () => localVariantAvailable ?? "mcquestion",
+    [localVariantAvailable],
   );
 
   const onClose = () => {

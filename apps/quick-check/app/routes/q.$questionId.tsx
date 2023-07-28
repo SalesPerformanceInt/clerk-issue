@@ -4,7 +4,12 @@ import {
   type ActionFunction,
   type LoaderArgs,
 } from "@remix-run/node";
-import { useLoaderData, useNavigate, useSubmit } from "@remix-run/react";
+import {
+  useLoaderData,
+  useNavigate,
+  useSubmit,
+  type ShouldRevalidateFunction,
+} from "@remix-run/react";
 
 import { compact, first, map, pipe } from "remeda";
 import invariant from "tiny-invariant";
@@ -62,6 +67,14 @@ export const loader = async ({ params, request }: LoaderArgs) => {
   } catch {
     throw redirect("/nq");
   }
+};
+
+export const shouldRevalidate: ShouldRevalidateFunction = ({
+  currentParams,
+  nextParams,
+}) => {
+  if (currentParams.questionId !== nextParams.questionId) return true;
+  return false;
 };
 
 export const action: ActionFunction = async ({ request }) => {

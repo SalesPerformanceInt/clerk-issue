@@ -26,9 +26,9 @@ export const loader = async ({ request }: LoaderArgs) => {
     request,
   );
 
-  const theme = await userApolloClient?.getUserTheme();
+  // const theme = await userApolloClient?.getUserTheme();
 
-  return json({ theme });
+  return json({ theme: null });
 };
 
 export const links: LinksFunction = () => [

@@ -31,7 +31,7 @@ export interface TaxonBottomUp {
   /** Title */
   title: string;
   /** Parent Taxonomies */
-  parent_taxonomies?: TaxonBottomUp[];
+  parent_taxonomy?: TaxonBottomUp[];
 }
 
 export interface Questionitem {

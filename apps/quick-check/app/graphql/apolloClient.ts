@@ -8,18 +8,23 @@ import {
 } from "@apollo/client";
 import { SignJWT } from "jose";
 import invariant from "tiny-invariant";
+import type { User_Question_Set_Input } from "~/graphql";
 import {
   createLearningRecord,
   createUser,
+  enrollUser,
   generateNewToken,
   resetUser,
   toggleUserSMSEnabled,
   updateNextQuestionId,
+  updateUserQuestion,
 } from "~/graphql/mutations";
 import {
   getAllUsers,
   getLinkToken,
   getUser,
+  getUserNextQuestion,
+  getUserQuestion,
   getUserTheme,
 } from "~/graphql/queries";
 import { getUserDataFromFromSession } from "~/session.server";
@@ -80,6 +85,10 @@ export class GraphQLClient implements WithApolloClient {
   toggleUserSMSEnabled = toggleUserSMSEnabled;
   createUser = createUser;
   getUserTheme = getUserTheme;
+  enrollUser = enrollUser;
+  getUserNextQuestion = getUserNextQuestion;
+  updateUserQuestion = updateUserQuestion;
+  getUserQuestion = getUserQuestion;
 
   constructor(headers: GraphQLHeaders) {
     this.client = getClient(headers);
@@ -94,11 +103,17 @@ const getJWTHeader = (jwt: string) => ({ Authorization: `Bearer ${jwt}` });
 export class UserGraphQLClient extends GraphQLClient {
   getUser = () => getUser.call(this, this.userId);
   resetUser = () => resetUser.call(this, this.userId);
-  updateNextQuestionId = (nextQuestionId?: string) =>
+  updateNextQuestionId = (nextQuestionId?: string | null) =>
     updateNextQuestionId.call(this, this.userId, nextQuestionId);
   getUserTheme = () => getUserTheme.call(this, this.userId);
+  getUserNextQuestion = () => getUserNextQuestion.call(this, this.userId);
+  updateUserQuestion = (questionId: string, input: User_Question_Set_Input) =>
+    updateUserQuestion.call(this, questionId, input, this.userId);
 
-  constructor(jwt: string, public userId: string) {
+  constructor(
+    jwt: string,
+    public userId: string,
+  ) {
     super(getJWTHeader(jwt));
   }
 }

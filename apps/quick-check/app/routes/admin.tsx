@@ -6,6 +6,7 @@ import {
 } from "@remix-run/node";
 import { useLoaderData } from "@remix-run/react";
 
+import { map, pipe, sample } from "remeda";
 import invariant from "tiny-invariant";
 import { z } from "zod";
 import { getAdminApolloClient } from "~/graphql";
@@ -13,6 +14,8 @@ import { createUserActionSchema } from "~/graphql/mutations";
 import { generateTokenAndSendSMS } from "~/notifications/twilio.server";
 
 import { parseSchema } from "~/utils/parseSchema";
+
+import { buildTaxonTrees } from "~/models/taxonomy";
 
 import { CreateUserForm, UsersTable } from "~/components";
 
@@ -66,7 +69,22 @@ export const action = async ({ request }: ActionArgs) => {
     }
 
     if (adminAction?.type === "RESET_USER") {
-      await getAdminApolloClient().resetUser(adminAction.userId);
+      const adminApolloClient = getAdminApolloClient();
+      await adminApolloClient.resetUser(adminAction.userId);
+
+      const taxonTrees = await buildTaxonTrees();
+
+      const TEST_ENROLLMENT_ID = "blt4785a001c0e98991";
+
+      const enrollmentId = pipe(
+        taxonTrees,
+        map((tree) => tree.rootNode.id),
+        sample(1),
+        (data) => data[0] ?? TEST_ENROLLMENT_ID,
+        (id) => `${id}`,
+      );
+
+      await adminApolloClient.enrollUser(adminAction.userId, enrollmentId);
     }
 
     if (adminAction?.type === "LOGIN_USER") {

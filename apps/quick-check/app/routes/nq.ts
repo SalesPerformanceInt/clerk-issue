@@ -3,15 +3,23 @@ import { redirect, type LoaderArgs } from "@remix-run/node";
 import invariant from "tiny-invariant";
 import { getUserApolloClientFromRequest } from "~/graphql";
 
+import { generateNextQuestion } from "~/models/user";
+
 export const loader = async ({ request }: LoaderArgs) => {
   try {
     const userApolloClient = await getUserApolloClientFromRequest(request);
 
     const user = await userApolloClient.getUser();
-    invariant(user?.next_question_id, "next question not found");
 
-    return redirect(`/q/${user.next_question_id}`);
+    const nextQuestionId =
+      user?.next_question?.id ?? (await generateNextQuestion(request));
+
+    console.log("nextQuestionId", nextQuestionId);
+
+    invariant(nextQuestionId, "next question not found");
+
+    return redirect(`/q/${nextQuestionId}`);
   } catch {
-    return redirect(`/break`);
+    return redirect(`/`);
   }
 };

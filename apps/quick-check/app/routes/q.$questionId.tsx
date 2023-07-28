@@ -9,6 +9,7 @@ import { useLoaderData, useNavigate, useSubmit } from "@remix-run/react";
 import { compact, first, map, pipe } from "remeda";
 import invariant from "tiny-invariant";
 import { contentStack } from "~/contentstack.server";
+import { getUserApolloClientFromRequest } from "~/graphql";
 import { requireUserSession } from "~/session.server";
 
 import {
@@ -19,7 +20,7 @@ import {
 } from "quickcheck-shared";
 
 import { saveAnswer, type Answer } from "~/models/answer";
-import { generateNextQuestion, getUserFromRequest } from "~/models/user";
+import { generateNextQuestion } from "~/models/user";
 
 const getVariantNames = (questionItemVariants: QuestionItemVariant[]) =>
   pipe(
@@ -32,24 +33,35 @@ const getFirstVariant = (questionItemVariants: QuestionItemVariant[]) =>
   pipe(questionItemVariants, getVariantNames, first());
 
 export const loader = async ({ params, request }: LoaderArgs) => {
-  await requireUserSession(request);
-  const user = await getUserFromRequest(request);
+  try {
+    await requireUserSession(request);
 
-  invariant(params.questionId, "questionId not found");
+    invariant(params.questionId, "questionId not found");
 
-  if (user?.next_question_id !== params.questionId) return redirect("/");
+    const userApolloClient = await getUserApolloClientFromRequest(request);
+    const userQuestion = await userApolloClient.getUserQuestion(
+      params.questionId,
+    );
 
-  const questionItem = await contentStack.getQuestionItem(params.questionId);
-  if (!questionItem) {
-    throw new Response("Not Found", { status: 404 });
+    invariant(userQuestion?.active_on, "user question not found");
+
+    const questionItem = await contentStack.getQuestionItem(
+      userQuestion.question_id,
+    );
+
+    invariant(questionItem, "questionItem not found");
+
+    const enrollmentTaxonomy = await contentStack.getTaxonomy(
+      userQuestion.user_enrollment.taxonomy_id,
+    );
+
+    const variant = getFirstVariant(questionItem.variants);
+    invariant(variant, "No valid ");
+
+    return json({ questionItem, enrollmentTaxonomy, variant });
+  } catch {
+    throw redirect("/nq");
   }
-
-  const variant = getFirstVariant(questionItem.variants);
-  if (!variant) {
-    throw new Response("Not Found", { status: 404 });
-  }
-
-  return json({ questionItem, user, variant });
 };
 
 export const action: ActionFunction = async ({ request }) => {
@@ -60,7 +72,8 @@ export const action: ActionFunction = async ({ request }) => {
 };
 
 export default function Page() {
-  const { questionItem, variant } = useLoaderData<typeof loader>();
+  const { questionItem, variant, enrollmentTaxonomy } =
+    useLoaderData<typeof loader>();
   const navigate = useNavigate();
 
   const submit = useSubmit();
@@ -83,6 +96,7 @@ export default function Page() {
       variant={variant}
       onClose={() => navigate("/")}
       questionItem={questionItem}
+      enrollmentTaxonomy={enrollmentTaxonomy}
     />
   );
 }

@@ -11,7 +11,7 @@ export async function getQuestionItem(
     const entry = contentType
       .Entry(uid)
       .includeContentType()
-      .includeReference(["taxonomy", "taxonomy.parent_taxonomies"])
+      .includeReference(["topic", "topic.parent_taxonomy"])
       .toJSON();
     return (await entry.fetch()) as QuestionItem;
   } catch (error) {

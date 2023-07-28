@@ -127,14 +127,16 @@ export type QuestionItem = WithLiveData<{
   locale: string;
   created_at: string;
   variants: QuestionItemVariant[];
-  taxonomy: Taxon[];
+  // taxonomy: Taxon[];
+  topic: Taxon[];
 }>;
 
 export type Taxon = WithLiveData<{
   title: string;
   uid: string;
   locale: string;
-  parent_taxonomies?: Taxon[];
+  display_name: string;
+  parent_taxonomy?: Taxon[];
 }>;
 
 export type QuickcheckTheme = WithLiveData<{

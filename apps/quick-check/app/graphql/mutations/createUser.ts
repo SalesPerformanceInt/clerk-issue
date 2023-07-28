@@ -2,8 +2,6 @@ import { parsePhoneNumber } from "libphonenumber-js";
 import { z } from "zod";
 import { graphql, type WithApolloClient } from "~/graphql";
 
-import { QUESTION_IDS } from "~/models/user";
-
 import { generateNewToken } from "./generateNewToken";
 
 export const CREATE_USER = graphql(/* GraphQL */ `
@@ -12,7 +10,6 @@ export const CREATE_USER = graphql(/* GraphQL */ `
     $lastName: String!
     $email: String!
     $phoneNumber: String!
-    $nextQuestionId: String
   ) {
     insert_user_one(
       object: {
@@ -20,7 +17,6 @@ export const CREATE_USER = graphql(/* GraphQL */ `
         last_name: $lastName
         email: $email
         phone_number: $phoneNumber
-        next_question_id: $nextQuestionId
       }
     ) {
       ...BaseUser
@@ -47,7 +43,6 @@ export async function createUser(this: WithApolloClient, user: UserInput) {
           user.phoneNumber,
           "US",
         ).formatInternational(),
-        nextQuestionId: QUESTION_IDS[0],
       },
     });
 

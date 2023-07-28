@@ -52,7 +52,7 @@ export async function getUserDataFromFromSession(
 export async function requireUserSession(
   request: Request,
   redirectTo: string = new URL(request.url).pathname,
-) {
+): Promise<[string, string]> {
   const [userId, tenantId] = await getUserDataFromFromSession(request);
   if (!userId || !tenantId) {
     const searchParams = new URLSearchParams([["redirectTo", redirectTo]]);

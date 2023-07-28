@@ -8,11 +8,13 @@ export async function getQuestionItems(
 ) {
   try {
     const contentType = this.client.ContentType("questionitem");
-    const result = query(contentType.Query());
-    return (await result
+    const [result] = (await query(contentType.Query())
+      .includeReference(["topic"])
       .includeContentType()
       .toJSON()
-      .find()) as QuestionItem[];
+      .find()) as [QuestionItem[]];
+
+    return result;
   } catch (error) {
     console.log("ERROR", error);
     return null;

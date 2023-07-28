@@ -1,10 +1,10 @@
 import { graphql, type WithApolloClient } from "~/graphql";
 
 export const UPDATE_NEXT_QUESTION_ID = graphql(/* GraphQL */ `
-  mutation UpdateNextQuestionId($user_id: uuid!, $next_question_id: String) {
+  mutation UpdateNextQuestionId($user_id: uuid!, $next_user_question_id: uuid) {
     update_user_by_pk(
       pk_columns: { user_id: $user_id }
-      _set: { next_question_id: $next_question_id }
+      _set: { next_user_question_id: $next_user_question_id }
     ) {
       ...BaseUser
     }
@@ -14,12 +14,12 @@ export const UPDATE_NEXT_QUESTION_ID = graphql(/* GraphQL */ `
 export async function updateNextQuestionId(
   this: WithApolloClient,
   user_id: string,
-  next_question_id?: string,
+  next_user_question_id?: string | null,
 ) {
   try {
     const { data } = await this.client.mutate({
       mutation: UPDATE_NEXT_QUESTION_ID,
-      variables: { user_id, next_question_id },
+      variables: { user_id, next_user_question_id },
     });
 
     return data?.update_user_by_pk ?? null;

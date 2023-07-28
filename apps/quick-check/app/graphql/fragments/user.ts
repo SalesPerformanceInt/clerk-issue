@@ -17,7 +17,9 @@ export const BaseUser = graphql(/* GraphQL */ `
     first_name
     language_preference
     last_name
-    next_question_id
+    next_question {
+      ...BaseUserQuestion
+    }
     phone_number
     timezone
     user_id

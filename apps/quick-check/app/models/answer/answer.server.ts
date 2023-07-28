@@ -19,5 +19,14 @@ export const saveAnswer = async (request: Request) => {
     data,
   };
 
+  const questionId = data?.questionId;
+
+  if (questionId) {
+    await userApolloClient.updateUserQuestion(data?.questionId, {
+      active_on: null,
+      status: "attempted",
+    });
+  }
+
   return await userApolloClient.createLearningRecord(learningRecord);
 };

@@ -1,7 +1,9 @@
 import { Stack } from "contentstack";
 import {
+  getAllTaxonomies,
   getQuestionItem,
   getQuestionItems,
+  getTaxonomy,
   getTheme,
 } from "~/contentstack/queries";
 
@@ -22,6 +24,8 @@ export class ContentStackSDKClient {
   getQuestionItems = getQuestionItems;
   getQuestionItem = getQuestionItem;
   getTheme = getTheme;
+  getAllTaxonomies = getAllTaxonomies;
+  getTaxonomy = getTaxonomy;
 
   constructor(deliveryToken: string, apiKey: string, environment: string) {
     this.client = getContentStackSDKClient(deliveryToken, apiKey, environment);

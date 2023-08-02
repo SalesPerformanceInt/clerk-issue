@@ -6,7 +6,7 @@ import {
 } from "@remix-run/node";
 import { useLoaderData } from "@remix-run/react";
 
-import { map, pipe, sample } from "remeda";
+import { map, pipe } from "remeda";
 import invariant from "tiny-invariant";
 import { z } from "zod";
 import { getAdminApolloClient } from "~/graphql";
@@ -74,17 +74,17 @@ export const action = async ({ request }: ActionArgs) => {
 
       const taxonTrees = await buildTaxonTrees();
 
-      const TEST_ENROLLMENT_ID = "blt4785a001c0e98991";
-
       const enrollmentId = pipe(
         taxonTrees,
-        map((tree) => tree.rootNode.id),
-        sample(1),
-        (data) => data[0] ?? TEST_ENROLLMENT_ID,
-        (id) => `${id}`,
+        map((tree) =>
+          adminApolloClient.enrollUser(
+            adminAction.userId,
+            `${tree.rootNode.id}`,
+          ),
+        ),
       );
 
-      await adminApolloClient.enrollUser(adminAction.userId, enrollmentId);
+      await Promise.all(enrollmentId);
     }
 
     if (adminAction?.type === "LOGIN_USER") {

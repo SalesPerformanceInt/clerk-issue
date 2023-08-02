@@ -5,10 +5,10 @@ import React, {
   type ReactNode,
 } from "react";
 
-import type { FetchedUser } from "~/models/user";
+import type { DashboardData } from "~/graphql";
 
 export interface DashboardContextProps {
-  user: FetchedUser;
+  dashboard: DashboardData;
 }
 
 export const DashboardContext = createContext<
@@ -31,10 +31,10 @@ export interface DashbaordContextProviderProps extends DashboardContextProps {
 
 export const DashboardContextProvider: FC<DashbaordContextProviderProps> = ({
   children,
-  user,
+  dashboard,
 }) => {
   return (
-    <DashboardContext.Provider value={{ user }}>
+    <DashboardContext.Provider value={{ dashboard }}>
       {children}
     </DashboardContext.Provider>
   );

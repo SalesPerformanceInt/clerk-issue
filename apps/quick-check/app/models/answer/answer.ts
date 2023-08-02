@@ -1,9 +1,11 @@
-import { variants } from "quickcheck-shared";
 import { z } from "zod";
+
+import { variants } from "quickcheck-shared";
 
 import { parseSchema } from "~/utils/parseSchema";
 
 export const answerSchema = z.object({
+  id: z.string(),
   questionId: z.string(),
   correct: z.boolean(),
   variant: z.enum(variants),

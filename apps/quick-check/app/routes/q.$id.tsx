@@ -41,12 +41,12 @@ export const loader = async ({ params, request }: LoaderArgs) => {
   try {
     await requireUserSession(request);
 
-    invariant(params.questionId, "questionId not found");
+    const { id } = params;
+
+    invariant(id, "ID not found");
 
     const userApolloClient = await getUserApolloClientFromRequest(request);
-    const userQuestion = await userApolloClient.getUserQuestion(
-      params.questionId,
-    );
+    const userQuestion = await userApolloClient.getUserQuestion(id);
 
     invariant(userQuestion?.active_on, "user question not found");
 
@@ -63,8 +63,8 @@ export const loader = async ({ params, request }: LoaderArgs) => {
     const variant = getFirstVariant(questionItem.variants);
     invariant(variant, "No valid ");
 
-    return json({ questionItem, enrollmentTaxonomy, variant });
-  } catch {
+    return json({ questionItem, enrollmentTaxonomy, variant, id });
+  } catch (error) {
     throw redirect("/nq");
   }
 };
@@ -73,7 +73,7 @@ export const shouldRevalidate: ShouldRevalidateFunction = ({
   currentParams,
   nextParams,
 }) => {
-  if (currentParams.questionId !== nextParams.questionId) return true;
+  if (currentParams.id !== nextParams.id) return true;
   return false;
 };
 
@@ -85,13 +85,14 @@ export const action: ActionFunction = async ({ request }) => {
 };
 
 export default function Page() {
-  const { questionItem, variant, enrollmentTaxonomy } =
+  const { questionItem, variant, enrollmentTaxonomy, id } =
     useLoaderData<typeof loader>();
   const navigate = useNavigate();
 
   const submit = useSubmit();
   const onSubmit: OnSubmit = (selection) => {
     const answer: Answer = {
+      id,
       questionId: questionItem.uid,
       correct: selection.correct,
       uid: selection.value,

@@ -9,7 +9,7 @@ interface HeaderProps {
 
 export const Header: FC<HeaderProps> = ({ left, right }) => {
   return (
-    <ResponsiveContainer className="bg-primary sticky top-0">
+    <ResponsiveContainer className="bg-primary sticky top-0 z-10">
       <div className="p-4 sm:px-0 sm:py-6 flex items-center">
         {left}
         <div className="flex-grow" />

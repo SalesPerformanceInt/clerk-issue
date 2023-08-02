@@ -14,8 +14,6 @@ export const loader = async ({ request }: LoaderArgs) => {
     const nextQuestionId =
       user?.next_question?.id ?? (await generateNextQuestion(request));
 
-    console.log("nextQuestionId", nextQuestionId);
-
     invariant(nextQuestionId, "next question not found");
 
     return redirect(`/q/${nextQuestionId}`);

@@ -8,7 +8,6 @@ import {
 } from "@apollo/client";
 import { SignJWT } from "jose";
 import invariant from "tiny-invariant";
-import type { User_Question_Set_Input } from "~/graphql";
 import {
   createLearningRecord,
   createUser,
@@ -23,6 +22,7 @@ import {
   getAllUsers,
   getLinkToken,
   getUser,
+  getUserDashboard,
   getUserNextQuestion,
   getUserQuestion,
   getUserTheme,
@@ -89,6 +89,7 @@ export class GraphQLClient implements WithApolloClient {
   getUserNextQuestion = getUserNextQuestion;
   updateUserQuestion = updateUserQuestion;
   getUserQuestion = getUserQuestion;
+  getUserDashboard = getUserDashboard;
 
   constructor(headers: GraphQLHeaders) {
     this.client = getClient(headers);
@@ -107,8 +108,7 @@ export class UserGraphQLClient extends GraphQLClient {
     updateNextQuestionId.call(this, this.userId, nextQuestionId);
   getUserTheme = () => getUserTheme.call(this, this.userId);
   getUserNextQuestion = () => getUserNextQuestion.call(this, this.userId);
-  updateUserQuestion = (questionId: string, input: User_Question_Set_Input) =>
-    updateUserQuestion.call(this, questionId, input, this.userId);
+  getUserDashboard = () => getUserDashboard.call(this, this.userId);
 
   constructor(
     jwt: string,

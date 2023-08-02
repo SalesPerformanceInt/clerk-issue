@@ -1,26 +1,27 @@
-import { json, type LoaderArgs } from "@remix-run/node";
-import { useLoaderData, useSearchParams } from "@remix-run/react";
+import { type LoaderArgs } from "@remix-run/node";
+import { useSearchParams } from "@remix-run/react";
 
+import { typedjson, useTypedLoaderData } from "remix-typedjson";
+import { getUserApolloClientFromRequest } from "~/graphql";
 import { Dashboard } from "~/pages";
-
-import { getUserFromRequest } from "~/models/user";
 
 import { AccelerateButton } from "~/components";
 
 export const loader = async ({ request }: LoaderArgs) => {
-  const user = await getUserFromRequest(request);
+  const userApolloClient = await getUserApolloClientFromRequest(request);
+  const dashboard = await userApolloClient.getUserDashboard();
 
-  return json({ user });
+  return typedjson({ dashboard });
 };
 
 export default function Index() {
-  const { user } = useLoaderData<typeof loader>();
+  const { dashboard } = useTypedLoaderData<typeof loader>();
   const [searchParams] = useSearchParams();
 
   const message = searchParams.get("message");
 
-  return user ? (
-    <Dashboard user={user} />
+  return dashboard ? (
+    <Dashboard dashboard={dashboard} />
   ) : (
     <div className="flex h-full flex-col items-center justify-center space-y-4">
       {message && <p className="text-sm text-white">{message}</p>}

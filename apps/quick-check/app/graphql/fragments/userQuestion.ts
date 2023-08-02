@@ -10,6 +10,7 @@ export const BaseUserQuestion = graphql(/* GraphQL */ `
     status
     question_id
     active_on
+    attempts
     created_at
     user_enrollment {
       ...BaseUserEnrollment

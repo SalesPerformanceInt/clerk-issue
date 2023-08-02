@@ -20,7 +20,7 @@ import { AccelerateButton } from "~/components";
 export const DashboardHeader: FC = () => {
   const navigate = useNavigate();
   const isDesktop = useIsDesktop();
-  const { user } = useDashboardContext();
+  const { dashboard } = useDashboardContext();
 
   return (
     <Header
@@ -38,7 +38,7 @@ export const DashboardHeader: FC = () => {
             </div>
           )}
           <AccelerateButton />
-          <Avatar initials={getUserIntials(user)} />
+          <Avatar initials={getUserIntials(dashboard)} />
         </div>
       }
     />

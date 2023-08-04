@@ -1,6 +1,8 @@
 import React, { FC } from "react";
 import { useMeasure } from "react-use";
 
+import { useNavigation } from "@remix-run/react";
+
 import { faArrowRight } from "@fortawesome/pro-light-svg-icons";
 
 import { ResponsiveContainer } from "~/components";
@@ -14,6 +16,9 @@ export const Action: FC = () => {
     useQuestionContext();
 
   const [ref, { height }] = useMeasure<HTMLDivElement>();
+
+  const { state } = useNavigation();
+  const loading = state !== "idle";
 
   return (
     <>
@@ -29,11 +34,16 @@ export const Action: FC = () => {
           <Feedback />
           <div className="flex items-end">
             {submitted ? (
-              <Button rightIcon={faArrowRight} onClick={onContinue}>
+              <Button
+                loading={loading}
+                rightIcon={faArrowRight}
+                onClick={onContinue}
+              >
                 Next Question
               </Button>
             ) : (
               <Button
+                loading={loading}
                 disabled={!hasSelected}
                 rightIcon={faArrowRight}
                 onClick={submitAnswer}

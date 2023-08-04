@@ -2,14 +2,16 @@ import { type LoaderArgs } from "@remix-run/node";
 import { useSearchParams } from "@remix-run/react";
 
 import { typedjson, useTypedLoaderData } from "remix-typedjson";
-import { getUserApolloClientFromRequest } from "~/graphql";
+import { getOptionalUserApolloClientFromRequest } from "~/graphql";
 import { Dashboard } from "~/pages";
 
 import { AccelerateButton } from "~/components";
 
 export const loader = async ({ request }: LoaderArgs) => {
-  const userApolloClient = await getUserApolloClientFromRequest(request);
-  const dashboard = await userApolloClient.getUserDashboard();
+  const userApolloClient = await getOptionalUserApolloClientFromRequest(
+    request,
+  );
+  const dashboard = await userApolloClient?.getUserDashboard();
 
   return typedjson({ dashboard });
 };

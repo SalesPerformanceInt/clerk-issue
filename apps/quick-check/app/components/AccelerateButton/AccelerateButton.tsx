@@ -21,7 +21,7 @@ export const AccelerateButton: FC = () => {
       <FontAwesomeIcon
         icon={faArrowUpRightFromSquare}
         //   size="xs"
-        className="ml-0.5 text-xxs"
+        className="ml-0.5 text-xxs mb-0.5"
       />
     </Button>
   );

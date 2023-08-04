@@ -68,6 +68,7 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
       rightIcon,
       children,
       loading,
+      disabled,
       ...props
     },
     ref,
@@ -80,29 +81,39 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
           buttonVariants({ background, variant, isDesktop, className }),
         )}
         ref={ref}
+        disabled={loading || disabled}
         {...props}
       >
-        {loading ? (
-          <FontAwesomeIcon icon={faSpinner} spinPulse />
-        ) : (
-          <>
-            {children}
-            {rightIcon && (
-              <div
-                className={twMerge(
-                  "flex items-center",
-                  !isDesktop && "absolute bottom-2 right-6 top-2",
-                  isDesktop && "ml-4",
-                )}
-              >
-                <Icon
-                  icon={rightIcon}
-                  className="text-center text-base font-light leading-6"
-                />
-              </div>
-            )}
-          </>
+        {loading && (
+          <FontAwesomeIcon
+            icon={faSpinner}
+            spinPulse
+            className="absolute m-auto left-0 right-0"
+          />
         )}
+
+        <div
+          className={twMerge(
+            "flex items-center justify-center",
+            loading && "invisible",
+          )}
+        >
+          {children}
+          {rightIcon && (
+            <div
+              className={twMerge(
+                "flex items-center",
+                !isDesktop && "absolute bottom-2 right-6 top-2",
+                isDesktop && "ml-4",
+              )}
+            >
+              <Icon
+                icon={rightIcon}
+                className="text-center text-base font-light leading-6"
+              />
+            </div>
+          )}
+        </div>
       </button>
     );
   },

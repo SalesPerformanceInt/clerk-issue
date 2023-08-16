@@ -1,3 +1,4 @@
+import { pipe, shuffle } from "remeda";
 import invariant from "tiny-invariant";
 import { contentStack } from "~/contentstack.server";
 import {
@@ -40,20 +41,17 @@ export async function enrollUser(
 
   invariant(questions, "No matching questions found.");
 
-  const activeQuestions = prepareActiveQuestions(questions);
+  const shuffledActiveQuestions = pipe(
+    questions,
+    shuffle(),
+    prepareActiveQuestions(user_id),
+  );
 
   const input: User_Enrollment_Insert_Input = {
     user_id,
     taxonomy_id,
     user_questions: {
-      data: questions?.map((question, questionIndex) => {
-        return {
-          question_id: question.uid,
-          taxonomy_id: question.topic?.[0]?.uid,
-          user_id,
-          active_on: activeQuestions[questionIndex],
-        };
-      }),
+      data: shuffledActiveQuestions,
     },
   };
 

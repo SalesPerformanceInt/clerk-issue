@@ -1,0 +1,4 @@
+export const ENROLLMENT_WEEKS = 12;
+export const ENROLLMENT_DAYS = 5;
+
+export const ENROLLMENT_PERIOD = (ENROLLMENT_WEEKS * ENROLLMENT_DAYS) / 3;

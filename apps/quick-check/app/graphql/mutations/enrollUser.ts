@@ -8,6 +8,8 @@ import {
 
 import { getNodeInTreesById } from "quickcheck-shared";
 
+import { prepareActiveQuestions } from "~/utils/prepareActiveQuestions";
+
 import { buildTaxonTrees } from "~/models/taxonomy";
 
 export const ENROLL_USER = graphql(/* GraphQL */ `
@@ -38,16 +40,18 @@ export async function enrollUser(
 
   invariant(questions, "No matching questions found.");
 
+  const activeQuestions = prepareActiveQuestions(questions);
+
   const input: User_Enrollment_Insert_Input = {
     user_id,
     taxonomy_id,
     user_questions: {
-      data: questions?.map((question) => {
+      data: questions?.map((question, questionIndex) => {
         return {
           question_id: question.uid,
           taxonomy_id: question.topic?.[0]?.uid,
           user_id,
-          active_on: new Date().toISOString(),
+          active_on: activeQuestions[questionIndex],
         };
       }),
     },

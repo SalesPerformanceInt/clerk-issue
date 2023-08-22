@@ -77,6 +77,7 @@ const getDaysBetweenReviews = (
  */
 
 export const reviewAnswer = (
+  answerDate: Date,
   previousAnswer: ReviewedAnswer | null,
   currentAnswer: Answer,
   dateLastReviewed?: string,
@@ -86,7 +87,7 @@ export const reviewAnswer = (
     daysBetweenReviews: previousAnswer?.daysBetweenReviews || 0,
     difficulty: previousAnswer?.difficulty || DIFFICULTY_BASE,
     dateLastReviewed: dateLastReviewed ? new Date(dateLastReviewed) : null,
-    answerDate: new Date(),
+    answerDate,
   };
 
   const percentOverdue = getPercentOverdue(toReview);

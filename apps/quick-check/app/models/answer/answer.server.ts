@@ -1,64 +1,67 @@
 import invariant from "tiny-invariant";
 import {
   getUserApolloClientFromRequest,
-  type BaseUserQuestionFragment,
   type Learning_Record_Insert_Input,
+  type UserGraphQLClient,
 } from "~/graphql";
 
-import { getActiveDate } from "~/utils/prepareActiveQuestions";
+import { ANSWER, type Answer } from "./answer";
+import {
+  getCurrentAnswer,
+  getPreviousAnswer,
+  getReviewedAnswer,
+} from "./getAnswers";
+import { shouldRetireUserQuestion } from "./retireAnswer";
 
-import { parseAnswer, type ReviewedAnswer } from "./answer";
-import { reviewAnswer } from "./reviewAnswer";
+/**
+ * Get Question
+ */
 
-export const ANSWER = "ANSWER";
-
-export const shouldRetireUserQuestion = (
-  userQuestion: BaseUserQuestionFragment,
-) => userQuestion.attempts >= 2;
-
-export const saveAnswer = async (request: Request) => {
-  const userApolloClient = await getUserApolloClientFromRequest(request);
-
-  const formData = await request.formData();
-  const currentAnswer = parseAnswer(formData.get("data"));
-
-  invariant(currentAnswer, "Answer not found");
-
+const getUserQuestion = async (
+  userApolloClient: UserGraphQLClient,
+  currentAnswer: Answer,
+) => {
   const userQuestion = await userApolloClient.getUserQuestion(currentAnswer.id);
 
   invariant(userQuestion, "Question not found");
 
-  const userQuestionLearningRecord =
-    await userApolloClient.getUserQuestionLearningRecord(
-      currentAnswer.questionId,
-    );
+  return { userQuestion, currentAnswer };
+};
 
-  const [previousAnswer, dateLastReviewed] = [
-    userQuestionLearningRecord?.data as ReviewedAnswer | null,
-    userQuestionLearningRecord?.created_at,
-  ];
+/**
+ * Save Answer
+ */
 
-  const reviewedAnswer = reviewAnswer(
+export const saveAnswer = async (request: Request) => {
+  const userApolloClient = await getUserApolloClientFromRequest(request);
+
+  const { currentAnswer } = await getCurrentAnswer(request);
+  const { userQuestion } = await getUserQuestion(
+    userApolloClient,
+    currentAnswer,
+  );
+  const { previousAnswer, dateLastReviewed } = await getPreviousAnswer(
+    userApolloClient,
+    currentAnswer,
+  );
+
+  const { reviewedAnswer, userQuestionNextActiveDate } = getReviewedAnswer([
+    new Date(),
     previousAnswer,
     currentAnswer,
     dateLastReviewed,
-  );
-
-  const nextUserQuestionDate = getActiveDate(
-    new Date(),
-    reviewedAnswer.daysBetweenReviews,
-  );
+  ]);
 
   const learningRecord: Learning_Record_Insert_Input = {
     user_id: userApolloClient.userId,
-    event_type: "ANSWER",
+    event_type: ANSWER,
     data: reviewedAnswer,
   };
 
   await userApolloClient.updateUserQuestion(
     userQuestion.id,
     {
-      active_on: nextUserQuestionDate,
+      active_on: userQuestionNextActiveDate,
       status: shouldRetireUserQuestion(userQuestion) ? "retire" : "attempted",
     },
     { attempts: 1 },

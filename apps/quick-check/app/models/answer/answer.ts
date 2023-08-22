@@ -4,6 +4,8 @@ import { variants } from "quickcheck-shared";
 
 import { parseSchema } from "~/utils/parseSchema";
 
+export const ANSWER = "ANSWER";
+
 /**
  * Schemas
  */

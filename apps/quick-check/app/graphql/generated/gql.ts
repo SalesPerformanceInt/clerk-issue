@@ -33,6 +33,7 @@ const documents = {
     "\n  query GetUserDashboard($userId: uuid!) {\n    user_by_pk(user_id: $userId) {\n      ...BaseUser\n      user_enrollments {\n        taxonomy_id\n        id\n        attempted: user_questions_aggregate(\n          where: { status: { _eq: \"attempted\" } }\n        ) {\n          aggregate {\n            count\n          }\n        }\n        unattempted: user_questions_aggregate(\n          where: { status: { _eq: \"unattempted\" } }\n        ) {\n          aggregate {\n            count\n          }\n        }\n        retired: user_questions_aggregate(\n          where: { status: { _eq: \"retired\" } }\n        ) {\n          aggregate {\n            count\n          }\n        }\n        total: user_questions_aggregate {\n          aggregate {\n            count\n          }\n        }\n      }\n    }\n  }\n": types.GetUserDashboardDocument,
     "\n  query GetUserNextQuestion($userId: uuid!) {\n    user_by_pk(user_id: $userId) {\n      user_questions(\n        where: { active_on: { _is_null: false } }\n        order_by: { active_on: asc }\n        limit: 1\n      ) {\n        ...BaseUserQuestion\n      }\n    }\n  }\n": types.GetUserNextQuestionDocument,
     "\n  query GetUserQuestion($id: uuid!) {\n    user_question_by_pk(id: $id) {\n      ...BaseUserQuestion\n    }\n  }\n": types.GetUserQuestionDocument,
+    "\n  query GetUserQuestionLearningRecord($userId: uuid!, $questionId: uuid!) {\n    learning_record(\n      where: {\n        user_id: { _eq: $userId }\n        data: { _contains: { questionId: $questionId } }\n      }\n      limit: 1\n      order_by: { created_at: desc }\n    ) {\n      created_at\n      data\n    }\n  }\n": types.GetUserQuestionLearningRecordDocument,
     "\n  query GetUserTheme($userId: uuid!) {\n    user_by_pk(user_id: $userId) {\n      tenant {\n        theme_id\n      }\n    }\n  }\n": types.GetUserThemeDocument,
 };
 
@@ -130,6 +131,10 @@ export function graphql(source: "\n  query GetUserNextQuestion($userId: uuid!) {
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function graphql(source: "\n  query GetUserQuestion($id: uuid!) {\n    user_question_by_pk(id: $id) {\n      ...BaseUserQuestion\n    }\n  }\n"): (typeof documents)["\n  query GetUserQuestion($id: uuid!) {\n    user_question_by_pk(id: $id) {\n      ...BaseUserQuestion\n    }\n  }\n"];
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(source: "\n  query GetUserQuestionLearningRecord($userId: uuid!, $questionId: uuid!) {\n    learning_record(\n      where: {\n        user_id: { _eq: $userId }\n        data: { _contains: { questionId: $questionId } }\n      }\n      limit: 1\n      order_by: { created_at: desc }\n    ) {\n      created_at\n      data\n    }\n  }\n"): (typeof documents)["\n  query GetUserQuestionLearningRecord($userId: uuid!, $questionId: uuid!) {\n    learning_record(\n      where: {\n        user_id: { _eq: $userId }\n        data: { _contains: { questionId: $questionId } }\n      }\n      limit: 1\n      order_by: { created_at: desc }\n    ) {\n      created_at\n      data\n    }\n  }\n"];
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */

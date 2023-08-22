@@ -25,6 +25,7 @@ import {
   getUserDashboard,
   getUserNextQuestion,
   getUserQuestion,
+  getUserQuestionLearningRecord,
   getUserTheme,
 } from "~/graphql/queries";
 import { getUserDataFromFromSession } from "~/session.server";
@@ -34,6 +35,8 @@ import {
   HASURA_AUTH_TOKEN,
   HASURA_SECRET_KEY,
 } from "~/utils/envs.server";
+
+import { JSONB } from "./scalars";
 
 type GraphQLHeaders = Record<string, string>;
 
@@ -78,6 +81,7 @@ export class GraphQLClient implements WithApolloClient {
   getLinkToken = getLinkToken;
   getUser = getUser;
   createLearningRecord = createLearningRecord;
+  getUserQuestionLearningRecord = getUserQuestionLearningRecord;
   updateNextQuestionId = updateNextQuestionId;
   resetUser = resetUser;
   getAllUsers = getAllUsers;
@@ -106,6 +110,8 @@ export class UserGraphQLClient extends GraphQLClient {
   resetUser = () => resetUser.call(this, this.userId);
   updateNextQuestionId = (nextQuestionId?: string | null) =>
     updateNextQuestionId.call(this, this.userId, nextQuestionId);
+  getUserQuestionLearningRecord = (questionId: string) =>
+    getUserQuestionLearningRecord.call(this, this.userId, questionId);
   getUserTheme = () => getUserTheme.call(this, this.userId);
   getUserNextQuestion = () => getUserNextQuestion.call(this, this.userId);
   getUserDashboard = () => getUserDashboard.call(this, this.userId);

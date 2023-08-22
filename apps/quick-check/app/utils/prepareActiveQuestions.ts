@@ -18,7 +18,7 @@ const prepareActiveGap =
   (minQuestionsPerDay: number) => (questionIndex: number) =>
     Math.floor((1 / minQuestionsPerDay) * Math.max(0, questionIndex));
 
-const getActiveDate = (date: Date, daysToAdd: number): string => {
+export const getActiveDate = (date: Date, daysToAdd: number): string => {
   if (daysToAdd <= 0) return date.toISOString();
 
   date.setDate(date.getDate() + 1);

@@ -98,7 +98,9 @@ export default function Page() {
       uid: selection.value,
       variant,
     };
+
     const data = JSON.stringify(answer);
+
     submit({ data }, { method: "POST" });
   };
 

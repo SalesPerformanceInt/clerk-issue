@@ -19,6 +19,18 @@ export const answerSchema = z.object({
 });
 
 export const parseAnswer = (value: unknown) => parseSchema(value, answerSchema);
+export const parseCurrentDate = (value: unknown) => {
+  const currentDate = new Date();
+
+  const parsedDate = z.string().parse(value);
+  const [parsedYear, parsedMonth, parsedDay] = parsedDate.split("-");
+
+  if (!parsedYear || !parsedMonth || !parsedDay) return new Date();
+
+  currentDate.setFullYear(+parsedYear, +parsedMonth - 1, +parsedDay);
+
+  return new Date(currentDate);
+};
 
 /**
  * Types

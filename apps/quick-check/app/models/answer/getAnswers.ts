@@ -3,7 +3,12 @@ import type { UserGraphQLClient } from "~/graphql";
 
 import { getActiveDate } from "~/utils/prepareActiveQuestions";
 
-import { parseAnswer, type Answer, type ReviewedAnswer } from "./answer";
+import {
+  parseAnswer,
+  parseCurrentDate,
+  type Answer,
+  type ReviewedAnswer,
+} from "./answer";
 import { reviewAnswer } from "./reviewAnswer";
 
 /**
@@ -12,11 +17,13 @@ import { reviewAnswer } from "./reviewAnswer";
 
 export const getCurrentAnswer = async (request: Request) => {
   const formData = await request.formData();
+
   const currentAnswer = parseAnswer(formData.get("data"));
+  const currentDate = parseCurrentDate(formData.get("currentDate"));
 
   invariant(currentAnswer, "Answer not found");
 
-  return { currentAnswer };
+  return { currentAnswer, currentDate };
 };
 
 export const getPreviousAnswer = async (

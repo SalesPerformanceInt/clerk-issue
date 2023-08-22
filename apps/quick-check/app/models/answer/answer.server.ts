@@ -35,7 +35,8 @@ const getUserQuestion = async (
 export const saveAnswer = async (request: Request) => {
   const userApolloClient = await getUserApolloClientFromRequest(request);
 
-  const { currentAnswer } = await getCurrentAnswer(request);
+  const { currentAnswer, currentDate } = await getCurrentAnswer(request);
+
   const { userQuestion } = await getUserQuestion(
     userApolloClient,
     currentAnswer,
@@ -46,7 +47,7 @@ export const saveAnswer = async (request: Request) => {
   );
 
   const { reviewedAnswer, userQuestionNextActiveDate } = getReviewedAnswer([
-    new Date(),
+    currentDate,
     previousAnswer,
     currentAnswer,
     dateLastReviewed,

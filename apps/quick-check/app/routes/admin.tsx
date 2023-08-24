@@ -6,6 +6,7 @@ import {
 } from "@remix-run/node";
 import { useLoaderData } from "@remix-run/react";
 
+import { QuickcheckQuestionEmail } from "emails";
 import { map, pipe } from "remeda";
 import invariant from "tiny-invariant";
 import { z } from "zod";
@@ -13,9 +14,13 @@ import { getAdminApolloClient } from "~/graphql";
 import { createUserActionSchema } from "~/graphql/mutations";
 import { generateTokenAndSendSMS } from "~/notifications/twilio.server";
 
+import { sendEmail } from "~/utils/email";
+import { VERCEL_URL } from "~/utils/envs.server";
 import { parseSchema } from "~/utils/parseSchema";
 
+import { getQuestionData } from "~/models/question";
 import { buildTaxonTrees } from "~/models/taxonomy";
+import { generateNextQuestionForUser } from "~/models/user";
 
 import { CreateUserForm, UsersTable } from "~/components";
 
@@ -25,6 +30,7 @@ export const adminActionSchema = z.object({
     "GENERATE_TOKEN_AND_SEND_SMS",
     "RESET_USER",
     "LOGIN_USER",
+    "SEND_QUESTION_EMAIL",
   ]),
   userId: z.string(),
 });
@@ -74,7 +80,7 @@ export const action = async ({ request }: ActionArgs) => {
 
       const taxonTrees = await buildTaxonTrees();
 
-      const enrollmentId = pipe(
+      const enrollments = pipe(
         taxonTrees,
         map((tree) =>
           adminApolloClient.enrollUser(
@@ -84,7 +90,7 @@ export const action = async ({ request }: ActionArgs) => {
         ),
       );
 
-      await Promise.all(enrollmentId);
+      await Promise.all(enrollments);
     }
 
     if (adminAction?.type === "LOGIN_USER") {
@@ -92,6 +98,36 @@ export const action = async ({ request }: ActionArgs) => {
       invariant(user, "No user found");
       const activeToken = user.active_tokens[0]?.id ?? "";
       return redirect(`/t/${activeToken}`);
+    }
+
+    if (adminAction?.type === "SEND_QUESTION_EMAIL") {
+      const user = await getAdminApolloClient().getUser(adminAction.userId);
+      invariant(user, "No user found");
+
+      const nextQuestion =
+        user?.next_question ??
+        (await generateNextQuestionForUser(adminAction.userId));
+
+      invariant(nextQuestion, "Next question not found");
+
+      const { questionItem, enrollmentTaxonomy } =
+        await getQuestionData(nextQuestion);
+
+      const activeToken = user.active_tokens[0]?.id ?? "";
+
+      const result = await sendEmail(
+        user?.email,
+        `${user.first_name}, you're on a roll! Keep your 3-week QuickCheck streak going.`,
+        <QuickcheckQuestionEmail
+          questionItem={questionItem}
+          enrollmentTaxonomy={enrollmentTaxonomy}
+          token={activeToken}
+          domain={VERCEL_URL}
+          questionId={nextQuestion.id}
+        />,
+      );
+
+      console.log("EMAIL", JSON.stringify(result, null, 2));
     }
 
     const { type, userId } = adminAction ?? {};

@@ -10,3 +10,5 @@ export * from "./utils/useLocalStorage";
 export * from "./utils/useIsDesktop";
 export * from "./utils/tree";
 export * from "./contentstack";
+export * from "./utils/stripHTML";
+export * from "./utils/getVariant";

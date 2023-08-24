@@ -11,8 +11,9 @@
     "**/*.ts",
     "**/*.tsx",
     "**/*.cjs",
-    "tailwind.config.ts",
+    "tailwind.config.cjs",
     "postcss.config.cjs",
     ".eslintrc.cjs"
-  ]
+  ],
+  "exclude": ["**/.react-email"]
 }

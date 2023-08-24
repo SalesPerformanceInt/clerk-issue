@@ -1586,7 +1586,6 @@ export type Timestamptz_Comparison_Exp = {
 /** columns and relationships of "user" */
 export type User = {
   __typename?: 'user';
-  account: Scalars['String'];
   created_at: Scalars['timestamptz'];
   email: Scalars['String'];
   first_name: Scalars['String'];
@@ -1602,7 +1601,6 @@ export type User = {
   link_tokens_aggregate: Link_Token_Aggregate;
   /** An object relationship */
   next_question?: Maybe<User_Question>;
-  next_question_id?: Maybe<Scalars['String']>;
   next_user_question_id?: Maybe<Scalars['uuid']>;
   phone_number?: Maybe<Scalars['String']>;
   sms_enabled: Scalars['Boolean'];
@@ -1728,7 +1726,6 @@ export type User_Bool_Exp = {
   _and?: InputMaybe<Array<User_Bool_Exp>>;
   _not?: InputMaybe<User_Bool_Exp>;
   _or?: InputMaybe<Array<User_Bool_Exp>>;
-  account?: InputMaybe<String_Comparison_Exp>;
   created_at?: InputMaybe<Timestamptz_Comparison_Exp>;
   email?: InputMaybe<String_Comparison_Exp>;
   first_name?: InputMaybe<String_Comparison_Exp>;
@@ -1739,7 +1736,6 @@ export type User_Bool_Exp = {
   link_tokens?: InputMaybe<Link_Token_Bool_Exp>;
   link_tokens_aggregate?: InputMaybe<Link_Token_Aggregate_Bool_Exp>;
   next_question?: InputMaybe<User_Question_Bool_Exp>;
-  next_question_id?: InputMaybe<String_Comparison_Exp>;
   next_user_question_id?: InputMaybe<Uuid_Comparison_Exp>;
   phone_number?: InputMaybe<String_Comparison_Exp>;
   sms_enabled?: InputMaybe<Boolean_Comparison_Exp>;
@@ -2019,7 +2015,6 @@ export type User_Enrollment_Updates = {
 
 /** input type for inserting data into table "user" */
 export type User_Insert_Input = {
-  account?: InputMaybe<Scalars['String']>;
   created_at?: InputMaybe<Scalars['timestamptz']>;
   email?: InputMaybe<Scalars['String']>;
   first_name?: InputMaybe<Scalars['String']>;
@@ -2028,7 +2023,6 @@ export type User_Insert_Input = {
   learning_records?: InputMaybe<Learning_Record_Arr_Rel_Insert_Input>;
   link_tokens?: InputMaybe<Link_Token_Arr_Rel_Insert_Input>;
   next_question?: InputMaybe<User_Question_Obj_Rel_Insert_Input>;
-  next_question_id?: InputMaybe<Scalars['String']>;
   next_user_question_id?: InputMaybe<Scalars['uuid']>;
   phone_number?: InputMaybe<Scalars['String']>;
   sms_enabled?: InputMaybe<Scalars['Boolean']>;
@@ -2043,13 +2037,11 @@ export type User_Insert_Input = {
 /** aggregate max on columns */
 export type User_Max_Fields = {
   __typename?: 'user_max_fields';
-  account?: Maybe<Scalars['String']>;
   created_at?: Maybe<Scalars['timestamptz']>;
   email?: Maybe<Scalars['String']>;
   first_name?: Maybe<Scalars['String']>;
   language_preference?: Maybe<Scalars['String']>;
   last_name?: Maybe<Scalars['String']>;
-  next_question_id?: Maybe<Scalars['String']>;
   next_user_question_id?: Maybe<Scalars['uuid']>;
   phone_number?: Maybe<Scalars['String']>;
   tenant_id?: Maybe<Scalars['String']>;
@@ -2060,13 +2052,11 @@ export type User_Max_Fields = {
 /** aggregate min on columns */
 export type User_Min_Fields = {
   __typename?: 'user_min_fields';
-  account?: Maybe<Scalars['String']>;
   created_at?: Maybe<Scalars['timestamptz']>;
   email?: Maybe<Scalars['String']>;
   first_name?: Maybe<Scalars['String']>;
   language_preference?: Maybe<Scalars['String']>;
   last_name?: Maybe<Scalars['String']>;
-  next_question_id?: Maybe<Scalars['String']>;
   next_user_question_id?: Maybe<Scalars['uuid']>;
   phone_number?: Maybe<Scalars['String']>;
   tenant_id?: Maybe<Scalars['String']>;
@@ -2099,7 +2089,6 @@ export type User_On_Conflict = {
 
 /** Ordering options when selecting data from "user". */
 export type User_Order_By = {
-  account?: InputMaybe<Order_By>;
   created_at?: InputMaybe<Order_By>;
   email?: InputMaybe<Order_By>;
   first_name?: InputMaybe<Order_By>;
@@ -2108,7 +2097,6 @@ export type User_Order_By = {
   learning_records_aggregate?: InputMaybe<Learning_Record_Aggregate_Order_By>;
   link_tokens_aggregate?: InputMaybe<Link_Token_Aggregate_Order_By>;
   next_question?: InputMaybe<User_Question_Order_By>;
-  next_question_id?: InputMaybe<Order_By>;
   next_user_question_id?: InputMaybe<Order_By>;
   phone_number?: InputMaybe<Order_By>;
   sms_enabled?: InputMaybe<Order_By>;
@@ -2544,8 +2532,6 @@ export type User_Question_Variance_Order_By = {
 /** select columns of table "user" */
 export enum User_Select_Column {
   /** column name */
-  Account = 'account',
-  /** column name */
   CreatedAt = 'created_at',
   /** column name */
   Email = 'email',
@@ -2555,8 +2541,6 @@ export enum User_Select_Column {
   LanguagePreference = 'language_preference',
   /** column name */
   LastName = 'last_name',
-  /** column name */
-  NextQuestionId = 'next_question_id',
   /** column name */
   NextUserQuestionId = 'next_user_question_id',
   /** column name */
@@ -2573,13 +2557,11 @@ export enum User_Select_Column {
 
 /** input type for updating data in table "user" */
 export type User_Set_Input = {
-  account?: InputMaybe<Scalars['String']>;
   created_at?: InputMaybe<Scalars['timestamptz']>;
   email?: InputMaybe<Scalars['String']>;
   first_name?: InputMaybe<Scalars['String']>;
   language_preference?: InputMaybe<Scalars['String']>;
   last_name?: InputMaybe<Scalars['String']>;
-  next_question_id?: InputMaybe<Scalars['String']>;
   next_user_question_id?: InputMaybe<Scalars['uuid']>;
   phone_number?: InputMaybe<Scalars['String']>;
   sms_enabled?: InputMaybe<Scalars['Boolean']>;
@@ -2598,13 +2580,11 @@ export type User_Stream_Cursor_Input = {
 
 /** Initial value of the column from where the streaming should start */
 export type User_Stream_Cursor_Value_Input = {
-  account?: InputMaybe<Scalars['String']>;
   created_at?: InputMaybe<Scalars['timestamptz']>;
   email?: InputMaybe<Scalars['String']>;
   first_name?: InputMaybe<Scalars['String']>;
   language_preference?: InputMaybe<Scalars['String']>;
   last_name?: InputMaybe<Scalars['String']>;
-  next_question_id?: InputMaybe<Scalars['String']>;
   next_user_question_id?: InputMaybe<Scalars['uuid']>;
   phone_number?: InputMaybe<Scalars['String']>;
   sms_enabled?: InputMaybe<Scalars['Boolean']>;
@@ -2616,8 +2596,6 @@ export type User_Stream_Cursor_Value_Input = {
 /** update columns of table "user" */
 export enum User_Update_Column {
   /** column name */
-  Account = 'account',
-  /** column name */
   CreatedAt = 'created_at',
   /** column name */
   Email = 'email',
@@ -2627,8 +2605,6 @@ export enum User_Update_Column {
   LanguagePreference = 'language_preference',
   /** column name */
   LastName = 'last_name',
-  /** column name */
-  NextQuestionId = 'next_question_id',
   /** column name */
   NextUserQuestionId = 'next_user_question_id',
   /** column name */

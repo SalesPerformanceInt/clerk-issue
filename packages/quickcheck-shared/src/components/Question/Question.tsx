@@ -15,6 +15,7 @@ export type QuestionProps = {
   offset?: number;
   onContinue: () => void;
   enrollmentTaxonomy?: Taxon | null;
+  initialChoiceId?: string | null;
 };
 
 export const Question: FC<QuestionProps> = (props) => {

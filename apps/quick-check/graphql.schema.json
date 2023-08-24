@@ -11034,22 +11034,6 @@
         "description": "columns and relationships of \"user\"",
         "fields": [
           {
-            "name": "account",
-            "description": null,
-            "args": [],
-            "type": {
-              "kind": "NON_NULL",
-              "name": null,
-              "ofType": {
-                "kind": "SCALAR",
-                "name": "String",
-                "ofType": null
-              }
-            },
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
             "name": "created_at",
             "description": null,
             "args": [],
@@ -11524,18 +11508,6 @@
             "type": {
               "kind": "OBJECT",
               "name": "user_question",
-              "ofType": null
-            },
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "next_question_id",
-            "description": null,
-            "args": [],
-            "type": {
-              "kind": "SCALAR",
-              "name": "String",
               "ofType": null
             },
             "isDeprecated": false,
@@ -12225,18 +12197,6 @@
             "deprecationReason": null
           },
           {
-            "name": "account",
-            "description": null,
-            "type": {
-              "kind": "INPUT_OBJECT",
-              "name": "String_comparison_exp",
-              "ofType": null
-            },
-            "defaultValue": null,
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
             "name": "created_at",
             "description": null,
             "type": {
@@ -12350,18 +12310,6 @@
             "type": {
               "kind": "INPUT_OBJECT",
               "name": "user_question_bool_exp",
-              "ofType": null
-            },
-            "defaultValue": null,
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "next_question_id",
-            "description": null,
-            "type": {
-              "kind": "INPUT_OBJECT",
-              "name": "String_comparison_exp",
               "ofType": null
             },
             "defaultValue": null,
@@ -14333,18 +14281,6 @@
         "fields": null,
         "inputFields": [
           {
-            "name": "account",
-            "description": null,
-            "type": {
-              "kind": "SCALAR",
-              "name": "String",
-              "ofType": null
-            },
-            "defaultValue": null,
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
             "name": "created_at",
             "description": null,
             "type": {
@@ -14434,18 +14370,6 @@
             "type": {
               "kind": "INPUT_OBJECT",
               "name": "user_question_obj_rel_insert_input",
-              "ofType": null
-            },
-            "defaultValue": null,
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "next_question_id",
-            "description": null,
-            "type": {
-              "kind": "SCALAR",
-              "name": "String",
               "ofType": null
             },
             "defaultValue": null,
@@ -14571,18 +14495,6 @@
         "description": "aggregate max on columns",
         "fields": [
           {
-            "name": "account",
-            "description": null,
-            "args": [],
-            "type": {
-              "kind": "SCALAR",
-              "name": "String",
-              "ofType": null
-            },
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
             "name": "created_at",
             "description": null,
             "args": [],
@@ -14632,18 +14544,6 @@
           },
           {
             "name": "last_name",
-            "description": null,
-            "args": [],
-            "type": {
-              "kind": "SCALAR",
-              "name": "String",
-              "ofType": null
-            },
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "next_question_id",
             "description": null,
             "args": [],
             "type": {
@@ -14726,18 +14626,6 @@
         "description": "aggregate min on columns",
         "fields": [
           {
-            "name": "account",
-            "description": null,
-            "args": [],
-            "type": {
-              "kind": "SCALAR",
-              "name": "String",
-              "ofType": null
-            },
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
             "name": "created_at",
             "description": null,
             "args": [],
@@ -14787,18 +14675,6 @@
           },
           {
             "name": "last_name",
-            "description": null,
-            "args": [],
-            "type": {
-              "kind": "SCALAR",
-              "name": "String",
-              "ofType": null
-            },
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "next_question_id",
             "description": null,
             "args": [],
             "type": {
@@ -15035,18 +14911,6 @@
         "fields": null,
         "inputFields": [
           {
-            "name": "account",
-            "description": null,
-            "type": {
-              "kind": "ENUM",
-              "name": "order_by",
-              "ofType": null
-            },
-            "defaultValue": null,
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
             "name": "created_at",
             "description": null,
             "type": {
@@ -15136,18 +15000,6 @@
             "type": {
               "kind": "INPUT_OBJECT",
               "name": "user_question_order_by",
-              "ofType": null
-            },
-            "defaultValue": null,
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "next_question_id",
-            "description": null,
-            "type": {
-              "kind": "ENUM",
-              "name": "order_by",
               "ofType": null
             },
             "defaultValue": null,
@@ -18188,12 +18040,6 @@
         "interfaces": null,
         "enumValues": [
           {
-            "name": "account",
-            "description": "column name",
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
             "name": "created_at",
             "description": "column name",
             "isDeprecated": false,
@@ -18219,12 +18065,6 @@
           },
           {
             "name": "last_name",
-            "description": "column name",
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "next_question_id",
             "description": "column name",
             "isDeprecated": false,
             "deprecationReason": null
@@ -18275,18 +18115,6 @@
         "fields": null,
         "inputFields": [
           {
-            "name": "account",
-            "description": null,
-            "type": {
-              "kind": "SCALAR",
-              "name": "String",
-              "ofType": null
-            },
-            "defaultValue": null,
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
             "name": "created_at",
             "description": null,
             "type": {
@@ -18336,18 +18164,6 @@
           },
           {
             "name": "last_name",
-            "description": null,
-            "type": {
-              "kind": "SCALAR",
-              "name": "String",
-              "ofType": null
-            },
-            "defaultValue": null,
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "next_question_id",
             "description": null,
             "type": {
               "kind": "SCALAR",
@@ -18481,18 +18297,6 @@
         "fields": null,
         "inputFields": [
           {
-            "name": "account",
-            "description": null,
-            "type": {
-              "kind": "SCALAR",
-              "name": "String",
-              "ofType": null
-            },
-            "defaultValue": null,
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
             "name": "created_at",
             "description": null,
             "type": {
@@ -18542,18 +18346,6 @@
           },
           {
             "name": "last_name",
-            "description": null,
-            "type": {
-              "kind": "SCALAR",
-              "name": "String",
-              "ofType": null
-            },
-            "defaultValue": null,
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "next_question_id",
             "description": null,
             "type": {
               "kind": "SCALAR",
@@ -18650,12 +18442,6 @@
         "interfaces": null,
         "enumValues": [
           {
-            "name": "account",
-            "description": "column name",
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
             "name": "created_at",
             "description": "column name",
             "isDeprecated": false,
@@ -18681,12 +18467,6 @@
           },
           {
             "name": "last_name",
-            "description": "column name",
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "next_question_id",
             "description": "column name",
             "isDeprecated": false,
             "deprecationReason": null

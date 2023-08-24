@@ -3,7 +3,7 @@ import { redirect, type LoaderArgs } from "@remix-run/node";
 import invariant from "tiny-invariant";
 import { getUserApolloClientFromRequest } from "~/graphql";
 
-import { generateNextQuestion } from "~/models/user";
+import { generateNextQuestionFromRequest } from "~/models/user";
 
 export const loader = async ({ request }: LoaderArgs) => {
   try {
@@ -12,7 +12,8 @@ export const loader = async ({ request }: LoaderArgs) => {
     const user = await userApolloClient.getUser();
 
     const nextQuestionId =
-      user?.next_question?.id ?? (await generateNextQuestion(request));
+      user?.next_question?.id ??
+      (await generateNextQuestionFromRequest(request));
 
     invariant(nextQuestionId, "next question not found");
 

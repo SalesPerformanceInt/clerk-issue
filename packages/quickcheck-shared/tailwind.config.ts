@@ -1,5 +1,6 @@
-/** @type {import('tailwindcss').Config} */
-module.exports = {
+import type { Config } from "tailwindcss";
+
+const config = {
   darkMode: ["class"],
   content: [
     "./pages/**/*.{ts,tsx}",
@@ -14,8 +15,8 @@ module.exports = {
         xxl: "1.375rem",
       },
       fontFamily: {
-        sans: ["var(--font-face)", "ui-sans-serif", "system-ui"],
-        body: ["var(--font-face)", "ui-sans-serif", "system-ui"],
+        sans: ["var(--font-face, Open Sans)", "ui-sans-serif", "system-ui"],
+        body: ["var(--font-face, Open Sans)", "ui-sans-serif", "system-ui"],
       },
       borderWidth: {
         16: "16px",
@@ -32,44 +33,44 @@ module.exports = {
       },
       colors: {
         primary: {
-          DEFAULT: "hsl(var(--primary))",
-          75: "hsl(var(--primary-75))",
-          50: "hsl(var(--primary-50))",
-          25: "hsl(var(--primary-25))",
+          DEFAULT: "hsl(var(--primary, 254 56% 19%))",
+          75: "hsl(var(--primary-75, 259 23% 37%))",
+          50: "hsl(var(--primary-50, 261 15% 57%))",
+          25: "hsl(var(--primary-25, 261 15% 78%))",
         },
         secondary: {
-          DEFAULT: "hsl(var(--secondary))",
+          DEFAULT: "hsl(var(--secondary, 349 26% 58%))",
         },
         highlight: {
-          DEFAULT: "hsl(var(--highlight))",
+          DEFAULT: "hsl(var(--highlight, 350 24% 75%))",
         },
         background: {
-          DEFAULT: "hsl(var(--background))",
-          secondary: "hsl(var(--background-secondary))",
+          DEFAULT: "hsl(var(--background, 0 0% 100%))",
+          secondary: "hsl(var(--background-secondary, 0 12% 92%))",
         },
         text: {
-          DEFAULT: "hsl(var(--text))",
+          DEFAULT: "hsl(var(--text, 0 0% 7%))",
         },
         contrast: {
-          DEFAULT: "hsl(var(--contrast))",
+          DEFAULT: "hsl(var(--contrast, 0 0% 100%))",
         },
         success: {
-          DEFAULT: "hsl(var(--success))",
-          50: "hsl(var(--success-50))",
+          DEFAULT: "hsl(var(--success, 63 79% 27%))",
+          50: "hsl(var(--success-50, 83 34% 54%))",
         },
         warning: {
-          DEFAULT: "hsl(var(--warning))",
-          50: "hsl(var(--warning-50))",
+          DEFAULT: "hsl(var(--warning, 342 82% 28%))",
+          50: "hsl(var(--warning-50, 347 71% 65%))",
         },
       },
       keyframes: {
         "accordion-down": {
-          from: { height: 0 },
+          from: { height: "0px" },
           to: { height: "var(--radix-accordion-content-height)" },
         },
         "accordion-up": {
           from: { height: "var(--radix-accordion-content-height)" },
-          to: { height: 0 },
+          to: { height: "0px" },
         },
       },
       animation: {
@@ -79,4 +80,8 @@ module.exports = {
     },
   },
   plugins: [require("tailwindcss-animate")],
-};
+} satisfies Config;
+
+export const { theme } = config;
+
+export default config;

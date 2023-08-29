@@ -9,7 +9,6 @@ import {
   parseAnswerDate,
   type Answer,
   type AnswerToReview,
-  type ReviewedAnswer,
 } from "./answer";
 import { reviewAnswer } from "./reviewAnswer";
 
@@ -50,10 +49,7 @@ export const getReviewedAnswer = (
     streak: userQuestion.streak || 0,
   };
 
-  const reviewedAnswer: ReviewedAnswer = {
-    ...currentAnswer,
-    ...reviewAnswer(answerToReview),
-  };
+  const reviewedAnswer = reviewAnswer(answerToReview);
 
   const userQuestionNextActiveDate = getActiveDate(
     answerDate,

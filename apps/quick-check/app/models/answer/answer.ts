@@ -38,16 +38,14 @@ export const parseAnswerDate = (value: unknown) => {
 
 export type Answer = z.infer<typeof answerSchema>;
 
-export type ReviewData = {
+export type ReviewedAnswer = {
   latestReviewGap: number;
   difficulty: number;
   streak: number;
   lastAnsweredOn: Date | null;
 };
 
-export type AnswerToReview = ReviewData & {
+export type AnswerToReview = ReviewedAnswer & {
   performanceRating: number;
   answerDate: Date;
 };
-
-export type ReviewedAnswer = Answer & ReviewData;

@@ -7,7 +7,7 @@ import {
   WRONG,
 } from "~/utils/reviewConstants";
 
-import type { AnswerToReview, ReviewData } from "./answer";
+import type { AnswerToReview, ReviewedAnswer } from "./answer";
 
 /**
  * Percent Overdue
@@ -88,7 +88,7 @@ export const reviewAnswer = (answerToReview: AnswerToReview) => {
     answerToReview,
   );
 
-  const reviewedAnswer: ReviewData = {
+  const reviewedAnswer: ReviewedAnswer = {
     difficulty: updatedDifficulty,
     latestReviewGap: updatedReviewGap,
     lastAnsweredOn: answerToReview.answerDate,
@@ -97,12 +97,6 @@ export const reviewAnswer = (answerToReview: AnswerToReview) => {
         ? 0
         : answerToReview.streak + 1,
   };
-
-  console.log({
-    percentOverdue,
-    difficultyWeight,
-    reviewedAnswer,
-  });
 
   return reviewedAnswer;
 };

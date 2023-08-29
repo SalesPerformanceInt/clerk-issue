@@ -122,7 +122,7 @@ export default function Page() {
 
     const data = JSON.stringify(answer);
 
-    submit({ data, userQuestion, currentDate }, { method: "POST" });
+    submit({ data, currentDate }, { method: "POST" });
   };
 
   const openConfig = () => setShowModal(true);

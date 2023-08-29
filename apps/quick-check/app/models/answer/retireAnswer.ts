@@ -1,4 +1,4 @@
-import type { User_Question } from "~/graphql";
+import type { BaseUserQuestionFragment } from "~/graphql";
 
 import type { ReviewedAnswer } from "./answer";
 
@@ -7,7 +7,7 @@ import type { ReviewedAnswer } from "./answer";
  */
 
 export const shouldRetireUserQuestion = (
-  userQuestion: User_Question,
+  userQuestion: BaseUserQuestionFragment,
   reviewedAnswer: ReviewedAnswer,
 ) => {
   const { streak } = reviewedAnswer;

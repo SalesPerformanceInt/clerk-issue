@@ -3,7 +3,6 @@ import {
   getUserApolloClientFromRequest,
   type Learning_Record_Insert_Input,
   type UserGraphQLClient,
-  type User_Question,
 } from "~/graphql";
 
 import { ANSWER, type Answer } from "./answer";
@@ -18,9 +17,7 @@ const getUserQuestion = async (
   userApolloClient: UserGraphQLClient,
   currentAnswer: Answer,
 ) => {
-  const userQuestion = (await userApolloClient.getUserQuestion(
-    currentAnswer.id,
-  )) as User_Question;
+  const userQuestion = await userApolloClient.getUserQuestion(currentAnswer.id);
 
   invariant(userQuestion, "Question not found");
 

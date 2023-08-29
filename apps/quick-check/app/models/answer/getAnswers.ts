@@ -1,5 +1,5 @@
 import invariant from "tiny-invariant";
-import type { User_Question } from "~/graphql";
+import type { BaseUserQuestionFragment } from "~/graphql";
 
 import { getActiveDate } from "~/utils/prepareActiveQuestions";
 import { CORRECT, DIFFICULTY_BASE, WRONG } from "~/utils/reviewConstants";
@@ -32,7 +32,7 @@ export const getCurrentAnswer = async (request: Request) => {
  */
 
 export const getReviewedAnswer = (
-  userQuestion: User_Question,
+  userQuestion: BaseUserQuestionFragment,
   currentAnswer: Answer,
   answerDate: Date,
 ) => {
@@ -41,8 +41,8 @@ export const getReviewedAnswer = (
     : null;
 
   const answerToReview: AnswerToReview = {
-    answerDate,
     lastAnsweredOn,
+    answerDate: new Date(answerDate),
     performanceRating: currentAnswer.correct ? CORRECT : WRONG,
     latestReviewGap: userQuestion.latest_review_gap,
     difficulty: userQuestion.difficulty || DIFFICULTY_BASE,
@@ -52,7 +52,7 @@ export const getReviewedAnswer = (
   const reviewedAnswer = reviewAnswer(answerToReview);
 
   const userQuestionNextActiveDate = getActiveDate(
-    answerDate,
+    new Date(answerDate),
     reviewedAnswer.latestReviewGap,
   );
 

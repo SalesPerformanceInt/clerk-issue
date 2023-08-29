@@ -91,7 +91,7 @@ export const reviewAnswer = (answerToReview: AnswerToReview) => {
   const reviewedAnswer: ReviewedAnswer = {
     difficulty: updatedDifficulty,
     latestReviewGap: updatedReviewGap,
-    lastAnsweredOn: answerToReview.answerDate,
+    lastAnsweredOn: new Date(answerToReview.answerDate),
     streak:
       answerToReview.performanceRating === WRONG
         ? 0

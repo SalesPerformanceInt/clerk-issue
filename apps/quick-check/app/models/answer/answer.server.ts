@@ -1,31 +1,23 @@
-import invariant from "tiny-invariant";
 import {
   getUserApolloClientFromRequest,
   type Learning_Record_Insert_Input,
-  type UserGraphQLClient,
+  type User_Question,
 } from "~/graphql";
 
-import { ANSWER, type Answer } from "./answer";
-import {
-  getCurrentAnswer,
-  getPreviousAnswer,
-  getReviewedAnswer,
-} from "./getAnswers";
+import { ANSWER } from "./answer";
+import { getCurrentAnswer, getReviewedAnswer } from "./getAnswers";
 import { shouldRetireUserQuestion } from "./retireAnswer";
 
 /**
  * Get Question
  */
 
-const getUserQuestion = async (
-  userApolloClient: UserGraphQLClient,
-  currentAnswer: Answer,
-) => {
-  const userQuestion = await userApolloClient.getUserQuestion(currentAnswer.id);
+const getUserQuestion = async (request: Request) => {
+  const formData = await request.formData();
 
-  invariant(userQuestion, "Question not found");
+  const userQuestion = formData.get("userQuestion") as unknown as User_Question;
 
-  return { userQuestion, currentAnswer };
+  return { userQuestion };
 };
 
 /**
@@ -35,23 +27,15 @@ const getUserQuestion = async (
 export const saveAnswer = async (request: Request) => {
   const userApolloClient = await getUserApolloClientFromRequest(request);
 
-  const { currentAnswer, currentDate } = await getCurrentAnswer(request);
+  const { userQuestion } = await getUserQuestion(request);
 
-  const { userQuestion } = await getUserQuestion(
-    userApolloClient,
-    currentAnswer,
-  );
-  const { previousAnswer, dateLastReviewed } = await getPreviousAnswer(
-    userApolloClient,
-    currentAnswer,
-  );
+  const { currentAnswer, answerDate } = await getCurrentAnswer(request);
 
-  const { reviewedAnswer, userQuestionNextActiveDate } = getReviewedAnswer([
-    currentDate,
-    previousAnswer,
+  const { reviewedAnswer, userQuestionNextActiveDate } = getReviewedAnswer(
+    userQuestion,
     currentAnswer,
-    dateLastReviewed,
-  ]);
+    answerDate,
+  );
 
   const learningRecord: Learning_Record_Insert_Input = {
     user_id: userApolloClient.userId,
@@ -63,7 +47,7 @@ export const saveAnswer = async (request: Request) => {
     userQuestion.id,
     {
       active_on: userQuestionNextActiveDate,
-      status: shouldRetireUserQuestion(userQuestion) ? "retire" : "attempted",
+      status: shouldRetireUserQuestion(userQuestion, reviewedAnswer),
     },
     { attempts: 1 },
   );

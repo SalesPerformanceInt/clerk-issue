@@ -1,9 +1,17 @@
-import type { BaseUserQuestionFragment } from "~/graphql";
+import type { User_Question } from "~/graphql";
+
+import type { ReviewedAnswer } from "./answer";
 
 /**
  * Retire Answer
  */
 
 export const shouldRetireUserQuestion = (
-  userQuestion: BaseUserQuestionFragment,
-) => userQuestion.attempts >= 2;
+  userQuestion: User_Question,
+  reviewedAnswer: ReviewedAnswer,
+) => {
+  const { streak } = reviewedAnswer;
+  const { attempts } = userQuestion;
+
+  return streak >= 2 || attempts + 1 >= 6 ? "retire" : "attempted";
+};

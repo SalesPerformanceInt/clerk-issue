@@ -88,6 +88,7 @@ export const shouldRevalidate: ShouldRevalidateFunction = ({
 
 export const action: ActionFunction = async ({ request }) => {
   const result = await saveAnswer(request);
+
   const nextQuestionId = await generateNextQuestion(request);
 
   return json({ result, nextQuestionId });
@@ -121,7 +122,7 @@ export default function Page() {
 
     const data = JSON.stringify(answer);
 
-    submit({ data, currentDate }, { method: "POST" });
+    submit({ data, userQuestion, currentDate }, { method: "POST" });
   };
 
   const openConfig = () => setShowModal(true);

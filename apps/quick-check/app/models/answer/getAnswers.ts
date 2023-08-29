@@ -1,12 +1,14 @@
 import invariant from "tiny-invariant";
-import type { UserGraphQLClient } from "~/graphql";
+import type { User_Question } from "~/graphql";
 
 import { getActiveDate } from "~/utils/prepareActiveQuestions";
+import { CORRECT, DIFFICULTY_BASE, WRONG } from "~/utils/reviewConstants";
 
 import {
   parseAnswer,
-  parseCurrentDate,
+  parseAnswerDate,
   type Answer,
+  type AnswerToReview,
   type ReviewedAnswer,
 } from "./answer";
 import { reviewAnswer } from "./reviewAnswer";
@@ -19,51 +21,47 @@ export const getCurrentAnswer = async (request: Request) => {
   const formData = await request.formData();
 
   const currentAnswer = parseAnswer(formData.get("data"));
-  const currentDate = parseCurrentDate(formData.get("currentDate"));
+  const answerDate = parseAnswerDate(formData.get("currentDate"));
 
   invariant(currentAnswer, "Answer not found");
 
-  return { currentAnswer, currentDate };
-};
-
-export const getPreviousAnswer = async (
-  userApolloClient: UserGraphQLClient,
-  currentAnswer: Answer,
-) => {
-  const userQuestionLearningRecord =
-    await userApolloClient.getUserQuestionLearningRecord(
-      currentAnswer.questionId,
-    );
-
-  const [previousAnswer, dateLastReviewed] = [
-    userQuestionLearningRecord?.data as ReviewedAnswer | null,
-    userQuestionLearningRecord?.created_at,
-  ];
-
-  return { previousAnswer, dateLastReviewed };
+  return { currentAnswer, answerDate };
 };
 
 /**
  * Get Reviewed Answer
  */
 
-export const getReviewedAnswer = ([
-  answerDate,
-  previousAnswer,
-  currentAnswer,
-  dateLastReviewed,
-]: Parameters<typeof reviewAnswer>) => {
-  const reviewedAnswer = reviewAnswer(
+export const getReviewedAnswer = (
+  userQuestion: User_Question,
+  currentAnswer: Answer,
+  answerDate: Date,
+) => {
+  const lastAnsweredOn = userQuestion.last_answered_on
+    ? new Date(userQuestion.last_answered_on)
+    : null;
+
+  const answerToReview: AnswerToReview = {
     answerDate,
-    previousAnswer,
-    currentAnswer,
-    dateLastReviewed,
-  );
+    lastAnsweredOn,
+    performanceRating: currentAnswer.correct ? CORRECT : WRONG,
+    latestReviewGap: userQuestion.latest_review_gap,
+    difficulty: userQuestion.difficulty || DIFFICULTY_BASE,
+    streak: userQuestion.streak || 0,
+  };
+
+  const reviewedAnswer: ReviewedAnswer = {
+    ...currentAnswer,
+    ...reviewAnswer(answerToReview),
+  };
 
   const userQuestionNextActiveDate = getActiveDate(
     answerDate,
-    reviewedAnswer.daysBetweenReviews,
+    reviewedAnswer.latestReviewGap,
   );
 
-  return { reviewedAnswer, userQuestionNextActiveDate };
+  return {
+    reviewedAnswer,
+    userQuestionNextActiveDate,
+  };
 };

@@ -17,12 +17,6 @@ const config = {
       files: ["**/*.ts", "**/*.tsx"],
       parserOptions: {
         ecmaVersion: "latest",
-        tsconfigRootDir: __dirname,
-        project: [
-          "./tsconfig.json",
-          "./apps/*/tsconfig.json",
-          "./packages/*/tsconfig.json",
-        ],
       },
       rules: {
         "@typescript-eslint/no-unused-vars": [

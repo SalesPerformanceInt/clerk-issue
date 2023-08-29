@@ -19,17 +19,17 @@ export const answerSchema = z.object({
 });
 
 export const parseAnswer = (value: unknown) => parseSchema(value, answerSchema);
-export const parseCurrentDate = (value: unknown) => {
-  const currentDate = new Date();
+export const parseAnswerDate = (value: unknown) => {
+  const answerDate = new Date();
 
   const parsedDate = z.string().parse(value);
   const [parsedYear, parsedMonth, parsedDay] = parsedDate.split("-");
 
   if (!parsedYear || !parsedMonth || !parsedDay) return new Date();
 
-  currentDate.setFullYear(+parsedYear, +parsedMonth - 1, +parsedDay);
+  answerDate.setFullYear(+parsedYear, +parsedMonth - 1, +parsedDay);
 
-  return new Date(currentDate);
+  return new Date(answerDate);
 };
 
 /**
@@ -38,15 +38,16 @@ export const parseCurrentDate = (value: unknown) => {
 
 export type Answer = z.infer<typeof answerSchema>;
 
-export type ReviewedAnswer = Answer & {
-  daysBetweenReviews: number;
+export type ReviewData = {
+  latestReviewGap: number;
   difficulty: number;
+  streak: number;
+  lastAnsweredOn: Date | null;
 };
 
-export type ToReview = {
+export type AnswerToReview = ReviewData & {
   performanceRating: number;
-  daysBetweenReviews: number;
-  dateLastReviewed: Date | null;
   answerDate: Date;
-  difficulty: number;
 };
+
+export type ReviewedAnswer = Answer & ReviewData;

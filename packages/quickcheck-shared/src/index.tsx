@@ -9,4 +9,6 @@ export * from "./utils/reverseMap";
 export * from "./utils/useLocalStorage";
 export * from "./utils/useIsDesktop";
 export * from "./utils/tree";
+export * from "./utils/andThen";
+export * from "./utils/promiseWrapper";
 export * from "./contentstack";

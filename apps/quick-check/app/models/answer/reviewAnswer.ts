@@ -1,15 +1,13 @@
 import {
-  CORRECT,
   DAYS_BETWEEN_REVIEWS,
   DAYS_OVERFLOW,
   DAY_MS,
-  DIFFICULTY_BASE,
   DIFFICULTY_MAX,
   DIFFICULTY_MIN,
   WRONG,
 } from "~/utils/reviewConstants";
 
-import type { Answer, ReviewedAnswer, ToReview } from "./answer";
+import type { AnswerToReview, ReviewData } from "./answer";
 
 /**
  * Percent Overdue
@@ -18,16 +16,16 @@ import type { Answer, ReviewedAnswer, ToReview } from "./answer";
 const getPercentOverdue = ({
   answerDate,
   performanceRating,
-  dateLastReviewed,
-  daysBetweenReviews,
-}: ToReview) => {
+  lastAnsweredOn,
+  latestReviewGap,
+}: AnswerToReview) => {
   if (performanceRating === WRONG) return 1;
 
-  const daysSinceLastReview = dateLastReviewed
-    ? Math.floor((answerDate.getTime() - dateLastReviewed.getTime()) / DAY_MS)
+  const daysSinceLastReview = lastAnsweredOn
+    ? Math.floor((answerDate.getTime() - lastAnsweredOn.getTime()) / DAY_MS)
     : 0;
 
-  const percentOverdue = daysSinceLastReview / daysBetweenReviews || 1;
+  const percentOverdue = daysSinceLastReview / latestReviewGap || 1;
 
   return Math.min(2, percentOverdue);
 };
@@ -38,7 +36,7 @@ const getPercentOverdue = ({
 
 const getDifficulty = (
   percentOverdue: number,
-  { performanceRating, difficulty }: ToReview,
+  { performanceRating, difficulty }: AnswerToReview,
 ) => {
   const difficultyRating = (8 - 9 * performanceRating) / 17;
   const difficultyOverdue = percentOverdue * difficultyRating;
@@ -56,64 +54,54 @@ const getDifficulty = (
  * Days Between Reviews
  */
 
-const getDaysBetweenReviews = (
+const getReviewGap = (
   percentOverdue: number,
   difficultyWeight: number,
-  { performanceRating, daysBetweenReviews }: ToReview,
+  { performanceRating, latestReviewGap }: AnswerToReview,
 ) => {
   if (performanceRating === WRONG) return DAYS_OVERFLOW;
 
   const baseDays = Math.round(
     (difficultyWeight - DAYS_OVERFLOW) * percentOverdue,
   );
-  const updatedDaysBetweenReviews =
-    daysBetweenReviews * (DAYS_OVERFLOW + baseDays) || DAYS_BETWEEN_REVIEWS;
+  const updatedReviewGap =
+    latestReviewGap * (DAYS_OVERFLOW + baseDays) || DAYS_BETWEEN_REVIEWS;
 
-  return updatedDaysBetweenReviews;
+  return updatedReviewGap;
 };
 
 /**
  * Review Answer
  */
 
-export const reviewAnswer = (
-  answerDate: Date,
-  previousAnswer: ReviewedAnswer | null,
-  currentAnswer: Answer,
-  dateLastReviewed?: string,
-): ReviewedAnswer => {
-  const toReview: ToReview = {
-    performanceRating: currentAnswer.correct ? CORRECT : WRONG,
-    daysBetweenReviews: previousAnswer?.daysBetweenReviews || 0,
-    difficulty: previousAnswer?.difficulty || DIFFICULTY_BASE,
-    dateLastReviewed: dateLastReviewed ? new Date(dateLastReviewed) : null,
-    answerDate,
-  };
-
-  const percentOverdue = getPercentOverdue(toReview);
+export const reviewAnswer = (answerToReview: AnswerToReview) => {
+  const percentOverdue = getPercentOverdue(answerToReview);
 
   const { updatedDifficulty, difficultyWeight } = getDifficulty(
     percentOverdue,
-    toReview,
+    answerToReview,
   );
 
-  const updatedDaysBetweenReviews = getDaysBetweenReviews(
+  const updatedReviewGap = getReviewGap(
     percentOverdue,
     difficultyWeight,
-    toReview,
+    answerToReview,
   );
 
-  const reviewedAnswer: ReviewedAnswer = {
-    ...currentAnswer,
+  const reviewedAnswer: ReviewData = {
     difficulty: updatedDifficulty,
-    daysBetweenReviews: updatedDaysBetweenReviews,
+    latestReviewGap: updatedReviewGap,
+    lastAnsweredOn: answerToReview.answerDate,
+    streak:
+      answerToReview.performanceRating === WRONG
+        ? 0
+        : answerToReview.streak + 1,
   };
 
   console.log({
     percentOverdue,
-    updatedDifficulty,
     difficultyWeight,
-    updatedDaysBetweenReviews,
+    reviewedAnswer,
   });
 
   return reviewedAnswer;

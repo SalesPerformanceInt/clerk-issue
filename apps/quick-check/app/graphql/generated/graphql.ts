@@ -1,5 +1,6 @@
 /* eslint-disable */
 import type { JSONB } from '../scalars';
+import type { NUMERIC } from '../scalars';
 import type { TIMESTAMPTZ } from '../scalars';
 import type { UUID } from '../scalars';
 import type { TypedDocumentNode as DocumentNode } from '@graphql-typed-document-node/core';
@@ -16,6 +17,7 @@ export type Scalars = {
   Int: number;
   Float: number;
   jsonb: JSONB;
+  numeric: NUMERIC;
   timestamptz: TIMESTAMPTZ;
   uuid: UUID;
 };
@@ -1001,6 +1003,19 @@ export type Mutation_RootUpdate_User_Question_By_PkArgs = {
 /** mutation root */
 export type Mutation_RootUpdate_User_Question_ManyArgs = {
   updates: Array<User_Question_Updates>;
+};
+
+/** Boolean expression to compare columns of type "numeric". All fields are combined with logical 'AND'. */
+export type Numeric_Comparison_Exp = {
+  _eq?: InputMaybe<Scalars['numeric']>;
+  _gt?: InputMaybe<Scalars['numeric']>;
+  _gte?: InputMaybe<Scalars['numeric']>;
+  _in?: InputMaybe<Array<Scalars['numeric']>>;
+  _is_null?: InputMaybe<Scalars['Boolean']>;
+  _lt?: InputMaybe<Scalars['numeric']>;
+  _lte?: InputMaybe<Scalars['numeric']>;
+  _neq?: InputMaybe<Scalars['numeric']>;
+  _nin?: InputMaybe<Array<Scalars['numeric']>>;
 };
 
 /** column ordering options */
@@ -2119,9 +2134,13 @@ export type User_Question = {
   active_on?: Maybe<Scalars['timestamptz']>;
   attempts: Scalars['Int'];
   created_at: Scalars['timestamptz'];
+  difficulty: Scalars['numeric'];
   id: Scalars['uuid'];
+  last_answered_on?: Maybe<Scalars['timestamptz']>;
+  latest_review_gap: Scalars['Int'];
   question_id: Scalars['String'];
   status: Scalars['String'];
+  streak: Scalars['Int'];
   taxonomy_id: Scalars['String'];
   /** An object relationship */
   tenant: Tenant;
@@ -2201,11 +2220,17 @@ export type User_Question_Arr_Rel_Insert_Input = {
 export type User_Question_Avg_Fields = {
   __typename?: 'user_question_avg_fields';
   attempts?: Maybe<Scalars['Float']>;
+  difficulty?: Maybe<Scalars['Float']>;
+  latest_review_gap?: Maybe<Scalars['Float']>;
+  streak?: Maybe<Scalars['Float']>;
 };
 
 /** order by avg() on columns of table "user_question" */
 export type User_Question_Avg_Order_By = {
   attempts?: InputMaybe<Order_By>;
+  difficulty?: InputMaybe<Order_By>;
+  latest_review_gap?: InputMaybe<Order_By>;
+  streak?: InputMaybe<Order_By>;
 };
 
 /** Boolean expression to filter rows from the table "user_question". All fields are combined with a logical 'AND'. */
@@ -2216,9 +2241,13 @@ export type User_Question_Bool_Exp = {
   active_on?: InputMaybe<Timestamptz_Comparison_Exp>;
   attempts?: InputMaybe<Int_Comparison_Exp>;
   created_at?: InputMaybe<Timestamptz_Comparison_Exp>;
+  difficulty?: InputMaybe<Numeric_Comparison_Exp>;
   id?: InputMaybe<Uuid_Comparison_Exp>;
+  last_answered_on?: InputMaybe<Timestamptz_Comparison_Exp>;
+  latest_review_gap?: InputMaybe<Int_Comparison_Exp>;
   question_id?: InputMaybe<String_Comparison_Exp>;
   status?: InputMaybe<String_Comparison_Exp>;
+  streak?: InputMaybe<Int_Comparison_Exp>;
   taxonomy_id?: InputMaybe<String_Comparison_Exp>;
   tenant?: InputMaybe<Tenant_Bool_Exp>;
   tenant_id?: InputMaybe<String_Comparison_Exp>;
@@ -2237,6 +2266,9 @@ export enum User_Question_Constraint {
 /** input type for incrementing numeric columns in table "user_question" */
 export type User_Question_Inc_Input = {
   attempts?: InputMaybe<Scalars['Int']>;
+  difficulty?: InputMaybe<Scalars['numeric']>;
+  latest_review_gap?: InputMaybe<Scalars['Int']>;
+  streak?: InputMaybe<Scalars['Int']>;
 };
 
 /** input type for inserting data into table "user_question" */
@@ -2244,9 +2276,13 @@ export type User_Question_Insert_Input = {
   active_on?: InputMaybe<Scalars['timestamptz']>;
   attempts?: InputMaybe<Scalars['Int']>;
   created_at?: InputMaybe<Scalars['timestamptz']>;
+  difficulty?: InputMaybe<Scalars['numeric']>;
   id?: InputMaybe<Scalars['uuid']>;
+  last_answered_on?: InputMaybe<Scalars['timestamptz']>;
+  latest_review_gap?: InputMaybe<Scalars['Int']>;
   question_id?: InputMaybe<Scalars['String']>;
   status?: InputMaybe<Scalars['String']>;
+  streak?: InputMaybe<Scalars['Int']>;
   taxonomy_id?: InputMaybe<Scalars['String']>;
   tenant?: InputMaybe<Tenant_Obj_Rel_Insert_Input>;
   tenant_id?: InputMaybe<Scalars['String']>;
@@ -2262,9 +2298,13 @@ export type User_Question_Max_Fields = {
   active_on?: Maybe<Scalars['timestamptz']>;
   attempts?: Maybe<Scalars['Int']>;
   created_at?: Maybe<Scalars['timestamptz']>;
+  difficulty?: Maybe<Scalars['numeric']>;
   id?: Maybe<Scalars['uuid']>;
+  last_answered_on?: Maybe<Scalars['timestamptz']>;
+  latest_review_gap?: Maybe<Scalars['Int']>;
   question_id?: Maybe<Scalars['String']>;
   status?: Maybe<Scalars['String']>;
+  streak?: Maybe<Scalars['Int']>;
   taxonomy_id?: Maybe<Scalars['String']>;
   tenant_id?: Maybe<Scalars['String']>;
   user_enrollment_id?: Maybe<Scalars['uuid']>;
@@ -2276,9 +2316,13 @@ export type User_Question_Max_Order_By = {
   active_on?: InputMaybe<Order_By>;
   attempts?: InputMaybe<Order_By>;
   created_at?: InputMaybe<Order_By>;
+  difficulty?: InputMaybe<Order_By>;
   id?: InputMaybe<Order_By>;
+  last_answered_on?: InputMaybe<Order_By>;
+  latest_review_gap?: InputMaybe<Order_By>;
   question_id?: InputMaybe<Order_By>;
   status?: InputMaybe<Order_By>;
+  streak?: InputMaybe<Order_By>;
   taxonomy_id?: InputMaybe<Order_By>;
   tenant_id?: InputMaybe<Order_By>;
   user_enrollment_id?: InputMaybe<Order_By>;
@@ -2291,9 +2335,13 @@ export type User_Question_Min_Fields = {
   active_on?: Maybe<Scalars['timestamptz']>;
   attempts?: Maybe<Scalars['Int']>;
   created_at?: Maybe<Scalars['timestamptz']>;
+  difficulty?: Maybe<Scalars['numeric']>;
   id?: Maybe<Scalars['uuid']>;
+  last_answered_on?: Maybe<Scalars['timestamptz']>;
+  latest_review_gap?: Maybe<Scalars['Int']>;
   question_id?: Maybe<Scalars['String']>;
   status?: Maybe<Scalars['String']>;
+  streak?: Maybe<Scalars['Int']>;
   taxonomy_id?: Maybe<Scalars['String']>;
   tenant_id?: Maybe<Scalars['String']>;
   user_enrollment_id?: Maybe<Scalars['uuid']>;
@@ -2305,9 +2353,13 @@ export type User_Question_Min_Order_By = {
   active_on?: InputMaybe<Order_By>;
   attempts?: InputMaybe<Order_By>;
   created_at?: InputMaybe<Order_By>;
+  difficulty?: InputMaybe<Order_By>;
   id?: InputMaybe<Order_By>;
+  last_answered_on?: InputMaybe<Order_By>;
+  latest_review_gap?: InputMaybe<Order_By>;
   question_id?: InputMaybe<Order_By>;
   status?: InputMaybe<Order_By>;
+  streak?: InputMaybe<Order_By>;
   taxonomy_id?: InputMaybe<Order_By>;
   tenant_id?: InputMaybe<Order_By>;
   user_enrollment_id?: InputMaybe<Order_By>;
@@ -2342,9 +2394,13 @@ export type User_Question_Order_By = {
   active_on?: InputMaybe<Order_By>;
   attempts?: InputMaybe<Order_By>;
   created_at?: InputMaybe<Order_By>;
+  difficulty?: InputMaybe<Order_By>;
   id?: InputMaybe<Order_By>;
+  last_answered_on?: InputMaybe<Order_By>;
+  latest_review_gap?: InputMaybe<Order_By>;
   question_id?: InputMaybe<Order_By>;
   status?: InputMaybe<Order_By>;
+  streak?: InputMaybe<Order_By>;
   taxonomy_id?: InputMaybe<Order_By>;
   tenant?: InputMaybe<Tenant_Order_By>;
   tenant_id?: InputMaybe<Order_By>;
@@ -2368,11 +2424,19 @@ export enum User_Question_Select_Column {
   /** column name */
   CreatedAt = 'created_at',
   /** column name */
+  Difficulty = 'difficulty',
+  /** column name */
   Id = 'id',
+  /** column name */
+  LastAnsweredOn = 'last_answered_on',
+  /** column name */
+  LatestReviewGap = 'latest_review_gap',
   /** column name */
   QuestionId = 'question_id',
   /** column name */
   Status = 'status',
+  /** column name */
+  Streak = 'streak',
   /** column name */
   TaxonomyId = 'taxonomy_id',
   /** column name */
@@ -2388,9 +2452,13 @@ export type User_Question_Set_Input = {
   active_on?: InputMaybe<Scalars['timestamptz']>;
   attempts?: InputMaybe<Scalars['Int']>;
   created_at?: InputMaybe<Scalars['timestamptz']>;
+  difficulty?: InputMaybe<Scalars['numeric']>;
   id?: InputMaybe<Scalars['uuid']>;
+  last_answered_on?: InputMaybe<Scalars['timestamptz']>;
+  latest_review_gap?: InputMaybe<Scalars['Int']>;
   question_id?: InputMaybe<Scalars['String']>;
   status?: InputMaybe<Scalars['String']>;
+  streak?: InputMaybe<Scalars['Int']>;
   taxonomy_id?: InputMaybe<Scalars['String']>;
   tenant_id?: InputMaybe<Scalars['String']>;
   user_enrollment_id?: InputMaybe<Scalars['uuid']>;
@@ -2401,33 +2469,51 @@ export type User_Question_Set_Input = {
 export type User_Question_Stddev_Fields = {
   __typename?: 'user_question_stddev_fields';
   attempts?: Maybe<Scalars['Float']>;
+  difficulty?: Maybe<Scalars['Float']>;
+  latest_review_gap?: Maybe<Scalars['Float']>;
+  streak?: Maybe<Scalars['Float']>;
 };
 
 /** order by stddev() on columns of table "user_question" */
 export type User_Question_Stddev_Order_By = {
   attempts?: InputMaybe<Order_By>;
+  difficulty?: InputMaybe<Order_By>;
+  latest_review_gap?: InputMaybe<Order_By>;
+  streak?: InputMaybe<Order_By>;
 };
 
 /** aggregate stddev_pop on columns */
 export type User_Question_Stddev_Pop_Fields = {
   __typename?: 'user_question_stddev_pop_fields';
   attempts?: Maybe<Scalars['Float']>;
+  difficulty?: Maybe<Scalars['Float']>;
+  latest_review_gap?: Maybe<Scalars['Float']>;
+  streak?: Maybe<Scalars['Float']>;
 };
 
 /** order by stddev_pop() on columns of table "user_question" */
 export type User_Question_Stddev_Pop_Order_By = {
   attempts?: InputMaybe<Order_By>;
+  difficulty?: InputMaybe<Order_By>;
+  latest_review_gap?: InputMaybe<Order_By>;
+  streak?: InputMaybe<Order_By>;
 };
 
 /** aggregate stddev_samp on columns */
 export type User_Question_Stddev_Samp_Fields = {
   __typename?: 'user_question_stddev_samp_fields';
   attempts?: Maybe<Scalars['Float']>;
+  difficulty?: Maybe<Scalars['Float']>;
+  latest_review_gap?: Maybe<Scalars['Float']>;
+  streak?: Maybe<Scalars['Float']>;
 };
 
 /** order by stddev_samp() on columns of table "user_question" */
 export type User_Question_Stddev_Samp_Order_By = {
   attempts?: InputMaybe<Order_By>;
+  difficulty?: InputMaybe<Order_By>;
+  latest_review_gap?: InputMaybe<Order_By>;
+  streak?: InputMaybe<Order_By>;
 };
 
 /** Streaming cursor of the table "user_question" */
@@ -2443,9 +2529,13 @@ export type User_Question_Stream_Cursor_Value_Input = {
   active_on?: InputMaybe<Scalars['timestamptz']>;
   attempts?: InputMaybe<Scalars['Int']>;
   created_at?: InputMaybe<Scalars['timestamptz']>;
+  difficulty?: InputMaybe<Scalars['numeric']>;
   id?: InputMaybe<Scalars['uuid']>;
+  last_answered_on?: InputMaybe<Scalars['timestamptz']>;
+  latest_review_gap?: InputMaybe<Scalars['Int']>;
   question_id?: InputMaybe<Scalars['String']>;
   status?: InputMaybe<Scalars['String']>;
+  streak?: InputMaybe<Scalars['Int']>;
   taxonomy_id?: InputMaybe<Scalars['String']>;
   tenant_id?: InputMaybe<Scalars['String']>;
   user_enrollment_id?: InputMaybe<Scalars['uuid']>;
@@ -2456,11 +2546,17 @@ export type User_Question_Stream_Cursor_Value_Input = {
 export type User_Question_Sum_Fields = {
   __typename?: 'user_question_sum_fields';
   attempts?: Maybe<Scalars['Int']>;
+  difficulty?: Maybe<Scalars['numeric']>;
+  latest_review_gap?: Maybe<Scalars['Int']>;
+  streak?: Maybe<Scalars['Int']>;
 };
 
 /** order by sum() on columns of table "user_question" */
 export type User_Question_Sum_Order_By = {
   attempts?: InputMaybe<Order_By>;
+  difficulty?: InputMaybe<Order_By>;
+  latest_review_gap?: InputMaybe<Order_By>;
+  streak?: InputMaybe<Order_By>;
 };
 
 /** update columns of table "user_question" */
@@ -2472,11 +2568,19 @@ export enum User_Question_Update_Column {
   /** column name */
   CreatedAt = 'created_at',
   /** column name */
+  Difficulty = 'difficulty',
+  /** column name */
   Id = 'id',
+  /** column name */
+  LastAnsweredOn = 'last_answered_on',
+  /** column name */
+  LatestReviewGap = 'latest_review_gap',
   /** column name */
   QuestionId = 'question_id',
   /** column name */
   Status = 'status',
+  /** column name */
+  Streak = 'streak',
   /** column name */
   TaxonomyId = 'taxonomy_id',
   /** column name */
@@ -2500,33 +2604,51 @@ export type User_Question_Updates = {
 export type User_Question_Var_Pop_Fields = {
   __typename?: 'user_question_var_pop_fields';
   attempts?: Maybe<Scalars['Float']>;
+  difficulty?: Maybe<Scalars['Float']>;
+  latest_review_gap?: Maybe<Scalars['Float']>;
+  streak?: Maybe<Scalars['Float']>;
 };
 
 /** order by var_pop() on columns of table "user_question" */
 export type User_Question_Var_Pop_Order_By = {
   attempts?: InputMaybe<Order_By>;
+  difficulty?: InputMaybe<Order_By>;
+  latest_review_gap?: InputMaybe<Order_By>;
+  streak?: InputMaybe<Order_By>;
 };
 
 /** aggregate var_samp on columns */
 export type User_Question_Var_Samp_Fields = {
   __typename?: 'user_question_var_samp_fields';
   attempts?: Maybe<Scalars['Float']>;
+  difficulty?: Maybe<Scalars['Float']>;
+  latest_review_gap?: Maybe<Scalars['Float']>;
+  streak?: Maybe<Scalars['Float']>;
 };
 
 /** order by var_samp() on columns of table "user_question" */
 export type User_Question_Var_Samp_Order_By = {
   attempts?: InputMaybe<Order_By>;
+  difficulty?: InputMaybe<Order_By>;
+  latest_review_gap?: InputMaybe<Order_By>;
+  streak?: InputMaybe<Order_By>;
 };
 
 /** aggregate variance on columns */
 export type User_Question_Variance_Fields = {
   __typename?: 'user_question_variance_fields';
   attempts?: Maybe<Scalars['Float']>;
+  difficulty?: Maybe<Scalars['Float']>;
+  latest_review_gap?: Maybe<Scalars['Float']>;
+  streak?: Maybe<Scalars['Float']>;
 };
 
 /** order by variance() on columns of table "user_question" */
 export type User_Question_Variance_Order_By = {
   attempts?: InputMaybe<Order_By>;
+  difficulty?: InputMaybe<Order_By>;
+  latest_review_gap?: InputMaybe<Order_By>;
+  streak?: InputMaybe<Order_By>;
 };
 
 /** select columns of table "user" */

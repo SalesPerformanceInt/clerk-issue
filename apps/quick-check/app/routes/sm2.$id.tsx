@@ -81,10 +81,7 @@ export const loader = async ({ params, request }: LoaderArgs) => {
 export const shouldRevalidate: ShouldRevalidateFunction = ({
   currentParams,
   nextParams,
-}) => {
-  if (currentParams.id !== nextParams.id) return true;
-  return false;
-};
+}) => currentParams.id !== nextParams.id;
 
 export const action: ActionFunction = async ({ request }) => {
   const result = await saveAnswer(request);
@@ -195,5 +192,3 @@ export default function Page() {
     </>
   );
 }
-
-// export { ErrorBoundary } from "~/components/ErrorBoundary";

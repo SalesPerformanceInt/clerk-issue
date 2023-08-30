@@ -72,13 +72,11 @@ export const loader = async ({ params, request }: LoaderArgs) => {
 export const shouldRevalidate: ShouldRevalidateFunction = ({
   currentParams,
   nextParams,
-}) => {
-  if (currentParams.id !== nextParams.id) return true;
-  return false;
-};
+}) => currentParams.id !== nextParams.id;
 
 export const action: ActionFunction = async ({ request }) => {
   const result = await saveAnswer(request);
+
   const nextQuestionId = await generateNextQuestion(request);
 
   return json({ result, nextQuestionId });
@@ -87,10 +85,13 @@ export const action: ActionFunction = async ({ request }) => {
 export default function Page() {
   const { questionItem, variant, enrollmentTaxonomy, id } =
     useLoaderData<typeof loader>();
-  const navigate = useNavigate();
 
+  const navigate = useNavigate();
   const submit = useSubmit();
+
   const onSubmit: OnSubmit = (selection) => {
+    const currentDate = new Date().toISOString();
+
     const answer: Answer = {
       id,
       questionId: questionItem.uid,
@@ -101,7 +102,7 @@ export default function Page() {
 
     const data = JSON.stringify(answer);
 
-    submit({ data }, { method: "POST" });
+    submit({ data, currentDate }, { method: "POST" });
   };
 
   return (
@@ -116,5 +117,3 @@ export default function Page() {
     />
   );
 }
-
-// export { ErrorBoundary } from "~/components/ErrorBoundary";

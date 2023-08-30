@@ -48,13 +48,14 @@ export const loader = async ({ params, request }: LoaderArgs) => {
 
     const userApolloClient = await getUserApolloClientFromRequest(request);
     const userQuestion = await userApolloClient.getUserQuestion(id);
+
     invariant(userQuestion?.active_on, "user question not found");
 
     const { questionItem, enrollmentTaxonomy } =
       await getQuestionData(userQuestion);
 
     const variant = getFirstVariant(questionItem.variants);
-    invariant(variant, "No valid ");
+    invariant(variant, "No valid variant");
 
     return json({ questionItem, enrollmentTaxonomy, variant, id });
   } catch (error) {
@@ -69,6 +70,7 @@ export const shouldRevalidate: ShouldRevalidateFunction = ({
 
 export const action: ActionFunction = async ({ request }) => {
   const result = await saveAnswer(request);
+
   const nextQuestionId = await generateNextQuestionFromRequest(request);
 
   return json({ result, nextQuestionId });

@@ -25,11 +25,12 @@ export const parseAnswerDate = (value: unknown) => {
   const parsedDate = z.string().parse(value);
   const [parsedYear, parsedMonth, parsedDay] = parsedDate.split("-");
 
-  if (!parsedYear || !parsedMonth || !parsedDay) return new Date();
+  if (!parsedYear || !parsedMonth || !parsedDay)
+    return new Date().toISOString();
 
   answerDate.setFullYear(+parsedYear, +parsedMonth - 1, +parsedDay);
 
-  return new Date(answerDate);
+  return new Date(answerDate).toISOString();
 };
 
 /**
@@ -42,10 +43,10 @@ export type ReviewedAnswer = {
   latestReviewGap: number;
   difficulty: number;
   streak: number;
-  lastAnsweredOn: Date | null;
+  lastAnsweredOn: string | null;
 };
 
 export type AnswerToReview = ReviewedAnswer & {
   performanceRating: number;
-  answerDate: Date;
+  answerDate: string;
 };

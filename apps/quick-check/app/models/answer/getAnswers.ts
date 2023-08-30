@@ -34,15 +34,11 @@ export const getCurrentAnswer = async (request: Request) => {
 export const getReviewedAnswer = (
   userQuestion: BaseUserQuestionFragment,
   currentAnswer: Answer,
-  answerDate: Date,
+  answerDate: string,
 ) => {
-  const lastAnsweredOn = userQuestion.last_answered_on
-    ? new Date(userQuestion.last_answered_on)
-    : null;
-
   const answerToReview: AnswerToReview = {
-    lastAnsweredOn,
-    answerDate: new Date(answerDate),
+    answerDate,
+    lastAnsweredOn: userQuestion.last_answered_on || null,
     performanceRating: currentAnswer.correct ? CORRECT : WRONG,
     latestReviewGap: userQuestion.latest_review_gap,
     difficulty: userQuestion.difficulty || DIFFICULTY_BASE,

@@ -58,7 +58,7 @@ export const saveAnswer = async (request: Request) => {
       latest_review_gap: reviewedAnswer.latestReviewGap,
       difficulty: reviewedAnswer.difficulty,
       streak: reviewedAnswer.streak,
-      last_answered_on: reviewedAnswer.lastAnsweredOn?.toISOString(),
+      last_answered_on: reviewedAnswer.lastAnsweredOn,
     },
     { attempts: 1 },
   );

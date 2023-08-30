@@ -22,7 +22,10 @@ const getPercentOverdue = ({
   if (performanceRating === WRONG) return 1;
 
   const daysSinceLastReview = lastAnsweredOn
-    ? Math.floor((answerDate.getTime() - lastAnsweredOn.getTime()) / DAY_MS)
+    ? Math.floor(
+        (new Date(answerDate).getTime() - new Date(lastAnsweredOn).getTime()) /
+          DAY_MS,
+      )
     : 0;
 
   const percentOverdue = daysSinceLastReview / latestReviewGap || 1;
@@ -91,7 +94,7 @@ export const reviewAnswer = (answerToReview: AnswerToReview) => {
   const reviewedAnswer: ReviewedAnswer = {
     difficulty: updatedDifficulty,
     latestReviewGap: updatedReviewGap,
-    lastAnsweredOn: new Date(answerToReview.answerDate),
+    lastAnsweredOn: answerToReview.answerDate,
     streak:
       answerToReview.performanceRating === WRONG
         ? 0

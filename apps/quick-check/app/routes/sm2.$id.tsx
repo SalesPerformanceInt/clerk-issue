@@ -159,6 +159,15 @@ export default function Page() {
               <div>User ID: {userId} </div>
               <div>Question Status: {userQuestion.status}</div>
               <div>Attempts: {userQuestion.attempts}</div>
+              <div>Streak: {userQuestion.streak}</div>
+              <div>Difficulty: {userQuestion.difficulty}</div>
+              <div>Latest Review Gap: {userQuestion.latest_review_gap}</div>
+              <div>
+                Last Answered On:{" "}
+                {userQuestion.last_answered_on
+                  ? new Date(userQuestion.last_answered_on).toLocaleDateString()
+                  : "--"}
+              </div>
               <div>
                 Active On:{" "}
                 {userQuestion.active_on

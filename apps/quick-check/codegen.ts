@@ -30,7 +30,8 @@ const config: CodegenConfig = {
         scalars: {
           uuid: "../scalars#UUID",
           jsonb: "../scalars#JSONB",
-          timestamptz: "../scalars#TIMESTAMPTZ",
+          timestamptz: "../scalars#TimestampTZ",
+          numeric: "../scalars#Numeric",
         },
         strictScalars: true,
       },

@@ -16,6 +16,7 @@ import { generateTokenAndSendSMS } from "~/notifications/twilio.server";
 
 import { sendEmail } from "~/utils/email";
 import { VERCEL_URL } from "~/utils/envs.server";
+import { remixI18next } from "~/utils/i18next.server";
 import { parseSchema } from "~/utils/parseSchema";
 
 import { getQuestionData } from "~/models/question";
@@ -115,19 +116,27 @@ export const action = async ({ request }: ActionArgs) => {
 
       const activeToken = user.active_tokens[0]?.id ?? "";
 
+      const t = await remixI18next.getFixedT(user.language_preference);
+
       const result = await sendEmail(
         user?.email,
-        `${user.first_name}, you're on a roll! Keep your 3-week QuickCheck streak going.`,
+        t("emails.question.subject.on_a_roll", {
+          first_name: user.first_name,
+          weeks: 5,
+        }),
         <QuickcheckQuestionEmail
           questionItem={questionItem}
           enrollmentTaxonomy={enrollmentTaxonomy}
           token={activeToken}
           domain={VERCEL_URL}
           questionId={nextQuestion.id}
+          t={t}
+          userData={{
+            unanswered: 17,
+            courses_capabilities: 5,
+          }}
         />,
       );
-
-      console.log("EMAIL", JSON.stringify(result, null, 2));
     }
 
     const { type, userId } = adminAction ?? {};

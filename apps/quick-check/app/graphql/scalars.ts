@@ -1,3 +1,4 @@
 export type UUID = string;
 export type JSONB = Record<string, unknown>;
-export type TIMESTAMPTZ = string;
+export type TimestampTZ = string;
+export type Numeric = number;

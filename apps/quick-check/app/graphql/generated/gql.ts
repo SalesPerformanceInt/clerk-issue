@@ -27,7 +27,7 @@ const documents = {
     "\n  mutation ToggleUserSMSEnabled($userId: uuid!, $sms_enabled: Boolean) {\n    update_user_by_pk(\n      pk_columns: { user_id: $userId }\n      _set: { sms_enabled: $sms_enabled }\n    ) {\n      ...BaseUser\n    }\n  }\n": types.ToggleUserSmsEnabledDocument,
     "\n  mutation UpdateNextQuestionId($user_id: uuid!, $next_user_question_id: uuid) {\n    update_user_by_pk(\n      pk_columns: { user_id: $user_id }\n      _set: { next_user_question_id: $next_user_question_id }\n    ) {\n      ...BaseUser\n    }\n  }\n": types.UpdateNextQuestionIdDocument,
     "\n  mutation UpdateUserQuestion(\n    $id: uuid!\n    $set: user_question_set_input\n    $inc: user_question_inc_input\n  ) {\n    update_user_question_by_pk(\n      pk_columns: { id: $id }\n      _set: $set\n      _inc: $inc\n    ) {\n      ...BaseUserQuestion\n    }\n  }\n": types.UpdateUserQuestionDocument,
-    "\n  query GetAllUser {\n    user(order_by: { created_at: asc }) {\n      ...UserWithActiveToken\n    }\n  }\n": types.GetAllUserDocument,
+    "\n  query GetAllUser {\n    user(order_by: [{ created_at: asc }, { email: asc }]) {\n      ...UserWithActiveToken\n    }\n  }\n": types.GetAllUserDocument,
     "\n  query GetLinkToken($id: String!) {\n    link_token_by_pk(id: $id) {\n      id\n      user_id\n      tenant_id\n      created_at\n      active\n    }\n  }\n": types.GetLinkTokenDocument,
     "\n  query GetUser($userId: uuid!) {\n    user_by_pk(user_id: $userId) {\n      ...UserWithActiveToken\n    }\n  }\n": types.GetUserDocument,
     "\n  query GetUserDashboard($userId: uuid!) {\n    user_by_pk(user_id: $userId) {\n      ...BaseUser\n      user_enrollments {\n        taxonomy_id\n        id\n        attempted: user_questions_aggregate(\n          where: { status: { _eq: \"attempted\" } }\n        ) {\n          aggregate {\n            count\n          }\n        }\n        unattempted: user_questions_aggregate(\n          where: { status: { _eq: \"unattempted\" } }\n        ) {\n          aggregate {\n            count\n          }\n        }\n        retired: user_questions_aggregate(\n          where: { status: { _eq: \"retired\" } }\n        ) {\n          aggregate {\n            count\n          }\n        }\n        total: user_questions_aggregate {\n          aggregate {\n            count\n          }\n        }\n      }\n    }\n  }\n": types.GetUserDashboardDocument,
@@ -109,7 +109,7 @@ export function graphql(source: "\n  mutation UpdateUserQuestion(\n    $id: uuid
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
-export function graphql(source: "\n  query GetAllUser {\n    user(order_by: { created_at: asc }) {\n      ...UserWithActiveToken\n    }\n  }\n"): (typeof documents)["\n  query GetAllUser {\n    user(order_by: { created_at: asc }) {\n      ...UserWithActiveToken\n    }\n  }\n"];
+export function graphql(source: "\n  query GetAllUser {\n    user(order_by: [{ created_at: asc }, { email: asc }]) {\n      ...UserWithActiveToken\n    }\n  }\n"): (typeof documents)["\n  query GetAllUser {\n    user(order_by: [{ created_at: asc }, { email: asc }]) {\n      ...UserWithActiveToken\n    }\n  }\n"];
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */

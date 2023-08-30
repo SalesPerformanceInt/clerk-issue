@@ -1,4 +1,5 @@
 import React, { type FC } from "react";
+import { useTranslation } from "react-i18next";
 
 import { useNavigate } from "@remix-run/react";
 
@@ -9,6 +10,7 @@ import { AccelerateIcon, Button } from "quickcheck-shared";
 
 export const AccelerateButton: FC = () => {
   const navigate = useNavigate();
+  const { t } = useTranslation();
 
   return (
     <Button
@@ -17,10 +19,9 @@ export const AccelerateButton: FC = () => {
       className="uppercase text-xs px-4 w-auto"
     >
       <AccelerateIcon className="mr-2" dark />
-      Accelerate
+      {t("buttons.accelerate")}
       <FontAwesomeIcon
         icon={faArrowUpRightFromSquare}
-        //   size="xs"
         className="ml-0.5 text-xxs mb-0.5"
       />
     </Button>

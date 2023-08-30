@@ -12,3 +12,4 @@ export * from "./utils/tree";
 export * from "./contentstack";
 export * from "./utils/stripHTML";
 export * from "./utils/getVariant";
+export * from "./utils/i18n";

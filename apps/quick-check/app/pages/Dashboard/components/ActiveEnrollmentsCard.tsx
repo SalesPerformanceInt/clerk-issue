@@ -1,4 +1,5 @@
 import React, { type FC } from "react";
+import { useTranslation } from "react-i18next";
 
 import { useDashboardContext } from "~/pages/Dashboard";
 
@@ -6,12 +7,13 @@ import { Card, CardTitle, ProgressItem } from "quickcheck-shared";
 
 export const ActiveEnrollmentsCard: FC = () => {
   const { dashboard } = useDashboardContext();
+  const { t } = useTranslation();
 
   return (
     <Card className="last:col-span-full">
       <CardTitle
         qty={dashboard.user_enrollments.length}
-        title="Active Enrollments"
+        title={t("user.dashboard.active_enrollments")}
         className="p-6 pb-0"
       />
       {dashboard.user_enrollments.map((enrollment) => (

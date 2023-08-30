@@ -1,15 +1,32 @@
-import type { QuestionItem, Taxon } from "quickcheck-shared";
+import { type QuestionItem, type Taxon } from "quickcheck-shared";
 
-import { QuickcheckQuestionEmail } from "../templates/QuickcheckQuestionEmail";
+import {
+  QuickcheckQuestionEmail,
+  UserData,
+} from "../templates/QuickcheckQuestionEmail";
+import { i18n } from "../utils/i18n";
 
-const QuickcheckQuestionEmailPreview = () => (
-  <QuickcheckQuestionEmail
-    questionItem={questionItemMock}
-    enrollmentTaxonomy={enrollmentTaxonomyMock}
-  />
-);
+const QuickcheckQuestionEmailPreview = () => {
+  const t = i18n.getFixedT("en-us");
+  return (
+    <QuickcheckQuestionEmail
+      userData={userData}
+      questionItem={questionItemMock}
+      enrollmentTaxonomy={enrollmentTaxonomyMock}
+      t={t}
+      token="TOKEN"
+      domain="example.com"
+      questionId="questionId"
+    />
+  );
+};
 
 export default QuickcheckQuestionEmailPreview;
+
+const userData: UserData = {
+  unanswered: 24,
+  courses_capabilities: 3,
+};
 
 const enrollmentTaxonomyMock = {
   _version: 1,

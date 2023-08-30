@@ -37,5 +37,7 @@ export const buildTaxonTrees = async () => {
   const taxonomies = (await contentStack.getAllTaxonomies()) ?? [];
 
   const taxonomyDataObjects = taxonomies.map(toTaxonomyDataObj);
-  return buildTrees(taxonomyDataObjects);
+
+  const trees = buildTrees(taxonomyDataObjects);
+  return trees;
 };

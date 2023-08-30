@@ -1,4 +1,4 @@
-import { useEffect, useMemo } from "react";
+import { useCallback, useEffect, useMemo } from "react";
 
 import { compact, find } from "remeda";
 
@@ -24,25 +24,26 @@ export const useMultipleChoices = ({ mcquestion }: UseMultipleChoiceProps) => {
     [mcquestion.choices],
   );
 
-  const onChoiceSelect: OnMCChoiceSelect = ({ choice }) => {
-    onSelection({
-      correct: choice.correct,
-      feedback: choice.feedback,
-      feedbackLiveEdit: choice.$?.feedback,
-      value: choice._metadata.uid,
-    });
-  };
+  const onChoiceSelect: OnMCChoiceSelect = useCallback(
+    ({ choice }) => {
+      onSelection({
+        correct: choice.correct,
+        feedback: choice.feedback,
+        feedbackLiveEdit: choice.$?.feedback,
+        value: choice._metadata.uid,
+      });
+    },
+    [onSelection],
+  );
+
+  const initialChoice = useMemo(
+    () =>
+      find(choices, ({ choice }) => choice._metadata.uid === initialChoiceId),
+    [initialChoiceId, choices],
+  );
 
   useEffect(() => {
-    if (initialChoiceId) {
-      const initialChoice = find(
-        choices,
-        ({ choice }) => choice._metadata.uid === initialChoiceId,
-      );
-      if (initialChoice) {
-        onChoiceSelect(initialChoice);
-      }
-    }
+    if (initialChoice) onChoiceSelect(initialChoice);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 

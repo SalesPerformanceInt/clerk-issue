@@ -9,13 +9,13 @@ import {
 import {
   useLoaderData,
   useNavigate,
+  useSearchParams,
   useSubmit,
   type ShouldRevalidateFunction,
 } from "@remix-run/react";
 
 import { compact, first, map, pipe } from "remeda";
 import invariant from "tiny-invariant";
-import { contentStack } from "~/contentstack.server";
 import { getUserApolloClientFromRequest } from "~/graphql";
 import { requireUserSession } from "~/session.server";
 
@@ -27,7 +27,8 @@ import {
 } from "quickcheck-shared";
 
 import { saveAnswer, type Answer } from "~/models/answer";
-import { generateNextQuestion } from "~/models/user";
+import { getQuestionData } from "~/models/question";
+import { generateNextQuestionFromRequest } from "~/models/user";
 
 const getVariantNames = (questionItemVariants: QuestionItemVariant[]) =>
   pipe(
@@ -52,18 +53,11 @@ export const loader = async ({ params, request }: LoaderArgs) => {
 
     invariant(userQuestion?.active_on, "user question not found");
 
-    const questionItem = await contentStack.getQuestionItem(
-      userQuestion.question_id,
-    );
-
-    invariant(questionItem, "questionItem not found");
-
-    const enrollmentTaxonomy = await contentStack.getTaxonomy(
-      userQuestion.user_enrollment.taxonomy_id,
-    );
+    const { questionItem, enrollmentTaxonomy } =
+      await getQuestionData(userQuestion);
 
     const variant = getFirstVariant(questionItem.variants);
-    invariant(variant, "No valid ");
+    invariant(variant, "No valid variant");
 
     return json({
       questionItem,
@@ -86,7 +80,7 @@ export const shouldRevalidate: ShouldRevalidateFunction = ({
 export const action: ActionFunction = async ({ request }) => {
   const result = await saveAnswer(request);
 
-  const nextQuestionId = await generateNextQuestion(request);
+  const nextQuestionId = await generateNextQuestionFromRequest(request);
 
   return json({ result, nextQuestionId });
 };

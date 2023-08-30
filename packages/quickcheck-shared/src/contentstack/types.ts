@@ -12,7 +12,7 @@ export type QuestionItemChoice = WithLiveData<{
   choice: {
     correct: boolean;
     _metadata: Metadata;
-    points?: number;
+    points?: number | null;
     body: string;
     feedback: string;
   };

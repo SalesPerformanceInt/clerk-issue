@@ -1,24 +1,10 @@
 import React, { FC } from "react";
 
-import {
-  QuestionItem,
-  Variant,
-  useQuestionContext,
-} from "~/components/Question";
+import { getVariant } from "~/utils/getVariant";
 
-import type { RestrictQuestionItemVariant } from "./QuestionVariant.types";
+import { useQuestionContext } from "~/components/Question";
+
 import { MultipleChoice } from "./variants";
-
-const getVariant = <V extends Variant>(
-  questionItem: QuestionItem,
-  variant: V,
-) => {
-  const questionVariant = questionItem.variants.find(
-    (_variant) => variant in _variant,
-  );
-
-  return questionVariant as RestrictQuestionItemVariant<V>;
-};
 
 export const QuestionVariant: FC = () => {
   const { questionItem, variant } = useQuestionContext();

@@ -30,6 +30,9 @@ export const UsersTable: FC<UserTableProps> = ({ users }) => {
           <th scope="col" className="w-1 whitespace-nowrap px-6 py-4">
             Reset
           </th>
+          <th scope="col" className="w-1 whitespace-nowrap px-6 py-4">
+            Send Email
+          </th>
         </tr>
       </thead>
       <tbody>

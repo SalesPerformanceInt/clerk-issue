@@ -2,9 +2,9 @@ import React, { type FC } from "react";
 
 import { MCQuestion } from "~/contentstack";
 
+import { ResponsiveContainer } from "~/components";
 import { Title } from "~/components/Question/components";
 import { Choice } from "~/components/Question/components/QuestionVariant/components/Choice";
-import { ResponsiveContainer } from "~/components";
 
 import { useMultipleChoices } from "./hooks/useMultipleChoice";
 

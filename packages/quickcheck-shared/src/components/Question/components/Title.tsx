@@ -12,6 +12,7 @@ export const Title: FC = () => {
           {enrollmentTaxonomy.display_name}
         </div>
       )}
+
       <div className="text-primary-75 text-xs font-semibold uppercase">
         {questionItem.topic[0]?.display_name}
       </div>

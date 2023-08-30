@@ -12,3 +12,5 @@ export * from "./utils/tree";
 export * from "./utils/andThen";
 export * from "./utils/promiseWrapper";
 export * from "./contentstack";
+export * from "./utils/stripHTML";
+export * from "./utils/getVariant";

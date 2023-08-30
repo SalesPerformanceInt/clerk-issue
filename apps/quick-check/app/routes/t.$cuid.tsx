@@ -16,15 +16,19 @@ export const loader = async ({ params, request }: LoaderArgs) => {
     const { cuid } = params;
     invariant(cuid, "cuid not found");
 
-    const unauthenticatedApolloClient = await getUnauthenticatedApolloClient(
-      cuid,
-    );
+    const unauthenticatedApolloClient =
+      await getUnauthenticatedApolloClient(cuid);
     const token = await unauthenticatedApolloClient.getLinkToken(cuid);
     invariant(token, "token not found");
     invariant(token.active, "token expired");
 
+    const searchParams = new URL(request.url).searchParams;
+    const path = searchParams.get("p");
+
+    const redirectTo = path ?? "/nq";
+
     return createUserSession({
-      redirectTo: "/nq",
+      redirectTo,
       remember: true,
       request,
       userId: token.user_id,

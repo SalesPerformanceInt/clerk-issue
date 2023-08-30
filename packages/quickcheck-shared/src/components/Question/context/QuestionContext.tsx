@@ -36,7 +36,6 @@ export const QuestionContextProvider: FC<QuestionContextProviderProps> = ({
 }) => {
   const questionProps = useQuestion(props);
 
-  // const currentTopic = props.questionItem.taxonomy[0]?.title ?? "";
   const currentTopic = props.questionItem.topic[0]?.title ?? "";
 
   return (

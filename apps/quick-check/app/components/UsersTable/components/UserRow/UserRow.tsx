@@ -4,6 +4,7 @@ import { useNavigation, useSubmit } from "@remix-run/react";
 
 import {
   faArrowsRotate,
+  faEnvelope,
   faKey,
   faRightToBracket,
 } from "@fortawesome/pro-solid-svg-icons";
@@ -91,6 +92,16 @@ export const UserRow: FC<UserRowProps> = ({ user, row }) => {
           className="h-8 w-auto py-0"
         >
           <FontAwesomeIcon icon={faArrowsRotate} />
+        </Button>
+      </td>
+      <td className="whitespace-nowrap px-6 py-4 text-center">
+        <Button
+          disabled={!activeToken}
+          loading={isLoading("SEND_QUESTION_EMAIL")}
+          onClick={makeUserAction("SEND_QUESTION_EMAIL")}
+          className="h-8 w-auto py-0"
+        >
+          <FontAwesomeIcon icon={faEnvelope} />
         </Button>
       </td>
     </tr>

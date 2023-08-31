@@ -48,13 +48,14 @@ export const loader = async ({ params, request }: LoaderArgs) => {
 
     const userApolloClient = await getUserApolloClientFromRequest(request);
     const userQuestion = await userApolloClient.getUserQuestion(id);
+
     invariant(userQuestion?.active_on, "user question not found");
 
     const { questionItem, enrollmentTaxonomy } =
       await getQuestionData(userQuestion);
 
     const variant = getFirstVariant(questionItem.variants);
-    invariant(variant, "No valid ");
+    invariant(variant, "No valid variant");
 
     return json({ questionItem, enrollmentTaxonomy, variant, id });
   } catch (error) {
@@ -65,13 +66,11 @@ export const loader = async ({ params, request }: LoaderArgs) => {
 export const shouldRevalidate: ShouldRevalidateFunction = ({
   currentParams,
   nextParams,
-}) => {
-  if (currentParams.id !== nextParams.id) return true;
-  return false;
-};
+}) => currentParams.id !== nextParams.id;
 
 export const action: ActionFunction = async ({ request }) => {
   const result = await saveAnswer(request);
+
   const nextQuestionId = await generateNextQuestionFromRequest(request);
 
   return json({ result, nextQuestionId });
@@ -80,10 +79,13 @@ export const action: ActionFunction = async ({ request }) => {
 export default function Page() {
   const { questionItem, variant, enrollmentTaxonomy, id } =
     useLoaderData<typeof loader>();
-  const navigate = useNavigate();
 
+  const navigate = useNavigate();
   const submit = useSubmit();
+
   const onSubmit: OnSubmit = (selection) => {
+    const currentDate = new Date().toISOString();
+
     const answer: Answer = {
       id,
       questionId: questionItem.uid,
@@ -91,8 +93,10 @@ export default function Page() {
       uid: selection.value,
       variant,
     };
+
     const data = JSON.stringify(answer);
-    submit({ data }, { method: "POST" });
+
+    submit({ data, currentDate }, { method: "POST" });
   };
 
   const [searchParams] = useSearchParams();
@@ -111,5 +115,3 @@ export default function Page() {
     />
   );
 }
-
-// export { ErrorBoundary } from "~/components/ErrorBoundary";

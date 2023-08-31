@@ -12,6 +12,10 @@ export const BaseUserQuestion = graphql(/* GraphQL */ `
     active_on
     attempts
     created_at
+    streak
+    difficulty
+    latest_review_gap
+    last_answered_on
     user_enrollment {
       ...BaseUserEnrollment
     }

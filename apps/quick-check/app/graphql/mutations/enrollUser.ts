@@ -1,14 +1,30 @@
+import { pipe, shuffle } from "remeda";
 import invariant from "tiny-invariant";
 import { contentStack } from "~/contentstack.server";
 import {
   graphql,
   type User_Enrollment_Insert_Input,
+  type User_Question_Insert_Input,
   type WithApolloClient,
 } from "~/graphql";
 
-import { getNodeInTreesById } from "quickcheck-shared";
+import {
+  andThen,
+  getNodeInTreesById,
+  logError,
+  promiseWrapper,
+  type QuestionItem,
+  type TreeNode,
+} from "quickcheck-shared";
 
-import { buildTaxonTrees } from "~/models/taxonomy";
+import { ENROLLMENT_PERIOD } from "~/utils/constants";
+import { getValidBusinessDate } from "~/utils/date";
+
+import { buildTaxonTrees, type TaxonomyDataObj } from "~/models/taxonomy";
+
+/**
+ * GraphQL
+ */
 
 export const ENROLL_USER = graphql(/* GraphQL */ `
   mutation EnrollUser($user_enrollment: user_enrollment_insert_input!) {
@@ -18,16 +34,20 @@ export const ENROLL_USER = graphql(/* GraphQL */ `
   }
 `);
 
-export async function enrollUser(
-  this: WithApolloClient,
-  user_id: string,
-  taxonomy_id: string,
-) {
+/**
+ * Prepare User Enrollment
+ */
+
+const getTaxon = async (taxonomy_id: string) => {
   const taxonTrees = await buildTaxonTrees();
   const taxon = getNodeInTreesById(taxonTrees, taxonomy_id);
 
   invariant(taxon, "No matching Taxon found.");
 
+  return taxon;
+};
+
+const getQuestions = async (taxon: TreeNode<TaxonomyDataObj>) => {
   const descendantUids = taxon
     .getDescendants()
     .map(({ dataObj }) => dataObj.uid);
@@ -38,30 +58,80 @@ export async function enrollUser(
 
   invariant(questions, "No matching questions found.");
 
-  const input: User_Enrollment_Insert_Input = {
-    user_id,
-    taxonomy_id,
-    user_questions: {
-      data: questions?.map((question) => {
+  return questions;
+};
+
+const prepareActiveQuestionsInput = (user_id: string) => {
+  const prepareActiveQuestionGap =
+    (minQuestionsPerDay: number) => (questionIndex: number) =>
+      Math.floor((1 / minQuestionsPerDay) * Math.max(0, questionIndex));
+
+  return (questions: QuestionItem[]) => {
+    const baseDate = new Date();
+
+    const minQuestionsPerDay = questions.length / ENROLLMENT_PERIOD;
+    const getActiveQuestionGap = prepareActiveQuestionGap(minQuestionsPerDay);
+
+    const activeQuestionsInput = questions.map(
+      (question, questionIndex): User_Question_Insert_Input => {
+        const activeQuestionGap =
+          getActiveQuestionGap(questionIndex) -
+          getActiveQuestionGap(questionIndex - 1);
+
+        const activeDate = getValidBusinessDate(baseDate, activeQuestionGap);
+
         return {
+          user_id,
           question_id: question.uid,
           taxonomy_id: question.topic?.[0]?.uid,
-          user_id,
-          active_on: new Date().toISOString(),
+          active_on: activeDate,
         };
-      }),
-    },
+      },
+    );
+
+    return activeQuestionsInput;
+  };
+};
+
+const prepareUserEnrollmentInput =
+  (user_id: string, taxonomy_id: string) =>
+  (shuffledActiveQuestions: User_Question_Insert_Input[]) => {
+    const userEnollmentInput: User_Enrollment_Insert_Input = {
+      user_id,
+      taxonomy_id,
+      user_questions: {
+        data: shuffledActiveQuestions,
+      },
+    };
+
+    return userEnollmentInput;
   };
 
-  try {
-    const result = await this.client.mutate({
-      mutation: ENROLL_USER,
-      variables: { user_enrollment: input },
-    });
+/**
+ * Enroll User
+ */
 
-    return result.data?.insert_user_enrollment_one ?? null;
-  } catch (error) {
-    console.log("ERROR - enrollUser", error);
-    return null;
-  }
+export async function enrollUser(
+  this: WithApolloClient,
+  user_id: string,
+  taxonomy_id: string,
+) {
+  const userEnrollmentInput = await pipe(
+    getTaxon(taxonomy_id),
+    andThen(getQuestions),
+    andThen(shuffle()),
+    andThen(prepareActiveQuestionsInput(user_id)),
+    andThen(prepareUserEnrollmentInput(user_id, taxonomy_id)),
+  );
+
+  const [enrolledUser, error] = await promiseWrapper(
+    this.client.mutate({
+      mutation: ENROLL_USER,
+      variables: { user_enrollment: userEnrollmentInput },
+    }),
+  );
+
+  if (error) return logError({ error, log: "enrollUser" });
+
+  return enrolledUser?.data?.insert_user_enrollment_one ?? null;
 }

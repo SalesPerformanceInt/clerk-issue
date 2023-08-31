@@ -1,41 +1,64 @@
 import invariant from "tiny-invariant";
 import {
   getUserApolloClientFromRequest,
-  type BaseUserQuestionFragment,
   type Learning_Record_Insert_Input,
+  type UserGraphQLClient,
 } from "~/graphql";
 
-import { parseAnswer } from "./answer";
+import { ANSWER, type Answer } from "./answer";
+import { getCurrentAnswer, getReviewedAnswer } from "./getAnswers";
+import { shouldRetireUserQuestion } from "./retireAnswer";
 
-export const ANSWER = "ANSWER";
+/**
+ * Get Question
+ */
 
-export const shouldRetireUserQuestion = (
-  userQuestion: BaseUserQuestionFragment,
-) => userQuestion.attempts >= 2;
+const getUserQuestion = async (
+  userApolloClient: UserGraphQLClient,
+  currentAnswer: Answer,
+) => {
+  const userQuestion = await userApolloClient.getUserQuestion(currentAnswer.id);
+
+  invariant(userQuestion, "Question not found");
+
+  return { userQuestion };
+};
+
+/**
+ * Save Answer
+ */
 
 export const saveAnswer = async (request: Request) => {
   const userApolloClient = await getUserApolloClientFromRequest(request);
 
-  const formData = await request.formData();
-  const data = parseAnswer(formData.get("data"));
+  const { currentAnswer, answerDate } = await getCurrentAnswer(request);
 
-  invariant(data, "Answer not found");
+  const { userQuestion } = await getUserQuestion(
+    userApolloClient,
+    currentAnswer,
+  );
 
-  const userQuestion = await userApolloClient.getUserQuestion(data.id);
-
-  invariant(userQuestion, "Question not found");
+  const { reviewedAnswer, userQuestionNextActiveDate } = getReviewedAnswer(
+    userQuestion,
+    currentAnswer,
+    answerDate,
+  );
 
   const learningRecord: Learning_Record_Insert_Input = {
     user_id: userApolloClient.userId,
-    event_type: "ANSWER",
-    data,
+    event_type: ANSWER,
+    data: reviewedAnswer,
   };
 
   await userApolloClient.updateUserQuestion(
     userQuestion.id,
     {
-      active_on: null,
-      status: shouldRetireUserQuestion(userQuestion) ? "retire" : "attempted",
+      active_on: userQuestionNextActiveDate,
+      status: shouldRetireUserQuestion(userQuestion, reviewedAnswer),
+      latest_review_gap: reviewedAnswer.latestReviewGap,
+      difficulty: reviewedAnswer.difficulty,
+      streak: reviewedAnswer.streak,
+      last_answered_on: reviewedAnswer.lastAnsweredOn,
     },
     { attempts: 1 },
   );

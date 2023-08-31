@@ -1,4 +1,5 @@
 import { type FC } from "react";
+import { useTranslation } from "react-i18next";
 
 import { useNavigate } from "@remix-run/react";
 
@@ -21,6 +22,7 @@ export const DashboardHeader: FC = () => {
   const navigate = useNavigate();
   const isDesktop = useIsDesktop();
   const { dashboard } = useDashboardContext();
+  const { t } = useTranslation();
 
   return (
     <Header
@@ -30,10 +32,10 @@ export const DashboardHeader: FC = () => {
           {isDesktop && (
             <div className="flex items-center gap-4">
               <p className="text-xs text-background uppercase">
-                24 Unanswered questions
+                {t("common.unanswered", { count: 1 })}
               </p>
               <Button onClick={() => navigate("/nq")} rightIcon={faArrowRight}>
-                Start
+                {t("buttons.start")}
               </Button>
             </div>
           )}

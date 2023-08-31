@@ -53,10 +53,11 @@ export type ButtonVariantProps = VariantProps<typeof buttonVariants>;
 export interface ButtonProps
   extends Omit<
     React.ButtonHTMLAttributes<HTMLButtonElement> & ButtonVariantProps,
-    "isDesktop"
+    "isDesktop" | "children"
   > {
   rightIcon?: IconProps["icon"];
   loading?: boolean;
+  children: React.ReactNode;
 }
 
 const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(

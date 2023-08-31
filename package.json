@@ -12,7 +12,7 @@
     "preview:emails": "turbo run preview --filter=emails",
     "dev:qc": "turbo run dev --filter=quick-check...",
     "dev:live": "turbo run dev --filter=live-preview...",
-    "build": "turbo run build",
+    "build": "turbo run build --filter=!react-email-client",
     "lint": "turbo run lint",
     "typecheck": "turbo run typecheck",
     "format": "prettier --write \"**/*.{ts,tsx,md}\""

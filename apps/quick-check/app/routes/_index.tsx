@@ -8,9 +8,8 @@ import { Dashboard } from "~/pages";
 import { AccelerateButton } from "~/components";
 
 export const loader = async ({ request }: LoaderArgs) => {
-  const userApolloClient = await getOptionalUserApolloClientFromRequest(
-    request,
-  );
+  const userApolloClient =
+    await getOptionalUserApolloClientFromRequest(request);
   const dashboard = await userApolloClient?.getUserDashboard();
 
   return typedjson({ dashboard });

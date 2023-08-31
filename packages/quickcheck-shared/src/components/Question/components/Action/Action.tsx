@@ -1,4 +1,5 @@
 import React, { FC } from "react";
+import { useTranslation } from "react-i18next";
 import { useMeasure } from "react-use";
 
 import { useNavigation } from "@remix-run/react";
@@ -20,6 +21,8 @@ export const Action: FC = () => {
   const { state } = useNavigation();
   const loading = state !== "idle";
 
+  const { t } = useTranslation();
+
   return (
     <>
       <div style={{ height }} />
@@ -39,7 +42,7 @@ export const Action: FC = () => {
                 rightIcon={faArrowRight}
                 onClick={onContinue}
               >
-                Next Question
+                {t("question.buttons.next_question")}
               </Button>
             ) : (
               <Button
@@ -48,7 +51,7 @@ export const Action: FC = () => {
                 rightIcon={faArrowRight}
                 onClick={submitAnswer}
               >
-                Check Answer
+                {t("question.buttons.check_answer")}
               </Button>
             )}
           </div>

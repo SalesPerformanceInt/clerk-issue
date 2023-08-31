@@ -1,3 +1,5 @@
+import { useTranslation } from "react-i18next";
+
 import {
   json,
   type LinksFunction,
@@ -15,20 +17,40 @@ import {
 } from "@remix-run/react";
 
 import fontAwesome from "@fortawesome/fontawesome-svg-core/styles.css";
+import { useChangeLanguage } from "remix-i18next";
 import tailwind from "~/tailwind.css";
 
+import { i18nConfig } from "quickcheck-shared";
 import sharedStyles from "quickcheck-shared/dist/index.css";
+
+import { remixI18next } from "~/utils/i18next.server";
+
+import {
+  QC_CONTENTSTACK_DELIVERY_TOKEN,
+  QC_CONTENTSTACK_ENVIRONMENT,
+  QC_CONTENTSTACK_STACK_KEY,
+} from "./utils/envs.server";
 
 import { getOptionalUserApolloClientFromRequest } from "./graphql";
 
 export const loader = async ({ request }: LoaderArgs) => {
-  const userApolloClient = await getOptionalUserApolloClientFromRequest(
-    request,
-  );
+  const userApolloClient =
+    await getOptionalUserApolloClientFromRequest(request);
+  const theme = await userApolloClient?.getUserTheme();
 
-  // const theme = await userApolloClient?.getUserTheme();
+  const locale = await remixI18next.getLocale(request);
 
-  return json({ theme: null });
+  const ENV = {
+    QC_CONTENTSTACK_DELIVERY_TOKEN,
+    QC_CONTENTSTACK_ENVIRONMENT,
+    QC_CONTENTSTACK_STACK_KEY,
+  };
+
+  return json({ theme, locale, ENV });
+};
+
+export const handle = {
+  i18n: i18nConfig.defaultNS,
 };
 
 export const links: LinksFunction = () => [
@@ -59,14 +81,22 @@ export const meta: V2_MetaFunction = () => [
 ];
 
 export default function App() {
-  const { theme } = useLoaderData<typeof loader>();
+  const { theme, locale, ENV } = useLoaderData<typeof loader>();
+
+  const { i18n } = useTranslation();
+  useChangeLanguage(locale);
 
   return (
-    <html lang="en" className="h-full overflow-hidden">
+    <html lang={locale} dir={i18n.dir()} className="h-full overflow-hidden">
       <head>
         <Meta />
         <Links />
         {theme && <style>{theme}</style>}
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `window.ENV = ${JSON.stringify(ENV)}`,
+          }}
+        />
       </head>
       <body className="h-full overflow-auto bg-background-secondary">
         <Outlet />

@@ -1,4 +1,5 @@
 import React, { FC } from "react";
+import { useTranslation } from "react-i18next";
 
 import { faAngleLeft, faChevronLeft } from "@fortawesome/pro-light-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -13,6 +14,7 @@ export const QuestionHeader: FC = () => {
   const { onClose } = useQuestionContext();
 
   const isDesktop = useIsDesktop();
+  const { t } = useTranslation();
 
   return (
     <Header
@@ -25,7 +27,7 @@ export const QuestionHeader: FC = () => {
               className="text-contrast w-6 text-center text-2xl font-light leading-6 sm:text-base sm:w-[10px]"
             />
             <div className="text-contrast ml-2 font-light sm:ml-4 sm:font-bold">
-              Dashboard
+              {t("buttons.dashboard")}
             </div>
           </button>
         </>

@@ -10,7 +10,7 @@ const isContentType = <
   entry: { content_type: { uid: string } },
   uid: ContentType,
 ): entry is { content_type: { uid: ContentType } } => {
-  return entry.content_type.uid === uid;
+  return entry?.content_type?.uid === uid;
 };
 
 export const Entry: FC<{ entryData: EntryLivePreviewData }> = ({

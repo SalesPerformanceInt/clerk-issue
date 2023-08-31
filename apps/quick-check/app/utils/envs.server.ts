@@ -25,3 +25,17 @@ export const SENDGRID_FROM = process.env.SENDGRID_FROM ?? "";
 export const VERCEL_URL = process.env.VERCEL_URL ?? "";
 
 export const isDevelopment = NODE_ENV === "development";
+
+export const CONTENTSTACK_ENVS = {
+  QC_CONTENTSTACK_DELIVERY_TOKEN,
+  QC_CONTENTSTACK_STACK_KEY,
+  QC_CONTENTSTACK_ENVIRONMENT,
+};
+
+export type ContentStackEnvs = typeof CONTENTSTACK_ENVS;
+
+declare global {
+  interface Window {
+    ENV: ContentStackEnvs;
+  }
+}

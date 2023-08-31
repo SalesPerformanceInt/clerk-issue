@@ -2,7 +2,7 @@ import { graphql, type WithApolloClient } from "~/graphql";
 
 export const GET_ALL_USERS = graphql(/* GraphQL */ `
   query GetAllUser {
-    user(order_by: { created_at: asc }) {
+    user(order_by: [{ created_at: asc }, { email: asc }]) {
       ...UserWithActiveToken
     }
   }

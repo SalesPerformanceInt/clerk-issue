@@ -29,5 +29,5 @@ module.exports = {
 
   serverDependenciesToBundle: [/.*/],
 
-  watchPaths: packages,
+  watchPaths: [...packages],
 };

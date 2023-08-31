@@ -6,7 +6,7 @@ import {
   REVIEW_DIFFICULTY_BASE,
   REVIEW_WRONG,
 } from "~/utils/constants";
-import { getActiveDate } from "~/utils/prepareActiveQuestions";
+import { getValidBusinessDate } from "~/utils/date";
 
 import {
   parseAnswer,
@@ -51,7 +51,7 @@ export const getReviewedAnswer = (
 
   const reviewedAnswer = reviewAnswer(answerToReview);
 
-  const userQuestionNextActiveDate = getActiveDate(
+  const userQuestionNextActiveDate = getValidBusinessDate(
     new Date(answerDate),
     reviewedAnswer.latestReviewGap,
   );

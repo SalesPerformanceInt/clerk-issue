@@ -4,18 +4,21 @@ import { contentStack } from "~/contentstack.server";
 import {
   graphql,
   type User_Enrollment_Insert_Input,
+  type User_Question_Insert_Input,
   type WithApolloClient,
 } from "~/graphql";
 
 import {
   andThen,
   getNodeInTreesById,
+  logError,
   promiseWrapper,
   type QuestionItem,
   type TreeNode,
 } from "quickcheck-shared";
 
-import { prepareActiveQuestions } from "~/utils/prepareActiveQuestions";
+import { ENROLLMENT_PERIOD } from "~/utils/constants";
+import { getValidBusinessDate } from "~/utils/date";
 
 import { buildTaxonTrees, type TaxonomyDataObj } from "~/models/taxonomy";
 
@@ -58,20 +61,41 @@ const getQuestions = async (taxon: TreeNode<TaxonomyDataObj>) => {
   return questions;
 };
 
-const getActiveQuestions =
-  (user_id: string) => async (questions: QuestionItem[]) => {
-    const shuffledActiveQuestions = pipe(
-      questions,
-      shuffle(),
-      prepareActiveQuestions(user_id),
+const prepareActiveQuestionsInput = (user_id: string) => {
+  const prepareActiveQuestionGap =
+    (minQuestionsPerDay: number) => (questionIndex: number) =>
+      Math.floor((1 / minQuestionsPerDay) * Math.max(0, questionIndex));
+
+  return (questions: QuestionItem[]) => {
+    const baseDate = new Date();
+
+    const minQuestionsPerDay = questions.length / ENROLLMENT_PERIOD;
+    const getActiveQuestionGap = prepareActiveQuestionGap(minQuestionsPerDay);
+
+    const activeQuestionsInput = questions.map(
+      (question, questionIndex): User_Question_Insert_Input => {
+        const activeQuestionGap =
+          getActiveQuestionGap(questionIndex) -
+          getActiveQuestionGap(questionIndex - 1);
+
+        const activeDate = getValidBusinessDate(baseDate, activeQuestionGap);
+
+        return {
+          user_id,
+          question_id: question.uid,
+          taxonomy_id: question.topic?.[0]?.uid,
+          active_on: activeDate,
+        };
+      },
     );
 
-    return shuffledActiveQuestions;
+    return activeQuestionsInput;
   };
+};
 
 const prepareUserEnrollmentInput =
   (user_id: string, taxonomy_id: string) =>
-  async (shuffledActiveQuestions: User_Enrollment_Insert_Input[]) => {
+  (shuffledActiveQuestions: User_Question_Insert_Input[]) => {
     const userEnollmentInput: User_Enrollment_Insert_Input = {
       user_id,
       taxonomy_id,
@@ -95,7 +119,8 @@ export async function enrollUser(
   const userEnrollmentInput = await pipe(
     getTaxon(taxonomy_id),
     andThen(getQuestions),
-    andThen(getActiveQuestions(user_id)),
+    andThen(shuffle()),
+    andThen(prepareActiveQuestionsInput(user_id)),
     andThen(prepareUserEnrollmentInput(user_id, taxonomy_id)),
   );
 
@@ -106,11 +131,7 @@ export async function enrollUser(
     }),
   );
 
-  if (error) {
-    console.log("ERROR - enrollUser", error);
-
-    return null;
-  }
+  if (error) return logError({ error, log: "enrollUser" });
 
   return enrolledUser?.data?.insert_user_enrollment_one ?? null;
 }

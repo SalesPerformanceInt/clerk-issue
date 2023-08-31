@@ -1,8 +1,8 @@
 /* eslint-disable */
-import type { JSONB } from '../scalars';
-import type { NUMERIC } from '../scalars';
-import type { TIMESTAMPTZ } from '../scalars';
-import type { UUID } from '../scalars';
+import type { Jsonb } from '../scalars';
+import type { Numeric } from '../scalars';
+import type { TimestampTZ } from '../scalars';
+import type { Uuid } from '../scalars';
 import type { TypedDocumentNode as DocumentNode } from '@graphql-typed-document-node/core';
 export type Maybe<T> = T | null;
 export type InputMaybe<T> = Maybe<T>;
@@ -16,10 +16,10 @@ export type Scalars = {
   Boolean: boolean;
   Int: number;
   Float: number;
-  jsonb: JSONB;
-  numeric: NUMERIC;
-  timestamptz: TIMESTAMPTZ;
-  uuid: UUID;
+  jsonb: Jsonb;
+  numeric: Numeric;
+  timestamptz: TimestampTZ;
+  uuid: Uuid;
 };
 
 /** Boolean expression to compare columns of type "Boolean". All fields are combined with logical 'AND'. */
@@ -2761,24 +2761,24 @@ export type Uuid_Comparison_Exp = {
   _nin?: InputMaybe<Array<Scalars['uuid']>>;
 };
 
-export type BaseLearningRecordFragment = { __typename: 'learning_record', created_at: TIMESTAMPTZ, data: JSONB, event_type: string, id: UUID, user_id: UUID };
+export type BaseLearningRecordFragment = { __typename: 'learning_record', created_at: TimestampTZ, data: Jsonb, event_type: string, id: Uuid, user_id: Uuid };
 
-export type BaseLinkTokenFragment = { __typename: 'link_token', id: string, created_at: TIMESTAMPTZ, active: boolean, user_id: UUID };
+export type BaseLinkTokenFragment = { __typename: 'link_token', id: string, created_at: TimestampTZ, active: boolean, user_id: Uuid };
 
-export type UserWithActiveTokenFragment = { __typename: 'user', tenant_id: string, email: string, first_name: string, language_preference: string, last_name: string, phone_number?: string | null, timezone: string, user_id: UUID, sms_enabled: boolean, active_tokens: Array<{ __typename: 'link_token', id: string, created_at: TIMESTAMPTZ, active: boolean, user_id: UUID }>, next_question?: { __typename: 'user_question', id: UUID, user_id: UUID, tenant_id: string, taxonomy_id: string, status: string, question_id: string, active_on?: TIMESTAMPTZ | null, attempts: number, created_at: TIMESTAMPTZ, streak: number, difficulty: NUMERIC, latest_review_gap: number, last_answered_on?: TIMESTAMPTZ | null, user_enrollment: { __typename: 'user_enrollment', id: UUID, user_id: UUID, tenant_id: string, taxonomy_id: string, created_at: TIMESTAMPTZ } } | null, learning_records: Array<{ __typename: 'learning_record', created_at: TIMESTAMPTZ, data: JSONB, event_type: string, id: UUID, user_id: UUID }> };
+export type UserWithActiveTokenFragment = { __typename: 'user', tenant_id: string, email: string, first_name: string, language_preference: string, last_name: string, phone_number?: string | null, timezone: string, user_id: Uuid, sms_enabled: boolean, active_tokens: Array<{ __typename: 'link_token', id: string, created_at: TimestampTZ, active: boolean, user_id: Uuid }>, next_question?: { __typename: 'user_question', id: Uuid, user_id: Uuid, tenant_id: string, taxonomy_id: string, status: string, question_id: string, active_on?: TimestampTZ | null, attempts: number, created_at: TimestampTZ, streak: number, difficulty: Numeric, latest_review_gap: number, last_answered_on?: TimestampTZ | null, user_enrollment: { __typename: 'user_enrollment', id: Uuid, user_id: Uuid, tenant_id: string, taxonomy_id: string, created_at: TimestampTZ } } | null, learning_records: Array<{ __typename: 'learning_record', created_at: TimestampTZ, data: Jsonb, event_type: string, id: Uuid, user_id: Uuid }> };
 
-export type BaseUserFragment = { __typename: 'user', tenant_id: string, email: string, first_name: string, language_preference: string, last_name: string, phone_number?: string | null, timezone: string, user_id: UUID, sms_enabled: boolean, next_question?: { __typename: 'user_question', id: UUID, user_id: UUID, tenant_id: string, taxonomy_id: string, status: string, question_id: string, active_on?: TIMESTAMPTZ | null, attempts: number, created_at: TIMESTAMPTZ, streak: number, difficulty: NUMERIC, latest_review_gap: number, last_answered_on?: TIMESTAMPTZ | null, user_enrollment: { __typename: 'user_enrollment', id: UUID, user_id: UUID, tenant_id: string, taxonomy_id: string, created_at: TIMESTAMPTZ } } | null, learning_records: Array<{ __typename: 'learning_record', created_at: TIMESTAMPTZ, data: JSONB, event_type: string, id: UUID, user_id: UUID }> };
+export type BaseUserFragment = { __typename: 'user', tenant_id: string, email: string, first_name: string, language_preference: string, last_name: string, phone_number?: string | null, timezone: string, user_id: Uuid, sms_enabled: boolean, next_question?: { __typename: 'user_question', id: Uuid, user_id: Uuid, tenant_id: string, taxonomy_id: string, status: string, question_id: string, active_on?: TimestampTZ | null, attempts: number, created_at: TimestampTZ, streak: number, difficulty: Numeric, latest_review_gap: number, last_answered_on?: TimestampTZ | null, user_enrollment: { __typename: 'user_enrollment', id: Uuid, user_id: Uuid, tenant_id: string, taxonomy_id: string, created_at: TimestampTZ } } | null, learning_records: Array<{ __typename: 'learning_record', created_at: TimestampTZ, data: Jsonb, event_type: string, id: Uuid, user_id: Uuid }> };
 
-export type BaseUserEnrollmentFragment = { __typename: 'user_enrollment', id: UUID, user_id: UUID, tenant_id: string, taxonomy_id: string, created_at: TIMESTAMPTZ };
+export type BaseUserEnrollmentFragment = { __typename: 'user_enrollment', id: Uuid, user_id: Uuid, tenant_id: string, taxonomy_id: string, created_at: TimestampTZ };
 
-export type BaseUserQuestionFragment = { __typename: 'user_question', id: UUID, user_id: UUID, tenant_id: string, taxonomy_id: string, status: string, question_id: string, active_on?: TIMESTAMPTZ | null, attempts: number, created_at: TIMESTAMPTZ, streak: number, difficulty: NUMERIC, latest_review_gap: number, last_answered_on?: TIMESTAMPTZ | null, user_enrollment: { __typename: 'user_enrollment', id: UUID, user_id: UUID, tenant_id: string, taxonomy_id: string, created_at: TIMESTAMPTZ } };
+export type BaseUserQuestionFragment = { __typename: 'user_question', id: Uuid, user_id: Uuid, tenant_id: string, taxonomy_id: string, status: string, question_id: string, active_on?: TimestampTZ | null, attempts: number, created_at: TimestampTZ, streak: number, difficulty: Numeric, latest_review_gap: number, last_answered_on?: TimestampTZ | null, user_enrollment: { __typename: 'user_enrollment', id: Uuid, user_id: Uuid, tenant_id: string, taxonomy_id: string, created_at: TimestampTZ } };
 
 export type CreateLearningRecordMutationVariables = Exact<{
   learning_record: Learning_Record_Insert_Input;
 }>;
 
 
-export type CreateLearningRecordMutation = { __typename?: 'mutation_root', insert_learning_record_one?: { __typename: 'learning_record', created_at: TIMESTAMPTZ, data: JSONB, event_type: string, id: UUID, user_id: UUID } | null };
+export type CreateLearningRecordMutation = { __typename?: 'mutation_root', insert_learning_record_one?: { __typename: 'learning_record', created_at: TimestampTZ, data: Jsonb, event_type: string, id: Uuid, user_id: Uuid } | null };
 
 export type CreateUserMutationVariables = Exact<{
   firstName: Scalars['String'];
@@ -2788,28 +2788,28 @@ export type CreateUserMutationVariables = Exact<{
 }>;
 
 
-export type CreateUserMutation = { __typename?: 'mutation_root', insert_user_one?: { __typename: 'user', tenant_id: string, email: string, first_name: string, language_preference: string, last_name: string, phone_number?: string | null, timezone: string, user_id: UUID, sms_enabled: boolean, next_question?: { __typename: 'user_question', id: UUID, user_id: UUID, tenant_id: string, taxonomy_id: string, status: string, question_id: string, active_on?: TIMESTAMPTZ | null, attempts: number, created_at: TIMESTAMPTZ, streak: number, difficulty: NUMERIC, latest_review_gap: number, last_answered_on?: TIMESTAMPTZ | null, user_enrollment: { __typename: 'user_enrollment', id: UUID, user_id: UUID, tenant_id: string, taxonomy_id: string, created_at: TIMESTAMPTZ } } | null, learning_records: Array<{ __typename: 'learning_record', created_at: TIMESTAMPTZ, data: JSONB, event_type: string, id: UUID, user_id: UUID }> } | null };
+export type CreateUserMutation = { __typename?: 'mutation_root', insert_user_one?: { __typename: 'user', tenant_id: string, email: string, first_name: string, language_preference: string, last_name: string, phone_number?: string | null, timezone: string, user_id: Uuid, sms_enabled: boolean, next_question?: { __typename: 'user_question', id: Uuid, user_id: Uuid, tenant_id: string, taxonomy_id: string, status: string, question_id: string, active_on?: TimestampTZ | null, attempts: number, created_at: TimestampTZ, streak: number, difficulty: Numeric, latest_review_gap: number, last_answered_on?: TimestampTZ | null, user_enrollment: { __typename: 'user_enrollment', id: Uuid, user_id: Uuid, tenant_id: string, taxonomy_id: string, created_at: TimestampTZ } } | null, learning_records: Array<{ __typename: 'learning_record', created_at: TimestampTZ, data: Jsonb, event_type: string, id: Uuid, user_id: Uuid }> } | null };
 
 export type EnrollUserMutationVariables = Exact<{
   user_enrollment: User_Enrollment_Insert_Input;
 }>;
 
 
-export type EnrollUserMutation = { __typename?: 'mutation_root', insert_user_enrollment_one?: { __typename?: 'user_enrollment', id: UUID } | null };
+export type EnrollUserMutation = { __typename?: 'mutation_root', insert_user_enrollment_one?: { __typename?: 'user_enrollment', id: Uuid } | null };
 
 export type GenerateNewTokenMutationVariables = Exact<{
   userId: Scalars['uuid'];
 }>;
 
 
-export type GenerateNewTokenMutation = { __typename?: 'mutation_root', update_link_token?: { __typename?: 'link_token_mutation_response', returning: Array<{ __typename: 'link_token', id: string, created_at: TIMESTAMPTZ, active: boolean, user_id: UUID }> } | null, insert_link_token_one?: { __typename: 'link_token', id: string, created_at: TIMESTAMPTZ, active: boolean, user_id: UUID, user: { __typename: 'user', tenant_id: string, email: string, first_name: string, language_preference: string, last_name: string, phone_number?: string | null, timezone: string, user_id: UUID, sms_enabled: boolean, active_tokens: Array<{ __typename: 'link_token', id: string, created_at: TIMESTAMPTZ, active: boolean, user_id: UUID }>, next_question?: { __typename: 'user_question', id: UUID, user_id: UUID, tenant_id: string, taxonomy_id: string, status: string, question_id: string, active_on?: TIMESTAMPTZ | null, attempts: number, created_at: TIMESTAMPTZ, streak: number, difficulty: NUMERIC, latest_review_gap: number, last_answered_on?: TIMESTAMPTZ | null, user_enrollment: { __typename: 'user_enrollment', id: UUID, user_id: UUID, tenant_id: string, taxonomy_id: string, created_at: TIMESTAMPTZ } } | null, learning_records: Array<{ __typename: 'learning_record', created_at: TIMESTAMPTZ, data: JSONB, event_type: string, id: UUID, user_id: UUID }> } } | null };
+export type GenerateNewTokenMutation = { __typename?: 'mutation_root', update_link_token?: { __typename?: 'link_token_mutation_response', returning: Array<{ __typename: 'link_token', id: string, created_at: TimestampTZ, active: boolean, user_id: Uuid }> } | null, insert_link_token_one?: { __typename: 'link_token', id: string, created_at: TimestampTZ, active: boolean, user_id: Uuid, user: { __typename: 'user', tenant_id: string, email: string, first_name: string, language_preference: string, last_name: string, phone_number?: string | null, timezone: string, user_id: Uuid, sms_enabled: boolean, active_tokens: Array<{ __typename: 'link_token', id: string, created_at: TimestampTZ, active: boolean, user_id: Uuid }>, next_question?: { __typename: 'user_question', id: Uuid, user_id: Uuid, tenant_id: string, taxonomy_id: string, status: string, question_id: string, active_on?: TimestampTZ | null, attempts: number, created_at: TimestampTZ, streak: number, difficulty: Numeric, latest_review_gap: number, last_answered_on?: TimestampTZ | null, user_enrollment: { __typename: 'user_enrollment', id: Uuid, user_id: Uuid, tenant_id: string, taxonomy_id: string, created_at: TimestampTZ } } | null, learning_records: Array<{ __typename: 'learning_record', created_at: TimestampTZ, data: Jsonb, event_type: string, id: Uuid, user_id: Uuid }> } } | null };
 
 export type ResetUserMutationVariables = Exact<{
   user_id: Scalars['uuid'];
 }>;
 
 
-export type ResetUserMutation = { __typename?: 'mutation_root', update_user_by_pk?: { __typename: 'user', tenant_id: string, email: string, first_name: string, language_preference: string, last_name: string, phone_number?: string | null, timezone: string, user_id: UUID, sms_enabled: boolean, next_question?: { __typename: 'user_question', id: UUID, user_id: UUID, tenant_id: string, taxonomy_id: string, status: string, question_id: string, active_on?: TIMESTAMPTZ | null, attempts: number, created_at: TIMESTAMPTZ, streak: number, difficulty: NUMERIC, latest_review_gap: number, last_answered_on?: TIMESTAMPTZ | null, user_enrollment: { __typename: 'user_enrollment', id: UUID, user_id: UUID, tenant_id: string, taxonomy_id: string, created_at: TIMESTAMPTZ } } | null, learning_records: Array<{ __typename: 'learning_record', created_at: TIMESTAMPTZ, data: JSONB, event_type: string, id: UUID, user_id: UUID }> } | null, delete_learning_record?: { __typename?: 'learning_record_mutation_response', affected_rows: number } | null, delete_user_enrollment?: { __typename?: 'user_enrollment_mutation_response', affected_rows: number } | null };
+export type ResetUserMutation = { __typename?: 'mutation_root', update_user_by_pk?: { __typename: 'user', tenant_id: string, email: string, first_name: string, language_preference: string, last_name: string, phone_number?: string | null, timezone: string, user_id: Uuid, sms_enabled: boolean, next_question?: { __typename: 'user_question', id: Uuid, user_id: Uuid, tenant_id: string, taxonomy_id: string, status: string, question_id: string, active_on?: TimestampTZ | null, attempts: number, created_at: TimestampTZ, streak: number, difficulty: Numeric, latest_review_gap: number, last_answered_on?: TimestampTZ | null, user_enrollment: { __typename: 'user_enrollment', id: Uuid, user_id: Uuid, tenant_id: string, taxonomy_id: string, created_at: TimestampTZ } } | null, learning_records: Array<{ __typename: 'learning_record', created_at: TimestampTZ, data: Jsonb, event_type: string, id: Uuid, user_id: Uuid }> } | null, delete_learning_record?: { __typename?: 'learning_record_mutation_response', affected_rows: number } | null, delete_user_enrollment?: { __typename?: 'user_enrollment_mutation_response', affected_rows: number } | null };
 
 export type ToggleUserSmsEnabledMutationVariables = Exact<{
   userId: Scalars['uuid'];
@@ -2817,7 +2817,7 @@ export type ToggleUserSmsEnabledMutationVariables = Exact<{
 }>;
 
 
-export type ToggleUserSmsEnabledMutation = { __typename?: 'mutation_root', update_user_by_pk?: { __typename: 'user', tenant_id: string, email: string, first_name: string, language_preference: string, last_name: string, phone_number?: string | null, timezone: string, user_id: UUID, sms_enabled: boolean, next_question?: { __typename: 'user_question', id: UUID, user_id: UUID, tenant_id: string, taxonomy_id: string, status: string, question_id: string, active_on?: TIMESTAMPTZ | null, attempts: number, created_at: TIMESTAMPTZ, streak: number, difficulty: NUMERIC, latest_review_gap: number, last_answered_on?: TIMESTAMPTZ | null, user_enrollment: { __typename: 'user_enrollment', id: UUID, user_id: UUID, tenant_id: string, taxonomy_id: string, created_at: TIMESTAMPTZ } } | null, learning_records: Array<{ __typename: 'learning_record', created_at: TIMESTAMPTZ, data: JSONB, event_type: string, id: UUID, user_id: UUID }> } | null };
+export type ToggleUserSmsEnabledMutation = { __typename?: 'mutation_root', update_user_by_pk?: { __typename: 'user', tenant_id: string, email: string, first_name: string, language_preference: string, last_name: string, phone_number?: string | null, timezone: string, user_id: Uuid, sms_enabled: boolean, next_question?: { __typename: 'user_question', id: Uuid, user_id: Uuid, tenant_id: string, taxonomy_id: string, status: string, question_id: string, active_on?: TimestampTZ | null, attempts: number, created_at: TimestampTZ, streak: number, difficulty: Numeric, latest_review_gap: number, last_answered_on?: TimestampTZ | null, user_enrollment: { __typename: 'user_enrollment', id: Uuid, user_id: Uuid, tenant_id: string, taxonomy_id: string, created_at: TimestampTZ } } | null, learning_records: Array<{ __typename: 'learning_record', created_at: TimestampTZ, data: Jsonb, event_type: string, id: Uuid, user_id: Uuid }> } | null };
 
 export type UpdateNextQuestionIdMutationVariables = Exact<{
   user_id: Scalars['uuid'];
@@ -2825,7 +2825,7 @@ export type UpdateNextQuestionIdMutationVariables = Exact<{
 }>;
 
 
-export type UpdateNextQuestionIdMutation = { __typename?: 'mutation_root', update_user_by_pk?: { __typename: 'user', tenant_id: string, email: string, first_name: string, language_preference: string, last_name: string, phone_number?: string | null, timezone: string, user_id: UUID, sms_enabled: boolean, next_question?: { __typename: 'user_question', id: UUID, user_id: UUID, tenant_id: string, taxonomy_id: string, status: string, question_id: string, active_on?: TIMESTAMPTZ | null, attempts: number, created_at: TIMESTAMPTZ, streak: number, difficulty: NUMERIC, latest_review_gap: number, last_answered_on?: TIMESTAMPTZ | null, user_enrollment: { __typename: 'user_enrollment', id: UUID, user_id: UUID, tenant_id: string, taxonomy_id: string, created_at: TIMESTAMPTZ } } | null, learning_records: Array<{ __typename: 'learning_record', created_at: TIMESTAMPTZ, data: JSONB, event_type: string, id: UUID, user_id: UUID }> } | null };
+export type UpdateNextQuestionIdMutation = { __typename?: 'mutation_root', update_user_by_pk?: { __typename: 'user', tenant_id: string, email: string, first_name: string, language_preference: string, last_name: string, phone_number?: string | null, timezone: string, user_id: Uuid, sms_enabled: boolean, next_question?: { __typename: 'user_question', id: Uuid, user_id: Uuid, tenant_id: string, taxonomy_id: string, status: string, question_id: string, active_on?: TimestampTZ | null, attempts: number, created_at: TimestampTZ, streak: number, difficulty: Numeric, latest_review_gap: number, last_answered_on?: TimestampTZ | null, user_enrollment: { __typename: 'user_enrollment', id: Uuid, user_id: Uuid, tenant_id: string, taxonomy_id: string, created_at: TimestampTZ } } | null, learning_records: Array<{ __typename: 'learning_record', created_at: TimestampTZ, data: Jsonb, event_type: string, id: Uuid, user_id: Uuid }> } | null };
 
 export type UpdateUserQuestionMutationVariables = Exact<{
   id: Scalars['uuid'];
@@ -2834,47 +2834,47 @@ export type UpdateUserQuestionMutationVariables = Exact<{
 }>;
 
 
-export type UpdateUserQuestionMutation = { __typename?: 'mutation_root', update_user_question_by_pk?: { __typename: 'user_question', id: UUID, user_id: UUID, tenant_id: string, taxonomy_id: string, status: string, question_id: string, active_on?: TIMESTAMPTZ | null, attempts: number, created_at: TIMESTAMPTZ, streak: number, difficulty: NUMERIC, latest_review_gap: number, last_answered_on?: TIMESTAMPTZ | null, user_enrollment: { __typename: 'user_enrollment', id: UUID, user_id: UUID, tenant_id: string, taxonomy_id: string, created_at: TIMESTAMPTZ } } | null };
+export type UpdateUserQuestionMutation = { __typename?: 'mutation_root', update_user_question_by_pk?: { __typename: 'user_question', id: Uuid, user_id: Uuid, tenant_id: string, taxonomy_id: string, status: string, question_id: string, active_on?: TimestampTZ | null, attempts: number, created_at: TimestampTZ, streak: number, difficulty: Numeric, latest_review_gap: number, last_answered_on?: TimestampTZ | null, user_enrollment: { __typename: 'user_enrollment', id: Uuid, user_id: Uuid, tenant_id: string, taxonomy_id: string, created_at: TimestampTZ } } | null };
 
 export type GetAllUserQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type GetAllUserQuery = { __typename?: 'query_root', user: Array<{ __typename: 'user', tenant_id: string, email: string, first_name: string, language_preference: string, last_name: string, phone_number?: string | null, timezone: string, user_id: UUID, sms_enabled: boolean, active_tokens: Array<{ __typename: 'link_token', id: string, created_at: TIMESTAMPTZ, active: boolean, user_id: UUID }>, next_question?: { __typename: 'user_question', id: UUID, user_id: UUID, tenant_id: string, taxonomy_id: string, status: string, question_id: string, active_on?: TIMESTAMPTZ | null, attempts: number, created_at: TIMESTAMPTZ, streak: number, difficulty: NUMERIC, latest_review_gap: number, last_answered_on?: TIMESTAMPTZ | null, user_enrollment: { __typename: 'user_enrollment', id: UUID, user_id: UUID, tenant_id: string, taxonomy_id: string, created_at: TIMESTAMPTZ } } | null, learning_records: Array<{ __typename: 'learning_record', created_at: TIMESTAMPTZ, data: JSONB, event_type: string, id: UUID, user_id: UUID }> }> };
+export type GetAllUserQuery = { __typename?: 'query_root', user: Array<{ __typename: 'user', tenant_id: string, email: string, first_name: string, language_preference: string, last_name: string, phone_number?: string | null, timezone: string, user_id: Uuid, sms_enabled: boolean, active_tokens: Array<{ __typename: 'link_token', id: string, created_at: TimestampTZ, active: boolean, user_id: Uuid }>, next_question?: { __typename: 'user_question', id: Uuid, user_id: Uuid, tenant_id: string, taxonomy_id: string, status: string, question_id: string, active_on?: TimestampTZ | null, attempts: number, created_at: TimestampTZ, streak: number, difficulty: Numeric, latest_review_gap: number, last_answered_on?: TimestampTZ | null, user_enrollment: { __typename: 'user_enrollment', id: Uuid, user_id: Uuid, tenant_id: string, taxonomy_id: string, created_at: TimestampTZ } } | null, learning_records: Array<{ __typename: 'learning_record', created_at: TimestampTZ, data: Jsonb, event_type: string, id: Uuid, user_id: Uuid }> }> };
 
 export type GetLinkTokenQueryVariables = Exact<{
   id: Scalars['String'];
 }>;
 
 
-export type GetLinkTokenQuery = { __typename?: 'query_root', link_token_by_pk?: { __typename?: 'link_token', id: string, user_id: UUID, tenant_id: string, created_at: TIMESTAMPTZ, active: boolean } | null };
+export type GetLinkTokenQuery = { __typename?: 'query_root', link_token_by_pk?: { __typename?: 'link_token', id: string, user_id: Uuid, tenant_id: string, created_at: TimestampTZ, active: boolean } | null };
 
 export type GetUserQueryVariables = Exact<{
   userId: Scalars['uuid'];
 }>;
 
 
-export type GetUserQuery = { __typename?: 'query_root', user_by_pk?: { __typename: 'user', tenant_id: string, email: string, first_name: string, language_preference: string, last_name: string, phone_number?: string | null, timezone: string, user_id: UUID, sms_enabled: boolean, active_tokens: Array<{ __typename: 'link_token', id: string, created_at: TIMESTAMPTZ, active: boolean, user_id: UUID }>, next_question?: { __typename: 'user_question', id: UUID, user_id: UUID, tenant_id: string, taxonomy_id: string, status: string, question_id: string, active_on?: TIMESTAMPTZ | null, attempts: number, created_at: TIMESTAMPTZ, streak: number, difficulty: NUMERIC, latest_review_gap: number, last_answered_on?: TIMESTAMPTZ | null, user_enrollment: { __typename: 'user_enrollment', id: UUID, user_id: UUID, tenant_id: string, taxonomy_id: string, created_at: TIMESTAMPTZ } } | null, learning_records: Array<{ __typename: 'learning_record', created_at: TIMESTAMPTZ, data: JSONB, event_type: string, id: UUID, user_id: UUID }> } | null };
+export type GetUserQuery = { __typename?: 'query_root', user_by_pk?: { __typename: 'user', tenant_id: string, email: string, first_name: string, language_preference: string, last_name: string, phone_number?: string | null, timezone: string, user_id: Uuid, sms_enabled: boolean, active_tokens: Array<{ __typename: 'link_token', id: string, created_at: TimestampTZ, active: boolean, user_id: Uuid }>, next_question?: { __typename: 'user_question', id: Uuid, user_id: Uuid, tenant_id: string, taxonomy_id: string, status: string, question_id: string, active_on?: TimestampTZ | null, attempts: number, created_at: TimestampTZ, streak: number, difficulty: Numeric, latest_review_gap: number, last_answered_on?: TimestampTZ | null, user_enrollment: { __typename: 'user_enrollment', id: Uuid, user_id: Uuid, tenant_id: string, taxonomy_id: string, created_at: TimestampTZ } } | null, learning_records: Array<{ __typename: 'learning_record', created_at: TimestampTZ, data: Jsonb, event_type: string, id: Uuid, user_id: Uuid }> } | null };
 
 export type GetUserDashboardQueryVariables = Exact<{
   userId: Scalars['uuid'];
 }>;
 
 
-export type GetUserDashboardQuery = { __typename?: 'query_root', user_by_pk?: { __typename: 'user', tenant_id: string, email: string, first_name: string, language_preference: string, last_name: string, phone_number?: string | null, timezone: string, user_id: UUID, sms_enabled: boolean, user_enrollments: Array<{ __typename?: 'user_enrollment', taxonomy_id: string, id: UUID, attempted: { __typename?: 'user_question_aggregate', aggregate?: { __typename?: 'user_question_aggregate_fields', count: number } | null }, unattempted: { __typename?: 'user_question_aggregate', aggregate?: { __typename?: 'user_question_aggregate_fields', count: number } | null }, retired: { __typename?: 'user_question_aggregate', aggregate?: { __typename?: 'user_question_aggregate_fields', count: number } | null }, total: { __typename?: 'user_question_aggregate', aggregate?: { __typename?: 'user_question_aggregate_fields', count: number } | null } }>, next_question?: { __typename: 'user_question', id: UUID, user_id: UUID, tenant_id: string, taxonomy_id: string, status: string, question_id: string, active_on?: TIMESTAMPTZ | null, attempts: number, created_at: TIMESTAMPTZ, streak: number, difficulty: NUMERIC, latest_review_gap: number, last_answered_on?: TIMESTAMPTZ | null, user_enrollment: { __typename: 'user_enrollment', id: UUID, user_id: UUID, tenant_id: string, taxonomy_id: string, created_at: TIMESTAMPTZ } } | null, learning_records: Array<{ __typename: 'learning_record', created_at: TIMESTAMPTZ, data: JSONB, event_type: string, id: UUID, user_id: UUID }> } | null };
+export type GetUserDashboardQuery = { __typename?: 'query_root', user_by_pk?: { __typename: 'user', tenant_id: string, email: string, first_name: string, language_preference: string, last_name: string, phone_number?: string | null, timezone: string, user_id: Uuid, sms_enabled: boolean, user_enrollments: Array<{ __typename?: 'user_enrollment', taxonomy_id: string, id: Uuid, attempted: { __typename?: 'user_question_aggregate', aggregate?: { __typename?: 'user_question_aggregate_fields', count: number } | null }, unattempted: { __typename?: 'user_question_aggregate', aggregate?: { __typename?: 'user_question_aggregate_fields', count: number } | null }, retired: { __typename?: 'user_question_aggregate', aggregate?: { __typename?: 'user_question_aggregate_fields', count: number } | null }, total: { __typename?: 'user_question_aggregate', aggregate?: { __typename?: 'user_question_aggregate_fields', count: number } | null } }>, next_question?: { __typename: 'user_question', id: Uuid, user_id: Uuid, tenant_id: string, taxonomy_id: string, status: string, question_id: string, active_on?: TimestampTZ | null, attempts: number, created_at: TimestampTZ, streak: number, difficulty: Numeric, latest_review_gap: number, last_answered_on?: TimestampTZ | null, user_enrollment: { __typename: 'user_enrollment', id: Uuid, user_id: Uuid, tenant_id: string, taxonomy_id: string, created_at: TimestampTZ } } | null, learning_records: Array<{ __typename: 'learning_record', created_at: TimestampTZ, data: Jsonb, event_type: string, id: Uuid, user_id: Uuid }> } | null };
 
 export type GetUserNextQuestionQueryVariables = Exact<{
   userId: Scalars['uuid'];
 }>;
 
 
-export type GetUserNextQuestionQuery = { __typename?: 'query_root', user_by_pk?: { __typename?: 'user', user_questions: Array<{ __typename: 'user_question', id: UUID, user_id: UUID, tenant_id: string, taxonomy_id: string, status: string, question_id: string, active_on?: TIMESTAMPTZ | null, attempts: number, created_at: TIMESTAMPTZ, streak: number, difficulty: NUMERIC, latest_review_gap: number, last_answered_on?: TIMESTAMPTZ | null, user_enrollment: { __typename: 'user_enrollment', id: UUID, user_id: UUID, tenant_id: string, taxonomy_id: string, created_at: TIMESTAMPTZ } }> } | null };
+export type GetUserNextQuestionQuery = { __typename?: 'query_root', user_by_pk?: { __typename?: 'user', user_questions: Array<{ __typename: 'user_question', id: Uuid, user_id: Uuid, tenant_id: string, taxonomy_id: string, status: string, question_id: string, active_on?: TimestampTZ | null, attempts: number, created_at: TimestampTZ, streak: number, difficulty: Numeric, latest_review_gap: number, last_answered_on?: TimestampTZ | null, user_enrollment: { __typename: 'user_enrollment', id: Uuid, user_id: Uuid, tenant_id: string, taxonomy_id: string, created_at: TimestampTZ } }> } | null };
 
 export type GetUserQuestionQueryVariables = Exact<{
   id: Scalars['uuid'];
 }>;
 
 
-export type GetUserQuestionQuery = { __typename?: 'query_root', user_question_by_pk?: { __typename: 'user_question', id: UUID, user_id: UUID, tenant_id: string, taxonomy_id: string, status: string, question_id: string, active_on?: TIMESTAMPTZ | null, attempts: number, created_at: TIMESTAMPTZ, streak: number, difficulty: NUMERIC, latest_review_gap: number, last_answered_on?: TIMESTAMPTZ | null, user_enrollment: { __typename: 'user_enrollment', id: UUID, user_id: UUID, tenant_id: string, taxonomy_id: string, created_at: TIMESTAMPTZ } } | null };
+export type GetUserQuestionQuery = { __typename?: 'query_root', user_question_by_pk?: { __typename: 'user_question', id: Uuid, user_id: Uuid, tenant_id: string, taxonomy_id: string, status: string, question_id: string, active_on?: TimestampTZ | null, attempts: number, created_at: TimestampTZ, streak: number, difficulty: Numeric, latest_review_gap: number, last_answered_on?: TimestampTZ | null, user_enrollment: { __typename: 'user_enrollment', id: Uuid, user_id: Uuid, tenant_id: string, taxonomy_id: string, created_at: TimestampTZ } } | null };
 
 export type GetUserQuestionLearningRecordQueryVariables = Exact<{
   userId: Scalars['uuid'];
@@ -2882,7 +2882,7 @@ export type GetUserQuestionLearningRecordQueryVariables = Exact<{
 }>;
 
 
-export type GetUserQuestionLearningRecordQuery = { __typename?: 'query_root', learning_record: Array<{ __typename?: 'learning_record', created_at: TIMESTAMPTZ, data: JSONB }> };
+export type GetUserQuestionLearningRecordQuery = { __typename?: 'query_root', learning_record: Array<{ __typename?: 'learning_record', created_at: TimestampTZ, data: Jsonb }> };
 
 export type GetUserThemeQueryVariables = Exact<{
   userId: Scalars['uuid'];

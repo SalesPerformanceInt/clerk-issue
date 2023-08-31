@@ -28,10 +28,10 @@ const config: CodegenConfig = {
       config: {
         useTypeImports: true,
         scalars: {
-          uuid: "../scalars#UUID",
-          jsonb: "../scalars#JSONB",
-          timestamptz: "../scalars#TIMESTAMPTZ",
-          numeric: "../scalars#NUMERIC",
+          uuid: "../scalars#Uuid",
+          jsonb: "../scalars#Jsonb",
+          timestamptz: "../scalars#TimestampTZ",
+          numeric: "../scalars#Numeric",
         },
         strictScalars: true,
       },

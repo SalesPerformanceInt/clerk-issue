@@ -2,7 +2,7 @@ import type { User_Question_Insert_Input } from "~/graphql";
 
 import type { QuestionItem } from "quickcheck-shared";
 
-import { ENROLLMENT_PERIOD } from "~/utils/enrollmentConstants";
+import { ENROLLMENT_PERIOD } from "./constants";
 
 /**
  * Date Utils

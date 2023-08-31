@@ -1,11 +1,11 @@
 import {
-  DAYS_BETWEEN_REVIEWS,
-  DAYS_OVERFLOW,
   DAY_MS,
-  DIFFICULTY_MAX,
-  DIFFICULTY_MIN,
-  WRONG,
-} from "~/utils/reviewConstants";
+  REVIEW_DAYS_OVERFLOW,
+  REVIEW_DIFFICULTY_MAX,
+  REVIEW_DIFFICULTY_MIN,
+  REVIEW_LATEST_REVIEW_GAP,
+  REVIEW_WRONG,
+} from "~/utils/constants";
 
 import type { AnswerToReview, ReviewedAnswer } from "./answer";
 
@@ -19,7 +19,7 @@ const getPercentOverdue = ({
   lastAnsweredOn,
   latestReviewGap,
 }: AnswerToReview) => {
-  if (performanceRating === WRONG) return 1;
+  if (performanceRating === REVIEW_WRONG) return 1;
 
   const daysSinceLastReview = lastAnsweredOn
     ? Math.floor(
@@ -45,8 +45,8 @@ const getDifficulty = (
   const difficultyOverdue = percentOverdue * difficultyRating;
 
   const updatedDifficulty = Math.min(
-    Math.max(difficulty + difficultyOverdue, DIFFICULTY_MIN),
-    DIFFICULTY_MAX,
+    Math.max(difficulty + difficultyOverdue, REVIEW_DIFFICULTY_MIN),
+    REVIEW_DIFFICULTY_MAX,
   );
   const difficultyWeight = 3 - 1.7 * updatedDifficulty;
 
@@ -62,13 +62,14 @@ const getReviewGap = (
   difficultyWeight: number,
   { performanceRating, latestReviewGap }: AnswerToReview,
 ) => {
-  if (performanceRating === WRONG) return DAYS_OVERFLOW;
+  if (performanceRating === REVIEW_WRONG) return REVIEW_DAYS_OVERFLOW;
 
   const baseDays = Math.round(
-    (difficultyWeight - DAYS_OVERFLOW) * percentOverdue,
+    (difficultyWeight - REVIEW_DAYS_OVERFLOW) * percentOverdue,
   );
   const updatedReviewGap =
-    latestReviewGap * (DAYS_OVERFLOW + baseDays) || DAYS_BETWEEN_REVIEWS;
+    latestReviewGap * (REVIEW_DAYS_OVERFLOW + baseDays) ||
+    REVIEW_LATEST_REVIEW_GAP;
 
   return updatedReviewGap;
 };
@@ -96,7 +97,7 @@ export const reviewAnswer = (answerToReview: AnswerToReview) => {
     latestReviewGap: updatedReviewGap,
     lastAnsweredOn: answerToReview.answerDate,
     streak:
-      answerToReview.performanceRating === WRONG
+      answerToReview.performanceRating === REVIEW_WRONG
         ? 0
         : answerToReview.streak + 1,
   };

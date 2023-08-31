@@ -1,8 +1,12 @@
 import invariant from "tiny-invariant";
 import type { BaseUserQuestionFragment } from "~/graphql";
 
+import {
+  REVIEW_CORRECT,
+  REVIEW_DIFFICULTY_BASE,
+  REVIEW_WRONG,
+} from "~/utils/constants";
 import { getActiveDate } from "~/utils/prepareActiveQuestions";
-import { CORRECT, DIFFICULTY_BASE, WRONG } from "~/utils/reviewConstants";
 
 import {
   parseAnswer,
@@ -39,9 +43,9 @@ export const getReviewedAnswer = (
   const answerToReview: AnswerToReview = {
     answerDate,
     lastAnsweredOn: userQuestion.last_answered_on || null,
-    performanceRating: currentAnswer.correct ? CORRECT : WRONG,
+    performanceRating: currentAnswer.correct ? REVIEW_CORRECT : REVIEW_WRONG,
     latestReviewGap: userQuestion.latest_review_gap,
-    difficulty: userQuestion.difficulty || DIFFICULTY_BASE,
+    difficulty: userQuestion.difficulty || REVIEW_DIFFICULTY_BASE,
     streak: userQuestion.streak || 0,
   };
 

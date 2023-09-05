@@ -29,8 +29,8 @@ import {
 import { theme } from "../../../tailwind.config";
 
 export interface UserData {
-  unanswered: number;
-  courses_capabilities: number;
+  unanswered_questions?: number;
+  active_enrollments?: number;
 }
 
 interface QuickcheckQuestionEmailProps {
@@ -143,10 +143,10 @@ export const QuickcheckQuestionEmail = ({
                   >
                     {t("emails.question.unanswered", {
                       unanswered: t("common.unanswered", {
-                        count: userData.unanswered,
+                        count: userData.unanswered_questions,
                       }),
                       courses_capabilities: t("common.courses_capabilities", {
-                        count: userData.courses_capabilities,
+                        count: userData.active_enrollments,
                       }),
                     })}
                     <br />

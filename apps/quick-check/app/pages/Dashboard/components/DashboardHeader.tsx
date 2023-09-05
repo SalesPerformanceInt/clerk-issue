@@ -32,7 +32,9 @@ export const DashboardHeader: FC = () => {
           {isDesktop && (
             <div className="flex items-center gap-4">
               <p className="text-xs text-background uppercase">
-                {t("common.unanswered", { count: 1 })}
+                {t("common.unanswered", {
+                  count: dashboard.unanswered_questions,
+                })}
               </p>
               <Button onClick={() => navigate("/nq")} rightIcon={faArrowRight}>
                 {t("buttons.start")}

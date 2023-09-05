@@ -102,7 +102,9 @@ export const action = async ({ request }: ActionArgs) => {
     }
 
     if (adminAction?.type === "SEND_QUESTION_EMAIL") {
-      const user = await getAdminApolloClient().getUser(adminAction.userId);
+      const user = await getAdminApolloClient().getUserEmailData(
+        adminAction.userId,
+      );
       invariant(user, "No user found");
 
       const nextQuestion =
@@ -118,6 +120,10 @@ export const action = async ({ request }: ActionArgs) => {
 
       const t = await remixI18next.getFixedT(user.language_preference);
 
+      const x = await getAdminApolloClient().getUserActiveQuestionsData(
+        adminAction.userId,
+      );
+
       const result = await sendEmail(
         user?.email,
         t("emails.question.subject.on_a_roll", {
@@ -131,10 +137,7 @@ export const action = async ({ request }: ActionArgs) => {
           domain={VERCEL_URL}
           questionId={nextQuestion.id}
           t={t}
-          userData={{
-            unanswered: 17,
-            courses_capabilities: 5,
-          }}
+          userData={user}
         />,
       );
     }

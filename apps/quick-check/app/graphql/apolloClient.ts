@@ -22,7 +22,9 @@ import {
   getAllUsers,
   getLinkToken,
   getUser,
+  getUserActiveQuestionsData,
   getUserDashboard,
+  getUserEmailData,
   getUserNextQuestion,
   getUserQuestion,
   getUserQuestionLearningRecord,
@@ -94,6 +96,8 @@ export class GraphQLClient implements WithApolloClient {
   updateUserQuestion = updateUserQuestion;
   getUserQuestion = getUserQuestion;
   getUserDashboard = getUserDashboard;
+  getUserActiveQuestionsData = getUserActiveQuestionsData;
+  getUserEmailData = getUserEmailData;
 
   constructor(headers: GraphQLHeaders) {
     this.client = getClient(headers);
@@ -115,6 +119,9 @@ export class UserGraphQLClient extends GraphQLClient {
   getUserTheme = () => getUserTheme.call(this, this.userId);
   getUserNextQuestion = () => getUserNextQuestion.call(this, this.userId);
   getUserDashboard = () => getUserDashboard.call(this, this.userId);
+  getUserActiveQuestionsData = () =>
+    getUserActiveQuestionsData.call(this, this.userId);
+  getUserEmailData = () => getUserEmailData.call(this, this.userId);
 
   constructor(
     jwt: string,

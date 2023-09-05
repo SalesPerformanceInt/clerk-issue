@@ -2,9 +2,10 @@ import { contentStack } from "~/contentstack.server";
 import { graphql, type WithApolloClient } from "~/graphql";
 
 export const GET_USER_DASHBOARD = graphql(/* GraphQL */ `
-  query GetUserDashboard($userId: uuid!) {
+  query GetUserDashboard($userId: uuid!, $datetime: timestamptz!) {
     user_by_pk(user_id: $userId) {
       ...BaseUser
+      ...UserActiveQuestionsData
       user_enrollments {
         taxonomy_id
         id
@@ -43,7 +44,7 @@ export async function getUserDashboard(this: WithApolloClient, userId: string) {
   try {
     const result = await this.client.query({
       query: GET_USER_DASHBOARD,
-      variables: { userId },
+      variables: { userId, datetime: new Date().toISOString() },
       fetchPolicy: "no-cache",
     });
 
@@ -64,6 +65,8 @@ export async function getUserDashboard(this: WithApolloClient, userId: string) {
     return {
       ...user_by_pk,
       user_enrollments,
+      active_enrollments: user_by_pk.active_enrollments.aggregate?.count,
+      unanswered_questions: user_by_pk.unanswered_questions.aggregate?.count,
     };
   } catch (error) {
     console.log("ERROR", error);

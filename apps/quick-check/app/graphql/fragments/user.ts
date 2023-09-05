@@ -29,3 +29,35 @@ export const BaseUser = graphql(/* GraphQL */ `
     }
   }
 `);
+
+export const UserActiveQuestionsData = graphql(/* GraphQL */ `
+  fragment UserActiveQuestionsData on user {
+    unanswered_questions: user_questions_aggregate(
+      where: {
+        status: { _neq: "retired" }
+        active_on: { _is_null: false, _lte: $datetime }
+      }
+    ) {
+      aggregate {
+        count(distinct: true)
+      }
+    }
+    active_enrollments: user_enrollments_aggregate(
+      where: {
+        user_questions_aggregate: {
+          count: {
+            predicate: { _gt: 0 }
+            filter: {
+              status: { _neq: "retired" }
+              active_on: { _is_null: false }
+            }
+          }
+        }
+      }
+    ) {
+      aggregate {
+        count(distinct: true)
+      }
+    }
+  }
+`);

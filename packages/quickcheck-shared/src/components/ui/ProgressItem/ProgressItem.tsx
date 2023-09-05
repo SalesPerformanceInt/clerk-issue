@@ -1,4 +1,5 @@
 import React, { type FC } from "react";
+import { useTranslation } from "react-i18next";
 
 import {
   faChevronRight,
@@ -30,6 +31,8 @@ const ProgressItem: FC<ProgressItemProps> = ({
   progress,
   onClick,
 }) => {
+  const { t } = useTranslation();
+
   const progressBarValues = {
     retired: (progress.retired / progress.total) * 100,
     attempted: (progress.attempted / progress.total) * 100,
@@ -46,7 +49,6 @@ const ProgressItem: FC<ProgressItemProps> = ({
             <h5 className="whitespace-nowrap overflow-hidden text-ellipsis">
               {title}
             </h5>
-
             <div className="flex items-center gap-4">
               {ranking && (
                 <div className="flex items-center gap-1">
@@ -55,18 +57,15 @@ const ProgressItem: FC<ProgressItemProps> = ({
                   <span> {`#${ranking}`} </span>
                 </div>
               )}
-
               {score && (
                 <div className="flex items-center gap-1">
                   <FontAwesomeIcon icon={faMedal} size="xs" />
-
                   <span> {score} </span>
                 </div>
               )}
             </div>
           </div>
         )}
-
         <Progress className="relative overflow-hidden bg-primary-25 h-2 w-full rounded-full">
           <ProgressIndicator
             className="bg-primary w-full h-full absolute"
@@ -74,7 +73,6 @@ const ProgressItem: FC<ProgressItemProps> = ({
               transform: `translateX(-${100 - progressBarValues.attempted}%)`,
             }}
           />
-
           <ProgressIndicator
             className="bg-success w-full h-full absolute"
             style={{
@@ -82,26 +80,24 @@ const ProgressItem: FC<ProgressItemProps> = ({
             }}
           />
         </Progress>
-
         <div className="flex items-center justify-between text-text font-semibold text-xs uppercase">
           <div className="flex items-center gap-4">
             <div className="flex items-center gap-1">
               <div className="h-2 w-2 rounded-full bg-success" />
-
-              <span> {`${progress.retired} Retired`} </span>
+              <span>
+                {t("user.dashboard.retired", { count: progress.retired })}
+              </span>
             </div>
-
             <div className="flex items-center gap-1">
               <div className="h-2 w-2 rounded-full bg-primary" />
-
-              <span> {`${progress.attempted} Attempted`} </span>
+              <span>
+                {t("user.dashboard.attempted", { count: progress.attempted })}
+              </span>
             </div>
           </div>
-
-          <span> {`${progress.total} Total`} </span>
+          <span>{t("user.dashboard.total", { count: progress.total })}</span>
         </div>
       </div>
-
       <div>
         <FontAwesomeIcon
           icon={faChevronRight}

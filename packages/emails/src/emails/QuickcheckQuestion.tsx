@@ -24,8 +24,8 @@ const QuickcheckQuestionEmailPreview = () => {
 export default QuickcheckQuestionEmailPreview;
 
 const userData: UserData = {
-  unanswered: 24,
-  courses_capabilities: 3,
+  unanswered_questions: 24,
+  active_enrollments: 3,
 };
 
 const enrollmentTaxonomyMock = {

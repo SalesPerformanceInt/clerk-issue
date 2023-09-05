@@ -7,8 +7,8 @@ export const BaseUserQuestion = graphql(/* GraphQL */ `
     user_id
     tenant_id
     taxonomy_id
-    status
     question_id
+    retired_on
     active_on
     attempts
     created_at

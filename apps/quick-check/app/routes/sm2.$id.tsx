@@ -151,7 +151,12 @@ export default function Page() {
             <div className="flex flex-col justify-start gap-4 text-white font-medium py-4 px-8 w-full">
               <div>Question ID: {id}</div>
               <div>User ID: {userId} </div>
-              <div>Question Status: {userQuestion.status}</div>
+              <div>
+                Retired on:{" "}
+                {userQuestion.retired_on
+                  ? new Date(userQuestion.retired_on).toLocaleDateString()
+                  : "--"}
+              </div>
               <div>Attempts: {userQuestion.attempts}</div>
               <div>Streak: {userQuestion.streak}</div>
               <div>Difficulty: {userQuestion.difficulty}</div>

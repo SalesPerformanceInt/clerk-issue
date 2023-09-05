@@ -7,7 +7,7 @@ import {
 
 import { ANSWER, type Answer } from "./answer";
 import { getCurrentAnswer, getReviewedAnswer } from "./getAnswers";
-import { shouldRetireUserQuestion } from "./retireAnswer";
+import { getRetiredOn } from "./retireAnswer";
 
 /**
  * Get Question
@@ -54,7 +54,7 @@ export const saveAnswer = async (request: Request) => {
     userQuestion.id,
     {
       active_on: userQuestionNextActiveDate,
-      status: shouldRetireUserQuestion(userQuestion, reviewedAnswer),
+      retired_on: getRetiredOn(userQuestion, reviewedAnswer),
       latest_review_gap: reviewedAnswer.latestReviewGap,
       difficulty: reviewedAnswer.difficulty,
       streak: reviewedAnswer.streak,

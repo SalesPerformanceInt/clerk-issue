@@ -7,24 +7,19 @@ export const GET_USER_DASHBOARD = graphql(/* GraphQL */ `
       ...BaseUser
       ...UserActiveQuestionsData
       user_enrollments {
-        taxonomy_id
-        id
-        attempted: user_questions_aggregate(
-          where: { status: { _eq: "attempted" } }
-        ) {
+        ...BaseUserEnrollment
+        attempted: user_questions_aggregate(where: { attempts: { _gt: 0 } }) {
           aggregate {
             count
           }
         }
-        unattempted: user_questions_aggregate(
-          where: { status: { _eq: "unattempted" } }
-        ) {
+        unattempted: user_questions_aggregate(where: { attempts: { _eq: 0 } }) {
           aggregate {
             count
           }
         }
         retired: user_questions_aggregate(
-          where: { status: { _eq: "retired" } }
+          where: { retired_on: { _is_null: false } }
         ) {
           aggregate {
             count

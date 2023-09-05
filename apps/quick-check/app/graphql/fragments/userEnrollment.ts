@@ -8,5 +8,6 @@ export const BaseUserEnrollment = graphql(/* GraphQL */ `
     tenant_id
     taxonomy_id
     created_at
+    score
   }
 `);

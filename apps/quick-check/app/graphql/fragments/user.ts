@@ -34,7 +34,7 @@ export const UserActiveQuestionsData = graphql(/* GraphQL */ `
   fragment UserActiveQuestionsData on user {
     unanswered_questions: user_questions_aggregate(
       where: {
-        status: { _neq: "retired" }
+        retired_on: { _is_null: true }
         active_on: { _is_null: false, _lte: $datetime }
       }
     ) {
@@ -48,7 +48,7 @@ export const UserActiveQuestionsData = graphql(/* GraphQL */ `
           count: {
             predicate: { _gt: 0 }
             filter: {
-              status: { _neq: "retired" }
+              retired_on: { _is_null: true }
               active_on: { _is_null: false }
             }
           }

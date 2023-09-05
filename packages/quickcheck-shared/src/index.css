@@ -6,33 +6,42 @@
 
 @layer base {
   :root {
-    --primary: 254 56% 19%;
-    --primary-75: 259 23% 37%;
-    --primary-50: 261 15% 57%;
-    --primary-25: 261 15% 78%;
+    --primary: 254 56% 19%; /* #22154c */
+    --primary-75: 259 23% 37%; /* #564974 */
+    --primary-50: 261 15% 57%; /* #8c81a2 */
+    --primary-25: 261 15% 78%; /* #c4becf */
 
-    --secondary: 349 26% 58%;
+    --secondary: 349 26% 58%; /* #b07882 */
 
-    --text: 0 0% 7%;
-    --contrast: 0 0% 100%;
+    --text: 0 0% 7%; /* #111111 */
+    --contrast: 0 0% 100%; /* #ffffff */
 
-    --background: 0 0% 100%;
-    --background-secondary: 0 12% 92%;
+    --background: 0 0% 100%; /* #ffffff */
+    --background-secondary: 0 12% 92%; /* #ede8e8 */
 
-    --success: 63 79% 27%;
-    --success-50: 83 34% 54%;
+    --success: 63 79% 27%; /*	#767b0e */
+    --success-50: 83 34% 54%; /* #93b262 */
 
-    --warning: 342 82% 28%;
-    --warning-50: 347 71% 65%;
+    --warning: 342 82% 28%; /* #820d30 */
+    --warning-50: 347 71% 65%; /* #e56682 */
 
-    --highlight: 350 24% 75%;
+    --highlight: 350 24% 75%; /* #cfb0b5 */
 
     --font-face: Open Sans;
   }
-}
 
-@layer base {
   body {
     @apply bg-background text-text;
+  }
+}
+
+@layer utilities {
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+
+  .no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
   }
 }

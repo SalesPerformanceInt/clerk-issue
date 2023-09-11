@@ -6,12 +6,11 @@ import {
   faDash,
 } from "@fortawesome/pro-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { twMerge } from "tailwind-merge";
 
 import { MatchedMap } from "~/utils/matchedMap";
 
 type LeaderboardEntryProps = {
-  direction: "up" | "down" | "neutral";
+  direction?: "up" | "down" | "neutral";
   rank: number | string;
   title: string;
   className?: string;
@@ -32,11 +31,16 @@ const LeaderboardEntry: FC<LeaderboardEntryProps> = ({
 }) => {
   return (
     <div className="flex flex-wrap items-center text-text gap-4">
-      <FontAwesomeIcon icon={directionMap.get(direction)} className="flex-1" />
+      {direction && (
+        <FontAwesomeIcon
+          icon={directionMap.get(direction)}
+          className="flex-1"
+        />
+      )}
 
       <div className="font-bold text-right flex-1 mr-2"> #{rank} </div>
 
-      <h3 className="flex-[5]"> {title} </h3>
+      <h3 className="flex-[6]"> {title} </h3>
     </div>
   );
 };

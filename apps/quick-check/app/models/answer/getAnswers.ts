@@ -47,6 +47,7 @@ export const getReviewedAnswer = (
     latestReviewGap: userQuestion.latest_review_gap,
     difficulty: userQuestion.difficulty || REVIEW_DIFFICULTY_BASE,
     streak: userQuestion.streak || 0,
+    score: currentAnswer.correct ? 2 : 1,
   };
 
   const reviewedAnswer = reviewAnswer(answerToReview);

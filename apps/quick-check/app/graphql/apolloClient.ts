@@ -17,6 +17,7 @@ import {
   resetUser,
   toggleUserSMSEnabled,
   updateNextQuestionId,
+  updateUserEnrollment,
   updateUserQuestion,
 } from "~/graphql/mutations";
 import {
@@ -100,6 +101,7 @@ export class GraphQLClient implements WithApolloClient {
   getUserEmailData = getUserEmailData;
   createUserAnswer = createUserAnswer;
   getActiveUserQuestion = getActiveUserQuestion;
+  updateUserEnrollment = updateUserEnrollment;
 
   constructor(headers: GraphQLHeaders) {
     this.client = getClient(headers);

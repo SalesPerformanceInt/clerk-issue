@@ -66,6 +66,10 @@ export const saveAnswer = async (request: Request) => {
     last_answered_on: reviewedAnswer.lastAnsweredOn,
   });
 
+  await userApolloClient.updateUserEnrollment(userQuestion.user_enrollment.id, {
+    score: reviewedAnswer.score,
+  });
+
   await userApolloClient.createUserAnswer(userAnswer);
 
   return await userApolloClient.createLearningRecord(learningRecord);

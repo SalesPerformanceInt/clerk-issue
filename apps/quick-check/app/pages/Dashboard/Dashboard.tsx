@@ -14,10 +14,13 @@ import {
   Section,
 } from "quickcheck-shared";
 
-import { ActiveEnrollmentsCard } from "./components/ActiveEnrollmentsCard";
-import { DashboardHeader } from "./components/DashboardHeader";
-import { DashboardMobileAction } from "./components/DashboardMobileAction";
-import { WeeklyStreakCard } from "./components/WeeklyStreakCard";
+import {
+  ActiveEnrollmentsCard,
+  DashboardHeader,
+  DashboardMobileAction,
+  LeaderboardCard,
+  WeeklyStreakCard,
+} from "./components";
 
 import { DashboardContextProvider } from "./context/DashboardContext";
 
@@ -38,35 +41,7 @@ export const Dashboard: FC<DashboardProps> = ({ dashboard }) => {
 
           <WeeklyStreakCard />
 
-          <Card>
-            <CardTitle title="Leaderboard" className="px-4 py-4 pb-6" />
-
-            <section className="flex flex-col gap-4 px-4 pb-6">
-              <LeaderboardEntry
-                direction="up"
-                rank={2}
-                title="Sprint Prospecting"
-              />
-
-              <LeaderboardEntry
-                direction="up"
-                rank={3}
-                title="Sprint Selling"
-              />
-
-              <LeaderboardEntry
-                direction="neutral"
-                rank={10}
-                title="Six Critical Skills"
-              />
-
-              <LeaderboardEntry
-                direction="down"
-                rank={44}
-                title="Consensus Building"
-              />
-            </section>
-          </Card>
+          <LeaderboardCard />
         </MobileCarousel>
 
         <Section title={t("common.progress")} icon={<ProgressIcon />}>

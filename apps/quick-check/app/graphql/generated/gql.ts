@@ -29,6 +29,7 @@ const documents = {
     "\n  mutation ResetUser($user_id: uuid!) {\n    update_user_by_pk(\n      pk_columns: { user_id: $user_id }\n      _set: { next_user_question_id: null }\n    ) {\n      ...BaseUser\n    }\n    delete_learning_record(where: { user_id: { _eq: $user_id } }) {\n      affected_rows\n    }\n    delete_user_enrollment(where: { user_id: { _eq: $user_id } }) {\n      affected_rows\n    }\n  }\n": types.ResetUserDocument,
     "\n  mutation ToggleUserSMSEnabled($userId: uuid!, $sms_enabled: Boolean) {\n    update_user_by_pk(\n      pk_columns: { user_id: $userId }\n      _set: { sms_enabled: $sms_enabled }\n    ) {\n      ...BaseUser\n    }\n  }\n": types.ToggleUserSmsEnabledDocument,
     "\n  mutation UpdateNextQuestionId($user_id: uuid!, $next_user_question_id: uuid) {\n    update_user_by_pk(\n      pk_columns: { user_id: $user_id }\n      _set: { next_user_question_id: $next_user_question_id }\n    ) {\n      ...BaseUser\n    }\n  }\n": types.UpdateNextQuestionIdDocument,
+    "\n  mutation UpdateUserEnrollment($id: uuid!, $set: user_enrollment_set_input) {\n    update_user_enrollment_by_pk(pk_columns: { id: $id }, _set: $set) {\n      ...BaseUserEnrollment\n    }\n  }\n": types.UpdateUserEnrollmentDocument,
     "\n  mutation UpdateUserQuestion($id: uuid!, $set: user_question_set_input) {\n    update_user_question_by_pk(pk_columns: { id: $id }, _set: $set) {\n      ...BaseUserQuestion\n    }\n  }\n": types.UpdateUserQuestionDocument,
     "\n  query GetActiveUserQuestion($id: uuid!, $now: timestamptz) {\n    user_question(\n      where: {\n        id: { _eq: $id }\n        active_on: { _lte: $now }\n        retired_on: { _is_null: true }\n      }\n    ) {\n      ...BaseUserQuestion\n    }\n  }\n": types.GetActiveUserQuestionDocument,
     "\n  query GetAllUser {\n    user(order_by: [{ created_at: asc }, { email: asc }]) {\n      ...UserWithActiveToken\n    }\n  }\n": types.GetAllUserDocument,
@@ -121,6 +122,10 @@ export function graphql(source: "\n  mutation ToggleUserSMSEnabled($userId: uuid
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function graphql(source: "\n  mutation UpdateNextQuestionId($user_id: uuid!, $next_user_question_id: uuid) {\n    update_user_by_pk(\n      pk_columns: { user_id: $user_id }\n      _set: { next_user_question_id: $next_user_question_id }\n    ) {\n      ...BaseUser\n    }\n  }\n"): (typeof documents)["\n  mutation UpdateNextQuestionId($user_id: uuid!, $next_user_question_id: uuid) {\n    update_user_by_pk(\n      pk_columns: { user_id: $user_id }\n      _set: { next_user_question_id: $next_user_question_id }\n    ) {\n      ...BaseUser\n    }\n  }\n"];
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(source: "\n  mutation UpdateUserEnrollment($id: uuid!, $set: user_enrollment_set_input) {\n    update_user_enrollment_by_pk(pk_columns: { id: $id }, _set: $set) {\n      ...BaseUserEnrollment\n    }\n  }\n"): (typeof documents)["\n  mutation UpdateUserEnrollment($id: uuid!, $set: user_enrollment_set_input) {\n    update_user_enrollment_by_pk(pk_columns: { id: $id }, _set: $set) {\n      ...BaseUserEnrollment\n    }\n  }\n"];
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */

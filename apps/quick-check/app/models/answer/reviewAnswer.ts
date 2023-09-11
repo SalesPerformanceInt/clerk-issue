@@ -100,6 +100,7 @@ export const reviewAnswer = (answerToReview: AnswerToReview) => {
       answerToReview.performanceRating === REVIEW_WRONG
         ? 0
         : answerToReview.streak + 1,
+    score: answerToReview.score,
   };
 
   return reviewedAnswer;

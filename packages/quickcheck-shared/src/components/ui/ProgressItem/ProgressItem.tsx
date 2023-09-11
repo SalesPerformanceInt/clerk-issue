@@ -40,7 +40,7 @@ const ProgressItem: FC<ProgressItemProps> = ({
 
   return (
     <div
-      className="flex items-center justify-between p-4 gap-6 cursor-pointer border-b border-b-background-secondary last:border-b-0"
+      className="flex items-center justify-between p-6 gap-6 cursor-pointer border-b border-b-background-secondary last:border-b-0"
       onClick={() => onClick?.(id)}
     >
       <div className={twMerge("flex flex-col gap-2 w-full", !title && "gap-4")}>

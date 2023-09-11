@@ -50,14 +50,14 @@ export const WeeklyStreakCard: FC<CardProps> = ({ className, ...props }) => {
   const streakCount = useMemo(() => getStreakCount(calendar), [calendar]);
 
   return (
-    <Card className={twMerge("max-w-sm px-4 py-4", className)} {...props}>
+    <Card className={twMerge("max-w-sm p-6", className)} {...props}>
       <CardTitle
         qty={streakCount}
         title={t("user.dashboard.weekly_streak")}
         className="pb-6"
       />
 
-      <WeeklyStreakCalendar calendar={calendar} className="pb-6" />
+      <WeeklyStreakCalendar calendar={calendar} />
     </Card>
   );
 };

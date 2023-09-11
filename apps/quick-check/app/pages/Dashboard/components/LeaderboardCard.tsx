@@ -17,9 +17,9 @@ type LeaderboardCardProps = {
 export const LeaderboardCard: FC<LeaderboardCardProps> = ({ className }) => {
   return (
     <Card className={twMerge("max-w-sm", className)}>
-      <CardTitle title="Leaderboard" className="px-4 py-4 pb-6" />
+      <CardTitle title="Leaderboard" className="p-6 pb-0" />
 
-      <section className="flex flex-col gap-4 px-4 pb-6">
+      <section className="flex flex-col gap-4 p-6">
         <LeaderboardEntry direction="up" rank={2} title="Sprint Prospecting" />
 
         <LeaderboardEntry direction="up" rank={3} title="Sprint Selling" />

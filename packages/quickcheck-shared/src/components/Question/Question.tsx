@@ -2,6 +2,8 @@ import React, { FC, useEffect } from "react";
 
 import { Taxon } from "~/contentstack";
 
+import type { UserData } from "~/utils/types";
+
 import { Action, QuestionHeader, QuestionVariant } from "./components";
 
 import type { OnSubmit, QuestionItem, Variant } from "./Question.types";
@@ -16,6 +18,7 @@ export type QuestionProps = {
   onContinue: () => void;
   enrollmentTaxonomy?: Taxon | null;
   initialChoiceId?: string | null;
+  userData?: UserData | null;
 };
 
 export const Question: FC<QuestionProps> = (props) => {

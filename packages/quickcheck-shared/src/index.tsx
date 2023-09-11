@@ -16,3 +16,4 @@ export * from "./utils/stripHTML";
 export * from "./utils/getVariant";
 export * from "./utils/i18n";
 export * from "./utils/logger";
+export * from "./utils/types";

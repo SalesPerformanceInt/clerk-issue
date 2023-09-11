@@ -8,17 +8,17 @@ import { CalendarWeek, type Week } from "~/components";
 const daysOfWeek = pipe(
   7,
   times(identity),
-  map((weekday) => DateTime.now().set({ weekday }).toFormat("ccccc")),
+  map((weekday) => DateTime.now().set({ weekday })),
 );
 
 const DaysOfWeek = () => (
   <div className="flex justify-between">
     {daysOfWeek.map((day) => (
       <p
-        key={day}
+        key={day.toFormat("cccc")}
         className="w-5 text-center font-semibold text-xs leading-4 uppercase text-text"
       >
-        {day}
+        {day.toFormat("ccccc")}
       </p>
     ))}
   </div>

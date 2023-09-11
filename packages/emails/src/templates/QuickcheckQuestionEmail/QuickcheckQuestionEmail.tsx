@@ -24,14 +24,10 @@ import {
   stripHTML,
   type QuestionItem,
   type Taxon,
+  type UserData,
 } from "quickcheck-shared";
 
 import { theme } from "../../../tailwind.config";
-
-export interface UserData {
-  unanswered_questions?: number;
-  active_enrollments?: number;
-}
 
 interface QuickcheckQuestionEmailProps {
   questionItem: QuestionItem;

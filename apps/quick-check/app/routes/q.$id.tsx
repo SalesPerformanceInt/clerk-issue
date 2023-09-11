@@ -48,6 +48,7 @@ export const loader = async ({ params, request }: LoaderArgs) => {
 
     const userApolloClient = await getUserApolloClientFromRequest(request);
     const userQuestion = await userApolloClient.getActiveUserQuestion(id);
+    const userData = await userApolloClient.getUserActiveQuestionsData();
 
     invariant(userQuestion, "user question not found");
 
@@ -57,7 +58,7 @@ export const loader = async ({ params, request }: LoaderArgs) => {
     const variant = getFirstVariant(questionItem.variants);
     invariant(variant, "No valid variant");
 
-    return json({ questionItem, enrollmentTaxonomy, variant, id });
+    return json({ questionItem, enrollmentTaxonomy, variant, id, userData });
   } catch (error) {
     throw redirect("/nq");
   }
@@ -77,7 +78,7 @@ export const action: ActionFunction = async ({ request }) => {
 };
 
 export default function Page() {
-  const { questionItem, variant, enrollmentTaxonomy, id } =
+  const { questionItem, variant, enrollmentTaxonomy, id, userData } =
     useLoaderData<typeof loader>();
 
   const navigate = useNavigate();
@@ -112,6 +113,7 @@ export default function Page() {
       questionItem={questionItem}
       enrollmentTaxonomy={enrollmentTaxonomy}
       initialChoiceId={initialChoiceId}
+      userData={userData}
     />
   );
 }

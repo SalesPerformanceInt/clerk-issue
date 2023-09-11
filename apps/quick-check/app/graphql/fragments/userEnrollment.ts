@@ -5,7 +5,6 @@ export const BaseUserEnrollment = graphql(/* GraphQL */ `
     __typename
     id
     user_id
-    tenant_id
     taxonomy_id
     created_at
     score

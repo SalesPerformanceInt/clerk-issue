@@ -5,7 +5,6 @@ export const BaseUserQuestion = graphql(/* GraphQL */ `
     __typename
     id
     user_id
-    tenant_id
     taxonomy_id
     question_id
     retired_on

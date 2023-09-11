@@ -42,34 +42,38 @@ const config = {
       },
       colors: {
         primary: {
-          DEFAULT: "hsl(var(--primary, 254 56% 19%))",
-          75: "hsl(var(--primary-75, 259 23% 37%))",
-          50: "hsl(var(--primary-50, 261 15% 57%))",
-          25: "hsl(var(--primary-25, 261 15% 78%))",
+          DEFAULT: "var(--primary)",
+          75: "var(--primary-75)",
+          50: "var(--primary-50)",
+          25: "var(--primary-25)",
         },
         secondary: {
-          DEFAULT: "hsl(var(--secondary, 349 26% 58%))",
+          DEFAULT: "var(--secondary)",
+        },
+        accent: {
+          DEFAULT: "var(--accent)",
+          50: "var(--accent-50)",
         },
         highlight: {
-          DEFAULT: "hsl(var(--highlight, 350 24% 75%))",
+          DEFAULT: "var(--highlight)",
         },
         background: {
-          DEFAULT: "hsl(var(--background, 0 0% 100%))",
-          secondary: "hsl(var(--background-secondary, 0 12% 92%))",
+          DEFAULT: "var(--background)",
+          secondary: "var(--background-secondary)",
         },
         text: {
-          DEFAULT: "hsl(var(--text, 0 0% 7%))",
+          DEFAULT: "var(--text)",
         },
         contrast: {
-          DEFAULT: "hsl(var(--contrast, 0 0% 100%))",
+          DEFAULT: "var(--contrast)",
         },
         success: {
-          DEFAULT: "hsl(var(--success, 63 79% 27%))",
-          50: "hsl(var(--success-50, 83 34% 54%))",
+          DEFAULT: "var(--success)",
+          50: "var(--success-50)",
         },
         warning: {
-          DEFAULT: "hsl(var(--warning, 342 82% 28%))",
-          50: "hsl(var(--warning-50, 347 71% 65%))",
+          DEFAULT: "var(--warning)",
+          50: "var(--warning-50)",
         },
       },
       keyframes: {

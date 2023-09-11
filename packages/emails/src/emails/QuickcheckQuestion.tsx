@@ -1,9 +1,6 @@
-import { type QuestionItem, type Taxon } from "quickcheck-shared";
+import type { QuestionItem, Taxon, UserData } from "quickcheck-shared";
 
-import {
-  QuickcheckQuestionEmail,
-  UserData,
-} from "../templates/QuickcheckQuestionEmail";
+import { QuickcheckQuestionEmail } from "../templates/QuickcheckQuestionEmail";
 import { i18n } from "../utils/i18n";
 
 const QuickcheckQuestionEmailPreview = () => {

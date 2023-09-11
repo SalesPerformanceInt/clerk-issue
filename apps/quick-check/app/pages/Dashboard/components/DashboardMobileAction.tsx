@@ -29,13 +29,15 @@ export const DashboardMobileAction: FC = () => {
           <p className="text-xs text-primary-75 uppercase">
             {t("common.unanswered", { count: dashboard.unanswered_questions })}
           </p>
-          <Button
-            background="light"
-            onClick={() => navigate("/nq")}
-            rightIcon={faArrowRight}
-          >
-            {t("buttons.start")}
-          </Button>
+          {!!dashboard.unanswered_questions && (
+            <Button
+              background="light"
+              onClick={() => navigate("/nq")}
+              rightIcon={faArrowRight}
+            >
+              {t("buttons.start")}
+            </Button>
+          )}
         </div>
       </ResponsiveContainer>
     </>

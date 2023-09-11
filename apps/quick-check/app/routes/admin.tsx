@@ -120,10 +120,6 @@ export const action = async ({ request }: ActionArgs) => {
 
       const t = await remixI18next.getFixedT(user.language_preference);
 
-      const x = await getAdminApolloClient().getUserActiveQuestionsData(
-        adminAction.userId,
-      );
-
       const result = await sendEmail(
         user?.email,
         t("emails.question.subject.on_a_roll", {

@@ -31,17 +31,21 @@ export const DashboardHeader: FC = () => {
         <div className="flex items-center gap-4 sm:gap-8">
           {isDesktop && (
             <div className="flex items-center gap-4">
-              <p className="text-xs text-background uppercase">
+              <p className="text-xs text-background uppercase whitespace-pre">
                 {t("common.unanswered", {
                   count: dashboard.unanswered_questions,
                 })}
               </p>
-              <Button onClick={() => navigate("/nq")} rightIcon={faArrowRight}>
-                {t("buttons.start")}
-              </Button>
+              {!!dashboard.unanswered_questions && (
+                <Button
+                  onClick={() => navigate("/nq")}
+                  rightIcon={faArrowRight}
+                >
+                  {t("buttons.start")}
+                </Button>
+              )}
             </div>
           )}
-          <AccelerateButton />
           <Avatar initials={getUserIntials(dashboard)} />
         </div>
       }

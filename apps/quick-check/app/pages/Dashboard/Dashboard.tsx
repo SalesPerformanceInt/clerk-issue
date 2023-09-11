@@ -39,25 +39,33 @@ export const Dashboard: FC<DashboardProps> = ({ dashboard }) => {
           <WeeklyStreakCard />
 
           <Card>
-            <CardTitle title="Leaderboard" className="p-6" />
+            <CardTitle title="Leaderboard" className="px-4 py-4 pb-6" />
 
-            <LeaderboardEntry
-              direction="up"
-              rank={1}
-              title="Sprint Prospecting"
-            />
+            <section className="flex flex-col gap-4 px-4 pb-6">
+              <LeaderboardEntry
+                direction="up"
+                rank={2}
+                title="Sprint Prospecting"
+              />
 
-            <LeaderboardEntry
-              direction="up"
-              rank={1}
-              title="Sprint Prospecting"
-            />
+              <LeaderboardEntry
+                direction="up"
+                rank={3}
+                title="Sprint Selling"
+              />
 
-            <LeaderboardEntry
-              direction="up"
-              rank={1}
-              title="Sprint Prospecting"
-            />
+              <LeaderboardEntry
+                direction="neutral"
+                rank={10}
+                title="Six Critical Skills"
+              />
+
+              <LeaderboardEntry
+                direction="down"
+                rank={44}
+                title="Consensus Building"
+              />
+            </section>
           </Card>
         </MobileCarousel>
 

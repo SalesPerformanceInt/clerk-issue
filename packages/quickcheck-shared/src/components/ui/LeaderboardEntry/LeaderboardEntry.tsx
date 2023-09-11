@@ -1,8 +1,14 @@
 import React, { type FC, type ReactNode } from "react";
 
-import { faArrowUp } from "@fortawesome/pro-solid-svg-icons";
+import {
+  faArrowDown,
+  faArrowUp,
+  faDash,
+} from "@fortawesome/pro-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { twMerge } from "tailwind-merge";
+
+import { MatchedMap } from "~/utils/matchedMap";
 
 type LeaderboardEntryProps = {
   direction: "up" | "down" | "neutral";
@@ -11,6 +17,13 @@ type LeaderboardEntryProps = {
   className?: string;
 };
 
+const directionMap = new MatchedMap([
+  ["up", faArrowUp],
+  ["down", faArrowDown],
+  ["neutral", faDash],
+  ["_", faDash],
+]);
+
 const LeaderboardEntry: FC<LeaderboardEntryProps> = ({
   direction,
   rank,
@@ -18,12 +31,12 @@ const LeaderboardEntry: FC<LeaderboardEntryProps> = ({
   className,
 }) => {
   return (
-    <div className="flex items-center text-text">
-      <FontAwesomeIcon icon={faArrowUp} />
+    <div className="flex flex-wrap items-center text-text gap-4">
+      <FontAwesomeIcon icon={directionMap.get(direction)} className="flex-1" />
 
-      <div className="font-bold"> #{rank} </div>
+      <div className="font-bold text-right flex-1 mr-2"> #{rank} </div>
 
-      <h3> {title} </h3>
+      <h3 className="flex-[5]"> {title} </h3>
     </div>
   );
 };

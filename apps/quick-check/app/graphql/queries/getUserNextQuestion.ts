@@ -1,10 +1,10 @@
 import { graphql, type WithApolloClient } from "~/graphql";
 
 export const GET_USER_NEXT_QUESTION = graphql(/* GraphQL */ `
-  query GetUserNextQuestion($userId: uuid!) {
+  query GetUserNextQuestion($userId: uuid!, $now: timestamptz!) {
     user_by_pk(user_id: $userId) {
       user_questions(
-        where: { active_on: { _is_null: false } }
+        where: { active_on: { _lte: $now } }
         order_by: { active_on: asc }
         limit: 1
       ) {
@@ -17,11 +17,12 @@ export const GET_USER_NEXT_QUESTION = graphql(/* GraphQL */ `
 export async function getUserNextQuestion(
   this: WithApolloClient,
   userId: string,
+  now?: string,
 ) {
   try {
     const result = await this.client.query({
       query: GET_USER_NEXT_QUESTION,
-      variables: { userId },
+      variables: { userId, now: now ?? new Date().toISOString() },
       fetchPolicy: "no-cache",
     });
 

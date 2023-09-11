@@ -1,14 +1,20 @@
 import React, { type FC } from "react";
 import { useTranslation } from "react-i18next";
 
-// import { faArrowUpRightDots } from "@fortawesome/pro-light-svg-icons";
+import { faArrowUpRightDots } from "@fortawesome/pro-light-svg-icons";
 import type { DashboardData } from "~/graphql";
 
-import { ProgressIcon, ResponsiveContainer, Section } from "quickcheck-shared";
+import {
+  MobileCarousel,
+  ProgressIcon,
+  ResponsiveContainer,
+  Section,
+} from "quickcheck-shared";
 
 import { ActiveEnrollmentsCard } from "./components/ActiveEnrollmentsCard";
 import { DashboardHeader } from "./components/DashboardHeader";
 import { DashboardMobileAction } from "./components/DashboardMobileAction";
+import { WeeklyStreakCard } from "./components/WeeklyStreakCard";
 
 import { DashboardContextProvider } from "./context/DashboardContext";
 
@@ -23,7 +29,11 @@ export const Dashboard: FC<DashboardProps> = ({ dashboard }) => {
     <DashboardContextProvider dashboard={dashboard}>
       <DashboardHeader />
       <ResponsiveContainer className="p-4">
-        {/* <Section title={t("common.activity")} icon={faArrowUpRightDots} /></Section> */}
+        <MobileCarousel title={t("common.activity")} icon={faArrowUpRightDots}>
+          <WeeklyStreakCard />
+          <WeeklyStreakCard />
+          <WeeklyStreakCard />
+        </MobileCarousel>
         <Section title={t("common.progress")} icon={<ProgressIcon />}>
           <ActiveEnrollmentsCard />
         </Section>

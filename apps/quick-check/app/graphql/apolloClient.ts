@@ -11,6 +11,7 @@ import invariant from "tiny-invariant";
 import {
   createLearningRecord,
   createUser,
+  createUserAnswer,
   enrollUser,
   generateNewToken,
   resetUser,
@@ -19,6 +20,7 @@ import {
   updateUserQuestion,
 } from "~/graphql/mutations";
 import {
+  getActiveUserQuestion,
   getAllUsers,
   getLinkToken,
   getUser,
@@ -37,8 +39,6 @@ import {
   HASURA_AUTH_TOKEN,
   HASURA_SECRET_KEY,
 } from "~/utils/envs.server";
-
-import { JSONB } from "./scalars";
 
 type GraphQLHeaders = Record<string, string>;
 
@@ -98,6 +98,8 @@ export class GraphQLClient implements WithApolloClient {
   getUserDashboard = getUserDashboard;
   getUserActiveQuestionsData = getUserActiveQuestionsData;
   getUserEmailData = getUserEmailData;
+  createUserAnswer = createUserAnswer;
+  getActiveUserQuestion = getActiveUserQuestion;
 
   constructor(headers: GraphQLHeaders) {
     this.client = getClient(headers);
@@ -117,7 +119,8 @@ export class UserGraphQLClient extends GraphQLClient {
   getUserQuestionLearningRecord = (questionId: string) =>
     getUserQuestionLearningRecord.call(this, this.userId, questionId);
   getUserTheme = () => getUserTheme.call(this, this.userId);
-  getUserNextQuestion = () => getUserNextQuestion.call(this, this.userId);
+  getUserNextQuestion = (now?: string) =>
+    getUserNextQuestion.call(this, this.userId, now);
   getUserDashboard = () => getUserDashboard.call(this, this.userId);
   getUserActiveQuestionsData = () =>
     getUserActiveQuestionsData.call(this, this.userId);

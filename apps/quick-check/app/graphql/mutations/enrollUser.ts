@@ -18,7 +18,7 @@ import {
 } from "quickcheck-shared";
 
 import { ENROLLMENT_PERIOD } from "~/utils/constants";
-import { getValidBusinessDate } from "~/utils/date";
+import { getNextValidBusinessDate } from "~/utils/date";
 
 import { buildTaxonTrees, type TaxonomyDataObj } from "~/models/taxonomy";
 
@@ -78,7 +78,10 @@ const prepareActiveQuestionsInput = (user_id: string) => {
           getActiveQuestionGap(questionIndex) -
           getActiveQuestionGap(questionIndex - 1);
 
-        const activeDate = getValidBusinessDate(baseDate, activeQuestionGap);
+        const activeDate = getNextValidBusinessDate(
+          baseDate,
+          activeQuestionGap,
+        );
 
         return {
           user_id,

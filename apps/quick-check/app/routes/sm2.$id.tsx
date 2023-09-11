@@ -157,7 +157,7 @@ export default function Page() {
                   ? new Date(userQuestion.retired_on).toLocaleDateString()
                   : "--"}
               </div>
-              <div>Attempts: {userQuestion.attempts}</div>
+              <div>Attempts: {userQuestion.attempts.aggregate?.count}</div>
               <div>Streak: {userQuestion.streak}</div>
               <div>Difficulty: {userQuestion.difficulty}</div>
               <div>Latest Review Gap: {userQuestion.latest_review_gap}</div>

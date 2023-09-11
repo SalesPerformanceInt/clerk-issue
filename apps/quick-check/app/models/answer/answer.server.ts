@@ -3,6 +3,7 @@ import {
   getUserApolloClientFromRequest,
   type Learning_Record_Insert_Input,
   type UserGraphQLClient,
+  type User_Answer_Insert_Input,
 } from "~/graphql";
 
 import { ANSWER, type Answer } from "./answer";
@@ -50,18 +51,22 @@ export const saveAnswer = async (request: Request) => {
     data: reviewedAnswer,
   };
 
-  await userApolloClient.updateUserQuestion(
-    userQuestion.id,
-    {
-      active_on: userQuestionNextActiveDate,
-      retired_on: getRetiredOn(userQuestion, reviewedAnswer),
-      latest_review_gap: reviewedAnswer.latestReviewGap,
-      difficulty: reviewedAnswer.difficulty,
-      streak: reviewedAnswer.streak,
-      last_answered_on: reviewedAnswer.lastAnsweredOn,
-    },
-    { attempts: 1 },
-  );
+  const userAnswer: User_Answer_Insert_Input = {
+    user_id: userApolloClient.userId,
+    question_id: userQuestion.id,
+    correct: currentAnswer.correct,
+  };
+
+  await userApolloClient.updateUserQuestion(userQuestion.id, {
+    active_on: userQuestionNextActiveDate,
+    retired_on: getRetiredOn(userQuestion, reviewedAnswer),
+    latest_review_gap: reviewedAnswer.latestReviewGap,
+    difficulty: reviewedAnswer.difficulty,
+    streak: reviewedAnswer.streak,
+    last_answered_on: reviewedAnswer.lastAnsweredOn,
+  });
+
+  await userApolloClient.createUserAnswer(userAnswer);
 
   return await userApolloClient.createLearningRecord(learningRecord);
 };

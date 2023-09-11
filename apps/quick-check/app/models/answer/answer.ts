@@ -19,7 +19,9 @@ export const answerSchema = z.object({
 });
 
 export const parseAnswer = (value: unknown) => parseSchema(value, answerSchema);
-export const parseAnswerDate = (value: unknown) => {
+export const parseAnswerDate = (value?: unknown) => {
+  if (!value) return new Date().toISOString();
+
   const answerDate = new Date();
 
   const parsedDate = z.string().parse(value);

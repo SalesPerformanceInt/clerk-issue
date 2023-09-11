@@ -6,3 +6,4 @@ export * from "./toggleUserSMSEnabled";
 export * from "./createUser";
 export * from "./enrollUser";
 export * from "./updateUserQuestion";
+export * from "./createUserAnswer";

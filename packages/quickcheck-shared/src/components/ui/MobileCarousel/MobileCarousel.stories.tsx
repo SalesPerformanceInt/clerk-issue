@@ -18,9 +18,10 @@ type Story = StoryObj<typeof meta>;
 export const MobileCarousel = {
   args: {
     children: <></>,
+    title: "Storbybook",
   },
-  render: () => (
-    <MobileCarouselComponent>
+  render: ({ title }) => (
+    <MobileCarouselComponent title={title}>
       <Card>
         <CardTitle title="Mobile Carousel" className="p-6" />
       </Card>

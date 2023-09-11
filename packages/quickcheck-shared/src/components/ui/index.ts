@@ -3,3 +3,4 @@ export * from "./Card";
 export * from "./ProgressItem";
 export * from "./MobileCarousel";
 export * from "./Avatar";
+export * from "./WeeklyStreakCalendar";

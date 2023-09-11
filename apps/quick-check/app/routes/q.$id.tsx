@@ -47,9 +47,9 @@ export const loader = async ({ params, request }: LoaderArgs) => {
     invariant(id, "ID not found");
 
     const userApolloClient = await getUserApolloClientFromRequest(request);
-    const userQuestion = await userApolloClient.getUserQuestion(id);
+    const userQuestion = await userApolloClient.getActiveUserQuestion(id);
 
-    invariant(userQuestion?.active_on, "user question not found");
+    invariant(userQuestion, "user question not found");
 
     const { questionItem, enrollmentTaxonomy } =
       await getQuestionData(userQuestion);
@@ -96,7 +96,7 @@ export default function Page() {
 
     const data = JSON.stringify(answer);
 
-    submit({ data, currentDate }, { method: "POST" });
+    submit({ data }, { method: "POST" });
   };
 
   const [searchParams] = useSearchParams();

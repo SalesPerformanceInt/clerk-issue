@@ -7,7 +7,10 @@ const packages = glob
     ignore: ["**/node_modules/**", "**/.react-email/**"],
     absolute: true,
   })
-  .map((pkg) => `${path.dirname(pkg)}/src`);
+  .flatMap((pkg) => [
+    `${path.dirname(pkg)}/dist`,
+    // `${path.dirname(pkg)}/src`
+  ]);
 
 /** @type {import('@remix-run/dev').AppConfig} */
 module.exports = {

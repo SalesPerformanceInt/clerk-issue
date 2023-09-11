@@ -31,13 +31,13 @@ export const CreateUserForm = () => {
     <ValidatedForm
       resetAfterSubmit={true}
       validator={validator}
-      className="overflow-x-auto sm:-mx-6 lg:-mx-8"
+      className="overflow-x-auto sm:-mx-6 desktop:-mx-8"
       onSubmit={(data, event) => {
         event.preventDefault();
         submit(data, { method: "POST" });
       }}
     >
-      <div className="inline-block min-w-full py-2 sm:px-6 lg:px-8">
+      <div className="inline-block min-w-full py-2 sm:px-6 desktop:px-8">
         <div className="overflow-hidden">
           <table className="min-w-full table-auto text-left text-sm">
             <tbody>

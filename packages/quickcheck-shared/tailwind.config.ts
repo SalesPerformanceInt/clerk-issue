@@ -31,6 +31,15 @@ const config = {
       maxWidth: {
         desktop: "928px",
       },
+      minWidth: {
+        "carousel-card": "288px",
+      },
+      screens: {
+        desktop: "928px",
+      },
+      spacing: {
+        "1.25": "0.3125rem",
+      },
       colors: {
         primary: {
           DEFAULT: "hsl(var(--primary, 254 56% 19%))",

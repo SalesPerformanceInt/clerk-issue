@@ -10,7 +10,11 @@ export const BaseUserQuestion = graphql(/* GraphQL */ `
     question_id
     retired_on
     active_on
-    attempts
+    attempts: user_answers_aggregate {
+      aggregate {
+        count
+      }
+    }
     created_at
     streak
     difficulty

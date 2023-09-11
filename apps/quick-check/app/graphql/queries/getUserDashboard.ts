@@ -1,19 +1,37 @@
+import { DateTime } from "luxon";
 import { contentStack } from "~/contentstack.server";
 import { graphql, type WithApolloClient } from "~/graphql";
 
 export const GET_USER_DASHBOARD = graphql(/* GraphQL */ `
-  query GetUserDashboard($userId: uuid!, $datetime: timestamptz!) {
+  query GetUserDashboard(
+    $userId: uuid!
+    $datetime: timestamptz!
+    $monthAgo: timestamptz!
+  ) {
     user_by_pk(user_id: $userId) {
       ...BaseUser
       ...UserActiveQuestionsData
+      user_answers(where: { created_at: { _gte: $monthAgo } }) {
+        ...BaseUserAnswer
+      }
       user_enrollments {
         ...BaseUserEnrollment
-        attempted: user_questions_aggregate(where: { attempts: { _gt: 0 } }) {
+        attempted: user_questions_aggregate(
+          where: {
+            user_answers_aggregate: { count: { predicate: { _gt: 0 } } }
+            retired_on: { _is_null: true }
+          }
+        ) {
           aggregate {
             count
           }
         }
-        unattempted: user_questions_aggregate(where: { attempts: { _eq: 0 } }) {
+        unattempted: user_questions_aggregate(
+          where: {
+            user_answers_aggregate: { count: { predicate: { _eq: 0 } } }
+            retired_on: { _is_null: true }
+          }
+        ) {
           aggregate {
             count
           }
@@ -37,9 +55,15 @@ export const GET_USER_DASHBOARD = graphql(/* GraphQL */ `
 
 export async function getUserDashboard(this: WithApolloClient, userId: string) {
   try {
+    const now = DateTime.now();
+
     const result = await this.client.query({
       query: GET_USER_DASHBOARD,
-      variables: { userId, datetime: new Date().toISOString() },
+      variables: {
+        userId,
+        datetime: now.toISO()!,
+        monthAgo: now.minus({ month: 1 }).toISO()!,
+      },
       fetchPolicy: "no-cache",
     });
 

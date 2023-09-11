@@ -5,9 +5,6 @@ import { faArrowUpRightDots } from "@fortawesome/pro-light-svg-icons";
 import type { DashboardData } from "~/graphql";
 
 import {
-  Card,
-  CardTitle,
-  LeaderboardEntry,
   MobileCarousel,
   ProgressIcon,
   ResponsiveContainer,

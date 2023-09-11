@@ -1,5 +1,7 @@
 import { type FC } from "react";
 
+import { twMerge } from "tailwind-merge";
+
 import {
   Card,
   CardTitle,
@@ -14,7 +16,7 @@ type LeaderboardCardProps = {
 
 export const LeaderboardCard: FC<LeaderboardCardProps> = ({ className }) => {
   return (
-    <Card className={className}>
+    <Card className={twMerge("max-w-sm", className)}>
       <CardTitle title="Leaderboard" className="px-4 py-4 pb-6" />
 
       <section className="flex flex-col gap-4 px-4 pb-6">

@@ -13,6 +13,7 @@ type LeaderboardEntryProps = {
   direction?: "up" | "down" | "neutral";
   rank: number | string;
   title: string;
+  score?: number;
   className?: string;
 };
 
@@ -27,20 +28,26 @@ const LeaderboardEntry: FC<LeaderboardEntryProps> = ({
   direction,
   rank,
   title,
-  className,
+  score,
 }) => {
   return (
     <div className="flex flex-wrap items-center text-text gap-4">
       {direction && (
         <FontAwesomeIcon
           icon={directionMap.get(direction)}
-          className="flex-1"
+          className="basis-6"
         />
       )}
 
-      <div className="font-bold text-right flex-1 mr-2"> #{rank} </div>
+      <div className="font-bold text-right basis-8 mr-2"> #{rank} </div>
 
       <h3 className="flex-[6]"> {title} </h3>
+
+      {score && (
+        <span className="text-right">
+          {new Intl.NumberFormat("en-US").format(score)}
+        </span>
+      )}
     </div>
   );
 };

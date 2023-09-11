@@ -11,10 +11,13 @@ import {
   Section,
 } from "quickcheck-shared";
 
-import { ActiveEnrollmentsCard } from "./components/ActiveEnrollmentsCard";
-import { DashboardHeader } from "./components/DashboardHeader";
-import { DashboardMobileAction } from "./components/DashboardMobileAction";
-import { WeeklyStreakCard } from "./components/WeeklyStreakCard";
+import {
+  ActiveEnrollmentsCard,
+  DashboardHeader,
+  DashboardMobileAction,
+  LeaderboardCard,
+  WeeklyStreakCard,
+} from "./components";
 
 import { DashboardContextProvider } from "./context/DashboardContext";
 
@@ -28,12 +31,16 @@ export const Dashboard: FC<DashboardProps> = ({ dashboard }) => {
   return (
     <DashboardContextProvider dashboard={dashboard}>
       <DashboardHeader />
+
       <ResponsiveContainer className="p-4">
         <MobileCarousel title={t("common.activity")} icon={faArrowUpRightDots}>
           <WeeklyStreakCard />
+
           <WeeklyStreakCard />
-          <WeeklyStreakCard />
+
+          <LeaderboardCard />
         </MobileCarousel>
+
         <Section title={t("common.progress")} icon={<ProgressIcon />}>
           <ActiveEnrollmentsCard />
         </Section>

@@ -46,6 +46,7 @@ export type ReviewedAnswer = {
   difficulty: number;
   streak: number;
   lastAnsweredOn: string | null;
+  score: number;
 };
 
 export type AnswerToReview = ReviewedAnswer & {

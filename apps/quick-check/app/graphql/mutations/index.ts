@@ -7,3 +7,4 @@ export * from "./createUser";
 export * from "./enrollUser";
 export * from "./updateUserQuestion";
 export * from "./createUserAnswer";
+export * from "./updateUserEnrollment";

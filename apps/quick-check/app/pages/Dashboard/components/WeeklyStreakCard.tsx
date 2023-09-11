@@ -8,10 +8,10 @@ import { useDashboardContext } from "~/pages/Dashboard";
 
 import {
   Card,
-  CardProps,
   CardTitle,
   WeeklyStreakCalendar,
   makeCalendar,
+  type CardProps,
   type Week,
 } from "quickcheck-shared";
 
@@ -50,15 +50,14 @@ export const WeeklyStreakCard: FC<CardProps> = ({ className, ...props }) => {
   const streakCount = useMemo(() => getStreakCount(calendar), [calendar]);
 
   return (
-    <Card className={twMerge("max-w-sm", className)} {...props}>
-      <div className="p-6">
-        <CardTitle
-          qty={streakCount}
-          title={t("user.dashboard.weekly_streak")}
-          className="mb-6"
-        />
-        <WeeklyStreakCalendar calendar={calendar} />
-      </div>
+    <Card className={twMerge("max-w-sm p-6", className)} {...props}>
+      <CardTitle
+        qty={streakCount}
+        title={t("user.dashboard.weekly_streak")}
+        className="pb-6"
+      />
+
+      <WeeklyStreakCalendar calendar={calendar} />
     </Card>
   );
 };

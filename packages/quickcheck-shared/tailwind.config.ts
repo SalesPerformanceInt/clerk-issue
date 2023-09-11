@@ -42,38 +42,38 @@ const config = {
       },
       colors: {
         primary: {
-          DEFAULT: "var(--primary)",
-          75: "var(--primary-75)",
-          50: "var(--primary-50)",
-          25: "var(--primary-25)",
+          DEFAULT: "var(--primary, #22154c)",
+          75: "var(--primary-75, #564974)",
+          50: "var(--primary-50, #8c81a2)",
+          25: "var(--primary-25, #c4becf)",
         },
         secondary: {
-          DEFAULT: "var(--secondary)",
+          DEFAULT: "var(--secondary, #b07882)",
         },
         accent: {
-          DEFAULT: "var(--accent)",
-          50: "var(--accent-50)",
+          DEFAULT: "var(--accent, #ad8000)",
+          50: "var(--accent-50, #e8b066)",
         },
         highlight: {
-          DEFAULT: "var(--highlight)",
+          DEFAULT: "var(--highlight, 350 24% 75%)",
         },
         background: {
-          DEFAULT: "var(--background)",
-          secondary: "var(--background-secondary)",
+          DEFAULT: "var(--background, #ffffff)",
+          secondary: "var(--background-secondary, #ede8e8)",
         },
         text: {
-          DEFAULT: "var(--text)",
+          DEFAULT: "var(--text, #111111)",
         },
         contrast: {
-          DEFAULT: "var(--contrast)",
+          DEFAULT: "var(--contrast, #ffffff)",
         },
         success: {
-          DEFAULT: "var(--success)",
-          50: "var(--success-50)",
+          DEFAULT: "var(--success, #767b0e)",
+          50: "var(--success-50, #93b262)",
         },
         warning: {
-          DEFAULT: "var(--warning)",
-          50: "var(--warning-50)",
+          DEFAULT: "var(--warning, #820d30)",
+          50: "var(--warning-50, #e56682)",
         },
       },
       keyframes: {

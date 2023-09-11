@@ -14,8 +14,9 @@ export const ActiveEnrollmentsCard: FC = () => {
       <CardTitle
         qty={dashboard.user_enrollments.length}
         title={t("user.dashboard.active_enrollments")}
-        className="p-6 pb-0"
+        className="px-4 py-4 pb-0"
       />
+
       {dashboard.user_enrollments.map((enrollment) => (
         <ProgressItem
           key={enrollment.id}

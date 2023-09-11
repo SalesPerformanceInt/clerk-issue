@@ -5,6 +5,9 @@ import { faArrowUpRightDots } from "@fortawesome/pro-light-svg-icons";
 import type { DashboardData } from "~/graphql";
 
 import {
+  Card,
+  CardTitle,
+  LeaderboardEntry,
   MobileCarousel,
   ProgressIcon,
   ResponsiveContainer,
@@ -28,12 +31,36 @@ export const Dashboard: FC<DashboardProps> = ({ dashboard }) => {
   return (
     <DashboardContextProvider dashboard={dashboard}>
       <DashboardHeader />
+
       <ResponsiveContainer className="p-4">
         <MobileCarousel title={t("common.activity")} icon={faArrowUpRightDots}>
           <WeeklyStreakCard />
+
           <WeeklyStreakCard />
-          <WeeklyStreakCard />
+
+          <Card>
+            <CardTitle title="Leaderboard" className="p-6" />
+
+            <LeaderboardEntry
+              direction="up"
+              rank={1}
+              title="Sprint Prospecting"
+            />
+
+            <LeaderboardEntry
+              direction="up"
+              rank={1}
+              title="Sprint Prospecting"
+            />
+
+            <LeaderboardEntry
+              direction="up"
+              rank={1}
+              title="Sprint Prospecting"
+            />
+          </Card>
         </MobileCarousel>
+
         <Section title={t("common.progress")} icon={<ProgressIcon />}>
           <ActiveEnrollmentsCard />
         </Section>

@@ -28,6 +28,8 @@ interface DashboardProps {
 export const Dashboard: FC<DashboardProps> = ({ dashboard }) => {
   const { t } = useTranslation();
 
+  console.log({ dashboard });
+
   return (
     <DashboardContextProvider dashboard={dashboard}>
       <DashboardHeader />

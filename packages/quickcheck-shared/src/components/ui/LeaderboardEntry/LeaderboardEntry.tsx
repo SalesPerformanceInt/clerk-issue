@@ -1,4 +1,4 @@
-import React, { type FC, type ReactNode } from "react";
+import React, { type FC } from "react";
 
 import {
   faArrowDown,
@@ -6,6 +6,7 @@ import {
   faDash,
 } from "@fortawesome/pro-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { twMerge } from "tailwind-merge";
 
 import { MatchedMap } from "~/utils/matchedMap";
 
@@ -39,7 +40,13 @@ const LeaderboardEntry: FC<LeaderboardEntryProps> = ({
         />
       )}
 
-      <div className="font-bold text-right basis-8 mr-2"> #{rank} </div>
+      <div
+        className={twMerge("font-bold basis-8", [
+          !!direction && "text-right mr-2",
+        ])}
+      >
+        #{rank}
+      </div>
 
       <h3 className="flex-[6]"> {title} </h3>
 

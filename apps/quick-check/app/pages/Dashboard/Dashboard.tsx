@@ -2,7 +2,6 @@ import React, { type FC } from "react";
 import { useTranslation } from "react-i18next";
 
 import { faArrowUpRightDots } from "@fortawesome/pro-light-svg-icons";
-import type { DashboardData } from "~/graphql";
 
 import {
   MobileCarousel,
@@ -10,6 +9,8 @@ import {
   ResponsiveContainer,
   Section,
 } from "quickcheck-shared";
+
+import type { DashboardData } from "~/graphql";
 
 import {
   ActiveEnrollmentsCard,
@@ -23,15 +24,17 @@ import { DashboardContextProvider } from "./context/DashboardContext";
 
 interface DashboardProps {
   dashboard: DashboardData;
+  somethingElse: string;
 }
 
-export const Dashboard: FC<DashboardProps> = ({ dashboard }) => {
+export const Dashboard: FC<DashboardProps> = ({ dashboard, somethingElse }) => {
   const { t } = useTranslation();
 
-  console.log({ dashboard });
-
   return (
-    <DashboardContextProvider dashboard={dashboard}>
+    <DashboardContextProvider
+      dashboard={dashboard}
+      somethingElse={somethingElse}
+    >
       <DashboardHeader />
 
       <ResponsiveContainer className="p-4">

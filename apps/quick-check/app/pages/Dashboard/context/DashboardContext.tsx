@@ -9,6 +9,7 @@ import type { DashboardData } from "~/graphql";
 
 export interface DashboardContextProps {
   dashboard: DashboardData;
+  somethingElse: string;
 }
 
 export const DashboardContext = createContext<
@@ -32,9 +33,10 @@ export interface DashbaordContextProviderProps extends DashboardContextProps {
 export const DashboardContextProvider: FC<DashbaordContextProviderProps> = ({
   children,
   dashboard,
+  somethingElse,
 }) => {
   return (
-    <DashboardContext.Provider value={{ dashboard }}>
+    <DashboardContext.Provider value={{ dashboard, somethingElse }}>
       {children}
     </DashboardContext.Provider>
   );

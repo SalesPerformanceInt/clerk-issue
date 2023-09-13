@@ -5,11 +5,11 @@ import React, {
   type ReactNode,
 } from "react";
 
-import type { DashboardData } from "~/graphql";
+import type { DashboardData, EnrollmentsRanking } from "~/graphql";
 
 export interface DashboardContextProps {
   dashboard: DashboardData;
-  somethingElse: string;
+  enrollmentsRanking: Promise<EnrollmentsRanking>;
 }
 
 export const DashboardContext = createContext<
@@ -33,10 +33,10 @@ export interface DashbaordContextProviderProps extends DashboardContextProps {
 export const DashboardContextProvider: FC<DashbaordContextProviderProps> = ({
   children,
   dashboard,
-  somethingElse,
+  enrollmentsRanking,
 }) => {
   return (
-    <DashboardContext.Provider value={{ dashboard, somethingElse }}>
+    <DashboardContext.Provider value={{ dashboard, enrollmentsRanking }}>
       {children}
     </DashboardContext.Provider>
   );

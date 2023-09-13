@@ -65,6 +65,8 @@ const documents = {
     types.GetUserDashboardDocument,
   "\n  query GetUserEmailData($userId: uuid!, $datetime: timestamptz!) {\n    user_by_pk(user_id: $userId) {\n      ...UserWithActiveToken\n      ...UserActiveQuestionsData\n    }\n  }\n":
     types.GetUserEmailDataDocument,
+  "\n  query GetUserEnrollmentScores(\n    $userId: uuid!\n    $taxonomyIds: [String!]\n    $tenantId: String\n  ) {\n    user_by_pk(user_id: $userId) {\n      user_enrollments(where: { taxonomy_id: { _in: $taxonomyIds } }) {\n        id\n      }\n    }\n    user_enrollment(\n      where: {\n        taxonomy_id: { _in: $taxonomyIds }\n        user: { tenant_id: { _eq: $tenantId } }\n      }\n    ) {\n      id\n      score\n      taxonomy_id\n    }\n  }\n":
+    types.GetUserEnrollmentScoresDocument,
   "\n  query GetUserNextQuestion($userId: uuid!, $now: timestamptz!) {\n    user_by_pk(user_id: $userId) {\n      user_questions(\n        where: { active_on: { _lte: $now } }\n        order_by: { active_on: asc }\n        limit: 1\n      ) {\n        ...BaseUserQuestion\n      }\n    }\n  }\n":
     types.GetUserNextQuestionDocument,
   "\n  query GetUserQuestion($id: uuid!) {\n    user_question_by_pk(id: $id) {\n      ...BaseUserQuestion\n    }\n  }\n":
@@ -239,6 +241,12 @@ export function graphql(
 export function graphql(
   source: "\n  query GetUserEmailData($userId: uuid!, $datetime: timestamptz!) {\n    user_by_pk(user_id: $userId) {\n      ...UserWithActiveToken\n      ...UserActiveQuestionsData\n    }\n  }\n",
 ): (typeof documents)["\n  query GetUserEmailData($userId: uuid!, $datetime: timestamptz!) {\n    user_by_pk(user_id: $userId) {\n      ...UserWithActiveToken\n      ...UserActiveQuestionsData\n    }\n  }\n"];
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(
+  source: "\n  query GetUserEnrollmentScores(\n    $userId: uuid!\n    $taxonomyIds: [String!]\n    $tenantId: String\n  ) {\n    user_by_pk(user_id: $userId) {\n      user_enrollments(where: { taxonomy_id: { _in: $taxonomyIds } }) {\n        id\n      }\n    }\n    user_enrollment(\n      where: {\n        taxonomy_id: { _in: $taxonomyIds }\n        user: { tenant_id: { _eq: $tenantId } }\n      }\n    ) {\n      id\n      score\n      taxonomy_id\n    }\n  }\n",
+): (typeof documents)["\n  query GetUserEnrollmentScores(\n    $userId: uuid!\n    $taxonomyIds: [String!]\n    $tenantId: String\n  ) {\n    user_by_pk(user_id: $userId) {\n      user_enrollments(where: { taxonomy_id: { _in: $taxonomyIds } }) {\n        id\n      }\n    }\n    user_enrollment(\n      where: {\n        taxonomy_id: { _in: $taxonomyIds }\n        user: { tenant_id: { _eq: $tenantId } }\n      }\n    ) {\n      id\n      score\n      taxonomy_id\n    }\n  }\n"];
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */

@@ -8,6 +8,8 @@ import {
 } from "@apollo/client";
 import { SignJWT } from "jose";
 import invariant from "tiny-invariant";
+import { getUserDataFromFromSession } from "~/session.server";
+
 import {
   createLearningRecord,
   createUser,
@@ -28,12 +30,12 @@ import {
   getUserActiveQuestionsData,
   getUserDashboard,
   getUserEmailData,
+  getUserEnrollmentScores,
   getUserNextQuestion,
   getUserQuestion,
   getUserQuestionLearningRecord,
   getUserTheme,
 } from "~/graphql/queries";
-import { getUserDataFromFromSession } from "~/session.server";
 
 import {
   HASURA_API_URL,
@@ -102,6 +104,7 @@ export class GraphQLClient implements WithApolloClient {
   createUserAnswer = createUserAnswer;
   getActiveUserQuestion = getActiveUserQuestion;
   updateUserEnrollment = updateUserEnrollment;
+  getUserEnrollmentScores = getUserEnrollmentScores;
 
   constructor(headers: GraphQLHeaders) {
     this.client = getClient(headers);
@@ -127,6 +130,8 @@ export class UserGraphQLClient extends GraphQLClient {
   getUserActiveQuestionsData = () =>
     getUserActiveQuestionsData.call(this, this.userId);
   getUserEmailData = () => getUserEmailData.call(this, this.userId);
+  getUserEnrollmentScores = (taxonomyIds?: string[], tenantId?: string) =>
+    getUserEnrollmentScores.call(this, this.userId, taxonomyIds, tenantId);
 
   constructor(
     jwt: string,

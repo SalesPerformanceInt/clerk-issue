@@ -10,8 +10,6 @@ import {
   Section,
 } from "quickcheck-shared";
 
-import type { DashboardData } from "~/graphql";
-
 import {
   ActiveEnrollmentsCard,
   DashboardHeader,
@@ -20,20 +18,23 @@ import {
   WeeklyStreakCard,
 } from "./components";
 
-import { DashboardContextProvider } from "./context/DashboardContext";
+import {
+  DashboardContextProvider,
+  type DashboardContextProps,
+} from "./context/DashboardContext";
 
-interface DashboardProps {
-  dashboard: DashboardData;
-  somethingElse: string;
-}
+interface DashboardProps extends DashboardContextProps {}
 
-export const Dashboard: FC<DashboardProps> = ({ dashboard, somethingElse }) => {
+export const Dashboard: FC<DashboardProps> = ({
+  dashboard,
+  enrollmentsRanking,
+}) => {
   const { t } = useTranslation();
 
   return (
     <DashboardContextProvider
       dashboard={dashboard}
-      somethingElse={somethingElse}
+      enrollmentsRanking={enrollmentsRanking}
     >
       <DashboardHeader />
 

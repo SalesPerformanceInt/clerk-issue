@@ -11,6 +11,8 @@ import {
   type LeaderboardEntryProps,
 } from "quickcheck-shared";
 
+import { User_Enrollment } from "~/graphql";
+
 import { useDashboardContext } from "~/pages/Dashboard";
 
 type LeaderboardCardProps = {
@@ -18,11 +20,10 @@ type LeaderboardCardProps = {
   className?: string;
 };
 
-type RankedEnrollments = {
-  id: string;
-  score: number;
-  rank: number;
-};
+type RankedEnrollment = Pick<
+  User_Enrollment,
+  "id" | "user_id" | "rank" | "score" | "taxonomy_id"
+> & { displayName: string };
 
 const CachedLeaderboard: FC = () => {
   const { dashboard } = useDashboardContext();
@@ -43,14 +44,19 @@ const CachedLeaderboard: FC = () => {
 export const LeaderboardCard: FC<LeaderboardCardProps> = ({ className }) => {
   const { enrollmentsRanking, dashboard } = useDashboardContext();
 
+  const RANK = 1;
+  const currentUserRankedEnrollments = new Map<string, RankedEnrollment>();
+
   return (
     <Card className={twMerge("max-w-sm", className)}>
       <CardTitle title="Leaderboard" className="p-6 pb-0" />
 
       <section className="flex flex-col gap-4 p-6">
         <Suspense fallback={<CachedLeaderboard />}>
-          <Await resolve={enrollmentsRanking}>
+          {/* <Await resolve={enrollmentsRanking}>
             {(data) => {
+              console.log(data.enrollmentsScores);
+
               return Object.entries(data.enrollmentsScores)
                 .map(([key, value]) => {
                   const rankedEnrollments = value
@@ -98,6 +104,62 @@ export const LeaderboardCard: FC<LeaderboardCardProps> = ({ className }) => {
                     title={rankedEnrollment.title}
                   />
                 ));
+            }}
+          </Await> */}
+
+          <Await resolve={enrollmentsRanking}>
+            {({ taxonomyEnrollments }) => {
+              return taxonomyEnrollments
+                .map(({ taxonomy, enrollments }) => {
+                  let rank = RANK;
+
+                  const rankedEnrollments = enrollments.map(
+                    (enrollment, enrollmentIndex) => {
+                      const previousEnrollment =
+                        enrollments[enrollmentIndex - 1];
+
+                      rank =
+                        enrollment.score === previousEnrollment?.score
+                          ? rank
+                          : enrollmentIndex + 1;
+
+                      const rankedEnrollment: RankedEnrollment = {
+                        id: enrollment.id,
+                        user_id: enrollment.user_id,
+                        score: enrollment.score,
+                        taxonomy_id: enrollment.taxonomy_id,
+                        displayName: taxonomy.display_name,
+                        rank,
+                      };
+
+                      if (rankedEnrollment.user_id === dashboard.user_id) {
+                        currentUserRankedEnrollments.set(
+                          taxonomy.uid,
+                          rankedEnrollment,
+                        );
+                      }
+
+                      return rankedEnrollment;
+                    },
+                  );
+
+                  return (
+                    currentUserRankedEnrollments.get(taxonomy.uid) ||
+                    rankedEnrollments[0]
+                  );
+                })
+                .sort((a, b) => a?.rank! - b?.rank!)
+                .slice(0, 4)
+                .map(
+                  (rankedEnrollment) =>
+                    rankedEnrollment && (
+                      <LeaderboardEntry
+                        key={rankedEnrollment.displayName}
+                        rank={rankedEnrollment.rank || 0}
+                        title={rankedEnrollment.displayName}
+                      />
+                    ),
+                );
             }}
           </Await>
         </Suspense>

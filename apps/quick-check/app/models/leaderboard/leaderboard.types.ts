@@ -31,4 +31,5 @@ export type EnrollmentsByTaxonomy = {
 
 export type LeaderboardUserEnrollment = {
   displayName: string;
-} & Expand<Omit<EnrollmentScore, "user_id" | "__typename">>;
+  rank: number;
+} & Expand<Omit<EnrollmentScore, "user_id" | "__typename" | "rank">>;

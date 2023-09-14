@@ -47,13 +47,16 @@ const rankUntilUserEnrollment = (
   let rank = ENROLLMENT_RANKING;
   let previousScore = ENROLLMENT_SCORE;
 
-  const rankedEnrollment = enrollments.find((enrollment, enrollmentIndex) => {
+  const userEnrollment = enrollments.find((enrollment, enrollmentIndex) => {
     rank = enrollment.score === previousScore ? rank : enrollmentIndex + 1;
     previousScore = enrollment.score;
 
-    if (enrollment.user_id === userId)
-      return normalizeLeaderboardEnrollment(enrollment, rank);
+    return enrollment.user_id === userId;
   });
+
+  if (!userEnrollment) return null;
+
+  const rankedEnrollment = normalizeLeaderboardEnrollment(userEnrollment, rank);
 
   return rankedEnrollment;
 };

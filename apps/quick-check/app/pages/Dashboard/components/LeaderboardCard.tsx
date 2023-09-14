@@ -42,10 +42,7 @@ const CachedLeaderboard: FC = () => {
 };
 
 export const LeaderboardCard: FC<LeaderboardCardProps> = ({ className }) => {
-  const { enrollmentsRanking, dashboard } = useDashboardContext();
-
-  const RANK = 1;
-  const currentUserRankedEnrollments = new Map<string, RankedEnrollment>();
+  const { rankedUserEnrollments } = useDashboardContext();
 
   return (
     <Card className={twMerge("max-w-sm", className)}>
@@ -53,6 +50,19 @@ export const LeaderboardCard: FC<LeaderboardCardProps> = ({ className }) => {
 
       <section className="flex flex-col gap-4 p-6">
         <Suspense fallback={<CachedLeaderboard />}>
+          <Await resolve={rankedUserEnrollments}>
+            {(data) => {
+              if (!data) return <CachedLeaderboard />;
+
+              return data.map((rankedEnrollment) => (
+                <LeaderboardEntry
+                  key={rankedEnrollment.id}
+                  rank={rankedEnrollment.rank || 0}
+                  title={rankedEnrollment.displayName}
+                />
+              ));
+            }}
+          </Await>
           {/* <Await resolve={enrollmentsRanking}>
             {(data) => {
               console.log(data.enrollmentsScores);
@@ -107,7 +117,7 @@ export const LeaderboardCard: FC<LeaderboardCardProps> = ({ className }) => {
             }}
           </Await> */}
 
-          <Await resolve={enrollmentsRanking}>
+          {/* <Await resolve={enrollmentsRanking}>
             {({ taxonomyEnrollments }) => {
               return taxonomyEnrollments
                 .map(({ taxonomy, enrollments }) => {
@@ -161,7 +171,7 @@ export const LeaderboardCard: FC<LeaderboardCardProps> = ({ className }) => {
                     ),
                 );
             }}
-          </Await>
+          </Await> */}
         </Suspense>
       </section>
     </Card>

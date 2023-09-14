@@ -1507,6 +1507,151 @@
       },
       {
         "kind": "SCALAR",
+        "name": "date",
+        "description": null,
+        "fields": null,
+        "inputFields": null,
+        "interfaces": null,
+        "enumValues": null,
+        "possibleTypes": null
+      },
+      {
+        "kind": "INPUT_OBJECT",
+        "name": "date_comparison_exp",
+        "description": "Boolean expression to compare columns of type \"date\". All fields are combined with logical 'AND'.",
+        "fields": null,
+        "inputFields": [
+          {
+            "name": "_eq",
+            "description": null,
+            "type": {
+              "kind": "SCALAR",
+              "name": "date",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "_gt",
+            "description": null,
+            "type": {
+              "kind": "SCALAR",
+              "name": "date",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "_gte",
+            "description": null,
+            "type": {
+              "kind": "SCALAR",
+              "name": "date",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "_in",
+            "description": null,
+            "type": {
+              "kind": "LIST",
+              "name": null,
+              "ofType": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "date",
+                  "ofType": null
+                }
+              }
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "_is_null",
+            "description": null,
+            "type": {
+              "kind": "SCALAR",
+              "name": "Boolean",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "_lt",
+            "description": null,
+            "type": {
+              "kind": "SCALAR",
+              "name": "date",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "_lte",
+            "description": null,
+            "type": {
+              "kind": "SCALAR",
+              "name": "date",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "_neq",
+            "description": null,
+            "type": {
+              "kind": "SCALAR",
+              "name": "date",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "_nin",
+            "description": null,
+            "type": {
+              "kind": "LIST",
+              "name": null,
+              "ofType": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "date",
+                  "ofType": null
+                }
+              }
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
+        "interfaces": null,
+        "enumValues": null,
+        "possibleTypes": null
+      },
+      {
+        "kind": "SCALAR",
         "name": "jsonb",
         "description": null,
         "fields": null,
@@ -13435,6 +13580,22 @@
             },
             "isDeprecated": false,
             "deprecationReason": null
+          },
+          {
+            "name": "weekly_streak_since",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "date",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
           }
         ],
         "inputFields": null,
@@ -16169,6 +16330,18 @@
             "defaultValue": null,
             "isDeprecated": false,
             "deprecationReason": null
+          },
+          {
+            "name": "weekly_streak_since",
+            "description": null,
+            "type": {
+              "kind": "INPUT_OBJECT",
+              "name": "date_comparison_exp",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
           }
         ],
         "interfaces": null,
@@ -16259,38 +16432,6 @@
           },
           {
             "name": "taxonomy_id",
-            "description": null,
-            "args": [],
-            "type": {
-              "kind": "NON_NULL",
-              "name": null,
-              "ofType": {
-                "kind": "SCALAR",
-                "name": "String",
-                "ofType": null
-              }
-            },
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "tenant",
-            "description": "An object relationship",
-            "args": [],
-            "type": {
-              "kind": "NON_NULL",
-              "name": null,
-              "ofType": {
-                "kind": "OBJECT",
-                "name": "tenant",
-                "ofType": null
-              }
-            },
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "tenant_id",
             "description": null,
             "args": [],
             "type": {
@@ -17237,30 +17378,6 @@
             "deprecationReason": null
           },
           {
-            "name": "tenant",
-            "description": null,
-            "type": {
-              "kind": "INPUT_OBJECT",
-              "name": "tenant_bool_exp",
-              "ofType": null
-            },
-            "defaultValue": null,
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "tenant_id",
-            "description": null,
-            "type": {
-              "kind": "INPUT_OBJECT",
-              "name": "String_comparison_exp",
-              "ofType": null
-            },
-            "defaultValue": null,
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
             "name": "user",
             "description": null,
             "type": {
@@ -17432,30 +17549,6 @@
             "deprecationReason": null
           },
           {
-            "name": "tenant",
-            "description": null,
-            "type": {
-              "kind": "INPUT_OBJECT",
-              "name": "tenant_obj_rel_insert_input",
-              "ofType": null
-            },
-            "defaultValue": null,
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "tenant_id",
-            "description": null,
-            "type": {
-              "kind": "SCALAR",
-              "name": "String",
-              "ofType": null
-            },
-            "defaultValue": null,
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
             "name": "user",
             "description": null,
             "type": {
@@ -17562,18 +17655,6 @@
             "deprecationReason": null
           },
           {
-            "name": "tenant_id",
-            "description": null,
-            "args": [],
-            "type": {
-              "kind": "SCALAR",
-              "name": "String",
-              "ofType": null
-            },
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
             "name": "user_id",
             "description": null,
             "args": [],
@@ -17647,18 +17728,6 @@
           },
           {
             "name": "taxonomy_id",
-            "description": null,
-            "type": {
-              "kind": "ENUM",
-              "name": "order_by",
-              "ofType": null
-            },
-            "defaultValue": null,
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "tenant_id",
             "description": null,
             "type": {
               "kind": "ENUM",
@@ -17752,18 +17821,6 @@
             "deprecationReason": null
           },
           {
-            "name": "tenant_id",
-            "description": null,
-            "args": [],
-            "type": {
-              "kind": "SCALAR",
-              "name": "String",
-              "ofType": null
-            },
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
             "name": "user_id",
             "description": null,
             "args": [],
@@ -17837,18 +17894,6 @@
           },
           {
             "name": "taxonomy_id",
-            "description": null,
-            "type": {
-              "kind": "ENUM",
-              "name": "order_by",
-              "ofType": null
-            },
-            "defaultValue": null,
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "tenant_id",
             "description": null,
             "type": {
               "kind": "ENUM",
@@ -18096,30 +18141,6 @@
             "deprecationReason": null
           },
           {
-            "name": "tenant",
-            "description": null,
-            "type": {
-              "kind": "INPUT_OBJECT",
-              "name": "tenant_order_by",
-              "ofType": null
-            },
-            "defaultValue": null,
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "tenant_id",
-            "description": null,
-            "type": {
-              "kind": "ENUM",
-              "name": "order_by",
-              "ofType": null
-            },
-            "defaultValue": null,
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
             "name": "user",
             "description": null,
             "type": {
@@ -18226,12 +18247,6 @@
             "deprecationReason": null
           },
           {
-            "name": "tenant_id",
-            "description": "column name",
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
             "name": "user_id",
             "description": "column name",
             "isDeprecated": false,
@@ -18296,18 +18311,6 @@
           },
           {
             "name": "taxonomy_id",
-            "description": null,
-            "type": {
-              "kind": "SCALAR",
-              "name": "String",
-              "ofType": null
-            },
-            "defaultValue": null,
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "tenant_id",
             "description": null,
             "type": {
               "kind": "SCALAR",
@@ -18651,18 +18654,6 @@
             "deprecationReason": null
           },
           {
-            "name": "tenant_id",
-            "description": null,
-            "type": {
-              "kind": "SCALAR",
-              "name": "String",
-              "ofType": null
-            },
-            "defaultValue": null,
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
             "name": "user_id",
             "description": null,
             "type": {
@@ -18783,12 +18774,6 @@
           },
           {
             "name": "taxonomy_id",
-            "description": "column name",
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "tenant_id",
             "description": "column name",
             "isDeprecated": false,
             "deprecationReason": null
@@ -19319,6 +19304,18 @@
             "defaultValue": null,
             "isDeprecated": false,
             "deprecationReason": null
+          },
+          {
+            "name": "weekly_streak_since",
+            "description": null,
+            "type": {
+              "kind": "SCALAR",
+              "name": "date",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
           }
         ],
         "interfaces": null,
@@ -19461,6 +19458,18 @@
             },
             "isDeprecated": false,
             "deprecationReason": null
+          },
+          {
+            "name": "weekly_streak_since",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "date",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
           }
         ],
         "inputFields": null,
@@ -19596,6 +19605,18 @@
           },
           {
             "name": "weekly_streak",
+            "description": null,
+            "type": {
+              "kind": "ENUM",
+              "name": "order_by",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "weekly_streak_since",
             "description": null,
             "type": {
               "kind": "ENUM",
@@ -19747,6 +19768,18 @@
             },
             "isDeprecated": false,
             "deprecationReason": null
+          },
+          {
+            "name": "weekly_streak_since",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "date",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
           }
         ],
         "inputFields": null,
@@ -19882,6 +19915,18 @@
           },
           {
             "name": "weekly_streak",
+            "description": null,
+            "type": {
+              "kind": "ENUM",
+              "name": "order_by",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "weekly_streak_since",
             "description": null,
             "type": {
               "kind": "ENUM",
@@ -20283,6 +20328,18 @@
             "defaultValue": null,
             "isDeprecated": false,
             "deprecationReason": null
+          },
+          {
+            "name": "weekly_streak_since",
+            "description": null,
+            "type": {
+              "kind": "ENUM",
+              "name": "order_by",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
           }
         ],
         "interfaces": null,
@@ -20329,22 +20386,6 @@
               "kind": "SCALAR",
               "name": "timestamptz",
               "ofType": null
-            },
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "attempts",
-            "description": null,
-            "args": [],
-            "type": {
-              "kind": "NON_NULL",
-              "name": null,
-              "ofType": {
-                "kind": "SCALAR",
-                "name": "Int",
-                "ofType": null
-              }
             },
             "isDeprecated": false,
             "deprecationReason": null
@@ -20454,22 +20495,6 @@
             "deprecationReason": null
           },
           {
-            "name": "status",
-            "description": null,
-            "args": [],
-            "type": {
-              "kind": "NON_NULL",
-              "name": null,
-              "ofType": {
-                "kind": "SCALAR",
-                "name": "String",
-                "ofType": null
-              }
-            },
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
             "name": "streak",
             "description": null,
             "args": [],
@@ -20487,38 +20512,6 @@
           },
           {
             "name": "taxonomy_id",
-            "description": null,
-            "args": [],
-            "type": {
-              "kind": "NON_NULL",
-              "name": null,
-              "ofType": {
-                "kind": "SCALAR",
-                "name": "String",
-                "ofType": null
-              }
-            },
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "tenant",
-            "description": "An object relationship",
-            "args": [],
-            "type": {
-              "kind": "NON_NULL",
-              "name": null,
-              "ofType": {
-                "kind": "OBJECT",
-                "name": "tenant",
-                "ofType": null
-              }
-            },
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "tenant_id",
             "description": null,
             "args": [],
             "type": {
@@ -21314,18 +21307,6 @@
         "description": "aggregate avg on columns",
         "fields": [
           {
-            "name": "attempts",
-            "description": null,
-            "args": [],
-            "type": {
-              "kind": "SCALAR",
-              "name": "Float",
-              "ofType": null
-            },
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
             "name": "difficulty",
             "description": null,
             "args": [],
@@ -21373,18 +21354,6 @@
         "description": "order by avg() on columns of table \"user_question\"",
         "fields": null,
         "inputFields": [
-          {
-            "name": "attempts",
-            "description": null,
-            "type": {
-              "kind": "ENUM",
-              "name": "order_by",
-              "ofType": null
-            },
-            "defaultValue": null,
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
           {
             "name": "difficulty",
             "description": null,
@@ -21497,18 +21466,6 @@
             "deprecationReason": null
           },
           {
-            "name": "attempts",
-            "description": null,
-            "type": {
-              "kind": "INPUT_OBJECT",
-              "name": "Int_comparison_exp",
-              "ofType": null
-            },
-            "defaultValue": null,
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
             "name": "created_at",
             "description": null,
             "type": {
@@ -21593,18 +21550,6 @@
             "deprecationReason": null
           },
           {
-            "name": "status",
-            "description": null,
-            "type": {
-              "kind": "INPUT_OBJECT",
-              "name": "String_comparison_exp",
-              "ofType": null
-            },
-            "defaultValue": null,
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
             "name": "streak",
             "description": null,
             "type": {
@@ -21618,30 +21563,6 @@
           },
           {
             "name": "taxonomy_id",
-            "description": null,
-            "type": {
-              "kind": "INPUT_OBJECT",
-              "name": "String_comparison_exp",
-              "ofType": null
-            },
-            "defaultValue": null,
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "tenant",
-            "description": null,
-            "type": {
-              "kind": "INPUT_OBJECT",
-              "name": "tenant_bool_exp",
-              "ofType": null
-            },
-            "defaultValue": null,
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "tenant_id",
             "description": null,
             "type": {
               "kind": "INPUT_OBJECT",
@@ -21753,18 +21674,6 @@
         "fields": null,
         "inputFields": [
           {
-            "name": "attempts",
-            "description": null,
-            "type": {
-              "kind": "SCALAR",
-              "name": "Int",
-              "ofType": null
-            },
-            "defaultValue": null,
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
             "name": "difficulty",
             "description": null,
             "type": {
@@ -21817,18 +21726,6 @@
             "type": {
               "kind": "SCALAR",
               "name": "timestamptz",
-              "ofType": null
-            },
-            "defaultValue": null,
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "attempts",
-            "description": null,
-            "type": {
-              "kind": "SCALAR",
-              "name": "Int",
               "ofType": null
             },
             "defaultValue": null,
@@ -21920,18 +21817,6 @@
             "deprecationReason": null
           },
           {
-            "name": "status",
-            "description": null,
-            "type": {
-              "kind": "SCALAR",
-              "name": "String",
-              "ofType": null
-            },
-            "defaultValue": null,
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
             "name": "streak",
             "description": null,
             "type": {
@@ -21945,30 +21830,6 @@
           },
           {
             "name": "taxonomy_id",
-            "description": null,
-            "type": {
-              "kind": "SCALAR",
-              "name": "String",
-              "ofType": null
-            },
-            "defaultValue": null,
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "tenant",
-            "description": null,
-            "type": {
-              "kind": "INPUT_OBJECT",
-              "name": "tenant_obj_rel_insert_input",
-              "ofType": null
-            },
-            "defaultValue": null,
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "tenant_id",
             "description": null,
             "type": {
               "kind": "SCALAR",
@@ -22062,18 +21923,6 @@
             "deprecationReason": null
           },
           {
-            "name": "attempts",
-            "description": null,
-            "args": [],
-            "type": {
-              "kind": "SCALAR",
-              "name": "Int",
-              "ofType": null
-            },
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
             "name": "created_at",
             "description": null,
             "args": [],
@@ -22158,18 +22007,6 @@
             "deprecationReason": null
           },
           {
-            "name": "status",
-            "description": null,
-            "args": [],
-            "type": {
-              "kind": "SCALAR",
-              "name": "String",
-              "ofType": null
-            },
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
             "name": "streak",
             "description": null,
             "args": [],
@@ -22183,18 +22020,6 @@
           },
           {
             "name": "taxonomy_id",
-            "description": null,
-            "args": [],
-            "type": {
-              "kind": "SCALAR",
-              "name": "String",
-              "ofType": null
-            },
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "tenant_id",
             "description": null,
             "args": [],
             "type": {
@@ -22254,18 +22079,6 @@
             "deprecationReason": null
           },
           {
-            "name": "attempts",
-            "description": null,
-            "type": {
-              "kind": "ENUM",
-              "name": "order_by",
-              "ofType": null
-            },
-            "defaultValue": null,
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
             "name": "created_at",
             "description": null,
             "type": {
@@ -22350,18 +22163,6 @@
             "deprecationReason": null
           },
           {
-            "name": "status",
-            "description": null,
-            "type": {
-              "kind": "ENUM",
-              "name": "order_by",
-              "ofType": null
-            },
-            "defaultValue": null,
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
             "name": "streak",
             "description": null,
             "type": {
@@ -22375,18 +22176,6 @@
           },
           {
             "name": "taxonomy_id",
-            "description": null,
-            "type": {
-              "kind": "ENUM",
-              "name": "order_by",
-              "ofType": null
-            },
-            "defaultValue": null,
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "tenant_id",
             "description": null,
             "type": {
               "kind": "ENUM",
@@ -22438,18 +22227,6 @@
             "type": {
               "kind": "SCALAR",
               "name": "timestamptz",
-              "ofType": null
-            },
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "attempts",
-            "description": null,
-            "args": [],
-            "type": {
-              "kind": "SCALAR",
-              "name": "Int",
               "ofType": null
             },
             "isDeprecated": false,
@@ -22540,18 +22317,6 @@
             "deprecationReason": null
           },
           {
-            "name": "status",
-            "description": null,
-            "args": [],
-            "type": {
-              "kind": "SCALAR",
-              "name": "String",
-              "ofType": null
-            },
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
             "name": "streak",
             "description": null,
             "args": [],
@@ -22565,18 +22330,6 @@
           },
           {
             "name": "taxonomy_id",
-            "description": null,
-            "args": [],
-            "type": {
-              "kind": "SCALAR",
-              "name": "String",
-              "ofType": null
-            },
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "tenant_id",
             "description": null,
             "args": [],
             "type": {
@@ -22625,18 +22378,6 @@
         "inputFields": [
           {
             "name": "active_on",
-            "description": null,
-            "type": {
-              "kind": "ENUM",
-              "name": "order_by",
-              "ofType": null
-            },
-            "defaultValue": null,
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "attempts",
             "description": null,
             "type": {
               "kind": "ENUM",
@@ -22732,18 +22473,6 @@
             "deprecationReason": null
           },
           {
-            "name": "status",
-            "description": null,
-            "type": {
-              "kind": "ENUM",
-              "name": "order_by",
-              "ofType": null
-            },
-            "defaultValue": null,
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
             "name": "streak",
             "description": null,
             "type": {
@@ -22757,18 +22486,6 @@
           },
           {
             "name": "taxonomy_id",
-            "description": null,
-            "type": {
-              "kind": "ENUM",
-              "name": "order_by",
-              "ofType": null
-            },
-            "defaultValue": null,
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "tenant_id",
             "description": null,
             "type": {
               "kind": "ENUM",
@@ -22980,18 +22697,6 @@
             "deprecationReason": null
           },
           {
-            "name": "attempts",
-            "description": null,
-            "type": {
-              "kind": "ENUM",
-              "name": "order_by",
-              "ofType": null
-            },
-            "defaultValue": null,
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
             "name": "created_at",
             "description": null,
             "type": {
@@ -23076,18 +22781,6 @@
             "deprecationReason": null
           },
           {
-            "name": "status",
-            "description": null,
-            "type": {
-              "kind": "ENUM",
-              "name": "order_by",
-              "ofType": null
-            },
-            "defaultValue": null,
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
             "name": "streak",
             "description": null,
             "type": {
@@ -23101,30 +22794,6 @@
           },
           {
             "name": "taxonomy_id",
-            "description": null,
-            "type": {
-              "kind": "ENUM",
-              "name": "order_by",
-              "ofType": null
-            },
-            "defaultValue": null,
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "tenant",
-            "description": null,
-            "type": {
-              "kind": "INPUT_OBJECT",
-              "name": "tenant_order_by",
-              "ofType": null
-            },
-            "defaultValue": null,
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "tenant_id",
             "description": null,
             "type": {
               "kind": "ENUM",
@@ -23242,12 +22911,6 @@
             "deprecationReason": null
           },
           {
-            "name": "attempts",
-            "description": "column name",
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
             "name": "created_at",
             "description": "column name",
             "isDeprecated": false,
@@ -23290,12 +22953,6 @@
             "deprecationReason": null
           },
           {
-            "name": "status",
-            "description": "column name",
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
             "name": "streak",
             "description": "column name",
             "isDeprecated": false,
@@ -23303,12 +22960,6 @@
           },
           {
             "name": "taxonomy_id",
-            "description": "column name",
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "tenant_id",
             "description": "column name",
             "isDeprecated": false,
             "deprecationReason": null
@@ -23340,18 +22991,6 @@
             "type": {
               "kind": "SCALAR",
               "name": "timestamptz",
-              "ofType": null
-            },
-            "defaultValue": null,
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "attempts",
-            "description": null,
-            "type": {
-              "kind": "SCALAR",
-              "name": "Int",
               "ofType": null
             },
             "defaultValue": null,
@@ -23443,18 +23082,6 @@
             "deprecationReason": null
           },
           {
-            "name": "status",
-            "description": null,
-            "type": {
-              "kind": "SCALAR",
-              "name": "String",
-              "ofType": null
-            },
-            "defaultValue": null,
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
             "name": "streak",
             "description": null,
             "type": {
@@ -23468,18 +23095,6 @@
           },
           {
             "name": "taxonomy_id",
-            "description": null,
-            "type": {
-              "kind": "SCALAR",
-              "name": "String",
-              "ofType": null
-            },
-            "defaultValue": null,
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "tenant_id",
             "description": null,
             "type": {
               "kind": "SCALAR",
@@ -23524,18 +23139,6 @@
         "name": "user_question_stddev_fields",
         "description": "aggregate stddev on columns",
         "fields": [
-          {
-            "name": "attempts",
-            "description": null,
-            "args": [],
-            "type": {
-              "kind": "SCALAR",
-              "name": "Float",
-              "ofType": null
-            },
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
           {
             "name": "difficulty",
             "description": null,
@@ -23585,18 +23188,6 @@
         "fields": null,
         "inputFields": [
           {
-            "name": "attempts",
-            "description": null,
-            "type": {
-              "kind": "ENUM",
-              "name": "order_by",
-              "ofType": null
-            },
-            "defaultValue": null,
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
             "name": "difficulty",
             "description": null,
             "type": {
@@ -23642,18 +23233,6 @@
         "name": "user_question_stddev_pop_fields",
         "description": "aggregate stddev_pop on columns",
         "fields": [
-          {
-            "name": "attempts",
-            "description": null,
-            "args": [],
-            "type": {
-              "kind": "SCALAR",
-              "name": "Float",
-              "ofType": null
-            },
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
           {
             "name": "difficulty",
             "description": null,
@@ -23703,18 +23282,6 @@
         "fields": null,
         "inputFields": [
           {
-            "name": "attempts",
-            "description": null,
-            "type": {
-              "kind": "ENUM",
-              "name": "order_by",
-              "ofType": null
-            },
-            "defaultValue": null,
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
             "name": "difficulty",
             "description": null,
             "type": {
@@ -23760,18 +23327,6 @@
         "name": "user_question_stddev_samp_fields",
         "description": "aggregate stddev_samp on columns",
         "fields": [
-          {
-            "name": "attempts",
-            "description": null,
-            "args": [],
-            "type": {
-              "kind": "SCALAR",
-              "name": "Float",
-              "ofType": null
-            },
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
           {
             "name": "difficulty",
             "description": null,
@@ -23820,18 +23375,6 @@
         "description": "order by stddev_samp() on columns of table \"user_question\"",
         "fields": null,
         "inputFields": [
-          {
-            "name": "attempts",
-            "description": null,
-            "type": {
-              "kind": "ENUM",
-              "name": "order_by",
-              "ofType": null
-            },
-            "defaultValue": null,
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
           {
             "name": "difficulty",
             "description": null,
@@ -23931,18 +23474,6 @@
             "deprecationReason": null
           },
           {
-            "name": "attempts",
-            "description": null,
-            "type": {
-              "kind": "SCALAR",
-              "name": "Int",
-              "ofType": null
-            },
-            "defaultValue": null,
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
             "name": "created_at",
             "description": null,
             "type": {
@@ -24027,18 +23558,6 @@
             "deprecationReason": null
           },
           {
-            "name": "status",
-            "description": null,
-            "type": {
-              "kind": "SCALAR",
-              "name": "String",
-              "ofType": null
-            },
-            "defaultValue": null,
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
             "name": "streak",
             "description": null,
             "type": {
@@ -24052,18 +23571,6 @@
           },
           {
             "name": "taxonomy_id",
-            "description": null,
-            "type": {
-              "kind": "SCALAR",
-              "name": "String",
-              "ofType": null
-            },
-            "defaultValue": null,
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "tenant_id",
             "description": null,
             "type": {
               "kind": "SCALAR",
@@ -24108,18 +23615,6 @@
         "name": "user_question_sum_fields",
         "description": "aggregate sum on columns",
         "fields": [
-          {
-            "name": "attempts",
-            "description": null,
-            "args": [],
-            "type": {
-              "kind": "SCALAR",
-              "name": "Int",
-              "ofType": null
-            },
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
           {
             "name": "difficulty",
             "description": null,
@@ -24168,18 +23663,6 @@
         "description": "order by sum() on columns of table \"user_question\"",
         "fields": null,
         "inputFields": [
-          {
-            "name": "attempts",
-            "description": null,
-            "type": {
-              "kind": "ENUM",
-              "name": "order_by",
-              "ofType": null
-            },
-            "defaultValue": null,
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
           {
             "name": "difficulty",
             "description": null,
@@ -24236,12 +23719,6 @@
             "deprecationReason": null
           },
           {
-            "name": "attempts",
-            "description": "column name",
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
             "name": "created_at",
             "description": "column name",
             "isDeprecated": false,
@@ -24284,12 +23761,6 @@
             "deprecationReason": null
           },
           {
-            "name": "status",
-            "description": "column name",
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
             "name": "streak",
             "description": "column name",
             "isDeprecated": false,
@@ -24297,12 +23768,6 @@
           },
           {
             "name": "taxonomy_id",
-            "description": "column name",
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "tenant_id",
             "description": "column name",
             "isDeprecated": false,
             "deprecationReason": null
@@ -24379,18 +23844,6 @@
         "description": "aggregate var_pop on columns",
         "fields": [
           {
-            "name": "attempts",
-            "description": null,
-            "args": [],
-            "type": {
-              "kind": "SCALAR",
-              "name": "Float",
-              "ofType": null
-            },
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
             "name": "difficulty",
             "description": null,
             "args": [],
@@ -24439,18 +23892,6 @@
         "fields": null,
         "inputFields": [
           {
-            "name": "attempts",
-            "description": null,
-            "type": {
-              "kind": "ENUM",
-              "name": "order_by",
-              "ofType": null
-            },
-            "defaultValue": null,
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
             "name": "difficulty",
             "description": null,
             "type": {
@@ -24496,18 +23937,6 @@
         "name": "user_question_var_samp_fields",
         "description": "aggregate var_samp on columns",
         "fields": [
-          {
-            "name": "attempts",
-            "description": null,
-            "args": [],
-            "type": {
-              "kind": "SCALAR",
-              "name": "Float",
-              "ofType": null
-            },
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
           {
             "name": "difficulty",
             "description": null,
@@ -24557,18 +23986,6 @@
         "fields": null,
         "inputFields": [
           {
-            "name": "attempts",
-            "description": null,
-            "type": {
-              "kind": "ENUM",
-              "name": "order_by",
-              "ofType": null
-            },
-            "defaultValue": null,
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
             "name": "difficulty",
             "description": null,
             "type": {
@@ -24614,18 +24031,6 @@
         "name": "user_question_variance_fields",
         "description": "aggregate variance on columns",
         "fields": [
-          {
-            "name": "attempts",
-            "description": null,
-            "args": [],
-            "type": {
-              "kind": "SCALAR",
-              "name": "Float",
-              "ofType": null
-            },
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
           {
             "name": "difficulty",
             "description": null,
@@ -24674,18 +24079,6 @@
         "description": "order by variance() on columns of table \"user_question\"",
         "fields": null,
         "inputFields": [
-          {
-            "name": "attempts",
-            "description": null,
-            "type": {
-              "kind": "ENUM",
-              "name": "order_by",
-              "ofType": null
-            },
-            "defaultValue": null,
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
           {
             "name": "difficulty",
             "description": null,
@@ -24803,6 +24196,12 @@
           },
           {
             "name": "weekly_streak",
+            "description": "column name",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "weekly_streak_since",
             "description": "column name",
             "isDeprecated": false,
             "deprecationReason": null
@@ -24988,6 +24387,18 @@
             "type": {
               "kind": "SCALAR",
               "name": "Int",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "weekly_streak_since",
+            "description": null,
+            "type": {
+              "kind": "SCALAR",
+              "name": "date",
               "ofType": null
             },
             "defaultValue": null,
@@ -25325,6 +24736,18 @@
             "defaultValue": null,
             "isDeprecated": false,
             "deprecationReason": null
+          },
+          {
+            "name": "weekly_streak_since",
+            "description": null,
+            "type": {
+              "kind": "SCALAR",
+              "name": "date",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
           }
         ],
         "interfaces": null,
@@ -25453,6 +24876,12 @@
           },
           {
             "name": "weekly_streak",
+            "description": "column name",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "weekly_streak_since",
             "description": "column name",
             "isDeprecated": false,
             "deprecationReason": null

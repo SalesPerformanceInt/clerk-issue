@@ -1,14 +1,14 @@
+import type { FC } from "react";
+
 import { defer, type LoaderArgs } from "@remix-run/node";
 import { useLoaderData, useSearchParams } from "@remix-run/react";
 
 import { deserialize, serialize } from "remix-typedjson";
-import invariant from "tiny-invariant";
 
 import {
   getAdminApolloClient,
   getOptionalUserApolloClientFromRequest,
   type DashboardData,
-  type EnrollmentsRanking,
 } from "~/graphql";
 
 import { Dashboard } from "~/pages";
@@ -26,17 +26,17 @@ export const loader = async ({ request }: LoaderArgs) => {
 
   const dashboard = await userApolloClient?.getUserDashboard();
 
-  invariant(dashboard, "Dashboard data could not be loaded");
+  if (!dashboard) return null;
 
-  const enrollmentsRanking = adminApolloClient.getUserEnrollmentScores(
-    dashboard?.user_id,
-    dashboard?.taxonomy_ids,
-    dashboard?.tenant_id,
+  const rankedUserEnrollments = adminApolloClient.getRankedUserEnrollments(
+    dashboard.user_id,
+    dashboard.taxonomy_ids,
+    dashboard.tenant_id,
   );
 
   return defer({
     dashboard: serialize(dashboard),
-    enrollmentsRanking,
+    rankedUserEnrollments,
   });
 };
 
@@ -44,23 +44,29 @@ export const loader = async ({ request }: LoaderArgs) => {
  * Route Component
  */
 
+const LogIn: FC<{ message: string | null }> = ({ message }) => (
+  <div className="flex h-full flex-col items-center justify-center space-y-4">
+    {message && <p className="text-sm text-white">{message}</p>}
+
+    <AccelerateButton />
+  </div>
+);
+
 export default function Index() {
   const data = useLoaderData<typeof loader>();
+
   const [searchParams] = useSearchParams();
-
-  const dashboard = deserialize<DashboardData>(data.dashboard);
-  const enrollmentsRanking =
-    data.enrollmentsRanking as unknown as Promise<EnrollmentsRanking>;
-
   const message = searchParams.get("message");
 
-  return dashboard ? (
-    <Dashboard dashboard={dashboard} enrollmentsRanking={enrollmentsRanking} />
-  ) : (
-    <div className="flex h-full flex-col items-center justify-center space-y-4">
-      {message && <p className="text-sm text-white">{message}</p>}
+  if (!data) return <LogIn message={message} />;
 
-      <AccelerateButton />
-    </div>
+  const dashboard = deserialize<DashboardData>(data.dashboard)!;
+  const rankedUserEnrollments = data.rankedUserEnrollments;
+
+  return (
+    <Dashboard
+      dashboard={dashboard}
+      rankedUserEnrollments={rankedUserEnrollments}
+    />
   );
 }

@@ -27,14 +27,14 @@ interface DashboardProps extends DashboardContextProps {}
 
 export const Dashboard: FC<DashboardProps> = ({
   dashboard,
-  enrollmentsRanking,
+  rankedUserEnrollments,
 }) => {
   const { t } = useTranslation();
 
   return (
     <DashboardContextProvider
       dashboard={dashboard}
-      enrollmentsRanking={enrollmentsRanking}
+      rankedUserEnrollments={rankedUserEnrollments}
     >
       <DashboardHeader />
 

@@ -5,16 +5,26 @@ import React, {
   type ReactNode,
 } from "react";
 
-import type { DashboardData, EnrollmentsRanking } from "~/graphql";
+import type { DashboardData } from "~/graphql";
+
+import type { LeaderboardUserEnrollment } from "~/models/leaderboard/leaderboard.types";
+
+/**
+ * Context
+ */
 
 export interface DashboardContextProps {
   dashboard: DashboardData;
-  enrollmentsRanking: Promise<EnrollmentsRanking>;
+  rankedUserEnrollments: Promise<LeaderboardUserEnrollment[] | null>;
 }
 
 export const DashboardContext = createContext<
   DashboardContextProps | undefined
 >(undefined);
+
+/**
+ * Context Hook
+ */
 
 export const useDashboardContext = () => {
   const context = useContext(DashboardContext);
@@ -26,6 +36,9 @@ export const useDashboardContext = () => {
   return context;
 };
 
+/**
+ * Context Provider
+ */
 export interface DashbaordContextProviderProps extends DashboardContextProps {
   children: ReactNode;
 }
@@ -33,10 +46,10 @@ export interface DashbaordContextProviderProps extends DashboardContextProps {
 export const DashboardContextProvider: FC<DashbaordContextProviderProps> = ({
   children,
   dashboard,
-  enrollmentsRanking,
+  rankedUserEnrollments,
 }) => {
   return (
-    <DashboardContext.Provider value={{ dashboard, enrollmentsRanking }}>
+    <DashboardContext.Provider value={{ dashboard, rankedUserEnrollments }}>
       {children}
     </DashboardContext.Provider>
   );

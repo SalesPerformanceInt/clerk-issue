@@ -26,11 +26,11 @@ import {
   getActiveUserQuestion,
   getAllUsers,
   getLinkToken,
+  getRankedUserEnrollments,
   getUser,
   getUserActiveQuestionsData,
   getUserDashboard,
   getUserEmailData,
-  getUserEnrollmentScores,
   getUserNextQuestion,
   getUserQuestion,
   getUserQuestionLearningRecord,
@@ -104,7 +104,7 @@ export class GraphQLClient implements WithApolloClient {
   createUserAnswer = createUserAnswer;
   getActiveUserQuestion = getActiveUserQuestion;
   updateUserEnrollment = updateUserEnrollment;
-  getUserEnrollmentScores = getUserEnrollmentScores;
+  getRankedUserEnrollments = getRankedUserEnrollments;
 
   constructor(headers: GraphQLHeaders) {
     this.client = getClient(headers);
@@ -130,8 +130,8 @@ export class UserGraphQLClient extends GraphQLClient {
   getUserActiveQuestionsData = () =>
     getUserActiveQuestionsData.call(this, this.userId);
   getUserEmailData = () => getUserEmailData.call(this, this.userId);
-  getUserEnrollmentScores = (taxonomyIds?: string[], tenantId?: string) =>
-    getUserEnrollmentScores.call(this, this.userId, taxonomyIds, tenantId);
+  getUserEnrollmentScores = (taxonomyIds: string[], tenantId: string) =>
+    getRankedUserEnrollments.call(this, this.userId, taxonomyIds, tenantId);
 
   constructor(
     jwt: string,

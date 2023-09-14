@@ -1,4 +1,5 @@
 /* eslint-disable */
+import type { Date } from '../scalars';
 import type { Jsonb } from '../scalars';
 import type { Numeric } from '../scalars';
 import type { TimestampTZ } from '../scalars';
@@ -16,6 +17,7 @@ export type Scalars = {
   Boolean: boolean;
   Int: number;
   Float: number;
+  date: Date;
   jsonb: Jsonb;
   numeric: Numeric;
   timestamptz: TimestampTZ;
@@ -88,6 +90,19 @@ export enum Cursor_Ordering {
   /** descending ordering of the cursor */
   Desc = 'DESC'
 }
+
+/** Boolean expression to compare columns of type "date". All fields are combined with logical 'AND'. */
+export type Date_Comparison_Exp = {
+  _eq?: InputMaybe<Scalars['date']>;
+  _gt?: InputMaybe<Scalars['date']>;
+  _gte?: InputMaybe<Scalars['date']>;
+  _in?: InputMaybe<Array<Scalars['date']>>;
+  _is_null?: InputMaybe<Scalars['Boolean']>;
+  _lt?: InputMaybe<Scalars['date']>;
+  _lte?: InputMaybe<Scalars['date']>;
+  _neq?: InputMaybe<Scalars['date']>;
+  _nin?: InputMaybe<Array<Scalars['date']>>;
+};
 
 export type Jsonb_Cast_Exp = {
   String?: InputMaybe<String_Comparison_Exp>;
@@ -1796,6 +1811,7 @@ export type User = {
   /** An aggregate relationship */
   user_questions_aggregate: User_Question_Aggregate;
   weekly_streak: Scalars['Int'];
+  weekly_streak_since: Scalars['date'];
 };
 
 
@@ -2264,6 +2280,7 @@ export type User_Bool_Exp = {
   user_questions?: InputMaybe<User_Question_Bool_Exp>;
   user_questions_aggregate?: InputMaybe<User_Question_Aggregate_Bool_Exp>;
   weekly_streak?: InputMaybe<Int_Comparison_Exp>;
+  weekly_streak_since?: InputMaybe<Date_Comparison_Exp>;
 };
 
 /** unique or primary key constraints on table "user" */
@@ -2280,9 +2297,6 @@ export type User_Enrollment = {
   rank?: Maybe<Scalars['Int']>;
   score: Scalars['Int'];
   taxonomy_id: Scalars['String'];
-  /** An object relationship */
-  tenant: Tenant;
-  tenant_id: Scalars['String'];
   /** An object relationship */
   user: User;
   user_id: Scalars['uuid'];
@@ -2398,8 +2412,6 @@ export type User_Enrollment_Bool_Exp = {
   rank?: InputMaybe<Int_Comparison_Exp>;
   score?: InputMaybe<Int_Comparison_Exp>;
   taxonomy_id?: InputMaybe<String_Comparison_Exp>;
-  tenant?: InputMaybe<Tenant_Bool_Exp>;
-  tenant_id?: InputMaybe<String_Comparison_Exp>;
   user?: InputMaybe<User_Bool_Exp>;
   user_id?: InputMaybe<Uuid_Comparison_Exp>;
   user_questions?: InputMaybe<User_Question_Bool_Exp>;
@@ -2425,8 +2437,6 @@ export type User_Enrollment_Insert_Input = {
   rank?: InputMaybe<Scalars['Int']>;
   score?: InputMaybe<Scalars['Int']>;
   taxonomy_id?: InputMaybe<Scalars['String']>;
-  tenant?: InputMaybe<Tenant_Obj_Rel_Insert_Input>;
-  tenant_id?: InputMaybe<Scalars['String']>;
   user?: InputMaybe<User_Obj_Rel_Insert_Input>;
   user_id?: InputMaybe<Scalars['uuid']>;
   user_questions?: InputMaybe<User_Question_Arr_Rel_Insert_Input>;
@@ -2440,7 +2450,6 @@ export type User_Enrollment_Max_Fields = {
   rank?: Maybe<Scalars['Int']>;
   score?: Maybe<Scalars['Int']>;
   taxonomy_id?: Maybe<Scalars['String']>;
-  tenant_id?: Maybe<Scalars['String']>;
   user_id?: Maybe<Scalars['uuid']>;
 };
 
@@ -2451,7 +2460,6 @@ export type User_Enrollment_Max_Order_By = {
   rank?: InputMaybe<Order_By>;
   score?: InputMaybe<Order_By>;
   taxonomy_id?: InputMaybe<Order_By>;
-  tenant_id?: InputMaybe<Order_By>;
   user_id?: InputMaybe<Order_By>;
 };
 
@@ -2463,7 +2471,6 @@ export type User_Enrollment_Min_Fields = {
   rank?: Maybe<Scalars['Int']>;
   score?: Maybe<Scalars['Int']>;
   taxonomy_id?: Maybe<Scalars['String']>;
-  tenant_id?: Maybe<Scalars['String']>;
   user_id?: Maybe<Scalars['uuid']>;
 };
 
@@ -2474,7 +2481,6 @@ export type User_Enrollment_Min_Order_By = {
   rank?: InputMaybe<Order_By>;
   score?: InputMaybe<Order_By>;
   taxonomy_id?: InputMaybe<Order_By>;
-  tenant_id?: InputMaybe<Order_By>;
   user_id?: InputMaybe<Order_By>;
 };
 
@@ -2508,8 +2514,6 @@ export type User_Enrollment_Order_By = {
   rank?: InputMaybe<Order_By>;
   score?: InputMaybe<Order_By>;
   taxonomy_id?: InputMaybe<Order_By>;
-  tenant?: InputMaybe<Tenant_Order_By>;
-  tenant_id?: InputMaybe<Order_By>;
   user?: InputMaybe<User_Order_By>;
   user_id?: InputMaybe<Order_By>;
   user_questions_aggregate?: InputMaybe<User_Question_Aggregate_Order_By>;
@@ -2533,8 +2537,6 @@ export enum User_Enrollment_Select_Column {
   /** column name */
   TaxonomyId = 'taxonomy_id',
   /** column name */
-  TenantId = 'tenant_id',
-  /** column name */
   UserId = 'user_id'
 }
 
@@ -2545,7 +2547,6 @@ export type User_Enrollment_Set_Input = {
   rank?: InputMaybe<Scalars['Int']>;
   score?: InputMaybe<Scalars['Int']>;
   taxonomy_id?: InputMaybe<Scalars['String']>;
-  tenant_id?: InputMaybe<Scalars['String']>;
   user_id?: InputMaybe<Scalars['uuid']>;
 };
 
@@ -2603,7 +2604,6 @@ export type User_Enrollment_Stream_Cursor_Value_Input = {
   rank?: InputMaybe<Scalars['Int']>;
   score?: InputMaybe<Scalars['Int']>;
   taxonomy_id?: InputMaybe<Scalars['String']>;
-  tenant_id?: InputMaybe<Scalars['String']>;
   user_id?: InputMaybe<Scalars['uuid']>;
 };
 
@@ -2632,8 +2632,6 @@ export enum User_Enrollment_Update_Column {
   Score = 'score',
   /** column name */
   TaxonomyId = 'taxonomy_id',
-  /** column name */
-  TenantId = 'tenant_id',
   /** column name */
   UserId = 'user_id'
 }
@@ -2712,6 +2710,7 @@ export type User_Insert_Input = {
   user_id?: InputMaybe<Scalars['uuid']>;
   user_questions?: InputMaybe<User_Question_Arr_Rel_Insert_Input>;
   weekly_streak?: InputMaybe<Scalars['Int']>;
+  weekly_streak_since?: InputMaybe<Scalars['date']>;
 };
 
 /** aggregate max on columns */
@@ -2728,6 +2727,7 @@ export type User_Max_Fields = {
   timezone?: Maybe<Scalars['String']>;
   user_id?: Maybe<Scalars['uuid']>;
   weekly_streak?: Maybe<Scalars['Int']>;
+  weekly_streak_since?: Maybe<Scalars['date']>;
 };
 
 /** order by max() on columns of table "user" */
@@ -2743,6 +2743,7 @@ export type User_Max_Order_By = {
   timezone?: InputMaybe<Order_By>;
   user_id?: InputMaybe<Order_By>;
   weekly_streak?: InputMaybe<Order_By>;
+  weekly_streak_since?: InputMaybe<Order_By>;
 };
 
 /** aggregate min on columns */
@@ -2759,6 +2760,7 @@ export type User_Min_Fields = {
   timezone?: Maybe<Scalars['String']>;
   user_id?: Maybe<Scalars['uuid']>;
   weekly_streak?: Maybe<Scalars['Int']>;
+  weekly_streak_since?: Maybe<Scalars['date']>;
 };
 
 /** order by min() on columns of table "user" */
@@ -2774,6 +2776,7 @@ export type User_Min_Order_By = {
   timezone?: InputMaybe<Order_By>;
   user_id?: InputMaybe<Order_By>;
   weekly_streak?: InputMaybe<Order_By>;
+  weekly_streak_since?: InputMaybe<Order_By>;
 };
 
 /** response of any mutation on the table "user" */
@@ -2820,6 +2823,7 @@ export type User_Order_By = {
   user_id?: InputMaybe<Order_By>;
   user_questions_aggregate?: InputMaybe<User_Question_Aggregate_Order_By>;
   weekly_streak?: InputMaybe<Order_By>;
+  weekly_streak_since?: InputMaybe<Order_By>;
 };
 
 /** primary key columns input for table: user */
@@ -2831,7 +2835,6 @@ export type User_Pk_Columns_Input = {
 export type User_Question = {
   __typename?: 'user_question';
   active_on?: Maybe<Scalars['timestamptz']>;
-  attempts: Scalars['Int'];
   created_at: Scalars['timestamptz'];
   difficulty: Scalars['numeric'];
   id: Scalars['uuid'];
@@ -2839,12 +2842,8 @@ export type User_Question = {
   latest_review_gap: Scalars['Int'];
   question_id: Scalars['String'];
   retired_on?: Maybe<Scalars['timestamptz']>;
-  status: Scalars['String'];
   streak: Scalars['Int'];
   taxonomy_id: Scalars['String'];
-  /** An object relationship */
-  tenant: Tenant;
-  tenant_id: Scalars['String'];
   /** An object relationship */
   user: User;
   /** An array relationship */
@@ -2943,7 +2942,6 @@ export type User_Question_Arr_Rel_Insert_Input = {
 /** aggregate avg on columns */
 export type User_Question_Avg_Fields = {
   __typename?: 'user_question_avg_fields';
-  attempts?: Maybe<Scalars['Float']>;
   difficulty?: Maybe<Scalars['Float']>;
   latest_review_gap?: Maybe<Scalars['Float']>;
   streak?: Maybe<Scalars['Float']>;
@@ -2951,7 +2949,6 @@ export type User_Question_Avg_Fields = {
 
 /** order by avg() on columns of table "user_question" */
 export type User_Question_Avg_Order_By = {
-  attempts?: InputMaybe<Order_By>;
   difficulty?: InputMaybe<Order_By>;
   latest_review_gap?: InputMaybe<Order_By>;
   streak?: InputMaybe<Order_By>;
@@ -2963,7 +2960,6 @@ export type User_Question_Bool_Exp = {
   _not?: InputMaybe<User_Question_Bool_Exp>;
   _or?: InputMaybe<Array<User_Question_Bool_Exp>>;
   active_on?: InputMaybe<Timestamptz_Comparison_Exp>;
-  attempts?: InputMaybe<Int_Comparison_Exp>;
   created_at?: InputMaybe<Timestamptz_Comparison_Exp>;
   difficulty?: InputMaybe<Numeric_Comparison_Exp>;
   id?: InputMaybe<Uuid_Comparison_Exp>;
@@ -2971,11 +2967,8 @@ export type User_Question_Bool_Exp = {
   latest_review_gap?: InputMaybe<Int_Comparison_Exp>;
   question_id?: InputMaybe<String_Comparison_Exp>;
   retired_on?: InputMaybe<Timestamptz_Comparison_Exp>;
-  status?: InputMaybe<String_Comparison_Exp>;
   streak?: InputMaybe<Int_Comparison_Exp>;
   taxonomy_id?: InputMaybe<String_Comparison_Exp>;
-  tenant?: InputMaybe<Tenant_Bool_Exp>;
-  tenant_id?: InputMaybe<String_Comparison_Exp>;
   user?: InputMaybe<User_Bool_Exp>;
   user_answers?: InputMaybe<User_Answer_Bool_Exp>;
   user_answers_aggregate?: InputMaybe<User_Answer_Aggregate_Bool_Exp>;
@@ -2992,7 +2985,6 @@ export enum User_Question_Constraint {
 
 /** input type for incrementing numeric columns in table "user_question" */
 export type User_Question_Inc_Input = {
-  attempts?: InputMaybe<Scalars['Int']>;
   difficulty?: InputMaybe<Scalars['numeric']>;
   latest_review_gap?: InputMaybe<Scalars['Int']>;
   streak?: InputMaybe<Scalars['Int']>;
@@ -3001,7 +2993,6 @@ export type User_Question_Inc_Input = {
 /** input type for inserting data into table "user_question" */
 export type User_Question_Insert_Input = {
   active_on?: InputMaybe<Scalars['timestamptz']>;
-  attempts?: InputMaybe<Scalars['Int']>;
   created_at?: InputMaybe<Scalars['timestamptz']>;
   difficulty?: InputMaybe<Scalars['numeric']>;
   id?: InputMaybe<Scalars['uuid']>;
@@ -3009,11 +3000,8 @@ export type User_Question_Insert_Input = {
   latest_review_gap?: InputMaybe<Scalars['Int']>;
   question_id?: InputMaybe<Scalars['String']>;
   retired_on?: InputMaybe<Scalars['timestamptz']>;
-  status?: InputMaybe<Scalars['String']>;
   streak?: InputMaybe<Scalars['Int']>;
   taxonomy_id?: InputMaybe<Scalars['String']>;
-  tenant?: InputMaybe<Tenant_Obj_Rel_Insert_Input>;
-  tenant_id?: InputMaybe<Scalars['String']>;
   user?: InputMaybe<User_Obj_Rel_Insert_Input>;
   user_answers?: InputMaybe<User_Answer_Arr_Rel_Insert_Input>;
   user_enrollment?: InputMaybe<User_Enrollment_Obj_Rel_Insert_Input>;
@@ -3025,7 +3013,6 @@ export type User_Question_Insert_Input = {
 export type User_Question_Max_Fields = {
   __typename?: 'user_question_max_fields';
   active_on?: Maybe<Scalars['timestamptz']>;
-  attempts?: Maybe<Scalars['Int']>;
   created_at?: Maybe<Scalars['timestamptz']>;
   difficulty?: Maybe<Scalars['numeric']>;
   id?: Maybe<Scalars['uuid']>;
@@ -3033,10 +3020,8 @@ export type User_Question_Max_Fields = {
   latest_review_gap?: Maybe<Scalars['Int']>;
   question_id?: Maybe<Scalars['String']>;
   retired_on?: Maybe<Scalars['timestamptz']>;
-  status?: Maybe<Scalars['String']>;
   streak?: Maybe<Scalars['Int']>;
   taxonomy_id?: Maybe<Scalars['String']>;
-  tenant_id?: Maybe<Scalars['String']>;
   user_enrollment_id?: Maybe<Scalars['uuid']>;
   user_id?: Maybe<Scalars['uuid']>;
 };
@@ -3044,7 +3029,6 @@ export type User_Question_Max_Fields = {
 /** order by max() on columns of table "user_question" */
 export type User_Question_Max_Order_By = {
   active_on?: InputMaybe<Order_By>;
-  attempts?: InputMaybe<Order_By>;
   created_at?: InputMaybe<Order_By>;
   difficulty?: InputMaybe<Order_By>;
   id?: InputMaybe<Order_By>;
@@ -3052,10 +3036,8 @@ export type User_Question_Max_Order_By = {
   latest_review_gap?: InputMaybe<Order_By>;
   question_id?: InputMaybe<Order_By>;
   retired_on?: InputMaybe<Order_By>;
-  status?: InputMaybe<Order_By>;
   streak?: InputMaybe<Order_By>;
   taxonomy_id?: InputMaybe<Order_By>;
-  tenant_id?: InputMaybe<Order_By>;
   user_enrollment_id?: InputMaybe<Order_By>;
   user_id?: InputMaybe<Order_By>;
 };
@@ -3064,7 +3046,6 @@ export type User_Question_Max_Order_By = {
 export type User_Question_Min_Fields = {
   __typename?: 'user_question_min_fields';
   active_on?: Maybe<Scalars['timestamptz']>;
-  attempts?: Maybe<Scalars['Int']>;
   created_at?: Maybe<Scalars['timestamptz']>;
   difficulty?: Maybe<Scalars['numeric']>;
   id?: Maybe<Scalars['uuid']>;
@@ -3072,10 +3053,8 @@ export type User_Question_Min_Fields = {
   latest_review_gap?: Maybe<Scalars['Int']>;
   question_id?: Maybe<Scalars['String']>;
   retired_on?: Maybe<Scalars['timestamptz']>;
-  status?: Maybe<Scalars['String']>;
   streak?: Maybe<Scalars['Int']>;
   taxonomy_id?: Maybe<Scalars['String']>;
-  tenant_id?: Maybe<Scalars['String']>;
   user_enrollment_id?: Maybe<Scalars['uuid']>;
   user_id?: Maybe<Scalars['uuid']>;
 };
@@ -3083,7 +3062,6 @@ export type User_Question_Min_Fields = {
 /** order by min() on columns of table "user_question" */
 export type User_Question_Min_Order_By = {
   active_on?: InputMaybe<Order_By>;
-  attempts?: InputMaybe<Order_By>;
   created_at?: InputMaybe<Order_By>;
   difficulty?: InputMaybe<Order_By>;
   id?: InputMaybe<Order_By>;
@@ -3091,10 +3069,8 @@ export type User_Question_Min_Order_By = {
   latest_review_gap?: InputMaybe<Order_By>;
   question_id?: InputMaybe<Order_By>;
   retired_on?: InputMaybe<Order_By>;
-  status?: InputMaybe<Order_By>;
   streak?: InputMaybe<Order_By>;
   taxonomy_id?: InputMaybe<Order_By>;
-  tenant_id?: InputMaybe<Order_By>;
   user_enrollment_id?: InputMaybe<Order_By>;
   user_id?: InputMaybe<Order_By>;
 };
@@ -3125,7 +3101,6 @@ export type User_Question_On_Conflict = {
 /** Ordering options when selecting data from "user_question". */
 export type User_Question_Order_By = {
   active_on?: InputMaybe<Order_By>;
-  attempts?: InputMaybe<Order_By>;
   created_at?: InputMaybe<Order_By>;
   difficulty?: InputMaybe<Order_By>;
   id?: InputMaybe<Order_By>;
@@ -3133,11 +3108,8 @@ export type User_Question_Order_By = {
   latest_review_gap?: InputMaybe<Order_By>;
   question_id?: InputMaybe<Order_By>;
   retired_on?: InputMaybe<Order_By>;
-  status?: InputMaybe<Order_By>;
   streak?: InputMaybe<Order_By>;
   taxonomy_id?: InputMaybe<Order_By>;
-  tenant?: InputMaybe<Tenant_Order_By>;
-  tenant_id?: InputMaybe<Order_By>;
   user?: InputMaybe<User_Order_By>;
   user_answers_aggregate?: InputMaybe<User_Answer_Aggregate_Order_By>;
   user_enrollment?: InputMaybe<User_Enrollment_Order_By>;
@@ -3155,8 +3127,6 @@ export enum User_Question_Select_Column {
   /** column name */
   ActiveOn = 'active_on',
   /** column name */
-  Attempts = 'attempts',
-  /** column name */
   CreatedAt = 'created_at',
   /** column name */
   Difficulty = 'difficulty',
@@ -3171,13 +3141,9 @@ export enum User_Question_Select_Column {
   /** column name */
   RetiredOn = 'retired_on',
   /** column name */
-  Status = 'status',
-  /** column name */
   Streak = 'streak',
   /** column name */
   TaxonomyId = 'taxonomy_id',
-  /** column name */
-  TenantId = 'tenant_id',
   /** column name */
   UserEnrollmentId = 'user_enrollment_id',
   /** column name */
@@ -3187,7 +3153,6 @@ export enum User_Question_Select_Column {
 /** input type for updating data in table "user_question" */
 export type User_Question_Set_Input = {
   active_on?: InputMaybe<Scalars['timestamptz']>;
-  attempts?: InputMaybe<Scalars['Int']>;
   created_at?: InputMaybe<Scalars['timestamptz']>;
   difficulty?: InputMaybe<Scalars['numeric']>;
   id?: InputMaybe<Scalars['uuid']>;
@@ -3195,10 +3160,8 @@ export type User_Question_Set_Input = {
   latest_review_gap?: InputMaybe<Scalars['Int']>;
   question_id?: InputMaybe<Scalars['String']>;
   retired_on?: InputMaybe<Scalars['timestamptz']>;
-  status?: InputMaybe<Scalars['String']>;
   streak?: InputMaybe<Scalars['Int']>;
   taxonomy_id?: InputMaybe<Scalars['String']>;
-  tenant_id?: InputMaybe<Scalars['String']>;
   user_enrollment_id?: InputMaybe<Scalars['uuid']>;
   user_id?: InputMaybe<Scalars['uuid']>;
 };
@@ -3206,7 +3169,6 @@ export type User_Question_Set_Input = {
 /** aggregate stddev on columns */
 export type User_Question_Stddev_Fields = {
   __typename?: 'user_question_stddev_fields';
-  attempts?: Maybe<Scalars['Float']>;
   difficulty?: Maybe<Scalars['Float']>;
   latest_review_gap?: Maybe<Scalars['Float']>;
   streak?: Maybe<Scalars['Float']>;
@@ -3214,7 +3176,6 @@ export type User_Question_Stddev_Fields = {
 
 /** order by stddev() on columns of table "user_question" */
 export type User_Question_Stddev_Order_By = {
-  attempts?: InputMaybe<Order_By>;
   difficulty?: InputMaybe<Order_By>;
   latest_review_gap?: InputMaybe<Order_By>;
   streak?: InputMaybe<Order_By>;
@@ -3223,7 +3184,6 @@ export type User_Question_Stddev_Order_By = {
 /** aggregate stddev_pop on columns */
 export type User_Question_Stddev_Pop_Fields = {
   __typename?: 'user_question_stddev_pop_fields';
-  attempts?: Maybe<Scalars['Float']>;
   difficulty?: Maybe<Scalars['Float']>;
   latest_review_gap?: Maybe<Scalars['Float']>;
   streak?: Maybe<Scalars['Float']>;
@@ -3231,7 +3191,6 @@ export type User_Question_Stddev_Pop_Fields = {
 
 /** order by stddev_pop() on columns of table "user_question" */
 export type User_Question_Stddev_Pop_Order_By = {
-  attempts?: InputMaybe<Order_By>;
   difficulty?: InputMaybe<Order_By>;
   latest_review_gap?: InputMaybe<Order_By>;
   streak?: InputMaybe<Order_By>;
@@ -3240,7 +3199,6 @@ export type User_Question_Stddev_Pop_Order_By = {
 /** aggregate stddev_samp on columns */
 export type User_Question_Stddev_Samp_Fields = {
   __typename?: 'user_question_stddev_samp_fields';
-  attempts?: Maybe<Scalars['Float']>;
   difficulty?: Maybe<Scalars['Float']>;
   latest_review_gap?: Maybe<Scalars['Float']>;
   streak?: Maybe<Scalars['Float']>;
@@ -3248,7 +3206,6 @@ export type User_Question_Stddev_Samp_Fields = {
 
 /** order by stddev_samp() on columns of table "user_question" */
 export type User_Question_Stddev_Samp_Order_By = {
-  attempts?: InputMaybe<Order_By>;
   difficulty?: InputMaybe<Order_By>;
   latest_review_gap?: InputMaybe<Order_By>;
   streak?: InputMaybe<Order_By>;
@@ -3265,7 +3222,6 @@ export type User_Question_Stream_Cursor_Input = {
 /** Initial value of the column from where the streaming should start */
 export type User_Question_Stream_Cursor_Value_Input = {
   active_on?: InputMaybe<Scalars['timestamptz']>;
-  attempts?: InputMaybe<Scalars['Int']>;
   created_at?: InputMaybe<Scalars['timestamptz']>;
   difficulty?: InputMaybe<Scalars['numeric']>;
   id?: InputMaybe<Scalars['uuid']>;
@@ -3273,10 +3229,8 @@ export type User_Question_Stream_Cursor_Value_Input = {
   latest_review_gap?: InputMaybe<Scalars['Int']>;
   question_id?: InputMaybe<Scalars['String']>;
   retired_on?: InputMaybe<Scalars['timestamptz']>;
-  status?: InputMaybe<Scalars['String']>;
   streak?: InputMaybe<Scalars['Int']>;
   taxonomy_id?: InputMaybe<Scalars['String']>;
-  tenant_id?: InputMaybe<Scalars['String']>;
   user_enrollment_id?: InputMaybe<Scalars['uuid']>;
   user_id?: InputMaybe<Scalars['uuid']>;
 };
@@ -3284,7 +3238,6 @@ export type User_Question_Stream_Cursor_Value_Input = {
 /** aggregate sum on columns */
 export type User_Question_Sum_Fields = {
   __typename?: 'user_question_sum_fields';
-  attempts?: Maybe<Scalars['Int']>;
   difficulty?: Maybe<Scalars['numeric']>;
   latest_review_gap?: Maybe<Scalars['Int']>;
   streak?: Maybe<Scalars['Int']>;
@@ -3292,7 +3245,6 @@ export type User_Question_Sum_Fields = {
 
 /** order by sum() on columns of table "user_question" */
 export type User_Question_Sum_Order_By = {
-  attempts?: InputMaybe<Order_By>;
   difficulty?: InputMaybe<Order_By>;
   latest_review_gap?: InputMaybe<Order_By>;
   streak?: InputMaybe<Order_By>;
@@ -3302,8 +3254,6 @@ export type User_Question_Sum_Order_By = {
 export enum User_Question_Update_Column {
   /** column name */
   ActiveOn = 'active_on',
-  /** column name */
-  Attempts = 'attempts',
   /** column name */
   CreatedAt = 'created_at',
   /** column name */
@@ -3319,13 +3269,9 @@ export enum User_Question_Update_Column {
   /** column name */
   RetiredOn = 'retired_on',
   /** column name */
-  Status = 'status',
-  /** column name */
   Streak = 'streak',
   /** column name */
   TaxonomyId = 'taxonomy_id',
-  /** column name */
-  TenantId = 'tenant_id',
   /** column name */
   UserEnrollmentId = 'user_enrollment_id',
   /** column name */
@@ -3344,7 +3290,6 @@ export type User_Question_Updates = {
 /** aggregate var_pop on columns */
 export type User_Question_Var_Pop_Fields = {
   __typename?: 'user_question_var_pop_fields';
-  attempts?: Maybe<Scalars['Float']>;
   difficulty?: Maybe<Scalars['Float']>;
   latest_review_gap?: Maybe<Scalars['Float']>;
   streak?: Maybe<Scalars['Float']>;
@@ -3352,7 +3297,6 @@ export type User_Question_Var_Pop_Fields = {
 
 /** order by var_pop() on columns of table "user_question" */
 export type User_Question_Var_Pop_Order_By = {
-  attempts?: InputMaybe<Order_By>;
   difficulty?: InputMaybe<Order_By>;
   latest_review_gap?: InputMaybe<Order_By>;
   streak?: InputMaybe<Order_By>;
@@ -3361,7 +3305,6 @@ export type User_Question_Var_Pop_Order_By = {
 /** aggregate var_samp on columns */
 export type User_Question_Var_Samp_Fields = {
   __typename?: 'user_question_var_samp_fields';
-  attempts?: Maybe<Scalars['Float']>;
   difficulty?: Maybe<Scalars['Float']>;
   latest_review_gap?: Maybe<Scalars['Float']>;
   streak?: Maybe<Scalars['Float']>;
@@ -3369,7 +3312,6 @@ export type User_Question_Var_Samp_Fields = {
 
 /** order by var_samp() on columns of table "user_question" */
 export type User_Question_Var_Samp_Order_By = {
-  attempts?: InputMaybe<Order_By>;
   difficulty?: InputMaybe<Order_By>;
   latest_review_gap?: InputMaybe<Order_By>;
   streak?: InputMaybe<Order_By>;
@@ -3378,7 +3320,6 @@ export type User_Question_Var_Samp_Order_By = {
 /** aggregate variance on columns */
 export type User_Question_Variance_Fields = {
   __typename?: 'user_question_variance_fields';
-  attempts?: Maybe<Scalars['Float']>;
   difficulty?: Maybe<Scalars['Float']>;
   latest_review_gap?: Maybe<Scalars['Float']>;
   streak?: Maybe<Scalars['Float']>;
@@ -3386,7 +3327,6 @@ export type User_Question_Variance_Fields = {
 
 /** order by variance() on columns of table "user_question" */
 export type User_Question_Variance_Order_By = {
-  attempts?: InputMaybe<Order_By>;
   difficulty?: InputMaybe<Order_By>;
   latest_review_gap?: InputMaybe<Order_By>;
   streak?: InputMaybe<Order_By>;
@@ -3417,7 +3357,9 @@ export enum User_Select_Column {
   /** column name */
   UserId = 'user_id',
   /** column name */
-  WeeklyStreak = 'weekly_streak'
+  WeeklyStreak = 'weekly_streak',
+  /** column name */
+  WeeklyStreakSince = 'weekly_streak_since'
 }
 
 /** select "user_aggregate_bool_exp_bool_and_arguments_columns" columns of table "user" */
@@ -3446,6 +3388,7 @@ export type User_Set_Input = {
   timezone?: InputMaybe<Scalars['String']>;
   user_id?: InputMaybe<Scalars['uuid']>;
   weekly_streak?: InputMaybe<Scalars['Int']>;
+  weekly_streak_since?: InputMaybe<Scalars['date']>;
 };
 
 /** aggregate stddev on columns */
@@ -3503,6 +3446,7 @@ export type User_Stream_Cursor_Value_Input = {
   timezone?: InputMaybe<Scalars['String']>;
   user_id?: InputMaybe<Scalars['uuid']>;
   weekly_streak?: InputMaybe<Scalars['Int']>;
+  weekly_streak_since?: InputMaybe<Scalars['date']>;
 };
 
 /** aggregate sum on columns */
@@ -3541,7 +3485,9 @@ export enum User_Update_Column {
   /** column name */
   UserId = 'user_id',
   /** column name */
-  WeeklyStreak = 'weekly_streak'
+  WeeklyStreak = 'weekly_streak',
+  /** column name */
+  WeeklyStreakSince = 'weekly_streak_since'
 }
 
 export type User_Updates = {
@@ -3712,6 +3658,14 @@ export type GetLinkTokenQueryVariables = Exact<{
 
 export type GetLinkTokenQuery = { __typename?: 'query_root', link_token_by_pk?: { __typename?: 'link_token', id: string, user_id: Uuid, tenant_id: string, created_at: TimestampTZ, active: boolean } | null };
 
+export type GetUserEnrollmentScoresQueryVariables = Exact<{
+  taxonomyIds?: InputMaybe<Array<Scalars['String']> | Scalars['String']>;
+  tenantId: Scalars['String'];
+}>;
+
+
+export type GetUserEnrollmentScoresQuery = { __typename?: 'query_root', user_enrollment: Array<{ __typename?: 'user_enrollment', id: Uuid, user_id: Uuid, score: number, rank?: number | null, taxonomy_id: string }> };
+
 export type GetUserQueryVariables = Exact<{
   userId: Scalars['uuid'];
 }>;
@@ -3743,15 +3697,6 @@ export type GetUserEmailDataQueryVariables = Exact<{
 
 
 export type GetUserEmailDataQuery = { __typename?: 'query_root', user_by_pk?: { __typename: 'user', tenant_id: string, email: string, first_name: string, language_preference: string, last_name: string, phone_number?: string | null, timezone: string, user_id: Uuid, sms_enabled: boolean, active_tokens: Array<{ __typename: 'link_token', id: string, created_at: TimestampTZ, active: boolean, user_id: Uuid }>, unanswered_questions: { __typename?: 'user_question_aggregate', aggregate?: { __typename?: 'user_question_aggregate_fields', count: number } | null }, active_enrollments: { __typename?: 'user_enrollment_aggregate', aggregate?: { __typename?: 'user_enrollment_aggregate_fields', count: number } | null }, next_question?: { __typename: 'user_question', id: Uuid, user_id: Uuid, taxonomy_id: string, question_id: string, retired_on?: TimestampTZ | null, active_on?: TimestampTZ | null, created_at: TimestampTZ, streak: number, difficulty: Numeric, latest_review_gap: number, last_answered_on?: TimestampTZ | null, attempts: { __typename?: 'user_answer_aggregate', aggregate?: { __typename?: 'user_answer_aggregate_fields', count: number } | null }, user_enrollment: { __typename: 'user_enrollment', id: Uuid, user_id: Uuid, taxonomy_id: string, created_at: TimestampTZ, score: number, rank?: number | null } } | null, learning_records: Array<{ __typename: 'learning_record', created_at: TimestampTZ, data: Jsonb, event_type: string, id: Uuid, user_id: Uuid }> } | null };
-
-export type GetUserEnrollmentScoresQueryVariables = Exact<{
-  userId: Scalars['uuid'];
-  taxonomyIds?: InputMaybe<Array<Scalars['String']> | Scalars['String']>;
-  tenantId?: InputMaybe<Scalars['String']>;
-}>;
-
-
-export type GetUserEnrollmentScoresQuery = { __typename?: 'query_root', user_by_pk?: { __typename?: 'user', user_enrollments: Array<{ __typename?: 'user_enrollment', id: Uuid }> } | null, user_enrollment: Array<{ __typename?: 'user_enrollment', id: Uuid, user_id: Uuid, score: number, rank?: number | null, taxonomy_id: string }> };
 
 export type GetUserNextQuestionQueryVariables = Exact<{
   userId: Scalars['uuid'];
@@ -3804,11 +3749,11 @@ export const UpdateUserQuestionDocument = {"kind":"Document","definitions":[{"ki
 export const GetActiveUserQuestionDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetActiveUserQuestion"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"id"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"uuid"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"now"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"timestamptz"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"user_question"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"where"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"id"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"_eq"},"value":{"kind":"Variable","name":{"kind":"Name","value":"id"}}}]}},{"kind":"ObjectField","name":{"kind":"Name","value":"active_on"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"_lte"},"value":{"kind":"Variable","name":{"kind":"Name","value":"now"}}}]}},{"kind":"ObjectField","name":{"kind":"Name","value":"retired_on"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"_is_null"},"value":{"kind":"BooleanValue","value":true}}]}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"BaseUserQuestion"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"BaseUserEnrollment"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"user_enrollment"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"__typename"}},{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"user_id"}},{"kind":"Field","name":{"kind":"Name","value":"taxonomy_id"}},{"kind":"Field","name":{"kind":"Name","value":"created_at"}},{"kind":"Field","name":{"kind":"Name","value":"score"}},{"kind":"Field","name":{"kind":"Name","value":"rank"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"BaseUserQuestion"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"user_question"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"__typename"}},{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"user_id"}},{"kind":"Field","name":{"kind":"Name","value":"taxonomy_id"}},{"kind":"Field","name":{"kind":"Name","value":"question_id"}},{"kind":"Field","name":{"kind":"Name","value":"retired_on"}},{"kind":"Field","name":{"kind":"Name","value":"active_on"}},{"kind":"Field","alias":{"kind":"Name","value":"attempts"},"name":{"kind":"Name","value":"user_answers_aggregate"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"aggregate"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"count"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"created_at"}},{"kind":"Field","name":{"kind":"Name","value":"streak"}},{"kind":"Field","name":{"kind":"Name","value":"difficulty"}},{"kind":"Field","name":{"kind":"Name","value":"latest_review_gap"}},{"kind":"Field","name":{"kind":"Name","value":"last_answered_on"}},{"kind":"Field","name":{"kind":"Name","value":"user_enrollment"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"BaseUserEnrollment"}}]}}]}}]} as unknown as DocumentNode<GetActiveUserQuestionQuery, GetActiveUserQuestionQueryVariables>;
 export const GetAllUserDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetAllUser"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"user"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"order_by"},"value":{"kind":"ListValue","values":[{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"created_at"},"value":{"kind":"EnumValue","value":"asc"}}]},{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"email"},"value":{"kind":"EnumValue","value":"asc"}}]}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"UserWithActiveToken"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"BaseUserEnrollment"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"user_enrollment"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"__typename"}},{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"user_id"}},{"kind":"Field","name":{"kind":"Name","value":"taxonomy_id"}},{"kind":"Field","name":{"kind":"Name","value":"created_at"}},{"kind":"Field","name":{"kind":"Name","value":"score"}},{"kind":"Field","name":{"kind":"Name","value":"rank"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"BaseUserQuestion"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"user_question"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"__typename"}},{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"user_id"}},{"kind":"Field","name":{"kind":"Name","value":"taxonomy_id"}},{"kind":"Field","name":{"kind":"Name","value":"question_id"}},{"kind":"Field","name":{"kind":"Name","value":"retired_on"}},{"kind":"Field","name":{"kind":"Name","value":"active_on"}},{"kind":"Field","alias":{"kind":"Name","value":"attempts"},"name":{"kind":"Name","value":"user_answers_aggregate"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"aggregate"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"count"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"created_at"}},{"kind":"Field","name":{"kind":"Name","value":"streak"}},{"kind":"Field","name":{"kind":"Name","value":"difficulty"}},{"kind":"Field","name":{"kind":"Name","value":"latest_review_gap"}},{"kind":"Field","name":{"kind":"Name","value":"last_answered_on"}},{"kind":"Field","name":{"kind":"Name","value":"user_enrollment"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"BaseUserEnrollment"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"BaseLearningRecord"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"learning_record"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"__typename"}},{"kind":"Field","name":{"kind":"Name","value":"created_at"}},{"kind":"Field","name":{"kind":"Name","value":"data"}},{"kind":"Field","name":{"kind":"Name","value":"event_type"}},{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"user_id"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"BaseUser"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"user"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"__typename"}},{"kind":"Field","name":{"kind":"Name","value":"tenant_id"}},{"kind":"Field","name":{"kind":"Name","value":"email"}},{"kind":"Field","name":{"kind":"Name","value":"first_name"}},{"kind":"Field","name":{"kind":"Name","value":"language_preference"}},{"kind":"Field","name":{"kind":"Name","value":"last_name"}},{"kind":"Field","name":{"kind":"Name","value":"next_question"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"BaseUserQuestion"}}]}},{"kind":"Field","name":{"kind":"Name","value":"phone_number"}},{"kind":"Field","name":{"kind":"Name","value":"timezone"}},{"kind":"Field","name":{"kind":"Name","value":"user_id"}},{"kind":"Field","name":{"kind":"Name","value":"sms_enabled"}},{"kind":"Field","name":{"kind":"Name","value":"learning_records"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"BaseLearningRecord"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"BaseLinkToken"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"link_token"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"__typename"}},{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"created_at"}},{"kind":"Field","name":{"kind":"Name","value":"active"}},{"kind":"Field","name":{"kind":"Name","value":"user_id"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"UserWithActiveToken"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"user"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"BaseUser"}},{"kind":"Field","alias":{"kind":"Name","value":"active_tokens"},"name":{"kind":"Name","value":"link_tokens"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"where"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"active"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"_eq"},"value":{"kind":"BooleanValue","value":true}}]}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"BaseLinkToken"}}]}}]}}]} as unknown as DocumentNode<GetAllUserQuery, GetAllUserQueryVariables>;
 export const GetLinkTokenDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetLinkToken"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"id"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"link_token_by_pk"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"id"},"value":{"kind":"Variable","name":{"kind":"Name","value":"id"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"user_id"}},{"kind":"Field","name":{"kind":"Name","value":"tenant_id"}},{"kind":"Field","name":{"kind":"Name","value":"created_at"}},{"kind":"Field","name":{"kind":"Name","value":"active"}}]}}]}}]} as unknown as DocumentNode<GetLinkTokenQuery, GetLinkTokenQueryVariables>;
+export const GetUserEnrollmentScoresDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetUserEnrollmentScores"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"taxonomyIds"}},"type":{"kind":"ListType","type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"tenantId"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"user_enrollment"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"where"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"taxonomy_id"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"_in"},"value":{"kind":"Variable","name":{"kind":"Name","value":"taxonomyIds"}}}]}},{"kind":"ObjectField","name":{"kind":"Name","value":"user"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"tenant_id"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"_eq"},"value":{"kind":"Variable","name":{"kind":"Name","value":"tenantId"}}}]}}]}}]}},{"kind":"Argument","name":{"kind":"Name","value":"order_by"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"score"},"value":{"kind":"EnumValue","value":"desc"}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"user_id"}},{"kind":"Field","name":{"kind":"Name","value":"score"}},{"kind":"Field","name":{"kind":"Name","value":"rank"}},{"kind":"Field","name":{"kind":"Name","value":"taxonomy_id"}}]}}]}}]} as unknown as DocumentNode<GetUserEnrollmentScoresQuery, GetUserEnrollmentScoresQueryVariables>;
 export const GetUserDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetUser"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"userId"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"uuid"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"user_by_pk"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"user_id"},"value":{"kind":"Variable","name":{"kind":"Name","value":"userId"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"UserWithActiveToken"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"BaseUserEnrollment"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"user_enrollment"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"__typename"}},{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"user_id"}},{"kind":"Field","name":{"kind":"Name","value":"taxonomy_id"}},{"kind":"Field","name":{"kind":"Name","value":"created_at"}},{"kind":"Field","name":{"kind":"Name","value":"score"}},{"kind":"Field","name":{"kind":"Name","value":"rank"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"BaseUserQuestion"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"user_question"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"__typename"}},{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"user_id"}},{"kind":"Field","name":{"kind":"Name","value":"taxonomy_id"}},{"kind":"Field","name":{"kind":"Name","value":"question_id"}},{"kind":"Field","name":{"kind":"Name","value":"retired_on"}},{"kind":"Field","name":{"kind":"Name","value":"active_on"}},{"kind":"Field","alias":{"kind":"Name","value":"attempts"},"name":{"kind":"Name","value":"user_answers_aggregate"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"aggregate"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"count"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"created_at"}},{"kind":"Field","name":{"kind":"Name","value":"streak"}},{"kind":"Field","name":{"kind":"Name","value":"difficulty"}},{"kind":"Field","name":{"kind":"Name","value":"latest_review_gap"}},{"kind":"Field","name":{"kind":"Name","value":"last_answered_on"}},{"kind":"Field","name":{"kind":"Name","value":"user_enrollment"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"BaseUserEnrollment"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"BaseLearningRecord"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"learning_record"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"__typename"}},{"kind":"Field","name":{"kind":"Name","value":"created_at"}},{"kind":"Field","name":{"kind":"Name","value":"data"}},{"kind":"Field","name":{"kind":"Name","value":"event_type"}},{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"user_id"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"BaseUser"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"user"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"__typename"}},{"kind":"Field","name":{"kind":"Name","value":"tenant_id"}},{"kind":"Field","name":{"kind":"Name","value":"email"}},{"kind":"Field","name":{"kind":"Name","value":"first_name"}},{"kind":"Field","name":{"kind":"Name","value":"language_preference"}},{"kind":"Field","name":{"kind":"Name","value":"last_name"}},{"kind":"Field","name":{"kind":"Name","value":"next_question"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"BaseUserQuestion"}}]}},{"kind":"Field","name":{"kind":"Name","value":"phone_number"}},{"kind":"Field","name":{"kind":"Name","value":"timezone"}},{"kind":"Field","name":{"kind":"Name","value":"user_id"}},{"kind":"Field","name":{"kind":"Name","value":"sms_enabled"}},{"kind":"Field","name":{"kind":"Name","value":"learning_records"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"BaseLearningRecord"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"BaseLinkToken"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"link_token"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"__typename"}},{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"created_at"}},{"kind":"Field","name":{"kind":"Name","value":"active"}},{"kind":"Field","name":{"kind":"Name","value":"user_id"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"UserWithActiveToken"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"user"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"BaseUser"}},{"kind":"Field","alias":{"kind":"Name","value":"active_tokens"},"name":{"kind":"Name","value":"link_tokens"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"where"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"active"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"_eq"},"value":{"kind":"BooleanValue","value":true}}]}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"BaseLinkToken"}}]}}]}}]} as unknown as DocumentNode<GetUserQuery, GetUserQueryVariables>;
 export const GetUserActiveQuestionsDataDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetUserActiveQuestionsData"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"userId"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"uuid"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"datetime"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"timestamptz"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"user_by_pk"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"user_id"},"value":{"kind":"Variable","name":{"kind":"Name","value":"userId"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"UserActiveQuestionsData"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"UserActiveQuestionsData"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"user"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","alias":{"kind":"Name","value":"unanswered_questions"},"name":{"kind":"Name","value":"user_questions_aggregate"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"where"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"retired_on"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"_is_null"},"value":{"kind":"BooleanValue","value":true}}]}},{"kind":"ObjectField","name":{"kind":"Name","value":"active_on"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"_is_null"},"value":{"kind":"BooleanValue","value":false}},{"kind":"ObjectField","name":{"kind":"Name","value":"_lte"},"value":{"kind":"Variable","name":{"kind":"Name","value":"datetime"}}}]}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"aggregate"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"count"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"distinct"},"value":{"kind":"BooleanValue","value":true}}]}]}}]}},{"kind":"Field","alias":{"kind":"Name","value":"active_enrollments"},"name":{"kind":"Name","value":"user_enrollments_aggregate"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"where"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"user_questions_aggregate"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"count"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"predicate"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"_gt"},"value":{"kind":"IntValue","value":"0"}}]}},{"kind":"ObjectField","name":{"kind":"Name","value":"filter"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"retired_on"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"_is_null"},"value":{"kind":"BooleanValue","value":true}}]}},{"kind":"ObjectField","name":{"kind":"Name","value":"active_on"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"_is_null"},"value":{"kind":"BooleanValue","value":false}}]}}]}}]}}]}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"aggregate"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"count"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"distinct"},"value":{"kind":"BooleanValue","value":true}}]}]}}]}}]}}]} as unknown as DocumentNode<GetUserActiveQuestionsDataQuery, GetUserActiveQuestionsDataQueryVariables>;
 export const GetUserDashboardDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetUserDashboard"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"userId"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"uuid"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"datetime"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"timestamptz"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"monthAgo"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"timestamptz"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"user_by_pk"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"user_id"},"value":{"kind":"Variable","name":{"kind":"Name","value":"userId"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"BaseUser"}},{"kind":"FragmentSpread","name":{"kind":"Name","value":"UserActiveQuestionsData"}},{"kind":"Field","name":{"kind":"Name","value":"user_answers"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"where"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"created_at"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"_gte"},"value":{"kind":"Variable","name":{"kind":"Name","value":"monthAgo"}}}]}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"BaseUserAnswer"}}]}},{"kind":"Field","name":{"kind":"Name","value":"user_enrollments"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"BaseUserEnrollment"}},{"kind":"Field","alias":{"kind":"Name","value":"attempted"},"name":{"kind":"Name","value":"user_questions_aggregate"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"where"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"user_answers_aggregate"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"count"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"predicate"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"_gt"},"value":{"kind":"IntValue","value":"0"}}]}}]}}]}},{"kind":"ObjectField","name":{"kind":"Name","value":"retired_on"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"_is_null"},"value":{"kind":"BooleanValue","value":true}}]}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"aggregate"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"count"}}]}}]}},{"kind":"Field","alias":{"kind":"Name","value":"unattempted"},"name":{"kind":"Name","value":"user_questions_aggregate"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"where"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"user_answers_aggregate"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"count"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"predicate"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"_eq"},"value":{"kind":"IntValue","value":"0"}}]}}]}}]}},{"kind":"ObjectField","name":{"kind":"Name","value":"retired_on"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"_is_null"},"value":{"kind":"BooleanValue","value":true}}]}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"aggregate"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"count"}}]}}]}},{"kind":"Field","alias":{"kind":"Name","value":"retired"},"name":{"kind":"Name","value":"user_questions_aggregate"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"where"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"retired_on"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"_is_null"},"value":{"kind":"BooleanValue","value":false}}]}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"aggregate"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"count"}}]}}]}},{"kind":"Field","alias":{"kind":"Name","value":"total"},"name":{"kind":"Name","value":"user_questions_aggregate"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"aggregate"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"count"}}]}}]}}]}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"BaseUserEnrollment"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"user_enrollment"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"__typename"}},{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"user_id"}},{"kind":"Field","name":{"kind":"Name","value":"taxonomy_id"}},{"kind":"Field","name":{"kind":"Name","value":"created_at"}},{"kind":"Field","name":{"kind":"Name","value":"score"}},{"kind":"Field","name":{"kind":"Name","value":"rank"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"BaseUserQuestion"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"user_question"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"__typename"}},{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"user_id"}},{"kind":"Field","name":{"kind":"Name","value":"taxonomy_id"}},{"kind":"Field","name":{"kind":"Name","value":"question_id"}},{"kind":"Field","name":{"kind":"Name","value":"retired_on"}},{"kind":"Field","name":{"kind":"Name","value":"active_on"}},{"kind":"Field","alias":{"kind":"Name","value":"attempts"},"name":{"kind":"Name","value":"user_answers_aggregate"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"aggregate"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"count"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"created_at"}},{"kind":"Field","name":{"kind":"Name","value":"streak"}},{"kind":"Field","name":{"kind":"Name","value":"difficulty"}},{"kind":"Field","name":{"kind":"Name","value":"latest_review_gap"}},{"kind":"Field","name":{"kind":"Name","value":"last_answered_on"}},{"kind":"Field","name":{"kind":"Name","value":"user_enrollment"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"BaseUserEnrollment"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"BaseLearningRecord"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"learning_record"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"__typename"}},{"kind":"Field","name":{"kind":"Name","value":"created_at"}},{"kind":"Field","name":{"kind":"Name","value":"data"}},{"kind":"Field","name":{"kind":"Name","value":"event_type"}},{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"user_id"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"BaseUser"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"user"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"__typename"}},{"kind":"Field","name":{"kind":"Name","value":"tenant_id"}},{"kind":"Field","name":{"kind":"Name","value":"email"}},{"kind":"Field","name":{"kind":"Name","value":"first_name"}},{"kind":"Field","name":{"kind":"Name","value":"language_preference"}},{"kind":"Field","name":{"kind":"Name","value":"last_name"}},{"kind":"Field","name":{"kind":"Name","value":"next_question"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"BaseUserQuestion"}}]}},{"kind":"Field","name":{"kind":"Name","value":"phone_number"}},{"kind":"Field","name":{"kind":"Name","value":"timezone"}},{"kind":"Field","name":{"kind":"Name","value":"user_id"}},{"kind":"Field","name":{"kind":"Name","value":"sms_enabled"}},{"kind":"Field","name":{"kind":"Name","value":"learning_records"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"BaseLearningRecord"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"UserActiveQuestionsData"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"user"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","alias":{"kind":"Name","value":"unanswered_questions"},"name":{"kind":"Name","value":"user_questions_aggregate"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"where"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"retired_on"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"_is_null"},"value":{"kind":"BooleanValue","value":true}}]}},{"kind":"ObjectField","name":{"kind":"Name","value":"active_on"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"_is_null"},"value":{"kind":"BooleanValue","value":false}},{"kind":"ObjectField","name":{"kind":"Name","value":"_lte"},"value":{"kind":"Variable","name":{"kind":"Name","value":"datetime"}}}]}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"aggregate"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"count"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"distinct"},"value":{"kind":"BooleanValue","value":true}}]}]}}]}},{"kind":"Field","alias":{"kind":"Name","value":"active_enrollments"},"name":{"kind":"Name","value":"user_enrollments_aggregate"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"where"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"user_questions_aggregate"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"count"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"predicate"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"_gt"},"value":{"kind":"IntValue","value":"0"}}]}},{"kind":"ObjectField","name":{"kind":"Name","value":"filter"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"retired_on"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"_is_null"},"value":{"kind":"BooleanValue","value":true}}]}},{"kind":"ObjectField","name":{"kind":"Name","value":"active_on"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"_is_null"},"value":{"kind":"BooleanValue","value":false}}]}}]}}]}}]}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"aggregate"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"count"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"distinct"},"value":{"kind":"BooleanValue","value":true}}]}]}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"BaseUserAnswer"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"user_answer"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"__typename"}},{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"correct"}},{"kind":"Field","name":{"kind":"Name","value":"created_at"}}]}}]} as unknown as DocumentNode<GetUserDashboardQuery, GetUserDashboardQueryVariables>;
 export const GetUserEmailDataDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetUserEmailData"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"userId"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"uuid"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"datetime"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"timestamptz"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"user_by_pk"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"user_id"},"value":{"kind":"Variable","name":{"kind":"Name","value":"userId"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"UserWithActiveToken"}},{"kind":"FragmentSpread","name":{"kind":"Name","value":"UserActiveQuestionsData"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"BaseUserEnrollment"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"user_enrollment"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"__typename"}},{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"user_id"}},{"kind":"Field","name":{"kind":"Name","value":"taxonomy_id"}},{"kind":"Field","name":{"kind":"Name","value":"created_at"}},{"kind":"Field","name":{"kind":"Name","value":"score"}},{"kind":"Field","name":{"kind":"Name","value":"rank"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"BaseUserQuestion"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"user_question"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"__typename"}},{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"user_id"}},{"kind":"Field","name":{"kind":"Name","value":"taxonomy_id"}},{"kind":"Field","name":{"kind":"Name","value":"question_id"}},{"kind":"Field","name":{"kind":"Name","value":"retired_on"}},{"kind":"Field","name":{"kind":"Name","value":"active_on"}},{"kind":"Field","alias":{"kind":"Name","value":"attempts"},"name":{"kind":"Name","value":"user_answers_aggregate"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"aggregate"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"count"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"created_at"}},{"kind":"Field","name":{"kind":"Name","value":"streak"}},{"kind":"Field","name":{"kind":"Name","value":"difficulty"}},{"kind":"Field","name":{"kind":"Name","value":"latest_review_gap"}},{"kind":"Field","name":{"kind":"Name","value":"last_answered_on"}},{"kind":"Field","name":{"kind":"Name","value":"user_enrollment"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"BaseUserEnrollment"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"BaseLearningRecord"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"learning_record"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"__typename"}},{"kind":"Field","name":{"kind":"Name","value":"created_at"}},{"kind":"Field","name":{"kind":"Name","value":"data"}},{"kind":"Field","name":{"kind":"Name","value":"event_type"}},{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"user_id"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"BaseUser"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"user"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"__typename"}},{"kind":"Field","name":{"kind":"Name","value":"tenant_id"}},{"kind":"Field","name":{"kind":"Name","value":"email"}},{"kind":"Field","name":{"kind":"Name","value":"first_name"}},{"kind":"Field","name":{"kind":"Name","value":"language_preference"}},{"kind":"Field","name":{"kind":"Name","value":"last_name"}},{"kind":"Field","name":{"kind":"Name","value":"next_question"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"BaseUserQuestion"}}]}},{"kind":"Field","name":{"kind":"Name","value":"phone_number"}},{"kind":"Field","name":{"kind":"Name","value":"timezone"}},{"kind":"Field","name":{"kind":"Name","value":"user_id"}},{"kind":"Field","name":{"kind":"Name","value":"sms_enabled"}},{"kind":"Field","name":{"kind":"Name","value":"learning_records"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"BaseLearningRecord"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"BaseLinkToken"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"link_token"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"__typename"}},{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"created_at"}},{"kind":"Field","name":{"kind":"Name","value":"active"}},{"kind":"Field","name":{"kind":"Name","value":"user_id"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"UserWithActiveToken"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"user"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"BaseUser"}},{"kind":"Field","alias":{"kind":"Name","value":"active_tokens"},"name":{"kind":"Name","value":"link_tokens"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"where"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"active"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"_eq"},"value":{"kind":"BooleanValue","value":true}}]}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"BaseLinkToken"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"UserActiveQuestionsData"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"user"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","alias":{"kind":"Name","value":"unanswered_questions"},"name":{"kind":"Name","value":"user_questions_aggregate"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"where"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"retired_on"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"_is_null"},"value":{"kind":"BooleanValue","value":true}}]}},{"kind":"ObjectField","name":{"kind":"Name","value":"active_on"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"_is_null"},"value":{"kind":"BooleanValue","value":false}},{"kind":"ObjectField","name":{"kind":"Name","value":"_lte"},"value":{"kind":"Variable","name":{"kind":"Name","value":"datetime"}}}]}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"aggregate"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"count"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"distinct"},"value":{"kind":"BooleanValue","value":true}}]}]}}]}},{"kind":"Field","alias":{"kind":"Name","value":"active_enrollments"},"name":{"kind":"Name","value":"user_enrollments_aggregate"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"where"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"user_questions_aggregate"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"count"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"predicate"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"_gt"},"value":{"kind":"IntValue","value":"0"}}]}},{"kind":"ObjectField","name":{"kind":"Name","value":"filter"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"retired_on"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"_is_null"},"value":{"kind":"BooleanValue","value":true}}]}},{"kind":"ObjectField","name":{"kind":"Name","value":"active_on"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"_is_null"},"value":{"kind":"BooleanValue","value":false}}]}}]}}]}}]}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"aggregate"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"count"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"distinct"},"value":{"kind":"BooleanValue","value":true}}]}]}}]}}]}}]} as unknown as DocumentNode<GetUserEmailDataQuery, GetUserEmailDataQueryVariables>;
-export const GetUserEnrollmentScoresDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetUserEnrollmentScores"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"userId"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"uuid"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"taxonomyIds"}},"type":{"kind":"ListType","type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"tenantId"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"user_by_pk"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"user_id"},"value":{"kind":"Variable","name":{"kind":"Name","value":"userId"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"user_enrollments"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"where"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"taxonomy_id"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"_in"},"value":{"kind":"Variable","name":{"kind":"Name","value":"taxonomyIds"}}}]}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"user_enrollment"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"where"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"taxonomy_id"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"_in"},"value":{"kind":"Variable","name":{"kind":"Name","value":"taxonomyIds"}}}]}},{"kind":"ObjectField","name":{"kind":"Name","value":"user"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"tenant_id"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"_eq"},"value":{"kind":"Variable","name":{"kind":"Name","value":"tenantId"}}}]}}]}}]}},{"kind":"Argument","name":{"kind":"Name","value":"order_by"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"score"},"value":{"kind":"EnumValue","value":"desc"}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"user_id"}},{"kind":"Field","name":{"kind":"Name","value":"score"}},{"kind":"Field","name":{"kind":"Name","value":"rank"}},{"kind":"Field","name":{"kind":"Name","value":"taxonomy_id"}}]}}]}}]} as unknown as DocumentNode<GetUserEnrollmentScoresQuery, GetUserEnrollmentScoresQueryVariables>;
 export const GetUserNextQuestionDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetUserNextQuestion"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"userId"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"uuid"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"now"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"timestamptz"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"user_by_pk"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"user_id"},"value":{"kind":"Variable","name":{"kind":"Name","value":"userId"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"user_questions"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"where"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"active_on"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"_lte"},"value":{"kind":"Variable","name":{"kind":"Name","value":"now"}}}]}}]}},{"kind":"Argument","name":{"kind":"Name","value":"order_by"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"active_on"},"value":{"kind":"EnumValue","value":"asc"}}]}},{"kind":"Argument","name":{"kind":"Name","value":"limit"},"value":{"kind":"IntValue","value":"1"}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"BaseUserQuestion"}}]}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"BaseUserEnrollment"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"user_enrollment"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"__typename"}},{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"user_id"}},{"kind":"Field","name":{"kind":"Name","value":"taxonomy_id"}},{"kind":"Field","name":{"kind":"Name","value":"created_at"}},{"kind":"Field","name":{"kind":"Name","value":"score"}},{"kind":"Field","name":{"kind":"Name","value":"rank"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"BaseUserQuestion"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"user_question"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"__typename"}},{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"user_id"}},{"kind":"Field","name":{"kind":"Name","value":"taxonomy_id"}},{"kind":"Field","name":{"kind":"Name","value":"question_id"}},{"kind":"Field","name":{"kind":"Name","value":"retired_on"}},{"kind":"Field","name":{"kind":"Name","value":"active_on"}},{"kind":"Field","alias":{"kind":"Name","value":"attempts"},"name":{"kind":"Name","value":"user_answers_aggregate"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"aggregate"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"count"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"created_at"}},{"kind":"Field","name":{"kind":"Name","value":"streak"}},{"kind":"Field","name":{"kind":"Name","value":"difficulty"}},{"kind":"Field","name":{"kind":"Name","value":"latest_review_gap"}},{"kind":"Field","name":{"kind":"Name","value":"last_answered_on"}},{"kind":"Field","name":{"kind":"Name","value":"user_enrollment"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"BaseUserEnrollment"}}]}}]}}]} as unknown as DocumentNode<GetUserNextQuestionQuery, GetUserNextQuestionQueryVariables>;
 export const GetUserQuestionDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetUserQuestion"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"id"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"uuid"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"user_question_by_pk"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"id"},"value":{"kind":"Variable","name":{"kind":"Name","value":"id"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"BaseUserQuestion"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"BaseUserEnrollment"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"user_enrollment"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"__typename"}},{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"user_id"}},{"kind":"Field","name":{"kind":"Name","value":"taxonomy_id"}},{"kind":"Field","name":{"kind":"Name","value":"created_at"}},{"kind":"Field","name":{"kind":"Name","value":"score"}},{"kind":"Field","name":{"kind":"Name","value":"rank"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"BaseUserQuestion"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"user_question"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"__typename"}},{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"user_id"}},{"kind":"Field","name":{"kind":"Name","value":"taxonomy_id"}},{"kind":"Field","name":{"kind":"Name","value":"question_id"}},{"kind":"Field","name":{"kind":"Name","value":"retired_on"}},{"kind":"Field","name":{"kind":"Name","value":"active_on"}},{"kind":"Field","alias":{"kind":"Name","value":"attempts"},"name":{"kind":"Name","value":"user_answers_aggregate"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"aggregate"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"count"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"created_at"}},{"kind":"Field","name":{"kind":"Name","value":"streak"}},{"kind":"Field","name":{"kind":"Name","value":"difficulty"}},{"kind":"Field","name":{"kind":"Name","value":"latest_review_gap"}},{"kind":"Field","name":{"kind":"Name","value":"last_answered_on"}},{"kind":"Field","name":{"kind":"Name","value":"user_enrollment"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"BaseUserEnrollment"}}]}}]}}]} as unknown as DocumentNode<GetUserQuestionQuery, GetUserQuestionQueryVariables>;
 export const GetUserQuestionLearningRecordDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetUserQuestionLearningRecord"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"userId"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"uuid"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"questionId"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"uuid"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"learning_record"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"where"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"user_id"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"_eq"},"value":{"kind":"Variable","name":{"kind":"Name","value":"userId"}}}]}},{"kind":"ObjectField","name":{"kind":"Name","value":"data"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"_contains"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"questionId"},"value":{"kind":"Variable","name":{"kind":"Name","value":"questionId"}}}]}}]}}]}},{"kind":"Argument","name":{"kind":"Name","value":"limit"},"value":{"kind":"IntValue","value":"1"}},{"kind":"Argument","name":{"kind":"Name","value":"order_by"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"created_at"},"value":{"kind":"EnumValue","value":"desc"}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"created_at"}},{"kind":"Field","name":{"kind":"Name","value":"data"}}]}}]}}]} as unknown as DocumentNode<GetUserQuestionLearningRecordQuery, GetUserQuestionLearningRecordQueryVariables>;

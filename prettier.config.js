@@ -18,6 +18,7 @@ const config = {
     "^(@remix-run/(.*)$)|^(@remix-run$)",
     "<THIRD_PARTY_MODULES>",
     "^(quickcheck-shared/(.*)$)|^(quickcheck-shared$)",
+    "^~/contentstack.server",
     "^~/graphql/(.*)$|^~/graphql",
     "^~/utils/(.*)$",
     "^~/models/(.*)$|^~/mocks/(.*)$",

@@ -32,6 +32,7 @@ const config: CodegenConfig = {
           jsonb: "../scalars#Jsonb",
           timestamptz: "../scalars#TimestampTZ",
           numeric: "../scalars#Numeric",
+          date: "../scalars#ISODate",
         },
         strictScalars: true,
       },

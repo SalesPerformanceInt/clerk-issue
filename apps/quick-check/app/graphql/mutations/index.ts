@@ -8,3 +8,4 @@ export * from "./enrollUser";
 export * from "./updateUserQuestion";
 export * from "./createUserAnswer";
 export * from "./updateUserEnrollment";
+export * from "./updateUser";

@@ -24,3 +24,5 @@ export async function getUser(this: WithApolloClient, userId: string) {
     return null;
   }
 }
+
+export type GetUserData = NonNullable<Awaited<ReturnType<typeof getUser>>>;

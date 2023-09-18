@@ -1,7 +1,8 @@
 import { DateTime } from "luxon";
 import { find, identity, isTruthy, map, pipe, reverse, times } from "remeda";
+import { User } from "~/graphql";
 
-import type { Day, Week } from "./types";
+import type { Day, Week } from "quickcheck-shared";
 
 const getDayActivity = (date: DateTime, answerDates: DateTime[]) =>
   pipe(

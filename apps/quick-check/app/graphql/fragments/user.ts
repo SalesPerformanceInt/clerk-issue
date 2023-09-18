@@ -24,6 +24,8 @@ export const BaseUser = graphql(/* GraphQL */ `
     timezone
     user_id
     sms_enabled
+    weekly_streak
+    weekly_streak_since
     learning_records {
       ...BaseLearningRecord
     }

@@ -1,43 +1,54 @@
+import { DateTime } from "luxon";
 import invariant from "tiny-invariant";
 import {
   getUserApolloClientFromRequest,
+  type GetUserData,
   type Learning_Record_Insert_Input,
-  type UserGraphQLClient,
   type User_Answer_Insert_Input,
+  type User_Set_Input,
 } from "~/graphql";
 
-import { ANSWER, type Answer } from "./answer";
+import { ANSWER } from "./answer";
 import { getCurrentAnswer, getReviewedAnswer } from "./getAnswers";
 import { getRetiredOn } from "./retireAnswer";
 
-/**
- * Get Question
- */
-
-const getUserQuestion = async (
-  userApolloClient: UserGraphQLClient,
-  currentAnswer: Answer,
+const getWeeklyStreak = (
+  { weekly_streak, weekly_streak_since }: GetUserData,
+  lastSunday: string,
 ) => {
-  const userQuestion = await userApolloClient.getUserQuestion(currentAnswer.id);
+  if (weekly_streak_since && weekly_streak_since >= lastSunday)
+    return weekly_streak;
 
-  invariant(userQuestion, "Question not found");
+  const sundayBeforeLast = DateTime.fromISO(lastSunday)
+    .minus({ week: 1 })
+    .toISODate()!;
+  if (weekly_streak_since && weekly_streak_since >= sundayBeforeLast)
+    return weekly_streak + 1;
 
-  return { userQuestion };
+  return 1;
 };
 
-/**
- * Save Answer
- */
+const getUpdatedWeeklyStreakData = (
+  user: GetUserData,
+): Pick<User_Set_Input, "weekly_streak" | "weekly_streak_since"> => {
+  const lastSunday = DateTime.now()
+    .startOf("week")
+    .minus({ day: 1 })
+    .toISODate()!;
+
+  return {
+    weekly_streak: getWeeklyStreak(user, lastSunday),
+    weekly_streak_since: lastSunday,
+  };
+};
 
 export const saveAnswer = async (request: Request) => {
   const userApolloClient = await getUserApolloClientFromRequest(request);
 
   const { currentAnswer, answerDate } = await getCurrentAnswer(request);
 
-  const { userQuestion } = await getUserQuestion(
-    userApolloClient,
-    currentAnswer,
-  );
+  const userQuestion = await userApolloClient.getUserQuestion(currentAnswer.id);
+  invariant(userQuestion, "Question not found");
 
   const { reviewedAnswer, userQuestionNextActiveDate } = getReviewedAnswer(
     userQuestion,
@@ -71,6 +82,11 @@ export const saveAnswer = async (request: Request) => {
   });
 
   await userApolloClient.createUserAnswer(userAnswer);
+
+  const user = await userApolloClient.getUser();
+  invariant(user, "User not found");
+
+  await userApolloClient.updateUser(getUpdatedWeeklyStreakData(user));
 
   return await userApolloClient.createLearningRecord(learningRecord);
 };

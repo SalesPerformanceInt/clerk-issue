@@ -4,31 +4,31 @@ import { useTranslation } from "react-i18next";
 import { DateTime } from "luxon";
 import { dropLast, isEmpty, last, map, pipe, take } from "remeda";
 import { twMerge } from "tailwind-merge";
+import type { DashboardData } from "~/graphql";
 import { useDashboardContext } from "~/pages/Dashboard";
 
 import {
   Card,
   CardTitle,
   WeeklyStreakCalendar,
-  makeCalendar,
   type CardProps,
   type Week,
 } from "quickcheck-shared";
 
-const getStreakCount = (
-  calendar: Week[],
-  count: number = 0,
-  initial: boolean = true,
-): number => {
-  const remaining = dropLast(calendar, 1);
-  const activity = last(calendar)?.activity;
+import { makeCalendar } from "./utils";
 
-  if (isEmpty(calendar) || !activity) return count;
+const getStreakCount = ({
+  weekly_streak,
+  weekly_streak_since,
+}: DashboardData): number => {
+  const sundayBeforeLast = DateTime.now()
+    .startOf("week")
+    .minus({ day: 1, week: 1 })
+    .toISODate()!;
 
-  if (initial)
-    return getStreakCount(remaining, activity ? count + 1 : count, false);
+  if (weekly_streak_since && weekly_streak_since < sundayBeforeLast) return 0;
 
-  return getStreakCount(remaining, count + 1, false);
+  return weekly_streak;
 };
 
 export const WeeklyStreakCard: FC<CardProps> = ({ className, ...props }) => {
@@ -47,7 +47,7 @@ export const WeeklyStreakCard: FC<CardProps> = ({ className, ...props }) => {
 
   const calendar = useMemo(() => makeCalendar(answerDates), [answerDates]);
 
-  const streakCount = useMemo(() => getStreakCount(calendar), [calendar]);
+  const streakCount = useMemo(() => getStreakCount(dashboard), [dashboard]);
 
   return (
     <Card className={twMerge("max-w-sm p-6", className)} {...props}>

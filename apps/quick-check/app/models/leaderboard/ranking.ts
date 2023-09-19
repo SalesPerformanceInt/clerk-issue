@@ -1,12 +1,13 @@
 import invariant from "tiny-invariant";
 
-import { ENROLLMENT_RANKING, ENROLLMENT_SCORE } from "~/utils/constants";
-
 import type {
   EnrollmentScore,
   EnrollmentsByTaxonomy,
   LeaderboardUserEnrollment,
 } from "./leaderboard.types";
+
+export const DEFAULT_ENROLLMENT_RANKING = 1;
+export const DEFAULT_ENROLLMENT_SCORE = 0;
 
 /**
  * Normalize Enrollment
@@ -27,8 +28,8 @@ const normalizeLeaderboardEnrollment = (
  */
 
 const rankAllEnrollments = (enrollments: EnrollmentScore[]) => {
-  let rank = ENROLLMENT_RANKING;
-  let previousScore = ENROLLMENT_SCORE;
+  let rank = DEFAULT_ENROLLMENT_RANKING;
+  let previousScore = DEFAULT_ENROLLMENT_SCORE;
 
   const rankedEnrollments = enrollments.map((enrollment, enrollmentIndex) => {
     rank = enrollment.score === previousScore ? rank : enrollmentIndex + 1;
@@ -44,8 +45,8 @@ const rankUntilUserEnrollment = (
   enrollments: EnrollmentScore[],
   userId: string,
 ) => {
-  let rank = ENROLLMENT_RANKING;
-  let previousScore = ENROLLMENT_SCORE;
+  let rank = DEFAULT_ENROLLMENT_RANKING;
+  let previousScore = DEFAULT_ENROLLMENT_SCORE;
 
   const userEnrollment = enrollments.find((enrollment, enrollmentIndex) => {
     rank = enrollment.score === previousScore ? rank : enrollmentIndex + 1;

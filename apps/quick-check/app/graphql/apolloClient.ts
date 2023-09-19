@@ -130,12 +130,18 @@ export class UserGraphQLClient extends GraphQLClient {
   getUserActiveQuestionsData = () =>
     getUserActiveQuestionsData.call(this, this.userId);
   getUserEmailData = () => getUserEmailData.call(this, this.userId);
-  getUserEnrollmentScores = (taxonomyIds: string[], tenantId: string) =>
-    getRankedUserEnrollments.call(this, this.userId, taxonomyIds, tenantId);
+  getRankedUserEnrollments = (taxonomyIds: string[]) =>
+    getRankedUserEnrollments.call(
+      this,
+      taxonomyIds,
+      this.userId,
+      this.tenantId,
+    );
 
   constructor(
     jwt: string,
     public userId: string,
+    public tenantId: string,
   ) {
     super(getJWTHeader(jwt));
   }
@@ -170,7 +176,7 @@ export const getUserApolloClient = async (userId: string, tenantId: string) => {
     "x-hasura-tenant-id": tenantId,
   });
 
-  return new UserGraphQLClient(jwt, userId);
+  return new UserGraphQLClient(jwt, userId, tenantId);
 };
 
 export const getUserApolloClientFromRequest = async (request: Request) => {

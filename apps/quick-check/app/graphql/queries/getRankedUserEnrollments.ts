@@ -1,5 +1,3 @@
-import { pipe } from "remeda";
-
 import { graphql, type WithApolloClient } from "~/graphql";
 
 import {
@@ -11,8 +9,8 @@ import {
  * GraphQL
  */
 
-export const GET_USER_ENROLLMENT_SCORES = graphql(/* GraphQL */ `
-  query GetUserEnrollmentScores($taxonomyIds: [String!], $tenantId: String!) {
+export const GET_RANKED_USER_ENROLLMENTS = graphql(/* GraphQL */ `
+  query GetRankedUserEnrollments($taxonomyIds: [String!], $tenantId: String!) {
     user_enrollment(
       where: {
         taxonomy_id: { _in: $taxonomyIds }
@@ -35,21 +33,24 @@ export const GET_USER_ENROLLMENT_SCORES = graphql(/* GraphQL */ `
 
 export async function getRankedUserEnrollments(
   this: WithApolloClient,
-  userId: string,
   taxonomyIds: string[],
+  userId: string,
   tenantId: string,
 ) {
   try {
     const { data } = await this.client.query({
-      query: GET_USER_ENROLLMENT_SCORES,
+      query: GET_RANKED_USER_ENROLLMENTS,
       variables: { taxonomyIds, tenantId },
       fetchPolicy: "no-cache",
     });
 
-    const rankedUserEnrollments = pipe(
-      await prepareTaxonomyEnrollments(data.user_enrollment),
-      (taxonomyEnrollments) =>
-        getUserRankedEnrollments(taxonomyEnrollments, userId),
+    const taxonomyEnrollments = await prepareTaxonomyEnrollments(
+      data.user_enrollment,
+    );
+
+    const rankedUserEnrollments = getUserRankedEnrollments(
+      taxonomyEnrollments,
+      userId,
     );
 
     return rankedUserEnrollments;

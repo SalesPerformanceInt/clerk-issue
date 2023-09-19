@@ -29,8 +29,8 @@ export const loader = async ({ request }: LoaderArgs) => {
   if (!dashboard) return null;
 
   const rankedUserEnrollments = adminApolloClient.getRankedUserEnrollments(
-    dashboard.user_id,
     dashboard.taxonomy_ids,
+    dashboard.user_id,
     dashboard.tenant_id,
   );
 

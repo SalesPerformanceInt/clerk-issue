@@ -1,13 +1,13 @@
 import type { Expand } from "quickcheck-shared";
 
-import { type GetUserEnrollmentScoresQuery } from "~/graphql";
+import type { GetRankedUserEnrollmentsQuery } from "~/graphql";
 
 /**
  * Enrollment Score
  */
 
 export type EnrollmentScore =
-  GetUserEnrollmentScoresQuery["user_enrollment"][number];
+  GetRankedUserEnrollmentsQuery["user_enrollment"][number];
 
 /**
  * Enrollments By Taxonomy
@@ -32,4 +32,4 @@ export type EnrollmentsByTaxonomy = {
 export type LeaderboardUserEnrollment = {
   displayName: string;
   rank: number;
-} & Expand<Omit<EnrollmentScore, "user_id" | "__typename" | "rank">>;
+} & Expand<Pick<EnrollmentScore, "id" | "score" | "taxonomy_id">>;

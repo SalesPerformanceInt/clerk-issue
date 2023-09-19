@@ -8,5 +8,6 @@ export const BaseUserEnrollment = graphql(/* GraphQL */ `
     taxonomy_id
     created_at
     score
+    rank
   }
 `);

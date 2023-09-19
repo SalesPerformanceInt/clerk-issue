@@ -1,5 +1,6 @@
 import { DateTime } from "luxon";
 import { contentStack } from "~/contentstack.server";
+
 import { graphql, type WithApolloClient } from "~/graphql";
 
 export const GET_USER_DASHBOARD = graphql(/* GraphQL */ `
@@ -84,6 +85,9 @@ export async function getUserDashboard(this: WithApolloClient, userId: string) {
     return {
       ...user_by_pk,
       user_enrollments,
+      taxonomy_ids: user_enrollments.map(
+        (enrollment) => enrollment.taxonomy_id,
+      ),
       active_enrollments: user_by_pk.active_enrollments.aggregate?.count,
       unanswered_questions: user_by_pk.unanswered_questions.aggregate?.count,
     };

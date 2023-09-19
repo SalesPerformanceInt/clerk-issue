@@ -9,3 +9,4 @@ export * from "./getUserActiveQuestionsData";
 export * from "./getUserEmailData";
 export * from "./getUserQuestionLearningRecord";
 export * from "./getActiveUserQuestion";
+export * from "./getRankedUserEnrollments";

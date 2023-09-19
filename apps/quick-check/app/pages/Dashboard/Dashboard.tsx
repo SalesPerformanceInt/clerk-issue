@@ -2,7 +2,6 @@ import React, { type FC } from "react";
 import { useTranslation } from "react-i18next";
 
 import { faArrowUpRightDots } from "@fortawesome/pro-light-svg-icons";
-import type { DashboardData } from "~/graphql";
 
 import {
   MobileCarousel,
@@ -19,17 +18,24 @@ import {
   WeeklyStreakCard,
 } from "./components";
 
-import { DashboardContextProvider } from "./context/DashboardContext";
+import {
+  DashboardContextProvider,
+  type DashboardContextProps,
+} from "./context/DashboardContext";
 
-interface DashboardProps {
-  dashboard: DashboardData;
-}
+interface DashboardProps extends DashboardContextProps {}
 
-export const Dashboard: FC<DashboardProps> = ({ dashboard }) => {
+export const Dashboard: FC<DashboardProps> = ({
+  dashboard,
+  rankedUserEnrollments,
+}) => {
   const { t } = useTranslation();
 
   return (
-    <DashboardContextProvider dashboard={dashboard}>
+    <DashboardContextProvider
+      dashboard={dashboard}
+      rankedUserEnrollments={rankedUserEnrollments}
+    >
       <DashboardHeader />
 
       <ResponsiveContainer className="p-4">

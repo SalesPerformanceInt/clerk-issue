@@ -8,6 +8,8 @@ import {
 } from "@apollo/client";
 import { SignJWT } from "jose";
 import invariant from "tiny-invariant";
+import { getUserDataFromFromSession } from "~/session.server";
+
 import type { User_Set_Input } from "~/graphql";
 import {
   createLearningRecord,
@@ -26,6 +28,7 @@ import {
   getActiveUserQuestion,
   getAllUsers,
   getLinkToken,
+  getRankedUserEnrollments,
   getUser,
   getUserActiveQuestionsData,
   getUserDashboard,
@@ -35,7 +38,6 @@ import {
   getUserQuestionLearningRecord,
   getUserTheme,
 } from "~/graphql/queries";
-import { getUserDataFromFromSession } from "~/session.server";
 
 import {
   HASURA_API_URL,
@@ -104,6 +106,7 @@ export class GraphQLClient implements WithApolloClient {
   createUserAnswer = createUserAnswer;
   getActiveUserQuestion = getActiveUserQuestion;
   updateUserEnrollment = updateUserEnrollment;
+  getRankedUserEnrollments = getRankedUserEnrollments;
   updateUser = updateUser;
 
   constructor(headers: GraphQLHeaders) {
@@ -130,11 +133,19 @@ export class UserGraphQLClient extends GraphQLClient {
   getUserActiveQuestionsData = () =>
     getUserActiveQuestionsData.call(this, this.userId);
   getUserEmailData = () => getUserEmailData.call(this, this.userId);
+  getRankedUserEnrollments = (taxonomyIds: string[]) =>
+    getRankedUserEnrollments.call(
+      this,
+      taxonomyIds,
+      this.userId,
+      this.tenantId,
+    );
   updateUser = (set: User_Set_Input) => updateUser.call(this, set, this.userId);
 
   constructor(
     jwt: string,
     public userId: string,
+    public tenantId: string,
   ) {
     super(getJWTHeader(jwt));
   }
@@ -169,7 +180,7 @@ export const getUserApolloClient = async (userId: string, tenantId: string) => {
     "x-hasura-tenant-id": tenantId,
   });
 
-  return new UserGraphQLClient(jwt, userId);
+  return new UserGraphQLClient(jwt, userId, tenantId);
 };
 
 export const getUserApolloClientFromRequest = async (request: Request) => {

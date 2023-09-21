@@ -27,13 +27,17 @@ const CachedLeaderboard: FC = () => {
 
   return (
     <>
-      {dashboard.user_enrollments.slice(0, 4).map((enrollment) => (
-        <LeaderboardEntry
-          key={enrollment.id}
-          rank={enrollment.rank || 1}
-          title={enrollment.taxonomy?.display_name || ""}
-        />
-      ))}
+      {dashboard.user_enrollments
+        .filter((enrollment) => enrollment.rank && enrollment.score)
+        .sort((a, b) => a.rank! - b.rank!)
+        .slice(0, 4)
+        .map((enrollment) => (
+          <LeaderboardEntry
+            key={enrollment.id}
+            rank={enrollment.rank || 0}
+            title={enrollment.taxonomy?.display_name || ""}
+          />
+        ))}
     </>
   );
 };
@@ -61,7 +65,7 @@ export const LeaderboardCard: FC<LeaderboardCardProps> = ({ className }) => {
                 .map((rankedEnrollment) => (
                   <LeaderboardEntry
                     key={rankedEnrollment.id}
-                    rank={rankedEnrollment.rank || 0}
+                    rank={rankedEnrollment.rank}
                     title={rankedEnrollment.displayName}
                   />
                 ));

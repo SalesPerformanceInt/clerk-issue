@@ -1,4 +1,5 @@
 import { DateTime } from "luxon";
+
 import { contentStack } from "~/contentstack.server";
 
 import { graphql, type WithApolloClient } from "~/graphql";
@@ -15,7 +16,7 @@ export const GET_USER_DASHBOARD = graphql(/* GraphQL */ `
       user_answers(where: { created_at: { _gte: $monthAgo } }) {
         ...BaseUserAnswer
       }
-      user_enrollments {
+      user_enrollments(order_by: { rank: desc }) {
         ...BaseUserEnrollment
         attempted: user_questions_aggregate(
           where: {
@@ -75,6 +76,7 @@ export async function getUserDashboard(this: WithApolloClient, userId: string) {
     const user_enrollments = await Promise.all(
       user_by_pk.user_enrollments.map(async (enrollment) => {
         const taxonomy = await contentStack.getTaxonomy(enrollment.taxonomy_id);
+
         return {
           ...enrollment,
           taxonomy,

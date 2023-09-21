@@ -48,3 +48,7 @@
     scrollbar-width: none;
   }
 }
+
+ul {
+  @apply list-disc;
+}

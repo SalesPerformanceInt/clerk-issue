@@ -7,10 +7,9 @@ import {
   FontAwesomeIconProps,
 } from "@fortawesome/react-fontawesome";
 import { AnimatePresence, motion } from "framer-motion";
+import parse from "html-react-parser";
 import { twMerge } from "tailwind-merge";
 import { grow } from "~/config/animations";
-
-import { stripHTML } from "~/utils/stripHTML";
 
 import { useQuestionContext } from "~/components/Question";
 
@@ -60,7 +59,7 @@ export const Feedback: FC = () => {
               />
             )}
             <p className="text-contrast text-base">
-              {stripHTML(selected?.feedback)}
+              {parse(selected?.feedback ?? "")}
             </p>
           </motion.div>
         )}

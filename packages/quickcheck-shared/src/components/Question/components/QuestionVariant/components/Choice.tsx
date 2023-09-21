@@ -1,11 +1,11 @@
 import React from "react";
 
+import parse from "html-react-parser";
 import { twMerge } from "tailwind-merge";
 import type { QuestionItemChoice } from "~/contentstack";
 import { useQuestionContext } from "~/index";
 
 import type { Expand } from "~/utils/expand";
-import { stripHTML } from "~/utils/stripHTML";
 
 export type ChoiceProps = Expand<
   {
@@ -25,9 +25,9 @@ export const Choice = ({
 
   if (!choice) return null;
 
-  const correctlyAnswered = submitted && isSelected && selected?.correct
-  const incorrectlyAnswered = submitted &&  isSelected && !selected?.correct
-  const actualAnswer = submitted && !isSelected && choice.correct
+  const correctlyAnswered = submitted && isSelected && selected?.correct;
+  const incorrectlyAnswered = submitted && isSelected && !selected?.correct;
+  const actualAnswer = submitted && !isSelected && choice.correct;
 
   return (
     <button
@@ -45,9 +45,8 @@ export const Choice = ({
           "border-l-success border-l-8 sm:border-l-16 sm:border-l-success",
       )}
       {...choice.$?.body}
-
     >
-      {stripHTML(choice.body)}
+      {parse(choice.body)}
     </button>
   );
 };

@@ -15,13 +15,13 @@ import {
   Tailwind,
   Text,
 } from "@react-email/components";
+import parse from "html-react-parser";
 import { TFunction } from "i18next";
 import { chunk } from "remeda";
 import { twMerge } from "tailwind-merge";
 
 import {
   getVariant,
-  stripHTML,
   type QuestionItem,
   type Taxon,
   type UserData,
@@ -98,7 +98,7 @@ export const QuickcheckQuestionEmail = ({
             </Section>
             <Section className="mt-2">
               <Text className="text-base text-primary m-0">
-                {stripHTML(questionVariant.mcquestion.stem)}
+                {parse(questionVariant.mcquestion.stem)}
               </Text>
             </Section>
             <Section className="mt-4">
@@ -122,7 +122,7 @@ export const QuickcheckQuestionEmail = ({
                             className="h-full block bg-background-secondary rounded-sm"
                           >
                             <Section className="text-primary text-xs py-2 px-4 h-full">
-                              {stripHTML(choice.body)}
+                              {parse(choice.body)}
                             </Section>
                           </Link>
                         </Column>

@@ -2292,6 +2292,7 @@ export enum User_Constraint {
 /** columns and relationships of "user_enrollment" */
 export type User_Enrollment = {
   __typename?: 'user_enrollment';
+  completed_on?: Maybe<Scalars['date']>;
   created_at: Scalars['timestamptz'];
   id: Scalars['uuid'];
   rank?: Maybe<Scalars['Int']>;
@@ -2407,6 +2408,7 @@ export type User_Enrollment_Bool_Exp = {
   _and?: InputMaybe<Array<User_Enrollment_Bool_Exp>>;
   _not?: InputMaybe<User_Enrollment_Bool_Exp>;
   _or?: InputMaybe<Array<User_Enrollment_Bool_Exp>>;
+  completed_on?: InputMaybe<Date_Comparison_Exp>;
   created_at?: InputMaybe<Timestamptz_Comparison_Exp>;
   id?: InputMaybe<Uuid_Comparison_Exp>;
   rank?: InputMaybe<Int_Comparison_Exp>;
@@ -2432,6 +2434,7 @@ export type User_Enrollment_Inc_Input = {
 
 /** input type for inserting data into table "user_enrollment" */
 export type User_Enrollment_Insert_Input = {
+  completed_on?: InputMaybe<Scalars['date']>;
   created_at?: InputMaybe<Scalars['timestamptz']>;
   id?: InputMaybe<Scalars['uuid']>;
   rank?: InputMaybe<Scalars['Int']>;
@@ -2445,6 +2448,7 @@ export type User_Enrollment_Insert_Input = {
 /** aggregate max on columns */
 export type User_Enrollment_Max_Fields = {
   __typename?: 'user_enrollment_max_fields';
+  completed_on?: Maybe<Scalars['date']>;
   created_at?: Maybe<Scalars['timestamptz']>;
   id?: Maybe<Scalars['uuid']>;
   rank?: Maybe<Scalars['Int']>;
@@ -2455,6 +2459,7 @@ export type User_Enrollment_Max_Fields = {
 
 /** order by max() on columns of table "user_enrollment" */
 export type User_Enrollment_Max_Order_By = {
+  completed_on?: InputMaybe<Order_By>;
   created_at?: InputMaybe<Order_By>;
   id?: InputMaybe<Order_By>;
   rank?: InputMaybe<Order_By>;
@@ -2466,6 +2471,7 @@ export type User_Enrollment_Max_Order_By = {
 /** aggregate min on columns */
 export type User_Enrollment_Min_Fields = {
   __typename?: 'user_enrollment_min_fields';
+  completed_on?: Maybe<Scalars['date']>;
   created_at?: Maybe<Scalars['timestamptz']>;
   id?: Maybe<Scalars['uuid']>;
   rank?: Maybe<Scalars['Int']>;
@@ -2476,6 +2482,7 @@ export type User_Enrollment_Min_Fields = {
 
 /** order by min() on columns of table "user_enrollment" */
 export type User_Enrollment_Min_Order_By = {
+  completed_on?: InputMaybe<Order_By>;
   created_at?: InputMaybe<Order_By>;
   id?: InputMaybe<Order_By>;
   rank?: InputMaybe<Order_By>;
@@ -2509,6 +2516,7 @@ export type User_Enrollment_On_Conflict = {
 
 /** Ordering options when selecting data from "user_enrollment". */
 export type User_Enrollment_Order_By = {
+  completed_on?: InputMaybe<Order_By>;
   created_at?: InputMaybe<Order_By>;
   id?: InputMaybe<Order_By>;
   rank?: InputMaybe<Order_By>;
@@ -2527,6 +2535,8 @@ export type User_Enrollment_Pk_Columns_Input = {
 /** select columns of table "user_enrollment" */
 export enum User_Enrollment_Select_Column {
   /** column name */
+  CompletedOn = 'completed_on',
+  /** column name */
   CreatedAt = 'created_at',
   /** column name */
   Id = 'id',
@@ -2542,6 +2552,7 @@ export enum User_Enrollment_Select_Column {
 
 /** input type for updating data in table "user_enrollment" */
 export type User_Enrollment_Set_Input = {
+  completed_on?: InputMaybe<Scalars['date']>;
   created_at?: InputMaybe<Scalars['timestamptz']>;
   id?: InputMaybe<Scalars['uuid']>;
   rank?: InputMaybe<Scalars['Int']>;
@@ -2599,6 +2610,7 @@ export type User_Enrollment_Stream_Cursor_Input = {
 
 /** Initial value of the column from where the streaming should start */
 export type User_Enrollment_Stream_Cursor_Value_Input = {
+  completed_on?: InputMaybe<Scalars['date']>;
   created_at?: InputMaybe<Scalars['timestamptz']>;
   id?: InputMaybe<Scalars['uuid']>;
   rank?: InputMaybe<Scalars['Int']>;
@@ -2622,6 +2634,8 @@ export type User_Enrollment_Sum_Order_By = {
 
 /** update columns of table "user_enrollment" */
 export enum User_Enrollment_Update_Column {
+  /** column name */
+  CompletedOn = 'completed_on',
   /** column name */
   CreatedAt = 'created_at',
   /** column name */

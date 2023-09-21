@@ -2,7 +2,7 @@ import { useMemo, type FC } from "react";
 import { useTranslation } from "react-i18next";
 
 import { DateTime } from "luxon";
-import { dropLast, isEmpty, last, map, pipe, take } from "remeda";
+import { map, pipe } from "remeda";
 import { twMerge } from "tailwind-merge";
 import type { DashboardData } from "~/graphql";
 import { useDashboardContext } from "~/pages/Dashboard";

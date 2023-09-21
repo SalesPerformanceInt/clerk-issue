@@ -5,25 +5,27 @@ import { useDashboardContext } from "~/pages/Dashboard";
 
 import { Card, CardTitle, ProgressItem } from "quickcheck-shared";
 
-interface ActiveEnrollmentsCardProps {
+interface CompletedEnrollmentsCardProps {
   className?: string;
 }
 
-export const ActiveEnrollmentsCard: FC<ActiveEnrollmentsCardProps> = ({
+export const CompletedEnrollmentsCard: FC<CompletedEnrollmentsCardProps> = ({
   className,
 }) => {
   const { dashboard } = useDashboardContext();
   const { t } = useTranslation();
 
+  if (!dashboard.completed_user_enrollments.length) return null;
+
   return (
     <Card className={className}>
       <CardTitle
-        qty={dashboard.active_user_enrollments.length}
-        title={t("user.dashboard.active_enrollments")}
+        qty={dashboard.completed_user_enrollments.length}
+        title={t("user.dashboard.completed_enrollments")}
         className="p-6 pb-0"
       />
 
-      {dashboard.active_user_enrollments.map((enrollment) => (
+      {dashboard.completed_user_enrollments.map((enrollment) => (
         <ProgressItem
           key={enrollment.id}
           id={enrollment.id}

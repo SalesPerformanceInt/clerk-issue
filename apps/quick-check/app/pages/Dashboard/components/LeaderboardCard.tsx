@@ -1,8 +1,10 @@
 import { Suspense, type FC } from "react";
+import { useTranslation } from "react-i18next";
 
 import { Await } from "@remix-run/react";
 
 import { twMerge } from "tailwind-merge";
+import { useDashboardContext } from "~/pages/Dashboard";
 
 import {
   Card,
@@ -10,10 +12,6 @@ import {
   LeaderboardEntry,
   type LeaderboardEntryProps,
 } from "quickcheck-shared";
-
-import { User_Enrollment } from "~/graphql";
-
-import { useDashboardContext } from "~/pages/Dashboard";
 
 type LeaderboardCardProps = {
   entries?: LeaderboardEntryProps[];
@@ -25,7 +23,7 @@ const CachedLeaderboard: FC = () => {
 
   return (
     <>
-      {dashboard.user_enrollments.slice(0, 4).map((enrollment) => (
+      {dashboard.active_user_enrollments.slice(0, 4).map((enrollment) => (
         <LeaderboardEntry
           key={enrollment.id}
           rank={enrollment.rank || 1}
@@ -37,11 +35,12 @@ const CachedLeaderboard: FC = () => {
 };
 
 export const LeaderboardCard: FC<LeaderboardCardProps> = ({ className }) => {
+  const { t } = useTranslation();
   const { rankedUserEnrollments } = useDashboardContext();
 
   return (
     <Card className={twMerge("max-w-sm", className)}>
-      <CardTitle title="Leaderboard" className="p-6 pb-0" />
+      <CardTitle title={t("common.leaderboard")} className="p-6 pb-0" />
 
       <section className="flex flex-col gap-4 p-6">
         <Suspense fallback={<CachedLeaderboard />}>

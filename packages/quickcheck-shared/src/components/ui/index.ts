@@ -5,3 +5,4 @@ export * from "./MobileCarousel";
 export * from "./Avatar";
 export * from "./WeeklyStreakCalendar";
 export * from "./LeaderboardEntry";
+export * from "./CircularProgress";

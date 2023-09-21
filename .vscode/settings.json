@@ -5,5 +5,12 @@
     ["Styles \\=([^;]*);", "\\`([^\\`]*)\\`"],
     ["cva\\(([^)]*)\\)", "[\"'`]([^\"'`]*).*?[\"'`]"],
     ["createElement\\(([^)]*)\\)", "[\"'`]([^\"'`]*).*?[\"'`]"]
+  ],
+  "tailwindCSS.classAttributes": [
+    "class",
+    "className",
+    "ngClass",
+    "classes",
+    ".*ClassName.*"
   ]
 }

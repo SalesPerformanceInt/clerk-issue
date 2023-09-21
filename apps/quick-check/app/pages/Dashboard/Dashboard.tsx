@@ -11,7 +11,9 @@ import {
 } from "quickcheck-shared";
 
 import {
+  AchievementsCard,
   ActiveEnrollmentsCard,
+  CompletedEnrollmentsCard,
   DashboardHeader,
   DashboardMobileAction,
   LeaderboardCard,
@@ -42,13 +44,14 @@ export const Dashboard: FC<DashboardProps> = ({
         <MobileCarousel title={t("common.activity")} icon={faArrowUpRightDots}>
           <WeeklyStreakCard />
 
-          <WeeklyStreakCard />
+          <AchievementsCard />
 
           <LeaderboardCard />
         </MobileCarousel>
 
         <Section title={t("common.progress")} icon={<ProgressIcon />}>
           <ActiveEnrollmentsCard />
+          <CompletedEnrollmentsCard />
         </Section>
       </ResponsiveContainer>
       <DashboardMobileAction />

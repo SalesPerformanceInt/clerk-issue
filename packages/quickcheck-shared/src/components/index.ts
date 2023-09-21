@@ -4,3 +4,4 @@ export * from "./ui";
 export * from "./Header";
 export * from "./Icon";
 export * from "./Section";
+export * from "./Achievement";

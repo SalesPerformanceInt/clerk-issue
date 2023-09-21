@@ -28,7 +28,7 @@ import {
   getActiveUserQuestion,
   getAllUsers,
   getLinkToken,
-  getRankedUserEnrollments,
+  getTaxonomyEnrollments,
   getUser,
   getUserActiveQuestionsData,
   getUserDashboard,
@@ -106,7 +106,7 @@ export class GraphQLClient implements WithApolloClient {
   createUserAnswer = createUserAnswer;
   getActiveUserQuestion = getActiveUserQuestion;
   updateUserEnrollment = updateUserEnrollment;
-  getRankedUserEnrollments = getRankedUserEnrollments;
+  getTaxonomyEnrollments = getTaxonomyEnrollments;
   updateUser = updateUser;
 
   constructor(headers: GraphQLHeaders) {
@@ -133,13 +133,8 @@ export class UserGraphQLClient extends GraphQLClient {
   getUserActiveQuestionsData = () =>
     getUserActiveQuestionsData.call(this, this.userId);
   getUserEmailData = () => getUserEmailData.call(this, this.userId);
-  getRankedUserEnrollments = (taxonomyIds: string[]) =>
-    getRankedUserEnrollments.call(
-      this,
-      taxonomyIds,
-      this.userId,
-      this.tenantId,
-    );
+  getTaxonomyEnrollments = (taxonomyIds: string[]) =>
+    getTaxonomyEnrollments.call(this, taxonomyIds, this.tenantId);
   updateUser = (set: User_Set_Input) => updateUser.call(this, set, this.userId);
 
   constructor(

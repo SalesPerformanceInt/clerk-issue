@@ -1,13 +1,13 @@
 import type { Expand } from "quickcheck-shared";
 
-import type { GetRankedUserEnrollmentsQuery } from "~/graphql";
+import type { GetTaxonomyEnrollmentsQuery } from "~/graphql";
 
 /**
  * Enrollment Score
  */
 
 export type EnrollmentScore =
-  GetRankedUserEnrollmentsQuery["user_enrollment"][number];
+  GetTaxonomyEnrollmentsQuery["user_enrollment"][number];
 
 /**
  * Enrollments By Taxonomy
@@ -20,6 +20,8 @@ type Taxonomy = {
 };
 
 export type EnrollmentsByTaxonomyId = Record<string, EnrollmentScore[]>;
+export type MappedEnrollmentsByTaxonomyId = [string, EnrollmentScore[]][];
+
 export type EnrollmentsByTaxonomy = {
   taxonomy: Taxonomy;
   enrollments: EnrollmentScore[];

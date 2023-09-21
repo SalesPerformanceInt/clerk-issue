@@ -11,14 +11,16 @@ import {
   type LeaderboardEntryProps,
 } from "quickcheck-shared";
 
-import { User_Enrollment } from "~/graphql";
-
 import { useDashboardContext } from "~/pages/Dashboard";
 
 type LeaderboardCardProps = {
   entries?: LeaderboardEntryProps[];
   className?: string;
 };
+
+/**
+ * Cached Leaderboard
+ */
 
 const CachedLeaderboard: FC = () => {
   const { dashboard } = useDashboardContext();
@@ -36,8 +38,12 @@ const CachedLeaderboard: FC = () => {
   );
 };
 
+/**
+ * Leaderboard Card
+ */
+
 export const LeaderboardCard: FC<LeaderboardCardProps> = ({ className }) => {
-  const { rankedUserEnrollments } = useDashboardContext();
+  const { userLeaderboard } = useDashboardContext();
 
   return (
     <Card className={twMerge("max-w-sm", className)}>
@@ -45,7 +51,7 @@ export const LeaderboardCard: FC<LeaderboardCardProps> = ({ className }) => {
 
       <section className="flex flex-col gap-4 p-6">
         <Suspense fallback={<CachedLeaderboard />}>
-          <Await resolve={rankedUserEnrollments}>
+          <Await resolve={userLeaderboard}>
             {(rankedEnrollments) => {
               if (!rankedEnrollments) return <CachedLeaderboard />;
 

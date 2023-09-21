@@ -1,16 +1,11 @@
 import { graphql, type WithApolloClient } from "~/graphql";
 
-import {
-  getUserRankedEnrollments,
-  prepareTaxonomyEnrollments,
-} from "~/models/leaderboard";
-
 /**
  * GraphQL
  */
 
-export const GET_RANKED_USER_ENROLLMENTS = graphql(/* GraphQL */ `
-  query GetRankedUserEnrollments($taxonomyIds: [String!], $tenantId: String!) {
+export const GET_TAXONOMY_ENROLLMENTS = graphql(/* GraphQL */ `
+  query GetTaxonomyEnrollments($taxonomyIds: [String!], $tenantId: String!) {
     user_enrollment(
       where: {
         taxonomy_id: { _in: $taxonomyIds }
@@ -28,32 +23,22 @@ export const GET_RANKED_USER_ENROLLMENTS = graphql(/* GraphQL */ `
 `);
 
 /**
- * Ranked User Enrollments
+ * Get Taxonomy Enrollments
  */
 
-export async function getRankedUserEnrollments(
+export async function getTaxonomyEnrollments(
   this: WithApolloClient,
   taxonomyIds: string[],
-  userId: string,
   tenantId: string,
 ) {
   try {
     const { data } = await this.client.query({
-      query: GET_RANKED_USER_ENROLLMENTS,
+      query: GET_TAXONOMY_ENROLLMENTS,
       variables: { taxonomyIds, tenantId },
       fetchPolicy: "no-cache",
     });
 
-    const taxonomyEnrollments = await prepareTaxonomyEnrollments(
-      data.user_enrollment,
-    );
-
-    const rankedUserEnrollments = getUserRankedEnrollments(
-      taxonomyEnrollments,
-      userId,
-    );
-
-    return rankedUserEnrollments;
+    return data.user_enrollment;
   } catch (error) {
     console.log("ERROR", error);
     return null;

@@ -1,9 +1,4 @@
-import React, {
-  createContext,
-  useContext,
-  type FC,
-  type ReactNode,
-} from "react";
+import { createContext, useContext, type FC, type ReactNode } from "react";
 
 import type { DashboardData } from "~/graphql";
 
@@ -15,7 +10,7 @@ import type { LeaderboardUserEnrollment } from "~/models/leaderboard/leaderboard
 
 export interface DashboardContextProps {
   dashboard: DashboardData;
-  rankedUserEnrollments: Promise<LeaderboardUserEnrollment[] | null>;
+  userLeaderboard: Promise<LeaderboardUserEnrollment[] | null>;
 }
 
 export const DashboardContext = createContext<
@@ -46,10 +41,10 @@ export interface DashbaordContextProviderProps extends DashboardContextProps {
 export const DashboardContextProvider: FC<DashbaordContextProviderProps> = ({
   children,
   dashboard,
-  rankedUserEnrollments,
+  userLeaderboard,
 }) => {
   return (
-    <DashboardContext.Provider value={{ dashboard, rankedUserEnrollments }}>
+    <DashboardContext.Provider value={{ dashboard, userLeaderboard }}>
       {children}
     </DashboardContext.Provider>
   );

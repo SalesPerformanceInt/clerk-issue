@@ -1,9 +1,9 @@
-import React, { type FC } from "react";
+import { type FC } from "react";
 import { useTranslation } from "react-i18next";
 
-import { useDashboardContext } from "~/pages/Dashboard";
-
 import { Card, CardTitle, ProgressItem } from "quickcheck-shared";
+
+import { useDashboardContext } from "~/pages/Dashboard";
 
 export const ActiveEnrollmentsCard: FC = () => {
   const { dashboard } = useDashboardContext();

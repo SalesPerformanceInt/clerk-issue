@@ -56,6 +56,7 @@ const rankUntilUserEnrollment = (
     rank = enrollment.score === previousScore ? rank : enrollmentIndex + 1;
     previousScore = enrollment.score;
 
+    // TODO: Avoid per-enrollment mutation, move to per UserAnswer
     if (rank !== enrollment.rank) {
       adminApolloClient.updateUserEnrollment(enrollment.id, { rank });
     }

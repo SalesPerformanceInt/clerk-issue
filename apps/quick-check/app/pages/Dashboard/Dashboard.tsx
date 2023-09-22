@@ -1,4 +1,4 @@
-import React, { type FC } from "react";
+import type { FC } from "react";
 import { useTranslation } from "react-i18next";
 
 import { faArrowUpRightDots } from "@fortawesome/pro-light-svg-icons";
@@ -27,16 +27,20 @@ import {
 
 interface DashboardProps extends DashboardContextProps {}
 
+/**
+ * Dashboard Component
+ */
+
 export const Dashboard: FC<DashboardProps> = ({
   dashboard,
-  rankedUserEnrollments,
+  userLeaderboard,
 }) => {
   const { t } = useTranslation();
 
   return (
     <DashboardContextProvider
       dashboard={dashboard}
-      rankedUserEnrollments={rankedUserEnrollments}
+      userLeaderboard={userLeaderboard}
     >
       <DashboardHeader />
 

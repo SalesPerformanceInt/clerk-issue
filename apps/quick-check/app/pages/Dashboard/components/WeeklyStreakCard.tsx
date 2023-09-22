@@ -4,18 +4,23 @@ import { useTranslation } from "react-i18next";
 import { DateTime } from "luxon";
 import { map, pipe } from "remeda";
 import { twMerge } from "tailwind-merge";
-import type { DashboardData } from "~/graphql";
-import { useDashboardContext } from "~/pages/Dashboard";
 
 import {
   Card,
   CardTitle,
   WeeklyStreakCalendar,
   type CardProps,
-  type Week,
 } from "quickcheck-shared";
 
-import { makeCalendar } from "./utils";
+import type { DashboardData } from "~/graphql";
+
+import { useDashboardContext } from "~/pages/Dashboard";
+
+import { makeCalendar } from "../utils/calendar";
+
+/**
+ * Weekly Streak
+ */
 
 const getStreakCount = ({
   weekly_streak,
@@ -38,9 +43,8 @@ export const WeeklyStreakCard: FC<CardProps> = ({ className, ...props }) => {
 
   const answerDates = useMemo(
     () =>
-      pipe(
-        dashboard.user_answers,
-        map(({ created_at }) => DateTime.fromISO(created_at)),
+      dashboard.user_answers.map(({ created_at }) =>
+        DateTime.fromISO(created_at),
       ),
     [dashboard.user_answers],
   );

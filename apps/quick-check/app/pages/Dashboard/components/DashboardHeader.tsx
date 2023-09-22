@@ -4,7 +4,6 @@ import { useTranslation } from "react-i18next";
 import { useNavigate } from "@remix-run/react";
 
 import { faArrowRight } from "@fortawesome/pro-light-svg-icons";
-import { useDashboardContext } from "~/pages/Dashboard";
 
 import {
   Avatar,
@@ -16,12 +15,15 @@ import {
 
 import { getUserIntials } from "~/utils/getUserInitials";
 
-import { AccelerateButton } from "~/components";
+import { useDashboardContext } from "~/pages/Dashboard";
 
 export const DashboardHeader: FC = () => {
   const navigate = useNavigate();
+
   const isDesktop = useIsDesktop();
+
   const { dashboard } = useDashboardContext();
+
   const { t } = useTranslation();
 
   return (
@@ -36,6 +38,7 @@ export const DashboardHeader: FC = () => {
                   count: dashboard.unanswered_questions,
                 })}
               </p>
+
               {!!dashboard.unanswered_questions && (
                 <Button
                   onClick={() => navigate("/nq")}
@@ -46,6 +49,7 @@ export const DashboardHeader: FC = () => {
               )}
             </div>
           )}
+
           <Avatar initials={getUserIntials(dashboard)} />
         </div>
       }

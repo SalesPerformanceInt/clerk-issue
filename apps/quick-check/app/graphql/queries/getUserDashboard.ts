@@ -1,5 +1,7 @@
 import { DateTime } from "luxon";
+
 import { contentStack } from "~/contentstack.server";
+
 import { graphql, type WithApolloClient } from "~/graphql";
 
 export const GET_USER_DASHBOARD = graphql(/* GraphQL */ `
@@ -134,6 +136,7 @@ export async function getUserDashboard(this: WithApolloClient, userId: string) {
     const completed_user_enrollments = await Promise.all(
       user_by_pk.completed_user_enrollments.map(async (enrollment) => {
         const taxonomy = await contentStack.getTaxonomy(enrollment.taxonomy_id);
+
         return {
           ...enrollment,
           taxonomy,

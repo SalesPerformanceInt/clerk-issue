@@ -1,46 +1,37 @@
-import { groupBy, pipe } from "remeda";
-import invariant from "tiny-invariant";
+import { getAdminApolloClient, type DashboardData } from "~/graphql";
 
-import { contentStack } from "~/contentstack.server";
-
-import type {
-  EnrollmentScore,
-  EnrollmentsByTaxonomy,
-  EnrollmentsByTaxonomyId,
-} from "./leaderboard.types";
+import { getUserRankedEnrollments } from "./rankedEnrollments";
+import { prepareTaxonomyEnrollments } from "./taxonomyEnrollments";
 
 /**
- * Taxonomy Enrollments Pipes
+ * Get User Leaderboard
  */
 
-const groupEnrollmentsByTaxonomy = (enrollments: EnrollmentScore[]) => {
-  return groupBy(enrollments, (enrollment) => enrollment.taxonomy_id);
-};
+export const getUserLeaderboard = async (dashboard: DashboardData) => {
+  const adminApolloClient = getAdminApolloClient();
 
-const mapEnrollmentsWithTaxonomy = async (
-  groupedEnrollments: EnrollmentsByTaxonomyId,
-) => {
-  const taxonomyEnrollments = Object.entries(groupedEnrollments).map(
-    async ([taxonomyId, enrollments]): Promise<EnrollmentsByTaxonomy> => {
-      const taxonomy = await contentStack.getTaxonomy(taxonomyId);
-
-      invariant(taxonomy, `Taxonomy not found: ${taxonomyId}`);
-
-      return { taxonomy, enrollments };
-    },
+  const enrollments = await adminApolloClient.getTaxonomyEnrollments(
+    dashboard.taxonomy_ids,
+    dashboard.tenant_id,
   );
 
-  return await Promise.all(taxonomyEnrollments);
-};
+  if (!enrollments) {
+    return null;
+  }
 
-/**
- * Prepare Taxonomy Enrollments
- */
-
-export const prepareTaxonomyEnrollments = (enrollments: EnrollmentScore[]) => {
-  return pipe(
+  const taxonomyEnrollments = await prepareTaxonomyEnrollments(
     enrollments,
-    groupEnrollmentsByTaxonomy,
-    mapEnrollmentsWithTaxonomy,
+    dashboard.user_id,
   );
+
+  const rankedEnrollments = getUserRankedEnrollments(
+    taxonomyEnrollments,
+    dashboard.user_id,
+  );
+
+  const sortedRankedEnrollments = rankedEnrollments
+    .sort((a, b) => a.rank - b.rank)
+    .slice(0, 4);
+
+  return sortedRankedEnrollments;
 };

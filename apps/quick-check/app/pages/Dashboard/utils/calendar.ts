@@ -1,8 +1,14 @@
 import { DateTime } from "luxon";
 import { find, identity, isTruthy, map, pipe, reverse, times } from "remeda";
-import { User } from "~/graphql";
 
 import type { Day, Week } from "quickcheck-shared";
+
+const DAYS_PER_WEEK = 7;
+const CALENDAR_WEEKS = 4;
+
+/**
+ * Day
+ */
 
 const getDayActivity = (date: DateTime, answerDates: DateTime[]) =>
   pipe(
@@ -16,8 +22,13 @@ const makeDay =
   (weekday: number): Day => {
     const date = startDate.set({ weekday });
     const activity = getDayActivity(date, answerDates);
+
     return { date, activity };
   };
+
+/**
+ * Week
+ */
 
 const getWeekActivity = (days: Day[]) =>
   pipe(
@@ -27,14 +38,24 @@ const getWeekActivity = (days: Day[]) =>
   );
 
 const makeWeek = (startDate: DateTime, answerDates: DateTime[]): Week => {
-  const days = pipe(7, times(identity), map(makeDay(startDate, answerDates)));
+  const days = pipe(
+    DAYS_PER_WEEK,
+    times(identity),
+    map(makeDay(startDate, answerDates)),
+  );
+
   const activity = getWeekActivity(days);
+
   return { days, activity };
 };
 
+/**
+ * Calendar
+ */
+
 export const makeCalendar = (answerDates: DateTime[]) =>
   pipe(
-    4,
+    CALENDAR_WEEKS,
     times(identity),
     reverse(),
     map((n) => makeWeek(DateTime.now().minus({ weeks: n }), answerDates)),

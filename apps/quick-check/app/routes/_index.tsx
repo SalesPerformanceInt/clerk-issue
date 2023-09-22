@@ -6,10 +6,11 @@ import { useLoaderData, useSearchParams } from "@remix-run/react";
 import { deserialize, serialize } from "remix-typedjson";
 
 import {
-  getAdminApolloClient,
   getOptionalUserApolloClientFromRequest,
   type DashboardData,
 } from "~/graphql";
+
+import { getUserLeaderboard } from "~/models/leaderboard";
 
 import { Dashboard } from "~/pages";
 
@@ -20,7 +21,6 @@ import { AccelerateButton } from "~/components";
  */
 
 export const loader = async ({ request }: LoaderArgs) => {
-  const adminApolloClient = getAdminApolloClient();
   const userApolloClient =
     await getOptionalUserApolloClientFromRequest(request);
 
@@ -28,15 +28,11 @@ export const loader = async ({ request }: LoaderArgs) => {
 
   if (!dashboard) return null;
 
-  const rankedUserEnrollments = adminApolloClient.getRankedUserEnrollments(
-    dashboard.taxonomy_ids,
-    dashboard.user_id,
-    dashboard.tenant_id,
-  );
+  const userLeaderboard = getUserLeaderboard(dashboard);
 
   return defer({
     dashboard: serialize(dashboard),
-    rankedUserEnrollments,
+    userLeaderboard,
   });
 };
 
@@ -61,12 +57,7 @@ export default function Index() {
   if (!data) return <LogIn message={message} />;
 
   const dashboard = deserialize<DashboardData>(data.dashboard)!;
-  const rankedUserEnrollments = data.rankedUserEnrollments;
+  const { userLeaderboard } = data;
 
-  return (
-    <Dashboard
-      dashboard={dashboard}
-      rankedUserEnrollments={rankedUserEnrollments}
-    />
-  );
+  return <Dashboard dashboard={dashboard} userLeaderboard={userLeaderboard} />;
 }

@@ -4,7 +4,6 @@ import { useTranslation } from "react-i18next";
 import { Await } from "@remix-run/react";
 
 import { twMerge } from "tailwind-merge";
-import { useDashboardContext } from "~/pages/Dashboard";
 
 import {
   Card,
@@ -13,20 +12,31 @@ import {
   type LeaderboardEntryProps,
 } from "quickcheck-shared";
 
+import { useDashboardContext } from "~/pages/Dashboard";
+
 type LeaderboardCardProps = {
   entries?: LeaderboardEntryProps[];
   className?: string;
 };
 
+/**
+ * Cached Leaderboard
+ */
+
 const CachedLeaderboard: FC = () => {
   const { dashboard } = useDashboardContext();
 
+  const cachedRankedEnrollments = dashboard.active_user_enrollments
+    .filter((enrollment) => enrollment.rank && enrollment.score)
+    .sort((a, b) => a.rank! - b.rank!)
+    .slice(0, 4);
+
   return (
     <>
-      {dashboard.active_user_enrollments.slice(0, 4).map((enrollment) => (
+      {cachedRankedEnrollments.map((enrollment) => (
         <LeaderboardEntry
           key={enrollment.id}
-          rank={enrollment.rank || 1}
+          rank={enrollment.rank || 0}
           title={enrollment.taxonomy?.display_name || ""}
         />
       ))}
@@ -34,9 +44,14 @@ const CachedLeaderboard: FC = () => {
   );
 };
 
+/**
+ * Leaderboard Card
+ */
+
 export const LeaderboardCard: FC<LeaderboardCardProps> = ({ className }) => {
+  const { userLeaderboard } = useDashboardContext();
+
   const { t } = useTranslation();
-  const { rankedUserEnrollments } = useDashboardContext();
 
   return (
     <Card className={twMerge("max-w-sm", className)}>
@@ -44,20 +59,17 @@ export const LeaderboardCard: FC<LeaderboardCardProps> = ({ className }) => {
 
       <section className="flex flex-col gap-4 p-6">
         <Suspense fallback={<CachedLeaderboard />}>
-          <Await resolve={rankedUserEnrollments}>
+          <Await resolve={userLeaderboard}>
             {(rankedEnrollments) => {
               if (!rankedEnrollments) return <CachedLeaderboard />;
 
-              return rankedEnrollments
-                .sort((a, b) => a.rank - b.rank)
-                .slice(0, 4)
-                .map((rankedEnrollment) => (
-                  <LeaderboardEntry
-                    key={rankedEnrollment.id}
-                    rank={rankedEnrollment.rank || 0}
-                    title={rankedEnrollment.displayName}
-                  />
-                ));
+              return rankedEnrollments.map((rankedEnrollment) => (
+                <LeaderboardEntry
+                  key={rankedEnrollment.id}
+                  rank={rankedEnrollment.rank}
+                  title={rankedEnrollment.displayName}
+                />
+              ));
             }}
           </Await>
         </Suspense>

@@ -3,8 +3,8 @@ import { find, identity, isTruthy, map, pipe, reverse, times } from "remeda";
 
 import type { Day, Week } from "quickcheck-shared";
 
-const DAYS = 7;
-const WEEKS = 4;
+const DAYS_PER_WEEK = 7;
+const CALENDAR_WEEKS = 4;
 
 /**
  * Day
@@ -39,7 +39,7 @@ const getWeekActivity = (days: Day[]) =>
 
 const makeWeek = (startDate: DateTime, answerDates: DateTime[]): Week => {
   const days = pipe(
-    DAYS,
+    DAYS_PER_WEEK,
     times(identity),
     map(makeDay(startDate, answerDates)),
   );
@@ -55,7 +55,7 @@ const makeWeek = (startDate: DateTime, answerDates: DateTime[]): Week => {
 
 export const makeCalendar = (answerDates: DateTime[]) =>
   pipe(
-    WEEKS,
+    CALENDAR_WEEKS,
     times(identity),
     reverse(),
     map((n) => makeWeek(DateTime.now().minus({ weeks: n }), answerDates)),

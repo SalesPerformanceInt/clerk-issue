@@ -29,5 +29,9 @@ export const getUserLeaderboard = async (dashboard: DashboardData) => {
     dashboard.user_id,
   );
 
-  return rankedEnrollments;
+  const sortedRankedEnrollments = rankedEnrollments
+    .sort((a, b) => a.rank - b.rank)
+    .slice(0, 4);
+
+  return sortedRankedEnrollments;
 };

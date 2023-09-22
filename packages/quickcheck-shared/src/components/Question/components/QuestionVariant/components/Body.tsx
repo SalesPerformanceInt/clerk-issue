@@ -1,11 +1,15 @@
 import React, { FC } from "react";
 
+import parse from "html-react-parser";
+
 interface BodyProps {
   content: string;
 }
 
 export const Body: FC<BodyProps> = ({ content }) => {
   return (
-    <h2 className="text-xxl text-primary font-semibold leading-8">{content}</h2>
+    <div className="text-xxl text-primary font-semibold leading-8">
+      {parse(content)}
+    </div>
   );
 };

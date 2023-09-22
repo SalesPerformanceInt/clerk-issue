@@ -1,9 +1,15 @@
-import React, { type FC, type ReactNode } from "react";
+import React, {
+  Children,
+  createElement,
+  type FC,
+  type ReactElement,
+  type ReactNode,
+} from "react";
 
 import { Icon, IconProps } from "./Icon";
 
 export interface DashboardSectionProps {
-  children: ReactNode;
+  children: ReactElement | ReactElement[];
   title: string;
   icon?: IconProps["icon"];
 }
@@ -19,8 +25,15 @@ export const Section: FC<DashboardSectionProps> = ({
         {icon && <Icon icon={icon} className="mr-2 text-primary-50" />}
         <h1 className="text-xxl font-light">{title}</h1>
       </div>
-      <div className="w-full gap-4 sm:gap-8 grid grid-cols-1 sm:grid-cols-2">
-        {children}
+      <div className="w-full gap-4 sm:gap-8 flex flex-wrap">
+        {Children.map(children, (child) =>
+          createElement(child.type, {
+            ...{
+              ...child.props,
+              className: "flex-grow basis-full flow sm:basis-0 h-fit",
+            },
+          }),
+        )}
       </div>
     </section>
   );

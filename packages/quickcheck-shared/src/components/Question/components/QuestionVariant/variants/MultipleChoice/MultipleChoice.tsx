@@ -23,7 +23,7 @@ export const MultipleChoice: FC<MultipleChoiceProps> = ({ mcquestion }) => {
     <>
       <ResponsiveContainer className="p-4 sm:py-6 sm:px-0 bg-background">
         <Title />
-        <Body content={mcquestion.stem.replace(/<\/?[^>]+(>|$)/g, "")} />
+        <Body content={mcquestion.stem} />
       </ResponsiveContainer>
       <ResponsiveContainer className="bg-background-secondary">
         <div className="flex flex-col sm:grid sm:grid-cols-2 sm:gap-8 sm:py-12">

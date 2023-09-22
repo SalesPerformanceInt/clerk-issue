@@ -11,3 +11,41 @@ export const BaseUserEnrollment = graphql(/* GraphQL */ `
     rank
   }
 `);
+
+export const UserEnrollmentWithCounts = graphql(/* GraphQL */ `
+  fragment UserEnrollmentWithCounts on user_enrollment {
+    ...BaseUserEnrollment
+    attempted: user_questions_aggregate(
+      where: {
+        user_answers_aggregate: { count: { predicate: { _gt: 0 } } }
+        retired_on: { _is_null: true }
+      }
+    ) {
+      aggregate {
+        count
+      }
+    }
+    unattempted: user_questions_aggregate(
+      where: {
+        user_answers_aggregate: { count: { predicate: { _eq: 0 } } }
+        retired_on: { _is_null: true }
+      }
+    ) {
+      aggregate {
+        count
+      }
+    }
+    retired: user_questions_aggregate(
+      where: { retired_on: { _is_null: false } }
+    ) {
+      aggregate {
+        count
+      }
+    }
+    total: user_questions_aggregate {
+      aggregate {
+        count
+      }
+    }
+  }
+`);

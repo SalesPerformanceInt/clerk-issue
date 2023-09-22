@@ -22,7 +22,7 @@ export const AccelerateButton: FC = () => {
       {t("buttons.accelerate")}
       <FontAwesomeIcon
         icon={faArrowUpRightFromSquare}
-        className="ml-0.5 text-xxs mb-0.5"
+        className="ml-0.5 text-2xs mb-0.5"
       />
     </Button>
   );

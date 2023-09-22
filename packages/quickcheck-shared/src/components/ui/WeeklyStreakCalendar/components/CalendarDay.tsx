@@ -26,7 +26,7 @@ const CalendarDay = forwardRef<
       )}
       {firstOfMonth && (
         <div className="border border-transparent flex absolute -top-2.5 left-0 right-0 justify-center">
-          <p className="text-primary-75 text-xxs leading-none font-semibold uppercase">
+          <p className="text-primary-75 text-2xs leading-none font-semibold uppercase">
             {date.toFormat("LLL")}
           </p>
         </div>

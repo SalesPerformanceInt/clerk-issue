@@ -1,4 +1,5 @@
 import { Suspense, type FC } from "react";
+import { useTranslation } from "react-i18next";
 
 import { Await } from "@remix-run/react";
 
@@ -25,7 +26,7 @@ type LeaderboardCardProps = {
 const CachedLeaderboard: FC = () => {
   const { dashboard } = useDashboardContext();
 
-  const cachedRankedEnrollments = dashboard.user_enrollments
+  const cachedRankedEnrollments = dashboard.active_user_enrollments
     .filter((enrollment) => enrollment.rank && enrollment.score)
     .sort((a, b) => a.rank! - b.rank!)
     .slice(0, 4);
@@ -50,9 +51,11 @@ const CachedLeaderboard: FC = () => {
 export const LeaderboardCard: FC<LeaderboardCardProps> = ({ className }) => {
   const { userLeaderboard } = useDashboardContext();
 
+  const { t } = useTranslation();
+
   return (
     <Card className={twMerge("max-w-sm", className)}>
-      <CardTitle title="Leaderboard" className="p-6 pb-0" />
+      <CardTitle title={t("common.leaderboard")} className="p-6 pb-0" />
 
       <section className="flex flex-col gap-4 p-6">
         <Suspense fallback={<CachedLeaderboard />}>

@@ -11,7 +11,8 @@ const config = {
   theme: {
     extend: {
       fontSize: {
-        xxs: "0.5rem",
+        "3xs": "0.5rem",
+        "2xs": "0.625rem",
         xxl: "1.375rem",
       },
       fontFamily: {
@@ -74,6 +75,11 @@ const config = {
         warning: {
           DEFAULT: "var(--warning, #820d30)",
           50: "var(--warning-50, #e56682)",
+        },
+        chart: {
+          1: "var(--chart-1, #787d0f)",
+          2: "var(--chart-2, #b570b0)",
+          3: "var(--chart-3, #004d6b)",
         },
       },
       keyframes: {

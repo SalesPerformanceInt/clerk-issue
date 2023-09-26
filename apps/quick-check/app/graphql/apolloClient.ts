@@ -163,11 +163,9 @@ export class AdminGraphQLClient extends GraphQLClient {
       get(target, key, receiver) {
         const callable = Reflect.get(target, key, receiver);
 
-        if (typeof callable === "function") {
-          return (...args: unknown[]) => callable.call(receiver, ...args, now);
-        }
+        if (typeof callable !== "function") return callable;
 
-        return callable;
+        return (...args: unknown[]) => callable.call(receiver, ...args, now);
       },
     });
   }

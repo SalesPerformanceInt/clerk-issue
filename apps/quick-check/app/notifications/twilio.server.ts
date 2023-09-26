@@ -1,7 +1,8 @@
 import invariant from "tiny-invariant";
 import twilio from "twilio";
+
 import {
-  getAdminApolloClient,
+  getAdminApolloClientFromRequest,
   type BaseUserFragment,
   type UserWithActiveTokenFragment,
 } from "~/graphql";
@@ -53,11 +54,16 @@ export const generateTokenAndSendSMS = async (
   user: UserWithActiveTokenFragment,
   request: Request,
 ) => {
-  const token = await getAdminApolloClient().generateNewToken(user.user_id);
+  const adminApolloClient = await getAdminApolloClientFromRequest(request);
+
+  const token = await adminApolloClient.generateNewToken(user.user_id);
+
   invariant(token, "No token generated");
 
   const { origin } = new URL(request.url);
+
   const message = generateTokenMessage(user, token.id, origin);
   await sendTwilioMessage(user, message);
+
   return token;
 };

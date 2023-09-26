@@ -176,7 +176,7 @@ export async function createUserSession({
 
   session.set(SessionKeys.USER_ID, userId);
   session.set(SessionKeys.TENANT_ID, tenantId);
-  session.set(SessionKeys.NOW, now ?? "");
+  session.set(SessionKeys.NOW, now);
 
   return createSession({
     session,
@@ -217,7 +217,7 @@ export async function createAdminSession({
 }: AdminSession) {
   const session = await getSession(request);
 
-  session.set(SessionKeys.NOW, now ?? "");
+  session.set(SessionKeys.NOW, now);
 
   return createSession({
     session,

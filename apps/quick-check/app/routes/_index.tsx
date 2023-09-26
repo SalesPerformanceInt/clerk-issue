@@ -28,7 +28,7 @@ export const loader = async ({ request }: LoaderArgs) => {
 
   if (!dashboard) return null;
 
-  const userLeaderboard = getUserLeaderboard(dashboard);
+  const userLeaderboard = getUserLeaderboard(request, dashboard);
 
   return defer({
     dashboard: serialize(dashboard),

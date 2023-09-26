@@ -1,6 +1,6 @@
 import invariant from "tiny-invariant";
 
-import { getAdminApolloClient } from "~/graphql";
+import { getAdminApolloClientFromRequest } from "~/graphql";
 
 import type {
   EnrollmentScore,
@@ -43,11 +43,12 @@ const rankAllEnrollments = (enrollments: EnrollmentScore[]) => {
   return rankedEnrollments;
 };
 
-const rankUntilUserEnrollment = (
+const rankUntilUserEnrollment = async (
+  request: Request,
   enrollments: EnrollmentScore[],
   userId: string,
 ) => {
-  const adminApolloClient = getAdminApolloClient();
+  const adminApolloClient = await getAdminApolloClientFromRequest(request);
 
   let rank = DEFAULT_ENROLLMENT_RANKING;
   let previousScore = DEFAULT_ENROLLMENT_SCORE;
@@ -79,12 +80,17 @@ const rankUntilUserEnrollment = (
  */
 
 export const getUserRankedEnrollments = (
+  request: Request,
   taxonomyEnrollments: EnrollmentsByTaxonomy[],
   userId: string,
 ) => {
   const userRankedEnrollments = taxonomyEnrollments.map(
-    ({ taxonomy, enrollments }): LeaderboardUserEnrollment => {
-      const userRankedEnrollment = rankUntilUserEnrollment(enrollments, userId);
+    async ({ taxonomy, enrollments }): Promise<LeaderboardUserEnrollment> => {
+      const userRankedEnrollment = await rankUntilUserEnrollment(
+        request,
+        enrollments,
+        userId,
+      );
 
       invariant(
         userRankedEnrollment,

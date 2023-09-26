@@ -163,9 +163,11 @@ export class AdminGraphQLClient extends GraphQLClient {
       get(target, key, receiver) {
         const callable = Reflect.get(target, key, receiver);
 
-        if (typeof callable !== "function") return callable;
+        if (typeof callable === "function") {
+          return (...args: unknown[]) => callable.call(receiver, ...args, now);
+        }
 
-        return (...args: unknown[]) => callable.apply(receiver, ...args, now);
+        return callable;
       },
     });
   }
@@ -173,11 +175,20 @@ export class AdminGraphQLClient extends GraphQLClient {
 
 export const getAdminApolloClient = async (now: string) => {
   const jwt = await getHasuraJWT({
+    "x-hasura-default-role": "admin",
+    "x-hasura-allowed-roles": ["admin"],
     "x-hasura-admin-secret": HASURA_AUTH_TOKEN,
   });
 
   return new AdminGraphQLClient(jwt, now);
 };
+
+export const getAdminApolloClientFromRequest = async (request: Request) => {
+  const [now] = await getAdminDataFromFromSession(request);
+
+  return getAdminApolloClient(now);
+};
+
 /**
  * User Apollo Client
  */

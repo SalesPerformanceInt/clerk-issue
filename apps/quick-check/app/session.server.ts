@@ -1,13 +1,19 @@
-import { createCookieSessionStorage, redirect } from "@remix-run/node";
+import {
+  createCookieSessionStorage,
+  redirect,
+  type Session,
+} from "@remix-run/node";
 
 import { DateTime } from "luxon";
 import invariant from "tiny-invariant";
 
-import type { User } from "~/graphql";
+import type { Expand } from "quickcheck-shared";
 
 import { SESSION_SECRET } from "~/utils/envs.server";
 
 import { getUserFromRequest } from "~/models/user";
+
+import type { User } from "./graphql";
 
 invariant(SESSION_SECRET, "SESSION_SECRET must be set");
 
@@ -21,7 +27,11 @@ enum SessionKeys {
   NOW = "now",
 }
 
-type SessionData = Record<SessionKeys, string>;
+type SessionData = {
+  [SessionKeys.USER_ID]: string;
+  [SessionKeys.TENANT_ID]: string;
+  [SessionKeys.NOW]?: string;
+};
 type SessionFlashData = { error: string };
 
 export const sessionStorage = createCookieSessionStorage<
@@ -39,22 +49,63 @@ export const sessionStorage = createCookieSessionStorage<
 });
 
 /**
- * Session Utils
+ * Session Creation
  */
 
-type Session = {
-  request: Request;
+type BaseSession = {
   remember: boolean;
   redirectTo: string;
 };
 
-type UserSession = Session & SessionData;
-type AdminSession = Session & Partial<Pick<SessionData, SessionKeys.NOW>>;
+type CreatedSession = BaseSession & {
+  request: Request;
+};
+
+type UserSession = Expand<CreatedSession & SessionData>;
+type AdminSession = Expand<CreatedSession & Pick<SessionData, SessionKeys.NOW>>;
+
+type CreateSessionProps = Expand<
+  BaseSession & {
+    session: Session<SessionData, SessionFlashData>;
+  }
+>;
+
+async function createSession({
+  session,
+  remember,
+  redirectTo,
+}: CreateSessionProps) {
+  return redirect(redirectTo, {
+    headers: {
+      "Set-Cookie": await sessionStorage.commitSession(session, {
+        maxAge: remember
+          ? 60 * 60 * 24 // 1 day
+          : undefined,
+      }),
+    },
+  });
+}
+
+/**
+ * Session Utils
+ */
 
 export async function getSession(request: Request) {
   const cookie = request.headers.get("Cookie");
 
   return sessionStorage.getSession(cookie);
+}
+
+export async function updateSessionNow(request: Request, now: string) {
+  const session = await getSession(request);
+
+  session.set(SessionKeys.NOW, now);
+
+  return createSession({
+    session,
+    remember: true,
+    redirectTo: new URL(request.url).pathname,
+  });
 }
 
 export async function logout(request: Request) {
@@ -71,22 +122,29 @@ export async function logout(request: Request) {
  * User Session
  */
 
+type UserSessionData = [
+  User["user_id"] | undefined,
+  User["tenant_id"] | undefined,
+  string,
+];
+
 export async function getUserDataFromFromSession(
   request: Request,
-): Promise<[User["user_id"] | undefined, User["tenant_id"] | undefined]> {
+): Promise<UserSessionData> {
   const session = await getSession(request);
 
   const userId = session.get(SessionKeys.USER_ID);
   const tenantId = session.get(SessionKeys.TENANT_ID);
+  const now = session.get(SessionKeys.NOW) ?? DateTime.now().toISO()!;
 
-  return [userId, tenantId];
+  return [userId, tenantId, now];
 }
 
 export async function requireUserSession(
   request: Request,
   redirectTo: string = new URL(request.url).pathname,
-): Promise<[string, string]> {
-  const [userId, tenantId] = await getUserDataFromFromSession(request);
+): Promise<Required<UserSessionData>> {
+  const [userId, tenantId, now] = await getUserDataFromFromSession(request);
 
   if (!userId || !tenantId) {
     const searchParams = new URLSearchParams([["redirectTo", redirectTo]]);
@@ -94,7 +152,7 @@ export async function requireUserSession(
     throw redirect(`/?${searchParams.toString()}`);
   }
 
-  return [userId, tenantId];
+  return [userId, tenantId, now];
 }
 
 export async function requireUser(request: Request) {
@@ -108,24 +166,22 @@ export async function requireUser(request: Request) {
 
 export async function createUserSession({
   request,
-  userId,
-  tenantId,
   remember,
   redirectTo,
+  userId,
+  tenantId,
+  now,
 }: UserSession) {
   const session = await getSession(request);
 
   session.set(SessionKeys.USER_ID, userId);
   session.set(SessionKeys.TENANT_ID, tenantId);
+  session.set(SessionKeys.NOW, now ?? "");
 
-  return redirect(redirectTo, {
-    headers: {
-      "Set-Cookie": await sessionStorage.commitSession(session, {
-        maxAge: remember
-          ? 60 * 60 * 24 // 1 day
-          : undefined,
-      }),
-    },
+  return createSession({
+    session,
+    remember,
+    redirectTo,
   });
 }
 
@@ -133,16 +189,22 @@ export async function createUserSession({
  * Admin Session
  */
 
-export async function getAdminDataFromFromSession(request: Request) {
+type AdminSessionData = [string];
+
+export async function getAdminDataFromFromSession(
+  request: Request,
+): Promise<AdminSessionData> {
   const session = await getSession(request);
 
   const now = session.get(SessionKeys.NOW) ?? DateTime.now().toISO()!;
 
-  return now;
+  return [now];
 }
 
-export async function requireAdminSession(request: Request): Promise<[string]> {
-  const now = await getAdminDataFromFromSession(request);
+export async function requireAdminSession(
+  request: Request,
+): Promise<AdminSessionData> {
+  const [now] = await getAdminDataFromFromSession(request);
 
   return [now];
 }
@@ -157,13 +219,9 @@ export async function createAdminSession({
 
   session.set(SessionKeys.NOW, now ?? "");
 
-  return redirect(redirectTo, {
-    headers: {
-      "Set-Cookie": await sessionStorage.commitSession(session, {
-        maxAge: remember
-          ? 60 * 60 * 24 // 1 day
-          : undefined,
-      }),
-    },
+  return createSession({
+    session,
+    remember,
+    redirectTo,
   });
 }

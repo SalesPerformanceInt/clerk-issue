@@ -8,7 +8,7 @@ export const GET_ALL_USERS = graphql(/* GraphQL */ `
   }
 `);
 
-export async function getAllUsers(this: WithApolloClient, now?: string) {
+export async function getAllUsers(this: WithApolloClient) {
   try {
     const { data } = await this.client.query({
       query: GET_ALL_USERS,

@@ -160,12 +160,12 @@ export class AdminGraphQLClient extends GraphQLClient {
     super(getJWTHeader(jwt));
 
     return new Proxy(this, {
-      get(target, key, receiver) {
-        const callable = Reflect.get(target, key, receiver);
+      get(target, key) {
+        const callable = Reflect.get(target, key);
 
         if (typeof callable !== "function") return callable;
 
-        return (...args: unknown[]) => callable.call(receiver, ...args, now);
+        return (...args: unknown[]) => callable.call(target, ...args, now);
       },
     });
   }

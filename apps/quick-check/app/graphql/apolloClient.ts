@@ -58,6 +58,15 @@ export type GQLProxyData = {
   tenantId?: string;
 };
 
+declare global {
+  interface ProxyConstructor {
+    new <TSource extends object, TTarget extends object>(
+      target: TSource,
+      handler: ProxyHandler<TSource>,
+    ): TTarget;
+  }
+}
+
 type RemoveLastParam<Fn> = Fn extends (...args: infer Args) => infer Res
   ? (...args: Args extends [...infer Rest, infer Last] ? Rest : Args) => Res
   : never;
@@ -256,17 +265,21 @@ export const getUserApolloClient = async (
 
   const userApolloClient = new UserGraphQLClient(jwt, userId, tenantId, now);
 
-  return new Proxy(userApolloClient, {
-    get(target, key) {
-      const proxyData: GQLProxyData = { userId, tenantId, now };
+  return new Proxy<UserGraphQLClient, RemoveProxyData<UserGraphQLClient>>(
+    userApolloClient,
+    {
+      get(target, key) {
+        const proxyData: GQLProxyData = { userId, tenantId, now };
 
-      const callable = Reflect.get(target, key);
+        const callable = Reflect.get(target, key);
 
-      if (typeof callable !== "function") return callable;
+        if (typeof callable !== "function") return callable;
 
-      return (...args: unknown[]) => callable.call(target, ...args, proxyData);
+        return (...args: unknown[]) =>
+          callable.call(target, ...args, proxyData);
+      },
     },
-  }) as RemoveProxyData<UserGraphQLClient>;
+  );
 };
 
 export const getUserApolloClientFromRequest = async (request: Request) => {

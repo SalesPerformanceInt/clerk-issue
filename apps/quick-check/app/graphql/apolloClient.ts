@@ -58,6 +58,8 @@ export type GQLProxyData = {
   tenantId?: string;
 };
 
+export type GQLAdminProxyData = Omit<GQLProxyData, "now">;
+
 declare global {
   interface ProxyConstructor {
     new <TSource extends object, TTarget extends object>(
@@ -68,7 +70,7 @@ declare global {
 }
 
 type RemoveLastParam<Fn> = Fn extends (...args: infer Args) => infer Res
-  ? (...args: Args extends [...infer Rest, infer Last] ? Rest : Args) => Res
+  ? (...args: Args extends [...infer Rest, unknown?] ? Rest : Args) => Res
   : never;
 
 type RemoveProxyData<Fn> = {
@@ -187,21 +189,14 @@ export class AdminGraphQLClient extends GraphQLClient {
     public now: string,
   ) {
     super(getJWTHeader(jwt));
-
-    return new Proxy(this, {
-      get(target, key) {
-        const proxyData: GQLProxyData = { now };
-
-        const callable = Reflect.get(target, key);
-
-        if (typeof callable !== "function") return callable;
-
-        return (...args: unknown[]) =>
-          callable.call(target, ...args, proxyData);
-      },
-    });
   }
 }
+
+const isProxyData = (data: unknown): data is GQLAdminProxyData => {
+  if (typeof data !== "object" || data === null) return false;
+
+  return "userId" in data;
+};
 
 export const getAdminApolloClient = async (now: string) => {
   const jwt = await getHasuraJWT({
@@ -210,7 +205,25 @@ export const getAdminApolloClient = async (now: string) => {
     "x-hasura-admin-secret": HASURA_AUTH_TOKEN,
   });
 
-  return new AdminGraphQLClient(jwt, now);
+  const adminApolloClient = new AdminGraphQLClient(jwt, now);
+
+  return new Proxy<AdminGraphQLClient>(adminApolloClient, {
+    get(target, key) {
+      const callable = Reflect.get(target, key);
+
+      if (typeof callable !== "function") return callable;
+
+      return (...args: unknown[]) => {
+        const lastArg = args.at(-1);
+
+        const [newArgs, proxyData] = isProxyData(lastArg)
+          ? [args.slice(0, -1), { ...lastArg, now }]
+          : [args, { now }];
+
+        return callable.call(target, ...newArgs, proxyData);
+      };
+    },
+  });
 };
 
 export const getAdminApolloClientFromRequest = async (request: Request) => {

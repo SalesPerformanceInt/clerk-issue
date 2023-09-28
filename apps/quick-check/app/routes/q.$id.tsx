@@ -54,8 +54,8 @@ export const loader = async ({ params, request }: LoaderArgs) => {
     const userQuestion = await userApolloClient.getActiveUserQuestion(id);
     const userData = await userApolloClient.getUserActiveQuestionsData();
 
-    // const adminApolloClient = await getAdminApolloClientFromRequest(request);
-    // const adminUserQuestion = await adminApolloClient.getActiveUserQuestion(id);
+    const adminApolloClient = await getAdminApolloClientFromRequest(request);
+    const adminUserQuestion = await adminApolloClient.getActiveUserQuestion(id);
 
     invariant(userQuestion, "user question not found");
 

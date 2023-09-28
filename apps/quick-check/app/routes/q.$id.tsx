@@ -14,7 +14,6 @@ import {
 
 import { compact, first, map, pipe } from "remeda";
 import invariant from "tiny-invariant";
-import { requireUserSession } from "~/session.server";
 
 import {
   Question,
@@ -30,6 +29,7 @@ import {
 
 import { saveAnswer, type Answer } from "~/models/answer";
 import { getQuestionData } from "~/models/question";
+import { requireUserSession } from "~/models/session";
 import { generateNextQuestionFromRequest } from "~/models/user";
 
 const getVariantNames = (questionItemVariants: QuestionItemVariant[]) =>

@@ -1,9 +1,10 @@
 import { redirect, type LoaderArgs } from "@remix-run/node";
 
 import invariant from "tiny-invariant";
-import { createUserSession } from "~/session.server";
 
 import { getUnauthenticatedApolloClient } from "~/graphql";
+
+import { createUserSession } from "~/models/session";
 
 const invalidTokenRedirect = () => {
   const searchParams = new URLSearchParams({

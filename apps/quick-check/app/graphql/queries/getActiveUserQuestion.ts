@@ -19,7 +19,7 @@ export const GET_ACTIVE_USER_QUESTION = graphql(/* GraphQL */ `
 export async function getActiveUserQuestion(
   this: WithApolloClient,
   id: string,
-  proxyData: GQLProxyData,
+  proxyData?: GQLProxyData,
 ) {
   console.log(proxyData);
 

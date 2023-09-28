@@ -1,5 +1,6 @@
 import { first } from "remeda";
-import { graphql, type WithApolloClient } from "~/graphql";
+
+import { graphql, type GQLProxyData, type WithApolloClient } from "~/graphql";
 
 export const GET_ACTIVE_USER_QUESTION = graphql(/* GraphQL */ `
   query GetActiveUserQuestion($id: uuid!, $now: timestamptz) {
@@ -18,7 +19,10 @@ export const GET_ACTIVE_USER_QUESTION = graphql(/* GraphQL */ `
 export async function getActiveUserQuestion(
   this: WithApolloClient,
   id: string,
+  proxyData: GQLProxyData,
 ) {
+  console.log(proxyData);
+
   try {
     const { data } = await this.client.query({
       query: GET_ACTIVE_USER_QUESTION,

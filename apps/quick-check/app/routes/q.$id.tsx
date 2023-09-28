@@ -23,7 +23,10 @@ import {
   type QuestionItemVariant,
 } from "quickcheck-shared";
 
-import { getUserApolloClientFromRequest } from "~/graphql";
+import {
+  getAdminApolloClientFromRequest,
+  getUserApolloClientFromRequest,
+} from "~/graphql";
 
 import { saveAnswer, type Answer } from "~/models/answer";
 import { getQuestionData } from "~/models/question";
@@ -50,6 +53,9 @@ export const loader = async ({ params, request }: LoaderArgs) => {
     const userApolloClient = await getUserApolloClientFromRequest(request);
     const userQuestion = await userApolloClient.getActiveUserQuestion(id);
     const userData = await userApolloClient.getUserActiveQuestionsData();
+
+    // const adminApolloClient = await getAdminApolloClientFromRequest(request);
+    // const adminUserQuestion = await adminApolloClient.getActiveUserQuestion(id);
 
     invariant(userQuestion, "user question not found");
 

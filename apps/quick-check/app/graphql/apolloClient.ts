@@ -49,6 +49,26 @@ import {
 } from "~/utils/envs.server";
 
 /**
+ * GraphQL Proxy Optional Data
+ */
+
+export type GQLProxyData = {
+  now?: string;
+  userId?: string;
+  tenantId?: string;
+};
+
+type RemoveLastParam<Fn> = Fn extends (...args: infer Args) => infer Res
+  ? (...args: Args extends [...infer Rest, infer Last] ? Rest : Args) => Res
+  : never;
+
+type RemoveProxyData<Fn> = {
+  [K in keyof Fn]: Fn[K] extends (...args: infer Args) => infer Res
+    ? RemoveLastParam<Fn[K]>
+    : Fn[K];
+};
+
+/**
  * Hasura JWT Helpers
  */
 
@@ -161,11 +181,14 @@ export class AdminGraphQLClient extends GraphQLClient {
 
     return new Proxy(this, {
       get(target, key) {
+        const proxyData: GQLProxyData = { now };
+
         const callable = Reflect.get(target, key);
 
         if (typeof callable !== "function") return callable;
 
-        return (...args: unknown[]) => callable.call(target, ...args, now);
+        return (...args: unknown[]) =>
+          callable.call(target, ...args, proxyData);
       },
     });
   }
@@ -202,8 +225,8 @@ export class UserGraphQLClient extends GraphQLClient {
   getUserNextQuestion = (now?: string) =>
     getUserNextQuestion.call(this, this.userId, now);
   getUserDashboard = () => getUserDashboard.call(this, this.userId);
-  getUserActiveQuestionsData = () =>
-    getUserActiveQuestionsData.call(this, this.userId);
+  // getUserActiveQuestionsData = () =>
+  //   getUserActiveQuestionsData.call(this, this.userId);
   getUserEmailData = () => getUserEmailData.call(this, this.userId);
   getTaxonomyEnrollments = (taxonomyIds: string[]) =>
     getTaxonomyEnrollments.call(this, taxonomyIds, this.tenantId);
@@ -231,7 +254,19 @@ export const getUserApolloClient = async (
     "x-hasura-tenant-id": tenantId,
   });
 
-  return new UserGraphQLClient(jwt, userId, tenantId, now);
+  const userApolloClient = new UserGraphQLClient(jwt, userId, tenantId, now);
+
+  return new Proxy(userApolloClient, {
+    get(target, key) {
+      const proxyData: GQLProxyData = { userId, tenantId, now };
+
+      const callable = Reflect.get(target, key);
+
+      if (typeof callable !== "function") return callable;
+
+      return (...args: unknown[]) => callable.call(target, ...args, proxyData);
+    },
+  }) as RemoveProxyData<UserGraphQLClient>;
 };
 
 export const getUserApolloClientFromRequest = async (request: Request) => {

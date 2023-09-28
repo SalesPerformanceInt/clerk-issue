@@ -365,6 +365,7 @@ importers:
       remix-i18next: ^5.3.0
       shadcn-ui: ^0.2.2
       storybook: ^7.0.0-rc.4
+      storybook-react-i18next: ^2.0.9
       tailwind-merge: ^1.12.0
       tailwindcss: ^3.3.3
       tailwindcss-animate: ^1.0.6
@@ -437,6 +438,7 @@ importers:
       prettier: 3.0.3
       react-use: 17.4.0_biqbaboplfbrettd7655fr4n2y
       remeda: 1.14.0
+      storybook-react-i18next: 2.0.9_y2dedtsw6a34cqyboa2nlzhaa4
       tailwindcss: 3.3.3
       tiny-invariant: 1.3.1
       tsup: 6.7.0_uujdqti2krmttzhqvubwnsmcci
@@ -6923,7 +6925,7 @@ packages:
       tailwindcss: '>=3.0.0 || >= 3.0.0-alpha.1'
     dependencies:
       mini-svg-data-uri: 1.4.4
-      tailwindcss: 3.3.3_ts-node@10.9.1
+      tailwindcss: 3.3.3
     dev: true
 
   /@testing-library/dom/8.20.0:
@@ -9665,11 +9667,11 @@ packages:
   /dotenv/16.0.3:
     resolution: {integrity: sha512-7GO6HghkA5fYG9TYnNxi14/7K9f5occMlp3zXAuSxn7CKCxt9xbNWG7yF8hTCSUchlfWSe3uLmlPfigevRItzQ==}
     engines: {node: '>=12'}
+    dev: true
 
   /dotenv/16.3.1:
     resolution: {integrity: sha512-IPzF4w4/Rd94bA9imS68tZBaYyBWSCE47V1RGuMrB94iyTOIEwRmVL2x/4An+6mETpLrKJ5hQkB8W4kFAadeIQ==}
     engines: {node: '>=12'}
-    dev: true
 
   /dset/3.1.2:
     resolution: {integrity: sha512-g/M9sqy3oHe477Ar4voQxWtaPIFw1jTdKZuomOjhCcBx9nHUNn0pu6NopuFFrTh/TRZIKEj+76vLWFu9BNKk+Q==}
@@ -11737,7 +11739,6 @@ packages:
     resolution: {integrity: sha512-KknJ50kTInJ7qIScF3jeaFRpMpE8/lfiTdzf/twXyPBLAGrLRTmkz3AdTnKeh40X8k9L2fdYwEp/42WGXIRGcg==}
     dependencies:
       void-elements: 3.1.0
-    dev: false
 
   /html-react-parser/3.0.9_react@18.2.0:
     resolution: {integrity: sha512-gOPZmaCMXNYu7Y9+58k2tLhTMXQ+QN8ctNFijzLuBxJaLZ6TsN+tUpN+MhbI+6nGaBCRGT2rpw6y/AqkTFZckg==}
@@ -11921,13 +11922,11 @@ packages:
       cross-fetch: 3.1.6
     transitivePeerDependencies:
       - encoding
-    dev: false
 
   /i18next/23.4.4:
     resolution: {integrity: sha512-+c9B0txp/x1m5zn+QlwHaCS9vyFtmIAEXbVSFzwCX7vupm5V7va8F9cJGNJZ46X9ZtoGzhIiRC7eTIIh93TxPA==}
     dependencies:
       '@babel/runtime': 7.22.10
-    dev: false
 
   /iconv-lite/0.4.24:
     resolution: {integrity: sha512-v3MXnZAcvnywkTUEZomIActle7RXXeedOR31wwl7VlyoXO4Qi9arvSenNQWne1TcRwhCL1HwLI21bEqdpj8/rA==}
@@ -12795,7 +12794,7 @@ packages:
     engines: {node: '>=14.0.0'}
     dependencies:
       app-root-dir: 1.0.2
-      dotenv: 16.0.3
+      dotenv: 16.3.1
       dotenv-expand: 10.0.0
     dev: false
 
@@ -15185,7 +15184,6 @@ packages:
       i18next: 23.4.4
       react: 18.2.0
       react-dom: 18.2.0_react@18.2.0
-    dev: false
 
   /react-i18next/13.1.2_fcdzlegssrpd24kdlduxbpqmca:
     resolution: {integrity: sha512-D/OJ/8ZQYscabsvbCAiOgvJq8W3feQF/VIV0to1w7V7UvrUE1IZ3hcalOckUYvKBd7BP3b8EPm+hop3J8sS+Mw==}
@@ -16243,6 +16241,52 @@ packages:
   /store2/2.14.2:
     resolution: {integrity: sha512-siT1RiqlfQnGqgT/YzXVUNsom9S0H1OX+dpdGN1xkyYATo4I6sep5NmsRD/40s3IIOvlCq6akxkqG82urIZW1w==}
     dev: false
+
+  /storybook-i18n/2.0.13_biqbaboplfbrettd7655fr4n2y:
+    resolution: {integrity: sha512-p0VPL5QiHdeS3W9BvV7UnuTKw7Mj1HWLW67LK0EOoh5fpSQIchu7byfrUUe1RbCF1gT0gOOhdNuTSXMoVVoTDw==}
+    peerDependencies:
+      '@storybook/components': ^7.0.0
+      '@storybook/manager-api': ^7.0.0
+      '@storybook/preview-api': ^7.0.0
+      '@storybook/types': ^7.0.0
+      react: ^16.8.0 || ^17.0.0 || ^18.0.0
+      react-dom: ^16.8.0 || ^17.0.0 || ^18.0.0
+    peerDependenciesMeta:
+      react:
+        optional: true
+      react-dom:
+        optional: true
+    dependencies:
+      react: 18.2.0
+      react-dom: 18.2.0_react@18.2.0
+    dev: true
+
+  /storybook-react-i18next/2.0.9_y2dedtsw6a34cqyboa2nlzhaa4:
+    resolution: {integrity: sha512-GFTOrYwOWShLqWNuTesPNhC79P3OHw1jkZ4gU3R50yTD2MUclF5DHLnuKeVfKZ323iV+I9fxLxuLIVHWVDJgXA==}
+    peerDependencies:
+      '@storybook/components': ^7.0.0
+      '@storybook/manager-api': ^7.0.0
+      '@storybook/preview-api': ^7.0.0
+      '@storybook/types': ^7.0.0
+      i18next: ^22.0.0 || ^23.0.0
+      i18next-browser-languagedetector: ^7.0.0
+      i18next-http-backend: ^2.0.0
+      react: ^16.8.0 || ^17.0.0 || ^18.0.0
+      react-dom: ^16.8.0 || ^17.0.0 || ^18.0.0
+      react-i18next: ^12.0.0 || ^13.0.0
+    peerDependenciesMeta:
+      react:
+        optional: true
+      react-dom:
+        optional: true
+    dependencies:
+      i18next: 23.4.4
+      i18next-http-backend: 2.2.1
+      react: 18.2.0
+      react-dom: 18.2.0_react@18.2.0
+      react-i18next: 13.1.2_bwx3cnfwkqko52ujbkw4jg5gre
+      storybook-i18n: 2.0.13_biqbaboplfbrettd7655fr4n2y
+    dev: true
 
   /storybook/7.0.4:
     resolution: {integrity: sha512-8Gj/0eqKYHRSE2niuLnq/ASVzD+sPg3W42aBjHxWXkc0j31PgIzq4PhO5pvEZ0BxEEmzwswUBXTs6/bhumMucw==}
@@ -17652,7 +17696,6 @@ packages:
   /void-elements/3.1.0:
     resolution: {integrity: sha512-Dhxzh5HZuiHQhbvTW9AMetFfBHDMYpo23Uo9btPXgdYP+3T5S+p+jgNy7spra+veYhBP2dCSgxR/i2Y02h5/6w==}
     engines: {node: '>=0.10.0'}
-    dev: false
 
   /walker/1.0.8:
     resolution: {integrity: sha512-ts/8E8l5b7kY0vlWLewOkDXMmPdLcVV4GmOQLyxuSswIJsweeFZtAsMF7k1Nszz+TYBQrlYRmzOnr398y1JemQ==}

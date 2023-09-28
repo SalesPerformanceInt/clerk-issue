@@ -1,6 +1,7 @@
 import { redirect, type LoaderArgs } from "@remix-run/node";
 
 import invariant from "tiny-invariant";
+
 import { getUserApolloClientFromRequest } from "~/graphql";
 
 import { generateNextQuestionFromRequest } from "~/models/user";

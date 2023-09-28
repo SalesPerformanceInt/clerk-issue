@@ -1,6 +1,8 @@
 import { type FC } from "react";
 import { useTranslation } from "react-i18next";
 
+import { useNavigate } from "@remix-run/react";
+
 import { Card, CardTitle, ProgressItem } from "quickcheck-shared";
 
 import { useDashboardContext } from "~/pages/Dashboard";
@@ -14,6 +16,7 @@ export const ActiveEnrollmentsCard: FC<ActiveEnrollmentsCardProps> = ({
 }) => {
   const { dashboard } = useDashboardContext();
   const { t } = useTranslation();
+  const navigate = useNavigate();
 
   return (
     <Card className={className}>
@@ -22,9 +25,9 @@ export const ActiveEnrollmentsCard: FC<ActiveEnrollmentsCardProps> = ({
         title={t("user.dashboard.active_enrollments")}
         className="p-6 pb-0"
       />
-
       {dashboard.active_user_enrollments.map((enrollment) => (
         <ProgressItem
+          onClick={(id) => navigate(`/e/${id}`)}
           key={enrollment.id}
           id={enrollment.id}
           title={enrollment.taxonomy?.display_name}

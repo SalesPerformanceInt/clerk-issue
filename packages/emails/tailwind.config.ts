@@ -24,6 +24,9 @@ const config = {
         DEFAULT:
           "color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter, border-width",
       },
+      minWidth: {
+        8: "2rem",
+      },
       maxWidth: {
         desktop: "928px",
       },

@@ -1,5 +1,7 @@
 import { Preview } from "@storybook/react";
 
+import i18n from "./i18next";
+
 export const parameters: Preview = {
   // actions: { argTypesRegex: "^on[A-Z].*" },
   // controls: {
@@ -8,6 +10,13 @@ export const parameters: Preview = {
   //     date: /Date$/,
   //   },
   // },
+  globals: {
+    locale: "en-us",
+    locales: {
+      "en-us": "US English",
+    },
+  },
+  parameters: {
+    i18n,
+  },
 };
-
-type A = keyof Preview;

@@ -68,3 +68,33 @@ export const isProxyData = (data: unknown): data is GQLProxyData => {
 
   return "userId" in data || "tenantId" in data || "now" in data;
 };
+
+/**
+ * Create GraphQL Proxy
+ */
+
+export const createGraphQLProxy = <
+  TSource extends object,
+  TTarget extends TSource,
+>(
+  source: TSource,
+  now: string,
+) => {
+  return new Proxy<TSource, TTarget>(source, {
+    get(target, key) {
+      const callable = Reflect.get(target, key);
+
+      if (typeof callable !== "function") return callable;
+
+      return (...args: unknown[]) => {
+        const lastArg = args.at(-1);
+
+        const [newArgs, proxyData] = isProxyData(lastArg)
+          ? [args.slice(0, -1), { ...lastArg, now }]
+          : [args, { now }];
+
+        return callable.call(target, ...newArgs, proxyData);
+      };
+    },
+  });
+};

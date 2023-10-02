@@ -4,7 +4,7 @@ import { getUserDataFromFromSession } from "~/models/session";
 
 import { GraphQLClient } from "./genericApolloClient";
 import { getHasuraJWT, getJWTHeader } from "./jwt";
-import { GQLProxyData, ProxyGraphQLClient } from "./proxy";
+import type { GQLProxyData, ProxyGraphQLClient } from "./proxy";
 
 /**
  * User Apollo Client Declaration
@@ -30,21 +30,20 @@ const getUserApolloClient = async (
 
   const userApolloClient = new UserGraphQLClient(jwt);
 
-  return new Proxy<UserGraphQLClient, ProxyGraphQLClient<UserGraphQLClient>>(
-    userApolloClient,
-    {
-      get(target, key) {
-        const proxyData: GQLProxyData = { userId, tenantId, now };
+  return new Proxy<
+    UserGraphQLClient,
+    ProxyGraphQLClient<UserGraphQLClient, "User">
+  >(userApolloClient, {
+    get(target, key) {
+      const proxyData: GQLProxyData = { userId, tenantId, now };
 
-        const callable = Reflect.get(target, key);
+      const callable = Reflect.get(target, key);
 
-        if (typeof callable !== "function") return callable;
+      if (typeof callable !== "function") return callable;
 
-        return (...args: unknown[]) =>
-          callable.call(target, ...args, proxyData);
-      },
+      return (...args: unknown[]) => callable.call(target, ...args, proxyData);
     },
-  );
+  });
 };
 
 /**

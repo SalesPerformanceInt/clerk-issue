@@ -1,4 +1,8 @@
-import { graphql, type WithApolloClient } from "~/graphql";
+import {
+  graphql,
+  type GQLUserProxyData,
+  type WithApolloClient,
+} from "~/graphql";
 
 export const GET_USER_NEXT_QUESTION = graphql(/* GraphQL */ `
   query GetUserNextQuestion($userId: uuid!, $now: timestamptz!) {
@@ -16,13 +20,14 @@ export const GET_USER_NEXT_QUESTION = graphql(/* GraphQL */ `
 
 export async function getUserNextQuestion(
   this: WithApolloClient,
-  userId: string,
-  now?: string,
+  proxyData: GQLUserProxyData,
 ) {
+  const { userId, now } = proxyData;
+
   try {
     const result = await this.client.query({
       query: GET_USER_NEXT_QUESTION,
-      variables: { userId, now: now ?? new Date().toISOString() },
+      variables: { userId, now },
       fetchPolicy: "no-cache",
     });
 

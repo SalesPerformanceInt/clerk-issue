@@ -14,9 +14,9 @@ export const getUserFromRequest = async (request: Request) => {
 
 export const generateNextQuestionFromRequest = async (request: Request) => {
   const userApolloClient = await getUserApolloClientFromRequest(request);
-  const nextQuestion = await userApolloClient.getUserNextQuestion();
 
-  const nextQuestionId = nextQuestion?.id;
+  const nextQuestion = await userApolloClient.getUserNextQuestion();
+  const nextQuestionId = nextQuestion?.id ?? null;
 
   await userApolloClient.updateNextQuestionId(nextQuestionId);
 
@@ -29,9 +29,12 @@ export const generateNextQuestionForUser = async (
 ) => {
   const adminApolloClient = await getAdminApolloClientFromRequest(request);
 
-  const nextQuestion = await adminApolloClient.getUserNextQuestion(userId);
+  const nextQuestion = await adminApolloClient.getUserNextQuestion({ userId });
+  const nextQuestionId = nextQuestion?.id ?? null;
 
-  await adminApolloClient.updateNextQuestionId(userId, nextQuestion?.id);
+  await adminApolloClient.updateNextQuestionId(nextQuestionId, {
+    userId,
+  });
 
   return nextQuestion;
 };

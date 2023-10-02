@@ -4,7 +4,7 @@ import { getAdminDataFromFromSession } from "~/models/session";
 
 import { GraphQLClient } from "./genericApolloClient";
 import { getHasuraJWT, getJWTHeader } from "./jwt";
-import { isProxyData } from "./proxy";
+import { isProxyData, type ProxyGraphQLClient } from "./proxy";
 
 /**
  * Admin Apollo Client Declaration
@@ -25,7 +25,10 @@ export const getAdminApolloClient = async (now: string) => {
 
   const adminApolloClient = new AdminGraphQLClient(jwt);
 
-  return new Proxy<AdminGraphQLClient>(adminApolloClient, {
+  return new Proxy<
+    AdminGraphQLClient,
+    ProxyGraphQLClient<AdminGraphQLClient, "Admin">
+  >(adminApolloClient, {
     get(target, key) {
       const callable = Reflect.get(target, key);
 

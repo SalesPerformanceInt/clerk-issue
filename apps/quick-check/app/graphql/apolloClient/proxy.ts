@@ -4,7 +4,7 @@
 
 declare global {
   interface ProxyConstructor {
-    new <TSource extends object, TTarget extends object>(
+    new <TSource extends object, TTarget extends TSource>(
       target: TSource,
       handler: ProxyHandler<TSource>,
     ): TTarget;
@@ -20,7 +20,11 @@ export type GQLProxyData = {
   userId: string;
   tenantId: string;
 };
-export type GQLAdminProxyData = Omit<GQLProxyData, "now">;
+
+export type GQLUserProxyData = Omit<GQLProxyData, "tenantId">;
+export type GQLTenantProxyData = Omit<GQLProxyData, "userId">;
+
+export type GQLProxyClients = "User" | "Admin";
 
 /**
  * Proxy Data Normalization
@@ -30,9 +34,28 @@ type RemoveLastParam<Fn> = Fn extends (...args: infer Args) => infer Res
   ? (...args: Args extends [...infer Rest, unknown?] ? Rest : Args) => Res
   : never;
 
-export type ProxyGraphQLClient<Fn> = {
+type OmitFromLastParam<Fn> = Fn extends (...args: infer Args) => infer Res
+  ? (
+      ...args: Args extends [...infer Rest, infer Last]
+        ? [...rest: Rest, proxyData: Omit<Last, "now">]
+        : Args extends [...infer Rest, (infer Last)?]
+        ? [...rest: Rest, proxyData?: Omit<Last, "now">]
+        : Args
+    ) => Res
+  : never;
+
+/**
+ * Proxy Data Mapping
+ */
+
+type ProxyDataMap<Fn> = {
+  User: RemoveLastParam<Fn>;
+  Admin: OmitFromLastParam<Fn>;
+};
+
+export type ProxyGraphQLClient<Fn, Client extends GQLProxyClients> = {
   [K in keyof Fn]: Fn[K] extends (...args: infer Args) => infer Res
-    ? RemoveLastParam<Fn[K]>
+    ? ProxyDataMap<Fn[K]>[Client]
     : Fn[K];
 };
 
@@ -40,8 +63,8 @@ export type ProxyGraphQLClient<Fn> = {
  * Proxy Guard
  */
 
-export const isProxyData = (data: unknown): data is GQLAdminProxyData => {
+export const isProxyData = (data: unknown): data is GQLProxyData => {
   if (typeof data !== "object" || data === null) return false;
 
-  return "userId" in data;
+  return "userId" in data || "tenantId" in data || "now" in data;
 };

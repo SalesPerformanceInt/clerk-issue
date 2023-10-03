@@ -14,20 +14,21 @@ import {
   Scripts,
   ScrollRestoration,
   useLoaderData,
+  useLocation,
 } from "@remix-run/react";
 
 import fontAwesome from "@fortawesome/fontawesome-svg-core/styles.css";
 import { useChangeLanguage } from "remix-i18next";
 import tailwind from "~/tailwind.css";
 
-import { i18nConfig } from "quickcheck-shared";
+import { MatchedMap, i18nConfig } from "quickcheck-shared";
 import sharedStyles from "quickcheck-shared/dist/index.css";
 
 import { remixI18next } from "~/utils/i18next.server";
 
 import { requireUserSession } from "~/models/session";
 
-import type { TimeTravelContext } from "~/components/TimeTravel";
+import { TimeTravel } from "~/components/TimeTravel";
 
 import {
   QC_CONTENTSTACK_DELIVERY_TOKEN,
@@ -89,8 +90,15 @@ export const meta: V2_MetaFunction = () => [
 export default function App() {
   const { theme, locale, ENV, now } = useLoaderData<typeof loader>();
 
+  const { pathname } = useLocation();
   const { i18n } = useTranslation();
   useChangeLanguage(locale);
+
+  const timeTravelStyles = new MatchedMap<string, string>([
+    ["/admin", "hidden"],
+    ["/", "sm:top-16"],
+    ["_", ""],
+  ]);
 
   return (
     <html lang={locale} dir={i18n.dir()} className="h-full overflow-hidden">
@@ -105,7 +113,11 @@ export default function App() {
         />
       </head>
       <body className="h-full overflow-auto bg-background-secondary">
-        <Outlet context={{ now } as TimeTravelContext} />
+        {pathname !== "/admin" && (
+          <TimeTravel now={now} className={timeTravelStyles.get(pathname)} />
+        )}
+
+        <Outlet />
         <ScrollRestoration />
         <Scripts />
         <LiveReload />

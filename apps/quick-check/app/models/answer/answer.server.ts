@@ -1,5 +1,6 @@
 import { DateTime } from "luxon";
 import invariant from "tiny-invariant";
+
 import {
   getUserApolloClientFromRequest,
   type GetUserData,
@@ -57,13 +58,13 @@ export const saveAnswer = async (request: Request) => {
   );
 
   const learningRecord: Learning_Record_Insert_Input = {
-    user_id: userApolloClient.userId,
+    user_id: userQuestion.user_id,
     event_type: ANSWER,
     data: reviewedAnswer,
   };
 
   const userAnswer: User_Answer_Insert_Input = {
-    user_id: userApolloClient.userId,
+    user_id: userQuestion.user_id,
     question_id: userQuestion.id,
     correct: currentAnswer.correct,
   };

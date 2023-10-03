@@ -29,6 +29,8 @@ export type GQLProxyClients = "User" | "Admin";
  * Proxy Data Normalization
  */
 
+type ProxyDataSubtypes = GQLProxyUserData | GQLProxyTenantData;
+
 type RemoveLastParam<Fn> = Fn extends (...args: infer Args) => infer Res
   ? (...args: Args extends [...infer Rest, unknown?] ? Rest : Args) => Res
   : never;
@@ -36,9 +38,9 @@ type RemoveLastParam<Fn> = Fn extends (...args: infer Args) => infer Res
 type OmitFromLastParam<Fn> = Fn extends (...args: infer Args) => infer Res
   ? (
       ...args: Args extends [...infer Rest, infer Last]
-        ? Last extends GQLProxyData
-          ? Rest
-          : [...rest: Rest, proxyData: Omit<Last, "now">]
+        ? Last extends ProxyDataSubtypes
+          ? [...rest: Rest, proxyData: Omit<Last, "now">]
+          : Rest
         : Args
     ) => Res
   : never;

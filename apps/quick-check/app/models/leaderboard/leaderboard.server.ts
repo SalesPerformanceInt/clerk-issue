@@ -15,7 +15,7 @@ export const getUserLeaderboard = async (
 
   const enrollments = await adminApolloClient.getTaxonomyEnrollments(
     dashboard.taxonomy_ids,
-    dashboard.tenant_id,
+    { tenantId: dashboard.tenant_id },
   );
 
   if (!enrollments) {

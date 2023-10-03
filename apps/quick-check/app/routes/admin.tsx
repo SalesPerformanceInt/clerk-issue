@@ -70,11 +70,15 @@ export const action = async ({ request }: ActionArgs) => {
     const adminAction = parseAdminActionRequest(formData);
 
     if (adminAction?.type === "TOGGLE_SMS_ENABLED") {
-      await adminApolloClient.toggleUserSMSEnabled(adminAction.userId);
+      await adminApolloClient.toggleUserSMSEnabled({
+        userId: adminAction.userId,
+      });
     }
 
     if (adminAction?.type === "GENERATE_TOKEN_AND_SEND_SMS") {
-      const user = await adminApolloClient.getUser(adminAction.userId);
+      const user = await adminApolloClient.getUser({
+        userId: adminAction.userId,
+      });
 
       invariant(user, "No user found");
 
@@ -82,17 +86,16 @@ export const action = async ({ request }: ActionArgs) => {
     }
 
     if (adminAction?.type === "RESET_USER") {
-      await adminApolloClient.resetUser(adminAction.userId);
+      await adminApolloClient.resetUser({ userId: adminAction.userId });
 
       const taxonTrees = await buildTaxonTrees();
 
       const enrollments = pipe(
         taxonTrees,
         map((tree) =>
-          adminApolloClient.enrollUser(
-            adminAction.userId,
-            `${tree.rootNode.id}`,
-          ),
+          adminApolloClient.enrollUser(`${tree.rootNode.id}`, {
+            userId: adminAction.userId,
+          }),
         ),
       );
 
@@ -100,7 +103,9 @@ export const action = async ({ request }: ActionArgs) => {
     }
 
     if (adminAction?.type === "LOGIN_USER") {
-      const user = await adminApolloClient.getUser(adminAction.userId);
+      const user = await adminApolloClient.getUser({
+        userId: adminAction.userId,
+      });
 
       invariant(user, "No user found");
 
@@ -110,7 +115,9 @@ export const action = async ({ request }: ActionArgs) => {
     }
 
     if (adminAction?.type === "SEND_QUESTION_EMAIL") {
-      const user = await adminApolloClient.getUserEmailData(adminAction.userId);
+      const user = await adminApolloClient.getUserEmailData({
+        userId: adminAction.userId,
+      });
 
       invariant(user, "No user found");
 

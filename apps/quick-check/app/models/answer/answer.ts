@@ -16,24 +16,10 @@ export const answerSchema = z.object({
   correct: z.boolean(),
   variant: z.enum(variants),
   uid: z.string(),
+  now: z.string(),
 });
 
 export const parseAnswer = (value: unknown) => parseSchema(value, answerSchema);
-export const parseAnswerDate = (value?: unknown) => {
-  if (!value) return new Date().toISOString();
-
-  const answerDate = new Date();
-
-  const parsedDate = z.string().parse(value);
-  const [parsedYear, parsedMonth, parsedDay] = parsedDate.split("-");
-
-  if (!parsedYear || !parsedMonth || !parsedDay)
-    return new Date().toISOString();
-
-  answerDate.setFullYear(+parsedYear, +parsedMonth - 1, +parsedDay);
-
-  return new Date(answerDate).toISOString();
-};
 
 /**
  * Types

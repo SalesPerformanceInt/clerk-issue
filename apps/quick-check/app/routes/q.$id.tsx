@@ -43,7 +43,7 @@ const getFirstVariant = (questionItemVariants: QuestionItemVariant[]) =>
 
 export const loader = async ({ params, request }: LoaderArgs) => {
   try {
-    await requireUserSession(request);
+    const [now] = await requireUserSession(request);
 
     const { id } = params;
 
@@ -61,7 +61,14 @@ export const loader = async ({ params, request }: LoaderArgs) => {
     const variant = getFirstVariant(questionItem.variants);
     invariant(variant, "No valid variant");
 
-    return json({ questionItem, enrollmentTaxonomy, variant, id, userData });
+    return json({
+      questionItem,
+      enrollmentTaxonomy,
+      variant,
+      id,
+      userData,
+      now,
+    });
   } catch (error) {
     throw redirect("/nq");
   }
@@ -81,7 +88,7 @@ export const action: ActionFunction = async ({ request }) => {
 };
 
 export default function Page() {
-  const { questionItem, variant, enrollmentTaxonomy, id, userData } =
+  const { questionItem, variant, enrollmentTaxonomy, id, userData, now } =
     useLoaderData<typeof loader>();
 
   const navigate = useNavigate();
@@ -94,6 +101,7 @@ export default function Page() {
       correct: selection.correct,
       uid: selection.value,
       variant,
+      now,
     };
 
     const data = JSON.stringify(answer);

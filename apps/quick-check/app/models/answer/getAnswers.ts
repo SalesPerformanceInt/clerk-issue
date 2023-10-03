@@ -1,4 +1,5 @@
 import invariant from "tiny-invariant";
+
 import type { BaseUserQuestionFragment } from "~/graphql";
 
 import {
@@ -8,12 +9,7 @@ import {
 } from "~/utils/constants";
 import { getNextValidBusinessDate } from "~/utils/date";
 
-import {
-  parseAnswer,
-  parseAnswerDate,
-  type Answer,
-  type AnswerToReview,
-} from "./answer";
+import { parseAnswer, type Answer, type AnswerToReview } from "./answer";
 import { reviewAnswer } from "./reviewAnswer";
 
 /**
@@ -24,11 +20,10 @@ export const getCurrentAnswer = async (request: Request) => {
   const formData = await request.formData();
 
   const currentAnswer = parseAnswer(formData.get("data"));
-  const answerDate = parseAnswerDate(formData.get("currentDate"));
 
   invariant(currentAnswer, "Answer not found");
 
-  return { currentAnswer, answerDate };
+  return { currentAnswer };
 };
 
 /**
@@ -38,11 +33,10 @@ export const getCurrentAnswer = async (request: Request) => {
 export const getReviewedAnswer = (
   userQuestion: BaseUserQuestionFragment,
   currentAnswer: Answer,
-  answerDate: string,
 ) => {
   const answerToReview: AnswerToReview = {
-    answerDate,
-    lastAnsweredOn: userQuestion.last_answered_on || null,
+    answerDate: currentAnswer.now,
+    lastAnsweredOn: userQuestion.last_answered_on || userQuestion.active_on!,
     performanceRating: currentAnswer.correct ? REVIEW_CORRECT : REVIEW_WRONG,
     latestReviewGap: userQuestion.latest_review_gap,
     difficulty: userQuestion.difficulty || REVIEW_DIFFICULTY_BASE,
@@ -53,7 +47,7 @@ export const getReviewedAnswer = (
   const reviewedAnswer = reviewAnswer(answerToReview);
 
   const userQuestionNextActiveDate = getNextValidBusinessDate(
-    new Date(answerDate),
+    new Date(currentAnswer.now),
     reviewedAnswer.latestReviewGap,
   );
 

@@ -59,7 +59,7 @@ const rankUntilUserEnrollment = async (
 
     // TODO: Avoid per-enrollment mutation, move to per UserAnswer
     if (rank !== enrollment.rank) {
-      adminApolloClient.updateUserEnrollment(enrollment.id, { rank });
+      adminApolloClient.updateUserEnrollment(enrollment.id, { set: { rank } });
     }
 
     return enrollment.user_id === userId;

@@ -23,6 +23,7 @@ const getWeeklyStreak = (
   const sundayBeforeLast = DateTime.fromISO(lastSunday)
     .minus({ week: 1 })
     .toISODate()!;
+
   if (weekly_streak_since && weekly_streak_since >= sundayBeforeLast)
     return weekly_streak + 1;
 
@@ -31,8 +32,9 @@ const getWeeklyStreak = (
 
 const getUpdatedWeeklyStreakData = (
   user: GetUserData,
+  now: string,
 ): Pick<User_Set_Input, "weekly_streak" | "weekly_streak_since"> => {
-  const lastSunday = DateTime.now()
+  const lastSunday = DateTime.fromISO(now)
     .startOf("week")
     .minus({ day: 1 })
     .toISODate()!;
@@ -46,7 +48,7 @@ const getUpdatedWeeklyStreakData = (
 export const saveAnswer = async (request: Request) => {
   const userApolloClient = await getUserApolloClientFromRequest(request);
 
-  const { currentAnswer, answerDate } = await getCurrentAnswer(request);
+  const { currentAnswer } = await getCurrentAnswer(request);
 
   const userQuestion = await userApolloClient.getUserQuestion(currentAnswer.id);
   invariant(userQuestion, "Question not found");
@@ -54,7 +56,6 @@ export const saveAnswer = async (request: Request) => {
   const { reviewedAnswer, userQuestionNextActiveDate } = getReviewedAnswer(
     userQuestion,
     currentAnswer,
-    answerDate,
   );
 
   const learningRecord: Learning_Record_Insert_Input = {
@@ -67,6 +68,7 @@ export const saveAnswer = async (request: Request) => {
     user_id: userQuestion.user_id,
     question_id: userQuestion.id,
     correct: currentAnswer.correct,
+    created_at: reviewedAnswer.lastAnsweredOn,
   };
 
   await userApolloClient.updateUserQuestion(userQuestion.id, {
@@ -79,7 +81,9 @@ export const saveAnswer = async (request: Request) => {
   });
 
   await userApolloClient.updateUserEnrollment(userQuestion.user_enrollment.id, {
-    score: reviewedAnswer.score,
+    inc: {
+      score: reviewedAnswer.score,
+    },
   });
 
   await userApolloClient.createUserAnswer(userAnswer);
@@ -87,7 +91,9 @@ export const saveAnswer = async (request: Request) => {
   const user = await userApolloClient.getUser();
   invariant(user, "User not found");
 
-  await userApolloClient.updateUser(getUpdatedWeeklyStreakData(user));
+  await userApolloClient.updateUser(
+    getUpdatedWeeklyStreakData(user, currentAnswer.now),
+  );
 
   return await userApolloClient.createLearningRecord(learningRecord);
 };

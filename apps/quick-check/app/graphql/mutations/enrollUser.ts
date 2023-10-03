@@ -1,12 +1,5 @@
 import { pipe, shuffle } from "remeda";
 import invariant from "tiny-invariant";
-import { contentStack } from "~/contentstack.server";
-import {
-  graphql,
-  type User_Enrollment_Insert_Input,
-  type User_Question_Insert_Input,
-  type WithApolloClient,
-} from "~/graphql";
 
 import {
   andThen,
@@ -16,6 +9,16 @@ import {
   type QuestionItem,
   type TreeNode,
 } from "quickcheck-shared";
+
+import { contentStack } from "~/contentstack.server";
+
+import {
+  graphql,
+  type GQLUserProxyData,
+  type User_Enrollment_Insert_Input,
+  type User_Question_Insert_Input,
+  type WithApolloClient,
+} from "~/graphql";
 
 import { ENROLLMENT_PERIOD } from "~/utils/constants";
 import { getNextValidBusinessDate } from "~/utils/date";
@@ -116,15 +119,17 @@ const prepareUserEnrollmentInput =
 
 export async function enrollUser(
   this: WithApolloClient,
-  user_id: string,
   taxonomy_id: string,
+  proxyData: GQLUserProxyData,
 ) {
+  const { userId } = proxyData;
+
   const userEnrollmentInput = await pipe(
     getTaxon(taxonomy_id),
     andThen(getQuestions),
     andThen(shuffle()),
-    andThen(prepareActiveQuestionsInput(user_id)),
-    andThen(prepareUserEnrollmentInput(user_id, taxonomy_id)),
+    andThen(prepareActiveQuestionsInput(userId)),
+    andThen(prepareUserEnrollmentInput(userId, taxonomy_id)),
   );
 
   const [enrolledUser, error] = await promiseWrapper(

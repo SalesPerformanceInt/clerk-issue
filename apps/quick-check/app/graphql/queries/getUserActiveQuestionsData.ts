@@ -1,4 +1,8 @@
-import { graphql, type GQLProxyData, type WithApolloClient } from "~/graphql";
+import {
+  graphql,
+  type GQLUserProxyData,
+  type WithApolloClient,
+} from "~/graphql";
 
 export const GET_USER_ACTIVE_QUESTIONS_DATA = graphql(/* GraphQL */ `
   query GetUserActiveQuestionsData($userId: uuid!, $datetime: timestamptz!) {
@@ -10,14 +14,16 @@ export const GET_USER_ACTIVE_QUESTIONS_DATA = graphql(/* GraphQL */ `
 
 export async function getUserActiveQuestionsData(
   this: WithApolloClient,
-  proxyData: GQLProxyData,
+  proxyData: GQLUserProxyData,
 ) {
+  const { userId, now } = proxyData;
+
   try {
     const { data } = await this.client.query({
       query: GET_USER_ACTIVE_QUESTIONS_DATA,
       variables: {
-        userId: proxyData.userId,
-        datetime: new Date().toISOString(),
+        userId,
+        datetime: now,
       },
       fetchPolicy: "no-cache",
     });

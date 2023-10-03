@@ -2,7 +2,11 @@ import { DateTime } from "luxon";
 
 import { contentStack } from "~/contentstack.server";
 
-import { graphql, type WithApolloClient } from "~/graphql";
+import {
+  graphql,
+  type GQLUserProxyData,
+  type WithApolloClient,
+} from "~/graphql";
 
 export const GET_USER_DASHBOARD = graphql(/* GraphQL */ `
   query GetUserDashboard(
@@ -104,17 +108,20 @@ export const GET_USER_DASHBOARD = graphql(/* GraphQL */ `
   }
 `);
 
-export async function getUserDashboard(this: WithApolloClient, userId: string) {
+export async function getUserDashboard(
+  this: WithApolloClient,
+  proxyData: GQLUserProxyData,
+) {
   try {
-    const now = DateTime.now();
+    const { userId, now } = proxyData;
 
     const result = await this.client.query({
       query: GET_USER_DASHBOARD,
       variables: {
         userId,
-        datetime: now.toISO()!,
-        date: now.toISODate()!,
-        monthAgo: now.minus({ month: 1 }).toISO()!,
+        datetime: now,
+        date: DateTime.fromISO(now).toISODate()!,
+        monthAgo: DateTime.fromISO(now).minus({ month: 1 }).toISO()!,
       },
       fetchPolicy: "no-cache",
     });

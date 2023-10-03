@@ -1,4 +1,8 @@
-import { graphql, type WithApolloClient } from "~/graphql";
+import {
+  graphql,
+  type GQLUserProxyData,
+  type WithApolloClient,
+} from "~/graphql";
 
 export const GET_USER_EMAIL_DATA = graphql(/* GraphQL */ `
   query GetUserEmailData($userId: uuid!, $datetime: timestamptz!) {
@@ -9,11 +13,16 @@ export const GET_USER_EMAIL_DATA = graphql(/* GraphQL */ `
   }
 `);
 
-export async function getUserEmailData(this: WithApolloClient, userId: string) {
+export async function getUserEmailData(
+  this: WithApolloClient,
+  proxyData: GQLUserProxyData,
+) {
+  const { userId, now } = proxyData;
+
   try {
     const { data } = await this.client.query({
       query: GET_USER_EMAIL_DATA,
-      variables: { userId, datetime: new Date().toISOString() },
+      variables: { userId, datetime: now },
       fetchPolicy: "no-cache",
     });
 

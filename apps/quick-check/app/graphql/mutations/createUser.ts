@@ -1,6 +1,7 @@
 import { parsePhoneNumber } from "libphonenumber-js";
 import { z } from "zod";
-import { graphql, type WithApolloClient } from "~/graphql";
+
+import { graphql, type GQLProxyData, type WithApolloClient } from "~/graphql";
 
 import { generateNewToken } from "./generateNewToken";
 
@@ -33,7 +34,11 @@ export const createUserActionSchema = z.object({
 
 export type UserInput = z.infer<typeof createUserActionSchema>;
 
-export async function createUser(this: WithApolloClient, user: UserInput) {
+export async function createUser(
+  this: WithApolloClient,
+  user: UserInput,
+  proxyData?: GQLProxyData,
+) {
   try {
     const { data } = await this.client.mutate({
       mutation: CREATE_USER,
@@ -48,7 +53,8 @@ export async function createUser(this: WithApolloClient, user: UserInput) {
 
     const userId = data?.insert_user_one?.user_id;
 
-    if (userId) await generateNewToken.call(this, userId);
+    if (userId)
+      await generateNewToken.call(this, { userId, now: proxyData!.now });
 
     return data?.insert_user_one ?? null;
   } catch (error) {

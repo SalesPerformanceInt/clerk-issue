@@ -20,7 +20,7 @@ export async function updateNextQuestionId(
   nextUserQuestionId: string | null,
   proxyData: GQLUserProxyData,
 ) {
-  const { userId, now } = proxyData;
+  const { userId } = proxyData;
 
   try {
     const { data } = await this.client.mutate({

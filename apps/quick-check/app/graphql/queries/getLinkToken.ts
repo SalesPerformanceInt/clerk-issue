@@ -1,4 +1,4 @@
-import { graphql, type WithApolloClient } from "~/graphql";
+import { graphql, type GQLProxyData, type WithApolloClient } from "~/graphql";
 
 export const GET_LINK_TOKEN = graphql(/* GraphQL */ `
   query GetLinkToken($id: String!) {
@@ -12,7 +12,11 @@ export const GET_LINK_TOKEN = graphql(/* GraphQL */ `
   }
 `);
 
-export async function getLinkToken(this: WithApolloClient, id: string) {
+export async function getLinkToken(
+  this: WithApolloClient,
+  id: string,
+  _proxyData?: GQLProxyData,
+) {
   try {
     const { data } = await this.client.query({
       query: GET_LINK_TOKEN,

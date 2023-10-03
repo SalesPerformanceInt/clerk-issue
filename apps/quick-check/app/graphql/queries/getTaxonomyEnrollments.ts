@@ -1,4 +1,4 @@
-import { graphql, type WithApolloClient } from "~/graphql";
+import { graphql, type GQLProxyData, type WithApolloClient } from "~/graphql";
 
 /**
  * GraphQL
@@ -30,6 +30,7 @@ export async function getTaxonomyEnrollments(
   this: WithApolloClient,
   taxonomyIds: string[],
   tenantId: string,
+  _proxyData?: GQLProxyData,
 ) {
   try {
     const { data } = await this.client.query({

@@ -1,5 +1,6 @@
 import {
   graphql,
+  type GQLProxyData,
   type User_Enrollment_Set_Input,
   type WithApolloClient,
 } from "~/graphql";
@@ -16,6 +17,7 @@ export async function updateUserEnrollment(
   this: WithApolloClient,
   id: string,
   set: User_Enrollment_Set_Input,
+  _proxyData?: GQLProxyData,
 ) {
   try {
     const result = await this.client.mutate({

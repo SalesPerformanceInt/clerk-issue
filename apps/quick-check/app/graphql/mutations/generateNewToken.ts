@@ -1,6 +1,6 @@
 import {
   graphql,
-  type GQLUserProxyData,
+  type GQLProxyUserData,
   type WithApolloClient,
 } from "~/graphql";
 
@@ -25,7 +25,7 @@ export const GENERATE_NEW_TOKEN = graphql(/* GraphQL */ `
 
 export async function generateNewToken(
   this: WithApolloClient,
-  proxyData: GQLUserProxyData,
+  proxyData: GQLProxyUserData,
 ) {
   const { userId } = proxyData;
 

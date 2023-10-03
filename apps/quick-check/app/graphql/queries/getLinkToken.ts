@@ -15,7 +15,7 @@ export const GET_LINK_TOKEN = graphql(/* GraphQL */ `
 export async function getLinkToken(
   this: WithApolloClient,
   id: string,
-  _proxyData?: GQLProxyData,
+  _proxyData: GQLProxyData,
 ) {
   try {
     const { data } = await this.client.query({

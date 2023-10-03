@@ -4,7 +4,7 @@ import { contentStack } from "~/contentstack.server";
 
 import {
   graphql,
-  type GQLUserProxyData,
+  type GQLProxyUserData,
   type WithApolloClient,
 } from "~/graphql";
 
@@ -110,7 +110,7 @@ export const GET_USER_DASHBOARD = graphql(/* GraphQL */ `
 
 export async function getUserDashboard(
   this: WithApolloClient,
-  proxyData: GQLUserProxyData,
+  proxyData: GQLProxyUserData,
 ) {
   try {
     const { userId, now } = proxyData;

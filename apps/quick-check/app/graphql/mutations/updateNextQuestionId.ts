@@ -1,6 +1,6 @@
 import {
   graphql,
-  type GQLUserProxyData,
+  type GQLProxyUserData,
   type WithApolloClient,
 } from "~/graphql";
 
@@ -18,7 +18,7 @@ export const UPDATE_NEXT_QUESTION_ID = graphql(/* GraphQL */ `
 export async function updateNextQuestionId(
   this: WithApolloClient,
   nextUserQuestionId: string | null,
-  proxyData: GQLUserProxyData,
+  proxyData: GQLProxyUserData,
 ) {
   const { userId } = proxyData;
 

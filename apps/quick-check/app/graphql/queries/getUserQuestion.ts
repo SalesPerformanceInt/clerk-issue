@@ -11,7 +11,7 @@ export const GET_USER_QUESTION = graphql(/* GraphQL */ `
 export async function getUserQuestion(
   this: WithApolloClient,
   id: string,
-  _proxyData?: GQLProxyData,
+  _proxyData: GQLProxyData,
 ) {
   try {
     const { data } = await this.client.query({

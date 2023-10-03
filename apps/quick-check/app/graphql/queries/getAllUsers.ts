@@ -10,7 +10,7 @@ export const GET_ALL_USERS = graphql(/* GraphQL */ `
 
 export async function getAllUsers(
   this: WithApolloClient,
-  _proxyData?: GQLProxyData,
+  _proxyData: GQLProxyData,
 ) {
   try {
     const { data } = await this.client.query({

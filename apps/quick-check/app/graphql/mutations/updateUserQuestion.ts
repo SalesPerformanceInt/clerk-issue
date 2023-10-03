@@ -17,7 +17,7 @@ export async function updateUserQuestion(
   this: WithApolloClient,
   id: string,
   set: User_Question_Set_Input,
-  _proxyData?: GQLProxyData,
+  _proxyData: GQLProxyData,
 ) {
   try {
     const result = await this.client.mutate({

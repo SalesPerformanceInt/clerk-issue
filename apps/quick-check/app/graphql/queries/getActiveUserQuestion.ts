@@ -19,12 +19,14 @@ export const GET_ACTIVE_USER_QUESTION = graphql(/* GraphQL */ `
 export async function getActiveUserQuestion(
   this: WithApolloClient,
   id: string,
-  _proxyData?: GQLProxyData,
+  proxyData: GQLProxyData,
 ) {
+  const { now } = proxyData;
+
   try {
     const { data } = await this.client.query({
       query: GET_ACTIVE_USER_QUESTION,
-      variables: { id, now: new Date().toISOString() },
+      variables: { id, now: now },
       fetchPolicy: "no-cache",
     });
 

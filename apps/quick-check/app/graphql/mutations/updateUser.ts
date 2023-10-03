@@ -1,6 +1,6 @@
 import {
   graphql,
-  type GQLUserProxyData,
+  type GQLProxyUserData,
   type User_Set_Input,
   type WithApolloClient,
 } from "~/graphql";
@@ -16,7 +16,7 @@ export const UPDATE_USER = graphql(/* GraphQL */ `
 export async function updateUser(
   this: WithApolloClient,
   set: User_Set_Input,
-  proxyData: GQLUserProxyData,
+  proxyData: GQLProxyUserData,
 ) {
   const { userId } = proxyData;
 

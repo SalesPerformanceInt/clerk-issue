@@ -14,7 +14,7 @@ import { contentStack } from "~/contentstack.server";
 
 import {
   graphql,
-  type GQLUserProxyData,
+  type GQLProxyUserData,
   type User_Enrollment_Insert_Input,
   type User_Question_Insert_Input,
   type WithApolloClient,
@@ -120,7 +120,7 @@ const prepareUserEnrollmentInput =
 export async function enrollUser(
   this: WithApolloClient,
   taxonomy_id: string,
-  proxyData: GQLUserProxyData,
+  proxyData: GQLProxyUserData,
 ) {
   const { userId } = proxyData;
 

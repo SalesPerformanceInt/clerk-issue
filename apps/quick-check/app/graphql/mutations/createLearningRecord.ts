@@ -18,7 +18,7 @@ export const CREATE_LEARNING_RECORD = graphql(/* GraphQL */ `
 export async function createLearningRecord(
   this: WithApolloClient,
   learning_record: Learning_Record_Insert_Input,
-  _proxyData?: GQLProxyData,
+  _proxyData: GQLProxyData,
 ) {
   try {
     const { data } = await this.client.mutate({

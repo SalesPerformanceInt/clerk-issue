@@ -1,6 +1,6 @@
 import {
   graphql,
-  type GQLUserProxyData,
+  type GQLProxyUserData,
   type WithApolloClient,
 } from "~/graphql";
 
@@ -23,7 +23,7 @@ export const GET_USER_QUESTION_LEARNING_RECORD = graphql(/* GraphQL */ `
 export async function getUserQuestionLearningRecord(
   this: WithApolloClient,
   questionId: string,
-  proxyData: GQLUserProxyData,
+  proxyData: GQLProxyUserData,
 ) {
   const { userId } = proxyData;
 

@@ -1,3 +1,5 @@
+import type { Expand } from "quickcheck-shared";
+
 /**
  * Proxy Augmentation
  */
@@ -15,14 +17,11 @@ declare global {
  * GraphQL Proxy Additional Data
  */
 
-export type GQLProxyData = {
-  now: string;
-  userId: string;
-  tenantId: string;
-};
+export type GQLProxyData = { now: string };
+export type GQLProxyUserData = GQLProxyData & { userId: string };
+export type GQLProxyTenantData = GQLProxyData & { tenantId: string };
 
-export type GQLUserProxyData = Omit<GQLProxyData, "tenantId">;
-export type GQLTenantProxyData = Omit<GQLProxyData, "userId">;
+export type GQLProxyAllData = Expand<GQLProxyUserData & GQLProxyTenantData>;
 
 export type GQLProxyClients = "User" | "Admin";
 
@@ -37,9 +36,9 @@ type RemoveLastParam<Fn> = Fn extends (...args: infer Args) => infer Res
 type OmitFromLastParam<Fn> = Fn extends (...args: infer Args) => infer Res
   ? (
       ...args: Args extends [...infer Rest, infer Last]
-        ? [...rest: Rest, proxyData: Omit<Last, "now">]
-        : Args extends [...infer Rest, (infer Last)?]
-        ? [...rest: Rest, proxyData?: Omit<Last, "now">]
+        ? Last extends GQLProxyData
+          ? Rest
+          : [...rest: Rest, proxyData: Omit<Last, "now">]
         : Args
     ) => Res
   : never;
@@ -63,7 +62,7 @@ export type ProxyGraphQLClient<Fn, Client extends GQLProxyClients> = {
  * Proxy Guard
  */
 
-export const isProxyData = (data: unknown): data is GQLProxyData => {
+export const isProxyData = (data: unknown): data is GQLProxyAllData => {
   if (typeof data !== "object" || data === null) return false;
 
   return "userId" in data || "tenantId" in data || "now" in data;

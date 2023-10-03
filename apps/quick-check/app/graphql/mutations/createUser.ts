@@ -37,8 +37,10 @@ export type UserInput = z.infer<typeof createUserActionSchema>;
 export async function createUser(
   this: WithApolloClient,
   user: UserInput,
-  proxyData?: GQLProxyData,
+  proxyData: GQLProxyData,
 ) {
+  const { now } = proxyData;
+
   try {
     const { data } = await this.client.mutate({
       mutation: CREATE_USER,
@@ -53,8 +55,7 @@ export async function createUser(
 
     const userId = data?.insert_user_one?.user_id;
 
-    if (userId)
-      await generateNewToken.call(this, { userId, now: proxyData!.now });
+    if (userId) await generateNewToken.call(this, { userId, now });
 
     return data?.insert_user_one ?? null;
   } catch (error) {

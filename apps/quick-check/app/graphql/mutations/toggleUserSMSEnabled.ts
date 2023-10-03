@@ -2,7 +2,7 @@ import invariant from "tiny-invariant";
 
 import {
   graphql,
-  type GQLUserProxyData,
+  type GQLProxyUserData,
   type WithApolloClient,
 } from "~/graphql";
 import { GET_USER } from "~/graphql/queries";
@@ -20,7 +20,7 @@ export const TOGGLE_USER_SMS_ENABLED = graphql(/* GraphQL */ `
 
 export async function toggleUserSMSEnabled(
   this: WithApolloClient,
-  proxyData: GQLUserProxyData,
+  proxyData: GQLProxyUserData,
 ) {
   const { userId } = proxyData;
 

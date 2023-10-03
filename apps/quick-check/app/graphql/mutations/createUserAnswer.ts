@@ -18,7 +18,7 @@ export const CREATE_USER_ANSWER = graphql(/* GraphQL */ `
 export async function createUserAnswer(
   this: WithApolloClient,
   user_answer: User_Answer_Insert_Input,
-  _proxyData?: GQLProxyData,
+  _proxyData: GQLProxyData,
 ) {
   try {
     const result = await this.client.mutate({

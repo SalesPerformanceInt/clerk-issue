@@ -48,7 +48,18 @@ type TimeTravelModalProps = {
 };
 
 const TimeTravelModal: FC<TimeTravelModalProps> = ({ closeModal }) => {
+  const navigate = useNavigate();
+
   const { now } = useOutletContext<TimeTravelContext>();
+  const [localNow, setLocalNow] = useState(now);
+
+  const changeDate = useCallback((date: string) => {
+    setLocalNow(date);
+
+    navigate(`/updateNow?now=${date}&redirectTo=${location.pathname}`);
+
+    closeModal();
+  }, []);
 
   return (
     <div className="fixed right-0 left-0 top-0 bottom-0 w-full z-50">
@@ -71,8 +82,8 @@ const TimeTravelModal: FC<TimeTravelModalProps> = ({ closeModal }) => {
             <input
               type="date"
               className="text-black px-2 py-1 ml-1"
-              value={DateTime.fromISO(now).toISODate()!}
-              // onChange={(e) => changeDate(e.target.value)}
+              value={DateTime.fromISO(localNow).toISODate()!}
+              onChange={(e) => changeDate(e.target.value)}
             />
           </div>
         </div>

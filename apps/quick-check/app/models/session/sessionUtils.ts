@@ -54,15 +54,19 @@ export async function getSession(request: Request) {
   return sessionStorage.getSession(cookie);
 }
 
-export async function updateSessionNow(request: Request, now: string) {
+export async function updateSessionNow(
+  request: Request,
+  redirectTo: string,
+  now: string,
+) {
   const session = await getSession(request);
 
   session.set(SessionKeys.NOW, now);
 
   return createSession({
     session,
+    redirectTo,
     remember: true,
-    redirectTo: new URL(request.url).pathname,
   });
 }
 

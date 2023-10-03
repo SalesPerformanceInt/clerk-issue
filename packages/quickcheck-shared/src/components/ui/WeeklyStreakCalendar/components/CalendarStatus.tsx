@@ -1,9 +1,9 @@
-import React, { ElementRef, forwardRef } from "react";
+import React, { forwardRef, type ElementRef } from "react";
 
 import { faCheck } from "@fortawesome/pro-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import * as AvatarPrimitive from "@radix-ui/react-avatar";
-import { cva, type VariantProps } from "class-variance-authority";
+import { cva } from "class-variance-authority";
 import { cn } from "~/utils";
 
 import { AvatarFallback } from "~/components";

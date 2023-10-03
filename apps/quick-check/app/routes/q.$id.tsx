@@ -29,8 +29,6 @@ import { getQuestionData } from "~/models/question";
 import { requireUserSession } from "~/models/session";
 import { generateNextQuestionFromRequest } from "~/models/user";
 
-import { TimeTravel } from "~/components/TimeTravel";
-
 const getVariantNames = (questionItemVariants: QuestionItemVariant[]) =>
   pipe(
     questionItemVariants,
@@ -111,8 +109,6 @@ export default function Page() {
 
   return (
     <>
-      <TimeTravel />
-
       <Question
         key={questionItem.uid}
         onContinue={() => navigate("/nq")}

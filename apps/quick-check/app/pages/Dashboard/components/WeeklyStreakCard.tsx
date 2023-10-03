@@ -1,8 +1,9 @@
 import { useMemo, type FC } from "react";
 import { useTranslation } from "react-i18next";
 
+import { useOutletContext } from "@remix-run/react";
+
 import { DateTime } from "luxon";
-import { map, pipe } from "remeda";
 import { twMerge } from "tailwind-merge";
 
 import {
@@ -16,17 +17,19 @@ import type { DashboardData } from "~/graphql";
 
 import { useDashboardContext } from "~/pages/Dashboard";
 
+import type { TimeTravelContext } from "~/components/TimeTravel";
+
 import { makeCalendar } from "../utils/calendar";
 
 /**
  * Weekly Streak
  */
 
-const getStreakCount = ({
-  weekly_streak,
-  weekly_streak_since,
-}: DashboardData): number => {
-  const sundayBeforeLast = DateTime.now()
+const getStreakCount = (
+  { weekly_streak, weekly_streak_since }: DashboardData,
+  now: string,
+): number => {
+  const sundayBeforeLast = DateTime.fromISO(now)
     .startOf("week")
     .minus({ day: 1, week: 1 })
     .toISODate()!;
@@ -39,6 +42,7 @@ const getStreakCount = ({
 export const WeeklyStreakCard: FC<CardProps> = ({ className, ...props }) => {
   const { t } = useTranslation();
 
+  const { now } = useOutletContext<TimeTravelContext>();
   const { dashboard } = useDashboardContext();
 
   const answerDates = useMemo(
@@ -49,9 +53,12 @@ export const WeeklyStreakCard: FC<CardProps> = ({ className, ...props }) => {
     [dashboard.user_answers],
   );
 
-  const calendar = useMemo(() => makeCalendar(answerDates), [answerDates]);
+  const calendar = useMemo(() => makeCalendar(answerDates, now), [answerDates]);
 
-  const streakCount = useMemo(() => getStreakCount(dashboard), [dashboard]);
+  const streakCount = useMemo(
+    () => getStreakCount(dashboard, now),
+    [dashboard],
+  );
 
   return (
     <Card className={twMerge("max-w-sm p-6", className)} {...props}>
@@ -61,7 +68,7 @@ export const WeeklyStreakCard: FC<CardProps> = ({ className, ...props }) => {
         className="pb-6"
       />
 
-      <WeeklyStreakCalendar calendar={calendar} />
+      <WeeklyStreakCalendar calendar={calendar} now={now} />
     </Card>
   );
 };

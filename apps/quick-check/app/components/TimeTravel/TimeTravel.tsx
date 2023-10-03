@@ -1,14 +1,32 @@
 import React, { useCallback, useState, type FC } from "react";
 
+import { useLocation } from "@remix-run/react";
+
 import { faGear } from "@fortawesome/pro-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { twMerge } from "tailwind-merge";
 
+import { MatchedMap } from "quickcheck-shared";
+
 import { TimeTravelModal } from "./TimeTravelModal";
+
+/**
+ * TimeTravel Styles
+ */
+
+const timeTravelStyles = new MatchedMap<string, string>([
+  ["/admin", "hidden"],
+  ["/", "sm:top-16"],
+  ["_", ""],
+]);
 
 /**
  * TimeTravel
  */
+
+export type TimeTravelContext = {
+  now: string;
+};
 
 type TimeTravelProps = {
   now: string;
@@ -16,6 +34,7 @@ type TimeTravelProps = {
 };
 
 export const TimeTravel: FC<TimeTravelProps> = ({ now, className }) => {
+  const location = useLocation();
   const [showModal, setShowModal] = useState(false);
 
   const toggleModal = useCallback(() => setShowModal((prev) => !prev), []);
@@ -25,7 +44,7 @@ export const TimeTravel: FC<TimeTravelProps> = ({ now, className }) => {
       <div
         className={twMerge(
           "absolute top-8 sm:top-12 left-0 right-0 flex justify-center z-20",
-          className,
+          timeTravelStyles.get(location.pathname),
         )}
       >
         <button

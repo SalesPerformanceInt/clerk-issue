@@ -1,3 +1,4 @@
+import { useMemo } from "react";
 import { useTranslation } from "react-i18next";
 
 import {
@@ -21,12 +22,12 @@ import fontAwesome from "@fortawesome/fontawesome-svg-core/styles.css";
 import { useChangeLanguage } from "remix-i18next";
 import tailwind from "~/tailwind.css";
 
-import { MatchedMap, i18nConfig } from "quickcheck-shared";
+import { i18nConfig } from "quickcheck-shared";
 import sharedStyles from "quickcheck-shared/dist/index.css";
 
 import { remixI18next } from "~/utils/i18next.server";
 
-import { requireUserSession } from "~/models/session";
+import { getUserDataFromFromSession } from "~/models/session";
 
 import { TimeTravel } from "~/components/TimeTravel";
 
@@ -39,7 +40,7 @@ import {
 import { getOptionalUserApolloClientFromRequest } from "./graphql";
 
 export const loader = async ({ request }: LoaderArgs) => {
-  const [now] = await requireUserSession(request);
+  const [now, userId] = await getUserDataFromFromSession(request);
   const userApolloClient =
     await getOptionalUserApolloClientFromRequest(request);
 
@@ -53,7 +54,7 @@ export const loader = async ({ request }: LoaderArgs) => {
     QC_CONTENTSTACK_STACK_KEY,
   };
 
-  return json({ theme: null, locale, ENV, now });
+  return json({ theme: null, locale, ENV, now, userId });
 };
 
 export const handle = {
@@ -88,17 +89,17 @@ export const meta: V2_MetaFunction = () => [
 ];
 
 export default function App() {
-  const { theme, locale, ENV, now } = useLoaderData<typeof loader>();
+  const { theme, locale, ENV, now, userId } = useLoaderData<typeof loader>();
 
   const { pathname } = useLocation();
   const { i18n } = useTranslation();
   useChangeLanguage(locale);
 
-  const timeTravelStyles = new MatchedMap<string, string>([
-    ["/admin", "hidden"],
-    ["/", "sm:top-16"],
-    ["_", ""],
-  ]);
+  const timeTravelEnabled = useMemo(() => {
+    const disabledPaths = ["/admin"];
+
+    return !disabledPaths.includes(pathname) && !!userId;
+  }, []);
 
   return (
     <html lang={locale} dir={i18n.dir()} className="h-full overflow-hidden">
@@ -113,11 +114,9 @@ export default function App() {
         />
       </head>
       <body className="h-full overflow-auto bg-background-secondary">
-        {pathname !== "/admin" && (
-          <TimeTravel now={now} className={timeTravelStyles.get(pathname)} />
-        )}
+        {timeTravelEnabled && <TimeTravel now={now} />}
 
-        <Outlet />
+        <Outlet context={{ now }} />
         <ScrollRestoration />
         <Scripts />
         <LiveReload />

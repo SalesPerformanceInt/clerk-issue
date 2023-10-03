@@ -53,10 +53,12 @@ const makeWeek = (startDate: DateTime, answerDates: DateTime[]): Week => {
  * Calendar
  */
 
-export const makeCalendar = (answerDates: DateTime[]) =>
+export const makeCalendar = (answerDates: DateTime[], now: string) =>
   pipe(
     CALENDAR_WEEKS,
     times(identity),
     reverse(),
-    map((n) => makeWeek(DateTime.now().minus({ weeks: n }), answerDates)),
+    map((n) =>
+      makeWeek(DateTime.fromISO(now).minus({ weeks: n }), answerDates),
+    ),
   );

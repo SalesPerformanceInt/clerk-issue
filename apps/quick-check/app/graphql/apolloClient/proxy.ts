@@ -21,7 +21,10 @@ export type GQLProxyData = { now: string };
 export type GQLProxyUserData = GQLProxyData & { userId: string };
 export type GQLProxyTenantData = GQLProxyData & { tenantId: string };
 
-export type GQLProxyAllData = Expand<GQLProxyUserData & GQLProxyTenantData>;
+export type GQLProxyAllData = GQLProxyData & {
+  userId?: string;
+  tenantId?: string;
+};
 
 export type GQLProxyClients = "User" | "Admin";
 
@@ -64,7 +67,7 @@ export type ProxyGraphQLClient<Fn, Client extends GQLProxyClients> = {
  * Proxy Guard
  */
 
-export const isProxyData = (data: unknown): data is GQLProxyAllData => {
+export const isProxyData = (data: unknown): data is ProxyDataSubtypes => {
   if (typeof data !== "object" || data === null) return false;
 
   return "userId" in data || "tenantId" in data || "now" in data;
@@ -79,7 +82,7 @@ export const createGraphQLProxy = <
   TTarget extends TSource,
 >(
   source: TSource,
-  now: string,
+  sessionData: GQLProxyAllData,
 ) => {
   return new Proxy<TSource, TTarget>(source, {
     get(target, key) {
@@ -91,8 +94,8 @@ export const createGraphQLProxy = <
         const lastArg = args.at(-1);
 
         const [newArgs, proxyData] = isProxyData(lastArg)
-          ? [args.slice(0, -1), { ...lastArg, now }]
-          : [args, { now }];
+          ? [args.slice(0, -1), { ...lastArg, ...sessionData }]
+          : [args, sessionData];
 
         return callable.call(target, ...newArgs, proxyData);
       };

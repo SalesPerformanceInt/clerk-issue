@@ -33,7 +33,7 @@ const getUserApolloClient = async (
   return createGraphQLProxy<
     UserGraphQLClient,
     ProxyGraphQLClient<UserGraphQLClient, "User">
-  >(userApolloClient, now);
+  >(userApolloClient, { now, userId, tenantId });
 };
 
 /**
@@ -41,7 +41,7 @@ const getUserApolloClient = async (
  */
 
 export const getUserApolloClientFromRequest = async (request: Request) => {
-  const [userId, tenantId, now] = await getUserDataFromFromSession(request);
+  const [now, userId, tenantId] = await getUserDataFromFromSession(request);
 
   invariant(userId, "Missing User ID");
   invariant(tenantId, "Missing Tenant ID");
@@ -52,7 +52,7 @@ export const getUserApolloClientFromRequest = async (request: Request) => {
 export const getOptionalUserApolloClientFromRequest = async (
   request: Request,
 ) => {
-  const [userId, tenantId, now] = await getUserDataFromFromSession(request);
+  const [now, userId, tenantId] = await getUserDataFromFromSession(request);
 
   if (!userId || !tenantId) return null;
 

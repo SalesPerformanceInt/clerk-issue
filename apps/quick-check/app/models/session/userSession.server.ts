@@ -23,9 +23,9 @@ import {
 type UserSession = Expand<CreatedSession & SessionData>;
 
 type UserSessionData = [
+  string,
   User["user_id"] | undefined,
   User["tenant_id"] | undefined,
-  string,
 ];
 
 /**
@@ -41,7 +41,7 @@ export async function getUserDataFromFromSession(
   const tenantId = session.get(SessionKeys.TENANT_ID);
   const now = session.get(SessionKeys.NOW) ?? DateTime.now().toISO()!;
 
-  return [userId, tenantId, now];
+  return [now, userId, tenantId];
 }
 
 /**
@@ -52,7 +52,7 @@ export async function requireUserSession(
   request: Request,
   redirectTo: string = new URL(request.url).pathname,
 ): Promise<Required<UserSessionData>> {
-  const [userId, tenantId, now] = await getUserDataFromFromSession(request);
+  const [now, userId, tenantId] = await getUserDataFromFromSession(request);
 
   if (!userId || !tenantId) {
     const searchParams = new URLSearchParams([["redirectTo", redirectTo]]);
@@ -60,7 +60,7 @@ export async function requireUserSession(
     throw redirect(`/?${searchParams.toString()}`);
   }
 
-  return [userId, tenantId, now];
+  return [now, userId, tenantId];
 }
 
 export async function requireUser(request: Request) {

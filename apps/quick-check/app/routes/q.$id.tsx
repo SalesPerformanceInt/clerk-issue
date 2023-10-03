@@ -29,6 +29,8 @@ import { getQuestionData } from "~/models/question";
 import { requireUserSession } from "~/models/session";
 import { generateNextQuestionFromRequest } from "~/models/user";
 
+import { TimeTravelButton } from "~/components/TimeTravel";
+
 const getVariantNames = (questionItemVariants: QuestionItemVariant[]) =>
   pipe(
     questionItemVariants,
@@ -103,16 +105,20 @@ export default function Page() {
   const initialChoiceId = searchParams.get("c");
 
   return (
-    <Question
-      key={questionItem.uid}
-      onContinue={() => navigate("/nq")}
-      onSubmit={onSubmit}
-      variant={variant}
-      onClose={() => navigate("/")}
-      questionItem={questionItem}
-      enrollmentTaxonomy={enrollmentTaxonomy}
-      initialChoiceId={initialChoiceId}
-      userData={userData}
-    />
+    <>
+      <TimeTravelButton />
+
+      <Question
+        key={questionItem.uid}
+        onContinue={() => navigate("/nq")}
+        onSubmit={onSubmit}
+        variant={variant}
+        onClose={() => navigate("/")}
+        questionItem={questionItem}
+        enrollmentTaxonomy={enrollmentTaxonomy}
+        initialChoiceId={initialChoiceId}
+        userData={userData}
+      />
+    </>
   );
 }

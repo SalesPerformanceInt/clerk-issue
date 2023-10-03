@@ -25,6 +25,10 @@ import sharedStyles from "quickcheck-shared/dist/index.css";
 
 import { remixI18next } from "~/utils/i18next.server";
 
+import { requireUserSession } from "~/models/session";
+
+import type { TimeTravelContext } from "~/components/TimeTravel";
+
 import {
   QC_CONTENTSTACK_DELIVERY_TOKEN,
   QC_CONTENTSTACK_ENVIRONMENT,
@@ -34,8 +38,10 @@ import {
 import { getOptionalUserApolloClientFromRequest } from "./graphql";
 
 export const loader = async ({ request }: LoaderArgs) => {
+  const [now] = await requireUserSession(request);
   const userApolloClient =
     await getOptionalUserApolloClientFromRequest(request);
+
   const theme = await userApolloClient?.getUserTheme();
 
   const locale = await remixI18next.getLocale(request);
@@ -46,7 +52,7 @@ export const loader = async ({ request }: LoaderArgs) => {
     QC_CONTENTSTACK_STACK_KEY,
   };
 
-  return json({ theme: null, locale, ENV });
+  return json({ theme: null, locale, ENV, now });
 };
 
 export const handle = {
@@ -81,7 +87,7 @@ export const meta: V2_MetaFunction = () => [
 ];
 
 export default function App() {
-  const { theme, locale, ENV } = useLoaderData<typeof loader>();
+  const { theme, locale, ENV, now } = useLoaderData<typeof loader>();
 
   const { i18n } = useTranslation();
   useChangeLanguage(locale);
@@ -99,7 +105,7 @@ export default function App() {
         />
       </head>
       <body className="h-full overflow-auto bg-background-secondary">
-        <Outlet />
+        <Outlet context={{ now } as TimeTravelContext} />
         <ScrollRestoration />
         <Scripts />
         <LiveReload />

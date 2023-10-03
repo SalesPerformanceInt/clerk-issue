@@ -28,7 +28,7 @@ export const getAdminApolloClient = async (now: string) => {
   return createGraphQLProxy<
     AdminGraphQLClient,
     ProxyGraphQLClient<AdminGraphQLClient, "Admin">
-  >(adminApolloClient, now);
+  >(adminApolloClient, { now });
 };
 
 /**

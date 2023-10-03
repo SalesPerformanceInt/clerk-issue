@@ -16,7 +16,6 @@ import {
 
 import { compact, first, map, pipe } from "remeda";
 import invariant from "tiny-invariant";
-import { getUserApolloClientFromRequest } from "~/graphql";
 import { requireUserSession } from "~/session.server";
 
 import {
@@ -25,6 +24,8 @@ import {
   type OnSubmit,
   type QuestionItemVariant,
 } from "quickcheck-shared";
+
+import { getUserApolloClientFromRequest } from "~/graphql";
 
 import { saveAnswer, type Answer } from "~/models/answer";
 import { getQuestionData } from "~/models/question";

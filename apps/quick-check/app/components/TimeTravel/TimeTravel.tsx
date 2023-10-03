@@ -1,6 +1,6 @@
 import React, { useCallback, useState, type FC } from "react";
 
-import { useNavigate, useOutletContext } from "@remix-run/react";
+import { useFetcher, useOutletContext } from "@remix-run/react";
 
 import { faGear, faXmark } from "@fortawesome/pro-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -48,18 +48,22 @@ type TimeTravelModalProps = {
 };
 
 const TimeTravelModal: FC<TimeTravelModalProps> = ({ closeModal }) => {
-  const navigate = useNavigate();
+  const fetcher = useFetcher();
 
   const { now } = useOutletContext<TimeTravelContext>();
   const [localNow, setLocalNow] = useState(now);
 
-  const changeDate = useCallback((date: string) => {
+  const changeDate = (date: string) => {
     setLocalNow(date);
 
-    navigate(`/updateNow?now=${date}&redirectTo=${location.pathname}`);
-
-    closeModal();
-  }, []);
+    fetcher.submit(
+      { now: date },
+      {
+        method: "post",
+        action: `/updateNow?redirectTo=${location.pathname}`,
+      },
+    );
+  };
 
   return (
     <div className="fixed right-0 left-0 top-0 bottom-0 w-full z-50">
@@ -78,9 +82,10 @@ const TimeTravelModal: FC<TimeTravelModalProps> = ({ closeModal }) => {
 
         <div className="flex flex-col justify-start gap-4 text-white font-medium py-4 px-8 w-full">
           <div>
-            <label htmlFor=""> Current Date: </label>
+            <label htmlFor="currentDate"> Current Date: </label>
             <input
               type="date"
+              name="currentDate"
               className="text-black px-2 py-1 ml-1"
               value={DateTime.fromISO(localNow).toISODate()!}
               onChange={(e) => changeDate(e.target.value)}

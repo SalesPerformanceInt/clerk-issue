@@ -43,11 +43,10 @@ const getFirstVariant = (questionItemVariants: QuestionItemVariant[]) =>
 
 export const loader = async ({ params, request }: LoaderArgs) => {
   try {
-    const [now] = await requireUserSession(request);
-
     const { id } = params;
-
     invariant(id, "ID not found");
+
+    const [now] = await requireUserSession(request);
 
     const userApolloClient = await getUserApolloClientFromRequest(request);
     const userQuestion = await userApolloClient.getActiveUserQuestion(id);
@@ -74,10 +73,8 @@ export const loader = async ({ params, request }: LoaderArgs) => {
   }
 };
 
-export const shouldRevalidate: ShouldRevalidateFunction = ({
-  currentParams,
-  nextParams,
-}) => currentParams.id !== nextParams.id;
+export const shouldRevalidate: ShouldRevalidateFunction = ({ actionResult }) =>
+  !actionResult;
 
 export const action: ActionFunction = async ({ request }) => {
   const result = await saveAnswer(request);

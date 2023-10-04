@@ -2,7 +2,6 @@ import { type FC } from "react";
 import { useTranslation } from "react-i18next";
 
 import { twMerge } from "tailwind-merge";
-import { useDashboardContext } from "~/pages/Dashboard";
 
 import {
   Achievement,
@@ -10,6 +9,8 @@ import {
   CardTitle,
   type LeaderboardEntryProps,
 } from "quickcheck-shared";
+
+import { useDashboardContext } from "~/pages/Dashboard";
 
 type AchievementsCardProps = {
   entries?: LeaderboardEntryProps[];
@@ -32,7 +33,7 @@ export const AchievementsCard: FC<AchievementsCardProps> = ({ className }) => {
 
   const retiredQuestions = dashboard.retired_questions.aggregate?.count ?? 0;
   const totalQuestions = dashboard.total_questions.aggregate?.count ?? 0;
-  const retiredQuestionsPercentage = (attemptedSkills / totalSkills) * 100;
+  const retiredQuestionsPercentage = (retiredQuestions / totalQuestions) * 100;
 
   return (
     <Card className={twMerge("max-w-sm", className)}>

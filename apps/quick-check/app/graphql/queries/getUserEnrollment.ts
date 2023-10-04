@@ -1,9 +1,9 @@
 import { contentStack } from "~/contentstack.server";
 
-import { graphql, type WithApolloClient } from "~/graphql";
+import { graphql, type GQLProxyData, type WithApolloClient } from "~/graphql";
 
 export const GET_USER_ENROLLMENT = graphql(/* GraphQL */ `
-  query GetUserEnrollment($id: uuid!) {
+  query GetUserEnrollment($id: uuid!, $datetime: timestamptz!) {
     user_enrollment_by_pk(id: $id) {
       ...UserEnrollmentWithCounts
       user_questions {
@@ -29,11 +29,17 @@ export const GET_USER_ENROLLMENT = graphql(/* GraphQL */ `
   }
 `);
 
-export async function getUserEnrollment(this: WithApolloClient, id: string) {
+export async function getUserEnrollment(
+  this: WithApolloClient,
+  id: string,
+  proxyData: GQLProxyData,
+) {
+  const { now } = proxyData;
+
   try {
     const { data } = await this.client.query({
       query: GET_USER_ENROLLMENT,
-      variables: { id },
+      variables: { id, datetime: now },
       fetchPolicy: "no-cache",
     });
 

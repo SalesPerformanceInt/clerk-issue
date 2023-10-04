@@ -2,9 +2,10 @@ import { json, redirect, type LoaderArgs } from "@remix-run/node";
 import { useLoaderData } from "@remix-run/react";
 
 import invariant from "tiny-invariant";
-import { requireUserSession } from "~/session.server";
 
 import { getUserApolloClientFromRequest } from "~/graphql";
+
+import { requireUserSession } from "~/models/session";
 
 import { Enrollment } from "~/pages/Enrollment";
 

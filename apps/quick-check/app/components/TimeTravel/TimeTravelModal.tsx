@@ -24,10 +24,18 @@ export const TimeTravelModal: FC<TimeTravelModalProps> = ({
   const [localNow, setLocalNow] = useState(now);
 
   const changeDate = useCallback((date: string) => {
-    setLocalNow(date);
+    const dateObj = DateTime.fromISO(date);
+    const [month, day, year] = [
+      dateObj.get("month"),
+      dateObj.get("day"),
+      dateObj.get("year"),
+    ];
+    const now = DateTime.now().set({ month, day, year }).toISO()!;
+
+    setLocalNow(now);
 
     fetcher.submit(
-      { now: date },
+      { now },
       {
         method: "post",
         action: `/updateNow?redirectTo=${location.pathname}`,

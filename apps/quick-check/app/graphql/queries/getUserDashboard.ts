@@ -12,7 +12,6 @@ export const GET_USER_DASHBOARD = graphql(/* GraphQL */ `
   query GetUserDashboard(
     $userId: uuid!
     $datetime: timestamptz!
-    $date: date!
     $monthAgo: timestamptz!
   ) {
     user_by_pk(user_id: $userId) {
@@ -23,83 +22,99 @@ export const GET_USER_DASHBOARD = graphql(/* GraphQL */ `
       }
       active_user_enrollments: user_enrollments(
         where: {
-          _or: [
-            { completed_on: { _is_null: true, _lte: $date } }
-            {
-              user_questions_aggregate: {
-                count: {
-                  predicate: { _gt: 0 }
-                  filter: { retired_on: { _is_null: true } }
-                }
+          user_questions_aggregate: {
+            count: {
+              predicate: { _gt: 0 }
+              filter: {
+                _or: [
+                  { retired_on: { _is_null: true } }
+                  { retired_on: { _gte: $datetime } }
+                ]
               }
             }
-          ]
+          }
         }
       ) {
         ...UserEnrollmentWithCounts
       }
       completed_user_enrollments: user_enrollments(
         where: {
-          _or: [
-            { completed_on: { _is_null: false } }
-            {
-              user_questions_aggregate: {
-                count: {
-                  predicate: { _eq: 0 }
-                  filter: { retired_on: { _is_null: true } }
-                }
+          user_questions_aggregate: {
+            count: {
+              predicate: { _eq: 0 }
+              filter: {
+                _or: [
+                  { retired_on: { _is_null: true } }
+                  { retired_on: { _gte: $datetime } }
+                ]
               }
             }
-          ]
+          }
         }
       ) {
         ...UserEnrollmentWithCounts
       }
       skills_attempted: user_questions_aggregate(
         distinct_on: taxonomy_id
-        where: { user_answers_aggregate: { count: { predicate: { _gt: 0 } } } }
+        where: {
+          created_at: { _lte: $datetime }
+          last_answered_on: { _is_null: false }
+          user_answers_aggregate: {
+            count: {
+              predicate: { _gt: 0 }
+              filter: { created_at: { _lte: $datetime } }
+            }
+          }
+        }
       ) {
         aggregate {
           count
         }
       }
-      total_skills: user_questions_aggregate(distinct_on: taxonomy_id) {
+      total_skills: user_questions_aggregate(
+        distinct_on: taxonomy_id
+        where: { created_at: { _lte: $datetime } }
+      ) {
         aggregate {
           count
         }
       }
       completed_enrollments: user_enrollments_aggregate(
         where: {
-          _or: [
-            { completed_on: { _is_null: false } }
-            {
-              user_questions_aggregate: {
-                count: {
-                  predicate: { _eq: 0 }
-                  filter: { retired_on: { _is_null: true } }
-                }
+          user_questions_aggregate: {
+            count: {
+              predicate: { _eq: 0 }
+              filter: {
+                _or: [
+                  { retired_on: { _is_null: true } }
+                  { retired_on: { _gte: $datetime } }
+                ]
               }
             }
-          ]
+          }
         }
       ) {
         aggregate {
           count
         }
       }
-      total_enrollments: user_enrollments_aggregate {
+      total_enrollments: user_enrollments_aggregate(
+        where: { created_at: { _lte: $datetime } }
+      ) {
         aggregate {
           count
         }
       }
       retired_questions: user_questions_aggregate(
-        where: { retired_on: { _is_null: false } }
+        where: { retired_on: { _is_null: false, _lte: $datetime } }
       ) {
         aggregate {
           count
         }
       }
-      total_questions: user_questions_aggregate {
+      total_questions: user_questions_aggregate(
+        where: { created_at: { _lte: $datetime } }
+      ) {
         aggregate {
           count
         }
@@ -120,7 +135,6 @@ export async function getUserDashboard(
       variables: {
         userId,
         datetime: now,
-        date: DateTime.fromISO(now).toISODate()!,
         monthAgo: DateTime.fromISO(now).minus({ month: 1 }).toISO()!,
       },
       fetchPolicy: "no-cache",

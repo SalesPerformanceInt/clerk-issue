@@ -19,6 +19,7 @@ export const UserEnrollmentWithCounts = graphql(/* GraphQL */ `
       where: {
         user_answers_aggregate: { count: { predicate: { _gt: 0 } } }
         retired_on: { _is_null: true }
+        last_answered_on: { _lte: $datetime }
       }
     ) {
       aggregate {
@@ -29,6 +30,7 @@ export const UserEnrollmentWithCounts = graphql(/* GraphQL */ `
       where: {
         user_answers_aggregate: { count: { predicate: { _eq: 0 } } }
         retired_on: { _is_null: true }
+        last_answered_on: { _lte: $datetime }
       }
     ) {
       aggregate {
@@ -36,7 +38,10 @@ export const UserEnrollmentWithCounts = graphql(/* GraphQL */ `
       }
     }
     retired: user_questions_aggregate(
-      where: { retired_on: { _is_null: false } }
+      where: {
+        retired_on: { _is_null: false }
+        last_answered_on: { _lte: $datetime }
+      }
     ) {
       aggregate {
         count

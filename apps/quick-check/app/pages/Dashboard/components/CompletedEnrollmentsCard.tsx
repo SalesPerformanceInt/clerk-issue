@@ -30,7 +30,7 @@ export const CompletedEnrollmentsCard: FC<CompletedEnrollmentsCardProps> = ({
 
       {dashboard.completed_user_enrollments.map((enrollment) => (
         <ProgressItem
-          onClick={(id) => navigate(`/e/${id}`)}
+          onClick={(id) => navigate(`/dashboard/enrollment/${id}`)}
           key={enrollment.id}
           id={enrollment.id}
           title={enrollment.taxonomy?.display_name}

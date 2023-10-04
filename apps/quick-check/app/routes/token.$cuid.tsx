@@ -1,8 +1,9 @@
 import { redirect, type LoaderArgs } from "@remix-run/node";
 
 import invariant from "tiny-invariant";
-import { getUnauthenticatedApolloClient } from "~/graphql";
 import { createUserSession } from "~/session.server";
+
+import { getUnauthenticatedApolloClient } from "~/graphql";
 
 const invalidTokenRedirect = () => {
   const searchParams = new URLSearchParams({
@@ -25,7 +26,7 @@ export const loader = async ({ params, request }: LoaderArgs) => {
     const searchParams = new URL(request.url).searchParams;
     const path = searchParams.get("p");
 
-    const redirectTo = path ?? "/nq";
+    const redirectTo = path ?? "/next-question";
 
     return createUserSession({
       redirectTo,

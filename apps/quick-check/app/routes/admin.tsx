@@ -10,9 +10,10 @@ import { QuickcheckQuestionEmail } from "emails";
 import { map, pipe } from "remeda";
 import invariant from "tiny-invariant";
 import { z } from "zod";
+import { generateTokenAndSendSMS } from "~/notifications/twilio.server";
+
 import { getAdminApolloClient } from "~/graphql";
 import { createUserActionSchema } from "~/graphql/mutations";
-import { generateTokenAndSendSMS } from "~/notifications/twilio.server";
 
 import { sendEmail } from "~/utils/email";
 import { VERCEL_URL } from "~/utils/envs.server";
@@ -98,7 +99,7 @@ export const action = async ({ request }: ActionArgs) => {
       const user = await getAdminApolloClient().getUser(adminAction.userId);
       invariant(user, "No user found");
       const activeToken = user.active_tokens[0]?.id ?? "";
-      return redirect(`/t/${activeToken}`);
+      return redirect(`/token/${activeToken}`);
     }
 
     if (adminAction?.type === "SEND_QUESTION_EMAIL") {

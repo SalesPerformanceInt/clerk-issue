@@ -1,7 +1,8 @@
 import { redirect, type LoaderArgs } from "@remix-run/node";
 
-import { getUserApolloClientFromRequest } from "~/graphql";
 import { requireUserSession } from "~/session.server";
+
+import { getUserApolloClientFromRequest } from "~/graphql";
 
 export const loader = async ({ request }: LoaderArgs) => {
   try {
@@ -9,7 +10,7 @@ export const loader = async ({ request }: LoaderArgs) => {
     const userApolloClient = await getUserApolloClientFromRequest(request);
     await userApolloClient.resetUser();
 
-    return redirect(`/nq`);
+    return redirect(`/next-question`);
   } catch {
     return redirect(`/`);
   }

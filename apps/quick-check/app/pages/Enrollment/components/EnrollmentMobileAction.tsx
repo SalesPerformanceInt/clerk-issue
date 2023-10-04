@@ -8,20 +8,20 @@ import {
   MobileMenuUnansweredQuestions,
 } from "quickcheck-shared";
 
-import { useDashboardContext } from "~/pages/Dashboard";
+import { useEnrollmentContext } from "~/pages/Enrollment";
 
-export const DashboardMobileAction: FC = () => {
+export const EnrollmentMobileAction: FC = () => {
   const navigate = useNavigate();
 
-  const { dashboard } = useDashboardContext();
+  const { enrollment } = useEnrollmentContext();
 
   return (
     <MobileMenu>
       <MobileMenuUnansweredQuestions
-        unansweredQuestions={dashboard.unanswered_questions}
+        unansweredQuestions={enrollment.unanswered_questions}
         onStart={() => navigate("/next-question")}
       />
-      <MobileMenuNavigation user={dashboard} />
+      <MobileMenuNavigation user={enrollment.user} />
     </MobileMenu>
   );
 };

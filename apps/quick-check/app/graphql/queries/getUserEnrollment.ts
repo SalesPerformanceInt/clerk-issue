@@ -1,9 +1,11 @@
+import { DateTime } from "luxon";
+
 import { contentStack } from "~/contentstack.server";
 
 import { graphql, type WithApolloClient } from "~/graphql";
 
 export const GET_USER_ENROLLMENT = graphql(/* GraphQL */ `
-  query GetUserEnrollment($id: uuid!) {
+  query GetUserEnrollment($id: uuid!, $datetime: timestamptz!) {
     user_enrollment_by_pk(id: $id) {
       ...UserEnrollmentWithCounts
       user_questions {
@@ -25,6 +27,11 @@ export const GET_USER_ENROLLMENT = graphql(/* GraphQL */ `
           }
         }
       }
+      user {
+        ...UserUnansweredQuestions
+        first_name
+        last_name
+      }
     }
   }
 `);
@@ -33,7 +40,7 @@ export async function getUserEnrollment(this: WithApolloClient, id: string) {
   try {
     const { data } = await this.client.query({
       query: GET_USER_ENROLLMENT,
-      variables: { id },
+      variables: { id, datetime: DateTime.now().toISO()! },
       fetchPolicy: "no-cache",
     });
 
@@ -60,6 +67,8 @@ export async function getUserEnrollment(this: WithApolloClient, id: string) {
       ...enrollment,
       user_questions,
       taxonomy,
+      unanswered_questions:
+        enrollment.user.unanswered_questions.aggregate?.count ?? 0,
     };
   } catch (error) {
     console.log("ERROR", error);

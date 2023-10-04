@@ -61,7 +61,7 @@ export const loader = async ({ params, request }: LoaderArgs) => {
 
     return json({ questionItem, enrollmentTaxonomy, variant, id, userData });
   } catch (error) {
-    throw redirect("/nq");
+    throw redirect("/next-question");
   }
 };
 
@@ -107,7 +107,7 @@ export default function QuestionPage() {
   return (
     <Question
       key={questionItem.uid}
-      onContinue={() => navigate("/nq")}
+      onContinue={() => navigate("/next-question")}
       onSubmit={onSubmit}
       variant={variant}
       onClose={() => navigate("/")}

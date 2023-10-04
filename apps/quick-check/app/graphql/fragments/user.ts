@@ -32,8 +32,8 @@ export const BaseUser = graphql(/* GraphQL */ `
   }
 `);
 
-export const UserActiveQuestionsData = graphql(/* GraphQL */ `
-  fragment UserActiveQuestionsData on user {
+export const UserUnansweredQuestions = graphql(/* GraphQL */ `
+  fragment UserUnansweredQuestions on user {
     unanswered_questions: user_questions_aggregate(
       where: {
         retired_on: { _is_null: true }
@@ -44,6 +44,12 @@ export const UserActiveQuestionsData = graphql(/* GraphQL */ `
         count(distinct: true)
       }
     }
+  }
+`);
+
+export const UserActiveQuestionsData = graphql(/* GraphQL */ `
+  fragment UserActiveQuestionsData on user {
+    ...UserUnansweredQuestions
     active_enrollments: user_enrollments_aggregate(
       where: {
         user_questions_aggregate: {

@@ -1,10 +1,11 @@
 import { type FC } from "react";
 import { useTranslation } from "react-i18next";
 
-import { Card, ResponsiveContainer, Section } from "quickcheck-shared";
+import { ResponsiveContainer } from "quickcheck-shared";
 
 import {
   EnrollmentHeader,
+  EnrollmentMobileAction,
   EnrollmentOverviewSection,
   EnrollmentSkillsSection,
 } from "./components";
@@ -26,6 +27,7 @@ export const Enrollment: FC<EnrollmentProps> = ({ enrollment }) => {
         <EnrollmentOverviewSection />
         <EnrollmentSkillsSection />
       </ResponsiveContainer>
+      <EnrollmentMobileAction />
     </EnrollmentContextProvider>
   );
 };

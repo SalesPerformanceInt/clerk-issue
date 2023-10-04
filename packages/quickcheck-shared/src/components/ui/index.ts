@@ -7,3 +7,5 @@ export * from "./WeeklyStreakCalendar";
 export * from "./LeaderboardEntry";
 export * from "./CircularProgress";
 export * from "./EnrollmentSkillCard";
+export * from "./Header";
+export * from "./MobileMenu";

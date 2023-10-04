@@ -19,18 +19,19 @@ type NavButtonProps = Omit<NavLinkProps, "className" | "children"> & {
   label: string;
 };
 
+const navButtonClassName =
+  "flex flex-grow h-11 box-content p-2 pb-1 gap-1 flex-col justify-center items-center";
+const navButtonLabelClassName = "text-xs uppercase font-semibold leading-4";
+
 const NavButton: FC<NavButtonProps> = ({ icon, label, to }) => (
   <NavLink
     to={to}
     className={({ isActive, isPending }) =>
-      twMerge(
-        "flex flex-grow h-10 box-content p-2 pt-4 gap-1 flex-col justify-center items-center",
-        isActive && "bg-primary-25",
-      )
+      twMerge(navButtonClassName, isActive && "bg-primary-25")
     }
   >
     <Icon icon={icon} className="text-2xl" />
-    <p className="text-xs uppercase font-semibold leading-4">{label}</p>
+    <p className={navButtonLabelClassName}>{label}</p>
   </NavLink>
 );
 
@@ -38,15 +39,10 @@ const AccelerateNavButton = () => {
   const { t } = useTranslation();
 
   return (
-    <a
-      href="http://richardson.com"
-      className="flex flex-grow h-10 box-content p-2 pt-4 gap-1 flex-col justify-center items-center"
-    >
+    <a href="http://richardson.com" className={navButtonClassName}>
       <AccelerateIcon className="mr-2" />
       <div className="flex justify-center">
-        <p className="text-xs uppercase font-semibold leading-4">
-          {t("common.accelerate")}
-        </p>
+        <p className={navButtonLabelClassName}>{t("common.accelerate")}</p>
         <FontAwesomeIcon
           icon={faArrowUpRightFromSquare}
           className="ml-0.5 text-2xs mb-0.5"

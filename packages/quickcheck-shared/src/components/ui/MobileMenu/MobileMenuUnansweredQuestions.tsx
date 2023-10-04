@@ -16,7 +16,7 @@ export const MobileMenuUnansweredQuestions: FC<
   const { t } = useTranslation();
 
   return (
-    <div className="px-4 pb-4 pt-2 flex flex-col gap-2 items-center">
+    <div className="px-4 pb-4 pt-2 flex flex-col gap-1 items-center">
       <p className="text-xs text-primary-75 uppercase">
         {t("common.unanswered", { count: unansweredQuestions })}
       </p>

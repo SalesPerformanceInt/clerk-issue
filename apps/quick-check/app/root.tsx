@@ -1,4 +1,3 @@
-import { useMemo } from "react";
 import { useTranslation } from "react-i18next";
 
 import {
@@ -15,7 +14,6 @@ import {
   Scripts,
   ScrollRestoration,
   useLoaderData,
-  useLocation,
 } from "@remix-run/react";
 
 import fontAwesome from "@fortawesome/fontawesome-svg-core/styles.css";
@@ -40,7 +38,7 @@ import {
 import { getOptionalUserApolloClientFromRequest } from "./graphql";
 
 export const loader = async ({ request }: LoaderArgs) => {
-  const [now, userId] = await getUserDataFromFromSession(request);
+  const [now] = await getUserDataFromFromSession(request);
   const userApolloClient =
     await getOptionalUserApolloClientFromRequest(request);
 
@@ -54,7 +52,7 @@ export const loader = async ({ request }: LoaderArgs) => {
     QC_CONTENTSTACK_STACK_KEY,
   };
 
-  return json({ theme: null, locale, ENV, now, userId });
+  return json({ theme: null, locale, ENV, now });
 };
 
 export const handle = {
@@ -89,17 +87,10 @@ export const meta: V2_MetaFunction = () => [
 ];
 
 export default function App() {
-  const { theme, locale, ENV, now, userId } = useLoaderData<typeof loader>();
+  const { theme, locale, ENV, now } = useLoaderData<typeof loader>();
 
-  const { pathname } = useLocation();
   const { i18n } = useTranslation();
   useChangeLanguage(locale);
-
-  const timeTravelEnabled = useMemo(() => {
-    const disabledPaths = ["/admin"];
-
-    return !disabledPaths.includes(pathname) && !!userId;
-  }, []);
 
   return (
     <html lang={locale} dir={i18n.dir()} className="h-full overflow-hidden">
@@ -114,7 +105,7 @@ export default function App() {
         />
       </head>
       <body className="h-full overflow-auto bg-background-secondary">
-        {timeTravelEnabled && <TimeTravel now={now} />}
+        <TimeTravel now={now} />
 
         <Outlet context={{ now }} />
         <ScrollRestoration />

@@ -1,3 +1,5 @@
+import type { AtLeastOne } from "quickcheck-shared";
+
 import {
   graphql,
   type GQLProxyData,
@@ -25,10 +27,10 @@ export const UPDATE_USER_ENROLLMENT = graphql(/* GraphQL */ `
 export async function updateUserEnrollment(
   this: WithApolloClient,
   id: string,
-  data: {
-    set?: User_Enrollment_Set_Input;
-    inc?: User_Enrollment_Inc_Input;
-  },
+  data: AtLeastOne<{
+    set: User_Enrollment_Set_Input;
+    inc: User_Enrollment_Inc_Input;
+  }>,
   _proxyData: GQLProxyData,
 ) {
   try {

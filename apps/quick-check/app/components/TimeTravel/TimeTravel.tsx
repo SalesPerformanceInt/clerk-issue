@@ -39,6 +39,11 @@ export const TimeTravel: FC<TimeTravelProps> = ({ now, className }) => {
 
   const toggleModal = useCallback(() => setShowModal((prev) => !prev), []);
 
+  const disabledPaths = ["/admin", "/login"];
+  const isTimeTravelDisabled = disabledPaths.includes(location.pathname);
+
+  if (isTimeTravelDisabled) return null;
+
   return (
     <>
       <div

@@ -1,7 +1,5 @@
-import type { FC } from "react";
-
-import { defer, type LoaderArgs } from "@remix-run/node";
-import { useLoaderData, useSearchParams } from "@remix-run/react";
+import { defer, redirect, type LoaderArgs } from "@remix-run/node";
+import { useLoaderData, useNavigate, useSearchParams } from "@remix-run/react";
 
 import { deserialize, serialize } from "remix-typedjson";
 
@@ -14,8 +12,6 @@ import { getUserLeaderboard } from "~/models/leaderboard";
 
 import { Dashboard } from "~/pages";
 
-import { AccelerateButton } from "~/components";
-
 /**
  * Loader
  */
@@ -26,7 +22,7 @@ export const loader = async ({ request }: LoaderArgs) => {
 
   const dashboard = await userApolloClient?.getUserDashboard();
 
-  if (!dashboard) return null;
+  if (!dashboard) return redirect("/login");
 
   const userLeaderboard = getUserLeaderboard(request, dashboard);
 
@@ -40,21 +36,10 @@ export const loader = async ({ request }: LoaderArgs) => {
  * Route Component
  */
 
-const LogIn: FC<{ message: string | null }> = ({ message }) => (
-  <div className="flex h-full flex-col items-center justify-center space-y-4">
-    {message && <p className="text-sm text-white">{message}</p>}
-
-    <AccelerateButton />
-  </div>
-);
-
 export default function Index() {
   const data = useLoaderData<typeof loader>();
 
-  const [searchParams] = useSearchParams();
-  const message = searchParams.get("message");
-
-  if (!data) return <LogIn message={message} />;
+  if (!("dashboard" in data)) return null;
 
   const dashboard = deserialize<DashboardData>(data.dashboard)!;
   const { userLeaderboard } = data;

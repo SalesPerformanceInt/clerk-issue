@@ -19,7 +19,9 @@ export const AccelerateButton: FC = () => {
       className="uppercase text-xs px-4 w-auto"
     >
       <AccelerateIcon className="mr-2" dark />
+
       {t("buttons.accelerate")}
+
       <FontAwesomeIcon
         icon={faArrowUpRightFromSquare}
         className="ml-0.5 text-2xs mb-0.5"

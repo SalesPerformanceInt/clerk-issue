@@ -1,9 +1,11 @@
 import React, { type FC } from "react";
 import { useTranslation } from "react-i18next";
 
-import { useDashboardContext } from "~/pages/Dashboard";
+import { useNavigate } from "@remix-run/react";
 
 import { Card, CardTitle, ProgressItem } from "quickcheck-shared";
+
+import { useDashboardContext } from "~/pages/Dashboard";
 
 interface CompletedEnrollmentsCardProps {
   className?: string;
@@ -14,6 +16,7 @@ export const CompletedEnrollmentsCard: FC<CompletedEnrollmentsCardProps> = ({
 }) => {
   const { dashboard } = useDashboardContext();
   const { t } = useTranslation();
+  const navigate = useNavigate();
 
   if (!dashboard.completed_user_enrollments.length) return null;
 
@@ -27,6 +30,7 @@ export const CompletedEnrollmentsCard: FC<CompletedEnrollmentsCardProps> = ({
 
       {dashboard.completed_user_enrollments.map((enrollment) => (
         <ProgressItem
+          onClick={(id) => navigate(`/e/${id}`)}
           key={enrollment.id}
           id={enrollment.id}
           title={enrollment.taxonomy?.display_name}

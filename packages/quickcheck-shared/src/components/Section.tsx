@@ -30,7 +30,7 @@ export const Section: FC<DashboardSectionProps> = ({
           createElement(child.type, {
             ...{
               ...child.props,
-              className: "flex-grow basis-full flow sm:basis-0 h-fit",
+              className: "flex-grow basis-full flow sm:basis-5/12 h-fit",
             },
           }),
         )}

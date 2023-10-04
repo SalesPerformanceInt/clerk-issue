@@ -40,7 +40,7 @@ const ProgressItem: FC<ProgressItemProps> = ({
 
   return (
     <div
-      className="flex items-center justify-between p-6 gap-6 cursor-pointer border-b border-b-background-secondary last:border-b-0"
+      className="flex items-center justify-between p-4 gap-6 cursor-pointer border-b border-b-background-secondary last:border-b-0 hover:backdrop-brightness-95"
       onClick={() => onClick?.(id)}
     >
       <div className={twMerge("flex flex-col gap-2 w-full", !title && "gap-4")}>
@@ -98,13 +98,15 @@ const ProgressItem: FC<ProgressItemProps> = ({
           <span>{t("user.dashboard.total", { count: progress.total })}</span>
         </div>
       </div>
-      <div>
-        <FontAwesomeIcon
-          icon={faChevronRight}
-          size="lg"
-          className="text-primary-25"
-        />
-      </div>
+      {!!onClick && (
+        <div>
+          <FontAwesomeIcon
+            icon={faChevronRight}
+            size="lg"
+            className="text-primary-25"
+          />
+        </div>
+      )}
     </div>
   );
 };

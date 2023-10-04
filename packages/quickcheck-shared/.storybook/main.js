@@ -12,6 +12,7 @@ export const addons = [
   "@storybook/addon-essentials",
   "@storybook/addon-interactions",
   "@storybook/addon-viewport",
+  "storybook-react-i18next",
 ];
 
 export const framework = {

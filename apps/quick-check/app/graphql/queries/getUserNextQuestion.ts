@@ -8,7 +8,7 @@ export const GET_USER_NEXT_QUESTION = graphql(/* GraphQL */ `
   query GetUserNextQuestion($userId: uuid!, $now: timestamptz!) {
     user_by_pk(user_id: $userId) {
       user_questions(
-        where: { active_on: { _lte: $now } }
+        where: { active_on: { _lte: $now }, retired_on: { _is_null: true } }
         order_by: { active_on: asc }
         limit: 1
       ) {

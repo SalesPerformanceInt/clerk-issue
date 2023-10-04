@@ -29,6 +29,7 @@ import {
   getUserActiveQuestionsData,
   getUserDashboard,
   getUserEmailData,
+  getUserEnrollment,
   getUserNextQuestion,
   getUserQuestion,
   getUserQuestionLearningRecord,
@@ -109,6 +110,7 @@ export class GraphQLClient implements WithApolloClient {
   updateUserEnrollment = updateUserEnrollment;
   getTaxonomyEnrollments = getTaxonomyEnrollments;
   updateUser = updateUser;
+  getUserEnrollment = getUserEnrollment;
 
   constructor(headers: GraphQLHeaders) {
     this.client = getClient(headers);

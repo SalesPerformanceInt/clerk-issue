@@ -34,11 +34,11 @@ export const useDashboardContext = () => {
 /**
  * Context Provider
  */
-export interface DashbaordContextProviderProps extends DashboardContextProps {
+export interface DashboardContextProviderProps extends DashboardContextProps {
   children: ReactNode;
 }
 
-export const DashboardContextProvider: FC<DashbaordContextProviderProps> = ({
+export const DashboardContextProvider: FC<DashboardContextProviderProps> = ({
   children,
   dashboard,
   userLeaderboard,

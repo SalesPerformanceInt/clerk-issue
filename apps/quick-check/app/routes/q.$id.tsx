@@ -82,7 +82,7 @@ export const action: ActionFunction = async ({ request }) => {
   return json({ result, nextQuestionId });
 };
 
-export default function Page() {
+export default function QuestionPage() {
   const { questionItem, variant, enrollmentTaxonomy, id, userData, now } =
     useLoaderData<typeof loader>();
 

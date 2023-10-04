@@ -29,11 +29,16 @@ const config = {
         DEFAULT:
           "color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter, border-width",
       },
+      height: {
+        33: "8.25rem",
+        37: "9.25rem",
+      },
       maxWidth: {
         desktop: "928px",
       },
       minWidth: {
         "carousel-card": "288px",
+        8: "2rem",
       },
       screens: {
         desktop: "928px",
@@ -64,6 +69,7 @@ const config = {
         },
         text: {
           DEFAULT: "var(--text, #111111)",
+          50: "var(--text-50, #7D7D7D)",
         },
         contrast: {
           DEFAULT: "var(--contrast, #ffffff)",
@@ -80,6 +86,10 @@ const config = {
           1: "var(--chart-1, #787d0f)",
           2: "var(--chart-2, #b570b0)",
           3: "var(--chart-3, #004d6b)",
+          green: "var(--chart-green, #94b263)",
+          yellow: "var(--chart-yellow, #e8b066)",
+          orange: "var(--chart-orange, #d9782b)",
+          red: "var(--chart-red, #820d30)",
         },
       },
       keyframes: {

@@ -1,7 +1,7 @@
-import React, { FC } from "react";
+import React, { type FC } from "react";
 
 import { DateTime } from "luxon";
-import { find, identity, isTruthy, map, pipe, reverse, times } from "remeda";
+import { identity, map, pipe, times } from "remeda";
 
 import { CalendarWeek, type Week } from "~/components";
 
@@ -26,15 +26,18 @@ const DaysOfWeek = () => (
 
 type CalendarMonthProps = {
   calendar: Week[];
+  now: string;
 };
 
-const CalendarMonth: FC<CalendarMonthProps> = ({ calendar }, ref) => (
+const CalendarMonth: FC<CalendarMonthProps> = ({ calendar, now }, ref) => (
   <div className="flex-grow">
     <DaysOfWeek />
+
     {calendar.map((week) => (
       <CalendarWeek
         key={week.days[0]?.date.toISODate()}
         week={week}
+        now={now}
         className="mt-4"
       />
     ))}

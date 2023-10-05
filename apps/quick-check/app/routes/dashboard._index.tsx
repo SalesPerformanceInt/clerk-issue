@@ -12,17 +12,19 @@ import { getUserLeaderboard } from "~/models/leaderboard";
 
 import { Dashboard } from "~/pages";
 
+/**
+ * Loader
+ */
+
 export const loader = async ({ request }: LoaderArgs) => {
   const userApolloClient =
     await getOptionalUserApolloClientFromRequest(request);
 
   const dashboard = await userApolloClient?.getUserDashboard();
+  if (!dashboard) return redirect("/login");
 
-  if (!dashboard) return redirect("/");
-
-  const userLeaderboard = getUserLeaderboard(dashboard);
-
-  if (!userLeaderboard) return redirect("/");
+  const userLeaderboard = getUserLeaderboard(request, dashboard);
+  if (!userLeaderboard) return redirect("/login");
 
   return defer({
     dashboard: serialize(dashboard),
@@ -30,17 +32,17 @@ export const loader = async ({ request }: LoaderArgs) => {
   });
 };
 
+/**
+ * Route Component
+ */
+
 export default function Page() {
   const data = useLoaderData<typeof loader>();
 
-  if ("dashboard" in data) {
-    const dashboard = deserialize<DashboardData>(data.dashboard)!;
-    const { userLeaderboard } = data;
+  if (!("dashboard" in data)) return redirect("/login");
 
-    return (
-      <Dashboard dashboard={dashboard} userLeaderboard={userLeaderboard} />
-    );
-  }
+  const dashboard = deserialize<DashboardData>(data.dashboard)!;
+  const { userLeaderboard } = data;
 
-  return redirect("/");
+  return <Dashboard dashboard={dashboard} userLeaderboard={userLeaderboard} />;
 }

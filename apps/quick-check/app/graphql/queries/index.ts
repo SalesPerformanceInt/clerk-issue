@@ -10,4 +10,4 @@ export * from "./getUserEmailData";
 export * from "./getUserQuestionLearningRecord";
 export * from "./getActiveUserQuestion";
 export * from "./getUserEnrollment";
-export * from "./getTaxonomyEnrollments";
+export * from "./getRankeableEnrollments";

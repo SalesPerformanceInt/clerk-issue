@@ -1,10 +1,11 @@
+import { logError } from "quickcheck-shared";
+
 import {
   graphql,
+  type GQLProxyData,
   type User_Answer_Insert_Input,
   type WithApolloClient,
 } from "~/graphql";
-
-import { logError } from "quickcheck-shared";
 
 export const CREATE_USER_ANSWER = graphql(/* GraphQL */ `
   mutation CreateUserAnswer($user_answer: user_answer_insert_input!) {
@@ -17,6 +18,7 @@ export const CREATE_USER_ANSWER = graphql(/* GraphQL */ `
 export async function createUserAnswer(
   this: WithApolloClient,
   user_answer: User_Answer_Insert_Input,
+  _proxyData: GQLProxyData,
 ) {
   try {
     const result = await this.client.mutate({

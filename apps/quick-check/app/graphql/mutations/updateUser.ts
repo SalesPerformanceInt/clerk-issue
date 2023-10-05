@@ -1,8 +1,13 @@
-import { graphql, type User_Set_Input, type WithApolloClient } from "~/graphql";
+import {
+  graphql,
+  type GQLProxyUserData,
+  type User_Set_Input,
+  type WithApolloClient,
+} from "~/graphql";
 
 export const UPDATE_USER = graphql(/* GraphQL */ `
-  mutation UpdateUser($user_id: uuid!, $set: user_set_input) {
-    update_user_by_pk(pk_columns: { user_id: $user_id }, _set: $set) {
+  mutation UpdateUser($userId: uuid!, $set: user_set_input) {
+    update_user_by_pk(pk_columns: { user_id: $userId }, _set: $set) {
       ...BaseUser
     }
   }
@@ -11,12 +16,14 @@ export const UPDATE_USER = graphql(/* GraphQL */ `
 export async function updateUser(
   this: WithApolloClient,
   set: User_Set_Input,
-  user_id: string,
+  proxyData: GQLProxyUserData,
 ) {
+  const { userId } = proxyData;
+
   try {
     const result = await this.client.mutate({
       mutation: UPDATE_USER,
-      variables: { user_id, set },
+      variables: { userId, set },
     });
 
     return result.data?.update_user_by_pk ?? null;

@@ -1,5 +1,5 @@
 import {
-  getAdminApolloClient,
+  getAdminApolloClientFromRequest,
   getUserApolloClientFromRequest,
 } from "~/graphql";
 
@@ -14,20 +14,27 @@ export const getUserFromRequest = async (request: Request) => {
 
 export const generateNextQuestionFromRequest = async (request: Request) => {
   const userApolloClient = await getUserApolloClientFromRequest(request);
-  const nextQuestion = await userApolloClient.getUserNextQuestion();
 
-  const nextQuestionId = nextQuestion?.id;
+  const nextQuestion = await userApolloClient.getUserNextQuestion();
+  const nextQuestionId = nextQuestion?.id ?? null;
 
   await userApolloClient.updateNextQuestionId(nextQuestionId);
 
   return nextQuestionId;
 };
 
-export const generateNextQuestionForUser = async (userId: string) => {
-  const adminApolloClient = getAdminApolloClient();
-  const nextQuestion = await adminApolloClient.getUserNextQuestion(userId);
+export const generateNextQuestionForUser = async (
+  request: Request,
+  userId: string,
+) => {
+  const adminApolloClient = await getAdminApolloClientFromRequest(request);
 
-  await adminApolloClient.updateNextQuestionId(userId, nextQuestion?.id);
+  const nextQuestion = await adminApolloClient.getUserNextQuestion({ userId });
+  const nextQuestionId = nextQuestion?.id ?? null;
+
+  await adminApolloClient.updateNextQuestionId(nextQuestionId, {
+    userId,
+  });
 
   return nextQuestion;
 };

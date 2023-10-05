@@ -1,27 +1,36 @@
-import { graphql, type WithApolloClient } from "~/graphql";
+import {
+  graphql,
+  type GQLProxyUserData,
+  type WithApolloClient,
+} from "~/graphql";
 
 export const RESET_USER = graphql(/* GraphQL */ `
-  mutation ResetUser($user_id: uuid!) {
+  mutation ResetUser($userId: uuid!) {
     update_user_by_pk(
-      pk_columns: { user_id: $user_id }
+      pk_columns: { user_id: $userId }
       _set: { next_user_question_id: null }
     ) {
       ...BaseUser
     }
-    delete_learning_record(where: { user_id: { _eq: $user_id } }) {
+    delete_learning_record(where: { user_id: { _eq: $userId } }) {
       affected_rows
     }
-    delete_user_enrollment(where: { user_id: { _eq: $user_id } }) {
+    delete_user_enrollment(where: { user_id: { _eq: $userId } }) {
       affected_rows
     }
   }
 `);
 
-export async function resetUser(this: WithApolloClient, user_id: string) {
+export async function resetUser(
+  this: WithApolloClient,
+  proxyData: GQLProxyUserData,
+) {
+  const { userId } = proxyData;
+
   try {
     const result = await this.client.mutate({
       mutation: RESET_USER,
-      variables: { user_id },
+      variables: { userId },
     });
 
     return result.data?.update_user_by_pk ?? null;

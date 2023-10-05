@@ -37,7 +37,7 @@ export const UserUnansweredQuestions = graphql(/* GraphQL */ `
     unanswered_questions: user_questions_aggregate(
       where: {
         retired_on: { _is_null: true }
-        active_on: { _is_null: false, _lte: $datetime }
+        active_on: { _is_null: false, _lte: $now }
       }
     ) {
       aggregate {

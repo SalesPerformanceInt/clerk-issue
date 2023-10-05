@@ -14,7 +14,6 @@ import {
 
 import { compact, first, map, pipe } from "remeda";
 import invariant from "tiny-invariant";
-import { requireUserSession } from "~/session.server";
 
 import {
   Question,
@@ -27,6 +26,7 @@ import { getUserApolloClientFromRequest } from "~/graphql";
 
 import { saveAnswer, type Answer } from "~/models/answer";
 import { getQuestionData } from "~/models/question";
+import { requireUserSession } from "~/models/session";
 import { generateNextQuestionFromRequest } from "~/models/user";
 
 const getVariantNames = (questionItemVariants: QuestionItemVariant[]) =>
@@ -41,11 +41,10 @@ const getFirstVariant = (questionItemVariants: QuestionItemVariant[]) =>
 
 export const loader = async ({ params, request }: LoaderArgs) => {
   try {
-    await requireUserSession(request);
-
     const { id } = params;
-
     invariant(id, "ID not found");
+
+    const [now] = await requireUserSession(request);
 
     const userApolloClient = await getUserApolloClientFromRequest(request);
     const userQuestion = await userApolloClient.getActiveUserQuestion(id);
@@ -59,16 +58,26 @@ export const loader = async ({ params, request }: LoaderArgs) => {
     const variant = getFirstVariant(questionItem.variants);
     invariant(variant, "No valid variant");
 
-    return json({ questionItem, enrollmentTaxonomy, variant, id, userData });
+    return json({
+      questionItem,
+      enrollmentTaxonomy,
+      variant,
+      id,
+      userData,
+      now,
+    });
   } catch (error) {
     throw redirect("/next-question");
   }
 };
 
 export const shouldRevalidate: ShouldRevalidateFunction = ({
-  currentParams,
-  nextParams,
-}) => currentParams.id !== nextParams.id;
+  actionResult,
+}) => {
+  const hasSubmittedAnswer = !!actionResult;
+
+  return !hasSubmittedAnswer;
+};
 
 export const action: ActionFunction = async ({ request }) => {
   const result = await saveAnswer(request);
@@ -79,21 +88,20 @@ export const action: ActionFunction = async ({ request }) => {
 };
 
 export default function QuestionPage() {
-  const { questionItem, variant, enrollmentTaxonomy, id, userData } =
+  const { questionItem, variant, enrollmentTaxonomy, id, userData, now } =
     useLoaderData<typeof loader>();
 
   const navigate = useNavigate();
   const submit = useSubmit();
 
   const onSubmit: OnSubmit = (selection) => {
-    const currentDate = new Date().toISOString();
-
     const answer: Answer = {
       id,
       questionId: questionItem.uid,
       correct: selection.correct,
       uid: selection.value,
       variant,
+      now,
     };
 
     const data = JSON.stringify(answer);

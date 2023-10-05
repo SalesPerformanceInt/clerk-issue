@@ -1,4 +1,4 @@
-import { graphql, type WithApolloClient } from "~/graphql";
+import { graphql, type GQLProxyData, type WithApolloClient } from "~/graphql";
 
 export const GET_ALL_USERS = graphql(/* GraphQL */ `
   query GetAllUser {
@@ -8,7 +8,10 @@ export const GET_ALL_USERS = graphql(/* GraphQL */ `
   }
 `);
 
-export async function getAllUsers(this: WithApolloClient) {
+export async function getAllUsers(
+  this: WithApolloClient,
+  _proxyData: GQLProxyData,
+) {
   try {
     const { data } = await this.client.query({
       query: GET_ALL_USERS,

@@ -1,4 +1,4 @@
-import { getAdminApolloClient, type DashboardData } from "~/graphql";
+import { getAdminApolloClientFromRequest, type DashboardData } from "~/graphql";
 
 import { getUserRankedEnrollments } from "./rankedEnrollments";
 import { prepareTaxonomyEnrollments } from "./taxonomyEnrollments";
@@ -7,12 +7,15 @@ import { prepareTaxonomyEnrollments } from "./taxonomyEnrollments";
  * Get User Leaderboard
  */
 
-export const getUserLeaderboard = async (dashboard: DashboardData) => {
-  const adminApolloClient = getAdminApolloClient();
+export const getUserLeaderboard = async (
+  request: Request,
+  dashboard: DashboardData,
+) => {
+  const adminApolloClient = await getAdminApolloClientFromRequest(request);
 
-  const enrollments = await adminApolloClient.getTaxonomyEnrollments(
+  const enrollments = await adminApolloClient.getRankeableEnrollments(
     dashboard.taxonomy_ids,
-    dashboard.tenant_id,
+    { tenantId: dashboard.tenant_id },
   );
 
   if (!enrollments) {
@@ -24,9 +27,8 @@ export const getUserLeaderboard = async (dashboard: DashboardData) => {
     dashboard.user_id,
   );
 
-  const rankedEnrollments = getUserRankedEnrollments(
-    taxonomyEnrollments,
-    dashboard.user_id,
+  const rankedEnrollments = await Promise.all(
+    getUserRankedEnrollments(request, taxonomyEnrollments, dashboard.user_id),
   );
 
   const sortedRankedEnrollments = rankedEnrollments

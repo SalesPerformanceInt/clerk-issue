@@ -11,7 +11,7 @@ export const logError = ({
 }: LogErrorProps) => {
   const message = log ? `ERROR - ${log}` : "ERROR";
 
-  console.log(message, error);
+  console.error(message, error);
 
   return returnedValue;
 };

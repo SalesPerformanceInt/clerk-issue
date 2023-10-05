@@ -12,7 +12,7 @@ import invariant from "tiny-invariant";
 import { z } from "zod";
 import { generateTokenAndSendSMS } from "~/notifications/twilio.server";
 
-import { getAdminApolloClient } from "~/graphql";
+import { getAdminApolloClientFromRequest } from "~/graphql";
 import { createUserActionSchema } from "~/graphql/mutations";
 
 import { sendEmail } from "~/utils/email";
@@ -50,45 +50,52 @@ const parseCreateUserRequest = (formData?: FormData) => {
 };
 
 export const loader = async ({ request }: LoaderArgs) => {
-  const users = (await getAdminApolloClient().getAllUsers()) ?? [];
+  const adminApolloClient = await getAdminApolloClientFromRequest(request);
+
+  const users = (await adminApolloClient.getAllUsers()) ?? [];
   return json({ users }, { status: 200 });
 };
 
 export const action = async ({ request }: ActionArgs) => {
   try {
+    const adminApolloClient = await getAdminApolloClientFromRequest(request);
     const formData = await request.formData();
 
     const createUserInput = parseCreateUserRequest(formData);
 
     if (createUserInput) {
-      await getAdminApolloClient().createUser(createUserInput);
+      await adminApolloClient.createUser(createUserInput);
     }
 
     const adminAction = parseAdminActionRequest(formData);
 
     if (adminAction?.type === "TOGGLE_SMS_ENABLED") {
-      await getAdminApolloClient().toggleUserSMSEnabled(adminAction.userId);
+      await adminApolloClient.toggleUserSMSEnabled({
+        userId: adminAction.userId,
+      });
     }
 
     if (adminAction?.type === "GENERATE_TOKEN_AND_SEND_SMS") {
-      const user = await getAdminApolloClient().getUser(adminAction.userId);
+      const user = await adminApolloClient.getUser({
+        userId: adminAction.userId,
+      });
+
       invariant(user, "No user found");
+
       await generateTokenAndSendSMS(user, request);
     }
 
     if (adminAction?.type === "RESET_USER") {
-      const adminApolloClient = getAdminApolloClient();
-      await adminApolloClient.resetUser(adminAction.userId);
+      await adminApolloClient.resetUser({ userId: adminAction.userId });
 
       const taxonTrees = await buildTaxonTrees();
 
       const enrollments = pipe(
         taxonTrees,
         map((tree) =>
-          adminApolloClient.enrollUser(
-            adminAction.userId,
-            `${tree.rootNode.id}`,
-          ),
+          adminApolloClient.enrollUser(`${tree.rootNode.id}`, {
+            userId: adminAction.userId,
+          }),
         ),
       );
 
@@ -96,21 +103,26 @@ export const action = async ({ request }: ActionArgs) => {
     }
 
     if (adminAction?.type === "LOGIN_USER") {
-      const user = await getAdminApolloClient().getUser(adminAction.userId);
+      const user = await adminApolloClient.getUser({
+        userId: adminAction.userId,
+      });
+
       invariant(user, "No user found");
+
       const activeToken = user.active_tokens[0]?.id ?? "";
       return redirect(`/token/${activeToken}`);
     }
 
     if (adminAction?.type === "SEND_QUESTION_EMAIL") {
-      const user = await getAdminApolloClient().getUserEmailData(
-        adminAction.userId,
-      );
+      const user = await adminApolloClient.getUserEmailData({
+        userId: adminAction.userId,
+      });
+
       invariant(user, "No user found");
 
       const nextQuestion =
         user?.next_question ??
-        (await generateNextQuestionForUser(adminAction.userId));
+        (await generateNextQuestionForUser(request, adminAction.userId));
 
       invariant(nextQuestion, "Next question not found");
 

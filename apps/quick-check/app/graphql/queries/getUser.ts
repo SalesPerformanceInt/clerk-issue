@@ -1,4 +1,8 @@
-import { graphql, type WithApolloClient } from "~/graphql";
+import {
+  graphql,
+  type GQLProxyUserData,
+  type WithApolloClient,
+} from "~/graphql";
 
 export const GET_USER = graphql(/* GraphQL */ `
   query GetUser($userId: uuid!) {
@@ -8,7 +12,12 @@ export const GET_USER = graphql(/* GraphQL */ `
   }
 `);
 
-export async function getUser(this: WithApolloClient, userId: string) {
+export async function getUser(
+  this: WithApolloClient,
+  proxyData: GQLProxyUserData,
+) {
+  const { userId } = proxyData;
+
   try {
     const { data } = await this.client.query({
       query: GET_USER,

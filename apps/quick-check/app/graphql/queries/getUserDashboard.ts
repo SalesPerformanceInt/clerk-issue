@@ -2,13 +2,17 @@ import { DateTime } from "luxon";
 
 import { contentStack } from "~/contentstack.server";
 
-import { graphql, type WithApolloClient } from "~/graphql";
+import {
+  graphql,
+  type GQLProxyUserData,
+  type WithApolloClient,
+} from "~/graphql";
 
 export const GET_USER_DASHBOARD = graphql(/* GraphQL */ `
   query GetUserDashboard(
     $userId: uuid!
-    $datetime: timestamptz!
-    $date: date!
+    $now: timestamptz!
+    $nowDate: date!
     $monthAgo: timestamptz!
   ) {
     user_by_pk(user_id: $userId) {
@@ -20,12 +24,22 @@ export const GET_USER_DASHBOARD = graphql(/* GraphQL */ `
       active_user_enrollments: user_enrollments(
         where: {
           _or: [
-            { completed_on: { _is_null: true, _lte: $date } }
+            {
+              _or: [
+                { completed_on: { _is_null: true } }
+                { completed_on: { _gte: $nowDate } }
+              ]
+            }
             {
               user_questions_aggregate: {
                 count: {
                   predicate: { _gt: 0 }
-                  filter: { retired_on: { _is_null: true } }
+                  filter: {
+                    _or: [
+                      { retired_on: { _is_null: true } }
+                      { retired_on: { _gte: $now } }
+                    ]
+                  }
                 }
               }
             }
@@ -37,12 +51,17 @@ export const GET_USER_DASHBOARD = graphql(/* GraphQL */ `
       completed_user_enrollments: user_enrollments(
         where: {
           _or: [
-            { completed_on: { _is_null: false } }
+            { completed_on: { _is_null: false, _lte: $nowDate } }
             {
               user_questions_aggregate: {
                 count: {
                   predicate: { _eq: 0 }
-                  filter: { retired_on: { _is_null: true } }
+                  filter: {
+                    _or: [
+                      { retired_on: { _is_null: true } }
+                      { retired_on: { _gte: $now } }
+                    ]
+                  }
                 }
               }
             }
@@ -53,13 +72,25 @@ export const GET_USER_DASHBOARD = graphql(/* GraphQL */ `
       }
       skills_attempted: user_questions_aggregate(
         distinct_on: taxonomy_id
-        where: { user_answers_aggregate: { count: { predicate: { _gt: 0 } } } }
+        where: {
+          created_at: { _lte: $now }
+          last_answered_on: { _is_null: false }
+          user_answers_aggregate: {
+            count: {
+              predicate: { _gt: 0 }
+              filter: { created_at: { _lte: $now } }
+            }
+          }
+        }
       ) {
         aggregate {
           count
         }
       }
-      total_skills: user_questions_aggregate(distinct_on: taxonomy_id) {
+      total_skills: user_questions_aggregate(
+        distinct_on: taxonomy_id
+        where: { created_at: { _lte: $now } }
+      ) {
         aggregate {
           count
         }
@@ -67,12 +98,17 @@ export const GET_USER_DASHBOARD = graphql(/* GraphQL */ `
       completed_enrollments: user_enrollments_aggregate(
         where: {
           _or: [
-            { completed_on: { _is_null: false } }
+            { completed_on: { _is_null: false, _lte: $nowDate } }
             {
               user_questions_aggregate: {
                 count: {
                   predicate: { _eq: 0 }
-                  filter: { retired_on: { _is_null: true } }
+                  filter: {
+                    _or: [
+                      { retired_on: { _is_null: true } }
+                      { retired_on: { _gte: $now } }
+                    ]
+                  }
                 }
               }
             }
@@ -83,19 +119,23 @@ export const GET_USER_DASHBOARD = graphql(/* GraphQL */ `
           count
         }
       }
-      total_enrollments: user_enrollments_aggregate {
-        aggregate {
-          count
-        }
-      }
-      retired_questions: user_questions_aggregate(
-        where: { retired_on: { _is_null: false } }
+      total_enrollments: user_enrollments_aggregate(
+        where: { created_at: { _lte: $now } }
       ) {
         aggregate {
           count
         }
       }
-      total_questions: user_questions_aggregate {
+      retired_questions: user_questions_aggregate(
+        where: { retired_on: { _is_null: false, _lte: $now } }
+      ) {
+        aggregate {
+          count
+        }
+      }
+      total_questions: user_questions_aggregate(
+        where: { created_at: { _lte: $now } }
+      ) {
         aggregate {
           count
         }
@@ -104,17 +144,20 @@ export const GET_USER_DASHBOARD = graphql(/* GraphQL */ `
   }
 `);
 
-export async function getUserDashboard(this: WithApolloClient, userId: string) {
+export async function getUserDashboard(
+  this: WithApolloClient,
+  proxyData: GQLProxyUserData,
+) {
   try {
-    const now = DateTime.now();
+    const { userId, now } = proxyData;
 
     const result = await this.client.query({
       query: GET_USER_DASHBOARD,
       variables: {
         userId,
-        datetime: now.toISO()!,
-        date: now.toISODate()!,
-        monthAgo: now.minus({ month: 1 }).toISO()!,
+        now,
+        nowDate: DateTime.fromISO(now).toISODate()!,
+        monthAgo: DateTime.fromISO(now).minus({ month: 1 }).toISO()!,
       },
       fetchPolicy: "no-cache",
     });

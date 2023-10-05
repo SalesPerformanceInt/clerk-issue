@@ -1,20 +1,20 @@
-import React, { ElementRef, forwardRef } from "react";
+import React, { forwardRef, type ElementRef } from "react";
 
-import * as AvatarPrimitive from "@radix-ui/react-avatar";
 import { DateTime } from "luxon";
 
 import { CalendarStatus, type Day } from "~/components";
 
 type CalendarDayProps = {
   day: Day;
+  now: string;
 };
 
 const CalendarDay = forwardRef<
   ElementRef<typeof CalendarStatus>,
   CalendarDayProps
->(({ day: { date, activity }, ...props }, ref) => {
-  const future = date.startOf("day") > DateTime.now().startOf("day");
-  const today = date.hasSame(DateTime.now(), "day");
+>(({ day: { date, activity }, now, ...props }, ref) => {
+  const future = date.startOf("day") > DateTime.fromISO(now).startOf("day");
+  const today = date.hasSame(DateTime.fromISO(now), "day");
   const firstOfMonth = date.set({ day: 1 }).hasSame(date, "day");
 
   return (

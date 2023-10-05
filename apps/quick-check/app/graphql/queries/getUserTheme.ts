@@ -1,5 +1,10 @@
 import { contentStack } from "~/contentstack.server";
-import { graphql, type WithApolloClient } from "~/graphql";
+
+import {
+  graphql,
+  type GQLProxyUserData,
+  type WithApolloClient,
+} from "~/graphql";
 
 export const GET_USER_THEME = graphql(/* GraphQL */ `
   query GetUserTheme($userId: uuid!) {
@@ -11,7 +16,12 @@ export const GET_USER_THEME = graphql(/* GraphQL */ `
   }
 `);
 
-export async function getUserTheme(this: WithApolloClient, userId: string) {
+export async function getUserTheme(
+  this: WithApolloClient,
+  proxyData: GQLProxyUserData,
+) {
+  const { userId } = proxyData;
+
   try {
     const result = await this.client.query({
       query: GET_USER_THEME,

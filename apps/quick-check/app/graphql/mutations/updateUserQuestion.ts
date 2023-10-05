@@ -1,6 +1,6 @@
 import {
   graphql,
-  type User_Question_Inc_Input,
+  type GQLProxyData,
   type User_Question_Set_Input,
   type WithApolloClient,
 } from "~/graphql";
@@ -17,6 +17,7 @@ export async function updateUserQuestion(
   this: WithApolloClient,
   id: string,
   set: User_Question_Set_Input,
+  _proxyData: GQLProxyData,
 ) {
   try {
     const result = await this.client.mutate({

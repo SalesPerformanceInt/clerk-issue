@@ -110,8 +110,7 @@ export const action = async ({ request }: ActionArgs) => {
       invariant(user, "No user found");
 
       const activeToken = user.active_tokens[0]?.id ?? "";
-
-      return redirect(`/t/${activeToken}`);
+      return redirect(`/token/${activeToken}`);
     }
 
     if (adminAction?.type === "SEND_QUESTION_EMAIL") {

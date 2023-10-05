@@ -4,7 +4,9 @@ interface RichardsonLogoProps {
   className?: string;
 }
 
-export const RichardsonLogo: FC<RichardsonLogoProps> = ({ className }) => (
+export const RichardsonLogo: FC<RichardsonLogoProps> = ({
+  className = "mr-6",
+}) => (
   <svg
     className={className}
     width="24"

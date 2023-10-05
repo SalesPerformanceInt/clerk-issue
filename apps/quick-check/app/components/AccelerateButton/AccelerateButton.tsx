@@ -20,7 +20,7 @@ export const AccelerateButton: FC = () => {
     >
       <AccelerateIcon className="mr-2" dark />
 
-      {t("buttons.accelerate")}
+      {t("common.accelerate")}
 
       <FontAwesomeIcon
         icon={faArrowUpRightFromSquare}

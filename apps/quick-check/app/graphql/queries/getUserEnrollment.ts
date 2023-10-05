@@ -25,6 +25,11 @@ export const GET_USER_ENROLLMENT = graphql(/* GraphQL */ `
           }
         }
       }
+      user {
+        ...UserUnansweredQuestions
+        first_name
+        last_name
+      }
     }
   }
 `);
@@ -66,6 +71,8 @@ export async function getUserEnrollment(
       ...enrollment,
       user_questions,
       taxonomy,
+      unanswered_questions:
+        enrollment.user.unanswered_questions.aggregate?.count ?? 0,
     };
   } catch (error) {
     console.log("ERROR", error);

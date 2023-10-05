@@ -32,6 +32,7 @@ const config = {
       height: {
         33: "8.25rem",
         37: "9.25rem",
+        11: "2.75rem",
       },
       maxWidth: {
         desktop: "928px",

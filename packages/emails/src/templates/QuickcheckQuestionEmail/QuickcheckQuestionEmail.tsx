@@ -106,7 +106,7 @@ export const QuickcheckQuestionEmail = ({
                 (pairs, index) => (
                   <Row key={index} className="border-separate sm:mb-2 w-full">
                     {pairs.map(({ choice }, index) => {
-                      const path = `/q/${questionId}?c=${choice._metadata.uid}`;
+                      const path = `/question/${questionId}?c=${choice._metadata.uid}`;
 
                       return (
                         <Column
@@ -117,7 +117,7 @@ export const QuickcheckQuestionEmail = ({
                           )}
                         >
                           <Link
-                            href={`${domain}/t/${token}?p=${path}`}
+                            href={`${domain}/token/${token}?p=${path}`}
                             target="_blank"
                             className="h-full block bg-background-secondary rounded-sm"
                           >
@@ -134,7 +134,7 @@ export const QuickcheckQuestionEmail = ({
               <Row className="mt-4">
                 <Column className="w-full bg-primary p-2 rounded-smd">
                   <Button
-                    href={`${domain}/t/${token}`}
+                    href={`${domain}/token/${token}`}
                     className="text-xs leading-4 text-contrast w-full whitespace-pre-line"
                   >
                     {t("emails.question.unanswered", {

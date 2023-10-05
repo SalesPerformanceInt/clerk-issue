@@ -27,7 +27,7 @@ export const loader = async ({ params, request }: LoaderArgs) => {
     const searchParams = new URL(request.url).searchParams;
     const path = searchParams.get("p");
 
-    const redirectTo = path ?? "/nq";
+    const redirectTo = path ?? "/next-question";
 
     return createUserSession({
       redirectTo,

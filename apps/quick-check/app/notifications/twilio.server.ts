@@ -46,7 +46,7 @@ const generateTokenMessage = (
   token: string,
   origin: string,
 ) => {
-  const message = `Hey there ${user.first_name}, your next question is available at ${origin}/t/${token}`;
+  const message = `Hey there ${user.first_name}, your next question is available at ${origin}/token/${token}`;
   return message;
 };
 

@@ -67,7 +67,7 @@ export const loader = async ({ params, request }: LoaderArgs) => {
       now,
     });
   } catch (error) {
-    throw redirect("/nq");
+    throw redirect("/next-question");
   }
 };
 
@@ -108,18 +108,16 @@ export default function QuestionPage() {
   const initialChoiceId = searchParams.get("c");
 
   return (
-    <>
-      <Question
-        key={questionItem.uid}
-        onContinue={() => navigate("/nq")}
-        onSubmit={onSubmit}
-        variant={variant}
-        onClose={() => navigate("/")}
-        questionItem={questionItem}
-        enrollmentTaxonomy={enrollmentTaxonomy}
-        initialChoiceId={initialChoiceId}
-        userData={userData}
-      />
-    </>
+    <Question
+      key={questionItem.uid}
+      onContinue={() => navigate("/next-question")}
+      onSubmit={onSubmit}
+      variant={variant}
+      onClose={() => navigate("/")}
+      questionItem={questionItem}
+      enrollmentTaxonomy={enrollmentTaxonomy}
+      initialChoiceId={initialChoiceId}
+      userData={userData}
+    />
   );
 }

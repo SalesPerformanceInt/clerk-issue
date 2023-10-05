@@ -6,6 +6,8 @@ import { faXmark } from "@fortawesome/pro-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { DateTime } from "luxon";
 
+import { Button } from "quickcheck-shared";
+
 /**
  * TimeTravel Modal
  */
@@ -50,25 +52,36 @@ export const TimeTravelModal: FC<TimeTravelModalProps> = ({
         onClick={closeModal}
       />
 
-      <div className="fixed left-0 right-0 w-full max-w-screen-sm mx-auto top-1/2 -translate-y-1/2 flex items-center justify-center bg-primary">
-        <button
-          className="absolute right-2 top-2 p-1 text-background font-bold text-xl"
-          onClick={closeModal}
-        >
-          <FontAwesomeIcon icon={faXmark} />
-        </button>
+      <div className="fixed left-0 right-0 w-full max-w-screen-sm mx-auto top-1/2 -translate-y-1/2 flex items-center justify-center bg-primary rounded shadow-card">
+        <div className="flex items-start justify-between w-full p-8">
+          <div className="flex flex-col justify-start gap-12 text-white font-medium w-full">
+            <h2 className="text-3xl pb-4">Time Travel</h2>
 
-        <div className="flex flex-col justify-start gap-4 text-white font-medium py-4 px-8 w-full">
-          <div>
-            <label htmlFor="currentDate"> Current Date: </label>
-            <input
-              type="date"
-              name="currentDate"
-              className="text-black px-2 py-1 ml-1"
-              value={DateTime.fromISO(localNow).toISODate()!}
-              onChange={(e) => changeDate(e.target.value)}
-            />
+            <div className="flex items-center gap-2 text-xl">
+              <label htmlFor="currentDate">Current Date:</label>
+
+              <input
+                type="date"
+                name="currentDate"
+                className="text-black px-2 py-1 ml-1"
+                value={DateTime.fromISO(localNow).toISODate()!}
+                onChange={(e) => changeDate(e.target.value)}
+              />
+            </div>
+
+            <div className="flex items-center gap-2 text-xl">
+              <Button onClick={() => changeDate(new Date().toISOString())}>
+                Reset Date to Today
+              </Button>
+            </div>
           </div>
+
+          <button
+            className="p-1 text-background font-bold text-2xl"
+            onClick={closeModal}
+          >
+            <FontAwesomeIcon icon={faXmark} />
+          </button>
         </div>
       </div>
     </div>

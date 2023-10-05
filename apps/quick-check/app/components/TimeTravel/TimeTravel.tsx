@@ -4,21 +4,9 @@ import { useLocation } from "@remix-run/react";
 
 import { faGear } from "@fortawesome/pro-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { twMerge } from "tailwind-merge";
-
-import { MatchedMap } from "quickcheck-shared";
+import { DateTime } from "luxon";
 
 import { TimeTravelModal } from "./TimeTravelModal";
-
-/**
- * TimeTravel Styles
- */
-
-const timeTravelStyles = new MatchedMap<string, string>([
-  ["/admin", "hidden"],
-  ["/", "sm:top-16"],
-  ["_", ""],
-]);
 
 /**
  * TimeTravel
@@ -37,26 +25,33 @@ export const TimeTravel: FC<TimeTravelProps> = ({ now, className }) => {
   const location = useLocation();
   const [showModal, setShowModal] = useState(false);
 
-  const toggleModal = useCallback(() => setShowModal((prev) => !prev), []);
+  const hiddenPaths = new Set(["/admin", "/login"]);
+  const isTimeTravelHidden = hiddenPaths.has(location.pathname);
 
-  const disabledPaths = ["/admin", "/login"];
-  const isTimeTravelDisabled = disabledPaths.includes(location.pathname);
+  const enabledPaths = new Set(["/dashboard"]);
+  const isTimeTravelEnabled = enabledPaths.has(location.pathname);
 
-  if (isTimeTravelDisabled) return null;
+  const toggleModal = useCallback(
+    () => isTimeTravelEnabled && setShowModal((prev) => !prev),
+    [isTimeTravelEnabled],
+  );
+
+  if (isTimeTravelHidden) return null;
 
   return (
     <>
-      <div
-        className={twMerge(
-          "absolute top-8 sm:top-12 left-0 right-0 flex justify-center z-20",
-          timeTravelStyles.get(location.pathname),
-        )}
-      >
+      <div className="absolute top-8 sm:top-12 left-0 right-0 flex justify-center z-20">
         <button
-          className="bg-primary-75 rounded-full px-2 py-1 shadow-md text-background text-xl"
+          className="bg-primary-75 rounded px-2 py-1 shadow-md text-background text-xl flex items-center gap-2"
           onClick={toggleModal}
         >
-          <FontAwesomeIcon icon={faGear} />
+          {isTimeTravelEnabled && (
+            <FontAwesomeIcon icon={faGear} className="text-xl" />
+          )}
+
+          <span className="text-base">
+            {DateTime.fromISO(now).toFormat("LLL dd yyyy")}
+          </span>
         </button>
       </div>
 

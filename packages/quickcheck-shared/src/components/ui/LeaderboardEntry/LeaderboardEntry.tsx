@@ -32,7 +32,7 @@ const LeaderboardEntry: FC<LeaderboardEntryProps> = ({
   score,
 }) => {
   return (
-    <div className="flex flex-wrap items-center text-text gap-2">
+    <div className="flex flex-wrap items-start text-text gap-2">
       {direction && (
         <FontAwesomeIcon
           icon={directionMap.get(direction)}

@@ -8,8 +8,8 @@ import {
  * GraphQL
  */
 
-export const GET_TAXONOMY_ENROLLMENTS = graphql(/* GraphQL */ `
-  query GetTaxonomyEnrollments(
+export const GET_RANKEABLE_ENROLLMENTS = graphql(/* GraphQL */ `
+  query GetRankeableEnrollments(
     $taxonomyIds: [String!]
     $tenantId: String!
     $now: timestamptz!
@@ -40,10 +40,10 @@ export const GET_TAXONOMY_ENROLLMENTS = graphql(/* GraphQL */ `
 `);
 
 /**
- * Get Taxonomy Enrollments
+ * Get Rankeable Enrollments
  */
 
-export async function getTaxonomyEnrollments(
+export async function getRankeableEnrollments(
   this: WithApolloClient,
   taxonomyIds: string[],
   proxyData: GQLProxyTenantData,
@@ -52,7 +52,7 @@ export async function getTaxonomyEnrollments(
 
   try {
     const { data } = await this.client.query({
-      query: GET_TAXONOMY_ENROLLMENTS,
+      query: GET_RANKEABLE_ENROLLMENTS,
       variables: { taxonomyIds, tenantId, now },
       fetchPolicy: "no-cache",
     });

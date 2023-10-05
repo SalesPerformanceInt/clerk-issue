@@ -24,7 +24,7 @@ import {
   getActiveUserQuestion,
   getAllUsers,
   getLinkToken,
-  getTaxonomyEnrollments,
+  getRankeableEnrollments,
   getUser,
   getUserActiveQuestionsData,
   getUserDashboard,
@@ -108,7 +108,7 @@ export class GraphQLClient implements WithApolloClient {
   createUserAnswer = createUserAnswer;
   getActiveUserQuestion = getActiveUserQuestion;
   updateUserEnrollment = updateUserEnrollment;
-  getTaxonomyEnrollments = getTaxonomyEnrollments;
+  getRankeableEnrollments = getRankeableEnrollments;
   updateUser = updateUser;
   getUserEnrollment = getUserEnrollment;
 

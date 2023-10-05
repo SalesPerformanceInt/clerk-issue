@@ -71,8 +71,13 @@ export const loader = async ({ params, request }: LoaderArgs) => {
   }
 };
 
-export const shouldRevalidate: ShouldRevalidateFunction = ({ actionResult }) =>
-  !actionResult;
+export const shouldRevalidate: ShouldRevalidateFunction = ({
+  actionResult,
+}) => {
+  const hasSubmittedAnswer = !!actionResult;
+
+  return !hasSubmittedAnswer;
+};
 
 export const action: ActionFunction = async ({ request }) => {
   const result = await saveAnswer(request);

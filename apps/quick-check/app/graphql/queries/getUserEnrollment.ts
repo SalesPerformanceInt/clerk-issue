@@ -3,7 +3,7 @@ import { contentStack } from "~/contentstack.server";
 import { graphql, type GQLProxyData, type WithApolloClient } from "~/graphql";
 
 export const GET_USER_ENROLLMENT = graphql(/* GraphQL */ `
-  query GetUserEnrollment($id: uuid!, $datetime: timestamptz!) {
+  query GetUserEnrollment($id: uuid!, $now: timestamptz!) {
     user_enrollment_by_pk(id: $id) {
       ...UserEnrollmentWithCounts
       user_questions {
@@ -44,7 +44,7 @@ export async function getUserEnrollment(
   try {
     const { data } = await this.client.query({
       query: GET_USER_ENROLLMENT,
-      variables: { id, datetime: now },
+      variables: { id, now },
       fetchPolicy: "no-cache",
     });
 

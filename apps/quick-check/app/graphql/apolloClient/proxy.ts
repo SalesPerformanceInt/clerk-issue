@@ -26,8 +26,6 @@ export type GQLProxyAllData = GQLProxyData & {
   tenantId?: string;
 };
 
-export type GQLProxyClients = "User" | "Admin";
-
 /**
  * Proxy Data Normalization
  */
@@ -57,7 +55,9 @@ type ProxyDataMap<Fn> = {
   Admin: OmitFromLastParam<Fn>;
 };
 
-export type ProxyGraphQLClient<Fn, Client extends GQLProxyClients> = {
+type GQLProxyClients<Fn> = keyof ProxyDataMap<Fn>;
+
+export type ProxyGraphQLClient<Fn, Client extends GQLProxyClients<Fn>> = {
   [K in keyof Fn]: Fn[K] extends (...args: infer Args) => infer Res
     ? ProxyDataMap<Fn[K]>[Client]
     : Fn[K];

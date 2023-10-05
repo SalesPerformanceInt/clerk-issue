@@ -5,7 +5,7 @@ import {
 } from "~/graphql";
 
 export const GET_USER_EMAIL_DATA = graphql(/* GraphQL */ `
-  query GetUserEmailData($userId: uuid!, $datetime: timestamptz!) {
+  query GetUserEmailData($userId: uuid!, $now: timestamptz!) {
     user_by_pk(user_id: $userId) {
       ...UserWithActiveToken
       ...UserActiveQuestionsData
@@ -22,7 +22,7 @@ export async function getUserEmailData(
   try {
     const { data } = await this.client.query({
       query: GET_USER_EMAIL_DATA,
-      variables: { userId, datetime: now },
+      variables: { userId, now },
       fetchPolicy: "no-cache",
     });
 

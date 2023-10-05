@@ -13,7 +13,7 @@ export const getUserLeaderboard = async (
 ) => {
   const adminApolloClient = await getAdminApolloClientFromRequest(request);
 
-  const enrollments = await adminApolloClient.getTaxonomyEnrollments(
+  const enrollments = await adminApolloClient.getRankeableEnrollments(
     dashboard.taxonomy_ids,
     { tenantId: dashboard.tenant_id },
   );

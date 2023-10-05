@@ -11,8 +11,8 @@ import {
 export const GET_USER_DASHBOARD = graphql(/* GraphQL */ `
   query GetUserDashboard(
     $userId: uuid!
-    $date: date!
-    $datetime: timestamptz!
+    $now: timestamptz!
+    $nowDate: date!
     $monthAgo: timestamptz!
   ) {
     user_by_pk(user_id: $userId) {
@@ -27,7 +27,7 @@ export const GET_USER_DASHBOARD = graphql(/* GraphQL */ `
             {
               _or: [
                 { completed_on: { _is_null: true } }
-                { completed_on: { _gte: $date } }
+                { completed_on: { _gte: $nowDate } }
               ]
             }
             {
@@ -37,7 +37,7 @@ export const GET_USER_DASHBOARD = graphql(/* GraphQL */ `
                   filter: {
                     _or: [
                       { retired_on: { _is_null: true } }
-                      { retired_on: { _gte: $datetime } }
+                      { retired_on: { _gte: $now } }
                     ]
                   }
                 }
@@ -51,7 +51,7 @@ export const GET_USER_DASHBOARD = graphql(/* GraphQL */ `
       completed_user_enrollments: user_enrollments(
         where: {
           _or: [
-            { completed_on: { _is_null: false, _lte: $date } }
+            { completed_on: { _is_null: false, _lte: $nowDate } }
             {
               user_questions_aggregate: {
                 count: {
@@ -59,7 +59,7 @@ export const GET_USER_DASHBOARD = graphql(/* GraphQL */ `
                   filter: {
                     _or: [
                       { retired_on: { _is_null: true } }
-                      { retired_on: { _gte: $datetime } }
+                      { retired_on: { _gte: $now } }
                     ]
                   }
                 }
@@ -73,12 +73,12 @@ export const GET_USER_DASHBOARD = graphql(/* GraphQL */ `
       skills_attempted: user_questions_aggregate(
         distinct_on: taxonomy_id
         where: {
-          created_at: { _lte: $datetime }
+          created_at: { _lte: $now }
           last_answered_on: { _is_null: false }
           user_answers_aggregate: {
             count: {
               predicate: { _gt: 0 }
-              filter: { created_at: { _lte: $datetime } }
+              filter: { created_at: { _lte: $now } }
             }
           }
         }
@@ -89,7 +89,7 @@ export const GET_USER_DASHBOARD = graphql(/* GraphQL */ `
       }
       total_skills: user_questions_aggregate(
         distinct_on: taxonomy_id
-        where: { created_at: { _lte: $datetime } }
+        where: { created_at: { _lte: $now } }
       ) {
         aggregate {
           count
@@ -98,7 +98,7 @@ export const GET_USER_DASHBOARD = graphql(/* GraphQL */ `
       completed_enrollments: user_enrollments_aggregate(
         where: {
           _or: [
-            { completed_on: { _is_null: false, _lte: $date } }
+            { completed_on: { _is_null: false, _lte: $nowDate } }
             {
               user_questions_aggregate: {
                 count: {
@@ -106,7 +106,7 @@ export const GET_USER_DASHBOARD = graphql(/* GraphQL */ `
                   filter: {
                     _or: [
                       { retired_on: { _is_null: true } }
-                      { retired_on: { _gte: $datetime } }
+                      { retired_on: { _gte: $now } }
                     ]
                   }
                 }
@@ -120,21 +120,21 @@ export const GET_USER_DASHBOARD = graphql(/* GraphQL */ `
         }
       }
       total_enrollments: user_enrollments_aggregate(
-        where: { created_at: { _lte: $datetime } }
+        where: { created_at: { _lte: $now } }
       ) {
         aggregate {
           count
         }
       }
       retired_questions: user_questions_aggregate(
-        where: { retired_on: { _is_null: false, _lte: $datetime } }
+        where: { retired_on: { _is_null: false, _lte: $now } }
       ) {
         aggregate {
           count
         }
       }
       total_questions: user_questions_aggregate(
-        where: { created_at: { _lte: $datetime } }
+        where: { created_at: { _lte: $now } }
       ) {
         aggregate {
           count
@@ -155,8 +155,8 @@ export async function getUserDashboard(
       query: GET_USER_DASHBOARD,
       variables: {
         userId,
-        date: DateTime.fromISO(now).toISODate()!,
-        datetime: now,
+        now,
+        nowDate: DateTime.fromISO(now).toISODate()!,
         monthAgo: DateTime.fromISO(now).minus({ month: 1 }).toISO()!,
       },
       fetchPolicy: "no-cache",

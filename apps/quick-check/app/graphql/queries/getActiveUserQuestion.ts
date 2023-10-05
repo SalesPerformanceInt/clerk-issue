@@ -26,7 +26,7 @@ export async function getActiveUserQuestion(
   try {
     const { data } = await this.client.query({
       query: GET_ACTIVE_USER_QUESTION,
-      variables: { id, now: now },
+      variables: { id, now },
       fetchPolicy: "no-cache",
     });
 

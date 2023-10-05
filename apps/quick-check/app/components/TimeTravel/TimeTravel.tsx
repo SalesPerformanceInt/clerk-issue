@@ -5,6 +5,7 @@ import { useLocation } from "@remix-run/react";
 import { faGear } from "@fortawesome/pro-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { DateTime } from "luxon";
+import { twMerge } from "tailwind-merge";
 
 import { TimeTravelModal } from "./TimeTravelModal";
 
@@ -42,7 +43,10 @@ export const TimeTravel: FC<TimeTravelProps> = ({ now, className }) => {
     <>
       <div className="absolute top-8 sm:top-12 left-0 right-0 flex justify-center z-20">
         <button
-          className="bg-primary-75 rounded px-2 py-1 shadow-md text-background text-xl flex items-center gap-2"
+          className={twMerge(
+            "bg-primary-75 rounded px-2 py-1 shadow-md text-background text-xl flex items-center gap-2",
+            !isTimeTravelEnabled && "cursor-default",
+          )}
           onClick={toggleModal}
         >
           {isTimeTravelEnabled && (

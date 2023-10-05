@@ -11,6 +11,7 @@ import {
 export const GET_USER_DASHBOARD = graphql(/* GraphQL */ `
   query GetUserDashboard(
     $userId: uuid!
+    $date: date!
     $datetime: timestamptz!
     $monthAgo: timestamptz!
   ) {
@@ -22,34 +23,49 @@ export const GET_USER_DASHBOARD = graphql(/* GraphQL */ `
       }
       active_user_enrollments: user_enrollments(
         where: {
-          user_questions_aggregate: {
-            count: {
-              predicate: { _gt: 0 }
-              filter: {
-                _or: [
-                  { retired_on: { _is_null: true } }
-                  { retired_on: { _gte: $datetime } }
-                ]
+          _or: [
+            {
+              _or: [
+                { completed_on: { _is_null: true } }
+                { completed_on: { _gte: $date } }
+              ]
+            }
+            {
+              user_questions_aggregate: {
+                count: {
+                  predicate: { _gt: 0 }
+                  filter: {
+                    _or: [
+                      { retired_on: { _is_null: true } }
+                      { retired_on: { _gte: $datetime } }
+                    ]
+                  }
+                }
               }
             }
-          }
+          ]
         }
       ) {
         ...UserEnrollmentWithCounts
       }
       completed_user_enrollments: user_enrollments(
         where: {
-          user_questions_aggregate: {
-            count: {
-              predicate: { _eq: 0 }
-              filter: {
-                _or: [
-                  { retired_on: { _is_null: true } }
-                  { retired_on: { _gte: $datetime } }
-                ]
+          _or: [
+            { completed_on: { _is_null: false, _lte: $date } }
+            {
+              user_questions_aggregate: {
+                count: {
+                  predicate: { _eq: 0 }
+                  filter: {
+                    _or: [
+                      { retired_on: { _is_null: true } }
+                      { retired_on: { _gte: $datetime } }
+                    ]
+                  }
+                }
               }
             }
-          }
+          ]
         }
       ) {
         ...UserEnrollmentWithCounts
@@ -81,17 +97,22 @@ export const GET_USER_DASHBOARD = graphql(/* GraphQL */ `
       }
       completed_enrollments: user_enrollments_aggregate(
         where: {
-          user_questions_aggregate: {
-            count: {
-              predicate: { _eq: 0 }
-              filter: {
-                _or: [
-                  { retired_on: { _is_null: true } }
-                  { retired_on: { _gte: $datetime } }
-                ]
+          _or: [
+            { completed_on: { _is_null: false, _lte: $date } }
+            {
+              user_questions_aggregate: {
+                count: {
+                  predicate: { _eq: 0 }
+                  filter: {
+                    _or: [
+                      { retired_on: { _is_null: true } }
+                      { retired_on: { _gte: $datetime } }
+                    ]
+                  }
+                }
               }
             }
-          }
+          ]
         }
       ) {
         aggregate {
@@ -134,6 +155,7 @@ export async function getUserDashboard(
       query: GET_USER_DASHBOARD,
       variables: {
         userId,
+        date: DateTime.fromISO(now).toISODate()!,
         datetime: now,
         monthAgo: DateTime.fromISO(now).minus({ month: 1 }).toISO()!,
       },

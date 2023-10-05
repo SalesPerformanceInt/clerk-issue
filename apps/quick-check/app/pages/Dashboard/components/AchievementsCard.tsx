@@ -23,17 +23,18 @@ export const AchievementsCard: FC<AchievementsCardProps> = ({ className }) => {
 
   const attemptedSkills = dashboard.skills_attempted.aggregate?.count ?? 0;
   const totalSkills = dashboard.total_skills.aggregate?.count ?? 0;
-  const attemptedSkillsPercentage = (attemptedSkills / totalSkills) * 100;
+  const attemptedSkillsPercentage = (attemptedSkills / totalSkills) * 100 || 0;
 
   const completedEnrollments =
     dashboard.completed_enrollments.aggregate?.count ?? 0;
   const totalEnrollments = dashboard.total_enrollments.aggregate?.count ?? 0;
   const completedEnrollmentsPercentage =
-    (completedEnrollments / totalEnrollments) * 100;
+    (completedEnrollments / totalEnrollments) * 100 || 0;
 
   const retiredQuestions = dashboard.retired_questions.aggregate?.count ?? 0;
   const totalQuestions = dashboard.total_questions.aggregate?.count ?? 0;
-  const retiredQuestionsPercentage = (retiredQuestions / totalQuestions) * 100;
+  const retiredQuestionsPercentage =
+    (retiredQuestions / totalQuestions) * 100 || 0;
 
   return (
     <Card className={twMerge("max-w-sm", className)}>

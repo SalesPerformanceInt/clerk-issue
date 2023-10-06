@@ -17,9 +17,16 @@ export const UserEnrollmentWithCounts = graphql(/* GraphQL */ `
     ...BaseUserEnrollment
     attempted: user_questions_aggregate(
       where: {
-        user_answers_aggregate: { count: { predicate: { _gt: 0 } } }
-        retired_on: { _is_null: true }
-        last_answered_on: { _lte: $now }
+        _or: [
+          { retired_on: { _is_null: true } }
+          { retired_on: { _gte: $now } }
+        ]
+        user_answers_aggregate: {
+          count: {
+            predicate: { _gt: 0 }
+            filter: { created_at: { _lte: $now } }
+          }
+        }
       }
     ) {
       aggregate {
@@ -28,9 +35,16 @@ export const UserEnrollmentWithCounts = graphql(/* GraphQL */ `
     }
     unattempted: user_questions_aggregate(
       where: {
-        user_answers_aggregate: { count: { predicate: { _eq: 0 } } }
-        retired_on: { _is_null: true }
-        last_answered_on: { _lte: $now }
+        _or: [
+          { retired_on: { _is_null: true } }
+          { retired_on: { _gte: $now } }
+        ]
+        user_answers_aggregate: {
+          count: {
+            predicate: { _eq: 0 }
+            filter: { created_at: { _lte: $now } }
+          }
+        }
       }
     ) {
       aggregate {

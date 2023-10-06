@@ -1,13 +1,13 @@
 import type { Expand } from "quickcheck-shared";
 
-import type { GetTaxonomyEnrollmentsQuery } from "~/graphql";
+import type { GetRankeableEnrollmentsQuery } from "~/graphql";
 
 /**
  * Enrollment Score
  */
 
 export type EnrollmentScore =
-  GetTaxonomyEnrollmentsQuery["user_enrollment"][number];
+  GetRankeableEnrollmentsQuery["user_enrollment"][number];
 
 /**
  * Enrollments By Taxonomy

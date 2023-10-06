@@ -8,26 +8,19 @@ import type {
   QuestionContextProviderProps,
 } from "./QuestionContext.types";
 
-const defaultProps: QuestionContextProps = {
-  selected: null,
-  hasSelected: false,
-  onGoBackClick: () => undefined,
-  onSelection: (_selection: Selection) => undefined,
-  currentTopic: "",
-  onClose: () => undefined,
-  questionItem: {} as QuestionItem,
-  variant: "mcquestion",
-  submitted: false,
-  submitAnswer: () => undefined,
-  onSubmit: () => undefined,
-  onContinue: () => undefined,
-  offset: 0,
+export const QuestionContext = createContext<QuestionContextProps | undefined>(
+  undefined,
+);
+
+export const useQuestionContext = () => {
+  const context = useContext(QuestionContext);
+
+  if (context === undefined) {
+    throw new Error("useQuestionContext must be used within a CountProvider");
+  }
+
+  return context;
 };
-
-export const QuestionContext =
-  createContext<QuestionContextProps>(defaultProps);
-
-export const useQuestionContext = () => useContext(QuestionContext);
 
 export const QuestionContextProvider: FC<QuestionContextProviderProps> = ({
   children,

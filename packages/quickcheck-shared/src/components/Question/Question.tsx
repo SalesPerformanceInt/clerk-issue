@@ -4,7 +4,12 @@ import { Taxon } from "~/contentstack";
 
 import type { UserData } from "~/utils/types";
 
-import { Action, QuestionHeader, QuestionVariant } from "./components";
+import {
+  Action,
+  OnCloseModal,
+  QuestionHeader,
+  QuestionVariant,
+} from "./components";
 
 import type { OnSubmit, QuestionItem, Variant } from "./Question.types";
 import { QuestionContextProvider } from "./context/QuestionContext";
@@ -31,6 +36,7 @@ export const Question: FC<QuestionProps> = (props) => {
       <QuestionHeader />
       <QuestionVariant />
       <Action />
+      <OnCloseModal />
     </QuestionContextProvider>
   );
 };

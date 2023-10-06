@@ -3,11 +3,17 @@ import { useState } from "react";
 import invariant from "tiny-invariant";
 
 import type { Selection } from "../../Question.types";
-import type { useQuestionProps } from "./useQuestion.types";
+import type { QuestionContextProps } from "../QuestionContext.types";
+
+export type useQuestionProps = Pick<QuestionContextProps, "onSubmit">;
 
 export const useQuestion = ({ onSubmit }: useQuestionProps) => {
   const [submitted, setSubmitted] = useState(false);
   const [selected, setSelected] = useState<Selection | null>(null);
+
+  const [showOnCloseModal, toggleShowOnCancelModal] = useState(false);
+  const onCancelClose = () => toggleShowOnCancelModal(false);
+  const onShowOnCloseModal = () => toggleShowOnCancelModal(true);
 
   const hasSelected = selected !== null;
 
@@ -34,5 +40,8 @@ export const useQuestion = ({ onSubmit }: useQuestionProps) => {
     submitAnswer,
     onGoBackClick,
     onSelection,
+    showOnCloseModal,
+    onCancelClose,
+    onShowOnCloseModal,
   };
 };

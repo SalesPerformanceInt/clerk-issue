@@ -12,6 +12,9 @@ export interface QuestionContextProps extends QuestionProps {
   submitted: boolean;
   submitAnswer: () => void;
   offset: number;
+  showOnCloseModal: boolean;
+  onCancelClose: () => void;
+  onShowOnCloseModal: () => void;
 }
 
 export interface QuestionContextProviderProps extends QuestionProps {

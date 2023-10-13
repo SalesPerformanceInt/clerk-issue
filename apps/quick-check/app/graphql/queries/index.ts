@@ -11,3 +11,4 @@ export * from "./getUserQuestionLearningRecord";
 export * from "./getActiveUserQuestion";
 export * from "./getUserEnrollment";
 export * from "./getRankeableEnrollments";
+export * from "./getUserWeeklyStreak";

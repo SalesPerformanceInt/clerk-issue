@@ -2,7 +2,6 @@ import { getUserApolloClientFromRequest } from "~/graphql";
 
 import type { SaveAnswerData } from "../answer.type";
 import { getRetiredOn } from "../handlers/retireAnswer";
-import { getUpdatedWeeklyStreakData } from "../handlers/weeklyStreak";
 
 /**
  * Update User From Answer
@@ -10,13 +9,7 @@ import { getUpdatedWeeklyStreakData } from "../handlers/weeklyStreak";
 
 export const updateUserFromAnswer = async (
   request: Request,
-  {
-    userQuestion,
-    currentAnswer,
-    reviewedAnswer,
-    userQuestionNextActiveDate,
-    user,
-  }: SaveAnswerData,
+  { userQuestion, reviewedAnswer, userQuestionNextActiveDate }: SaveAnswerData,
 ) => {
   const userApolloClient = await getUserApolloClientFromRequest(request);
 
@@ -32,8 +25,4 @@ export const updateUserFromAnswer = async (
   await userApolloClient.updateUserEnrollment(userQuestion.user_enrollment.id, {
     inc: { score: reviewedAnswer.score },
   });
-
-  await userApolloClient.updateUser(
-    getUpdatedWeeklyStreakData(user, currentAnswer.now),
-  );
 };

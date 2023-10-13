@@ -8,14 +8,17 @@ import {
 import { useQuestionContext } from "~/components/Question";
 
 export const QuestionHeader: FC = () => {
-  const { userData, onShowOnCloseModal } = useQuestionContext();
+  const { userData, onShowOnCloseModal, submitted } = useQuestionContext();
+
+  const modifier = submitted ? 1 : 0;
+  const unansweredQuestions = (userData?.unanswered_questions ?? 0) - modifier;
 
   return (
     <Header
       left={<HeaderReturnToDashboard onClose={onShowOnCloseModal} />}
       right={
         <HeaderUnansweredQuestions
-          unansweredQuestions={userData?.unanswered_questions}
+          unansweredQuestions={unansweredQuestions}
           user={userData}
           show
         />

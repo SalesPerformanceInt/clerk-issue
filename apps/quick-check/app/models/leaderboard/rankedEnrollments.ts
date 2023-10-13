@@ -1,6 +1,9 @@
 import invariant from "tiny-invariant";
 
-import { getAdminApolloClientFromRequest } from "~/graphql";
+import {
+  User_Enrollment_Updates,
+  getAdminApolloClientFromRequest,
+} from "~/graphql";
 
 import type {
   EnrollmentScore,
@@ -29,7 +32,7 @@ const normalizeLeaderboardEnrollment = (
  * Rank Enrollments
  */
 
-const rankAllEnrollments = (enrollments: EnrollmentScore[]) => {
+export const rankAllEnrollments = (enrollments: EnrollmentScore[]) => {
   let rank = DEFAULT_ENROLLMENT_RANKING;
   let previousScore = DEFAULT_ENROLLMENT_SCORE;
 
@@ -37,7 +40,20 @@ const rankAllEnrollments = (enrollments: EnrollmentScore[]) => {
     rank = enrollment.score === previousScore ? rank : enrollmentIndex + 1;
     previousScore = enrollment.score;
 
-    return normalizeLeaderboardEnrollment(enrollment, rank);
+    const rankedEnrollmentSet: User_Enrollment_Updates = {
+      where: { id: { _eq: enrollment.id } },
+      _set: { rank },
+    };
+
+    const leaderboardEnrollment = normalizeLeaderboardEnrollment(
+      enrollment,
+      rank,
+    );
+
+    return {
+      rankedEnrollmentSet,
+      leaderboardEnrollment,
+    };
   });
 
   return rankedEnrollments;

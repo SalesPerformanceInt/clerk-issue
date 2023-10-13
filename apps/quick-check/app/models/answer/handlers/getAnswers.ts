@@ -9,7 +9,7 @@ import {
 } from "~/utils/constants";
 import { getNextValidBusinessDate } from "~/utils/date";
 
-import { parseAnswer, type Answer, type AnswerToReview } from "./answer";
+import { parseAnswer, type Answer, type AnswerToReview } from "../answer";
 import { reviewAnswer } from "./reviewAnswer";
 
 /**

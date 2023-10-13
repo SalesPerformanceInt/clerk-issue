@@ -8,8 +8,6 @@ import {
   type DashboardData,
 } from "~/graphql";
 
-import { getUserLeaderboard } from "~/models/leaderboard";
-
 import { Dashboard } from "~/pages";
 
 /**
@@ -23,12 +21,8 @@ export const loader = async ({ request }: LoaderArgs) => {
   const dashboard = await userApolloClient?.getUserDashboard();
   if (!dashboard) return redirect("/login");
 
-  const userLeaderboard = getUserLeaderboard(request, dashboard);
-  if (!userLeaderboard) return redirect("/login");
-
   return defer({
     dashboard: serialize(dashboard),
-    userLeaderboard,
   });
 };
 
@@ -42,7 +36,6 @@ export default function Page() {
   if (!("dashboard" in data)) return redirect("/login");
 
   const dashboard = deserialize<DashboardData>(data.dashboard)!;
-  const { userLeaderboard } = data;
 
-  return <Dashboard dashboard={dashboard} userLeaderboard={userLeaderboard} />;
+  return <Dashboard dashboard={dashboard} />;
 }

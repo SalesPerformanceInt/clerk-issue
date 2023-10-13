@@ -2,15 +2,12 @@ import { createContext, useContext, type FC, type ReactNode } from "react";
 
 import type { DashboardData } from "~/graphql";
 
-import type { LeaderboardUserEnrollment } from "~/models/leaderboard/leaderboard.types";
-
 /**
  * Context
  */
 
 export interface DashboardContextProps {
   dashboard: DashboardData;
-  userLeaderboard: Promise<LeaderboardUserEnrollment[] | null>;
 }
 
 export const DashboardContext = createContext<
@@ -41,10 +38,9 @@ export interface DashboardContextProviderProps extends DashboardContextProps {
 export const DashboardContextProvider: FC<DashboardContextProviderProps> = ({
   children,
   dashboard,
-  userLeaderboard,
 }) => {
   return (
-    <DashboardContext.Provider value={{ dashboard, userLeaderboard }}>
+    <DashboardContext.Provider value={{ dashboard }}>
       {children}
     </DashboardContext.Provider>
   );

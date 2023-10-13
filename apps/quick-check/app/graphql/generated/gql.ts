@@ -33,6 +33,7 @@ const documents = {
     "\n  mutation UpdateNextQuestionId($userId: uuid!, $nextUserQuestionId: uuid) {\n    update_user_by_pk(\n      pk_columns: { user_id: $userId }\n      _set: { next_user_question_id: $nextUserQuestionId }\n    ) {\n      ...BaseUser\n    }\n  }\n": types.UpdateNextQuestionIdDocument,
     "\n  mutation UpdateUser($userId: uuid!, $set: user_set_input) {\n    update_user_by_pk(pk_columns: { user_id: $userId }, _set: $set) {\n      ...BaseUser\n    }\n  }\n": types.UpdateUserDocument,
     "\n  mutation UpdateUserEnrollment(\n    $id: uuid!\n    $set: user_enrollment_set_input\n    $inc: user_enrollment_inc_input\n  ) {\n    update_user_enrollment_by_pk(\n      pk_columns: { id: $id }\n      _set: $set\n      _inc: $inc\n    ) {\n      ...BaseUserEnrollment\n    }\n  }\n": types.UpdateUserEnrollmentDocument,
+    "\n  mutation UpdateUserEnrollmentsRanks(\n    $enrollmentsUpdates: [user_enrollment_updates!]!\n  ) {\n    update_user_enrollment_many(updates: $enrollmentsUpdates) {\n      returning {\n        ...BaseUserEnrollment\n      }\n    }\n  }\n": types.UpdateUserEnrollmentsRanksDocument,
     "\n  mutation UpdateUserQuestion($id: uuid!, $set: user_question_set_input) {\n    update_user_question_by_pk(pk_columns: { id: $id }, _set: $set) {\n      ...BaseUserQuestion\n    }\n  }\n": types.UpdateUserQuestionDocument,
     "\n  query GetActiveUserQuestion($id: uuid!, $now: timestamptz) {\n    user_question(\n      where: {\n        id: { _eq: $id }\n        active_on: { _lte: $now }\n        retired_on: { _is_null: true }\n      }\n    ) {\n      ...BaseUserQuestion\n    }\n  }\n": types.GetActiveUserQuestionDocument,
     "\n  query GetAllUser {\n    user(order_by: [{ created_at: asc }, { email: asc }]) {\n      ...UserWithActiveToken\n    }\n  }\n": types.GetAllUserDocument,
@@ -143,6 +144,10 @@ export function graphql(source: "\n  mutation UpdateUser($userId: uuid!, $set: u
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function graphql(source: "\n  mutation UpdateUserEnrollment(\n    $id: uuid!\n    $set: user_enrollment_set_input\n    $inc: user_enrollment_inc_input\n  ) {\n    update_user_enrollment_by_pk(\n      pk_columns: { id: $id }\n      _set: $set\n      _inc: $inc\n    ) {\n      ...BaseUserEnrollment\n    }\n  }\n"): (typeof documents)["\n  mutation UpdateUserEnrollment(\n    $id: uuid!\n    $set: user_enrollment_set_input\n    $inc: user_enrollment_inc_input\n  ) {\n    update_user_enrollment_by_pk(\n      pk_columns: { id: $id }\n      _set: $set\n      _inc: $inc\n    ) {\n      ...BaseUserEnrollment\n    }\n  }\n"];
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(source: "\n  mutation UpdateUserEnrollmentsRanks(\n    $enrollmentsUpdates: [user_enrollment_updates!]!\n  ) {\n    update_user_enrollment_many(updates: $enrollmentsUpdates) {\n      returning {\n        ...BaseUserEnrollment\n      }\n    }\n  }\n"): (typeof documents)["\n  mutation UpdateUserEnrollmentsRanks(\n    $enrollmentsUpdates: [user_enrollment_updates!]!\n  ) {\n    update_user_enrollment_many(updates: $enrollmentsUpdates) {\n      returning {\n        ...BaseUserEnrollment\n      }\n    }\n  }\n"];
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */

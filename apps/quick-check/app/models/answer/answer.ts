@@ -2,6 +2,8 @@ import { z } from "zod";
 
 import { variants } from "quickcheck-shared";
 
+import type { BaseUserQuestionFragment, GetUserData } from "~/graphql";
+
 import { parseSchema } from "~/utils/parseSchema";
 
 export const ANSWER = "ANSWER";
@@ -22,7 +24,7 @@ export const answerSchema = z.object({
 export const parseAnswer = (value: unknown) => parseSchema(value, answerSchema);
 
 /**
- * Types
+ * Answer
  */
 
 export type Answer = z.infer<typeof answerSchema>;
@@ -38,4 +40,16 @@ export type ReviewedAnswer = {
 export type AnswerToReview = ReviewedAnswer & {
   performanceRating: number;
   answerDate: string;
+};
+
+/**
+ * Answer Data
+ */
+
+export type SaveAnswerData = {
+  userQuestion: BaseUserQuestionFragment;
+  currentAnswer: Answer;
+  reviewedAnswer: ReviewedAnswer;
+  userQuestionNextActiveDate: string;
+  user: GetUserData;
 };

@@ -28,6 +28,8 @@ const config = {
     "^./models/(.*)$|^./mocks/(.*)$",
     "^./components/(.*)$|^./components$",
     "^./hooks/(.*)$",
+    "^./handlers/(.*)$|^./handlers$",
+    "^./actions/(.*)$|^./actions$",
     "^[./]",
   ],
   importOrderSeparation: true,

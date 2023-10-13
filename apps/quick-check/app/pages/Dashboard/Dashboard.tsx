@@ -31,17 +31,11 @@ interface DashboardProps extends DashboardContextProps {}
  * Dashboard Component
  */
 
-export const Dashboard: FC<DashboardProps> = ({
-  dashboard,
-  userLeaderboard,
-}) => {
+export const Dashboard: FC<DashboardProps> = ({ dashboard }) => {
   const { t } = useTranslation();
 
   return (
-    <DashboardContextProvider
-      dashboard={dashboard}
-      userLeaderboard={userLeaderboard}
-    >
+    <DashboardContextProvider dashboard={dashboard}>
       <DashboardHeader />
 
       <ResponsiveContainer className="p-4">

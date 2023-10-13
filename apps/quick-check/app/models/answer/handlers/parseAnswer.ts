@@ -4,8 +4,6 @@ import { variants } from "quickcheck-shared";
 
 import { parseSchema } from "~/utils/parseSchema";
 
-export const ANSWER = "ANSWER";
-
 /**
  * Schemas
  */
@@ -20,22 +18,3 @@ export const answerSchema = z.object({
 });
 
 export const parseAnswer = (value: unknown) => parseSchema(value, answerSchema);
-
-/**
- * Types
- */
-
-export type Answer = z.infer<typeof answerSchema>;
-
-export type ReviewedAnswer = {
-  latestReviewGap: number;
-  difficulty: number;
-  streak: number;
-  lastAnsweredOn: string | null;
-  score: number;
-};
-
-export type AnswerToReview = ReviewedAnswer & {
-  performanceRating: number;
-  answerDate: string;
-};

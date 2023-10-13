@@ -18,6 +18,7 @@ import {
   updateNextQuestionId,
   updateUser,
   updateUserEnrollment,
+  updateUserEnrollmentsRanks,
   updateUserQuestion,
 } from "~/graphql/mutations";
 import {
@@ -112,6 +113,7 @@ export class GraphQLClient implements WithApolloClient {
   getRankeableEnrollments = getRankeableEnrollments;
   updateUser = updateUser;
   getUserEnrollment = getUserEnrollment;
+  updateUserEnrollmentsRanks = updateUserEnrollmentsRanks;
   getUserWeeklyStreak = getUserWeeklyStreak;
 
   constructor(headers: GraphQLHeaders) {

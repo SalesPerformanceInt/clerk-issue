@@ -1,6 +1,6 @@
 import type { BaseUserQuestionFragment } from "~/graphql";
 
-import type { ReviewedAnswer } from "./answer";
+import type { ReviewedAnswer } from "../answer.type";
 
 /**
  * Retire Answer

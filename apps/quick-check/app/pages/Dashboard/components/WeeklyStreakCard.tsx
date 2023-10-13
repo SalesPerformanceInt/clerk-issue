@@ -13,8 +13,6 @@ import {
   type CardProps,
 } from "quickcheck-shared";
 
-import type { DashboardData } from "~/graphql";
-
 import { useDashboardContext } from "~/pages/Dashboard";
 
 import type { TimeTravelContext } from "~/components/TimeTravel";

@@ -7,7 +7,7 @@ import {
   REVIEW_WRONG,
 } from "~/utils/constants";
 
-import type { AnswerToReview, ReviewedAnswer } from "./answer";
+import type { AnswerToReview, ReviewedAnswer } from "../answer.type";
 
 /**
  * Percent Overdue

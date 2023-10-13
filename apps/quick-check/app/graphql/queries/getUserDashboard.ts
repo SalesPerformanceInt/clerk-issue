@@ -2,11 +2,7 @@ import { DateTime } from "luxon";
 
 import { contentStack } from "~/contentstack.server";
 
-import {
-  graphql,
-  type GQLProxyUserData,
-  type WithApolloClient,
-} from "~/graphql";
+import { graphql, type GQLProxyUserData, type GraphQLClient } from "~/graphql";
 
 export const GET_USER_DASHBOARD = graphql(/* GraphQL */ `
   query GetUserDashboard(
@@ -145,7 +141,7 @@ export const GET_USER_DASHBOARD = graphql(/* GraphQL */ `
 `);
 
 export async function getUserDashboard(
-  this: WithApolloClient,
+  this: GraphQLClient,
   proxyData: GQLProxyUserData,
 ) {
   try {
@@ -187,8 +183,11 @@ export async function getUserDashboard(
       }),
     );
 
+    const weeklyStreak = await this.getUserWeeklyStreak(proxyData);
+
     return {
       ...user_by_pk,
+      weeklyStreak,
       active_user_enrollments,
       completed_user_enrollments,
       taxonomy_ids: active_user_enrollments.map(

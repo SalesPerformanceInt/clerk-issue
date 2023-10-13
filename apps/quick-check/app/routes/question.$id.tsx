@@ -67,7 +67,7 @@ export const loader = async ({ params, request }: LoaderArgs) => {
       now,
     });
   } catch (error) {
-    throw redirect("/next-question");
+    throw redirect("/");
   }
 };
 

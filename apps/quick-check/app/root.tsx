@@ -52,7 +52,7 @@ export const loader = async ({ request }: LoaderArgs) => {
     QC_CONTENTSTACK_STACK_KEY,
   };
 
-  return json({ theme: null, locale, ENV, now });
+  return json({ theme, locale, ENV, now });
 };
 
 export const handle = {

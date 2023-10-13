@@ -16,7 +16,7 @@ const documents = {
     "\n  fragment BaseLearningRecord on learning_record {\n    __typename\n    created_at\n    data\n    event_type\n    id\n    user_id\n  }\n": types.BaseLearningRecordFragmentDoc,
     "\n  fragment BaseLinkToken on link_token {\n    __typename\n    id\n    created_at\n    active\n    user_id\n  }\n": types.BaseLinkTokenFragmentDoc,
     "\n  fragment UserWithActiveToken on user {\n    ...BaseUser\n    active_tokens: link_tokens(where: { active: { _eq: true } }) {\n      ...BaseLinkToken\n    }\n  }\n": types.UserWithActiveTokenFragmentDoc,
-    "\n  fragment BaseUser on user {\n    __typename\n    tenant_id\n    email\n    first_name\n    language_preference\n    last_name\n    next_question {\n      ...BaseUserQuestion\n    }\n    phone_number\n    timezone\n    user_id\n    sms_enabled\n    weekly_streak\n    weekly_streak_since\n    learning_records {\n      ...BaseLearningRecord\n    }\n  }\n": types.BaseUserFragmentDoc,
+    "\n  fragment BaseUser on user {\n    __typename\n    tenant_id\n    email\n    first_name\n    language_preference\n    last_name\n    next_question {\n      ...BaseUserQuestion\n    }\n    phone_number\n    timezone\n    user_id\n    sms_enabled\n    learning_records {\n      ...BaseLearningRecord\n    }\n  }\n": types.BaseUserFragmentDoc,
     "\n  fragment UserUnansweredQuestions on user {\n    unanswered_questions: user_questions_aggregate(\n      where: {\n        retired_on: { _is_null: true }\n        active_on: { _is_null: false, _lte: $now }\n      }\n    ) {\n      aggregate {\n        count(distinct: true)\n      }\n    }\n  }\n": types.UserUnansweredQuestionsFragmentDoc,
     "\n  fragment UserActiveQuestionsData on user {\n    ...UserUnansweredQuestions\n    active_enrollments: user_enrollments_aggregate(\n      where: {\n        user_questions_aggregate: {\n          count: {\n            predicate: { _gt: 0 }\n            filter: {\n              retired_on: { _is_null: true }\n              active_on: { _is_null: false }\n            }\n          }\n        }\n      }\n    ) {\n      aggregate {\n        count(distinct: true)\n      }\n    }\n  }\n": types.UserActiveQuestionsDataFragmentDoc,
     "\n  fragment BaseUserAnswer on user_answer {\n    __typename\n    id\n    correct\n    created_at\n  }\n": types.BaseUserAnswerFragmentDoc,
@@ -47,6 +47,7 @@ const documents = {
     "\n  query GetUserQuestion($id: uuid!) {\n    user_question_by_pk(id: $id) {\n      ...BaseUserQuestion\n    }\n  }\n": types.GetUserQuestionDocument,
     "\n  query GetUserQuestionLearningRecord($userId: uuid!, $questionId: uuid!) {\n    learning_record(\n      where: {\n        user_id: { _eq: $userId }\n        data: { _contains: { questionId: $questionId } }\n      }\n      limit: 1\n      order_by: { created_at: desc }\n    ) {\n      created_at\n      data\n    }\n  }\n": types.GetUserQuestionLearningRecordDocument,
     "\n  query GetUserTheme($userId: uuid!) {\n    user_by_pk(user_id: $userId) {\n      tenant {\n        theme_id\n      }\n    }\n  }\n": types.GetUserThemeDocument,
+    "\n  query GetUserAnswersByWeek(\n    $userId: uuid!\n    $start: timestamptz!\n    $end: timestamptz!\n  ) {\n    user_answer(\n      where: {\n        _and: [\n          { user_id: { _eq: $userId } }\n          { created_at: { _gte: $start } }\n          { created_at: { _lte: $end } }\n        ]\n      }\n    ) {\n      ...BaseUserAnswer\n    }\n  }\n": types.GetUserAnswersByWeekDocument,
 };
 
 /**
@@ -78,7 +79,7 @@ export function graphql(source: "\n  fragment UserWithActiveToken on user {\n   
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
-export function graphql(source: "\n  fragment BaseUser on user {\n    __typename\n    tenant_id\n    email\n    first_name\n    language_preference\n    last_name\n    next_question {\n      ...BaseUserQuestion\n    }\n    phone_number\n    timezone\n    user_id\n    sms_enabled\n    weekly_streak\n    weekly_streak_since\n    learning_records {\n      ...BaseLearningRecord\n    }\n  }\n"): (typeof documents)["\n  fragment BaseUser on user {\n    __typename\n    tenant_id\n    email\n    first_name\n    language_preference\n    last_name\n    next_question {\n      ...BaseUserQuestion\n    }\n    phone_number\n    timezone\n    user_id\n    sms_enabled\n    weekly_streak\n    weekly_streak_since\n    learning_records {\n      ...BaseLearningRecord\n    }\n  }\n"];
+export function graphql(source: "\n  fragment BaseUser on user {\n    __typename\n    tenant_id\n    email\n    first_name\n    language_preference\n    last_name\n    next_question {\n      ...BaseUserQuestion\n    }\n    phone_number\n    timezone\n    user_id\n    sms_enabled\n    learning_records {\n      ...BaseLearningRecord\n    }\n  }\n"): (typeof documents)["\n  fragment BaseUser on user {\n    __typename\n    tenant_id\n    email\n    first_name\n    language_preference\n    last_name\n    next_question {\n      ...BaseUserQuestion\n    }\n    phone_number\n    timezone\n    user_id\n    sms_enabled\n    learning_records {\n      ...BaseLearningRecord\n    }\n  }\n"];
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
@@ -199,6 +200,10 @@ export function graphql(source: "\n  query GetUserQuestionLearningRecord($userId
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function graphql(source: "\n  query GetUserTheme($userId: uuid!) {\n    user_by_pk(user_id: $userId) {\n      tenant {\n        theme_id\n      }\n    }\n  }\n"): (typeof documents)["\n  query GetUserTheme($userId: uuid!) {\n    user_by_pk(user_id: $userId) {\n      tenant {\n        theme_id\n      }\n    }\n  }\n"];
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(source: "\n  query GetUserAnswersByWeek(\n    $userId: uuid!\n    $start: timestamptz!\n    $end: timestamptz!\n  ) {\n    user_answer(\n      where: {\n        _and: [\n          { user_id: { _eq: $userId } }\n          { created_at: { _gte: $start } }\n          { created_at: { _lte: $end } }\n        ]\n      }\n    ) {\n      ...BaseUserAnswer\n    }\n  }\n"): (typeof documents)["\n  query GetUserAnswersByWeek(\n    $userId: uuid!\n    $start: timestamptz!\n    $end: timestamptz!\n  ) {\n    user_answer(\n      where: {\n        _and: [\n          { user_id: { _eq: $userId } }\n          { created_at: { _gte: $start } }\n          { created_at: { _lte: $end } }\n        ]\n      }\n    ) {\n      ...BaseUserAnswer\n    }\n  }\n"];
 
 export function graphql(source: string) {
   return (documents as any)[source] ?? {};

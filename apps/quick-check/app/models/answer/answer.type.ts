@@ -1,33 +1,20 @@
 import { z } from "zod";
 
-import { variants } from "quickcheck-shared";
-
 import type { BaseUserQuestionFragment, GetUserData } from "~/graphql";
 
-import { parseSchema } from "~/utils/parseSchema";
-
-export const ANSWER = "ANSWER";
-
-/**
- * Schemas
- */
-
-export const answerSchema = z.object({
-  id: z.string(),
-  questionId: z.string(),
-  correct: z.boolean(),
-  variant: z.enum(variants),
-  uid: z.string(),
-  now: z.string(),
-});
-
-export const parseAnswer = (value: unknown) => parseSchema(value, answerSchema);
+import { answerSchema } from "./handlers/parseAnswer";
 
 /**
  * Answer
  */
 
+export const ANSWER = "ANSWER";
+
 export type Answer = z.infer<typeof answerSchema>;
+
+/**
+ * Answer Review
+ */
 
 export type ReviewedAnswer = {
   latestReviewGap: number;

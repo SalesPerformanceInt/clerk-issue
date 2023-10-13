@@ -8,7 +8,7 @@ import type {
   EnrollmentsByTaxonomy,
   EnrollmentsByTaxonomyId,
   MappedEnrollmentsByTaxonomyId,
-} from "./leaderboard.types";
+} from "../leaderboard.types";
 
 /**
  * Taxonomy Enrollments Pipes

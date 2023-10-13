@@ -10,6 +10,8 @@ import {
   type LeaderboardEntryProps,
 } from "quickcheck-shared";
 
+import { getUserLeaderboard } from "~/models/leaderboard";
+
 import { useDashboardContext } from "~/pages/Dashboard";
 
 type LeaderboardCardProps = {
@@ -26,10 +28,9 @@ export const LeaderboardCard: FC<LeaderboardCardProps> = ({ className }) => {
 
   const { t } = useTranslation();
 
-  const rankedEnrollments = dashboard.active_user_enrollments
-    .filter((enrollment) => enrollment.rank && enrollment.score)
-    .sort((a, b) => a.rank! - b.rank!)
-    .slice(0, 4);
+  const rankedEnrollments = getUserLeaderboard(
+    dashboard.active_user_enrollments,
+  );
 
   return (
     <Card className={twMerge("max-w-sm", className)}>

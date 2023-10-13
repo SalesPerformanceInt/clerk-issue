@@ -8,7 +8,7 @@ import { saveUserAnswer } from "./actions/saveAnswer";
 import { updateTaxonomyEnrollmentsRanks } from "./actions/updateTaxonomyEnrollmentsRanks";
 import { updateUserFromAnswer } from "./actions/updateUserFromAnswer";
 
-import type { SaveAnswerData } from "./answer";
+import type { SaveAnswerData } from "./answer.type";
 
 /**
  * Prepare Answer Data

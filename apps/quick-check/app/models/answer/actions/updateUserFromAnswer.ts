@@ -1,6 +1,6 @@
 import { getUserApolloClientFromRequest } from "~/graphql";
 
-import type { SaveAnswerData } from "../answer";
+import type { SaveAnswerData } from "../answer.type";
 import { getRetiredOn } from "../handlers/retireAnswer";
 import { getUpdatedWeeklyStreakData } from "../handlers/weeklyStreak";
 

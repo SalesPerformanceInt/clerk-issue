@@ -4,7 +4,7 @@ import {
   type User_Answer_Insert_Input,
 } from "~/graphql";
 
-import { ANSWER, type SaveAnswerData } from "../answer";
+import { ANSWER, type SaveAnswerData } from "../answer.type";
 
 /**
  * Save User Answer

@@ -1,10 +1,10 @@
 import { getAdminApolloClientFromRequest } from "~/graphql";
 
+import { prepareTaxonomyEnrollments } from "~/models/leaderboard/handlers/prepareTaxonomyEnrollments";
+import { prepareTaxonomyRankedEnrollments } from "~/models/leaderboard/handlers/prepareTaxonomyRankedEnrollments";
 import type { EnrollmentsByTaxonomy } from "~/models/leaderboard/leaderboard.types";
-import { rankAllEnrollments } from "~/models/leaderboard/rankedEnrollments";
-import { prepareTaxonomyEnrollments } from "~/models/leaderboard/taxonomyEnrollments";
 
-import type { SaveAnswerData } from "../answer";
+import type { SaveAnswerData } from "../answer.type";
 
 /**
  * Update User Enrollments Ranks
@@ -14,9 +14,7 @@ const getTaxonomyRankedEnrollments = (
   taxonomyEnrollments: EnrollmentsByTaxonomy[],
 ) => {
   return taxonomyEnrollments.flatMap(({ enrollments }) =>
-    rankAllEnrollments(enrollments).map(
-      ({ rankedEnrollmentSet }) => rankedEnrollmentSet,
-    ),
+    prepareTaxonomyRankedEnrollments(enrollments),
   );
 };
 

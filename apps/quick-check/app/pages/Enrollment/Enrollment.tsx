@@ -17,16 +17,24 @@ import {
 
 interface EnrollmentProps extends EnrollmentContextProps {}
 
-export const Enrollment: FC<EnrollmentProps> = ({ enrollment }) => {
+export const Enrollment: FC<EnrollmentProps> = ({
+  enrollment,
+  leaderboard,
+}) => {
   const { t } = useTranslation();
 
   return (
-    <EnrollmentContextProvider enrollment={enrollment}>
+    <EnrollmentContextProvider
+      enrollment={enrollment}
+      leaderboard={leaderboard}
+    >
       <EnrollmentHeader />
+
       <ResponsiveContainer className="p-4">
         <EnrollmentOverviewSection />
         <EnrollmentSkillsSection />
       </ResponsiveContainer>
+
       <EnrollmentMobileAction />
     </EnrollmentContextProvider>
   );

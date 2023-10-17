@@ -29,8 +29,10 @@ export const TimeTravel: FC<TimeTravelProps> = ({ now, className }) => {
   const hiddenPaths = new Set(["/admin", "/login"]);
   const isTimeTravelHidden = hiddenPaths.has(location.pathname);
 
-  const enabledPaths = new Set(["/dashboard"]);
-  const isTimeTravelEnabled = enabledPaths.has(location.pathname);
+  const enabledPaths = ["/dashboard"];
+  const isTimeTravelEnabled = enabledPaths.find((path) =>
+    location.pathname.includes(path),
+  );
 
   const toggleModal = useCallback(
     () => isTimeTravelEnabled && setShowModal((prev) => !prev),

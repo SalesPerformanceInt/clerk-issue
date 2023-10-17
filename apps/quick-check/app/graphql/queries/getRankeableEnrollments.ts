@@ -30,11 +30,12 @@ export const GET_RANKEABLE_ENROLLMENTS = graphql(/* GraphQL */ `
       }
       order_by: { score: desc }
     ) {
-      id
-      user_id
-      score
-      rank
-      taxonomy_id
+      ...BaseUserEnrollment
+      user {
+        first_name
+        last_name
+        tenant_id
+      }
     }
   }
 `);
@@ -63,3 +64,7 @@ export async function getRankeableEnrollments(
     return null;
   }
 }
+
+export type RankeableEnrollment = NonNullable<
+  Awaited<ReturnType<typeof getRankeableEnrollments>>
+>[number];

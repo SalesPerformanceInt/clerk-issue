@@ -22,7 +22,7 @@ export const generateNextQuestionFromRequest = async (
     await userApolloClient.getUserNextQuestion(currentQuestionId);
   const nextQuestionId = nextQuestion?.id ?? null;
 
-  await userApolloClient.updateNextQuestionId(nextQuestionId);
+  userApolloClient.updateNextQuestionId(nextQuestionId);
 
   return nextQuestionId;
 };
@@ -40,7 +40,7 @@ export const generateNextQuestionForUser = async (
   );
   const nextQuestionId = nextQuestion?.id ?? null;
 
-  await adminApolloClient.updateNextQuestionId(nextQuestionId, {
+  adminApolloClient.updateNextQuestionId(nextQuestionId, {
     userId,
   });
 

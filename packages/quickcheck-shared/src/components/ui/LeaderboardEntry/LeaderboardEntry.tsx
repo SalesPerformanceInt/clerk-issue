@@ -52,7 +52,7 @@ const LeaderboardEntry: FC<LeaderboardEntryProps> = ({
       <div
         className={twMerge("basis-8", [
           !!direction && "text-right mr-2",
-          featured === null && "font-bold",
+          featured === undefined && "font-bold",
         ])}
       >
         #{rank}

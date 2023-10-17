@@ -1,10 +1,12 @@
 import {
   json,
   redirect,
-  type ActionFunction,
+  type ActionArgs,
   type LoaderArgs,
 } from "@remix-run/node";
 import {
+  PrefetchPageLinks,
+  useActionData,
   useLoaderData,
   useNavigate,
   useSearchParams,
@@ -79,7 +81,7 @@ export const shouldRevalidate: ShouldRevalidateFunction = ({
   return !hasSubmittedAnswer;
 };
 
-export const action: ActionFunction = async ({ request }) => {
+export const action = async ({ request }: ActionArgs) => {
   const { currentAnswer } = await saveAnswer(request);
 
   const nextQuestionId = await generateNextQuestionFromRequest(
@@ -93,6 +95,8 @@ export const action: ActionFunction = async ({ request }) => {
 export default function QuestionPage() {
   const { questionItem, variant, enrollmentTaxonomy, id, userData, now } =
     useLoaderData<typeof loader>();
+
+  const actionData = useActionData<typeof action>();
 
   const navigate = useNavigate();
   const submit = useSubmit();
@@ -116,16 +120,25 @@ export default function QuestionPage() {
   const initialChoiceId = searchParams.get("c");
 
   return (
-    <Question
-      key={questionItem.uid}
-      onContinue={() => navigate("/next-question")}
-      onSubmit={onSubmit}
-      variant={variant}
-      onClose={() => navigate("/")}
-      questionItem={questionItem}
-      enrollmentTaxonomy={enrollmentTaxonomy}
-      initialChoiceId={initialChoiceId}
-      userData={userData}
-    />
+    <>
+      <Question
+        key={questionItem.uid}
+        onContinue={() => navigate("/next-question")}
+        onSubmit={onSubmit}
+        variant={variant}
+        onClose={() => navigate("/")}
+        questionItem={questionItem}
+        enrollmentTaxonomy={enrollmentTaxonomy}
+        initialChoiceId={initialChoiceId}
+        userData={userData}
+      />
+
+      {actionData && (
+        <>
+          <PrefetchPageLinks page="/next-question" />
+          <PrefetchPageLinks page={`/question/${actionData.nextQuestionId}`} />
+        </>
+      )}
+    </>
   );
 }

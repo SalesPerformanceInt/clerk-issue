@@ -80,11 +80,14 @@ export const shouldRevalidate: ShouldRevalidateFunction = ({
 };
 
 export const action: ActionFunction = async ({ request }) => {
-  const result = await saveAnswer(request);
+  const { currentAnswer } = await saveAnswer(request);
 
-  const nextQuestionId = await generateNextQuestionFromRequest(request);
+  const nextQuestionId = await generateNextQuestionFromRequest(
+    request,
+    currentAnswer.userQuestionId,
+  );
 
-  return json({ result, nextQuestionId });
+  return json({ nextQuestionId });
 };
 
 export default function QuestionPage() {
@@ -96,7 +99,7 @@ export default function QuestionPage() {
 
   const onSubmit: OnSubmit = (selection) => {
     const answer: Answer = {
-      id,
+      userQuestionId: id,
       questionId: questionItem.uid,
       correct: selection.correct,
       uid: selection.value,

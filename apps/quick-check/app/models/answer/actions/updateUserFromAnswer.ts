@@ -13,7 +13,7 @@ export const updateUserFromAnswer = async (
 ) => {
   const userApolloClient = await getUserApolloClientFromRequest(request);
 
-  await userApolloClient.updateUserQuestion(userQuestion.id, {
+  userApolloClient.updateUserQuestion(userQuestion.id, {
     active_on: userQuestionNextActiveDate,
     retired_on: getRetiredOn(userQuestion, reviewedAnswer),
     latest_review_gap: reviewedAnswer.latestReviewGap,
@@ -22,7 +22,10 @@ export const updateUserFromAnswer = async (
     last_answered_on: reviewedAnswer.lastAnsweredOn,
   });
 
-  await userApolloClient.updateUserEnrollment(userQuestion.user_enrollment.id, {
-    inc: { score: reviewedAnswer.score },
-  });
+  return userApolloClient.updateUserEnrollment(
+    userQuestion.user_enrollment.id,
+    {
+      inc: { score: reviewedAnswer.score },
+    },
+  );
 };

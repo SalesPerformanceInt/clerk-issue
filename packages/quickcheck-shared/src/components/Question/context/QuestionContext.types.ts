@@ -11,6 +11,8 @@ export interface QuestionContextProps extends QuestionProps {
   currentTopic: string;
   submitted: boolean;
   submitAnswer: () => void;
+  continued: boolean;
+  onContinueClick: () => void;
   offset: number;
   showOnCloseModal: boolean;
   onCancelClose: () => void;

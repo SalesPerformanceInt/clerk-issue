@@ -14,11 +14,17 @@ import { Button } from "~/components/ui/Button";
 import { Feedback } from "./Feedback";
 
 const ActionButton: FC = () => {
-  const { submitAnswer, hasSelected, submitted, onContinue, userData } =
-    useQuestionContext();
+  const {
+    submitAnswer,
+    hasSelected,
+    submitted,
+    continued,
+    onContinueClick,
+    userData,
+  } = useQuestionContext();
 
   const { state } = useNavigation();
-  const loading = state !== "idle";
+  const loading = continued ? state === "loading" : state === "submitting";
 
   const { t } = useTranslation();
 
@@ -31,7 +37,7 @@ const ActionButton: FC = () => {
       <Button
         loading={loading}
         rightIcon={faArrowRight}
-        onClick={onContinue}
+        onClick={onContinueClick}
         className="bg-accent text-text"
       >
         {t("question.buttons.finish_up")}
@@ -40,14 +46,17 @@ const ActionButton: FC = () => {
 
   if (submitted)
     return (
-      <Button loading={loading} rightIcon={faArrowRight} onClick={onContinue}>
+      <Button
+        loading={loading}
+        rightIcon={faArrowRight}
+        onClick={onContinueClick}
+      >
         {t("question.buttons.next_question")}
       </Button>
     );
 
   return (
     <Button
-      loading={loading}
       disabled={!hasSelected}
       rightIcon={faArrowRight}
       onClick={submitAnswer}

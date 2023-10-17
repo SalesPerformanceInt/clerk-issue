@@ -37,5 +37,5 @@ export const updateTaxonomyEnrollmentsRanks = async (
 
   const rankedEnrollments = getTaxonomyRankedEnrollments(taxonomyEnrollments);
 
-  await adminApolloClient.updateUserEnrollmentsRanks(rankedEnrollments);
+  adminApolloClient.updateUserEnrollmentsRanks(rankedEnrollments);
 };

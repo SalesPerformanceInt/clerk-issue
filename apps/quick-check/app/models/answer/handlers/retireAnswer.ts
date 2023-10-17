@@ -13,7 +13,7 @@ const shouldRetireUserQuestion = (
   const { streak } = reviewedAnswer;
   const { attempts } = userQuestion;
 
-  return streak >= 2 || (attempts?.aggregate?.count ?? 0) + 1 >= 6;
+  return streak >= 2 || (attempts?.aggregate?.count ?? 0) + 1 >= 3;
 };
 
 export const getRetiredOn = (

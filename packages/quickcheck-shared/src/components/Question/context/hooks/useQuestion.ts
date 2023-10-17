@@ -5,10 +5,14 @@ import invariant from "tiny-invariant";
 import type { Selection } from "../../Question.types";
 import type { QuestionContextProps } from "../QuestionContext.types";
 
-export type useQuestionProps = Pick<QuestionContextProps, "onSubmit">;
+export type useQuestionProps = Pick<
+  QuestionContextProps,
+  "onSubmit" | "onContinue"
+>;
 
-export const useQuestion = ({ onSubmit }: useQuestionProps) => {
+export const useQuestion = ({ onSubmit, onContinue }: useQuestionProps) => {
   const [submitted, setSubmitted] = useState(false);
+  const [continued, setContinued] = useState(false);
   const [selected, setSelected] = useState<Selection | null>(null);
 
   const [showOnCloseModal, toggleShowOnCancelModal] = useState(false);
@@ -23,6 +27,12 @@ export const useQuestion = ({ onSubmit }: useQuestionProps) => {
     setSubmitted(true);
 
     onSubmit(selected);
+  };
+
+  const onContinueClick = () => {
+    setContinued(true);
+
+    onContinue();
   };
 
   const onSelection = (selection: Selection) => {
@@ -43,5 +53,7 @@ export const useQuestion = ({ onSubmit }: useQuestionProps) => {
     showOnCloseModal,
     onCancelClose,
     onShowOnCloseModal,
+    onContinueClick,
+    continued,
   };
 };

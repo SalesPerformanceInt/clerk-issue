@@ -9,7 +9,7 @@ import { parseSchema } from "~/utils/parseSchema";
  */
 
 export const answerSchema = z.object({
-  id: z.string(),
+  userQuestionId: z.string(),
   questionId: z.string(),
   correct: z.boolean(),
   variant: z.enum(variants),

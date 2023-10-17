@@ -123,7 +123,7 @@ export default function QuestionPage() {
     <>
       <Question
         key={questionItem.uid}
-        onContinue={() => navigate("/next-question")}
+        onContinue={() => navigate(`/question/${actionData?.nextQuestionId}`)}
         onSubmit={onSubmit}
         variant={variant}
         onClose={() => navigate("/")}
@@ -134,10 +134,7 @@ export default function QuestionPage() {
       />
 
       {actionData && (
-        <>
-          <PrefetchPageLinks page="/next-question" />
-          <PrefetchPageLinks page={`/question/${actionData.nextQuestionId}`} />
-        </>
+        <PrefetchPageLinks page={`/question/${actionData.nextQuestionId}`} />
       )}
     </>
   );

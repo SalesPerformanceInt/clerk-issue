@@ -8,11 +8,9 @@ import type { LeaderboardEnrollment } from "../leaderboard.types";
 
 const ITEM_LIMIT = 5;
 
-const filterEnrollmentsByRank = (enrollments: RankeableEnrollment[]) => {
-  return enrollments.filter(
-    (enrollment) => enrollment.rank,
-  ) as LeaderboardEnrollment[];
-};
+const isLeaderboardEnrollment = (
+  enrollment: RankeableEnrollment,
+): enrollment is LeaderboardEnrollment => !!enrollment.rank;
 
 const sliceEnrollments = (
   enrollments: LeaderboardEnrollment[],
@@ -38,16 +36,17 @@ export const prepareLeaderboardEnrollments = (
 ) => {
   if (!enrollments.length) return null;
 
-  const filteredEnrollments = filterEnrollmentsByRank(enrollments);
+  const filteredEnrollments = enrollments.filter(isLeaderboardEnrollment);
 
+  const firstEnrollment = filteredEnrollments.at(0)!;
   const userEnrollmentIndex = filteredEnrollments.findIndex(
     (enrollment) => enrollment.user_id === userEnrollment.user_id,
   );
 
   if (filteredEnrollments.length <= ITEM_LIMIT) return filteredEnrollments;
-  if (!userEnrollment.rank || userEnrollmentIndex === -1) return null;
+  if (!firstEnrollment || !userEnrollment.rank || userEnrollmentIndex === -1)
+    return null;
 
-  const firstEnrollment = filteredEnrollments.at(0)!;
   const leaderboardEnrollments = sliceEnrollments(
     filteredEnrollments,
     userEnrollmentIndex,

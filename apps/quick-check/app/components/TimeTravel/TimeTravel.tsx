@@ -30,7 +30,7 @@ export const TimeTravel: FC<TimeTravelProps> = ({ now, className }) => {
   const isTimeTravelHidden = hiddenPaths.has(location.pathname);
 
   const enabledPaths = ["/dashboard"];
-  const isTimeTravelEnabled = enabledPaths.find((path) =>
+  const isTimeTravelEnabled = enabledPaths.some((path) =>
     location.pathname.includes(path),
   );
 

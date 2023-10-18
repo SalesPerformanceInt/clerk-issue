@@ -16,6 +16,7 @@ type LeaderboardEntryProps = {
   title: string;
   score?: number;
   className?: string;
+  featured?: boolean;
 };
 
 const directionMap = new MatchedMap([
@@ -30,9 +31,17 @@ const LeaderboardEntry: FC<LeaderboardEntryProps> = ({
   rank,
   title,
   score,
+  className,
+  featured,
 }) => {
   return (
-    <div className="flex flex-wrap items-start text-text gap-2">
+    <div
+      className={twMerge(
+        "flex flex-wrap items-start text-text gap-2",
+        featured && "bg-primary-25 font-bold",
+        className,
+      )}
+    >
       {direction && (
         <FontAwesomeIcon
           icon={directionMap.get(direction)}
@@ -41,8 +50,9 @@ const LeaderboardEntry: FC<LeaderboardEntryProps> = ({
       )}
 
       <div
-        className={twMerge("font-bold basis-8", [
+        className={twMerge("basis-8", [
           !!direction && "text-right mr-2",
+          featured === undefined && "font-bold",
         ])}
       >
         #{rank}

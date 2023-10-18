@@ -1,6 +1,4 @@
-import { User_Enrollment_Updates } from "~/graphql";
-
-import type { EnrollmentScore } from "../leaderboard.types";
+import type { RankeableEnrollment, User_Enrollment_Updates } from "~/graphql";
 
 const DEFAULT_ENROLLMENT_RANKING = 1;
 const DEFAULT_ENROLLMENT_SCORE = 0;
@@ -10,7 +8,7 @@ const DEFAULT_ENROLLMENT_SCORE = 0;
  */
 
 export const prepareTaxonomyRankedEnrollments = (
-  enrollments: EnrollmentScore[],
+  enrollments: RankeableEnrollment[],
 ) => {
   let rank = DEFAULT_ENROLLMENT_RANKING;
   let previousScore = DEFAULT_ENROLLMENT_SCORE;

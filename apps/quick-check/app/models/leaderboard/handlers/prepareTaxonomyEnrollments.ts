@@ -3,8 +3,9 @@ import invariant from "tiny-invariant";
 
 import { contentStack } from "~/contentstack.server";
 
+import type { RankeableEnrollment } from "~/graphql";
+
 import type {
-  EnrollmentScore,
   EnrollmentsByTaxonomy,
   EnrollmentsByTaxonomyId,
   MappedEnrollmentsByTaxonomyId,
@@ -14,11 +15,11 @@ import type {
  * Taxonomy Enrollments Pipes
  */
 
-const filterEnrollmentsByScore = (enrollments: EnrollmentScore[]) => {
+const filterEnrollmentsByScore = (enrollments: RankeableEnrollment[]) => {
   return enrollments.filter((enrollment) => enrollment.score);
 };
 
-const groupEnrollmentsByTaxonomy = (enrollments: EnrollmentScore[]) => {
+const groupEnrollmentsByTaxonomy = (enrollments: RankeableEnrollment[]) => {
   return groupBy(enrollments, (enrollment) => enrollment.taxonomy_id);
 };
 
@@ -50,7 +51,7 @@ const mapEnrollmentsWithTaxonomy = async (
  */
 
 export const prepareTaxonomyEnrollments = (
-  enrollments: EnrollmentScore[],
+  enrollments: RankeableEnrollment[],
   userId: string,
 ) => {
   return pipe(

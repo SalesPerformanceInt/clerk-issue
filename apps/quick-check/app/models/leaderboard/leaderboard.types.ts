@@ -1,13 +1,6 @@
 import type { Expand } from "quickcheck-shared";
 
-import type { GetRankeableEnrollmentsQuery } from "~/graphql";
-
-/**
- * Enrollment Score
- */
-
-export type EnrollmentScore =
-  GetRankeableEnrollmentsQuery["user_enrollment"][number];
+import type { RankeableEnrollment } from "~/graphql";
 
 /**
  * Enrollments By Taxonomy
@@ -19,19 +12,26 @@ type Taxonomy = {
   title: string;
 };
 
-export type EnrollmentsByTaxonomyId = Record<string, EnrollmentScore[]>;
-export type MappedEnrollmentsByTaxonomyId = [string, EnrollmentScore[]][];
+export type EnrollmentsByTaxonomyId = Record<string, RankeableEnrollment[]>;
+export type MappedEnrollmentsByTaxonomyId = [string, RankeableEnrollment[]][];
 
 export type EnrollmentsByTaxonomy = {
   taxonomy: Taxonomy;
-  enrollments: EnrollmentScore[];
+  enrollments: RankeableEnrollment[];
 };
 
 /**
  * Leaderboard Enrollment
  */
 
+export type LeaderboardEnrollment = {
+  rank: number;
+} & Expand<Omit<RankeableEnrollment, "rank">>;
+
+/**
+ * Leaderboard User Enrollment
+ */
+
 export type LeaderboardUserEnrollment = {
   displayName: string;
-  rank: number;
-} & Expand<Pick<EnrollmentScore, "id" | "score" | "taxonomy_id">>;
+} & LeaderboardEnrollment;

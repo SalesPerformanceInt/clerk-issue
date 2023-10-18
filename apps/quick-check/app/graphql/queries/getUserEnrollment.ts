@@ -29,6 +29,7 @@ export const GET_USER_ENROLLMENT = graphql(/* GraphQL */ `
         ...UserUnansweredQuestions
         first_name
         last_name
+        tenant_id
       }
     }
   }

@@ -8,21 +8,24 @@ import { saveUserAnswer } from "./actions/saveAnswer";
 import { updateTaxonomyEnrollmentsRanks } from "./actions/updateTaxonomyEnrollmentsRanks";
 import { updateUserFromAnswer } from "./actions/updateUserFromAnswer";
 
-import type { SaveAnswerData } from "./answer.type";
+import type { Answer, SaveAnswerData } from "./answer.type";
 
 /**
  * Prepare Answer Data
  */
 
-const prepareAnswerData = async (request: Request): Promise<SaveAnswerData> => {
+const prepareAnswerData = async (
+  request: Request,
+  currentAnswer: Answer,
+): Promise<SaveAnswerData> => {
   const userApolloClient = await getUserApolloClientFromRequest(request);
 
   const user = await userApolloClient.getUser();
   invariant(user, "User not found");
 
-  const { currentAnswer } = await getCurrentAnswer(request);
-
-  const userQuestion = await userApolloClient.getUserQuestion(currentAnswer.id);
+  const userQuestion = await userApolloClient.getUserQuestion(
+    currentAnswer.userQuestionId,
+  );
   invariant(userQuestion, "Question not found");
 
   const { reviewedAnswer, userQuestionNextActiveDate } = getReviewedAnswer(
@@ -44,11 +47,16 @@ const prepareAnswerData = async (request: Request): Promise<SaveAnswerData> => {
  */
 
 export const saveAnswer = async (request: Request) => {
-  const answerData = await prepareAnswerData(request);
+  const { currentAnswer } = await getCurrentAnswer(request);
 
-  await saveUserAnswer(request, answerData);
-  await updateUserFromAnswer(request, answerData);
-  await updateTaxonomyEnrollmentsRanks(request, answerData);
+  prepareAnswerData(request, currentAnswer).then(async (answerData) => {
+    await Promise.all([
+      saveUserAnswer(request, answerData),
+      updateUserFromAnswer(request, answerData),
+    ]);
 
-  return;
+    updateTaxonomyEnrollmentsRanks(request, answerData);
+  });
+
+  return { currentAnswer };
 };

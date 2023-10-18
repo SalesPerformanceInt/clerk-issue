@@ -29,7 +29,7 @@ export const saveUserAnswer = async (
     created_at: reviewedAnswer.lastAnsweredOn,
   };
 
-  await userApolloClient.createLearningRecord(learningRecord);
+  userApolloClient.createLearningRecord(learningRecord);
 
-  await userApolloClient.createUserAnswer(userAnswer);
+  return userApolloClient.createUserAnswer(userAnswer);
 };

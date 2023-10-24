@@ -28,8 +28,13 @@ const prepareAnswerData = async (
   );
   invariant(userQuestion, "Question not found");
 
+  const userQuestionAnswers = await userApolloClient.getUserQuestionAnswers(
+    userQuestion.id,
+  );
+
   const { reviewedAnswer, userQuestionNextActiveDate } = getReviewedAnswer(
     userQuestion,
+    userQuestionAnswers,
     currentAnswer,
   );
 

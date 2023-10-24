@@ -1,3 +1,5 @@
+import objectHash from "object-hash";
+
 export const DEFAULT_KEY = "_";
 type DefaultKey = typeof DEFAULT_KEY;
 
@@ -9,10 +11,14 @@ export class MatchedMap<K, V> extends Map<K | DefaultKey, V> {
   }
 
   set(key: K, value: V) {
-    return super.set(key, value);
+    const hashKey = (typeof key === "object" ? objectHash(key) : key) as K;
+
+    return super.set(hashKey, value);
   }
 
   get(key: K): V {
-    return super.get(key) ?? (super.get("_") as V);
+    const hashKey = (typeof key === "object" ? objectHash(key) : key) as K;
+
+    return super.get(hashKey) ?? (super.get("_") as V);
   }
 }

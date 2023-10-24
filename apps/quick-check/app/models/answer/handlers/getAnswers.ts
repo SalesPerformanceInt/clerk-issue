@@ -1,6 +1,9 @@
 import invariant from "tiny-invariant";
 
-import type { BaseUserQuestionFragment } from "~/graphql";
+import type {
+  BaseUserAnswerFragment,
+  BaseUserQuestionFragment,
+} from "~/graphql";
 
 import {
   REVIEW_CORRECT,
@@ -12,6 +15,7 @@ import { getNextValidBusinessDate } from "~/utils/date";
 import type { Answer, AnswerToReview } from "../answer.type";
 import { parseAnswer } from "./parseAnswer";
 import { reviewAnswer } from "./reviewAnswer";
+import { scoreAnswer } from "./scoreAnswer";
 
 /**
  * Get Answers
@@ -33,6 +37,7 @@ export const getCurrentAnswer = async (request: Request) => {
 
 export const getReviewedAnswer = (
   userQuestion: BaseUserQuestionFragment,
+  userQuestionAnswers: BaseUserAnswerFragment[] | null,
   currentAnswer: Answer,
 ) => {
   const answerToReview: AnswerToReview = {
@@ -42,7 +47,7 @@ export const getReviewedAnswer = (
     latestReviewGap: userQuestion.latest_review_gap,
     difficulty: userQuestion.difficulty || REVIEW_DIFFICULTY_BASE,
     streak: userQuestion.streak || 0,
-    score: currentAnswer.correct ? 2 : 1,
+    score: scoreAnswer(userQuestionAnswers, currentAnswer),
   };
 
   const reviewedAnswer = reviewAnswer(answerToReview);

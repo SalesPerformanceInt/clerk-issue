@@ -52,7 +52,8 @@ export const UserRow: FC<UserRowProps> = ({ user, row }) => {
       <td className="whitespace-nowrap px-6 py-4">{`${user.first_name} ${user.last_name}`}</td>
       <td className="whitespace-nowrap px-6 py-4">{user.email}</td>
       <td className="whitespace-nowrap px-6 py-4">
-        {parsePhoneNumber(user.phone_number ?? "", "US").formatNational()}
+        {user.phone_number &&
+          parsePhoneNumber(user.phone_number, "US").formatNational()}
       </td>
       <td className="whitespace-nowrap px-6 py-4 text-center">
         <input

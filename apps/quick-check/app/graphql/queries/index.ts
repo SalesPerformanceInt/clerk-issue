@@ -7,7 +7,7 @@ export * from "./getUserQuestion";
 export * from "./getUserDashboard";
 export * from "./getUserActiveQuestionsData";
 export * from "./getUserEmailData";
-export * from "./getUserQuestionLearningRecord";
+export * from "./getUserQuestionAnswers";
 export * from "./getActiveUserQuestion";
 export * from "./getUserEnrollment";
 export * from "./getRankeableEnrollments";

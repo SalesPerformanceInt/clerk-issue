@@ -19,6 +19,7 @@ export const GET_USER_DASHBOARD = graphql(/* GraphQL */ `
       }
       active_user_enrollments: user_enrollments(
         where: {
+          user_questions_aggregate: { count: { predicate: { _gt: 0 } } }
           _or: [
             {
               _or: [
@@ -46,6 +47,7 @@ export const GET_USER_DASHBOARD = graphql(/* GraphQL */ `
       }
       completed_user_enrollments: user_enrollments(
         where: {
+          user_questions_aggregate: { count: { predicate: { _gt: 0 } } }
           _or: [
             { completed_on: { _is_null: false, _lte: $nowDate } }
             {
@@ -93,6 +95,7 @@ export const GET_USER_DASHBOARD = graphql(/* GraphQL */ `
       }
       completed_enrollments: user_enrollments_aggregate(
         where: {
+          user_questions_aggregate: { count: { predicate: { _gt: 0 } } }
           _or: [
             { completed_on: { _is_null: false, _lte: $nowDate } }
             {
@@ -116,7 +119,10 @@ export const GET_USER_DASHBOARD = graphql(/* GraphQL */ `
         }
       }
       total_enrollments: user_enrollments_aggregate(
-        where: { created_at: { _lte: $now } }
+        where: {
+          user_questions_aggregate: { count: { predicate: { _gt: 0 } } }
+          created_at: { _lte: $now }
+        }
       ) {
         aggregate {
           count

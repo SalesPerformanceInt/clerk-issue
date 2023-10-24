@@ -4,23 +4,19 @@ import {
   type WithApolloClient,
 } from "~/graphql";
 
-export const GET_USER_QUESTION_LEARNING_RECORD = graphql(/* GraphQL */ `
-  query GetUserQuestionLearningRecord($userId: uuid!, $questionId: uuid!) {
-    learning_record(
-      where: {
-        user_id: { _eq: $userId }
-        data: { _contains: { questionId: $questionId } }
-      }
+export const GET_USER_QUESTION_ANSWERS = graphql(/* GraphQL */ `
+  query GetUserQuestionAnswers($userId: uuid!, $questionId: uuid!) {
+    user_answer(
+      where: { user_id: { _eq: $userId }, question_id: { _eq: $questionId } }
       limit: 1
       order_by: { created_at: desc }
     ) {
-      created_at
-      data
+      ...BaseUserAnswer
     }
   }
 `);
 
-export async function getUserQuestionLearningRecord(
+export async function getUserQuestionAnswers(
   this: WithApolloClient,
   questionId: string,
   proxyData: GQLProxyUserData,
@@ -29,12 +25,12 @@ export async function getUserQuestionLearningRecord(
 
   try {
     const result = await this.client.query({
-      query: GET_USER_QUESTION_LEARNING_RECORD,
+      query: GET_USER_QUESTION_ANSWERS,
       variables: { userId, questionId },
       fetchPolicy: "no-cache",
     });
 
-    return result.data.learning_record?.[0] ?? null;
+    return result.data.user_answer ?? null;
   } catch (error) {
     console.log("ERROR", error);
     return null;

@@ -33,7 +33,7 @@ import {
   getUserEnrollment,
   getUserNextQuestion,
   getUserQuestion,
-  getUserQuestionLearningRecord,
+  getUserQuestionAnswers,
   getUserTheme,
   getUserWeeklyStreak,
 } from "~/graphql/queries";
@@ -92,7 +92,7 @@ export class GraphQLClient implements WithApolloClient {
   getLinkToken = getLinkToken;
   getUser = getUser;
   createLearningRecord = createLearningRecord;
-  getUserQuestionLearningRecord = getUserQuestionLearningRecord;
+  getUserQuestionAnswers = getUserQuestionAnswers;
   updateNextQuestionId = updateNextQuestionId;
   resetUser = resetUser;
   getAllUsers = getAllUsers;

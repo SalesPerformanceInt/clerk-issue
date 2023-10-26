@@ -139,7 +139,10 @@ export async function enrollUser(
     }),
   );
 
-  if (error) return logError({ error, log: "enrollUser" });
+  if (error || !enrolledUser) {
+    logError({ error, log: "enrollUser" });
+    return null;
+  }
 
   return enrolledUser?.data?.insert_user_enrollment_one ?? null;
 }

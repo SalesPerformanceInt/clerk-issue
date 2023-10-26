@@ -13,12 +13,12 @@ export async function getAllUsers(
   _proxyData: GQLProxyData,
 ) {
   try {
-    const { data } = await this.client.query({
+    const result = await this.client.query({
       query: GET_ALL_USERS,
       fetchPolicy: "network-only",
     });
 
-    return data.user;
+    return result?.data?.user;
   } catch (error) {
     console.log("ERROR", error);
     return null;

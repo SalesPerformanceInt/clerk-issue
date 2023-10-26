@@ -1,10 +1,13 @@
-import { useNavigation, useSubmit } from "@remix-run/react";
+import { useFetcher } from "@remix-run/react";
 
 import { withZod } from "@remix-validated-form/with-zod";
+import { DateTime } from "luxon";
 import { ValidatedForm } from "remix-validated-form";
-import { createUserActionSchema } from "~/graphql/mutations";
+import { v4 as uuidv4 } from "uuid";
 
 import { Button } from "quickcheck-shared";
+
+import { createUserActionSchema } from "~/graphql/mutations";
 
 import { parseSchema } from "~/utils/parseSchema";
 
@@ -16,13 +19,11 @@ const parseCreateUserRequest = (formData?: FormData) => {
 };
 
 export const CreateUserForm = () => {
-  const submit = useSubmit();
-
-  const navigationData = useNavigation();
+  const fetcher = useFetcher();
 
   const isLoading = () => {
-    if (navigationData.state === "idle") return false;
-    return !!parseCreateUserRequest(navigationData.formData);
+    if (fetcher.state === "idle") return false;
+    return !!parseCreateUserRequest(fetcher.formData);
   };
 
   const validator = withZod(createUserActionSchema);
@@ -34,7 +35,23 @@ export const CreateUserForm = () => {
       className="overflow-x-auto sm:-mx-6 desktop:-mx-8"
       onSubmit={(data, event) => {
         event.preventDefault();
-        submit(data, { method: "POST" });
+        fetcher.submit(
+          {
+            user_id: uuidv4(),
+            account_subdomain: "richardson",
+            user_email: data.email,
+            user_first_name: data.firstName,
+            user_last_name: data.lastName,
+            start_date: DateTime.now().toISODate(),
+            expiration_date: DateTime.now().plus({ weeks: 12 }).toISODate(),
+            cms_topic_ids: ["blta787ff4eee54bb5e"],
+          },
+          {
+            method: "POST",
+            action: "/import/user",
+            encType: "application/json",
+          },
+        );
       }}
     >
       <div className="inline-block min-w-full py-2 sm:px-6 desktop:px-8">

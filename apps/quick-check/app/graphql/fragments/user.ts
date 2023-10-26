@@ -15,8 +15,8 @@ export const BaseUser = graphql(/* GraphQL */ `
     tenant_id
     email
     first_name
-    language_preference
     last_name
+    language_preference
     next_question {
       ...BaseUserQuestion
     }
@@ -24,9 +24,6 @@ export const BaseUser = graphql(/* GraphQL */ `
     timezone
     user_id
     sms_enabled
-    learning_records {
-      ...BaseLearningRecord
-    }
   }
 `);
 

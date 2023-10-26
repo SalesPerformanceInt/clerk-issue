@@ -36,7 +36,8 @@ export const loader = async ({ params, request }: LoaderArgs) => {
       userId: token.user_id,
       tenantId: token.tenant_id,
     });
-  } catch {
+  } catch (error) {
+    console.log("ERROR - /token/$cuid", error);
     return invalidTokenRedirect();
   }
 };

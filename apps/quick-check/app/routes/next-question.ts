@@ -19,7 +19,8 @@ export const loader = async ({ request }: LoaderArgs) => {
     invariant(nextQuestionId, "next question not found");
 
     return redirect(`/question/${nextQuestionId}`);
-  } catch {
+  } catch (error) {
+    console.log("ERROR - /next-question", error);
     return redirect(`/`);
   }
 };

@@ -110,6 +110,7 @@ export const action = async ({ request }: ActionArgs) => {
       invariant(user, "No user found");
 
       const activeToken = user.active_tokens[0]?.id ?? "";
+
       return redirect(`/token/${activeToken}`);
     }
 

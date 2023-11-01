@@ -16,8 +16,8 @@ const config = {
         xxl: "1.375rem",
       },
       fontFamily: {
-        sans: ["var(--font-face, Open Sans)", "ui-sans-serif", "system-ui"],
-        body: ["var(--font-face, Open Sans)", "ui-sans-serif", "system-ui"],
+        sans: ["var(--font-face)", "var(--system-font)", "system-ui"],
+        body: ["var(--font-face)", "var(--system-font)", "system-ui"],
       },
       borderWidth: {
         16: "16px",

@@ -35,7 +35,11 @@ import {
   QC_CONTENTSTACK_STACK_KEY,
 } from "./utils/envs.server";
 
+import { makeErrorBoundary } from "./components/error";
+
 import { getOptionalUserApolloClientFromRequest } from "./graphql";
+
+export const ErrorBoundary = makeErrorBoundary({ wat: "root level error" });
 
 export const loader = async ({ request }: LoaderArgs) => {
   const [now] = await getUserDataFromFromSession(request);

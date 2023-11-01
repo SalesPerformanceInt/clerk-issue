@@ -13,6 +13,8 @@ export const HASURA_SECRET_KEY = process.env.HASURA_SECRET_KEY ?? "";
 
 export const SESSION_SECRET = process.env.SESSION_SECRET ?? "";
 
+export const HONEYBADGER_API_KEY = process.env.HONEYBADGER_API_KEY ?? "";
+
 export const NODE_ENV = process.env.NODE_ENV ?? "";
 
 export const TWILIO_ACCOUNT_SID = process.env.TWILIO_ACCOUNT_SID ?? "";

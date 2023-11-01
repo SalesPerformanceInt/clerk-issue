@@ -58,6 +58,7 @@ export const generateTokenAndSendSMS = async (
 
   const token = await adminApolloClient.generateNewToken({
     userId: user.user_id,
+    tenantId: user.tenant_id,
   });
 
   invariant(token, "No token generated");

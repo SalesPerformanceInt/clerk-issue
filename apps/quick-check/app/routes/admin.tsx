@@ -9,22 +9,30 @@ import { useLoaderData } from "@remix-run/react";
 import { QuickcheckQuestionEmail } from "emails";
 import { map, pipe } from "remeda";
 import invariant from "tiny-invariant";
+import { v4 as uuidv4 } from "uuid";
 import { z } from "zod";
 import { generateTokenAndSendSMS } from "~/notifications/twilio.server";
 
 import { getAdminApolloClientFromRequest } from "~/graphql";
-import { createUserActionSchema } from "~/graphql/mutations";
 
 import { sendEmail } from "~/utils/email";
 import { VERCEL_URL } from "~/utils/envs.server";
 import { remixI18next } from "~/utils/i18next.server";
 import { parseSchema } from "~/utils/parseSchema";
 
+import {
+  formatUserInputFromImport,
+  parseCreateUserRequest,
+} from "~/models/api";
 import { getQuestionData } from "~/models/question";
 import { buildTaxonTrees } from "~/models/taxonomy";
 import { generateNextQuestionForUser } from "~/models/user";
 
-import { CreateUserForm, UsersTable } from "~/components";
+import {
+  CreateUserForm,
+  UsersTable,
+  createUserActionSchema,
+} from "~/components";
 
 export const adminActionSchema = z.object({
   type: z.enum([
@@ -44,11 +52,6 @@ export const parseAdminActionRequest = (formData?: FormData) => {
   return parseSchema(data, adminActionSchema);
 };
 
-const parseCreateUserRequest = (formData?: FormData) => {
-  const data = formData && Object.fromEntries([...formData.entries()]);
-  return parseSchema(data, createUserActionSchema);
-};
-
 export const loader = async ({ request }: LoaderArgs) => {
   const adminApolloClient = await getAdminApolloClientFromRequest(request);
 
@@ -64,7 +67,9 @@ export const action = async ({ request }: ActionArgs) => {
     const createUserInput = parseCreateUserRequest(formData);
 
     if (createUserInput) {
-      await adminApolloClient.createUser(createUserInput);
+      await adminApolloClient.upsertUser(
+        formatUserInputFromImport(createUserInput),
+      );
     }
 
     const adminAction = parseAdminActionRequest(formData);
@@ -93,7 +98,7 @@ export const action = async ({ request }: ActionArgs) => {
       const enrollments = pipe(
         taxonTrees,
         map((tree) =>
-          adminApolloClient.enrollUser(`${tree.rootNode.id}`, {
+          adminApolloClient.enrollUser(`${tree.rootNode.id}`, uuidv4(), {
             userId: adminAction.userId,
           }),
         ),

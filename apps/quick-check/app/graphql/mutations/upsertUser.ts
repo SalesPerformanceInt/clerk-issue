@@ -1,5 +1,8 @@
 import { parsePhoneNumber } from "libphonenumber-js";
 import { isEmpty } from "lodash";
+import invariant from "tiny-invariant";
+
+import { RequiredKeys } from "quickcheck-shared";
 
 import {
   graphql,
@@ -31,23 +34,34 @@ export const UPSERT_USER = graphql(/* GraphQL */ `
   }
 `);
 
+export type UpsertUserInput = RequiredKeys<
+  User_Insert_Input,
+  "user_id" | "tenant_id" | "first_name" | "last_name" | "email"
+>;
+
 export async function upsertUser(
   this: WithApolloClient,
-  user: User_Insert_Input,
+  user: UpsertUserInput,
   proxyData: GQLProxyData,
 ) {
   const { now } = proxyData;
 
   try {
-    const { data } = await this.client.mutate({
+    const result = await this.client.mutate({
       mutation: UPSERT_USER,
       variables: { user },
     });
 
-    const userId = data?.insert_user_one?.user_id;
+    const { data } = result;
 
-    if (userId && isEmpty(data.insert_user_one?.active_tokens))
-      generateNewToken.call(this, { userId, now });
+    const userId = data?.insert_user_one?.user_id;
+    const tenantId = data?.insert_user_one?.tenant_id;
+
+    invariant(userId, "User ID not found");
+    invariant(tenantId, "Tenant ID not found");
+
+    if (isEmpty(data.insert_user_one?.active_tokens))
+      await generateNewToken.call(this, { userId, tenantId, now });
 
     return data?.insert_user_one ?? null;
   } catch (error) {

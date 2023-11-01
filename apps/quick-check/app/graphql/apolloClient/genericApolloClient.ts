@@ -9,7 +9,6 @@ import {
 
 import {
   createLearningRecord,
-  createUser,
   createUserAnswer,
   enrollUser,
   generateNewToken,
@@ -99,7 +98,6 @@ export class GraphQLClient implements WithApolloClient {
   getAllUsers = getAllUsers;
   generateNewToken = generateNewToken;
   toggleUserSMSEnabled = toggleUserSMSEnabled;
-  createUser = createUser;
   getUserTheme = getUserTheme;
   enrollUser = enrollUser;
   getUserNextQuestion = getUserNextQuestion;

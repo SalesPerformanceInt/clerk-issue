@@ -6,3 +6,5 @@ export interface UserData {
 }
 
 export type UserDataWithName = Pick<UserData, "first_name" | "last_name">;
+
+export type RequiredKeys<T, K extends keyof T> = T & Required<Pick<T, K>>;

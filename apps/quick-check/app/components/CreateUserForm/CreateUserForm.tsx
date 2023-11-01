@@ -4,19 +4,20 @@ import { withZod } from "@remix-validated-form/with-zod";
 import { DateTime } from "luxon";
 import { ValidatedForm } from "remix-validated-form";
 import { v4 as uuidv4 } from "uuid";
+import { z } from "zod";
 
 import { Button } from "quickcheck-shared";
 
-import { createUserActionSchema } from "~/graphql/mutations";
-
-import { parseSchema } from "~/utils/parseSchema";
+import { parseCreateUserRequest } from "~/models/api";
 
 import { FormInput, PhoneFormInput } from "~/components/FormInput";
 
-const parseCreateUserRequest = (formData?: FormData) => {
-  const data = formData && Object.fromEntries([...formData.entries()]);
-  return parseSchema(data, createUserActionSchema);
-};
+export const createUserActionSchema = z.object({
+  firstName: z.string().min(1, { message: "Required" }),
+  lastName: z.string().min(1, { message: "Required" }),
+  email: z.string().email(),
+  phoneNumber: z.string().min(17, { message: "Invalid phone number" }),
+});
 
 export const CreateUserForm = () => {
   const fetcher = useFetcher();
@@ -39,17 +40,13 @@ export const CreateUserForm = () => {
           {
             user_id: uuidv4(),
             account_subdomain: "richardson",
-            user_email: data.email,
-            user_first_name: data.firstName,
-            user_last_name: data.lastName,
-            start_date: DateTime.now().toISODate(),
-            expiration_date: DateTime.now().plus({ weeks: 12 }).toISODate(),
-            cms_topic_ids: ["blta787ff4eee54bb5e"],
+            email: data.email,
+            first_name: data.firstName,
+            last_name: data.lastName,
+            phone_number: data.phoneNumber,
           },
           {
             method: "POST",
-            action: "/import/user",
-            encType: "application/json",
           },
         );
       }}

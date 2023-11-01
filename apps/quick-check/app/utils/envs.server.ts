@@ -26,6 +26,8 @@ export const SENDGRID_API_KEY = process.env.SENDGRID_API_KEY ?? "";
 export const SENDGRID_FROM = process.env.SENDGRID_FROM ?? "";
 export const VERCEL_URL = process.env.VERCEL_URL ?? "";
 
+export const IMPORT_SECRET_KEY = process.env.IMPORT_SECRET_KEY ?? "";
+
 export const isDevelopment = NODE_ENV === "development";
 
 export const CONTENTSTACK_ENVS = {

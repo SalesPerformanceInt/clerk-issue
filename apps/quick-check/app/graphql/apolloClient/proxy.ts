@@ -20,11 +20,11 @@ declare global {
 export type GQLProxyData = { now: string };
 export type GQLProxyUserData = GQLProxyData & { userId: string };
 export type GQLProxyTenantData = GQLProxyData & { tenantId: string };
-
-export type GQLProxyAllData = GQLProxyData & {
+export type GQLProxyPossibleData = GQLProxyData & {
   userId?: string;
   tenantId?: string;
 };
+export type GQLProxyAllData = Required<GQLProxyPossibleData>;
 
 /**
  * Proxy Data Normalization
@@ -82,7 +82,7 @@ export const createGraphQLProxy = <
   TTarget extends TSource,
 >(
   source: TSource,
-  sessionData: GQLProxyAllData,
+  sessionData: GQLProxyPossibleData,
 ) => {
   return new Proxy<TSource, TTarget>(source, {
     get(target, key) {

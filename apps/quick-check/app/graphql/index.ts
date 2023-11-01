@@ -2,3 +2,4 @@ export * from "./generated/graphql";
 export * from "./generated/gql";
 export * from "./apolloClient";
 export * from "./queries";
+export * from "./mutations";

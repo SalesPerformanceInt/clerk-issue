@@ -100,9 +100,10 @@ const prepareActiveQuestionsInput = (user_id: string) => {
 };
 
 const prepareUserEnrollmentInput =
-  (user_id: string, taxonomy_id: string) =>
+  (user_id: string, taxonomy_id: string, enrollmentId: string) =>
   (shuffledActiveQuestions: User_Question_Insert_Input[]) => {
     const userEnollmentInput: User_Enrollment_Insert_Input = {
+      id: enrollmentId,
       user_id,
       taxonomy_id,
       user_questions: {
@@ -120,6 +121,7 @@ const prepareUserEnrollmentInput =
 export async function enrollUser(
   this: WithApolloClient,
   taxonomy_id: string,
+  enrollmentId: string,
   proxyData: GQLProxyUserData,
 ) {
   const { userId } = proxyData;
@@ -129,7 +131,7 @@ export async function enrollUser(
     andThen(getQuestions),
     andThen(shuffle()),
     andThen(prepareActiveQuestionsInput(userId)),
-    andThen(prepareUserEnrollmentInput(userId, taxonomy_id)),
+    andThen(prepareUserEnrollmentInput(userId, taxonomy_id, enrollmentId)),
   );
 
   const [enrolledUser, error] = await promiseWrapper(

@@ -4,33 +4,21 @@ import { SES } from "@aws-sdk/client-ses";
 import sendgrid from "@sendgrid/mail";
 import { render } from "emails";
 
-import { AWS_SES_REGION, EMAIL_FROM } from "../../envs.server";
+import { SENDGRID_API_KEY, SENDGRID_FROM } from "../../envs.server";
 
-const ses = new SES({ region: AWS_SES_REGION });
+sendgrid.setApiKey(SENDGRID_API_KEY);
 
 export const sendEmail = async (
   to: string,
   subject: string,
   email: ReactElement,
 ) => {
-  const params = {
-    Source: EMAIL_FROM,
-    Destination: {
-      ToAddresses: [to],
-    },
-    Message: {
-      Body: {
-        Html: {
-          Charset: "UTF-8",
-          Data: render(email),
-        },
-      },
-      Subject: {
-        Charset: "UTF-8",
-        Data: subject,
-      },
-    },
+  const html = render(email);
+  const data = {
+    to,
+    from: SENDGRID_FROM,
+    subject,
+    html,
   };
-
-  return await ses.sendEmail(params);
+  return await sendgrid.send(data);
 };

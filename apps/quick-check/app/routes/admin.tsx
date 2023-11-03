@@ -15,7 +15,7 @@ import { generateTokenAndSendSMS } from "~/notifications/twilio.server";
 
 import { getAdminApolloClientFromRequest } from "~/graphql";
 
-import { sendEmail } from "~/utils/email";
+import { sendEmail } from "~/utils/email/ses/email";
 import { VERCEL_URL } from "~/utils/envs.server";
 import { remixI18next } from "~/utils/i18next.server";
 import { parseSchema } from "~/utils/parseSchema";
@@ -169,8 +169,8 @@ export default function Page() {
   const { users } = useLoaderData<typeof loader>();
 
   return (
-    <div className="bg-primary-dark p-8">
-      <div className="flex w-full flex-col">
+    <div className="p-8 bg-primary-dark">
+      <div className="flex flex-col w-full">
         <div className="overflow-x-auto sm:-mx-6 desktop:-mx-8">
           <div className="inline-block min-w-full py-2 sm:px-6 desktop:px-8">
             <div className="mb-8 overflow-hidden">

@@ -1,5 +1,6 @@
 import type { ReactElement } from "react";
 
+import { SES } from "@aws-sdk/client-ses";
 import sendgrid from "@sendgrid/mail";
 import { render } from "emails";
 

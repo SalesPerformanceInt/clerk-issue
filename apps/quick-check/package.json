@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@apollo/client": "^3.7.14",
+    "@aws-sdk/client-ses": "^3.441.0",
     "@axe-core/react": "^4.8.1",
     "@fortawesome/fontawesome-svg-core": "^6.4.0",
     "@fortawesome/pro-light-svg-icons": "^6.4.0",

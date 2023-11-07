@@ -44,7 +44,9 @@ export const ErrorBoundary = makeErrorBoundary({ wat: "root level error" });
 
 export const loader = async ({ request }: LoaderArgs) => {
   const [now] = await getUserDataFromFromSession(request);
-  const [timeTravelFlag] = await getSplit(request, ["quickcheck__time_travel"]);
+  const [timeTravelFlag = false] = await getSplit(request, [
+    "quickcheck__time_travel",
+  ]);
   const userApolloClient =
     await getOptionalUserApolloClientFromRequest(request);
 

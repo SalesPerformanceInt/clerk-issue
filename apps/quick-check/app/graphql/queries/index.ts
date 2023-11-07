@@ -12,3 +12,6 @@ export * from "./getActiveUserQuestion";
 export * from "./getUserEnrollment";
 export * from "./getRankeableEnrollments";
 export * from "./getUserWeeklyStreak";
+export * from "./getTenantUsers";
+export * from "./getTenants";
+export * from "./getUserData";

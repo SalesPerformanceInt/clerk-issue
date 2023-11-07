@@ -19,15 +19,18 @@ export type TimeTravelContext = {
 
 type TimeTravelProps = {
   now: string;
+  flag: boolean;
   className?: string;
 };
 
-export const TimeTravel: FC<TimeTravelProps> = ({ now, className }) => {
+export const TimeTravel: FC<TimeTravelProps> = ({ now, flag, className }) => {
   const location = useLocation();
   const [showModal, setShowModal] = useState(false);
 
-  const hiddenPaths = new Set(["/admin", "/login"]);
-  const isTimeTravelHidden = hiddenPaths.has(location.pathname);
+  const hiddenPaths = ["/admin", "/login"];
+  const isTimeTravelHidden = hiddenPaths.some((path) =>
+    location.pathname.includes(path),
+  );
 
   const enabledPaths = ["/dashboard"];
   const isTimeTravelEnabled = enabledPaths.some((path) =>
@@ -39,11 +42,12 @@ export const TimeTravel: FC<TimeTravelProps> = ({ now, className }) => {
     [isTimeTravelEnabled],
   );
 
+  if (!flag) return null;
   if (isTimeTravelHidden) return null;
 
   return (
     <>
-      <div className="absolute top-8 sm:top-12 left-0 right-0 flex justify-center z-20">
+      <div className="absolute left-0 right-0 z-20 flex justify-center top-8 sm:top-12">
         <button
           className={twMerge(
             "bg-primary-75 rounded px-2 py-1 shadow-md text-background text-xl flex items-center gap-2",

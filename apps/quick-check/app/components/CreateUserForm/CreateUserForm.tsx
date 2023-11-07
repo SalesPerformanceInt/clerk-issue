@@ -1,8 +1,8 @@
-import { useFetcher } from "@remix-run/react";
+import { useFetcher, useParams } from "@remix-run/react";
 
 import { withZod } from "@remix-validated-form/with-zod";
-import { DateTime } from "luxon";
 import { ValidatedForm } from "remix-validated-form";
+import invariant from "tiny-invariant";
 import { v4 as uuidv4 } from "uuid";
 import { z } from "zod";
 
@@ -21,6 +21,8 @@ export const createUserActionSchema = z.object({
 
 export const CreateUserForm = () => {
   const fetcher = useFetcher();
+  const { tenantId } = useParams();
+  invariant(tenantId, "No Tenant ID found");
 
   const isLoading = () => {
     if (fetcher.state === "idle") return false;
@@ -39,7 +41,7 @@ export const CreateUserForm = () => {
         fetcher.submit(
           {
             user_id: uuidv4(),
-            account_subdomain: "richardson",
+            account_subdomain: tenantId,
             email: data.email,
             first_name: data.firstName,
             last_name: data.lastName,

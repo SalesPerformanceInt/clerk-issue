@@ -4,7 +4,7 @@ import { UserRow } from "./components/UserRow";
 
 import type { UserTableProps } from "./UsersTable.types";
 
-export const UsersTable: FC<UserTableProps> = ({ users }) => {
+export const UsersTable: FC<UserTableProps> = ({ users, link }) => {
   return (
     <table className="min-w-full table-auto text-left text-sm">
       <thead className="border-b bg-white font-medium">
@@ -37,7 +37,7 @@ export const UsersTable: FC<UserTableProps> = ({ users }) => {
       </thead>
       <tbody>
         {users.map((user, index) => (
-          <UserRow key={user.user_id} user={user} row={index} />
+          <UserRow key={user.user_id} user={user} row={index} link={link} />
         ))}
       </tbody>
     </table>

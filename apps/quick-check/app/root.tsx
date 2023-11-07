@@ -34,6 +34,7 @@ import {
   QC_CONTENTSTACK_ENVIRONMENT,
   QC_CONTENTSTACK_STACK_KEY,
 } from "./utils/envs.server";
+import { getSplit } from "./utils/getSplit";
 
 import { makeErrorBoundary } from "./components/error";
 
@@ -43,6 +44,9 @@ export const ErrorBoundary = makeErrorBoundary({ wat: "root level error" });
 
 export const loader = async ({ request }: LoaderArgs) => {
   const [now] = await getUserDataFromFromSession(request);
+  const [timeTravelFlag = false] = await getSplit(request, [
+    "quickcheck__time_travel",
+  ]);
   const userApolloClient =
     await getOptionalUserApolloClientFromRequest(request);
 
@@ -56,7 +60,7 @@ export const loader = async ({ request }: LoaderArgs) => {
     QC_CONTENTSTACK_STACK_KEY,
   };
 
-  return json({ theme, locale, ENV, now });
+  return json({ theme, locale, ENV, timeTravelFlag, now });
 };
 
 export const handle = {
@@ -91,7 +95,8 @@ export const meta: V2_MetaFunction = () => [
 ];
 
 export default function App() {
-  const { theme, locale, ENV, now } = useLoaderData<typeof loader>();
+  const { theme, locale, ENV, timeTravelFlag, now } =
+    useLoaderData<typeof loader>();
 
   const { i18n } = useTranslation();
   useChangeLanguage(locale);
@@ -101,7 +106,7 @@ export default function App() {
       <head>
         <Meta />
         <Links />
-        {theme && <style>{theme}</style>}
+        {theme && <style dangerouslySetInnerHTML={{ __html: theme }}></style>}
         <script
           dangerouslySetInnerHTML={{
             __html: `window.ENV = ${JSON.stringify(ENV)}`,
@@ -109,7 +114,7 @@ export default function App() {
         />
       </head>
       <body className="h-full overflow-auto bg-background-secondary">
-        <TimeTravel now={now} />
+        <TimeTravel now={now} flag={timeTravelFlag} />
 
         <Outlet context={{ now }} />
         <ScrollRestoration />

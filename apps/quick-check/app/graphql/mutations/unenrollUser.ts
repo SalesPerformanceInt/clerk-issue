@@ -1,0 +1,41 @@
+import {
+  graphql,
+  type GQLProxyUserData,
+  type WithApolloClient,
+} from "~/graphql";
+
+export const UNENROLL_USER = graphql(/* GraphQL */ `
+  mutation UnenrollUser($userId: uuid!, $enrollmentId: uuid!) {
+    update_user_by_pk(
+      pk_columns: { user_id: $userId }
+      _set: { next_user_question_id: null }
+    ) {
+      ...BaseUser
+    }
+    delete_user_enrollment(
+      where: { user_id: { _eq: $userId }, id: { _eq: $enrollmentId } }
+    ) {
+      affected_rows
+    }
+  }
+`);
+
+export async function unenrollUser(
+  this: WithApolloClient,
+  enrollmentId: string,
+  proxyData: GQLProxyUserData,
+) {
+  const { userId } = proxyData;
+
+  try {
+    const result = await this.client.mutate({
+      mutation: UNENROLL_USER,
+      variables: { userId, enrollmentId },
+    });
+
+    return result.data?.update_user_by_pk ?? null;
+  } catch (error) {
+    console.log("ERROR", error);
+    return null;
+  }
+}

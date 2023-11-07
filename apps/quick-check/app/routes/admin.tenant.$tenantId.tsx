@@ -4,8 +4,10 @@ import {
   type ActionArgs,
   type LoaderArgs,
 } from "@remix-run/node";
-import { useLoaderData } from "@remix-run/react";
+import { useLoaderData, useNavigate, useParams } from "@remix-run/react";
 
+import { faChevronLeft } from "@fortawesome/pro-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { QuickcheckQuestionEmail } from "emails";
 import { map, pipe } from "remeda";
 import invariant from "tiny-invariant";
@@ -28,11 +30,7 @@ import { getQuestionData } from "~/models/question";
 import { buildTaxonTrees } from "~/models/taxonomy";
 import { generateNextQuestionForUser } from "~/models/user";
 
-import {
-  CreateUserForm,
-  UsersTable,
-  createUserActionSchema,
-} from "~/components";
+import { CreateUserForm, UsersTable } from "~/components";
 
 export const adminActionSchema = z.object({
   type: z.enum([
@@ -52,15 +50,21 @@ export const parseAdminActionRequest = (formData?: FormData) => {
   return parseSchema(data, adminActionSchema);
 };
 
-export const loader = async ({ request }: LoaderArgs) => {
+export const loader = async ({ request, params }: LoaderArgs) => {
+  const { tenantId } = params;
+  invariant(tenantId, "Tenant ID not found");
+
   const adminApolloClient = await getAdminApolloClientFromRequest(request);
 
-  const users = (await adminApolloClient.getAllUsers()) ?? [];
+  const users = (await adminApolloClient.getTenantUsers({ tenantId })) ?? [];
   return json({ users }, { status: 200 });
 };
 
-export const action = async ({ request }: ActionArgs) => {
+export const action = async ({ request, params }: ActionArgs) => {
   try {
+    const { tenantId } = params;
+    invariant(tenantId, "Tenant ID not found");
+
     const adminApolloClient = await getAdminApolloClientFromRequest(request);
     const formData = await request.formData();
 
@@ -167,14 +171,32 @@ export const action = async ({ request }: ActionArgs) => {
 
 export default function Page() {
   const { users } = useLoaderData<typeof loader>();
+  const { tenantId } = useParams();
+  const navigate = useNavigate();
 
   return (
     <div className="p-8 bg-primary-dark">
       <div className="flex flex-col w-full">
         <div className="overflow-x-auto sm:-mx-6 desktop:-mx-8">
           <div className="inline-block min-w-full py-2 sm:px-6 desktop:px-8">
+            <div className="flex justify-between items-center mb-8">
+              <button
+                className="flex items-center"
+                onClick={() => navigate("/admin")}
+              >
+                <FontAwesomeIcon
+                  icon={faChevronLeft}
+                  className="text-primary-75 w-6 text-center text-4xl leading-6 sm:text-base sm:w-[10px]"
+                />
+                <div className="ml-4 text-primary-75 font-bold">Tenants</div>
+              </button>
+              <h1 className="text-center uppercase font-bold text-4xl">
+                {tenantId}
+              </h1>
+              <div />
+            </div>
             <div className="mb-8 overflow-hidden">
-              <UsersTable users={users} />
+              <UsersTable users={users} link />
             </div>
             <CreateUserForm />
           </div>

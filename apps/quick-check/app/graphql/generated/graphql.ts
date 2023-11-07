@@ -2858,6 +2858,7 @@ export type User_Question = {
   retired_on?: Maybe<Scalars['timestamptz']>;
   streak: Scalars['Int'];
   taxonomy_id: Scalars['String'];
+  title?: Maybe<Scalars['String']>;
   /** An object relationship */
   user: User;
   /** An array relationship */
@@ -2983,6 +2984,7 @@ export type User_Question_Bool_Exp = {
   retired_on?: InputMaybe<Timestamptz_Comparison_Exp>;
   streak?: InputMaybe<Int_Comparison_Exp>;
   taxonomy_id?: InputMaybe<String_Comparison_Exp>;
+  title?: InputMaybe<String_Comparison_Exp>;
   user?: InputMaybe<User_Bool_Exp>;
   user_answers?: InputMaybe<User_Answer_Bool_Exp>;
   user_answers_aggregate?: InputMaybe<User_Answer_Aggregate_Bool_Exp>;
@@ -3016,6 +3018,7 @@ export type User_Question_Insert_Input = {
   retired_on?: InputMaybe<Scalars['timestamptz']>;
   streak?: InputMaybe<Scalars['Int']>;
   taxonomy_id?: InputMaybe<Scalars['String']>;
+  title?: InputMaybe<Scalars['String']>;
   user?: InputMaybe<User_Obj_Rel_Insert_Input>;
   user_answers?: InputMaybe<User_Answer_Arr_Rel_Insert_Input>;
   user_enrollment?: InputMaybe<User_Enrollment_Obj_Rel_Insert_Input>;
@@ -3036,6 +3039,7 @@ export type User_Question_Max_Fields = {
   retired_on?: Maybe<Scalars['timestamptz']>;
   streak?: Maybe<Scalars['Int']>;
   taxonomy_id?: Maybe<Scalars['String']>;
+  title?: Maybe<Scalars['String']>;
   user_enrollment_id?: Maybe<Scalars['uuid']>;
   user_id?: Maybe<Scalars['uuid']>;
 };
@@ -3052,6 +3056,7 @@ export type User_Question_Max_Order_By = {
   retired_on?: InputMaybe<Order_By>;
   streak?: InputMaybe<Order_By>;
   taxonomy_id?: InputMaybe<Order_By>;
+  title?: InputMaybe<Order_By>;
   user_enrollment_id?: InputMaybe<Order_By>;
   user_id?: InputMaybe<Order_By>;
 };
@@ -3069,6 +3074,7 @@ export type User_Question_Min_Fields = {
   retired_on?: Maybe<Scalars['timestamptz']>;
   streak?: Maybe<Scalars['Int']>;
   taxonomy_id?: Maybe<Scalars['String']>;
+  title?: Maybe<Scalars['String']>;
   user_enrollment_id?: Maybe<Scalars['uuid']>;
   user_id?: Maybe<Scalars['uuid']>;
 };
@@ -3085,6 +3091,7 @@ export type User_Question_Min_Order_By = {
   retired_on?: InputMaybe<Order_By>;
   streak?: InputMaybe<Order_By>;
   taxonomy_id?: InputMaybe<Order_By>;
+  title?: InputMaybe<Order_By>;
   user_enrollment_id?: InputMaybe<Order_By>;
   user_id?: InputMaybe<Order_By>;
 };
@@ -3124,6 +3131,7 @@ export type User_Question_Order_By = {
   retired_on?: InputMaybe<Order_By>;
   streak?: InputMaybe<Order_By>;
   taxonomy_id?: InputMaybe<Order_By>;
+  title?: InputMaybe<Order_By>;
   user?: InputMaybe<User_Order_By>;
   user_answers_aggregate?: InputMaybe<User_Answer_Aggregate_Order_By>;
   user_enrollment?: InputMaybe<User_Enrollment_Order_By>;
@@ -3159,6 +3167,8 @@ export enum User_Question_Select_Column {
   /** column name */
   TaxonomyId = 'taxonomy_id',
   /** column name */
+  Title = 'title',
+  /** column name */
   UserEnrollmentId = 'user_enrollment_id',
   /** column name */
   UserId = 'user_id'
@@ -3176,6 +3186,7 @@ export type User_Question_Set_Input = {
   retired_on?: InputMaybe<Scalars['timestamptz']>;
   streak?: InputMaybe<Scalars['Int']>;
   taxonomy_id?: InputMaybe<Scalars['String']>;
+  title?: InputMaybe<Scalars['String']>;
   user_enrollment_id?: InputMaybe<Scalars['uuid']>;
   user_id?: InputMaybe<Scalars['uuid']>;
 };
@@ -3245,6 +3256,7 @@ export type User_Question_Stream_Cursor_Value_Input = {
   retired_on?: InputMaybe<Scalars['timestamptz']>;
   streak?: InputMaybe<Scalars['Int']>;
   taxonomy_id?: InputMaybe<Scalars['String']>;
+  title?: InputMaybe<Scalars['String']>;
   user_enrollment_id?: InputMaybe<Scalars['uuid']>;
   user_id?: InputMaybe<Scalars['uuid']>;
 };
@@ -3286,6 +3298,8 @@ export enum User_Question_Update_Column {
   Streak = 'streak',
   /** column name */
   TaxonomyId = 'taxonomy_id',
+  /** column name */
+  Title = 'title',
   /** column name */
   UserEnrollmentId = 'user_enrollment_id',
   /** column name */

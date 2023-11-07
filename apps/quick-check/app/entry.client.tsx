@@ -1,4 +1,5 @@
-import { StrictMode, startTransition } from "react";
+import React, { StrictMode, startTransition } from "react";
+import ReactDOM from "react-dom";
 import { hydrateRoot } from "react-dom/client";
 import { I18nextProvider, initReactI18next } from "react-i18next";
 
@@ -10,6 +11,11 @@ import Backend, { HttpBackendOptions } from "i18next-http-backend";
 import { getInitialNamespaces } from "remix-i18next";
 
 import { getBackendOptions, i18nConfig } from "quickcheck-shared";
+
+if (process.env.NODE_ENV !== "production") {
+  const axe = require("@axe-core/react");
+  axe(React, ReactDOM, 1000);
+}
 
 async function hydrate() {
   await i18next

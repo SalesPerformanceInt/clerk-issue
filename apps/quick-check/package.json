@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@apollo/client": "^3.7.14",
+    "@axe-core/react": "^4.8.1",
     "@fortawesome/fontawesome-svg-core": "^6.4.0",
     "@fortawesome/pro-light-svg-icons": "^6.4.0",
     "@fortawesome/pro-solid-svg-icons": "^6.4.0",
@@ -21,6 +22,8 @@
     "@remix-run/vercel": "^1.19.3",
     "@remix-validated-form/with-zod": "^2.0.5",
     "@sendgrid/mail": "^7.7.0",
+    "@splitsoftware/splitio": "^10.23.1",
+    "@splitsoftware/splitio-react": "^1.9.0",
     "@vercel/node": "^2.6.2",
     "emails": "workspace:*",
     "framer-motion": "^10.12.9",

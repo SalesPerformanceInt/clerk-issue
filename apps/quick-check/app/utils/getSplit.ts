@@ -34,7 +34,6 @@ export const getSplit = async (request: Request, treatments: string[]) => {
     tenant,
     subdomain: request.url.split(".")[0] ?? "",
   };
-  console.log({ attrs, userId, tenant });
 
   const treatmentResults = treatments.map((treatmentName) => {
     const flagResult = client.getTreatmentWithConfig(
@@ -42,7 +41,6 @@ export const getSplit = async (request: Request, treatments: string[]) => {
       treatmentName,
       attrs,
     );
-    console.log({ treatmentName, flagResult });
     try {
       // Primary Flag use, off | on returns a boolean
       if (flagResult.config === null)

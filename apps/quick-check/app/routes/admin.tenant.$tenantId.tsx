@@ -17,7 +17,7 @@ import { generateTokenAndSendSMS } from "~/notifications/twilio.server";
 
 import { getAdminApolloClientFromRequest } from "~/graphql";
 
-import { sendEmail } from "~/utils/email/ses/email";
+import { sendEmail } from "~/utils/email/postmark/email";
 import { VERCEL_URL } from "~/utils/envs.server";
 import { remixI18next } from "~/utils/i18next.server";
 import { parseSchema } from "~/utils/parseSchema";
@@ -179,7 +179,7 @@ export default function Page() {
       <div className="flex flex-col w-full">
         <div className="overflow-x-auto sm:-mx-6 desktop:-mx-8">
           <div className="inline-block min-w-full py-2 sm:px-6 desktop:px-8">
-            <div className="flex justify-between items-center mb-8">
+            <div className="flex items-center justify-between mb-8">
               <button
                 className="flex items-center"
                 onClick={() => navigate("/admin")}
@@ -188,9 +188,9 @@ export default function Page() {
                   icon={faChevronLeft}
                   className="text-primary-75 w-6 text-center text-4xl leading-6 sm:text-base sm:w-[10px]"
                 />
-                <div className="ml-4 text-primary-75 font-bold">Tenants</div>
+                <div className="ml-4 font-bold text-primary-75">Tenants</div>
               </button>
-              <h1 className="text-center uppercase font-bold text-4xl">
+              <h1 className="text-4xl font-bold text-center uppercase">
                 {tenantId}
               </h1>
               <div />

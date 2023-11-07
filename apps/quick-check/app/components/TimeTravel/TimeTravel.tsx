@@ -27,8 +27,10 @@ export const TimeTravel: FC<TimeTravelProps> = ({ now, flag, className }) => {
   const location = useLocation();
   const [showModal, setShowModal] = useState(false);
 
-  const hiddenPaths = new Set(["/admin", "/login"]);
-  const isTimeTravelHidden = hiddenPaths.has(location.pathname);
+  const hiddenPaths = ["/admin", "/login"];
+  const isTimeTravelHidden = hiddenPaths.some((path) =>
+    location.pathname.includes(path),
+  );
 
   const enabledPaths = ["/dashboard"];
   const isTimeTravelEnabled = enabledPaths.some((path) =>

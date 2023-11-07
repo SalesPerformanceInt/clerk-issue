@@ -91,6 +91,7 @@ const prepareActiveQuestionsInput = (user_id: string) => {
           question_id: question.uid,
           taxonomy_id: question.topic?.[0]?.uid,
           active_on: activeDate,
+          title: question.title,
         };
       },
     );
@@ -100,7 +101,7 @@ const prepareActiveQuestionsInput = (user_id: string) => {
 };
 
 const prepareUserEnrollmentInput =
-  (user_id: string, taxonomy_id: string, enrollmentId: string) =>
+  (user_id: string, taxonomy_id: string, enrollmentId: string | undefined) =>
   (shuffledActiveQuestions: User_Question_Insert_Input[]) => {
     const userEnollmentInput: User_Enrollment_Insert_Input = {
       id: enrollmentId,
@@ -121,7 +122,7 @@ const prepareUserEnrollmentInput =
 export async function enrollUser(
   this: WithApolloClient,
   taxonomy_id: string,
-  enrollmentId: string,
+  enrollmentId: string | undefined,
   proxyData: GQLProxyUserData,
 ) {
   const { userId } = proxyData;

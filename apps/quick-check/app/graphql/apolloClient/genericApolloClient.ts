@@ -14,6 +14,7 @@ import {
   generateNewToken,
   resetUser,
   toggleUserSMSEnabled,
+  unenrollUser,
   updateNextQuestionId,
   updateUser,
   updateUserEnrollment,
@@ -26,9 +27,12 @@ import {
   getAllUsers,
   getLinkToken,
   getRankeableEnrollments,
+  getTenantUsers,
+  getTenants,
   getUser,
   getUserActiveQuestionsData,
   getUserDashboard,
+  getUserData,
   getUserEmailData,
   getUserEnrollment,
   getUserNextQuestion,
@@ -115,6 +119,10 @@ export class GraphQLClient implements WithApolloClient {
   updateUserEnrollmentsRanks = updateUserEnrollmentsRanks;
   getUserWeeklyStreak = getUserWeeklyStreak;
   upsertUser = upsertUser;
+  getTenantUsers = getTenantUsers;
+  getTenants = getTenants;
+  getUserData = getUserData;
+  unenrollUser = unenrollUser;
 
   constructor(headers: GraphQLHeaders) {
     this.client = getClient(headers);

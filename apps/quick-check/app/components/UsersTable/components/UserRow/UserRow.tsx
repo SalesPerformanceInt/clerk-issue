@@ -1,6 +1,6 @@
 import { useEffect, useState, type FC } from "react";
 
-import { useNavigation, useSubmit } from "@remix-run/react";
+import { Link, useNavigation, useSubmit } from "@remix-run/react";
 
 import {
   faArrowsRotate,
@@ -10,13 +10,16 @@ import {
 } from "@fortawesome/pro-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { parsePhoneNumber } from "libphonenumber-js";
-import { parseAdminActionRequest, type AdminAction } from "~/routes/admin";
+import {
+  parseAdminActionRequest,
+  type AdminAction,
+} from "~/routes/admin.tenant.$tenantId";
 
 import { Button } from "quickcheck-shared";
 
 import type { UserRowProps } from "./UserRow.types";
 
-export const UserRow: FC<UserRowProps> = ({ user, row }) => {
+export const UserRow: FC<UserRowProps> = ({ user, row, link }) => {
   const submit = useSubmit();
 
   const { state, formData } = useNavigation();
@@ -47,9 +50,22 @@ export const UserRow: FC<UserRowProps> = ({ user, row }) => {
 
   const activeToken = user.active_tokens[0]?.id ?? "";
 
+  const fullName = `${user.first_name} ${user.last_name}`;
+
   return (
     <tr className={`border-b ${row % 2 === 0 ? "bg-neutral-100" : "bg-white"}`}>
-      <td className="whitespace-nowrap px-6 py-4">{`${user.first_name} ${user.last_name}`}</td>
+      <td className="whitespace-nowrap px-6 py-4">
+        {link ? (
+          <Link
+            className="text-primary hover:underline"
+            to={`/admin/user/${user.user_id}`}
+          >
+            {fullName}
+          </Link>
+        ) : (
+          fullName
+        )}
+      </td>
       <td className="whitespace-nowrap px-6 py-4">{user.email}</td>
       <td className="whitespace-nowrap px-6 py-4">
         {user.phone_number &&

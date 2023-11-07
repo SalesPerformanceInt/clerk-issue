@@ -104,7 +104,7 @@ export default function App() {
       <head>
         <Meta />
         <Links />
-        {theme && <style>{theme}</style>}
+        {theme && <style dangerouslySetInnerHTML={{ __html: theme }}></style>}
         <script
           dangerouslySetInnerHTML={{
             __html: `window.ENV = ${JSON.stringify(ENV)}`,

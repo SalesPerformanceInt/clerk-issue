@@ -57,7 +57,7 @@ export const UserRow: FC<UserRowProps> = ({ user, row, link }) => {
       <td className="whitespace-nowrap px-6 py-4">
         {link ? (
           <Link
-            className="text-primary hover:underline"
+            className="text-primary-50 hover:underline hover:text-primary-75"
             to={`/admin/user/${user.user_id}`}
           >
             {fullName}

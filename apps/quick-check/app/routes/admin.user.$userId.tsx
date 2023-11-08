@@ -46,7 +46,6 @@ export const loader = async ({ request, params }: LoaderArgs) => {
   invariant(userId, "No User ID found");
 
   const user = await adminApolloClient?.getUserData({ userId });
-  console.log("/admin/user/$userId - loader", user);
   invariant(user, "No User found");
 
   const taxonTrees = await buildTaxonTrees();
@@ -74,11 +73,8 @@ export const action = async ({ request, params }: ActionArgs) => {
   try {
     const { userId } = params;
     invariant(userId, "No User ID found");
-    console.log("HERE!");
     const formData = await request.formData();
     const data = formData.get("data");
-
-    console.log("data", data);
 
     const adminApolloClient = await getAdminApolloClientFromRequest(request);
 
@@ -97,8 +93,6 @@ export const action = async ({ request, params }: ActionArgs) => {
     }
 
     const adminAction = parseAdminActionRequest(formData);
-
-    console.log("adminAction", adminAction);
 
     if (adminAction?.type === "TOGGLE_SMS_ENABLED") {
       await adminApolloClient.toggleUserSMSEnabled({

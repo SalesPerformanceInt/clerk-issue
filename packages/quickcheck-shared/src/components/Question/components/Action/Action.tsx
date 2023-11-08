@@ -76,7 +76,7 @@ export const Action: FC = () => {
       <div style={{ height }} />
       <ResponsiveContainer
         ref={ref}
-        className="bg-primary absolute inset-x-0 bottom-0"
+        className="bg-primary fixed inset-x-0 bottom-0"
       >
         <div
           style={offset ? { marginBottom: offset } : undefined}

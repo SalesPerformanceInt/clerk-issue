@@ -25,11 +25,15 @@ export const action = async ({ request }: ActionArgs) => {
 
     invariant(user, "User not found");
 
-    const { enrollment_id, cms_topic_id } = importEnrollmentData;
+    const {
+      cms_topic_id,
+      user: _enrollmentUser,
+      ...enrollmentData
+    } = importEnrollmentData;
 
     const enrollment = await adminApolloClient.enrollUser(
       cms_topic_id,
-      enrollment_id,
+      enrollmentData,
       { userId: user?.user_id },
     );
 

@@ -96,19 +96,6 @@ export const action = async ({ request, params }: ActionArgs) => {
 
     if (adminAction?.type === "RESET_USER") {
       await adminApolloClient.resetUser({ userId: adminAction.userId });
-
-      const taxonTrees = await buildTaxonTrees();
-
-      const enrollments = pipe(
-        taxonTrees,
-        map((tree) =>
-          adminApolloClient.enrollUser(`${tree.rootNode.id}`, uuidv4(), {
-            userId: adminAction.userId,
-          }),
-        ),
-      );
-
-      await Promise.all(enrollments);
     }
 
     if (adminAction?.type === "LOGIN_USER") {

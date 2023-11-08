@@ -9,9 +9,7 @@ export const DAY_MS = 1000 * 3600 * 24;
  * Enrollment
  */
 
-export const ENROLLMENT_WEEKS = 12;
 export const ENROLLMENT_DAYS = 5;
-export const ENROLLMENT_PERIOD = (ENROLLMENT_WEEKS * ENROLLMENT_DAYS) / 3;
 
 /**
  * Review

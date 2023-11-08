@@ -2294,9 +2294,11 @@ export type User_Enrollment = {
   __typename?: 'user_enrollment';
   completed_on?: Maybe<Scalars['date']>;
   created_at: Scalars['timestamptz'];
+  expiration_date: Scalars['date'];
   id: Scalars['uuid'];
   rank?: Maybe<Scalars['Int']>;
   score: Scalars['Int'];
+  start_date: Scalars['date'];
   taxonomy_id: Scalars['String'];
   /** An object relationship */
   user: User;
@@ -2410,9 +2412,11 @@ export type User_Enrollment_Bool_Exp = {
   _or?: InputMaybe<Array<User_Enrollment_Bool_Exp>>;
   completed_on?: InputMaybe<Date_Comparison_Exp>;
   created_at?: InputMaybe<Timestamptz_Comparison_Exp>;
+  expiration_date?: InputMaybe<Date_Comparison_Exp>;
   id?: InputMaybe<Uuid_Comparison_Exp>;
   rank?: InputMaybe<Int_Comparison_Exp>;
   score?: InputMaybe<Int_Comparison_Exp>;
+  start_date?: InputMaybe<Date_Comparison_Exp>;
   taxonomy_id?: InputMaybe<String_Comparison_Exp>;
   user?: InputMaybe<User_Bool_Exp>;
   user_id?: InputMaybe<Uuid_Comparison_Exp>;
@@ -2436,9 +2440,11 @@ export type User_Enrollment_Inc_Input = {
 export type User_Enrollment_Insert_Input = {
   completed_on?: InputMaybe<Scalars['date']>;
   created_at?: InputMaybe<Scalars['timestamptz']>;
+  expiration_date?: InputMaybe<Scalars['date']>;
   id?: InputMaybe<Scalars['uuid']>;
   rank?: InputMaybe<Scalars['Int']>;
   score?: InputMaybe<Scalars['Int']>;
+  start_date?: InputMaybe<Scalars['date']>;
   taxonomy_id?: InputMaybe<Scalars['String']>;
   user?: InputMaybe<User_Obj_Rel_Insert_Input>;
   user_id?: InputMaybe<Scalars['uuid']>;
@@ -2450,9 +2456,11 @@ export type User_Enrollment_Max_Fields = {
   __typename?: 'user_enrollment_max_fields';
   completed_on?: Maybe<Scalars['date']>;
   created_at?: Maybe<Scalars['timestamptz']>;
+  expiration_date?: Maybe<Scalars['date']>;
   id?: Maybe<Scalars['uuid']>;
   rank?: Maybe<Scalars['Int']>;
   score?: Maybe<Scalars['Int']>;
+  start_date?: Maybe<Scalars['date']>;
   taxonomy_id?: Maybe<Scalars['String']>;
   user_id?: Maybe<Scalars['uuid']>;
 };
@@ -2461,9 +2469,11 @@ export type User_Enrollment_Max_Fields = {
 export type User_Enrollment_Max_Order_By = {
   completed_on?: InputMaybe<Order_By>;
   created_at?: InputMaybe<Order_By>;
+  expiration_date?: InputMaybe<Order_By>;
   id?: InputMaybe<Order_By>;
   rank?: InputMaybe<Order_By>;
   score?: InputMaybe<Order_By>;
+  start_date?: InputMaybe<Order_By>;
   taxonomy_id?: InputMaybe<Order_By>;
   user_id?: InputMaybe<Order_By>;
 };
@@ -2473,9 +2483,11 @@ export type User_Enrollment_Min_Fields = {
   __typename?: 'user_enrollment_min_fields';
   completed_on?: Maybe<Scalars['date']>;
   created_at?: Maybe<Scalars['timestamptz']>;
+  expiration_date?: Maybe<Scalars['date']>;
   id?: Maybe<Scalars['uuid']>;
   rank?: Maybe<Scalars['Int']>;
   score?: Maybe<Scalars['Int']>;
+  start_date?: Maybe<Scalars['date']>;
   taxonomy_id?: Maybe<Scalars['String']>;
   user_id?: Maybe<Scalars['uuid']>;
 };
@@ -2484,9 +2496,11 @@ export type User_Enrollment_Min_Fields = {
 export type User_Enrollment_Min_Order_By = {
   completed_on?: InputMaybe<Order_By>;
   created_at?: InputMaybe<Order_By>;
+  expiration_date?: InputMaybe<Order_By>;
   id?: InputMaybe<Order_By>;
   rank?: InputMaybe<Order_By>;
   score?: InputMaybe<Order_By>;
+  start_date?: InputMaybe<Order_By>;
   taxonomy_id?: InputMaybe<Order_By>;
   user_id?: InputMaybe<Order_By>;
 };
@@ -2518,9 +2532,11 @@ export type User_Enrollment_On_Conflict = {
 export type User_Enrollment_Order_By = {
   completed_on?: InputMaybe<Order_By>;
   created_at?: InputMaybe<Order_By>;
+  expiration_date?: InputMaybe<Order_By>;
   id?: InputMaybe<Order_By>;
   rank?: InputMaybe<Order_By>;
   score?: InputMaybe<Order_By>;
+  start_date?: InputMaybe<Order_By>;
   taxonomy_id?: InputMaybe<Order_By>;
   user?: InputMaybe<User_Order_By>;
   user_id?: InputMaybe<Order_By>;
@@ -2539,11 +2555,15 @@ export enum User_Enrollment_Select_Column {
   /** column name */
   CreatedAt = 'created_at',
   /** column name */
+  ExpirationDate = 'expiration_date',
+  /** column name */
   Id = 'id',
   /** column name */
   Rank = 'rank',
   /** column name */
   Score = 'score',
+  /** column name */
+  StartDate = 'start_date',
   /** column name */
   TaxonomyId = 'taxonomy_id',
   /** column name */
@@ -2554,9 +2574,11 @@ export enum User_Enrollment_Select_Column {
 export type User_Enrollment_Set_Input = {
   completed_on?: InputMaybe<Scalars['date']>;
   created_at?: InputMaybe<Scalars['timestamptz']>;
+  expiration_date?: InputMaybe<Scalars['date']>;
   id?: InputMaybe<Scalars['uuid']>;
   rank?: InputMaybe<Scalars['Int']>;
   score?: InputMaybe<Scalars['Int']>;
+  start_date?: InputMaybe<Scalars['date']>;
   taxonomy_id?: InputMaybe<Scalars['String']>;
   user_id?: InputMaybe<Scalars['uuid']>;
 };
@@ -2612,9 +2634,11 @@ export type User_Enrollment_Stream_Cursor_Input = {
 export type User_Enrollment_Stream_Cursor_Value_Input = {
   completed_on?: InputMaybe<Scalars['date']>;
   created_at?: InputMaybe<Scalars['timestamptz']>;
+  expiration_date?: InputMaybe<Scalars['date']>;
   id?: InputMaybe<Scalars['uuid']>;
   rank?: InputMaybe<Scalars['Int']>;
   score?: InputMaybe<Scalars['Int']>;
+  start_date?: InputMaybe<Scalars['date']>;
   taxonomy_id?: InputMaybe<Scalars['String']>;
   user_id?: InputMaybe<Scalars['uuid']>;
 };
@@ -2639,11 +2663,15 @@ export enum User_Enrollment_Update_Column {
   /** column name */
   CreatedAt = 'created_at',
   /** column name */
+  ExpirationDate = 'expiration_date',
+  /** column name */
   Id = 'id',
   /** column name */
   Rank = 'rank',
   /** column name */
   Score = 'score',
+  /** column name */
+  StartDate = 'start_date',
   /** column name */
   TaxonomyId = 'taxonomy_id',
   /** column name */

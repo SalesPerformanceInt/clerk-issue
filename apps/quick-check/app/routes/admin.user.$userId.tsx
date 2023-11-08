@@ -24,7 +24,11 @@ import { generateTokenAndSendSMS } from "~/notifications/twilio.server";
 
 import { Button } from "quickcheck-shared";
 
-import { User_Answer, getAdminApolloClientFromRequest } from "~/graphql";
+import {
+  getAdminApolloClientFromRequest,
+  type EnrollUserEnrollment,
+  type User_Answer,
+} from "~/graphql";
 
 import { sendEmail } from "~/utils/email";
 import { VERCEL_URL } from "~/utils/envs.server";
@@ -81,7 +85,12 @@ export const action = async ({ request, params }: ActionArgs) => {
     const userAction = parseUserActionRequest(formData);
 
     if (userAction?.type === "ENROLL" && userAction?.taxonomyId) {
-      await adminApolloClient.enrollUser(userAction?.taxonomyId, undefined, {
+      const enrollment: EnrollUserEnrollment = {
+        start_date: DateTime.now().toISO()!,
+        expiration_date: DateTime.now().plus({ weeks: 12 }).toISO()!,
+      };
+
+      await adminApolloClient.enrollUser(userAction?.taxonomyId, enrollment, {
         userId,
       });
     }

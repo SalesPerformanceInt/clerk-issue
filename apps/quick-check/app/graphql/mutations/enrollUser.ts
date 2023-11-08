@@ -1,3 +1,4 @@
+import { DateTime } from "luxon";
 import { pipe, shuffle } from "remeda";
 import invariant from "tiny-invariant";
 
@@ -20,7 +21,7 @@ import {
   type WithApolloClient,
 } from "~/graphql";
 
-import { ENROLLMENT_PERIOD } from "~/utils/constants";
+import { ENROLLMENT_DAYS } from "~/utils/constants";
 import { getNextValidBusinessDate } from "~/utils/date";
 
 import { buildTaxonTrees, type TaxonomyDataObj } from "~/models/taxonomy";
@@ -38,7 +39,7 @@ export const ENROLL_USER = graphql(/* GraphQL */ `
 `);
 
 /**
- * Prepare User Enrollment
+ * Prepare Taxon
  */
 
 const getTaxon = async (taxonomy_id: string) => {
@@ -49,6 +50,10 @@ const getTaxon = async (taxonomy_id: string) => {
 
   return taxon;
 };
+
+/**
+ * Prepare Questions
+ */
 
 const getQuestions = async (taxon: TreeNode<TaxonomyDataObj>) => {
   const descendantUids = taxon
@@ -64,16 +69,52 @@ const getQuestions = async (taxon: TreeNode<TaxonomyDataObj>) => {
   return questions;
 };
 
-const prepareActiveQuestionsInput = (user_id: string) => {
-  const prepareActiveQuestionGap =
-    (minQuestionsPerDay: number) => (questionIndex: number) =>
-      Math.floor((1 / minQuestionsPerDay) * Math.max(0, questionIndex));
+/**
+ * Prepare Questions Input
+ */
 
+const prepareActiveQuestionGap =
+  (minQuestionsPerDay: number) => (questionIndex: number) =>
+    Math.floor((1 / minQuestionsPerDay) * Math.max(0, questionIndex));
+
+const getEnrollmentPeriodInWeeks =
+  (enrollmentBaseDate: Date) =>
+  ({ expiration_date }: EnrollUserEnrollment) => {
+    const enrollmentPeriodInWeeks =
+      DateTime.fromJSDate(enrollmentBaseDate, { zone: "utc" })
+        .diff(DateTime.fromISO(expiration_date, { zone: "utc" }), ["weeks"])
+        .toObject().weeks ?? 1;
+
+    return Math.abs(Math.floor(enrollmentPeriodInWeeks));
+  };
+
+const getQuestionsPerDay =
+  (questions: QuestionItem[]) => (enrollmentPeriodInWeeks: number) => {
+    const enrollmentInitialSpreadDays =
+      (enrollmentPeriodInWeeks * ENROLLMENT_DAYS) / 3;
+
+    const minQuestionsPerDay = questions.length / enrollmentInitialSpreadDays;
+
+    return minQuestionsPerDay;
+  };
+
+const prepareActiveQuestionsInput = (
+  user_id: string,
+  enrollment: EnrollUserEnrollment,
+) => {
   return (questions: QuestionItem[]) => {
-    const baseDate = new Date();
+    const today = DateTime.now().toISO({ includeOffset: false })!;
+    const enrollmentBaseDate =
+      enrollment.start_date >= today
+        ? new Date(enrollment.start_date)
+        : new Date(today);
 
-    const minQuestionsPerDay = questions.length / ENROLLMENT_PERIOD;
-    const getActiveQuestionGap = prepareActiveQuestionGap(minQuestionsPerDay);
+    const getActiveQuestionGap = pipe(
+      enrollment,
+      getEnrollmentPeriodInWeeks(enrollmentBaseDate),
+      getQuestionsPerDay(questions),
+      prepareActiveQuestionGap,
+    );
 
     const activeQuestionsInput = questions.map(
       (question, questionIndex): User_Question_Insert_Input => {
@@ -82,7 +123,7 @@ const prepareActiveQuestionsInput = (user_id: string) => {
           getActiveQuestionGap(questionIndex - 1);
 
         const activeDate = getNextValidBusinessDate(
-          baseDate,
+          enrollmentBaseDate,
           activeQuestionGap,
         );
 
@@ -100,11 +141,21 @@ const prepareActiveQuestionsInput = (user_id: string) => {
   };
 };
 
+/**
+ * Prepare User Enrollment Input
+ */
+
 const prepareUserEnrollmentInput =
-  (user_id: string, taxonomy_id: string, enrollmentId: string | undefined) =>
+  (
+    user_id: string,
+    taxonomy_id: string,
+    { enrollment_id, start_date, expiration_date }: EnrollUserEnrollment,
+  ) =>
   (shuffledActiveQuestions: User_Question_Insert_Input[]) => {
     const userEnollmentInput: User_Enrollment_Insert_Input = {
-      id: enrollmentId,
+      id: enrollment_id,
+      start_date,
+      expiration_date,
       user_id,
       taxonomy_id,
       user_questions: {
@@ -119,10 +170,16 @@ const prepareUserEnrollmentInput =
  * Enroll User
  */
 
+export type EnrollUserEnrollment = {
+  enrollment_id?: string;
+  start_date: string;
+  expiration_date: string;
+};
+
 export async function enrollUser(
   this: WithApolloClient,
   taxonomy_id: string,
-  enrollmentId: string | undefined,
+  enrollmentData: EnrollUserEnrollment,
   proxyData: GQLProxyUserData,
 ) {
   const { userId } = proxyData;
@@ -131,8 +188,8 @@ export async function enrollUser(
     getTaxon(taxonomy_id),
     andThen(getQuestions),
     andThen(shuffle()),
-    andThen(prepareActiveQuestionsInput(userId)),
-    andThen(prepareUserEnrollmentInput(userId, taxonomy_id, enrollmentId)),
+    andThen(prepareActiveQuestionsInput(userId, enrollmentData)),
+    andThen(prepareUserEnrollmentInput(userId, taxonomy_id, enrollmentData)),
   );
 
   const [enrolledUser, error] = await promiseWrapper(

@@ -1,9 +1,10 @@
 import type { ReactElement } from "react";
 
+import { SES } from "@aws-sdk/client-ses";
 import sendgrid from "@sendgrid/mail";
 import { render } from "emails";
 
-import { SENDGRID_API_KEY, SENDGRID_FROM } from "./envs.server";
+import { SENDGRID_API_KEY, SENDGRID_FROM } from "../../envs.server";
 
 sendgrid.setApiKey(SENDGRID_API_KEY);
 

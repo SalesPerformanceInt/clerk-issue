@@ -24,6 +24,11 @@ export const TWILIO_WHATSAPP_FROM = process.env.TWILIO_WHATSAPP_FROM ?? "";
 
 export const SENDGRID_API_KEY = process.env.SENDGRID_API_KEY ?? "";
 export const SENDGRID_FROM = process.env.SENDGRID_FROM ?? "";
+
+export const AWS_SES_REGION = process.env.AWS_SES_REGION ?? "us-east-1";
+export const POSTMARK_API_KEY = process.env.POSTMARK_API_KEY ?? "";
+export const EMAIL_FROM = process.env.EMAIL_FROM ?? "";
+
 export const VERCEL_URL = process.env.VERCEL_URL ?? "";
 
 export const SPLIT_API_KEY = process.env.SPLIT_API_KEY ?? "";

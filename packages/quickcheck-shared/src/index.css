@@ -38,7 +38,8 @@
     --chart-orange: #d9782b;
     --chart-red: #820d30;
 
-    --system-font: system-ui, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+    --system-font: system-ui, "Segoe UI", Roboto, Helvetica, Arial, sans-serif,
+      "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
     --font-face: var(--system-font);
   }
 
@@ -47,7 +48,7 @@
   }
 
   ul {
-    @apply list-disc;
+    @apply list-disc list-inside;
   }
 }
 

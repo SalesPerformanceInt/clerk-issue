@@ -1,12 +1,12 @@
-/* eslint-disable @typescript-eslint/no-unsafe-call */
-/* eslint-disable @typescript-eslint/unbound-method */
-
 import { PassThrough } from "stream";
 
 import { renderToPipeableStream } from "react-dom/server";
 import { I18nextProvider, initReactI18next } from "react-i18next";
 
-import { Response, type EntryContext } from "@remix-run/node";
+import {
+  createReadableStreamFromReadable,
+  type EntryContext,
+} from "@remix-run/node";
 import { RemixServer } from "@remix-run/react";
 
 import { createInstance } from "i18next";
@@ -49,7 +49,6 @@ export default async function handleRequest(
   return new Promise((resolve, reject) => {
     let didError = false;
 
-    // eslint-disable-next-line @typescript-eslint/unbound-method
     const { pipe, abort } = renderToPipeableStream(
       <I18nextProvider i18n={instance}>
         <RemixServer
@@ -61,11 +60,12 @@ export default async function handleRequest(
       {
         [callbackName]: () => {
           const body = new PassThrough();
+          const stream = createReadableStreamFromReadable(body);
 
           responseHeaders.set("Content-Type", "text/html");
 
           resolve(
-            new Response(body, {
+            new Response(stream, {
               headers: responseHeaders,
               status: didError ? 500 : responseStatusCode,
             }),

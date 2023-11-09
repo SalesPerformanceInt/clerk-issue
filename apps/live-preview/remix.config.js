@@ -14,8 +14,6 @@ module.exports = {
   appDirectory: "app",
   ignoredRouteFiles: ["**/.*"],
 
-  server: process.env.NODE_ENV === "development" ? undefined : "./server.js",
-  serverBuildPath: "api/index.js",
   devServerPort: 4001,
 
   tailwind: true,

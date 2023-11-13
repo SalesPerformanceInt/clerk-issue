@@ -1,0 +1,29 @@
+name: Checkin Tests
+on:
+  push:
+    branches-ignore:
+      - master
+jobs:
+  Quality-Check-Code:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 18
+      - uses: pnpm/action-setup@v2
+        name: Install pnpm
+        id: pnpm-install
+        with:
+          version: 8
+          run_install: false
+      - name: PNPM install Dependencies
+        run: pnpm install --no-frozen-lockfile
+      - name: Eslint
+        run: pnpm lint
+      # - name: Typecheck
+      #   run: pnpm typecheck
+      - name: Build packages + apps
+        run: pnpm build
+      - name: Tests
+        run: pnpm test

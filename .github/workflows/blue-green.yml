@@ -22,16 +22,18 @@ jobs:
         with:
           version: 8
           run_install: false
-      - name: Build the project
-        run: pnpm install; pnpm build
+      - name: Install Dependencies
+        run: pnpm install
       - name: Install Vercel CLI
         run: npm install --global vercel@latest
       - name: Path to Quickcheck
         run: cd apps/quick-check
       - name: Pull Vercel Environment Information
-        run: vercel pull --yes --environment=production --token ${{ secrets.VERCEL_TOKEN }} --scope ${{ secrets.VERCEL_SCOPE }}
+        run: vercel pull --yes --environment=production --scope ${{ secrets.VERCEL_SCOPE }} --token ${{ secrets.VERCEL_TOKEN }}
+      - name: Vercel Build Project Artifacts
+        run: vercel build --yes --prod --scope ${{ secrets.VERCEL_SCOPE }} --token ${{ secrets.VERCEL_TOKEN }}
       - name: Deploy Project Artifacts to Vercel
-        run: vercel deploy --prebuilt -f --token=${{ secrets.VERCEL_TOKEN }} > green.txt
+        run: vercel deploy --prebuilt -f --scope ${{ secrets.VERCEL_SCOPE }} --token=${{ secrets.VERCEL_TOKEN }} > green.txt
 
 
 # Run the Cucumber tests on the Green deployment

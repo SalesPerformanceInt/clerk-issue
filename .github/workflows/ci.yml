@@ -17,13 +17,13 @@ jobs:
         with:
           version: 8
           run_install: false
-      - name: Build the project
+      - name: PNPM install Dependencies
         run: pnpm install --no-frozen-lockfile
       - name: Eslint
         run: pnpm lint
       # - name: Typecheck
       #   run: pnpm typecheck
-      - name: Build
+      - name: Build packages + apps
         run: pnpm build
       - name: Tests
         run: pnpm test

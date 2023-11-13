@@ -13,6 +13,7 @@
     "dev:qc": "turbo run dev --filter=quick-check...",
     "dev:live": "turbo run dev --filter=live-preview...",
     "build": "turbo run build --filter=!react-email-client",
+    "test": "vitest",
     "lint": "turbo run lint",
     "typecheck": "turbo run typecheck",
     "format": "prettier --write \"**/*.{ts,tsx,md}\""
@@ -30,7 +31,8 @@
     "prettier-plugin-tailwindcss": "^0.2.7",
     "rimraf": "^4.4.0",
     "turbo": "latest",
-    "typescript": "^4.9.5"
+    "typescript": "^4.9.5",
+    "vitest": "^0.34.6"
   },
   "engines": {
     "node": ">=18"

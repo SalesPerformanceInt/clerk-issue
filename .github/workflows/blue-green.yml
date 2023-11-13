@@ -22,7 +22,7 @@ jobs:
           version: 8
           run_install: false
       - name: Build the project
-        run: pnpm install ** pnpm build
+        run: pnpm install; pnpm build
       - name: Install Vercel CLI
         run: npm install --global vercel@latest
       - name: Path to Quickcheck

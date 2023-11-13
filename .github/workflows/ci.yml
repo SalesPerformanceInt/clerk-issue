@@ -18,7 +18,7 @@ jobs:
           version: 8
           run_install: false
       - name: Build the project
-        run: pnpx install
+        run: pnpm install
       - name: Eslint
         run: pnpm lint
       - name: Typecheck

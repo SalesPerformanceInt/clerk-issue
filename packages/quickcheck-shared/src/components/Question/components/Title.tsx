@@ -6,14 +6,14 @@ export const Title: FC = () => {
   const { questionItem, enrollmentTaxonomy } = useQuestionContext();
 
   return (
-    <div className="mb-2">
+    <div className="mb-2" data-testid="QuestionItem-Taxonomy">
       {enrollmentTaxonomy && (
-        <div className="text-primary-75 font-bold">
+        <div className="font-bold text-primary-75">
           {enrollmentTaxonomy.display_name}
         </div>
       )}
 
-      <div className="text-primary-75 text-xs font-semibold uppercase">
+      <div className="text-xs font-semibold uppercase text-primary-75">
         {questionItem.topic[0]?.display_name}
       </div>
     </div>

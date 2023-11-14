@@ -8,4 +8,9 @@ and take me into the question flow
   Scenario: Clicks on the link in the daily reminder
     Given quickcheck has sent me a notification with a token
     When the user visits the notification url
-    Then the user should be taken into the question flow as an authenticated user
+    Then the user should see a question in the UI
+    When I choose one of the choices
+    Then the "check answer" button appears
+    When I click the "check answer" button
+    Then the choice feedback displays
+

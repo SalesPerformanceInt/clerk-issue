@@ -35,7 +35,10 @@ export const MultipleChoice: FC<MultipleChoiceProps> = ({ mcquestion }) => {
         <Body content={mcquestion.stem} />
       </ResponsiveContainer>
       <ResponsiveContainer className="bg-background-secondary">
-        <div className="flex flex-col sm:grid sm:grid-cols-2 sm:gap-8 sm:py-12">
+        <div
+          className="flex flex-col sm:grid sm:grid-cols-2 sm:gap-8 sm:py-12"
+          data-testid="QuestionItem-Choices"
+        >
           {deterministicallyRandomizedChoices.map(({ choice }, index) => (
             <Choice
               key={choice._metadata.uid}

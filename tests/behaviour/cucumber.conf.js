@@ -13,7 +13,7 @@ setDefaultTimeout(60000);
 // launch the browser
 BeforeAll(async function () {
   global.browser = await chromium.launch({
-    headless: false,
+    headless: process.env.CUKE_BASE_URL.includes("localhost") ? false : true,
     slowMo: 1000,
   });
 });

@@ -11,7 +11,7 @@ import { Choice } from "~/components/Question/components/QuestionVariant/compone
 
 import { useMultipleChoices } from "./hooks/useMultipleChoice";
 
-import { Body } from "../../components";
+import { Stem } from "../../components";
 
 export type MultipleChoiceProps = {
   mcquestion: MCQuestion["mcquestion"];
@@ -32,7 +32,7 @@ export const MultipleChoice: FC<MultipleChoiceProps> = ({ mcquestion }) => {
     <>
       <ResponsiveContainer className="p-4 sm:py-6 sm:px-0 bg-background">
         <Title />
-        <Body content={mcquestion.stem} />
+        <Stem content={mcquestion.stem} />
       </ResponsiveContainer>
       <ResponsiveContainer className="bg-background-secondary">
         <div

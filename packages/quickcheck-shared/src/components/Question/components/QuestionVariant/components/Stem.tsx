@@ -2,11 +2,11 @@ import React, { FC } from "react";
 
 import parse from "html-react-parser";
 
-interface BodyProps {
+interface StemProps {
   content: string;
 }
 
-export const Body: FC<BodyProps> = ({ content }) => {
+export const Stem: FC<StemProps> = ({ content }) => {
   return (
     <div
       className="text-xl font-semibold leading-8 text-primary"

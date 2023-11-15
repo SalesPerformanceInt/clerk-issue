@@ -37,7 +37,7 @@ export const MultipleChoice: FC<MultipleChoiceProps> = ({ mcquestion }) => {
       </ResponsiveContainer>
       <ResponsiveContainer className="bg-background-secondary">
         <div
-          className="flex flex-col p-4 px-2 sm:grid sm:grid-cols-2 sm:gap-8 sm:py-12"
+          className="flex flex-col sm:grid sm:grid-cols-2 sm:gap-8 sm:py-12"
           data-testid="QuestionItem-Choices"
         >
           {deterministicallyRandomizedChoices.map(({ choice }, index) => (

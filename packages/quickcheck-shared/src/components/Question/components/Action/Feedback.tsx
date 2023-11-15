@@ -43,7 +43,8 @@ export const Feedback: FC = () => {
             initial="initial"
             animate="animate"
             exit="exit"
-            className="flex flex-col space-y-4 mb-4 sm:mb-0 sm:mr-12"
+            className="flex flex-col mb-4 space-y-4 sm:mb-0 sm:mr-12"
+            data-testid="QuestionItem-ChoiceFeedback"
           >
             {selected?.correct ? (
               <FeedbackHeader
@@ -58,7 +59,7 @@ export const Feedback: FC = () => {
                 message={t("question.feedback.incorrect")}
               />
             )}
-            <p className="text-contrast text-base">
+            <p className="text-base text-contrast">
               {parse(selected?.feedback ?? "")}
             </p>
           </motion.div>

@@ -6,8 +6,6 @@ import { simpleErrorResponse } from "quickcheck-shared";
 
 import { getAdminApolloClientFromRequest } from "~/graphql";
 
-import { getLoginUrl } from "~/utils/urls";
-
 import { getUserSchema, verifyImportRequest } from "~/models/api";
 
 export const action = async ({ request }: ActionArgs) => {

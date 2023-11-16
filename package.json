@@ -19,9 +19,7 @@
     "test:cu": "cucumber-js --require tests/behaviour/cucumber.conf.js --require tests/behaviour/stepDefinitions/**/*.js --format @cucumber/pretty-formatter tests/behaviour/features/@order.txt ",
     "lint": "turbo run lint",
     "typecheck": "turbo run typecheck",
-    "format": "prettier --write \"**/*.{ts,tsx,md}\"",
-    "postinstall": "npm update browserstack-node-sdk",
-    "test:cu:bs": "browserstack-node-sdk cucumber-js --require tests/behaviour/cucumber.conf.js --require tests/behaviour/stepDefinitions/**/*.js --format @cucumber/pretty-formatter tests/behaviour/features/@order.txt"
+    "format": "prettier --write \"**/*.{ts,tsx,md}\""
   },
   "devDependencies": {
     "@cucumber/cucumber": "^10.0.1",
@@ -32,7 +30,6 @@
     "@types/node": "^18.11.18",
     "@typescript-eslint/eslint-plugin": "^5.55.0",
     "@typescript-eslint/parser": "^5.55.0",
-    "browserstack-node-sdk": "^1.31.2",
     "dotenv": "^16.0.3",
     "eslint": "^8.36.0",
     "eslint-config-prettier": "^9.0.0",

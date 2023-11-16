@@ -2,12 +2,15 @@ import { redirect, type Session } from "@remix-run/node";
 
 import type { Expand } from "quickcheck-shared";
 
+import { sendDailyEmail } from "~/utils/email/sendDailyEmail.server";
+
 import {
   SessionKeys,
   sessionStorage,
   type SessionData,
   type SessionFlashData,
 } from "./sessionStorage";
+import { getUserDataFromSession } from "./userSession.server";
 
 /**
  * Session Creation
@@ -62,6 +65,12 @@ export async function updateSessionNow(
   const session = await getSession(request);
 
   session.set(SessionKeys.NOW, now);
+
+  const userId = session.get(SessionKeys.USER_ID);
+
+  if (userId) {
+    await sendDailyEmail(userId, request, now);
+  }
 
   return createSession({
     session,

@@ -32,7 +32,7 @@ type UserSessionData = [
  * User Session Helpers
  */
 
-export async function getUserDataFromFromSession(
+export async function getUserDataFromSession(
   request: Request,
 ): Promise<UserSessionData> {
   const session = await getSession(request);
@@ -52,7 +52,7 @@ export async function requireUserSession(
   request: Request,
   redirectTo: string = new URL(request.url).pathname,
 ): Promise<Required<UserSessionData>> {
-  const [now, userId, tenantId] = await getUserDataFromFromSession(request);
+  const [now, userId, tenantId] = await getUserDataFromSession(request);
 
   if (!userId || !tenantId) {
     const searchParams = new URLSearchParams([["redirectTo", redirectTo]]);

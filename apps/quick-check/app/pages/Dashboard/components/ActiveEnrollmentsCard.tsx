@@ -18,6 +18,8 @@ export const ActiveEnrollmentsCard: FC<ActiveEnrollmentsCardProps> = ({
   const { t } = useTranslation();
   const navigate = useNavigate();
 
+  if (!dashboard.active_user_enrollments.length) return null;
+
   return (
     <Card className={className}>
       <CardTitle

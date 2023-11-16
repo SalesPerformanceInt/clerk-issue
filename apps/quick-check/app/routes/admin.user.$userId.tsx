@@ -9,16 +9,12 @@ import {
   useNavigate,
   useNavigation,
   useSubmit,
-  type ShouldRevalidateFunction,
 } from "@remix-run/react";
 
 import { faChevronLeft } from "@fortawesome/pro-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { QuickcheckQuestionEmail } from "emails";
 import { DateTime } from "luxon";
-import { map, pipe } from "remeda";
 import invariant from "tiny-invariant";
-import { v4 as uuidv4 } from "uuid";
 import { z } from "zod";
 import { generateTokenAndSendSMS } from "~/notifications/twilio.server";
 
@@ -30,14 +26,10 @@ import {
   type User_Answer,
 } from "~/graphql";
 
-import { sendEmail } from "~/utils/email/postmark/email";
-import { VERCEL_URL } from "~/utils/envs.server";
-import { remixI18next } from "~/utils/i18next.server";
+import { sendDailyEmail } from "~/utils/email/sendDailyEmail.server";
 import { parseSchema } from "~/utils/parseSchema";
 
-import { getQuestionData } from "~/models/question";
 import { buildTaxonTrees, treeNodeToRawNodeDatum } from "~/models/taxonomy";
-import { generateNextQuestionForUser } from "~/models/user";
 
 import { UsersTable } from "~/components";
 
@@ -136,41 +128,7 @@ export const action = async ({ request, params }: ActionArgs) => {
     }
 
     if (adminAction?.type === "SEND_QUESTION_EMAIL") {
-      const user = await adminApolloClient.getUserEmailData({
-        userId: adminAction.userId,
-      });
-
-      invariant(user, "No user found");
-
-      const nextQuestion =
-        user?.next_question ??
-        (await generateNextQuestionForUser(request, adminAction.userId));
-
-      invariant(nextQuestion, "Next question not found");
-
-      const { questionItem, enrollmentTaxonomy } =
-        await getQuestionData(nextQuestion);
-
-      const activeToken = user.active_tokens[0]?.id ?? "";
-
-      const t = await remixI18next.getFixedT(user.language_preference);
-
-      const result = await sendEmail(
-        user?.email,
-        t("emails.question.subject.on_a_roll", {
-          first_name: user.first_name,
-          weeks: 5,
-        }),
-        <QuickcheckQuestionEmail
-          questionItem={questionItem}
-          enrollmentTaxonomy={enrollmentTaxonomy}
-          token={activeToken}
-          domain={VERCEL_URL}
-          questionId={nextQuestion.id}
-          t={t}
-          userData={user}
-        />,
-      );
+      await sendDailyEmail(adminAction.userId, request);
     }
 
     return json(formData);
@@ -216,7 +174,7 @@ export default function Page() {
                 </div>
               </button>
               <h1 className="text-4xl font-bold text-center">
-                {`${user?.first_name} ${user?.last_name}`}
+                {`${user?.first_name} ${user?.last_name} (${user.user_id})`}
               </h1>
               <div />
             </div>
@@ -257,7 +215,7 @@ export default function Page() {
                         </td>
                         <td className="px-6 py-4 whitespace-nowrap">
                           {enrollment?.user_questions_aggregate.aggregate
-                            ?.count || null}
+                            ?.count ?? null}
                         </td>
                         <td className="px-6 py-4 text-center whitespace-nowrap">
                           <Button

@@ -32,6 +32,8 @@ export const LeaderboardCard: FC<LeaderboardCardProps> = ({ className }) => {
     dashboard.active_user_enrollments,
   );
 
+  if (!rankedEnrollments.length) return null;
+
   return (
     <Card className={twMerge("max-w-sm", className)}>
       <CardTitle title={t("common.leaderboard")} className="p-6 pb-0" />

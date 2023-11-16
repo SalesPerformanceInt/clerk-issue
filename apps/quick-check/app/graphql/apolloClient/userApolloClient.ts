@@ -1,6 +1,6 @@
 import invariant from "tiny-invariant";
 
-import { getUserDataFromFromSession } from "~/models/session";
+import { getUserDataFromSession } from "~/models/session";
 
 import { GraphQLClient } from "./genericApolloClient";
 import { getHasuraJWT, getJWTHeader } from "./jwt";
@@ -41,7 +41,7 @@ const getUserApolloClient = async (
  */
 
 export const getUserApolloClientFromRequest = async (request: Request) => {
-  const [now, userId, tenantId] = await getUserDataFromFromSession(request);
+  const [now, userId, tenantId] = await getUserDataFromSession(request);
 
   invariant(userId, "Missing User ID");
   invariant(tenantId, "Missing Tenant ID");
@@ -52,7 +52,7 @@ export const getUserApolloClientFromRequest = async (request: Request) => {
 export const getOptionalUserApolloClientFromRequest = async (
   request: Request,
 ) => {
-  const [now, userId, tenantId] = await getUserDataFromFromSession(request);
+  const [now, userId, tenantId] = await getUserDataFromSession(request);
 
   if (!userId || !tenantId) return null;
 

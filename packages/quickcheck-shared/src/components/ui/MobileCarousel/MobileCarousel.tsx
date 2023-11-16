@@ -26,7 +26,7 @@ const MobileCarousel: FC<MobileCarouselProps> = ({
     <section className="flex flex-col gap-4">
       <div className="flex items-center w-full">
         {icon && <Icon icon={icon} className="mr-2 text-primary-50" />}
-        <h1 className="text-xxl font-light">{title}</h1>
+        <h1 className="text-xxl font-normal">{title}</h1>
       </div>
       <div
         className={twMerge(

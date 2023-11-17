@@ -7,14 +7,14 @@ import { getAdminApolloClientFromRequest } from "~/graphql";
 import {
   formatUserInputFromImport,
   importUserSchema,
-  verifyImportRequest,
+  verifyApiRequest,
 } from "~/models/api";
 
 export const action = async ({ request }: ActionArgs) => {
   try {
     const adminApolloClient = await getAdminApolloClientFromRequest(request);
 
-    verifyImportRequest(request);
+    verifyApiRequest(request);
 
     const body = await request.json();
 

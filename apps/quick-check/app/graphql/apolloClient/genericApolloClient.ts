@@ -40,6 +40,7 @@ import {
   getUserQuestionAnswers,
   getUserTheme,
   getUserWeeklyStreak,
+  getUsersForDailyEmail,
 } from "~/graphql/queries";
 
 import { HASURA_API_URL } from "~/utils/envs.server";
@@ -123,6 +124,7 @@ export class GraphQLClient implements WithApolloClient {
   getTenants = getTenants;
   getUserData = getUserData;
   unenrollUser = unenrollUser;
+  getUsersForDailyEmail = getUsersForDailyEmail;
 
   constructor(headers: GraphQLHeaders) {
     this.client = getClient(headers);

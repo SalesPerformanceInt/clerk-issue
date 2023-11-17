@@ -1,4 +1,4 @@
-import { json, type LoaderArgs } from "@remix-run/node";
+import { json, type ActionArgs } from "@remix-run/node";
 
 import invariant from "tiny-invariant";
 
@@ -10,12 +10,14 @@ import { sendDailyEmail } from "~/utils/email/sendDailyEmail.server";
 
 import { verifyApiRequest } from "~/models/api";
 
-export const loader = async ({ request, params }: LoaderArgs) => {
+export const action = async ({ request, params }: ActionArgs) => {
   try {
     const { userId } = params;
     invariant(userId, "Missing User ID");
 
     verifyApiRequest(request);
+
+    console.log("/api/email/user", userId);
 
     await sendDailyEmail(userId, request);
 

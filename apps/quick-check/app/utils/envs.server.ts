@@ -35,6 +35,7 @@ export const SPLIT_API_KEY = process.env.SPLIT_API_KEY ?? "";
 
 export const IMPORT_SECRET_KEY = process.env.IMPORT_SECRET_KEY ?? "";
 
+export const ZIPY_API_KEY = process.env.ZIPY_API_KEY ?? "";
 export const isDevelopment = NODE_ENV === "development";
 
 export const CONTENTSTACK_ENVS = {

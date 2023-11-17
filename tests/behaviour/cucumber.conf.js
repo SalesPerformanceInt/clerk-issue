@@ -10,12 +10,12 @@ const {
 // you can choose other browsers like webkit or firefox according to your requirement
 const { chromium } = require("playwright");
 setDefaultTimeout(60000);
-
+const isLocal = process.env.CUKE_BASE_URL?.includes("localhost");
 // launch the browser
 BeforeAll(async function () {
   global.browser = await chromium.launch({
-    headless: process.env.CUKE_BASE_URL?.includes("localhost") ? false : true,
-    slowMo: 1000,
+    headless: isLocal ? false : true,
+    slowMo: isLocal ? 2000 : 0,
   });
 });
 

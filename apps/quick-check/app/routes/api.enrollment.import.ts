@@ -2,6 +2,8 @@ import { json, type ActionArgs } from "@remix-run/node";
 
 import invariant from "tiny-invariant";
 
+import { simpleErrorResponse } from "quickcheck-shared";
+
 import { getAdminApolloClientFromRequest } from "~/graphql";
 
 import {
@@ -47,6 +49,6 @@ export const action = async ({ request }: ActionArgs) => {
       { status: 201 },
     );
   } catch (error) {
-    return json({ error }, { status: 500 });
+    return simpleErrorResponse(error);
   }
 };

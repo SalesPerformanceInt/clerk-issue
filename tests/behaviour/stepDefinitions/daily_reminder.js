@@ -3,17 +3,16 @@ const { Given, When, Then } = require("@cucumber/cucumber");
 const { expect } = require("@playwright/test");
 const { fetchUserToken, user } = require("../../fixtures/user_token");
 
-let thisGuy = null;
+let currentUser = null;
 
 Given("quickcheck has sent me a notification with a token", async () => {
-  thisGuy = await fetchUserToken(user.user_id);
-  console.log({ thisGuy, user });
-  expect(thisGuy.id).toBe(user.user_id);
+  currentUser = await fetchUserToken(user.user_id);
+  expect(currentUser.id).toBe(user.user_id);
 });
 
 When("the user visits the notification url", async () => {
   // navigate to the app
-  await page.goto(thisGuy.loginUrl);
+  await page.goto(currentUser.loginUrl);
 });
 
 Then("the user should see a question in the UI", async () => {

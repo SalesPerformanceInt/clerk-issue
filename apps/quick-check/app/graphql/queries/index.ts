@@ -15,3 +15,4 @@ export * from "./getUserWeeklyStreak";
 export * from "./getTenantUsers";
 export * from "./getTenants";
 export * from "./getUserData";
+export * from "./getUsersForDailyEmail";

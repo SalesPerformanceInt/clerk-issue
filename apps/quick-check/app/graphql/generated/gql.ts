@@ -53,6 +53,7 @@ const documents = {
     "\n  query GetUserQuestionAnswers($userId: uuid!, $questionId: uuid!) {\n    user_answer(\n      where: { user_id: { _eq: $userId }, question_id: { _eq: $questionId } }\n      limit: 1\n      order_by: { created_at: desc }\n    ) {\n      ...BaseUserAnswer\n    }\n  }\n": types.GetUserQuestionAnswersDocument,
     "\n  query GetUserTheme($userId: uuid!) {\n    user_by_pk(user_id: $userId) {\n      tenant {\n        theme_id\n      }\n    }\n  }\n": types.GetUserThemeDocument,
     "\n  query GetUserAnswersByWeek(\n    $userId: uuid!\n    $start: timestamptz!\n    $end: timestamptz!\n  ) {\n    user_answer(\n      where: {\n        _and: [\n          { user_id: { _eq: $userId } }\n          { created_at: { _gte: $start } }\n          { created_at: { _lte: $end } }\n        ]\n      }\n    ) {\n      ...BaseUserAnswer\n    }\n  }\n": types.GetUserAnswersByWeekDocument,
+    "\n  query GetUsersForDailyEmail {\n    user(where: { sms_enabled: { _eq: true } }) {\n      user_id\n    }\n  }\n": types.GetUsersForDailyEmailDocument,
 };
 
 /**
@@ -229,6 +230,10 @@ export function graphql(source: "\n  query GetUserTheme($userId: uuid!) {\n    u
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function graphql(source: "\n  query GetUserAnswersByWeek(\n    $userId: uuid!\n    $start: timestamptz!\n    $end: timestamptz!\n  ) {\n    user_answer(\n      where: {\n        _and: [\n          { user_id: { _eq: $userId } }\n          { created_at: { _gte: $start } }\n          { created_at: { _lte: $end } }\n        ]\n      }\n    ) {\n      ...BaseUserAnswer\n    }\n  }\n"): (typeof documents)["\n  query GetUserAnswersByWeek(\n    $userId: uuid!\n    $start: timestamptz!\n    $end: timestamptz!\n  ) {\n    user_answer(\n      where: {\n        _and: [\n          { user_id: { _eq: $userId } }\n          { created_at: { _gte: $start } }\n          { created_at: { _lte: $end } }\n        ]\n      }\n    ) {\n      ...BaseUserAnswer\n    }\n  }\n"];
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(source: "\n  query GetUsersForDailyEmail {\n    user(where: { sms_enabled: { _eq: true } }) {\n      user_id\n    }\n  }\n"): (typeof documents)["\n  query GetUsersForDailyEmail {\n    user(where: { sms_enabled: { _eq: true } }) {\n      user_id\n    }\n  }\n"];
 
 export function graphql(source: string) {
   return (documents as any)[source] ?? {};

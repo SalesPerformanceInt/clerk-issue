@@ -37,6 +37,8 @@ export const sendDailyEmail = async (
       DateTime.now().minus({ days: 7 }).toISODate()!
     : false;
 
+  const domain = getOriginFromRequest(request)
+
   if (isInactive) {
     const nextQuestion =
       user?.next_question ??
@@ -47,7 +49,6 @@ export const sendDailyEmail = async (
     const { questionItem, enrollmentTaxonomy } =
       await getQuestionData(nextQuestion);
 
-    const origin = getOriginFromRequest(request)
 
     return await sendEmail(
       user?.email,
@@ -58,7 +59,7 @@ export const sendDailyEmail = async (
         questionItem={questionItem}
         enrollmentTaxonomy={enrollmentTaxonomy}
         token={activeToken}
-        domain={origin}
+        domain={domain}
         questionId={nextQuestion.id}
         t={t}
       />,
@@ -80,7 +81,7 @@ export const sendDailyEmail = async (
         questionItem={questionItem}
         enrollmentTaxonomy={enrollmentTaxonomy}
         token={activeToken}
-        domain={origin}
+        domain={domain}
         questionId={user.user_question_activated_today.id}
         t={t}
         userData={user}

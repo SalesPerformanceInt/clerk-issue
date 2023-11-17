@@ -1,0 +1,12 @@
+2023-11-16 11:30:45 - [32minfo[39m: Creating configuration file...
+2023-11-16 11:30:45 - [32minfo[39m: Adding new script(s) in package.json...
+2023-11-16 11:30:45 - [32minfo[39m: Setup completed
+2023-11-16 11:40:36 - [32minfo[39m: Reading configs from /Users/timothyjohnson/wrk/rich/quickcheck/browserstack.yml
+2023-11-16 11:40:42 - [32minfo[39m: Local binary started successfully
+2023-11-16 11:41:00 - [32minfo[39m: Configuring to run tests on BrowserStack
+2023-11-16 11:41:00 - [32minfo[39m: Configuring to run tests on BrowserStack
+2023-11-16 11:41:00 - [32minfo[39m: Configuring to run tests on BrowserStack
+2023-11-16 11:41:18 - [32minfo[39m: Configuring to run tests on BrowserStack
+2023-11-16 11:41:18 - [32minfo[39m: Configuring to run tests on BrowserStack
+2023-11-16 11:41:18 - [32minfo[39m: Configuring to run tests on BrowserStack
+2023-11-16 11:41:36 - [32minfo[39m: Local binary stopped

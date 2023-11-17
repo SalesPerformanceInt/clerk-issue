@@ -7,7 +7,7 @@ env:
 on:
   push:
     branches:
-      - 'release/**'
+      - "release/**"
 jobs:
   Deploy-Green:
     runs-on: ubuntu-latest
@@ -34,8 +34,6 @@ jobs:
         run: vercel build --yes --prod --scope ${{ secrets.VERCEL_SCOPE }} --token ${{ secrets.VERCEL_TOKEN }}
       - name: Deploy Project Artifacts to Vercel
         run: vercel deploy --prebuilt -f --scope ${{ secrets.VERCEL_SCOPE }} --token=${{ secrets.VERCEL_TOKEN }} > green.txt
-
-
 # Run the Cucumber tests on the Green deployment
 #
 # Promote Green to production URL
@@ -43,5 +41,5 @@ jobs:
 # Run Sanity tests on production URL
 #
 # Rollback if ERROR
-# 
+#
 # log message to Slack (where?)

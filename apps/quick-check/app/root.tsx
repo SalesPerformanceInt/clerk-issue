@@ -1,5 +1,4 @@
 import { useTranslation } from "react-i18next";
-
 import {
   json,
   type LinksFunction,
@@ -17,8 +16,8 @@ import {
 } from "@remix-run/react";
 
 import fontAwesome from "@fortawesome/fontawesome-svg-core/styles.css";
-import { useChangeLanguage } from "remix-i18next";
 import tailwind from "~/tailwind.css";
+import { useChangeLanguage } from "remix-i18next";
 
 import { i18nConfig } from "quickcheck-shared";
 import sharedStyles from "quickcheck-shared/dist/index.css";
@@ -33,6 +32,7 @@ import {
   QC_CONTENTSTACK_DELIVERY_TOKEN,
   QC_CONTENTSTACK_ENVIRONMENT,
   QC_CONTENTSTACK_STACK_KEY,
+  ZIPY_API_KEY,
 } from "./utils/envs.server";
 import { getSplit } from "./utils/getSplit";
 
@@ -47,6 +47,7 @@ export const loader = async ({ request }: LoaderArgs) => {
   const [timeTravelFlag = false] = await getSplit(request, [
     "quickcheck__time_travel",
   ]);
+
   const userApolloClient =
     await getOptionalUserApolloClientFromRequest(request);
 
@@ -58,6 +59,7 @@ export const loader = async ({ request }: LoaderArgs) => {
     QC_CONTENTSTACK_DELIVERY_TOKEN,
     QC_CONTENTSTACK_ENVIRONMENT,
     QC_CONTENTSTACK_STACK_KEY,
+    ZIPY_API_KEY,
   };
 
   return json({ theme, locale, ENV, timeTravelFlag, now });
@@ -112,6 +114,14 @@ export default function App() {
             __html: `window.ENV = ${JSON.stringify(ENV)}`,
           }}
         />
+        <script
+          src="https://cdn.zipy.ai/sdk/v1.0/zipy.min.umd.js"
+          crossOrigin="anonymous"
+          dangerouslySetInnerHTML={{
+            __html: `window.zipy && window.zipy.init(window.ENV.ZIPY_API_KEY);`,
+          }}
+        ></script>
+        <script> </script>
       </head>
       <body className="h-full overflow-auto bg-background-secondary">
         <TimeTravel now={now} flag={timeTravelFlag} />

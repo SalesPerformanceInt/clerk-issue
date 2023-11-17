@@ -19,7 +19,7 @@ export const UsersTable: FC<UserTableProps> = ({ users, link }) => {
             Phone
           </th>
           <th scope="col" className="w-1 whitespace-nowrap px-6 py-4">
-            SMS Enabled
+            Daily Email
           </th>
           <th scope="col" className="w-1 whitespace-nowrap px-6 py-4">
             New Token

@@ -8,9 +8,8 @@ import {
 } from "~/graphql";
 
 import { sendEmail } from "~/utils/email/postmark/email";
-import { VERCEL_URL } from "~/utils/envs.server";
 import { remixI18next } from "~/utils/i18next.server";
-
+import { getOriginFromRequest } from "~/utils/urls";
 import { getQuestionData } from "~/models/question";
 import { generateNextQuestionForUser } from "~/models/user";
 
@@ -38,6 +37,8 @@ export const sendDailyEmail = async (
       DateTime.now().minus({ days: 7 }).toISODate()!
     : false;
 
+  const domain = getOriginFromRequest(request)
+
   if (isInactive) {
     const nextQuestion =
       user?.next_question ??
@@ -48,6 +49,7 @@ export const sendDailyEmail = async (
     const { questionItem, enrollmentTaxonomy } =
       await getQuestionData(nextQuestion);
 
+
     return await sendEmail(
       user?.email,
       t("emails.inactive.subject.come_back", {
@@ -57,7 +59,7 @@ export const sendDailyEmail = async (
         questionItem={questionItem}
         enrollmentTaxonomy={enrollmentTaxonomy}
         token={activeToken}
-        domain={VERCEL_URL}
+        domain={domain}
         questionId={nextQuestion.id}
         t={t}
       />,
@@ -79,7 +81,7 @@ export const sendDailyEmail = async (
         questionItem={questionItem}
         enrollmentTaxonomy={enrollmentTaxonomy}
         token={activeToken}
-        domain={VERCEL_URL}
+        domain={domain}
         questionId={user.user_question_activated_today.id}
         t={t}
         userData={user}

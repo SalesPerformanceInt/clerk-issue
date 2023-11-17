@@ -63,10 +63,9 @@ export const generateTokenAndSendSMS = async (
 
   invariant(token, "No token generated");
 
-  const { origin } = new URL(request.url);
-
-  const message = generateTokenMessage(user, token.id, origin);
-  await sendTwilioMessage(user, message);
+  // const { origin } = new URL(request.url);
+  // const message = generateTokenMessage(user, token.id, origin);
+  // await sendTwilioMessage(user, message);
 
   return token;
 };

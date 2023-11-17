@@ -8,13 +8,13 @@ import { getAdminApolloClientFromRequest } from "~/graphql";
 
 import { getLoginUrl } from "~/utils/urls";
 
-import { getUserSchema, verifyImportRequest } from "~/models/api";
+import { getUserSchema, verifyApiRequest } from "~/models/api";
 
 export const action = async ({ request }: ActionArgs) => {
   try {
     const adminApolloClient = await getAdminApolloClientFromRequest(request);
 
-    verifyImportRequest(request);
+    verifyApiRequest(request);
 
     const body = await request.json();
 
@@ -34,7 +34,7 @@ export const action = async ({ request }: ActionArgs) => {
     const response = {
       id: user.user_id,
       token: token.id,
-      loginUrl: getLoginUrl(token.id),
+      loginUrl: getLoginUrl(token.id, request),
       questionsAvailable: 0, //TODO: find the user's unanswered question count
     };
 

@@ -1,4 +1,4 @@
-const { invalidUser, user } = require("./user");
+const { user } = require("./user");
 const { BASE_URL, API_AUTH } = require("./env");
 
 const fetchUserToken = async (userId) => {

@@ -27,4 +27,7 @@ export default defineConfig({
       external: [...Object.keys(packageJson.dependencies)],
     },
   },
+  test: {
+    environment: "happy-dom",
+  },
 });

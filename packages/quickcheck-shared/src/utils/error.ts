@@ -1,6 +1,6 @@
 import { json } from "@remix-run/node";
 
-type ErrorWithMessage = {
+export type ErrorWithMessage = {
   message: string;
 };
 

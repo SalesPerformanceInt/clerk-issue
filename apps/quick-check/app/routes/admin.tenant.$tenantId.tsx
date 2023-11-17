@@ -8,27 +8,19 @@ import { useLoaderData, useNavigate, useParams } from "@remix-run/react";
 
 import { faChevronLeft } from "@fortawesome/pro-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { QuickcheckQuestionEmail } from "emails";
-import { map, pipe } from "remeda";
 import invariant from "tiny-invariant";
-import { v4 as uuidv4 } from "uuid";
 import { z } from "zod";
 import { generateTokenAndSendSMS } from "~/notifications/twilio.server";
 
 import { getAdminApolloClientFromRequest } from "~/graphql";
 
-import { sendEmail } from "~/utils/email/postmark/email";
-import { VERCEL_URL } from "~/utils/envs.server";
-import { remixI18next } from "~/utils/i18next.server";
+import { sendDailyEmail } from "~/utils/email/sendDailyEmail.server";
 import { parseSchema } from "~/utils/parseSchema";
 
 import {
   formatUserInputFromImport,
   parseCreateUserRequest,
 } from "~/models/api";
-import { getQuestionData } from "~/models/question";
-import { buildTaxonTrees } from "~/models/taxonomy";
-import { generateNextQuestionForUser } from "~/models/user";
 
 import { CreateUserForm, UsersTable } from "~/components";
 
@@ -111,41 +103,7 @@ export const action = async ({ request, params }: ActionArgs) => {
     }
 
     if (adminAction?.type === "SEND_QUESTION_EMAIL") {
-      const user = await adminApolloClient.getUserEmailData({
-        userId: adminAction.userId,
-      });
-
-      invariant(user, "No user found");
-
-      const nextQuestion =
-        user?.next_question ??
-        (await generateNextQuestionForUser(request, adminAction.userId));
-
-      invariant(nextQuestion, "Next question not found");
-
-      const { questionItem, enrollmentTaxonomy } =
-        await getQuestionData(nextQuestion);
-
-      const activeToken = user.active_tokens[0]?.id ?? "";
-
-      const t = await remixI18next.getFixedT(user.language_preference);
-
-      const result = await sendEmail(
-        user?.email,
-        t("emails.question.subject.on_a_roll", {
-          first_name: user.first_name,
-          weeks: 5,
-        }),
-        <QuickcheckQuestionEmail
-          questionItem={questionItem}
-          enrollmentTaxonomy={enrollmentTaxonomy}
-          token={activeToken}
-          domain={VERCEL_URL}
-          questionId={nextQuestion.id}
-          t={t}
-          userData={user}
-        />,
-      );
+      await sendDailyEmail(adminAction.userId, request);
     }
 
     const { type, userId } = adminAction ?? {};

@@ -20,10 +20,9 @@ export type TimeTravelContext = {
 type TimeTravelProps = {
   now: string;
   flag: boolean;
-  className?: string;
 };
 
-export const TimeTravel: FC<TimeTravelProps> = ({ now, flag, className }) => {
+export const TimeTravel: FC<TimeTravelProps> = ({ now, flag }) => {
   const location = useLocation();
   const [showModal, setShowModal] = useState(false);
 

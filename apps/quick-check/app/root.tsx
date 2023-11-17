@@ -24,7 +24,7 @@ import sharedStyles from "quickcheck-shared/dist/index.css";
 
 import { remixI18next } from "~/utils/i18next.server";
 
-import { getUserDataFromFromSession } from "~/models/session";
+import { getUserDataFromSession } from "~/models/session";
 
 import { TimeTravel } from "~/components/TimeTravel";
 
@@ -43,7 +43,7 @@ import { getOptionalUserApolloClientFromRequest } from "./graphql";
 export const ErrorBoundary = makeErrorBoundary({ wat: "root level error" });
 
 export const loader = async ({ request }: LoaderArgs) => {
-  const [now] = await getUserDataFromFromSession(request);
+  const [now] = await getUserDataFromSession(request);
   const [timeTravelFlag = false] = await getSplit(request, [
     "quickcheck__time_travel",
   ]);

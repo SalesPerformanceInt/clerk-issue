@@ -2,7 +2,7 @@ import { SplitFactory } from "@splitsoftware/splitio";
 import { times } from "remeda";
 import invariant from "tiny-invariant";
 
-import { getUserDataFromFromSession } from "~/models/session/userSession.server";
+import { getUserDataFromSession } from "~/models/session/userSession.server";
 
 import { SPLIT_API_KEY } from "./envs.server";
 
@@ -10,7 +10,7 @@ const FEATUREFLAG = { ON: "on", OFF: "off" };
 
 export const getSplit = async (request: Request, treatments: string[]) => {
   try {
-    const [_now, userId, tenant] = await getUserDataFromFromSession(request);
+    const [_now, userId, tenant] = await getUserDataFromSession(request);
 
     invariant(userId, "Missing User ID");
     invariant(tenant, "Missing Tenant ID");

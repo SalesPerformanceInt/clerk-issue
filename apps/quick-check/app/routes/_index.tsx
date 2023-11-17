@@ -1,9 +1,9 @@
 import { redirect, type LoaderArgs } from "@remix-run/node";
 
-import { getUserDataFromFromSession } from "~/models/session";
+import { getUserDataFromSession } from "~/models/session";
 
 export const loader = async ({ request }: LoaderArgs) => {
-  const [_, userId] = await getUserDataFromFromSession(request);
+  const [_, userId] = await getUserDataFromSession(request);
 
   if (userId) return redirect("/dashboard");
 

@@ -4,7 +4,7 @@ import invariant from "tiny-invariant";
 
 import { getUnauthenticatedApolloClient } from "~/graphql";
 
-import { createUserSession } from "~/models/session";
+import { SessionKeys, createUserSession, getSession } from "~/models/session";
 
 const invalidTokenRedirect = () => {
   const searchParams = new URLSearchParams({
@@ -28,6 +28,14 @@ export const loader = async ({ params, request }: LoaderArgs) => {
     const path = searchParams.get("p");
 
     const redirectTo = path ?? "/next-question";
+
+    const session = await getSession(request);
+
+    const userId = session.get(SessionKeys.USER_ID);
+
+    if (userId === token.user_id) {
+      return redirect(redirectTo);
+    }
 
     return createUserSession({
       redirectTo,

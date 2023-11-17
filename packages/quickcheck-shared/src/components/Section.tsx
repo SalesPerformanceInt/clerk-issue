@@ -23,7 +23,7 @@ export const Section: FC<DashboardSectionProps> = ({
     <section className="flex flex-col gap-4 mb-10 last:mb-0">
       <div className="flex items-center w-full">
         {icon && <Icon icon={icon} className="mr-2 text-primary-50" />}
-        <h1 className="text-xxl font-light">{title}</h1>
+        <h1 className="text-xxl font-normal">{title}</h1>
       </div>
       <div className="w-full gap-4 sm:gap-8 flex flex-wrap">
         {Children.map(children, (child) =>

@@ -6,7 +6,7 @@ import { simpleErrorResponse } from "quickcheck-shared";
 
 import { getAdminApolloClientFromRequest } from "~/graphql";
 
-import { IMPORT_SECRET_KEY, VERCEL_URL } from "~/utils/envs.server";
+import { IMPORT_SECRET_KEY } from "~/utils/envs.server";
 
 
 export const loader = async ({ request }: LoaderArgs) => {
@@ -16,9 +16,11 @@ export const loader = async ({ request }: LoaderArgs) => {
 
     invariant(users, "Error fetching users");
 
+    const origin = new URL(request.url).origin;
+
     const userEmails = users.map(
       async (user) =>
-        await fetch(`${VERCEL_URL}/api/email/user/${user.user_id}`, {
+        await fetch(`${origin}/api/email/user/${user.user_id}`, {
           method: "POST",
           headers: {
             Authorization: IMPORT_SECRET_KEY,

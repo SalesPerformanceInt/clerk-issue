@@ -34,7 +34,7 @@ export const action = async ({ request }: ActionArgs) => {
     const response = {
       id: user.user_id,
       token: token.id,
-      loginUrl: getLoginUrl(token.id),
+      loginUrl: getLoginUrl(token.id, request),
       questionsAvailable: 0, //TODO: find the user's unanswered question count
     };
 

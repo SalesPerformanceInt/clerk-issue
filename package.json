@@ -16,7 +16,7 @@
     "build:qc": "turbo run build --filter=quick-check...",
     "build:live": "turbo run build --filter=live-preview...",
     "test": "vitest",
-    "test:cu": "cucumber-js --require tests/behaviour/cucumber.conf.js --require tests/behaviour/stepDefinitions/**/*.js --format @cucumber/pretty-formatter tests/behaviour/features/**/*.feature",
+    "test:cu": "cucumber-js --require tests/behaviour/cucumber.conf.js --require tests/behaviour/stepDefinitions/**/*.js --format @cucumber/pretty-formatter tests/behaviour/features/@order.txt ",
     "lint": "turbo run lint",
     "typecheck": "turbo run typecheck",
     "format": "prettier --write \"**/*.{ts,tsx,md}\""

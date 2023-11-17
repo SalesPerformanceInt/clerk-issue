@@ -4,18 +4,12 @@ import invariant from "tiny-invariant";
 
 import { simpleErrorResponse } from "quickcheck-shared";
 
-import { getAdminApolloClientFromRequest } from "~/graphql";
-
 import { sendDailyEmail } from "~/utils/email/sendDailyEmail.server";
-
-import { verifyApiRequest } from "~/models/api";
 
 export const action = async ({ request, params }: ActionArgs) => {
   try {
     const { userId } = params;
     invariant(userId, "Missing User ID");
-
-    verifyApiRequest(request);
 
     console.log("/api/email/user", userId);
 

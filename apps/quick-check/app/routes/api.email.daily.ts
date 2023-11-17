@@ -8,12 +8,9 @@ import { getAdminApolloClientFromRequest } from "~/graphql";
 
 import { IMPORT_SECRET_KEY, VERCEL_URL } from "~/utils/envs.server";
 
-import { verifyApiRequest } from "~/models/api";
 
 export const loader = async ({ request }: LoaderArgs) => {
   try {
-    verifyApiRequest(request);
-
     const adminApolloClient = await getAdminApolloClientFromRequest(request);
     const users = await adminApolloClient.getUsersForDailyEmail();
 

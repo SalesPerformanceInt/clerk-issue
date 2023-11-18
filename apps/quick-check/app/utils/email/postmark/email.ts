@@ -10,16 +10,17 @@ const postmarkClient = new ServerClient(POSTMARK_API_KEY);
 export const sendEmail = async (
   To: string,
   Subject: string,
+  text: string,
   email: ReactElement,
 ) => {
-  postmarkClient.sendEmail({
+  const response = await postmarkClient.sendEmail({
     From: EMAIL_FROM,
     To,
     Subject,
     HtmlBody: render(email),
-    TextBody: "TODO: Need a simple link to the login with token here!",
+    TextBody: text,
     MessageStream: "outbound",
   });
 
-  return true;
+  return response;
 };

@@ -22,7 +22,7 @@ export const GET_USER_EMAIL_DATA = graphql(/* GraphQL */ `
         question_id
       }
       user_question_activated_today: user_questions(
-        where: { active_on: { _gte: $today, _lte: $today } }
+        where: { active_on: { _gte: $today, _lte: $today }, retired_on: { _is_null: true} }
         limit: 1
       ) {
         ...BaseUserQuestion
@@ -37,7 +37,7 @@ export async function getUserEmailData(
 ) {
   const { userId, now } = proxyData;
 
-  const today = DateTime.fromISO(now, { zone: "utc" }).toISODate()!;
+  const today = DateTime.fromISO(now).toISODate()!;
 
   try {
     const { data } = await this.client.query({

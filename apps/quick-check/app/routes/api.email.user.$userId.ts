@@ -11,11 +11,9 @@ export const action = async ({ request, params }: ActionArgs) => {
     const { userId } = params;
     invariant(userId, "Missing User ID");
 
-    console.log("/api/email/user", userId);
+   const result = await sendDailyEmail(userId, request);
 
-    await sendDailyEmail(userId, request);
-
-    return json({ userId });
+    return json({ userId, ...result });
   } catch (error) {
     return simpleErrorResponse(error);
   }

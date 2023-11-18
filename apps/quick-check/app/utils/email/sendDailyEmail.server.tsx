@@ -39,6 +39,8 @@ export const sendDailyEmail = async (
 
   const domain = getOriginFromRequest(request)
 
+  console.log('EMAIL', JSON.stringify(user, null, 2))
+
   if (isInactive) {
     const nextQuestion =
       user?.next_question ??
@@ -50,8 +52,11 @@ export const sendDailyEmail = async (
       await getQuestionData(nextQuestion);
 
 
-    return await sendEmail(
+    const response = await sendEmail(
       user?.email,
+      t("emails.inactive.subject.come_back", {
+        first_name: user.first_name,
+      }),
       t("emails.inactive.subject.come_back", {
         first_name: user.first_name,
       }),
@@ -64,6 +69,11 @@ export const sendDailyEmail = async (
         t={t}
       />,
     );
+
+    return {
+      type: 'inactive',
+      response
+    }
   }
 
   if (user.user_question_activated_today) {
@@ -71,8 +81,12 @@ export const sendDailyEmail = async (
       user.user_question_activated_today,
     );
 
-    return await sendEmail(
+    const response = await sendEmail(
       user?.email,
+      t("emails.question.subject.on_a_roll", {
+        first_name: user.first_name,
+        weeks: 5,
+      }),
       t("emails.question.subject.on_a_roll", {
         first_name: user.first_name,
         weeks: 5,
@@ -87,5 +101,14 @@ export const sendDailyEmail = async (
         userData={user}
       />,
     );
+
+    return {
+      type: 'active',
+      response
+    }
+  }
+
+  return {
+    type: 'no_email'
   }
 };

@@ -60,9 +60,9 @@ export const sendDailyEmail = async (
       t("emails.inactive.subject.come_back", {
         first_name: user.first_name,
       }),
-      t("emails.inactive.subject.come_back", {
+      `${t("emails.inactive.subject.come_back", {
         first_name: user.first_name,
-      }),
+      })}  ${loginUrl}`,
       <QuickcheckInactivityEmail
         questionItem={questionItem}
         enrollmentTaxonomy={enrollmentTaxonomy}
@@ -89,10 +89,7 @@ export const sendDailyEmail = async (
         first_name: user.first_name,
         weeks: 5,
       }),
-      t("emails.question.subject.on_a_roll", {
-        first_name: user.first_name,
-        weeks: 5,
-      }),
+      loginUrl,
       <QuickcheckQuestionEmail
         questionItem={questionItem}
         enrollmentTaxonomy={enrollmentTaxonomy}

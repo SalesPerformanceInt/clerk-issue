@@ -11,13 +11,13 @@ export const sendEmail = async (
   To: string,
   Subject: string,
   text: string,
-  email: ReactElement,
+  htmlDom: ReactElement,
 ) => {
   const response = await postmarkClient.sendEmail({
     From: EMAIL_FROM,
     To,
     Subject,
-    HtmlBody: render(email),
+    HtmlBody: render(htmlDom),
     TextBody: text,
     MessageStream: "outbound",
   });

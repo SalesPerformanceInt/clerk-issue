@@ -11,9 +11,9 @@ sendgrid.setApiKey(SENDGRID_API_KEY);
 export const sendEmail = async (
   to: string,
   subject: string,
-  email: ReactElement,
+  htmlDom: ReactElement,
 ) => {
-  const html = render(email);
+  const html = render(htmlDom);
   const data = {
     to,
     from: SENDGRID_FROM,

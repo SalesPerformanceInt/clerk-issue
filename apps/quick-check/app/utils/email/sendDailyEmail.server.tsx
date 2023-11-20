@@ -66,7 +66,7 @@ export const sendDailyEmail = async (
       <QuickcheckInactivityEmail
         questionItem={questionItem}
         enrollmentTaxonomy={enrollmentTaxonomy}
-        token={activeToken}
+        token={activeToken.id}
         domain={domain}
         questionId={nextQuestion.id}
         t={t}
@@ -97,7 +97,7 @@ export const sendDailyEmail = async (
       <QuickcheckQuestionEmail
         questionItem={questionItem}
         enrollmentTaxonomy={enrollmentTaxonomy}
-        token={activeToken}
+        token={activeToken.id}
         domain={domain}
         questionId={user.user_question_activated_today.id}
         t={t}

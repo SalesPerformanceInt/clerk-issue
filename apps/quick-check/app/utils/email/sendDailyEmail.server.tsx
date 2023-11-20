@@ -26,10 +26,12 @@ export const sendDailyEmail = async (
 
   invariant(user, "No user found");
   
-  const activeToken = await adminApolloClient.generateNewToken({
+  const activeToken = (await adminApolloClient.generateNewToken({
     userId: user.user_id,
     tenantId: user.tenant_id,
-  });
+  }))?.id
+
+  invariant(activeToken, 'No active token found')
   
   const t = await remixI18next.getFixedT(user.language_preference);
 
@@ -41,8 +43,6 @@ export const sendDailyEmail = async (
     : false;
 
   const domain = getOriginFromRequest(request)
-
-  console.log('EMAIL', JSON.stringify(user, null, 2))
 
   if (isInactive) {
     const nextQuestion =
@@ -66,7 +66,7 @@ export const sendDailyEmail = async (
       <QuickcheckInactivityEmail
         questionItem={questionItem}
         enrollmentTaxonomy={enrollmentTaxonomy}
-        token={activeToken.id}
+        token={activeToken}
         domain={domain}
         questionId={nextQuestion.id}
         t={t}
@@ -97,7 +97,7 @@ export const sendDailyEmail = async (
       <QuickcheckQuestionEmail
         questionItem={questionItem}
         enrollmentTaxonomy={enrollmentTaxonomy}
-        token={activeToken.id}
+        token={activeToken}
         domain={domain}
         questionId={user.user_question_activated_today.id}
         t={t}

@@ -4,7 +4,7 @@
   "sideEffects": false,
   "scripts": {
     "build": "remix build",
-    "dev": "concurrently \"PORT=4010 remix dev\" \"pnpm run codegen --watch\"",
+    "dev": "concurrently \"remix dev\" \"pnpm run codegen --watch\"",
     "typecheck": "tsc",
     "codegen": "graphql-codegen --config codegen.ts"
   },

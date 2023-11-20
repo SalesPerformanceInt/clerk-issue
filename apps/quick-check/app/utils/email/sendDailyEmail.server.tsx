@@ -25,9 +25,12 @@ export const sendDailyEmail = async (
   const user = await adminApolloClient.getUserEmailData({ userId });
 
   invariant(user, "No user found");
-
-  const activeToken = user.active_tokens[0]?.id ?? "";
-
+  
+  const activeToken = await adminApolloClient.generateNewToken({
+    userId: user.user_id,
+    tenantId: user.tenant_id,
+  });
+  
   const t = await remixI18next.getFixedT(user.language_preference);
 
   const lastAnswered = user.last_user_answer?.created_at;

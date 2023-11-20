@@ -16,7 +16,12 @@ This Monorepo uses [pnpm](https://pnpm.io/) and [turborepo](https://turborepo.or
 /packages
   /quickcheck-shared
   /[possible-new-package]
+/tests
+  /behaviour
+    /features
+    /stepDefinitions
 ```
+
 
 ## QuickCheck
 
@@ -25,6 +30,7 @@ This Monorepo uses [pnpm](https://pnpm.io/) and [turborepo](https://turborepo.or
 - [Remix](https://remix.run/)
 - [Typescript](https://www.typescriptlang.org/)
 - [Tailwind](https://tailwindcss.com/)
+
 
 ## QuickCheck Shared
 
@@ -72,3 +78,31 @@ $ pnpm i
 ### Packages
 
 - [QuickCheck Shared](https://github.com/SalesPerformanceInt/accelerate-quick-check/tree/main/packages/quickcheck-shared)
+
+
+## Testing
+
+You can run unit tests with Vitest after first building the dependencies
+
+```shell
+pnpm build
+pnpm test
+```
+
+You may also run the BDD suite with cucumber, but ensure you have the playwright browsers installed first
+
+```shell
+npx playwright install
+```
+
+Then when you are wanting to run the BDD tests for Quickcheck, make sure to have the local server running
+
+```shell
+pnpm dev:qc
+```
+
+then in another terminal window
+
+```shell
+pnpm test:cu
+```

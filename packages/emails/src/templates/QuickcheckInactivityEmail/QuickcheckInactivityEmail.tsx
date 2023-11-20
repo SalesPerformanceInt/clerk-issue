@@ -32,8 +32,7 @@ import { theme } from "../../../tailwind.config";
 interface QuickcheckInactivityEmailProps {
   questionItem: QuestionItem;
   enrollmentTaxonomy: Taxon;
-  token: string;
-  domain: string;
+  loginUrl: string;
   questionId: string;
   t: TFunction;
 }
@@ -41,8 +40,7 @@ interface QuickcheckInactivityEmailProps {
 export const QuickcheckInactivityEmail = ({
   questionItem,
   enrollmentTaxonomy,
-  token,
-  domain,
+  loginUrl,
   questionId,
   t,
 }: QuickcheckInactivityEmailProps) => {
@@ -89,7 +87,7 @@ export const QuickcheckInactivityEmail = ({
               <Row className="mt-2">
                 <Column className="w-full bg-primary p-4 rounded-smd">
                   <Button
-                    href={`${domain}/token/${token}`}
+                    href={loginUrl}
                     className="text-xs leading-4 text-contrast w-full whitespace-pre-line"
                   >
                     {t("emails.inactive.jump_back")}
@@ -126,7 +124,7 @@ export const QuickcheckInactivityEmail = ({
                           )}
                         >
                           <Link
-                            href={`${domain}/token/${token}?p=${path}`}
+                            href={`${loginUrl}?p=${path}`}
                             target="_blank"
                             className="h-full block bg-background-secondary rounded-sm"
                           >

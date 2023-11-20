@@ -32,8 +32,7 @@ import { theme } from "../../../tailwind.config";
 interface QuickcheckQuestionEmailProps {
   questionItem: QuestionItem;
   enrollmentTaxonomy: Taxon;
-  token: string;
-  domain: string;
+  loginUrl: string;
   questionId: string;
   t: TFunction;
   userData: UserData;
@@ -42,8 +41,7 @@ interface QuickcheckQuestionEmailProps {
 export const QuickcheckQuestionEmail = ({
   questionItem,
   enrollmentTaxonomy,
-  token,
-  domain,
+  loginUrl,
   questionId,
   t,
   userData,
@@ -117,7 +115,7 @@ export const QuickcheckQuestionEmail = ({
                           )}
                         >
                           <Link
-                            href={`${domain}/token/${token}?p=${path}`}
+                            href={`${loginUrl}?p=${path}`}
                             target="_blank"
                             className="h-full block bg-background-secondary rounded-sm"
                           >
@@ -134,7 +132,7 @@ export const QuickcheckQuestionEmail = ({
               <Row className="mt-4">
                 <Column className="w-full bg-primary p-2 rounded-smd">
                   <Button
-                    href={`${domain}/token/${token}`}
+                    href={loginUrl}
                     className="text-xs leading-4 text-contrast w-full whitespace-pre-line"
                   >
                     {t("emails.question.unanswered", {

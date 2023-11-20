@@ -9,7 +9,7 @@ import {
 
 import { sendEmail } from "~/utils/email/postmark/email";
 import { remixI18next } from "~/utils/i18next.server";
-import { getOriginFromRequest } from "~/utils/urls";
+import { getLoginUrl } from "~/utils/urls";
 import { getQuestionData } from "~/models/question";
 import { generateNextQuestionForUser } from "~/models/user";
 
@@ -42,7 +42,7 @@ export const sendDailyEmail = async (
       DateTime.now().minus({ days: 7 }).toISODate()!
     : false;
 
-  const domain = getOriginFromRequest(request)
+  const loginUrl = getLoginUrl(activeToken, request)
 
   if (isInactive) {
     const nextQuestion =
@@ -66,8 +66,7 @@ export const sendDailyEmail = async (
       <QuickcheckInactivityEmail
         questionItem={questionItem}
         enrollmentTaxonomy={enrollmentTaxonomy}
-        token={activeToken}
-        domain={domain}
+        loginUrl={loginUrl}
         questionId={nextQuestion.id}
         t={t}
       />,
@@ -97,8 +96,7 @@ export const sendDailyEmail = async (
       <QuickcheckQuestionEmail
         questionItem={questionItem}
         enrollmentTaxonomy={enrollmentTaxonomy}
-        token={activeToken}
-        domain={domain}
+        loginUrl={loginUrl}
         questionId={user.user_question_activated_today.id}
         t={t}
         userData={user}

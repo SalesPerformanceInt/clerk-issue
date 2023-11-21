@@ -40,7 +40,7 @@ export const TimeTravel: FC<TimeTravelProps> = ({ now, flag }) => {
     [isTimeTravelEnabled],
   );
 
-  // if (!flag) return null;
+  if (!flag) return null;
   if (isTimeTravelHidden) return null;
 
   return (

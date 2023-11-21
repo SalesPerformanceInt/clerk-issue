@@ -68,7 +68,7 @@ export const QuickcheckQuestionEmail = ({
         </Head>
 
         <Body className="bg-background font-sans">
-          <Container className="max-w-screen-lg">
+          <Container className="max-w-screen-sm">
             <Section className="w-full">
               <Row>
                 <Column width={24} valign="middle">

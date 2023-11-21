@@ -1,5 +1,4 @@
 import React, { useCallback, useState, type FC } from "react";
-
 import { useLocation } from "@remix-run/react";
 
 import { faGear } from "@fortawesome/pro-solid-svg-icons";
@@ -46,10 +45,10 @@ export const TimeTravel: FC<TimeTravelProps> = ({ now, flag }) => {
 
   return (
     <>
-      <div className="absolute left-0 right-0 z-20 flex justify-center top-8 sm:top-12">
+      <div className="absolute left-0 right-0 top-8 z-20 flex justify-center sm:top-12">
         <button
           className={twMerge(
-            "bg-primary-75 rounded px-2 py-1 shadow-md text-background text-xl flex items-center gap-2",
+            "flex items-center gap-2 rounded bg-primary-75 px-2 py-1 text-xl text-background shadow-md",
             !isTimeTravelEnabled && "cursor-default",
           )}
           onClick={toggleModal}

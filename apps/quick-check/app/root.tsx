@@ -123,7 +123,7 @@ export default function App() {
             __html: `window.addEventListener('load', () => { if (window.zipy) { window.zipy.init(window.ENV.ZIPY_API_KEY) } else { console.error('zipy is not available yet') }})`,
           }} />
       </head>
-      <body className="h-full overflow-auto bg-background-secondary">
+      <body className="h-full overflow-auto bg-background-secondary overscroll-x-none">
         <TimeTravel now={now} flag={timeTravelFlag} />
 
         <Outlet context={{ now }} />

@@ -20,7 +20,7 @@ export const MobileMenuUnansweredQuestions: FC<
       <p className="text-xs text-primary-75 uppercase">
         {t("common.unanswered", { count: unansweredQuestions })}
       </p>
-      {unansweredQuestions && (
+      {!!unansweredQuestions && (
         <Button background="light" onClick={onStart} rightIcon={faArrowRight}>
           {t("common.start")}
         </Button>

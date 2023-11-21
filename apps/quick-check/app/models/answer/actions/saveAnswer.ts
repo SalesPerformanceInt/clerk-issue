@@ -26,7 +26,7 @@ export const saveUserAnswer = async (
     user_id: userQuestion.user_id,
     question_id: userQuestion.id,
     correct: currentAnswer.correct,
-    created_at: reviewedAnswer.lastAnsweredOn,
+    created_at: reviewedAnswer.answerDate,
   };
 
   userApolloClient.createLearningRecord(learningRecord);

@@ -20,13 +20,13 @@ export type ReviewedAnswer = {
   latestReviewGap: number;
   difficulty: number;
   streak: number;
-  lastAnsweredOn: string | null;
+  answerDate: string;
   score: number;
 };
 
 export type AnswerToReview = ReviewedAnswer & {
   performanceRating: number;
-  answerDate: string;
+  lastAnsweredOn: string | null
 };
 
 /**

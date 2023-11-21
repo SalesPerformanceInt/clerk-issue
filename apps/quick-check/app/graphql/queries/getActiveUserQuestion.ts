@@ -2,13 +2,14 @@ import { DateTime } from "luxon";
 import { first } from "remeda";
 
 import { graphql, type GQLProxyData, type WithApolloClient } from "~/graphql";
+import { getToday } from "~/utils/date";
 
 export const GET_ACTIVE_USER_QUESTION = graphql(/* GraphQL */ `
-  query GetActiveUserQuestion($id: uuid!, $endOfDay: timestamptz) {
+  query GetActiveUserQuestion($id: uuid!, $today: date!) {
     user_question(
       where: {
         id: { _eq: $id }
-        active_on: { _lte: $endOfDay }
+        active_on: { _lte: $today }
         retired_on: { _is_null: true }
       }
     ) {
@@ -24,12 +25,12 @@ export async function getActiveUserQuestion(
 ) {
   const { now } = proxyData;
 
-  const endOfDay = DateTime.fromISO(now).endOf("day").toISO();
+  const today = getToday(now)
 
   try {
     const { data } = await this.client.query({
       query: GET_ACTIVE_USER_QUESTION,
-      variables: { id, endOfDay },
+      variables: { id, today },
       fetchPolicy: "no-cache",
     });
 

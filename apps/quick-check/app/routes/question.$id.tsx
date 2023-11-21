@@ -133,9 +133,9 @@ export default function QuestionPage() {
         userData={userData}
       />
 
-      {actionData && (
+      {/* {actionData && actionData.nextQuestionId && (
         <PrefetchPageLinks page={`/question/${actionData.nextQuestionId}`} />
-      )}
+      )} */}
     </>
   );
 }

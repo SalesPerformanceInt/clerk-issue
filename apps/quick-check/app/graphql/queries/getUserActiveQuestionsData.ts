@@ -3,9 +3,10 @@ import {
   type GQLProxyUserData,
   type WithApolloClient,
 } from "~/graphql";
+import { getToday } from "~/utils/date";
 
 export const GET_USER_ACTIVE_QUESTIONS_DATA = graphql(/* GraphQL */ `
-  query GetUserActiveQuestionsData($userId: uuid!, $now: timestamptz!) {
+  query GetUserActiveQuestionsData($userId: uuid!, $today: date!) {
     user_by_pk(user_id: $userId) {
       first_name
       last_name
@@ -20,10 +21,12 @@ export async function getUserActiveQuestionsData(
 ) {
   const { userId, now } = proxyData;
 
+  const today = getToday(now)
+
   try {
     const { data } = await this.client.query({
       query: GET_USER_ACTIVE_QUESTIONS_DATA,
-      variables: { userId, now },
+      variables: { userId, today },
       fetchPolicy: "no-cache",
     });
 

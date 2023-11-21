@@ -19,7 +19,7 @@ export const updateUserFromAnswer = async (
     latest_review_gap: reviewedAnswer.latestReviewGap,
     difficulty: reviewedAnswer.difficulty,
     streak: reviewedAnswer.streak,
-    last_answered_on: reviewedAnswer.lastAnsweredOn,
+    last_answered_on: reviewedAnswer.answerDate,
   });
 
   return userApolloClient.updateUserEnrollment(

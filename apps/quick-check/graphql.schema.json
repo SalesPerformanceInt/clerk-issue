@@ -20784,7 +20784,7 @@
             "args": [],
             "type": {
               "kind": "SCALAR",
-              "name": "timestamptz",
+              "name": "date",
               "ofType": null
             },
             "isDeprecated": false,
@@ -20844,7 +20844,7 @@
             "args": [],
             "type": {
               "kind": "SCALAR",
-              "name": "timestamptz",
+              "name": "date",
               "ofType": null
             },
             "isDeprecated": false,
@@ -20888,7 +20888,7 @@
             "args": [],
             "type": {
               "kind": "SCALAR",
-              "name": "timestamptz",
+              "name": "date",
               "ofType": null
             },
             "isDeprecated": false,
@@ -21870,7 +21870,7 @@
             "description": null,
             "type": {
               "kind": "INPUT_OBJECT",
-              "name": "timestamptz_comparison_exp",
+              "name": "date_comparison_exp",
               "ofType": null
             },
             "defaultValue": null,
@@ -21918,7 +21918,7 @@
             "description": null,
             "type": {
               "kind": "INPUT_OBJECT",
-              "name": "timestamptz_comparison_exp",
+              "name": "date_comparison_exp",
               "ofType": null
             },
             "defaultValue": null,
@@ -21954,7 +21954,7 @@
             "description": null,
             "type": {
               "kind": "INPUT_OBJECT",
-              "name": "timestamptz_comparison_exp",
+              "name": "date_comparison_exp",
               "ofType": null
             },
             "defaultValue": null,
@@ -22149,7 +22149,7 @@
             "description": null,
             "type": {
               "kind": "SCALAR",
-              "name": "timestamptz",
+              "name": "date",
               "ofType": null
             },
             "defaultValue": null,
@@ -22197,7 +22197,7 @@
             "description": null,
             "type": {
               "kind": "SCALAR",
-              "name": "timestamptz",
+              "name": "date",
               "ofType": null
             },
             "defaultValue": null,
@@ -22233,7 +22233,7 @@
             "description": null,
             "type": {
               "kind": "SCALAR",
-              "name": "timestamptz",
+              "name": "date",
               "ofType": null
             },
             "defaultValue": null,
@@ -22352,7 +22352,7 @@
             "args": [],
             "type": {
               "kind": "SCALAR",
-              "name": "timestamptz",
+              "name": "date",
               "ofType": null
             },
             "isDeprecated": false,
@@ -22400,7 +22400,7 @@
             "args": [],
             "type": {
               "kind": "SCALAR",
-              "name": "timestamptz",
+              "name": "date",
               "ofType": null
             },
             "isDeprecated": false,
@@ -22436,7 +22436,7 @@
             "args": [],
             "type": {
               "kind": "SCALAR",
-              "name": "timestamptz",
+              "name": "date",
               "ofType": null
             },
             "isDeprecated": false,
@@ -22686,7 +22686,7 @@
             "args": [],
             "type": {
               "kind": "SCALAR",
-              "name": "timestamptz",
+              "name": "date",
               "ofType": null
             },
             "isDeprecated": false,
@@ -22734,7 +22734,7 @@
             "args": [],
             "type": {
               "kind": "SCALAR",
-              "name": "timestamptz",
+              "name": "date",
               "ofType": null
             },
             "isDeprecated": false,
@@ -22770,7 +22770,7 @@
             "args": [],
             "type": {
               "kind": "SCALAR",
-              "name": "timestamptz",
+              "name": "date",
               "ofType": null
             },
             "isDeprecated": false,
@@ -23492,7 +23492,7 @@
             "description": null,
             "type": {
               "kind": "SCALAR",
-              "name": "timestamptz",
+              "name": "date",
               "ofType": null
             },
             "defaultValue": null,
@@ -23540,7 +23540,7 @@
             "description": null,
             "type": {
               "kind": "SCALAR",
-              "name": "timestamptz",
+              "name": "date",
               "ofType": null
             },
             "defaultValue": null,
@@ -23576,7 +23576,7 @@
             "description": null,
             "type": {
               "kind": "SCALAR",
-              "name": "timestamptz",
+              "name": "date",
               "ofType": null
             },
             "defaultValue": null,
@@ -23980,7 +23980,7 @@
             "description": null,
             "type": {
               "kind": "SCALAR",
-              "name": "timestamptz",
+              "name": "date",
               "ofType": null
             },
             "defaultValue": null,
@@ -24028,7 +24028,7 @@
             "description": null,
             "type": {
               "kind": "SCALAR",
-              "name": "timestamptz",
+              "name": "date",
               "ofType": null
             },
             "defaultValue": null,
@@ -24064,7 +24064,7 @@
             "description": null,
             "type": {
               "kind": "SCALAR",
-              "name": "timestamptz",
+              "name": "date",
               "ofType": null
             },
             "defaultValue": null,

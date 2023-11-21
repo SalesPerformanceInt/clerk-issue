@@ -11,7 +11,10 @@ export const QuestionHeader: FC = () => {
   const { userData, onShowOnCloseModal, submitted } = useQuestionContext();
 
   const modifier = submitted ? 1 : 0;
-  const unansweredQuestions = (userData?.unanswered_questions ?? 0) - modifier;
+  const unansweredQuestions = Math.max(
+    (userData?.unanswered_questions ?? 0) - modifier,
+    0,
+  );
 
   return (
     <Header

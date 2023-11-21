@@ -1,9 +1,10 @@
 import { contentStack } from "~/contentstack.server";
 
 import { graphql, type GQLProxyData, type WithApolloClient } from "~/graphql";
+import { getToday } from "~/utils/date";
 
 export const GET_USER_ENROLLMENT = graphql(/* GraphQL */ `
-  query GetUserEnrollment($id: uuid!, $now: timestamptz!) {
+  query GetUserEnrollment($id: uuid!, $today: date!) {
     user_enrollment_by_pk(id: $id) {
       ...UserEnrollmentWithCounts
       user_questions {
@@ -42,10 +43,12 @@ export async function getUserEnrollment(
 ) {
   const { now } = proxyData;
 
+  const today = getToday(now)
+
   try {
     const { data } = await this.client.query({
       query: GET_USER_ENROLLMENT,
-      variables: { id, now },
+      variables: { id, today },
       fetchPolicy: "no-cache",
     });
 

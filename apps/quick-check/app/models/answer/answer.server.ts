@@ -3,7 +3,6 @@ import invariant from "tiny-invariant";
 import { getUserApolloClientFromRequest } from "~/graphql";
 
 import { getCurrentAnswer, getReviewedAnswer } from "./handlers/getAnswers";
-
 import { saveUserAnswer } from "./actions/saveAnswer";
 import { updateTaxonomyEnrollmentsRanks } from "./actions/updateTaxonomyEnrollmentsRanks";
 import { updateUserFromAnswer } from "./actions/updateUserFromAnswer";
@@ -55,10 +54,8 @@ export const saveAnswer = async (request: Request) => {
   const { currentAnswer } = await getCurrentAnswer(request);
 
   prepareAnswerData(request, currentAnswer).then(async (answerData) => {
-    await Promise.all([
-      saveUserAnswer(request, answerData),
-      updateUserFromAnswer(request, answerData),
-    ]);
+    await saveUserAnswer(request, answerData);
+    await updateUserFromAnswer(request, answerData);
 
     updateTaxonomyEnrollmentsRanks(request, answerData);
   });

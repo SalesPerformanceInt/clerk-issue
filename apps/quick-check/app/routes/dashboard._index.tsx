@@ -3,6 +3,8 @@ import { useLoaderData } from "@remix-run/react";
 
 import { deserialize, serialize } from "remix-typedjson";
 
+import { simpleErrorResponse } from "quickcheck-shared";
+
 import {
   getOptionalUserApolloClientFromRequest,
   type DashboardData,
@@ -15,15 +17,19 @@ import { Dashboard } from "~/pages";
  */
 
 export const loader = async ({ request }: LoaderArgs) => {
-  const userApolloClient =
-    await getOptionalUserApolloClientFromRequest(request);
+  try {
+    const userApolloClient =
+      await getOptionalUserApolloClientFromRequest(request);
 
-  const dashboard = await userApolloClient?.getUserDashboard();
-  if (!dashboard) return redirect("/login");
+    const dashboard = await userApolloClient?.getUserDashboard();
+    if (!dashboard) return redirect("/login");
 
-  return defer({
-    dashboard: serialize(dashboard),
-  });
+    return defer({
+      dashboard: serialize(dashboard),
+    });
+  } catch (error) {
+    return simpleErrorResponse(error);
+  }
 };
 
 /**

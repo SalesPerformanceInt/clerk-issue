@@ -12,18 +12,15 @@ export const GET_RANKEABLE_ENROLLMENTS = graphql(/* GraphQL */ `
   query GetRankeableEnrollments(
     $taxonomyIds: [String!]
     $tenantId: String!
-    $now: timestamptz!
   ) {
     user_enrollment(
       where: {
         taxonomy_id: { _in: $taxonomyIds }
         user: { tenant_id: { _eq: $tenantId } }
-        created_at: { _lte: $now }
         user_questions: {
           user_answers_aggregate: {
             count: {
               predicate: { _gt: 0 }
-              filter: { created_at: { _lte: $now } }
             }
           }
         }
@@ -49,12 +46,12 @@ export async function getRankeableEnrollments(
   taxonomyIds: string[],
   proxyData: GQLProxyTenantData,
 ) {
-  const { tenantId, now } = proxyData;
+  const { tenantId } = proxyData;
 
   try {
     const { data } = await this.client.query({
       query: GET_RANKEABLE_ENROLLMENTS,
-      variables: { taxonomyIds, tenantId, now },
+      variables: { taxonomyIds, tenantId },
       fetchPolicy: "no-cache",
     });
 

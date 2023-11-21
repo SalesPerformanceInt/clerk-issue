@@ -1,14 +1,14 @@
+import { contentStack } from "~/contentstack.server";
 import { DateTime } from "luxon";
 
-import { contentStack } from "~/contentstack.server";
-
 import { graphql, type GQLProxyUserData, type GraphQLClient } from "~/graphql";
+
+import { getToday } from "~/utils/date";
 
 export const GET_USER_DASHBOARD = graphql(/* GraphQL */ `
   query GetUserDashboard(
     $userId: uuid!
-    $now: timestamptz!
-    $nowDate: date!
+    $today: date!
     $monthAgo: timestamptz!
   ) {
     user_by_pk(user_id: $userId) {
@@ -22,19 +22,15 @@ export const GET_USER_DASHBOARD = graphql(/* GraphQL */ `
           _and: [
             {
               _or: [
-                { completed_on: { _is_null: true } }
-                { completed_on: { _gte: $nowDate } }
+                { expiration_date: { _is_null: true } }
+                { expiration_date: { _gte: $today } }
               ]
             }
             {
               user_questions_aggregate: {
                 count: {
                   predicate: { _gt: 0 }
-                  filter: {
-                    _or: [
-                      { retired_on: { _is_null: true } }
-                    ]
-                  }
+                  filter: { _or: [{ retired_on: { _is_null: true } }] }
                 }
               }
             }
@@ -47,16 +43,12 @@ export const GET_USER_DASHBOARD = graphql(/* GraphQL */ `
         where: {
           user_questions_aggregate: { count: { predicate: { _gt: 0 } } }
           _or: [
-            { completed_on: { _is_null: false, _lte: $nowDate } }
+            { expiration_date: { _is_null: false, _lte: $today } }
             {
               user_questions_aggregate: {
                 count: {
                   predicate: { _eq: 0 }
-                  filter: {
-                    _or: [
-                      { retired_on: { _is_null: true } }
-                    ]
-                  }
+                  filter: { _or: [{ retired_on: { _is_null: true } }] }
                 }
               }
             }
@@ -68,24 +60,15 @@ export const GET_USER_DASHBOARD = graphql(/* GraphQL */ `
       skills_attempted: user_questions_aggregate(
         distinct_on: taxonomy_id
         where: {
-          created_at: { _lte: $now }
           last_answered_on: { _is_null: false }
-          user_answers_aggregate: {
-            count: {
-              predicate: { _gt: 0 }
-              filter: { created_at: { _lte: $now } }
-            }
-          }
+          user_answers_aggregate: { count: { predicate: { _gt: 0 } } }
         }
       ) {
         aggregate {
           count
         }
       }
-      total_skills: user_questions_aggregate(
-        distinct_on: taxonomy_id
-        where: { created_at: { _lte: $now } }
-      ) {
+      total_skills: user_questions_aggregate(distinct_on: taxonomy_id) {
         aggregate {
           count
         }
@@ -94,17 +77,12 @@ export const GET_USER_DASHBOARD = graphql(/* GraphQL */ `
         where: {
           user_questions_aggregate: { count: { predicate: { _gt: 0 } } }
           _or: [
-            { completed_on: { _is_null: false, _lte: $nowDate } }
+            { expiration_date: { _is_null: false, _lte: $today } }
             {
               user_questions_aggregate: {
                 count: {
                   predicate: { _eq: 0 }
-                  filter: {
-                    _or: [
-                      { retired_on: { _is_null: true } }
-                      { retired_on: { _gte: $now } }
-                    ]
-                  }
+                  filter: { _or: [{ retired_on: { _is_null: true } }] }
                 }
               }
             }
@@ -118,7 +96,6 @@ export const GET_USER_DASHBOARD = graphql(/* GraphQL */ `
       total_enrollments: user_enrollments_aggregate(
         where: {
           user_questions_aggregate: { count: { predicate: { _gt: 0 } } }
-          created_at: { _lte: $now }
         }
       ) {
         aggregate {
@@ -126,15 +103,13 @@ export const GET_USER_DASHBOARD = graphql(/* GraphQL */ `
         }
       }
       retired_questions: user_questions_aggregate(
-        where: { retired_on: { _is_null: false, _lte: $now } }
+        where: { retired_on: { _is_null: false } }
       ) {
         aggregate {
           count
         }
       }
-      total_questions: user_questions_aggregate(
-        where: { created_at: { _lte: $now } }
-      ) {
+      total_questions: user_questions_aggregate {
         aggregate {
           count
         }
@@ -150,13 +125,17 @@ export async function getUserDashboard(
   try {
     const { userId, now } = proxyData;
 
+    const today = getToday(now);
+
     const result = await this.client.query({
       query: GET_USER_DASHBOARD,
       variables: {
         userId,
-        now,
-        nowDate: DateTime.fromISO(now).toISODate()!,
-        monthAgo: DateTime.fromISO(now).minus({ month: 1 }).toISO()!,
+        today,
+        monthAgo: DateTime.fromISO(now)
+          .minus({ month: 1 })
+          .startOf("day")
+          .toISO()!,
       },
       fetchPolicy: "no-cache",
     });

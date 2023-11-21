@@ -14,7 +14,8 @@ export const GET_USER_DATA = graphql(/* GraphQL */ `
         created_at
         score
         rank
-        completed_on
+        expiration_date
+        start_date
         user_questions_aggregate {
           aggregate {
             count

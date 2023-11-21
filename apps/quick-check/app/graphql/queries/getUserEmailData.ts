@@ -9,8 +9,7 @@ import {
 export const GET_USER_EMAIL_DATA = graphql(/* GraphQL */ `
   query GetUserEmailData(
     $userId: uuid!
-    $now: timestamptz!
-    $today: timestamptz!
+    $today: date!
   ) {
     user_by_pk(user_id: $userId) {
       ...UserWithActiveToken
@@ -22,7 +21,7 @@ export const GET_USER_EMAIL_DATA = graphql(/* GraphQL */ `
         question_id
       }
       user_question_activated_today: user_questions(
-        where: { active_on: { _gte: $today, _lte: $today }, retired_on: { _is_null: true} }
+        where: { active_on: { _eq: $today }, retired_on: { _is_null: true} }
         limit: 1
       ) {
         ...BaseUserQuestion
@@ -42,7 +41,7 @@ export async function getUserEmailData(
   try {
     const { data } = await this.client.query({
       query: GET_USER_EMAIL_DATA,
-      variables: { userId, now, today },
+      variables: { userId, today },
       fetchPolicy: "no-cache",
     });
 

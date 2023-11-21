@@ -13,3 +13,5 @@ export const getNextValidBusinessDate = (
 
   return getNextValidBusinessDate(date, updatedDaysToAdd);
 };
+
+export const getToday = (now: string) => DateTime.fromISO(now).toISODate()!;

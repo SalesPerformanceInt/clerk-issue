@@ -59,8 +59,7 @@ export const QuickcheckQuestionEmail = ({
           <style>
             {`
               @font-face {
-                font-family: Open Sans;
-                mso-font-alt: Helvetica;
+                font-family: "Open Sans", system-ui, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
                 src: url(https://fonts.gstatic.com/s/opensans/v35/memvYaGs126MiZpBA-UvWbX2vVnXBbObj2OVTS-mu0SC55I.woff2) format(woff2);
               }
             `}

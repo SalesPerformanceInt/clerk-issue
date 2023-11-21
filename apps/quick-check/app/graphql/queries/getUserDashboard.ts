@@ -19,8 +19,7 @@ export const GET_USER_DASHBOARD = graphql(/* GraphQL */ `
       }
       active_user_enrollments: user_enrollments(
         where: {
-          user_questions_aggregate: { count: { predicate: { _gt: 0 } } }
-          _or: [
+          _and: [
             {
               _or: [
                 { completed_on: { _is_null: true } }
@@ -34,7 +33,6 @@ export const GET_USER_DASHBOARD = graphql(/* GraphQL */ `
                   filter: {
                     _or: [
                       { retired_on: { _is_null: true } }
-                      { retired_on: { _gte: $now } }
                     ]
                   }
                 }
@@ -57,7 +55,6 @@ export const GET_USER_DASHBOARD = graphql(/* GraphQL */ `
                   filter: {
                     _or: [
                       { retired_on: { _is_null: true } }
-                      { retired_on: { _gte: $now } }
                     ]
                   }
                 }

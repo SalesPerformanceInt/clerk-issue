@@ -118,7 +118,7 @@ export default function App() {
           src="https://cdn.zipy.ai/sdk/v1.0/zipy.min.umd.js"
           crossOrigin="anonymous"
           dangerouslySetInnerHTML={{
-            __html: `window.addEventListener('load', () => window.zipy && window.zipy.init(window.ENV.ZIPY_API_KEY))`,
+            __html: `window.addEventListener('load', () => { if (window.zipy) { window.zipy.init(window.ENV.ZIPY_API_KEY) } else { console.error('zipy is not available yet') })`,
           }}
         ></script>
         <script> </script>

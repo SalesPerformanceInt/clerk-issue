@@ -107,42 +107,34 @@ export const QuickcheckQuestionEmail = ({
             </Section>
 
             <Section className="pb-1 pt-4">
-              {chunk(questionVariant.mcquestion.choices ?? [], 2).map(
-                (pairs, index) => (
-                  <Row key={index} className="w-full pb-4">
-                    {pairs.map(({ choice }, index) => {
-                      const path = `/question/${questionId}?c=${choice._metadata.uid}`;
+              {questionVariant.mcquestion.choices.map(({ choice }, index) => {
+                const path = `/question/${questionId}?c=${choice._metadata.uid}`;
 
-                      return (
-                        <Column
-                          key={choice._metadata.uid}
-                          valign="top"
-                          className={twMerge(
-                            "table-cell h-full w-1/2",
-                            index % 2 === 0 ? "pr-2" : "pl-2",
-                          )}
+                return (
+                  <Row key={choice._metadata.uid} className="w-full pb-4">
+                    <Column
+                      key={choice._metadata.uid}
+                      className="h-full w-full"
+                    >
+                      <Section className="h-full w-full bg-background-secondary px-4 py-2">
+                        <Link
+                          href={`${domain}/token/${token}?p=${path}`}
+                          target="_blank"
+                          className="h-full leading-[0] text-primary"
                         >
-                          <Section className="h-full w-full bg-background-secondary px-4 py-2">
-                            <Link
-                              href={`${domain}/token/${token}?p=${path}`}
-                              target="_blank"
-                              className="h-full leading-[0] text-primary"
-                            >
-                              <Text className="!inline text-xs">
-                                {parse(
-                                  choice.body
-                                    .replace("<p>", "")
-                                    .replace("</p>", ""),
-                                )}
-                              </Text>
-                            </Link>
-                          </Section>
-                        </Column>
-                      );
-                    })}
+                          <Text className="!inline text-xs">
+                            {parse(
+                              choice.body
+                                .replace("<p>", "")
+                                .replace("</p>", ""),
+                            )}
+                          </Text>
+                        </Link>
+                      </Section>
+                    </Column>
                   </Row>
-                ),
-              )}
+                );
+              })}
             </Section>
 
             <Section className="rounded-smd w-full bg-primary p-2">

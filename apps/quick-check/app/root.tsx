@@ -118,7 +118,7 @@ export default function App() {
           src="https://cdn.zipy.ai/sdk/v1.0/zipy.min.umd.js"
           crossOrigin="anonymous"
           dangerouslySetInnerHTML={{
-            __html: `window.zipy && window.zipy.init(window.ENV.ZIPY_API_KEY);`,
+            __html: `window.addEventListener('load', () => window.zipy && window.zipy.init(window.ENV.ZIPY_API_KEY))`,
           }}
         ></script>
         <script> </script>

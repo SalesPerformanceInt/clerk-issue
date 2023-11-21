@@ -10,8 +10,7 @@ const QuickcheckInactivityEmailPreview = () => {
       questionItem={questionItemMock}
       enrollmentTaxonomy={enrollmentTaxonomyMock}
       t={t}
-      token="TOKEN"
-      domain="example.com"
+      loginUrl="https://example.com/token/TOKEN"
       questionId="questionId"
     />
   );

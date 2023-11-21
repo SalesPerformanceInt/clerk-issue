@@ -9,7 +9,7 @@ import {
 
 import { sendEmail } from "~/utils/email/postmark/email";
 import { remixI18next } from "~/utils/i18next.server";
-import { getOriginFromRequest } from "~/utils/urls";
+import { getLoginUrl } from "~/utils/urls";
 import { getQuestionData } from "~/models/question";
 import { generateNextQuestionForUser } from "~/models/user";
 
@@ -42,7 +42,7 @@ export const sendDailyEmail = async (
       DateTime.now().minus({ days: 7 }).toISODate()!
     : false;
 
-  const domain = getOriginFromRequest(request)
+  const loginUrl = getLoginUrl(activeToken, request)
 
   if (isInactive) {
     const nextQuestion =
@@ -60,14 +60,13 @@ export const sendDailyEmail = async (
       t("emails.inactive.subject.come_back", {
         first_name: user.first_name,
       }),
-      t("emails.inactive.subject.come_back", {
+      `${t("emails.inactive.subject.come_back", {
         first_name: user.first_name,
-      }),
+      })}  ${loginUrl}`,
       <QuickcheckInactivityEmail
         questionItem={questionItem}
         enrollmentTaxonomy={enrollmentTaxonomy}
-        token={activeToken}
-        domain={domain}
+        loginUrl={loginUrl}
         questionId={nextQuestion.id}
         t={t}
       />,
@@ -90,15 +89,11 @@ export const sendDailyEmail = async (
         first_name: user.first_name,
         weeks: 5,
       }),
-      t("emails.question.subject.on_a_roll", {
-        first_name: user.first_name,
-        weeks: 5,
-      }),
+      loginUrl,
       <QuickcheckQuestionEmail
         questionItem={questionItem}
         enrollmentTaxonomy={enrollmentTaxonomy}
-        token={activeToken}
-        domain={domain}
+        loginUrl={loginUrl}
         questionId={user.user_question_activated_today.id}
         t={t}
         userData={user}

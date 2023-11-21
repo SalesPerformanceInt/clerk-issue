@@ -31,8 +31,7 @@ import { theme } from "../../../tailwind.config";
 interface QuickcheckQuestionEmailProps {
   questionItem: QuestionItem;
   enrollmentTaxonomy: Taxon;
-  token: string;
-  domain: string;
+  loginUrl: string;
   questionId: string;
   t: TFunction;
   userData: UserData;
@@ -41,8 +40,7 @@ interface QuickcheckQuestionEmailProps {
 export const QuickcheckQuestionEmail = ({
   questionItem,
   enrollmentTaxonomy,
-  token,
-  domain,
+  loginUrl,
   questionId,
   t,
   userData,
@@ -61,8 +59,7 @@ export const QuickcheckQuestionEmail = ({
           <style>
             {`
               @font-face {
-                font-family: Open Sans;
-                mso-font-alt: Helvetica;
+                font-family: "Open Sans", system-ui, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
                 src: url(https://fonts.gstatic.com/s/opensans/v35/memvYaGs126MiZpBA-UvWbX2vVnXBbObj2OVTS-mu0SC55I.woff2) format(woff2);
               }
             `}
@@ -70,7 +67,7 @@ export const QuickcheckQuestionEmail = ({
         </Head>
 
         <Body className="bg-background font-sans">
-          <Container className="max-w-screen-lg">
+          <Container className="max-w-screen-sm">
             <Section className="w-full">
               <Row>
                 <Column width={24} valign="middle">
@@ -118,7 +115,7 @@ export const QuickcheckQuestionEmail = ({
                     >
                       <Section className="h-full w-full bg-background-secondary px-4 py-2">
                         <Link
-                          href={`${domain}/token/${token}?p=${path}`}
+                          href={`${loginUrl}?p=${path}`}
                           target="_blank"
                           className="h-full leading-[0] text-primary"
                         >
@@ -139,7 +136,7 @@ export const QuickcheckQuestionEmail = ({
 
             <Section className="rounded-smd w-full bg-primary p-2">
               <Link
-                href={`${domain}/token/${token}`}
+                href={`${loginUrl}`}
                 className="w-full leading-[0] text-contrast"
               >
                 <Text className="!inline text-xs leading-4">

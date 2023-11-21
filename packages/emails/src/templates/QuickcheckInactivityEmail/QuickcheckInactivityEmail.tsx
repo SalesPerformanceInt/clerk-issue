@@ -32,8 +32,7 @@ import { theme } from "../../../tailwind.config";
 interface QuickcheckInactivityEmailProps {
   questionItem: QuestionItem;
   enrollmentTaxonomy: Taxon;
-  token: string;
-  domain: string;
+  loginUrl: string;
   questionId: string;
   t: TFunction;
 }
@@ -41,8 +40,7 @@ interface QuickcheckInactivityEmailProps {
 export const QuickcheckInactivityEmail = ({
   questionItem,
   enrollmentTaxonomy,
-  token,
-  domain,
+  loginUrl,
   questionId,
   t,
 }: QuickcheckInactivityEmailProps) => {
@@ -60,15 +58,14 @@ export const QuickcheckInactivityEmail = ({
           <style>
             {`
               @font-face {
-                font-family: Open Sans;
-                mso-font-alt: Helvetica;
+                font-family: "Open Sans", system-ui, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
                 src: url(https://fonts.gstatic.com/s/opensans/v35/memvYaGs126MiZpBA-UvWbX2vVnXBbObj2OVTS-mu0SC55I.woff2) format(woff2);
               }
             `}
           </style>
         </Head>
         <Body className="font-sans bg-background">
-          <Container className="max-w-screen-lg">
+          <Container className="max-w-screen-sm">
             <Section className="w-full">
               <Row>
                 <Column width={24} valign="middle">
@@ -89,7 +86,7 @@ export const QuickcheckInactivityEmail = ({
               <Row className="mt-2">
                 <Column className="w-full bg-primary p-4 rounded-smd">
                   <Button
-                    href={`${domain}/token/${token}`}
+                    href={loginUrl}
                     className="text-xs leading-4 text-contrast w-full whitespace-pre-line"
                   >
                     {t("emails.inactive.jump_back")}
@@ -126,7 +123,7 @@ export const QuickcheckInactivityEmail = ({
                           )}
                         >
                           <Link
-                            href={`${domain}/token/${token}?p=${path}`}
+                            href={`${loginUrl}?p=${path}`}
                             target="_blank"
                             className="h-full block bg-background-secondary rounded-sm"
                           >

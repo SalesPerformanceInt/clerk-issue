@@ -117,11 +117,11 @@ export default function App() {
         <script
           src="https://cdn.zipy.ai/sdk/v1.0/zipy.min.umd.js"
           crossOrigin="anonymous"
+        />
+        <script
           dangerouslySetInnerHTML={{
             __html: `window.addEventListener('load', () => { if (window.zipy) { window.zipy.init(window.ENV.ZIPY_API_KEY) } else { console.error('zipy is not available yet') }})`,
-          }}
-        ></script>
-        <script> </script>
+          }} />
       </head>
       <body className="h-full overflow-auto bg-background-secondary">
         <TimeTravel now={now} flag={timeTravelFlag} />

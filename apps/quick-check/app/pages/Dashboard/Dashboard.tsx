@@ -8,7 +8,10 @@ import {
   ProgressIcon,
   ResponsiveContainer,
   Section,
+  useIsDesktop,
 } from "quickcheck-shared";
+
+import { AccelerateButton } from "~/components";
 
 import {
   AchievementsCard,
@@ -34,11 +37,13 @@ interface DashboardProps extends DashboardContextProps {}
 export const Dashboard: FC<DashboardProps> = ({ dashboard }) => {
   const { t } = useTranslation();
 
+  const isDesktop = useIsDesktop();
+
   return (
     <DashboardContextProvider dashboard={dashboard}>
       <DashboardHeader />
 
-      <ResponsiveContainer className="p-4">
+      <ResponsiveContainer className="p-4 pb-8">
         <MobileCarousel title={t("common.activity")} icon={faArrowUpRightDots}>
           <WeeklyStreakCard />
 
@@ -51,6 +56,14 @@ export const Dashboard: FC<DashboardProps> = ({ dashboard }) => {
           <ActiveEnrollmentsCard />
           <CompletedEnrollmentsCard />
         </Section>
+
+        {!isDesktop && (
+          <AccelerateButton
+            background="light"
+            className="-mt-2"
+            tenantId={dashboard.tenant_id}
+          />
+        )}
       </ResponsiveContainer>
       <DashboardMobileAction />
     </DashboardContextProvider>

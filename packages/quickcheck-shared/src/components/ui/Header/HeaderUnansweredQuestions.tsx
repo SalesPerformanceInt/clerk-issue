@@ -1,4 +1,4 @@
-import React, { FC } from "react";
+import React, { FC, ReactNode } from "react";
 import { useTranslation } from "react-i18next";
 
 import { faArrowRight } from "@fortawesome/pro-light-svg-icons";
@@ -11,30 +11,27 @@ import { Avatar, Button } from "~/components";
 
 interface HeaderUnansweredQuestionsProps {
   unansweredQuestions?: number;
-  user?: UserDataWithName | null;
   onStart?: () => void;
-  show?: boolean;
+  before?: ReactNode;
 }
 
 export const HeaderUnansweredQuestions: FC<HeaderUnansweredQuestionsProps> = ({
   unansweredQuestions,
-  user,
   onStart,
-  show,
+  before,
 }) => {
   const isDesktop = useIsDesktop();
   const { t } = useTranslation();
 
   return (
     <div className="flex items-center gap-4 sm:gap-8">
+      {before}
       <div className="flex items-center gap-4">
-        {(isDesktop || show) && (
-          <p className="text-xs text-background uppercase whitespace-pre">
-            {t("common.unanswered", {
-              count: unansweredQuestions,
-            })}
-          </p>
-        )}
+        <p className="whitespace-pre text-xs uppercase text-background">
+          {t("common.unanswered", {
+            count: unansweredQuestions,
+          })}
+        </p>
 
         {isDesktop && !!unansweredQuestions && onStart && (
           <Button onClick={onStart} rightIcon={faArrowRight}>
@@ -42,8 +39,6 @@ export const HeaderUnansweredQuestions: FC<HeaderUnansweredQuestionsProps> = ({
           </Button>
         )}
       </div>
-
-      {isDesktop && <Avatar initials={getUserInitials(user)} />}
     </div>
   );
 };

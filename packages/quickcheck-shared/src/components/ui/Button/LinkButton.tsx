@@ -10,57 +10,22 @@ import { useIsDesktop } from "~/utils/useIsDesktop";
 
 import { Icon, IconProps } from "~/components/Icon";
 
-const buttonVariants = cva(
-  "px-6 py-2 inline-flex items-center relative justify-center box-border rounded-sm text-base text-contrast font-base ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:text-primary-50",
-  {
-    variants: {
-      background: {
-        dark: "bg-primary-75 disabled:bg-primary-75",
-        light: "bg-primary disabled:bg-primary-25",
-      },
-      variant: {
-        primary: "",
-        secondary: "",
-      },
-      isDesktop: {
-        false: "w-full",
-        true: "",
-      },
-    },
-    compoundVariants: [
-      {
-        background: "dark",
-        variant: "secondary",
-        class: "bg-primary border border-primary-25 disabled:border-0",
-      },
-      {
-        background: "light",
-        variant: "secondary",
-        class:
-          "bg-transparent text-primary border border-primary disabled:border-0",
-      },
-    ],
-    defaultVariants: {
-      background: "dark",
-      variant: "primary",
-      isDesktop: false,
-    },
-  },
-);
+import { buttonVariants } from "./Button";
 
-export type ButtonVariantProps = VariantProps<typeof buttonVariants>;
+export type LinkButtonVariantProps = VariantProps<typeof buttonVariants>;
 
-export interface ButtonProps
+export interface LinkButtonProps
   extends Omit<
-    React.ButtonHTMLAttributes<HTMLButtonElement> & ButtonVariantProps,
+    React.AnchorHTMLAttributes<HTMLAnchorElement> & LinkButtonVariantProps,
     "isDesktop" | "children"
   > {
   rightIcon?: IconProps["icon"];
+  rightIconClassName?: string;
   loading?: boolean;
   children: React.ReactNode;
 }
 
-const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
+const LinkButton = React.forwardRef<HTMLAnchorElement, LinkButtonProps>(
   (
     {
       className,
@@ -69,7 +34,7 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
       rightIcon,
       children,
       loading,
-      disabled,
+      rightIconClassName,
       ...props
     },
     ref,
@@ -77,12 +42,11 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
     const isDesktop = useIsDesktop();
 
     return (
-      <button
+      <a
         className={cn(
           buttonVariants({ background, variant, isDesktop, className }),
         )}
         ref={ref}
-        disabled={loading || disabled}
         {...props}
       >
         {loading && (
@@ -110,15 +74,18 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
             >
               <Icon
                 icon={rightIcon}
-                className="text-center text-base font-light leading-6"
+                className={twMerge(
+                  "text-center text-base font-light leading-6",
+                  rightIconClassName,
+                )}
               />
             </div>
           )}
         </div>
-      </button>
+      </a>
     );
   },
 );
-Button.displayName = "Button";
+LinkButton.displayName = "LinkButton";
 
-export { Button, buttonVariants };
+export { LinkButton };

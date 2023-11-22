@@ -20,11 +20,7 @@ export const QuestionHeader: FC = () => {
     <Header
       left={<HeaderReturnToDashboard onClose={onShowOnCloseModal} />}
       right={
-        <HeaderUnansweredQuestions
-          unansweredQuestions={unansweredQuestions}
-          user={userData}
-          show
-        />
+        <HeaderUnansweredQuestions unansweredQuestions={unansweredQuestions} />
       }
     />
   );

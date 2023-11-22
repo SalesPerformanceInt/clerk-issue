@@ -1,31 +1,44 @@
 import React, { type FC } from "react";
 import { useTranslation } from "react-i18next";
-
 import { useNavigate } from "@remix-run/react";
 
-import { faArrowUpRightFromSquare } from "@fortawesome/pro-solid-svg-icons";
+import { faArrowUpRightFromSquare } from "@fortawesome/pro-light-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-import { AccelerateIcon, Button } from "quickcheck-shared";
+import {
+  AccelerateIcon,
+  Icon,
+  LinkButton,
+  LinkButtonProps,
+  useIsDesktop,
+} from "quickcheck-shared";
 
-export const AccelerateButton: FC = () => {
+interface AccelerateButtonProps extends Omit<LinkButtonProps, "children"> {
+  tenantId: string;
+}
+
+export const AccelerateButton: FC<AccelerateButtonProps> = ({
+  tenantId,
+  ...props
+}) => {
   const navigate = useNavigate();
   const { t } = useTranslation();
+  const isDesktop = useIsDesktop();
 
   return (
-    <Button
-      onClick={() => navigate("/")}
+    <LinkButton
+      href={`https://${tenantId}.richardsonaccelerate.com/`}
+      target="_blank"
       variant="secondary"
-      className="uppercase text-xs px-4 w-auto"
+      // rightIcon={isDesktop ? faArrowUpRightFromSquare : undefined}
+      rightIconClassName="text-xs"
+      {...props}
     >
-      <AccelerateIcon className="mr-2" dark />
-
-      {t("common.accelerate")}
-
-      <FontAwesomeIcon
+      {t("buttons.go_to_accelerate")}
+      <Icon
         icon={faArrowUpRightFromSquare}
-        className="ml-0.5 text-2xs mb-0.5"
+        className="ml-4 text-center text-xs font-light leading-6"
       />
-    </Button>
+    </LinkButton>
   );
 };

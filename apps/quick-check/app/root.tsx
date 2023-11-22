@@ -121,9 +121,10 @@ export default function App() {
         <script
           dangerouslySetInnerHTML={{
             __html: `window.addEventListener('load', () => { if (window.zipy) { window.zipy.init(window.ENV.ZIPY_API_KEY) } else { console.error('zipy is not available yet') }})`,
-          }} />
+          }}
+        />
       </head>
-      <body className="h-full overflow-auto bg-background-secondary overscroll-x-none">
+      <body className="h-full overscroll-none bg-background-secondary">
         <TimeTravel now={now} flag={timeTravelFlag} />
 
         <Outlet context={{ now }} />

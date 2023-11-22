@@ -1,4 +1,6 @@
-import type { Variants } from "framer-motion";
+import { cubicBezier, type Variants } from "framer-motion";
+
+const easeInOutBack = cubicBezier(0.68, -0.6, 0.32, 1.6);
 
 export const fadeAndCollapse: Variants = {
   initial: { opacity: 0, height: 0 },
@@ -22,21 +24,28 @@ export const fadeAndCollapse: Variants = {
 };
 
 export const grow: Variants = {
-  initial: { opacity: 0, height: 0 },
+  initial: {
+    opacity: 0,
+    height: 0,
+    transition: {
+      ease: easeInOutBack,
+      duration: 0.4,
+    },
+  },
   animate: {
     opacity: 1,
     height: "auto",
     transition: {
-      duration: 0.5,
-      opacity: { delay: 0.5, duration: 0.5 },
+      duration: 0.4,
+      ease: easeInOutBack,
     },
   },
   exit: {
     opacity: 0,
     height: 0,
     transition: {
-      duration: 0.5,
-      height: { delay: 0.1, duration: 0.5 },
+      duration: 0.4,
+      ease: easeInOutBack,
     },
   },
 };

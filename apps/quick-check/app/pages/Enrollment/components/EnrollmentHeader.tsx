@@ -1,5 +1,4 @@
 import { type FC } from "react";
-
 import { useNavigate } from "@remix-run/react";
 
 import {
@@ -19,9 +18,7 @@ export const EnrollmentHeader: FC = () => {
       right={
         <HeaderUnansweredQuestions
           unansweredQuestions={enrollment.unanswered_questions}
-          user={enrollment.user}
           onStart={() => navigate("/next-question")}
-          show
         />
       }
     />

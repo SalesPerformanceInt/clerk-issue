@@ -1,3 +1,4 @@
+import { contentStack } from "~/contentstack.server";
 import { DateTime } from "luxon";
 import { pipe, shuffle } from "remeda";
 import invariant from "tiny-invariant";
@@ -10,8 +11,6 @@ import {
   type QuestionItem,
   type TreeNode,
 } from "quickcheck-shared";
-
-import { contentStack } from "~/contentstack.server";
 
 import {
   graphql,
@@ -81,8 +80,8 @@ const getEnrollmentPeriodInWeeks =
   (enrollmentBaseDate: Date) =>
   ({ expiration_date }: EnrollUserEnrollment) => {
     const enrollmentPeriodInWeeks =
-      DateTime.fromJSDate(enrollmentBaseDate, { zone: "utc" })
-        .diff(DateTime.fromISO(expiration_date, { zone: "utc" }), ["weeks"])
+      DateTime.fromJSDate(enrollmentBaseDate)
+        .diff(DateTime.fromISO(expiration_date), ["weeks"])
         .toObject().weeks ?? 1;
 
     return Math.abs(Math.floor(enrollmentPeriodInWeeks));
@@ -103,7 +102,7 @@ const prepareActiveQuestionsInput = (
   enrollment: EnrollUserEnrollment,
 ) => {
   return (questions: QuestionItem[]) => {
-    const today = DateTime.now().toISO({ includeOffset: false })!;
+    const today = DateTime.now().toISODate()!;
     const enrollmentBaseDate =
       enrollment.start_date >= today
         ? new Date(enrollment.start_date)

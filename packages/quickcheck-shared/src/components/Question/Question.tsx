@@ -11,8 +11,8 @@ import {
   QuestionVariant,
 } from "./components";
 
-import type { OnSubmit, QuestionItem, Variant } from "./Question.types";
 import { QuestionContextProvider } from "./context/QuestionContext";
+import type { OnSubmit, QuestionItem, Variant } from "./Question.types";
 
 export type QuestionProps = {
   questionItem: QuestionItem;
@@ -24,6 +24,8 @@ export type QuestionProps = {
   enrollmentTaxonomy?: Taxon | null;
   initialChoiceId?: string | null;
   userData?: UserData | null;
+  score?: number;
+  totalScore?: number;
 };
 
 export const Question: FC<QuestionProps> = (props) => {

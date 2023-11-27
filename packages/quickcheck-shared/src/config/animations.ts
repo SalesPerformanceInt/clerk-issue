@@ -63,3 +63,23 @@ export const fade = (duration = 0.25): Variants => ({
     transition: { duration },
   },
 });
+
+export const slideLeft: Variants = {
+  initial: {
+    x: "110%",
+  },
+  animate: {
+    x: 0,
+    transition: {
+      duration: 0.6,
+      delayChildren: 1.2,
+      type: "spring",
+    },
+  },
+  exit: {
+    x: "100%",
+    transition: {
+      duration: 0.35,
+    },
+  },
+};

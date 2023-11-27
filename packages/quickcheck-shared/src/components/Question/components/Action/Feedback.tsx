@@ -1,15 +1,16 @@
 import React, { FC } from "react";
 import { useTranslation } from "react-i18next";
 
+import { faMedal } from "@fortawesome/pro-light-svg-icons";
 import { faCheckCircle, faTimesCircle } from "@fortawesome/pro-solid-svg-icons";
 import {
   FontAwesomeIcon,
   FontAwesomeIconProps,
 } from "@fortawesome/react-fontawesome";
+import { grow, slideLeft } from "~/config/animations";
 import { AnimatePresence, motion } from "framer-motion";
 import parse from "html-react-parser";
 import { twMerge } from "tailwind-merge";
-import { grow } from "~/config/animations";
 
 import { useQuestionContext } from "~/components/Question";
 
@@ -31,7 +32,7 @@ const FeedbackHeader: FC<FeedbackHeaderProps> = ({
 );
 
 export const Feedback: FC = () => {
-  const { selected, submitted } = useQuestionContext();
+  const { selected, submitted, score, totalScore } = useQuestionContext();
   const { t } = useTranslation();
 
   return (
@@ -43,22 +44,45 @@ export const Feedback: FC = () => {
             initial="initial"
             animate="animate"
             exit="exit"
-            className="flex flex-col mb-4 space-y-4 sm:mb-0 sm:mr-12"
+            className="mb-4 flex flex-col space-y-4 sm:mb-0 sm:mr-12"
             data-testid="QuestionItem-ChoiceFeedback"
           >
-            {selected?.correct ? (
-              <FeedbackHeader
-                className="text-success-50"
-                icon={faCheckCircle}
-                message={t("question.feedback.correct")}
-              />
-            ) : (
-              <FeedbackHeader
-                className="text-warning-50"
-                icon={faTimesCircle}
-                message={t("question.feedback.incorrect")}
-              />
-            )}
+            <div className="flex items-center justify-between overflow-hidden">
+              {selected?.correct ? (
+                <FeedbackHeader
+                  className="text-success-50"
+                  icon={faCheckCircle}
+                  message={t("question.feedback.correct")}
+                />
+              ) : (
+                <FeedbackHeader
+                  className="text-warning-50"
+                  icon={faTimesCircle}
+                  message={t("question.feedback.incorrect")}
+                />
+              )}
+
+              {!!score && (
+                <motion.div
+                  variants={slideLeft}
+                  initial="initial"
+                  animate="animate"
+                  exit="exit"
+                  className="flex items-center justify-end gap-3 text-sm"
+                >
+                  <motion.span variants={slideLeft} className="text-contrast">
+                    <FontAwesomeIcon icon={faMedal} className="mr-1" />+{score}
+                  </motion.span>
+
+                  <motion.span
+                    variants={slideLeft}
+                    className="uppercase text-success-50"
+                  >
+                    {t("question.feedback.score", { count: totalScore })}
+                  </motion.span>
+                </motion.div>
+              )}
+            </div>
             <p className="text-base text-contrast">
               {parse(selected?.feedback ?? "")}
             </p>

@@ -13,8 +13,8 @@ import { twMerge } from "tailwind-merge";
 type ProgressItemProps = {
   id: string;
   title?: string;
-  ranking?: string | number;
-  score?: string | number;
+  ranking?: string | number | null;
+  score?: string | number | null;
   progress: {
     attempted: number;
     retired: number;
@@ -40,16 +40,14 @@ const ProgressItem: FC<ProgressItemProps> = ({
 
   return (
     <div
-      className="flex items-center justify-between p-4 gap-6 cursor-pointer border-b border-b-background-secondary last:border-b-0 hover:backdrop-brightness-95"
+      className="flex cursor-pointer items-center justify-between gap-6 border-b border-b-background-secondary p-4 last:border-b-0 hover:backdrop-brightness-95"
       onClick={() => onClick?.(id)}
     >
-      <div className={twMerge("flex flex-col gap-2 w-full", !title && "gap-4")}>
+      <div className={twMerge("flex w-full flex-col gap-2", !title && "gap-4")}>
         {title && (
-          <div className="flex items-center justify-between text-text font-normal">
-            <h5 className="whitespace-nowrap overflow-hidden text-ellipsis">
-              {title}
-            </h5>
-            <div className="flex items-center gap-4">
+          <div className="flex items-center justify-between font-normal text-text">
+            <h5 className="flex-[3] truncate">{title}</h5>
+            <div className="flex flex-1 items-center justify-end gap-4">
               {ranking && (
                 <div className="flex items-center gap-1">
                   <FontAwesomeIcon icon={faShapes} size="xs" />
@@ -66,21 +64,21 @@ const ProgressItem: FC<ProgressItemProps> = ({
             </div>
           </div>
         )}
-        <Progress className="relative overflow-hidden bg-primary-25 h-2 w-full rounded-full">
+        <Progress className="relative h-2 w-full overflow-hidden rounded-full bg-primary-25">
           <ProgressIndicator
-            className="bg-primary w-full h-full absolute"
+            className="absolute h-full w-full bg-primary"
             style={{
               transform: `translateX(-${100 - progressBarValues.attempted}%)`,
             }}
           />
           <ProgressIndicator
-            className="bg-success w-full h-full absolute"
+            className="absolute h-full w-full bg-success"
             style={{
               transform: `translateX(-${100 - progressBarValues.retired}%)`,
             }}
           />
         </Progress>
-        <div className="flex items-center justify-between text-text font-semibold text-xs uppercase">
+        <div className="flex items-center justify-between text-xs font-semibold uppercase text-text">
           <div className="flex items-center gap-4">
             <div className="flex items-center gap-1">
               <div className="h-2 w-2 rounded-full bg-success" />

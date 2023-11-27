@@ -1,7 +1,6 @@
 import React, { FC } from "react";
 import { useTranslation } from "react-i18next";
 import { useMeasure } from "react-use";
-
 import { useNavigation } from "@remix-run/react";
 
 import { faArrowRight } from "@fortawesome/pro-light-svg-icons";
@@ -74,15 +73,17 @@ export const Action: FC = () => {
   return (
     <>
       <div style={{ height }} />
+
       <ResponsiveContainer
         ref={ref}
-        className="bg-primary fixed inset-x-0 bottom-0"
+        className="fixed inset-x-0 bottom-0 bg-primary"
       >
         <div
           style={offset ? { marginBottom: offset } : undefined}
-          className="flex flex-col p-4 sm:flex-row sm:justify-between sm:py-6 sm:px-0"
+          className="flex flex-col p-4 sm:flex-row sm:justify-between sm:px-0 sm:py-6"
         >
           <Feedback />
+
           <div className="flex items-end">
             <ActionButton />
           </div>

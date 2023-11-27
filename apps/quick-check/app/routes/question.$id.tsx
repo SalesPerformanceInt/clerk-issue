@@ -82,14 +82,15 @@ export const shouldRevalidate: ShouldRevalidateFunction = ({
 };
 
 export const action = async ({ request }: ActionArgs) => {
-  const { currentAnswer } = await saveAnswer(request);
+  const { currentAnswer, reviewedAnswer, totalScore } =
+    await saveAnswer(request);
 
   const nextQuestionId = await generateNextQuestionFromRequest(
     request,
     currentAnswer.userQuestionId,
   );
 
-  return json({ nextQuestionId });
+  return json({ nextQuestionId, reviewedAnswer, totalScore });
 };
 
 export default function QuestionPage() {
@@ -131,6 +132,8 @@ export default function QuestionPage() {
         enrollmentTaxonomy={enrollmentTaxonomy}
         initialChoiceId={initialChoiceId}
         userData={userData}
+        score={actionData?.reviewedAnswer?.score}
+        totalScore={actionData?.totalScore}
       />
 
       {/* {actionData && actionData.nextQuestionId && (

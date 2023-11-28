@@ -104,7 +104,7 @@ export default function App() {
   useChangeLanguage(locale);
 
   return (
-    <html lang={locale} dir={i18n.dir()} className="h-full overflow-hidden">
+    <html lang={locale} dir={i18n.dir()} className="h-full">
       <head>
         <Meta />
         <Links />

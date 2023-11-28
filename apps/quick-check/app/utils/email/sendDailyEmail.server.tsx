@@ -10,6 +10,7 @@ import {
 import { sendEmail } from "~/utils/email/postmark/email";
 import { remixI18next } from "~/utils/i18next.server";
 import { getLoginUrl } from "~/utils/urls";
+
 import { getQuestionData } from "~/models/question";
 import { generateNextQuestionForUser } from "~/models/user";
 
@@ -25,14 +26,16 @@ export const sendDailyEmail = async (
   const user = await adminApolloClient.getUserEmailData({ userId });
 
   invariant(user, "No user found");
-  
-  const activeToken = (await adminApolloClient.generateNewToken({
-    userId: user.user_id,
-    tenantId: user.tenant_id,
-  }))?.id
 
-  invariant(activeToken, 'No active token found')
-  
+  const activeToken = (
+    await adminApolloClient.generateNewToken({
+      userId: user.user_id,
+      tenantId: user.tenant_id,
+    })
+  )?.id;
+
+  invariant(activeToken, "No active token found");
+
   const t = await remixI18next.getFixedT(user.language_preference);
 
   const lastAnswered = user.last_user_answer?.created_at;
@@ -42,18 +45,15 @@ export const sendDailyEmail = async (
       DateTime.now().minus({ days: 7 }).toISODate()!
     : false;
 
-  const loginUrl = getLoginUrl(activeToken, request)
+  const loginUrl = getLoginUrl(activeToken, request);
 
   if (isInactive) {
-    const nextQuestion =
-      user?.next_question ??
-      (await generateNextQuestionForUser(request, userId));
+    const nextQuestion = await generateNextQuestionForUser(request, userId);
 
     invariant(nextQuestion, "Next question not found");
 
     const { questionItem, enrollmentTaxonomy } =
       await getQuestionData(nextQuestion);
-
 
     const response = await sendEmail(
       user?.email,
@@ -73,9 +73,9 @@ export const sendDailyEmail = async (
     );
 
     return {
-      type: 'inactive',
-      response
-    }
+      type: "inactive",
+      response,
+    };
   }
 
   if (user.user_question_activated_today) {
@@ -101,12 +101,12 @@ export const sendDailyEmail = async (
     );
 
     return {
-      type: 'active',
-      response
-    }
+      type: "active",
+      response,
+    };
   }
 
   return {
-    type: 'no_email'
-  }
+    type: "no_email",
+  };
 };

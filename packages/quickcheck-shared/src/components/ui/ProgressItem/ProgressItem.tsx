@@ -40,22 +40,27 @@ const ProgressItem: FC<ProgressItemProps> = ({
 
   return (
     <div
-      className="flex cursor-pointer items-center justify-between gap-6 border-b border-b-background-secondary p-4 last:border-b-0 hover:backdrop-brightness-95"
+      className="flex w-full cursor-pointer items-center justify-between gap-6 border-b border-b-background-secondary p-4 last:border-b-0 hover:backdrop-brightness-95"
       onClick={() => onClick?.(id)}
     >
-      <div className={twMerge("flex w-full flex-col gap-2", !title && "gap-4")}>
+      <div
+        className={twMerge(
+          "flex w-full flex-col gap-2 overflow-hidden",
+          !title && "gap-4",
+        )}
+      >
         {title && (
           <div className="flex items-center justify-between font-normal text-text">
-            <h5 className="flex-[3] truncate">{title}</h5>
+            <h5 className="flex-[2] truncate">{title}</h5>
             <div className="flex flex-1 items-center justify-end gap-4">
-              {ranking && (
+              {!!ranking && (
                 <div className="flex items-center gap-1">
                   <FontAwesomeIcon icon={faShapes} size="xs" />
 
                   <span> {`#${ranking}`} </span>
                 </div>
               )}
-              {score && (
+              {!!score && (
                 <div className="flex items-center gap-1">
                   <FontAwesomeIcon icon={faMedal} size="xs" />
                   <span> {score} </span>

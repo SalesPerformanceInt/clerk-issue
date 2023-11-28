@@ -2,6 +2,8 @@ import { type FC } from "react";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "@remix-run/react";
 
+import { twMerge } from "tailwind-merge";
+
 import { Card, CardTitle, ProgressItem } from "quickcheck-shared";
 
 import { useDashboardContext } from "~/pages/Dashboard";
@@ -20,7 +22,7 @@ export const ActiveEnrollmentsCard: FC<ActiveEnrollmentsCardProps> = ({
   if (!dashboard.active_user_enrollments.length) return null;
 
   return (
-    <Card className={className}>
+    <Card className={twMerge("overflow-hidden", className)}>
       <CardTitle
         qty={dashboard.active_user_enrollments.length}
         title={t("user.dashboard.active_enrollments")}

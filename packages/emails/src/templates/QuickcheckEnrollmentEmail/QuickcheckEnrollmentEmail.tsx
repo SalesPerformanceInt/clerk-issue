@@ -73,19 +73,25 @@ export const QuickcheckEnrollmentEmail: FC<QuickcheckEnrollmentEmailProps> = ({
               </Row>
             </Section>
             <Section>
-              <Text className="m-0 text-base text-text">
-                {parse(
-                  t("email.enrollment.body", {
-                    first_name: userData.first_name,
-                    course_name: enrollmentTaxonomy.display_name,
-                  }),
-                )}
+              <Text className="m-0 mt-2 text-base text-text">
+                {t("email.enrollment.greeting", {
+                  first_name: userData.first_name,
+                })}
+              </Text>
+              <Text className="m-0 mt-2 text-base text-text">
+                {t("email.enrollment.body", {
+                  course_name: enrollmentTaxonomy.display_name,
+                })}
               </Text>
             </Section>
-            <Section>
+            <Section
+              className="mt-4 w-min rounded-sm bg-primary px-6 py-2"
+              align="left"
+              width="quickcheck"
+            >
               <Button
                 href={`${loginUrl}?p=${path}`}
-                className="bg-primary px-6 py-2 text-base leading-6 text-contrast"
+                className="whitespace-nowrap text-base leading-[0] text-contrast no-underline"
               >
                 {t("email.enrollment.button")}
               </Button>

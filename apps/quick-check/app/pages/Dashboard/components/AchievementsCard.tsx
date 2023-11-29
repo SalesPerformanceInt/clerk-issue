@@ -40,7 +40,7 @@ export const AchievementsCard: FC<AchievementsCardProps> = ({ className }) => {
     <Card className={twMerge("max-w-sm", className)}>
       <CardTitle title={t("common.achievements")} className="p-6 pb-0" />
 
-      <section className="flex gap-4 p-6 h-full items-center justify-between">
+      <section className="flex h-full items-center justify-between gap-4 p-6">
         <Achievement
           percentage={attemptedSkillsPercentage}
           text={`${attemptedSkills}`}
@@ -58,6 +58,7 @@ export const AchievementsCard: FC<AchievementsCardProps> = ({ className }) => {
           text={`${retiredQuestions}`}
           pathClassName="stroke-chart-3"
           label={t("user.dashboard.achievements.questions_retired")}
+          tooltip={[t("user.dashboard.achievements.questions_retired.tooltip")]}
         />
       </section>
     </Card>

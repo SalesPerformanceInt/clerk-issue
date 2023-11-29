@@ -17,6 +17,7 @@ const config = {
         "3xs": "0.5rem",
         "2xs": "0.625rem",
         xxl: "1.375rem",
+        "size-inherit": "inherit",
       },
       fontFamily: {
         sans: ["var(--font-face)", "var(--system-font)", "system-ui"],

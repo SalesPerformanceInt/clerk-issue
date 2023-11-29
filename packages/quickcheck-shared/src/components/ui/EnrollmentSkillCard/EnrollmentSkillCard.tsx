@@ -16,22 +16,21 @@ export const EnrollmentSkillCard: FC<EnrollmentSkillData> = (props) => {
 
   return (
     <Card key={skill} {...other}>
-      <div className="w-full p-4 flex flex-col gap-2">
-        <div className="flex gap-2 items-center">
-          <p className="text-base leading-6 font-normal ">{skill}</p>
-          <FontAwesomeIcon icon={faInfoCircle} className="text-xs text-text" />
+      <div className="flex w-full flex-col gap-2 p-4">
+        <div className="flex items-center gap-2">
+          <p className="text-base font-normal leading-6 ">{skill}</p>
         </div>
         {unanswered ? (
-          <div className="flex h-37 -mx-4">
+          <div className="-mx-4 flex h-37">
             <Chart {...props} />
           </div>
         ) : (
           <div className="flex flex-col">
-            <div className="flex gap-4 h-33 justify-start">
-              <div className="flex h-full flex-col gap-4 justify-center w-16 pr-2">
+            <div className="flex h-33 justify-start gap-4">
+              <div className="flex h-full w-16 flex-col justify-center gap-4 pr-2">
                 {["baseline", "current"].map((label) => (
-                  <div key={label} className="h-6 flex flex-col justify-center">
-                    <p className="text-xs uppercase font-semibold text-text-50">
+                  <div key={label} className="flex h-6 flex-col justify-center">
+                    <p className="text-xs font-semibold uppercase text-text-50">
                       {t(`common.${label}`)}
                     </p>
                   </div>
@@ -39,12 +38,12 @@ export const EnrollmentSkillCard: FC<EnrollmentSkillData> = (props) => {
               </div>
               <Chart {...props} />
             </div>
-            <div className="flex gap-4  justify-start">
+            <div className="flex justify-start  gap-4">
               <div className="w-16 "></div>
-              <div className="flex-1 flex justify-between">
+              <div className="flex flex-1 justify-between">
                 {[0, 25, 50, 75, 100].map((p) => (
-                  <div key={`percent-${p}`} className="w-8 flex justify-center">
-                    <p className="text-text-50 font-semibold text-xs leading-4">{`${p}%`}</p>
+                  <div key={`percent-${p}`} className="flex w-8 justify-center">
+                    <p className="text-xs font-semibold leading-4 text-text-50">{`${p}%`}</p>
                   </div>
                 ))}
               </div>

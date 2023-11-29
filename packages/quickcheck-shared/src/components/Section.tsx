@@ -7,25 +7,37 @@ import React, {
 } from "react";
 
 import { Icon, IconProps } from "./Icon";
+import { Tooltip } from "./Tooltip";
 
 export interface DashboardSectionProps {
   children: ReactElement | ReactElement[];
   title: string;
   icon?: IconProps["icon"];
+  tooltip?: string[];
 }
 
 export const Section: FC<DashboardSectionProps> = ({
   children,
   title,
   icon,
+  tooltip,
 }) => {
   return (
-    <section className="flex flex-col gap-4 mb-10 last:mb-0">
-      <div className="flex items-center w-full">
-        {icon && <Icon icon={icon} className="mr-2 text-primary-50" />}
+    <section className="mb-10 flex flex-col gap-4 last:mb-0">
+      <div className="flex w-full items-center gap-2">
+        {icon && <Icon icon={icon} className="text-primary-50" />}
+
         <h1 className="text-xxl font-normal">{title}</h1>
+
+        {tooltip && (
+          <Tooltip
+            texts={tooltip}
+            triggerClassName="text-xs translate-y-[1px]"
+          />
+        )}
       </div>
-      <div className="w-full gap-4 sm:gap-8 flex flex-wrap">
+
+      <div className="flex w-full flex-wrap gap-4 sm:gap-8">
         {Children.map(children, (child) =>
           createElement(child.type, {
             ...{

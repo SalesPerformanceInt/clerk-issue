@@ -73,7 +73,13 @@ export const EnrollmentSkillsSection: FC = () => {
   );
 
   return (
-    <Section title={t("common.skills")}>
+    <Section
+      title={t("common.skills")}
+      tooltip={[
+        t("enrollment.dashboard.skills.tooltip_baseline"),
+        t("enrollment.dashboard.skills.tooltip_current"),
+      ]}
+    >
       {skills.map((skill) => (
         <EnrollmentSkillCard key={skill.skill} {...skill} />
       ))}

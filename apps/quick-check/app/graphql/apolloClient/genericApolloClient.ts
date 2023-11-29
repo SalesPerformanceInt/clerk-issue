@@ -1,9 +1,9 @@
 import {
   ApolloClient,
   ApolloLink,
+  concat,
   HttpLink,
   InMemoryCache,
-  concat,
   type NormalizedCacheObject,
 } from "@apollo/client";
 
@@ -26,9 +26,10 @@ import {
   getActiveUserQuestion,
   getAllUsers,
   getLinkToken,
+  getNotificationEnrollments,
   getRankeableEnrollments,
-  getTenantUsers,
   getTenants,
+  getTenantUsers,
   getUser,
   getUserActiveQuestionsData,
   getUserDashboard,
@@ -38,9 +39,9 @@ import {
   getUserNextQuestion,
   getUserQuestion,
   getUserQuestionAnswers,
+  getUsersForDailyEmail,
   getUserTheme,
   getUserWeeklyStreak,
-  getUsersForDailyEmail,
 } from "~/graphql/queries";
 
 import { HASURA_API_URL } from "~/utils/envs.server";
@@ -125,6 +126,7 @@ export class GraphQLClient implements WithApolloClient {
   getUserData = getUserData;
   unenrollUser = unenrollUser;
   getUsersForDailyEmail = getUsersForDailyEmail;
+  getNotificationEnrollments = getNotificationEnrollments;
 
   constructor(headers: GraphQLHeaders) {
     this.client = getClient(headers);

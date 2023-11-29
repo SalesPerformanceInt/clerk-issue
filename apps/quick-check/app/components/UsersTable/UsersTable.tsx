@@ -15,9 +15,6 @@ export const UsersTable: FC<UserTableProps> = ({ users, link }) => {
           <th scope="col" className="px-6 py-4">
             Email
           </th>
-          <th scope="col" className="px-6 py-4">
-            Phone
-          </th>
           <th scope="col" className="w-1 whitespace-nowrap px-6 py-4">
             Daily Email
           </th>

@@ -16,7 +16,6 @@ export const createUserActionSchema = z.object({
   firstName: z.string().min(1, { message: "Required" }),
   lastName: z.string().min(1, { message: "Required" }),
   email: z.string().email(),
-  phoneNumber: z.string().min(17, { message: "Invalid phone number" }),
 });
 
 export const CreateUserForm = () => {
@@ -45,7 +44,6 @@ export const CreateUserForm = () => {
             email: data.email,
             first_name: data.firstName,
             last_name: data.lastName,
-            phone_number: data.phoneNumber,
           },
           {
             method: "POST",
@@ -71,9 +69,6 @@ export const CreateUserForm = () => {
                 </td>
                 <td className="whitespace-nowrap px-6 py-4">
                   <FormInput name="email" label="Email" />
-                </td>
-                <td className="whitespace-nowrap px-6 py-4">
-                  <PhoneFormInput name="phoneNumber" label="Telephone" />
                 </td>
                 <td className="whitespace-nowrap px-6 py-4">
                   <Button

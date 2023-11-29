@@ -16,3 +16,4 @@ export * from "./getTenantUsers";
 export * from "./getTenants";
 export * from "./getUserData";
 export * from "./getUsersForDailyEmail";
+export * from "./getNotificationEnrollments";

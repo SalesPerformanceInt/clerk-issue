@@ -11,6 +11,7 @@ import {
   inputEnrollmentSchema,
   verifyApiRequest,
 } from "~/models/api";
+import { enrollUser } from "~/models/enrollment";
 
 export const action = async ({ request }: ActionArgs) => {
   try {
@@ -33,10 +34,11 @@ export const action = async ({ request }: ActionArgs) => {
       ...enrollmentData
     } = importEnrollmentData;
 
-    const enrollment = await adminApolloClient.enrollUser(
+    const enrollment = await enrollUser(
+      user.user_id,
       cms_topic_id,
       enrollmentData,
-      { userId: user?.user_id },
+      request,
     );
 
     invariant(enrollment, "Enrollment not created");

@@ -85,9 +85,8 @@ export const sendDailyEmail = async (
 
     const response = await sendEmail(
       user?.email,
-      t("emails.question.subject.on_a_roll", {
+      t("emails.question.subject.available", {
         first_name: user.first_name,
-        weeks: 5,
       }),
       loginUrl,
       <QuickcheckQuestionEmail

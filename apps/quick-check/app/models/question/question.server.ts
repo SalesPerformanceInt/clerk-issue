@@ -1,5 +1,6 @@
-import invariant from "tiny-invariant";
 import { contentStack } from "~/contentstack.server";
+import invariant from "tiny-invariant";
+
 import type { BaseUserQuestionFragment } from "~/graphql";
 
 export const getQuestionData = async (

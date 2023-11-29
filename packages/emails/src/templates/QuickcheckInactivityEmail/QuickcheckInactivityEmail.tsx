@@ -20,12 +20,7 @@ import { TFunction } from "i18next";
 import { chunk } from "remeda";
 import { twMerge } from "tailwind-merge";
 
-import {
-  getVariant,
-  type QuestionItem,
-  type Taxon,
-  type UserData,
-} from "quickcheck-shared";
+import { getVariant, type QuestionItem, type Taxon } from "quickcheck-shared";
 
 import { theme } from "../../../tailwind.config";
 
@@ -37,13 +32,13 @@ interface QuickcheckInactivityEmailProps {
   t: TFunction;
 }
 
-export const QuickcheckInactivityEmail = ({
+export const QuickcheckInactivityEmail: FC<QuickcheckInactivityEmailProps> = ({
   questionItem,
   enrollmentTaxonomy,
   loginUrl,
   questionId,
   t,
-}: QuickcheckInactivityEmailProps) => {
+}) => {
   const questionVariant = getVariant(questionItem, "mcquestion");
 
   if (!questionVariant || "mcquestion" in questionVariant === false)
@@ -64,7 +59,7 @@ export const QuickcheckInactivityEmail = ({
             `}
           </style>
         </Head>
-        <Body className="font-sans bg-background">
+        <Body className="bg-background font-sans">
           <Container className="max-w-screen-sm">
             <Section className="w-full">
               <Row>
@@ -77,17 +72,17 @@ export const QuickcheckInactivityEmail = ({
                   />
                 </Column>
                 <Column valign="middle">
-                  <Heading className="m-0 ml-8 text-xxl font-semibold leading-8 text-text">
+                  <Heading className="m-0 ml-2 text-xxl font-semibold leading-8 text-text">
                     {t("common.quickcheck")}
                   </Heading>
                 </Column>
               </Row>
 
               <Row className="mt-2">
-                <Column className="w-full bg-primary p-4 rounded-smd">
+                <Column className="rounded-smd w-full bg-primary p-4">
                   <Button
                     href={loginUrl}
-                    className="text-xs leading-4 text-contrast w-full whitespace-pre-line"
+                    className="w-full whitespace-pre-line text-xs leading-4 text-contrast"
                   >
                     {t("emails.inactive.jump_back")}
                   </Button>
@@ -95,48 +90,47 @@ export const QuickcheckInactivityEmail = ({
               </Row>
             </Section>
             <Section className="mt-4">
-              <Text className="text-primary-75 font-bold text-base m-0">
+              <Text className="m-0 text-base font-bold text-primary-75">
                 {enrollmentTaxonomy.display_name}
               </Text>
-              <Text className="text-primary-75 text-xs font-semibold uppercase m-0">
+              <Text className="m-0 text-xs font-semibold uppercase text-primary-75">
                 {questionItem.topic[0]?.display_name}
               </Text>
             </Section>
             <Section className="mt-2">
-              <Text className="text-base text-primary m-0">
+              <Text className="m-0 text-base text-primary">
                 {parse(questionVariant.mcquestion.stem)}
               </Text>
             </Section>
-            <Section className="mt-4">
-              {chunk(questionVariant.mcquestion.choices ?? [], 2).map(
-                (pairs, index) => (
-                  <Row key={index} className="border-separate sm:mb-2 w-full">
-                    {pairs.map(({ choice }, index) => {
-                      const path = `/question/${questionId}?c=${choice._metadata.uid}`;
+            <Section className="pt-4">
+              {questionVariant.mcquestion.choices.map(({ choice }, index) => {
+                const path = `/question/${questionId}?c=${choice._metadata.uid}`;
 
-                      return (
-                        <Column
-                          key={choice._metadata.uid}
-                          className={twMerge(
-                            "w-full block sm:table-cell mb-2 sm:mb-0 sm:w-1/2 sm:h-1 border-0 border-solid border-transparent",
-                            index % 2 === 0 ? "sm:border-r-4" : "sm:border-l-4",
-                          )}
+                return (
+                  <Row key={choice._metadata.uid} className="w-full pb-2">
+                    <Column
+                      key={choice._metadata.uid}
+                      className="h-full w-full"
+                    >
+                      <Section className="h-full w-full bg-background-secondary px-4 py-2">
+                        <Link
+                          href={`${loginUrl}?p=${path}`}
+                          target="_blank"
+                          className="h-full leading-[0] text-primary"
                         >
-                          <Link
-                            href={`${loginUrl}?p=${path}`}
-                            target="_blank"
-                            className="h-full block bg-background-secondary rounded-sm"
-                          >
-                            <Section className="text-primary text-xs py-2 px-4 h-full">
-                              {parse(choice.body)}
-                            </Section>
-                          </Link>
-                        </Column>
-                      );
-                    })}
+                          <Text className="!inline text-xs">
+                            {parse(
+                              choice.body
+                                .replace("<p>", "")
+                                .replace("</p>", ""),
+                            )}
+                          </Text>
+                        </Link>
+                      </Section>
+                    </Column>
                   </Row>
-                ),
-              )}
+                );
+              })}
             </Section>
           </Container>
         </Body>

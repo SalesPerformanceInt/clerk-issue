@@ -29,6 +29,7 @@ import {
 import { sendDailyEmail } from "~/utils/email/sendDailyEmail.server";
 import { parseSchema } from "~/utils/parseSchema";
 
+import { enrollUser } from "~/models/enrollment";
 import { buildTaxonTrees, treeNodeToRawNodeDatum } from "~/models/taxonomy";
 
 import { UsersTable } from "~/components";
@@ -82,9 +83,7 @@ export const action = async ({ request, params }: ActionArgs) => {
         expiration_date: DateTime.now().plus({ weeks: 12 }).toISO()!,
       };
 
-      await adminApolloClient.enrollUser(userAction?.taxonomyId, enrollment, {
-        userId,
-      });
+      await enrollUser(userId, userAction.taxonomyId, enrollment, request);
     }
 
     if (userAction?.type === "UNENROLL" && userAction?.enrollmentId) {

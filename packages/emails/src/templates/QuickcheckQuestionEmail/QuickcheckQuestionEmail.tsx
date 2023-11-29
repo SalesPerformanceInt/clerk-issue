@@ -1,4 +1,4 @@
-import React from "react";
+import React, { FC } from "react";
 
 import {
   Body,
@@ -16,8 +16,6 @@ import {
 } from "@react-email/components";
 import parse from "html-react-parser";
 import { TFunction } from "i18next";
-import { chunk } from "remeda";
-import { twMerge } from "tailwind-merge";
 
 import {
   getVariant,
@@ -37,14 +35,14 @@ interface QuickcheckQuestionEmailProps {
   userData: UserData;
 }
 
-export const QuickcheckQuestionEmail = ({
+export const QuickcheckQuestionEmail: FC<QuickcheckQuestionEmailProps> = ({
   questionItem,
   enrollmentTaxonomy,
   loginUrl,
   questionId,
   t,
   userData,
-}: QuickcheckQuestionEmailProps) => {
+}) => {
   const questionVariant = getVariant(questionItem, "mcquestion");
 
   if (!questionVariant || "mcquestion" in questionVariant === false)
@@ -80,14 +78,14 @@ export const QuickcheckQuestionEmail = ({
                 </Column>
 
                 <Column valign="middle">
-                  <Heading className="m-0 ml-8 text-xxl font-semibold leading-8 text-text">
+                  <Heading className="m-0 ml-2 text-xxl font-semibold leading-8 text-text">
                     {t("common.quickcheck")}
                   </Heading>
                 </Column>
               </Row>
             </Section>
 
-            <Section className="pt-6">
+            <Section className="pt-2">
               <Text className="m-0 text-base font-bold text-primary-75">
                 {enrollmentTaxonomy.display_name}
               </Text>
@@ -103,12 +101,12 @@ export const QuickcheckQuestionEmail = ({
               </Text>
             </Section>
 
-            <Section className="pb-1 pt-4">
+            <Section className="pt-4">
               {questionVariant.mcquestion.choices.map(({ choice }, index) => {
                 const path = `/question/${questionId}?c=${choice._metadata.uid}`;
 
                 return (
-                  <Row key={choice._metadata.uid} className="w-full pb-4">
+                  <Row key={choice._metadata.uid} className="w-full pb-2">
                     <Column
                       key={choice._metadata.uid}
                       className="h-full w-full"

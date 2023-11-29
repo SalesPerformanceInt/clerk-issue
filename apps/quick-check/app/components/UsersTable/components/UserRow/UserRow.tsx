@@ -1,5 +1,4 @@
 import { useEffect, useState, type FC } from "react";
-
 import { Link, useNavigation, useSubmit } from "@remix-run/react";
 
 import {
@@ -9,7 +8,6 @@ import {
   faRightToBracket,
 } from "@fortawesome/pro-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { parsePhoneNumber } from "libphonenumber-js";
 import {
   parseAdminActionRequest,
   type AdminAction,
@@ -57,7 +55,7 @@ export const UserRow: FC<UserRowProps> = ({ user, row, link }) => {
       <td className="whitespace-nowrap px-6 py-4">
         {link ? (
           <Link
-            className="text-primary-50 hover:underline hover:text-primary-75"
+            className="text-primary-50 hover:text-primary-75 hover:underline"
             to={`/admin/user/${user.user_id}`}
           >
             {fullName}
@@ -67,10 +65,6 @@ export const UserRow: FC<UserRowProps> = ({ user, row, link }) => {
         )}
       </td>
       <td className="whitespace-nowrap px-6 py-4">{user.email}</td>
-      <td className="whitespace-nowrap px-6 py-4">
-        {user.phone_number &&
-          parsePhoneNumber(user.phone_number, "US").formatNational()}
-      </td>
       <td className="whitespace-nowrap px-6 py-4 text-center">
         <input
           checked={checked}

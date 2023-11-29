@@ -10,6 +10,7 @@ import {
 import { grow, slideLeft } from "~/config/animations";
 import { AnimatePresence, motion } from "framer-motion";
 import parse from "html-react-parser";
+import { isNumber } from "remeda";
 import { twMerge } from "tailwind-merge";
 
 import { useQuestionContext } from "~/components/Question";
@@ -62,7 +63,7 @@ export const Feedback: FC = () => {
                 />
               )}
 
-              {!!score && (
+              {isNumber(score) && (
                 <motion.div
                   variants={slideLeft}
                   initial="initial"

@@ -12,12 +12,13 @@ import { ANSWER, type SaveAnswerData } from "../answer.type";
 
 export const saveUserAnswer = async (
   request: Request,
-  { userQuestion, currentAnswer, reviewedAnswer }: SaveAnswerData,
+  { user, userQuestion, currentAnswer, reviewedAnswer }: SaveAnswerData,
 ) => {
   const userApolloClient = await getUserApolloClientFromRequest(request);
 
   const learningRecord: Learning_Record_Insert_Input = {
     user_id: userQuestion.user_id,
+    tenant_id: user.tenant_id,
     event_type: ANSWER,
     data: reviewedAnswer,
   };

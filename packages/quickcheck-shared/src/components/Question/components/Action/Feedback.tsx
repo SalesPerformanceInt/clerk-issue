@@ -1,7 +1,7 @@
 import React, { FC } from "react";
 import { useTranslation } from "react-i18next";
 
-import { faMedal } from "@fortawesome/pro-light-svg-icons";
+import { faAward } from "@fortawesome/pro-light-svg-icons";
 import { faCheckCircle, faTimesCircle } from "@fortawesome/pro-solid-svg-icons";
 import {
   FontAwesomeIcon,
@@ -72,7 +72,7 @@ export const Feedback: FC = () => {
                   className="flex items-center justify-end gap-3 text-sm"
                 >
                   <motion.span variants={slideLeft} className="text-contrast">
-                    <FontAwesomeIcon icon={faMedal} className="mr-1" />+{score}
+                    <FontAwesomeIcon icon={faAward} className="mr-1" />+{score}
                   </motion.span>
 
                   <motion.span

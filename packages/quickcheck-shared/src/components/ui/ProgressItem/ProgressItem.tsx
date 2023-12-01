@@ -2,9 +2,9 @@ import React, { type FC } from "react";
 import { useTranslation } from "react-i18next";
 
 import {
+  faAward,
   faChevronRight,
-  faMedal,
-  faShapes,
+  faRankingStar,
 } from "@fortawesome/pro-light-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Progress, ProgressIndicator } from "@radix-ui/react-progress";
@@ -55,14 +55,14 @@ const ProgressItem: FC<ProgressItemProps> = ({
             <div className="flex flex-1 items-center justify-end gap-4">
               {!!ranking && (
                 <div className="flex items-center gap-1">
-                  <FontAwesomeIcon icon={faShapes} size="xs" />
+                  <FontAwesomeIcon icon={faRankingStar} size="xs" />
 
                   <span> {`#${ranking}`} </span>
                 </div>
               )}
               {!!score && (
                 <div className="flex items-center gap-1">
-                  <FontAwesomeIcon icon={faMedal} size="xs" />
+                  <FontAwesomeIcon icon={faAward} size="xs" />
                   <span> {score} </span>
                 </div>
               )}

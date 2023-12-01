@@ -12,6 +12,7 @@ import { remixI18next } from "~/utils/i18next.server";
 import { getLoginUrl } from "~/utils/urls";
 
 import { getQuestionData } from "~/models/question";
+import { getUserActiveToken } from "~/models/token";
 import { generateNextQuestionForUser } from "~/models/user";
 
 export const sendDailyEmail = async (
@@ -28,13 +29,11 @@ export const sendDailyEmail = async (
   invariant(user, "No user found");
 
   const activeToken = (
-    await adminApolloClient.generateNewToken({
+    await getUserActiveToken(request, {
       userId: user.user_id,
       tenantId: user.tenant_id,
     })
-  )?.id;
-
-  invariant(activeToken, "No active token found");
+  ).id;
 
   const t = await remixI18next.getFixedT(user.language_preference);
 

@@ -9,6 +9,7 @@ import { getAdminApolloClientFromRequest } from "~/graphql";
 import { getLoginUrl } from "~/utils/urls";
 
 import { getUserSchema, verifyApiRequest } from "~/models/api";
+import { getUserActiveToken } from "~/models/token";
 
 export const action = async ({ request }: ActionArgs) => {
   try {
@@ -23,13 +24,10 @@ export const action = async ({ request }: ActionArgs) => {
 
     invariant(user, `User not found for id: ${userData.userId}`);
 
-    const token =
-      user.active_tokens[0] ||
-      (await adminApolloClient.generateNewToken({
-        userId: user?.user_id,
-        tenantId: user?.tenant_id,
-      }));
-    invariant(token, `Could not generate token for user: ${user.user_id}`);
+    const token = await getUserActiveToken(request, {
+      userId: user.user_id,
+      tenantId: user.tenant_id,
+    });
 
     const response = {
       id: user.user_id,

@@ -1,37 +1,27 @@
 import { contentStack } from "~/contentstack.server";
 import { QuickcheckEnrollmentEmail } from "emails";
-import { DateTime } from "luxon";
 import invariant from "tiny-invariant";
 
-import {
-  getAdminApolloClient,
-  getAdminApolloClientFromRequest,
-  NotificationUserEnrollmentFragment,
-} from "~/graphql";
+import { NotificationUserEnrollmentFragment } from "~/graphql";
 
 import { sendEmail } from "~/utils/email/postmark/email";
 import { remixI18next } from "~/utils/i18next.server";
 import { getLoginUrl } from "~/utils/urls";
 
+import { getUserActiveToken } from "~/models/token";
+
 export const sendEnrollmentEmail = async (
   enrollment: NotificationUserEnrollmentFragment,
   request: Request,
-  now?: string,
 ) => {
-  const adminApolloClient = now
-    ? await getAdminApolloClient(now)
-    : await getAdminApolloClientFromRequest(request);
-
   const { user } = enrollment;
 
   const activeToken = (
-    await adminApolloClient.generateNewToken({
+    await getUserActiveToken(request, {
       userId: user.user_id,
       tenantId: user.tenant_id,
     })
-  )?.id;
-
-  invariant(activeToken, "No active token found");
+  ).id;
 
   const t = await remixI18next.getFixedT(user.language_preference);
 

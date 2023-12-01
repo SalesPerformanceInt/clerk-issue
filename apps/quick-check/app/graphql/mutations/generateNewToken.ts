@@ -7,7 +7,7 @@ import {
 export const GENERATE_NEW_TOKEN = graphql(/* GraphQL */ `
   mutation GenerateNewToken($userId: uuid!, $tenantId: String!) {
     update_link_token(
-      where: { user_id: { _eq: $userId } }
+      where: { user_id: { _eq: $userId }, active: { _eq: true } }
       _set: { active: false }
     ) {
       returning {

@@ -14,6 +14,8 @@ import {
   TWILIO_WHATSAPP_FROM,
 } from "~/utils/envs.server";
 
+import { getUserActiveToken } from "~/models/token";
+
 const twilioClient = twilio(TWILIO_ACCOUNT_SID, TWILIO_AUTH_TOKEN);
 
 const shouldWeNotify = (user: BaseUserFragment | null) =>
@@ -54,14 +56,10 @@ export const generateTokenAndSendSMS = async (
   user: UserWithActiveTokenFragment,
   request: Request,
 ) => {
-  const adminApolloClient = await getAdminApolloClientFromRequest(request);
-
-  const token = await adminApolloClient.generateNewToken({
+  const token = await getUserActiveToken(request, {
     userId: user.user_id,
     tenantId: user.tenant_id,
   });
-
-  invariant(token, "No token generated");
 
   // const { origin } = new URL(request.url);
   // const message = generateTokenMessage(user, token.id, origin);

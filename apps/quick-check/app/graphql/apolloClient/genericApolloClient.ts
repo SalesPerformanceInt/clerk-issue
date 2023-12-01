@@ -36,6 +36,7 @@ import {
   getUserData,
   getUserEmailData,
   getUserEnrollment,
+  getUserLastActiveToken,
   getUserNextQuestion,
   getUserQuestion,
   getUserQuestionAnswers,
@@ -127,6 +128,7 @@ export class GraphQLClient implements WithApolloClient {
   unenrollUser = unenrollUser;
   getUsersForDailyEmail = getUsersForDailyEmail;
   getNotificationEnrollments = getNotificationEnrollments;
+  getUserLastActiveToken = getUserLastActiveToken;
 
   constructor(headers: GraphQLHeaders) {
     this.client = getClient(headers);

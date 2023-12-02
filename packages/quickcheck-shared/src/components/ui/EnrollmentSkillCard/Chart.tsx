@@ -18,12 +18,12 @@ export const Chart: FC<EnrollmentSkillData> = ({
   const { t } = useTranslation();
 
   return (
-    <div className="flex-1 relative">
+    <div className="relative flex-1">
       <div className="absolute inset-0 flex justify-between">
         {times(5, identity).map((i) => (
           <div
             key={`${skill}-gridline-${i}`}
-            className="h-full w-8 p-2 flex justify-center"
+            className="flex h-full w-8 justify-center p-2"
           >
             <div className="h-full border-l border-background-secondary" />
           </div>
@@ -31,7 +31,7 @@ export const Chart: FC<EnrollmentSkillData> = ({
       </div>
 
       <div className="absolute inset-0">
-        <div className="flex h-full flex-col gap-4 justify-center px-4">
+        <div className="flex h-full flex-col justify-center gap-4 px-4">
           {[baseline, current].map((percent, i) => (
             <PercentageBar key={i} percent={percent} empty={unanswered} />
           ))}
@@ -40,8 +40,8 @@ export const Chart: FC<EnrollmentSkillData> = ({
 
       {unanswered && (
         <div className="absolute inset-0">
-          <div className="flex h-full justify-center items-center">
-            <p className="text-xs leading-4 font-semibold uppercase text-text-50">
+          <div className="flex h-full items-center justify-center">
+            <p className="text-xs font-semibold uppercase leading-4 text-text-50">
               {t("chart.not_enough_data")}
             </p>
           </div>

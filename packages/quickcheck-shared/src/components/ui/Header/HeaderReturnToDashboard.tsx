@@ -23,9 +23,9 @@ export const HeaderReturnToDashboard: FC<HeaderReturnToDashboardProps> = ({
       <button className="flex items-center" onClick={onClose}>
         <FontAwesomeIcon
           icon={isDesktop ? faChevronLeft : faAngleLeft}
-          className="text-contrast w-6 text-center text-2xl font-light leading-6 sm:text-base sm:w-[10px]"
+          className="w-6 text-center text-2xl font-light leading-6 text-contrast sm:w-[10px] sm:text-base"
         />
-        <div className="text-contrast ml-2 font-light sm:ml-4 sm:font-bold">
+        <div className="ml-2 font-light text-contrast sm:ml-4 sm:font-bold">
           {t("common.dashboard")}
         </div>
       </button>

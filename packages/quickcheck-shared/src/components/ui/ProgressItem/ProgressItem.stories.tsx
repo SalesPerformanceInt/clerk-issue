@@ -40,7 +40,7 @@ export const ProgressItem = {
 
 export const ProgressCard = {
   render: (args) => (
-    <Card className="flex flex-col w-96">
+    <Card className="flex w-96 flex-col">
       <CardTitle qty={4} title="Active Enrollments" className="p-6 pb-0" />
 
       <ProgressItemComponent {...args} />

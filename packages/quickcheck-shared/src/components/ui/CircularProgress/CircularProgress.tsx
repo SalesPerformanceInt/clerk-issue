@@ -31,7 +31,7 @@ export const CircularProgress: FC<CircularProgressProps> = ({
         background: "CircularProgress-background fill-background-secondary",
       }}
     >
-      <p className="fill-primary-25 text-xxl text-text font-semibold">{text}</p>
+      <p className="fill-primary-25 text-xxl font-semibold text-text">{text}</p>
     </CircularProgressbarWithChildren>
   );
 };

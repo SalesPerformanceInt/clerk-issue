@@ -1,6 +1,5 @@
 import React, { type FC } from "react";
 import { useTranslation } from "react-i18next";
-
 import { useNavigate } from "@remix-run/react";
 
 import { Card, CardTitle, ProgressItem } from "quickcheck-shared";

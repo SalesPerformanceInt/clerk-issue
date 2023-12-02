@@ -3,8 +3,8 @@ import React, { forwardRef, type ElementRef } from "react";
 import { faCheck } from "@fortawesome/pro-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import * as AvatarPrimitive from "@radix-ui/react-avatar";
-import { cva } from "class-variance-authority";
 import { cn } from "~/utils";
+import { cva } from "class-variance-authority";
 
 import { AvatarFallback } from "~/components";
 

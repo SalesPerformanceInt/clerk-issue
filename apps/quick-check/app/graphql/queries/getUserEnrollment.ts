@@ -1,6 +1,7 @@
 import { contentStack } from "~/contentstack.server";
 
 import { graphql, type GQLProxyData, type WithApolloClient } from "~/graphql";
+
 import { getToday } from "~/utils/date";
 
 export const GET_USER_ENROLLMENT = graphql(/* GraphQL */ `
@@ -43,7 +44,7 @@ export async function getUserEnrollment(
 ) {
   const { now } = proxyData;
 
-  const today = getToday(now)
+  const today = getToday(now);
 
   try {
     const { data } = await this.client.query({

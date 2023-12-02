@@ -1,5 +1,4 @@
 import { useMeasure } from "react-use";
-
 import { useNavigate } from "@remix-run/react";
 
 import { Button, ResponsiveContainer } from "quickcheck-shared";

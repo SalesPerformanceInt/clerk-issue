@@ -1,5 +1,4 @@
 import { Suspense } from "react";
-
 import { json, type LoaderArgs } from "@remix-run/node";
 import { useLoaderData } from "@remix-run/react";
 

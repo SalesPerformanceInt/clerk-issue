@@ -13,12 +13,12 @@ const CardTitle: FC<CardTitleProps> = ({ qty, title, className }) => {
   return (
     <div className={twMerge("flex items-center gap-2", className)}>
       {!isNil(qty) && (
-        <span className="w-6 h-6 flex items-center justify-center rounded-full bg-secondary text-contrast text-xs">
+        <span className="flex h-6 w-6 items-center justify-center rounded-full bg-secondary text-xs text-contrast">
           {qty}
         </span>
       )}
 
-      <h3 className="text-text font-light uppercase">{title}</h3>
+      <h3 className="font-light uppercase text-text">{title}</h3>
     </div>
   );
 };

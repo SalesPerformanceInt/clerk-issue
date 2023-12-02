@@ -1,5 +1,4 @@
 import React, { useCallback, useState, type FC } from "react";
-
 import { useFetcher } from "@remix-run/react";
 
 import { faXmark } from "@fortawesome/pro-solid-svg-icons";
@@ -46,16 +45,16 @@ export const TimeTravelModal: FC<TimeTravelModalProps> = ({
   }, []);
 
   return (
-    <div className="fixed right-0 left-0 top-0 bottom-0 w-full z-50">
+    <div className="fixed bottom-0 left-0 right-0 top-0 z-50 w-full">
       <div
-        className="fixed right-0 left-0 top-0 bottom-0 w-full bg-black opacity-50"
+        className="fixed bottom-0 left-0 right-0 top-0 w-full bg-black opacity-50"
         onClick={closeModal}
       />
 
-      <div className="fixed left-0 right-0 w-full max-w-screen-sm mx-auto top-1/2 -translate-y-1/2 flex items-center justify-center bg-primary rounded shadow-card">
-        <div className="flex items-start justify-between w-full p-8">
-          <div className="flex flex-col justify-start gap-12 text-white font-medium w-full">
-            <h2 className="text-3xl pb-4">Time Travel</h2>
+      <div className="fixed left-0 right-0 top-1/2 mx-auto flex w-full max-w-screen-sm -translate-y-1/2 items-center justify-center rounded bg-primary shadow-card">
+        <div className="flex w-full items-start justify-between p-8">
+          <div className="flex w-full flex-col justify-start gap-12 font-medium text-white">
+            <h2 className="pb-4 text-3xl">Time Travel</h2>
 
             <div className="flex items-center gap-2 text-xl">
               <label htmlFor="currentDate">Current Date:</label>
@@ -63,7 +62,7 @@ export const TimeTravelModal: FC<TimeTravelModalProps> = ({
               <input
                 type="date"
                 name="currentDate"
-                className="text-black px-2 py-1 ml-1"
+                className="ml-1 px-2 py-1 text-black"
                 value={DateTime.fromISO(localNow).toISODate()!}
                 onChange={(e) => changeDate(e.target.value)}
               />
@@ -77,7 +76,7 @@ export const TimeTravelModal: FC<TimeTravelModalProps> = ({
           </div>
 
           <button
-            className="p-1 text-background font-bold text-2xl"
+            className="p-1 text-2xl font-bold text-background"
             onClick={closeModal}
           >
             <FontAwesomeIcon icon={faXmark} />

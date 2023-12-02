@@ -16,7 +16,7 @@ const DaysOfWeek = () => (
     {daysOfWeek.map((day) => (
       <p
         key={day.toFormat("cccc")}
-        className="w-5 text-center font-semibold text-xs leading-4 uppercase text-text"
+        className="w-5 text-center text-xs font-semibold uppercase leading-4 text-text"
       >
         {day.toFormat("ccccc")}
       </p>

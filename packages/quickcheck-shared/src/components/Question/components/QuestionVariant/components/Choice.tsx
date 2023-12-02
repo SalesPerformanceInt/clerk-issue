@@ -1,9 +1,10 @@
 import React from "react";
 
+import { useQuestionContext } from "~/index";
 import parse from "html-react-parser";
 import { twMerge } from "tailwind-merge";
+
 import type { QuestionItemChoice } from "~/contentstack";
-import { useQuestionContext } from "~/index";
 
 import type { Expand } from "~/utils/expand";
 
@@ -35,14 +36,14 @@ export const Choice = ({
       disabled={disabled}
       onClick={onClick}
       className={twMerge(
-        "transition bg-background-secondary hover:bg-background disabled:hover:bg-background-secondary border-primary-25 flex items-start border-t px-4 py-6 text-left last:border-b sm:px-8 sm:border sm:rounded-sm sm:border-highlight sm:shadow-card w-full",
+        "flex w-full items-start border-t border-primary-25 bg-background-secondary px-4 py-6 text-left transition last:border-b hover:bg-background disabled:hover:bg-background-secondary sm:rounded-sm sm:border sm:border-highlight sm:px-8 sm:shadow-card",
         isSelected && "bg-background",
         correctlyAnswered &&
-          "bg-success-50 border-t-0 sm:border-t disabled:hover:bg-success-50",
+          "border-t-0 bg-success-50 disabled:hover:bg-success-50 sm:border-t",
         incorrectlyAnswered &&
-          "bg-highlight disabled:hover:bg-highlight border-l-warning border-l-8 border-t-0 sm:border-t sm:border-l-16 sm:border-l-warning",
+          "border-l-8 border-t-0 border-l-warning bg-highlight disabled:hover:bg-highlight sm:border-l-16 sm:border-t sm:border-l-warning",
         actualAnswer &&
-          "border-l-success border-l-8 sm:border-l-16 sm:border-l-success",
+          "border-l-8 border-l-success sm:border-l-16 sm:border-l-success",
       )}
       {...choice.$?.body}
     >

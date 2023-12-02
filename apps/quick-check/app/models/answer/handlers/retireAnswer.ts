@@ -21,5 +21,5 @@ export const getRetiredOn = (
   reviewedAnswer: ReviewedAnswer,
 ) =>
   shouldRetireUserQuestion(userQuestion, reviewedAnswer)
-    ? reviewedAnswer.lastAnsweredOn
+    ? reviewedAnswer.answerDate
     : null;

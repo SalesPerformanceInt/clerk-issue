@@ -37,7 +37,7 @@ const LeaderboardEntry: FC<LeaderboardEntryProps> = ({
   return (
     <div
       className={twMerge(
-        "flex flex-wrap items-start text-text gap-2",
+        "flex flex-wrap items-start gap-2 text-text",
         featured && "bg-primary-25 font-bold",
         className,
       )}
@@ -51,7 +51,7 @@ const LeaderboardEntry: FC<LeaderboardEntryProps> = ({
 
       <div
         className={twMerge("basis-8", [
-          !!direction && "text-right mr-2",
+          !!direction && "mr-2 text-right",
           featured === undefined && "font-bold",
         ])}
       >

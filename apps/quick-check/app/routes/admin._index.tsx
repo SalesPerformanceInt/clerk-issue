@@ -40,7 +40,7 @@ export default function Page() {
                     >
                       <td className="whitespace-nowrap px-6 py-4">
                         <Link
-                          className="text-primary-50 hover:underline hover:text-primary-75"
+                          className="text-primary-50 hover:text-primary-75 hover:underline"
                           to={`/admin/tenant/${tenant.tenant_id}`}
                         >
                           {tenant.tenant_id}

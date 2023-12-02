@@ -19,19 +19,19 @@ export interface PercentageBarProps {
 export const PercentageBar: FC<PercentageBarProps> = ({ percent, empty }) => {
   if (empty)
     return (
-      <div className="h-6 rounded-full flex justify-end px-2 items-center w-full bg-gradient-to-r from-background-secondary from-50%" />
+      <div className="flex h-6 w-full items-center justify-end rounded-full bg-gradient-to-r from-background-secondary from-50% px-2" />
     );
 
   return (
-    <Progress className="h-6 rounded-full overflow-hidden" value={percent}>
+    <Progress className="h-6 overflow-hidden rounded-full" value={percent}>
       <ProgressIndicator
         className={twMerge(
-          "w-full h-full rounded-full justify-end flex items-center px-2 min-w-8",
+          "flex h-full w-full min-w-8 items-center justify-end rounded-full px-2",
           getClassName(percent),
         )}
         style={{ width: `${percent}%` }}
       >
-        <p className="uppercase font-semibold text-xs leading-4">{`${percent}%`}</p>
+        <p className="text-xs font-semibold uppercase leading-4">{`${percent}%`}</p>
       </ProgressIndicator>
     </Progress>
   );

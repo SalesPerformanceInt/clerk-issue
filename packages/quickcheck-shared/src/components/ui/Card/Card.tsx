@@ -8,7 +8,7 @@ const Card: FC<CardProps> = ({ children, className }) => {
   return (
     <div
       className={twMerge(
-        "bg-background shadow-card rounded flex flex-col",
+        "flex flex-col rounded bg-background shadow-card",
         className,
       )}
     >

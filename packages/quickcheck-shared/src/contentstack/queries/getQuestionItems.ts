@@ -1,4 +1,5 @@
 import type { Query } from "contentstack";
+
 import type { QuestionItem } from "~/contentstack";
 import type { ContentStackSDKClient } from "~/contentstack/client";
 

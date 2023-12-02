@@ -24,13 +24,13 @@ const MobileCarousel: FC<MobileCarouselProps> = ({
 }) => {
   return (
     <section className="flex flex-col gap-4">
-      <div className="flex items-center w-full">
+      <div className="flex w-full items-center">
         {icon && <Icon icon={icon} className="mr-2 text-primary-50" />}
         <h1 className="text-xxl font-normal">{title}</h1>
       </div>
       <div
         className={twMerge(
-          "flex gap-4 overflow-x-auto no-scrollbar snap-x snap-mandatory pb-10 -mx-4 px-4",
+          "no-scrollbar -mx-4 flex snap-x snap-mandatory gap-4 overflow-x-auto px-4 pb-10",
           className,
         )}
       >

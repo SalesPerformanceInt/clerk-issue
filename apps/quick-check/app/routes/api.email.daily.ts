@@ -8,7 +8,6 @@ import { getAdminApolloClientFromRequest } from "~/graphql";
 
 import { IMPORT_SECRET_KEY } from "~/utils/envs.server";
 
-
 export const loader = async ({ request }: LoaderArgs) => {
   try {
     const adminApolloClient = await getAdminApolloClientFromRequest(request);

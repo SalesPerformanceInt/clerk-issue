@@ -1,8 +1,6 @@
 import { PassThrough } from "stream";
-
 import { renderToPipeableStream } from "react-dom/server";
 import { I18nextProvider, initReactI18next } from "react-i18next";
-
 import { Response, type EntryContext } from "@remix-run/node";
 import { RemixServer } from "@remix-run/react";
 

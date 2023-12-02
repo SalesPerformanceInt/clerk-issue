@@ -26,7 +26,7 @@ export type ReviewedAnswer = {
 
 export type AnswerToReview = ReviewedAnswer & {
   performanceRating: number;
-  lastAnsweredOn: string | null
+  lastAnsweredOn: string | null;
 };
 
 /**

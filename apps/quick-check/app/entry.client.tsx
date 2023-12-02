@@ -1,8 +1,7 @@
-import React, { StrictMode, startTransition } from "react";
+import React, { startTransition, StrictMode } from "react";
 import ReactDOM from "react-dom";
 import { hydrateRoot } from "react-dom/client";
 import { I18nextProvider, initReactI18next } from "react-i18next";
-
 import { RemixBrowser } from "@remix-run/react";
 
 import i18next from "i18next";

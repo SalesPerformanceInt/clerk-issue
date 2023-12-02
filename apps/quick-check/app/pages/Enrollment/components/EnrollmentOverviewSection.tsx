@@ -12,11 +12,11 @@ const EnrollmentOverviewSectionDesktop = () => {
   const { enrollment } = useEnrollmentContext();
 
   return (
-    <section className="flex flex-col gap-10 mb-10 last:mb-0">
-      <div className="flex justify-between gap-8 items-end w-full">
+    <section className="mb-10 flex flex-col gap-10 last:mb-0">
+      <div className="flex w-full items-end justify-between gap-8">
         <div>
           <div>
-            <p className="uppercase font-semibold text-xs leading-4">{`${t(
+            <p className="text-xs font-semibold uppercase leading-4">{`${t(
               "common.dashboard",
             )} /`}</p>
             <h2 className="text-xxl font-semibold leading-8 text-text">
@@ -24,7 +24,7 @@ const EnrollmentOverviewSectionDesktop = () => {
             </h2>
           </div>
         </div>
-        <div className="flex-1 max-w-sm">
+        <div className="max-w-sm flex-1">
           <EnrollmentProgress />
         </div>
       </div>
@@ -39,7 +39,7 @@ const EnrollmentOverviewSectionMobile = () => {
 
   return (
     <>
-      <h2 className="text-xxl font-semibold leading-8 text-text mb-4">
+      <h2 className="mb-4 text-xxl font-semibold leading-8 text-text">
         {enrollment.taxonomy?.display_name}
       </h2>
       <Section title={t("common.overview")}>

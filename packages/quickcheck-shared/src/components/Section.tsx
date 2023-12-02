@@ -36,7 +36,6 @@ export const Section: FC<DashboardSectionProps> = ({
           />
         )}
       </div>
-
       <div className="flex w-full flex-wrap gap-4 sm:gap-8">
         {Children.map(children, (child) =>
           createElement(child.type, {

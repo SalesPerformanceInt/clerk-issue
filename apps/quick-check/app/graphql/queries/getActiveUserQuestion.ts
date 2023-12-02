@@ -2,6 +2,7 @@ import { DateTime } from "luxon";
 import { first } from "remeda";
 
 import { graphql, type GQLProxyData, type WithApolloClient } from "~/graphql";
+
 import { getToday } from "~/utils/date";
 
 export const GET_ACTIVE_USER_QUESTION = graphql(/* GraphQL */ `
@@ -25,7 +26,7 @@ export async function getActiveUserQuestion(
 ) {
   const { now } = proxyData;
 
-  const today = getToday(now)
+  const today = getToday(now);
 
   try {
     const { data } = await this.client.query({

@@ -9,20 +9,13 @@ import {
  */
 
 export const GET_RANKEABLE_ENROLLMENTS = graphql(/* GraphQL */ `
-  query GetRankeableEnrollments(
-    $taxonomyIds: [String!]
-    $tenantId: String!
-  ) {
+  query GetRankeableEnrollments($taxonomyIds: [String!], $tenantId: String!) {
     user_enrollment(
       where: {
         taxonomy_id: { _in: $taxonomyIds }
         user: { tenant_id: { _eq: $tenantId } }
         user_questions: {
-          user_answers_aggregate: {
-            count: {
-              predicate: { _gt: 0 }
-            }
-          }
+          user_answers_aggregate: { count: { predicate: { _gt: 0 } } }
         }
       }
       order_by: { score: desc }

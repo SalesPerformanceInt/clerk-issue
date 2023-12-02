@@ -4,6 +4,7 @@ import {
   type User_Question_Bool_Exp,
   type WithApolloClient,
 } from "~/graphql";
+
 import { getToday } from "~/utils/date";
 
 export const GET_USER_NEXT_QUESTION = graphql(/* GraphQL */ `
@@ -35,7 +36,7 @@ export async function getUserNextQuestion(
 ) {
   const { userId, now } = proxyData;
 
-  const today = getToday(now)
+  const today = getToday(now);
 
   const where: User_Question_Bool_Exp = currentQuestionId
     ? { id: { _neq: currentQuestionId } }

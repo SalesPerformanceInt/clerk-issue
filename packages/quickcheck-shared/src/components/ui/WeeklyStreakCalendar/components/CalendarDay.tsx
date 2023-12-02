@@ -20,13 +20,13 @@ const CalendarDay = forwardRef<
   return (
     <div className="relative">
       {today && (
-        <div className="flex absolute -bottom-1.5 left-0 right-0 justify-center">
+        <div className="absolute -bottom-1.5 left-0 right-0 flex justify-center">
           <div className="h-1 w-1 rounded-full bg-primary-75" />
         </div>
       )}
       {firstOfMonth && (
-        <div className="border border-transparent flex absolute -top-3 left-0 right-0 justify-center">
-          <p className="text-primary-75 text-2xs leading-none font-semibold uppercase">
+        <div className="absolute -top-3 left-0 right-0 flex justify-center border border-transparent">
+          <p className="text-2xs font-semibold uppercase leading-none text-primary-75">
             {date.toFormat("LLL")}
           </p>
         </div>

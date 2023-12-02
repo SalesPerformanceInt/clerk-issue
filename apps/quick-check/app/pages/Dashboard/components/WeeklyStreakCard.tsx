@@ -1,6 +1,5 @@
 import { useMemo, type FC } from "react";
 import { useTranslation } from "react-i18next";
-
 import { useOutletContext } from "@remix-run/react";
 
 import { DateTime } from "luxon";

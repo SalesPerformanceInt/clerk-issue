@@ -2,6 +2,7 @@ import type { LoaderArgs } from "@remix-run/node";
 import type { Params } from "@remix-run/react";
 
 import type { LivePreviewQuery, Query } from "contentstack";
+
 import type { QuestionItem, Taxon } from "quickcheck-shared";
 
 export type EntryLivePreviewQuery = LivePreviewQuery & Pick<Query, "entry_uid">;

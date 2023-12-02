@@ -8,9 +8,9 @@ import { useLoaderData, useNavigate, useParams } from "@remix-run/react";
 
 import { faChevronLeft } from "@fortawesome/pro-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { generateTokenAndSendSMS } from "~/notifications/twilio.server";
 import invariant from "tiny-invariant";
 import { z } from "zod";
-import { generateTokenAndSendSMS } from "~/notifications/twilio.server";
 
 import { getAdminApolloClientFromRequest } from "~/graphql";
 
@@ -120,22 +120,22 @@ export default function Page() {
   const navigate = useNavigate();
 
   return (
-    <div className="p-8 bg-primary-dark">
-      <div className="flex flex-col w-full">
+    <div className="bg-primary-dark p-8">
+      <div className="flex w-full flex-col">
         <div className="overflow-x-auto sm:-mx-6 desktop:-mx-8">
           <div className="inline-block min-w-full py-2 sm:px-6 desktop:px-8">
-            <div className="flex items-center justify-between mb-8">
+            <div className="mb-8 flex items-center justify-between">
               <button
                 className="flex items-center"
                 onClick={() => navigate("/admin")}
               >
                 <FontAwesomeIcon
                   icon={faChevronLeft}
-                  className="text-primary-75 w-6 text-center text-4xl leading-6 sm:text-base sm:w-[10px]"
+                  className="w-6 text-center text-4xl leading-6 text-primary-75 sm:w-[10px] sm:text-base"
                 />
                 <div className="ml-4 font-bold text-primary-75">Tenants</div>
               </button>
-              <h1 className="text-4xl font-bold text-center uppercase">
+              <h1 className="text-center text-4xl font-bold uppercase">
                 {tenantId}
               </h1>
               <div />

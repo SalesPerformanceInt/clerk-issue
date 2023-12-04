@@ -1,5 +1,6 @@
 import { contentStack } from "~/contentstack.server";
-import invariant from "tiny-invariant";
+
+import { invariant } from "quickcheck-shared";
 
 import type { BaseUserQuestionFragment } from "~/graphql";
 

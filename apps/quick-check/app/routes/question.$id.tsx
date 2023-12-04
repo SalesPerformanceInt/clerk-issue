@@ -15,9 +15,9 @@ import {
 } from "@remix-run/react";
 
 import { compact, first, map, pipe } from "remeda";
-import invariant from "tiny-invariant";
 
 import {
+  invariant,
   Question,
   variants,
   type OnSubmit,

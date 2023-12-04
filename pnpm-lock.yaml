@@ -196,7 +196,6 @@ importers:
       remix-validated-form: ^4.6.10
       tailwind-merge: ^1.12.0
       tailwindcss: ^3.3.5
-      tiny-invariant: ^1.3.1
       ts-node: ^10.9.1
       twilio: ^4.11.1
       typescript: ^4.9.5
@@ -278,7 +277,6 @@ importers:
       eslint: 8.36.0
       postcss: 8.4.31
       tailwindcss: 3.3.5_ts-node@10.9.1
-      tiny-invariant: 1.3.1
       ts-node: 10.9.1_vgeea7nkvqxropi3ijuwq36zrm
       typescript: 4.9.5
 
@@ -469,7 +467,6 @@ importers:
       tailwind-merge: ^1.12.0
       tailwindcss: ^3.3.5
       tailwindcss-animate: ^1.0.6
-      tiny-invariant: ^1.3.1
       tsup: ^6.6.3
       typescript: ^4.9.5
       vite: ^4.2.0
@@ -541,7 +538,6 @@ importers:
       remeda: 1.29.0
       storybook-react-i18next: 2.0.9_kdjtoc3ggrh5woolpdh3bsdqo4
       tailwindcss: 3.3.5
-      tiny-invariant: 1.3.1
       tsup: 6.7.0_djya3bq5vcpu5xgweghb4n3eja
       typescript: 4.9.5
       vite: 4.5.0
@@ -7993,7 +7989,7 @@ packages:
       tailwindcss: '>=3.0.0 || >= 3.0.0-alpha.1'
     dependencies:
       mini-svg-data-uri: 1.4.4
-      tailwindcss: 3.3.5_ts-node@10.9.1
+      tailwindcss: 3.3.5
     dev: true
 
   /@teppeis/multimaps/2.0.0:

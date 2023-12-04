@@ -9,8 +9,9 @@ import { useLoaderData, useNavigate, useParams } from "@remix-run/react";
 import { faChevronLeft } from "@fortawesome/pro-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { generateTokenAndSendSMS } from "~/notifications/twilio.server";
-import invariant from "tiny-invariant";
 import { z } from "zod";
+
+import { invariant } from "quickcheck-shared";
 
 import { getAdminApolloClientFromRequest } from "~/graphql";
 

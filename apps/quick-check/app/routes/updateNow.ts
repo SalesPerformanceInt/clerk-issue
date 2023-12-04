@@ -1,6 +1,6 @@
 import type { ActionArgs } from "@remix-run/node";
 
-import invariant from "tiny-invariant";
+import { invariant } from "quickcheck-shared";
 
 import { updateSessionNow } from "~/models/session";
 

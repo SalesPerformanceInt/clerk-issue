@@ -1,8 +1,6 @@
 import { json, type LoaderArgs } from "@remix-run/node";
 
-import invariant from "tiny-invariant";
-
-import { simpleErrorResponse } from "quickcheck-shared";
+import { invariant, simpleErrorResponse } from "quickcheck-shared";
 
 import { getAdminApolloClientFromRequest } from "~/graphql";
 

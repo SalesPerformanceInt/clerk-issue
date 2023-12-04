@@ -15,10 +15,9 @@ import { faChevronLeft } from "@fortawesome/pro-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { generateTokenAndSendSMS } from "~/notifications/twilio.server";
 import { DateTime } from "luxon";
-import invariant from "tiny-invariant";
 import { z } from "zod";
 
-import { Button } from "quickcheck-shared";
+import { Button, invariant } from "quickcheck-shared";
 
 import {
   getAdminApolloClientFromRequest,

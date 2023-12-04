@@ -1,5 +1,6 @@
-import invariant from "tiny-invariant";
 import twilio from "twilio";
+
+import { invariant } from "quickcheck-shared";
 
 import {
   getAdminApolloClientFromRequest,

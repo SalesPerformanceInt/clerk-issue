@@ -1,7 +1,6 @@
 import { isEmpty } from "lodash";
-import invariant from "tiny-invariant";
 
-import { RequiredKeys } from "quickcheck-shared";
+import { invariant, RequiredKeys } from "quickcheck-shared";
 
 import {
   graphql,

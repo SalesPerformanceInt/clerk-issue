@@ -1,6 +1,7 @@
 import { contentStack } from "~/contentstack.server";
 import { groupBy, pipe } from "remeda";
-import invariant from "tiny-invariant";
+
+import { invariant } from "quickcheck-shared";
 
 import type { RankeableEnrollment } from "~/graphql";
 

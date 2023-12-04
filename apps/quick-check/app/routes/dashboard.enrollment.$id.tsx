@@ -1,7 +1,7 @@
 import { json, redirect, type LoaderArgs } from "@remix-run/node";
 import { useLoaderData } from "@remix-run/react";
 
-import invariant from "tiny-invariant";
+import { invariant } from "quickcheck-shared";
 
 import { getUserApolloClientFromRequest } from "~/graphql";
 

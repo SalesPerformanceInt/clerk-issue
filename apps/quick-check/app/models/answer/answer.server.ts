@@ -1,4 +1,4 @@
-import invariant from "tiny-invariant";
+import { invariant } from "quickcheck-shared";
 
 import { getUserApolloClientFromRequest } from "~/graphql";
 

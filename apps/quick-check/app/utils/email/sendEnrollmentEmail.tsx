@@ -1,6 +1,7 @@
 import { contentStack } from "~/contentstack.server";
 import { QuickcheckEnrollmentEmail } from "emails";
-import invariant from "tiny-invariant";
+
+import { invariant } from "quickcheck-shared";
 
 import { NotificationUserEnrollmentFragment } from "~/graphql";
 

@@ -1,6 +1,7 @@
 import { QuickcheckInactivityEmail, QuickcheckQuestionEmail } from "emails";
 import { DateTime } from "luxon";
-import invariant from "tiny-invariant";
+
+import { invariant } from "quickcheck-shared";
 
 import {
   getAdminApolloClient,

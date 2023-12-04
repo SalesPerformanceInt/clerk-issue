@@ -2,15 +2,14 @@ import { useFetcher, useParams } from "@remix-run/react";
 
 import { withZod } from "@remix-validated-form/with-zod";
 import { ValidatedForm } from "remix-validated-form";
-import invariant from "tiny-invariant";
 import { v4 as uuidv4 } from "uuid";
 import { z } from "zod";
 
-import { Button } from "quickcheck-shared";
+import { Button, invariant } from "quickcheck-shared";
 
 import { parseCreateUserRequest } from "~/models/api";
 
-import { FormInput, PhoneFormInput } from "~/components/FormInput";
+import { FormInput } from "~/components/FormInput";
 
 export const createUserActionSchema = z.object({
   firstName: z.string().min(1, { message: "Required" }),

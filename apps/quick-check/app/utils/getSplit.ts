@@ -1,6 +1,7 @@
 import { SplitFactory } from "@splitsoftware/splitio";
 import { times } from "remeda";
-import invariant from "tiny-invariant";
+
+import { invariant } from "quickcheck-shared";
 
 import { getUserDataFromSession } from "~/models/session/userSession.server";
 

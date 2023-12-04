@@ -1,11 +1,11 @@
 import { contentStack } from "~/contentstack.server";
 import { DateTime } from "luxon";
 import { pipe, shuffle } from "remeda";
-import invariant from "tiny-invariant";
 
 import {
   andThen,
   getNodeInTreesById,
+  invariant,
   logError,
   promiseWrapper,
   type QuestionItem,

@@ -1,4 +1,4 @@
-import invariant from "tiny-invariant";
+import { invariant } from "quickcheck-shared";
 
 import { getUserDataFromSession } from "~/models/session";
 

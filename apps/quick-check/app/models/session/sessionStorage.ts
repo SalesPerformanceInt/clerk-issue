@@ -1,6 +1,6 @@
 import { createCookieSessionStorage } from "@remix-run/node";
 
-import invariant from "tiny-invariant";
+import { invariant } from "quickcheck-shared";
 
 import { SESSION_SECRET } from "~/utils/envs.server";
 

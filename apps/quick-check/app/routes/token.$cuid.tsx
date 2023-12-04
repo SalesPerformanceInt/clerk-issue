@@ -1,6 +1,6 @@
 import { redirect, type LoaderArgs } from "@remix-run/node";
 
-import invariant from "tiny-invariant";
+import { invariant } from "quickcheck-shared";
 
 import { getUnauthenticatedApolloClient } from "~/graphql";
 

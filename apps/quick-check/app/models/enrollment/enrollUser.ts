@@ -7,9 +7,10 @@ import { getToday } from "~/utils/date";
 import { sendEnrollmentEmail } from "~/utils/email/sendEnrollmentEmail";
 
 import { getAdminDataFromFromSession } from "~/models/session";
+import { BasicUserData } from "~/models/user";
 
 export const enrollUser = async (
-  userId: string,
+  user: BasicUserData,
   taxonomyId: string,
   enrollmentData: EnrollUserEnrollment,
   request: Request,
@@ -19,9 +20,7 @@ export const enrollUser = async (
   const enrollment = await adminApolloClient.enrollUser(
     taxonomyId,
     enrollmentData,
-    {
-      userId,
-    },
+    user,
   );
 
   const [now] = await getAdminDataFromFromSession(request);

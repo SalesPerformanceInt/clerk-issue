@@ -70,19 +70,25 @@ export const action = async ({ request, params }: ActionArgs) => {
     const { userId } = params;
     invariant(userId, "No User ID found");
     const formData = await request.formData();
-    const data = formData.get("data");
 
     const adminApolloClient = await getAdminApolloClientFromRequest(request);
 
     const userAction = parseUserActionRequest(formData);
 
-    if (userAction?.type === "ENROLL" && userAction?.taxonomyId) {
+    const user = await adminApolloClient.getUser({ userId });
+
+    if (user && userAction?.type === "ENROLL" && userAction?.taxonomyId) {
       const enrollment: EnrollUserEnrollment = {
         start_date: DateTime.now().toISO()!,
         expiration_date: DateTime.now().plus({ weeks: 12 }).toISO()!,
       };
 
-      await enrollUser(userId, userAction.taxonomyId, enrollment, request);
+      await enrollUser(
+        { userId, tenantId: user.tenant_id },
+        userAction.taxonomyId,
+        enrollment,
+        request,
+      );
     }
 
     if (userAction?.type === "UNENROLL" && userAction?.enrollmentId) {

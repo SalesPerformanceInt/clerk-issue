@@ -14,7 +14,7 @@ import {
 
 import {
   graphql,
-  type GQLProxyUserData,
+  type GQLProxyAllData,
   type User_Enrollment_Insert_Input,
   type User_Question_Insert_Input,
   type WithApolloClient,
@@ -22,7 +22,6 @@ import {
 
 import { ENROLLMENT_DAYS } from "~/utils/constants";
 import { getNextValidBusinessDate, getToday } from "~/utils/date";
-import { sendEnrollmentEmail } from "~/utils/email/sendEnrollmentEmail";
 
 import { buildTaxonTrees, type TaxonomyDataObj } from "~/models/taxonomy";
 
@@ -31,9 +30,19 @@ import { buildTaxonTrees, type TaxonomyDataObj } from "~/models/taxonomy";
  */
 
 export const ENROLL_USER = graphql(/* GraphQL */ `
-  mutation EnrollUser($user_enrollment: user_enrollment_insert_input!) {
-    insert_user_enrollment_one(object: $user_enrollment) {
+  mutation EnrollUser(
+    $userEnrollment: user_enrollment_insert_input!
+    $tenantId: String!
+  ) {
+    insert_user_enrollment_one(object: $userEnrollment) {
       ...NotificationUserEnrollment
+    }
+    insert_tenant_one(
+      object: { tenant_id: $tenantId }
+      on_conflict: { constraint: tenant_pkey, update_columns: [] }
+    ) {
+      tenant_id
+      theme_id
     }
   }
 `);
@@ -180,11 +189,11 @@ export async function enrollUser(
   this: WithApolloClient,
   taxonomyId: string,
   enrollmentData: EnrollUserEnrollment,
-  proxyData: GQLProxyUserData,
+  proxyData: GQLProxyAllData,
 ) {
-  const { userId, now } = proxyData;
+  const { userId, tenantId } = proxyData;
 
-  const userEnrollmentInput = await pipe(
+  const userEnrollment = await pipe(
     getTaxon(taxonomyId),
     andThen(getQuestions),
     andThen(shuffle()),
@@ -195,7 +204,7 @@ export async function enrollUser(
   const [enrolledUser, error] = await promiseWrapper(
     this.client.mutate({
       mutation: ENROLL_USER,
-      variables: { user_enrollment: userEnrollmentInput },
+      variables: { userEnrollment, tenantId },
     }),
   );
 

@@ -33,7 +33,7 @@ export const action = async ({ request }: ActionArgs) => {
     } = importEnrollmentData;
 
     const enrollment = await enrollUser(
-      user.user_id,
+      { userId: user.user_id, tenantId: user.tenant_id },
       cms_topic_id,
       enrollmentData,
       request,

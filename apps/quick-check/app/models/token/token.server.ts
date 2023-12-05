@@ -2,14 +2,11 @@ import { invariant } from "quickcheck-shared";
 
 import { getAdminApolloClientFromRequest } from "~/graphql";
 
-type GetUserActiveTokenUserArgs = {
-  userId: string;
-  tenantId: string;
-};
+import { BasicUserData } from "~/models/user";
 
 export const getUserActiveToken = async (
   request: Request,
-  { userId, tenantId }: GetUserActiveTokenUserArgs,
+  { userId, tenantId }: BasicUserData,
 ) => {
   const adminApolloClient = await getAdminApolloClientFromRequest(request);
 

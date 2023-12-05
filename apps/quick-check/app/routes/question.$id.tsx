@@ -41,6 +41,10 @@ const getVariantNames = (questionItemVariants: QuestionItemVariant[]) =>
 const getFirstVariant = (questionItemVariants: QuestionItemVariant[]) =>
   pipe(questionItemVariants, getVariantNames, first());
 
+export const config = {
+  maxDuration: 300,
+};
+
 export const loader = async ({ params, request }: LoaderArgs) => {
   try {
     const { id } = params;

@@ -12,6 +12,10 @@ import {
 
 import { Dashboard } from "~/pages";
 
+export const config = {
+  maxDuration: 300,
+};
+
 /**
  * Loader
  */

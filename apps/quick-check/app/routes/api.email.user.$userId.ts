@@ -4,6 +4,10 @@ import { invariant, simpleErrorResponse } from "quickcheck-shared";
 
 import { sendDailyEmail } from "~/utils/email/sendDailyEmail.server";
 
+export const config = {
+  maxDuration: 300,
+};
+
 export const action = async ({ request, params }: ActionArgs) => {
   try {
     const { userId } = params;

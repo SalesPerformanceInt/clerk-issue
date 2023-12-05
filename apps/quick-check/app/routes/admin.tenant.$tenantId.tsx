@@ -43,6 +43,10 @@ export const parseAdminActionRequest = (formData?: FormData) => {
   return parseSchema(data, adminActionSchema);
 };
 
+export const config = {
+  maxDuration: 300,
+};
+
 export const loader = async ({ request, params }: LoaderArgs) => {
   const { tenantId } = params;
   invariant(tenantId, "Tenant ID not found");

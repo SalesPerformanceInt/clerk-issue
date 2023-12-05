@@ -4,6 +4,10 @@ import { getAdminApolloClientFromRequest } from "~/graphql";
 
 import { formatUserInputFromImport, importUserSchema } from "~/models/api";
 
+export const config = {
+  maxDuration: 300,
+};
+
 export const action = async ({ request }: ActionArgs) => {
   const adminApolloClient = await getAdminApolloClientFromRequest(request);
 

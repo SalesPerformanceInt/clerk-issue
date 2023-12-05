@@ -4,6 +4,10 @@ import { generateTokenAndSendSMS } from "~/notifications/twilio.server";
 
 import { getAdminApolloClientFromRequest } from "~/graphql";
 
+export const config = {
+  maxDuration: 300,
+};
+
 export const loader = async ({ request }: LoaderArgs) => {
   try {
     const adminApolloClient = await getAdminApolloClientFromRequest(request);

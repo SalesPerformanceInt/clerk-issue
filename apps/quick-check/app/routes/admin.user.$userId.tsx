@@ -35,6 +35,10 @@ import { UsersTable } from "~/components";
 
 import { parseAdminActionRequest } from "./admin.tenant.$tenantId";
 
+export const config = {
+  maxDuration: 300,
+};
+
 export const loader = async ({ request, params }: LoaderArgs) => {
   const adminApolloClient = await getAdminApolloClientFromRequest(request);
 

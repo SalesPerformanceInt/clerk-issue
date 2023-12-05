@@ -10,6 +10,10 @@ import { requireUserSession } from "~/models/session";
 
 import { Enrollment } from "~/pages/Enrollment";
 
+export const config = {
+  maxDuration: 300,
+};
+
 export const loader = async ({ params, request }: LoaderArgs) => {
   try {
     await requireUserSession(request);

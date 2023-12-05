@@ -11,6 +11,10 @@ import {
 } from "~/models/api";
 import { enrollUser } from "~/models/enrollment";
 
+export const config = {
+  maxDuration: 300,
+};
+
 export const action = async ({ request }: ActionArgs) => {
   try {
     const adminApolloClient = await getAdminApolloClientFromRequest(request);

@@ -3,6 +3,10 @@ import { Link, useLoaderData } from "@remix-run/react";
 
 import { getAdminApolloClientFromRequest } from "~/graphql";
 
+export const config = {
+  maxDuration: 300,
+};
+
 export const loader = async ({ request }: LoaderArgs) => {
   const adminApolloClient = await getAdminApolloClientFromRequest(request);
 

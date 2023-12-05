@@ -4,6 +4,10 @@ import { invariant } from "quickcheck-shared";
 
 import { generateNextQuestionFromRequest } from "~/models/user";
 
+export const config = {
+  maxDuration: 300,
+};
+
 export const loader = async ({ request }: LoaderArgs) => {
   try {
     const nextQuestionId = await generateNextQuestionFromRequest(request);

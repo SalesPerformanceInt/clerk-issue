@@ -4,6 +4,10 @@ import { invariant } from "quickcheck-shared";
 
 import { updateSessionNow } from "~/models/session";
 
+export const config = {
+  maxDuration: 300,
+};
+
 export const action = async ({ request }: ActionArgs) => {
   const data = await request.formData();
 

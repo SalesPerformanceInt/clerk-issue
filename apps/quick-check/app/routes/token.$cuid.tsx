@@ -13,6 +13,10 @@ const invalidTokenRedirect = () => {
   return redirect(`/?${searchParams.toString()}`);
 };
 
+export const config = {
+  maxDuration: 300,
+};
+
 export const loader = async ({ params, request }: LoaderArgs) => {
   try {
     const { cuid } = params;

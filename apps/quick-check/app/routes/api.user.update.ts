@@ -10,6 +10,10 @@ import {
   verifyApiRequest,
 } from "~/models/api";
 
+export const config = {
+  maxDuration: 300,
+};
+
 export const action = async ({ request }: ActionArgs) => {
   try {
     const adminApolloClient = await getAdminApolloClientFromRequest(request);

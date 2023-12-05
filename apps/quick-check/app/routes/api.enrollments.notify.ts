@@ -6,6 +6,10 @@ import { getAdminApolloClientFromRequest } from "~/graphql";
 
 import { sendEnrollmentEmail } from "~/utils/email/sendEnrollmentEmail";
 
+export const config = {
+  maxDuration: 300,
+};
+
 export const loader = async ({ request }: LoaderArgs) => {
   try {
     const adminApolloClient = await getAdminApolloClientFromRequest(request);

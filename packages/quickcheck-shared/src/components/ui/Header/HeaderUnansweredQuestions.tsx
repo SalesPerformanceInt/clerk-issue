@@ -12,20 +12,17 @@ import { Avatar, Button } from "~/components";
 interface HeaderUnansweredQuestionsProps {
   unansweredQuestions?: number;
   onStart?: () => void;
-  before?: ReactNode;
 }
 
 export const HeaderUnansweredQuestions: FC<HeaderUnansweredQuestionsProps> = ({
   unansweredQuestions,
   onStart,
-  before,
 }) => {
   const isDesktop = useIsDesktop();
   const { t } = useTranslation();
 
   return (
     <div className="flex items-center gap-4 sm:gap-8">
-      {before}
       <div className="flex items-center gap-4">
         <p className="whitespace-pre text-xs uppercase text-background">
           {t("common.unanswered", {

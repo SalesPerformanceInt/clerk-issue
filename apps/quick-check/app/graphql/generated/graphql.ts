@@ -1594,7 +1594,7 @@ export type Subscription_RootUser_StreamArgs = {
 export type Tenant = {
   __typename?: 'tenant';
   tenant_id: Scalars['String'];
-  theme_id?: Maybe<Scalars['String']>;
+  theme_id: Scalars['String'];
   /** An array relationship */
   users: Array<User>;
   /** An aggregate relationship */
@@ -1776,6 +1776,7 @@ export type Timestamptz_Comparison_Exp = {
 export type User = {
   __typename?: 'user';
   created_at: Scalars['timestamptz'];
+  daily_email_enabled: Scalars['Boolean'];
   email: Scalars['String'];
   first_name: Scalars['String'];
   language_preference: Scalars['String'];
@@ -2257,6 +2258,7 @@ export type User_Bool_Exp = {
   _not?: InputMaybe<User_Bool_Exp>;
   _or?: InputMaybe<Array<User_Bool_Exp>>;
   created_at?: InputMaybe<Timestamptz_Comparison_Exp>;
+  daily_email_enabled?: InputMaybe<Boolean_Comparison_Exp>;
   email?: InputMaybe<String_Comparison_Exp>;
   first_name?: InputMaybe<String_Comparison_Exp>;
   language_preference?: InputMaybe<String_Comparison_Exp>;
@@ -2734,6 +2736,7 @@ export type User_Inc_Input = {
 /** input type for inserting data into table "user" */
 export type User_Insert_Input = {
   created_at?: InputMaybe<Scalars['timestamptz']>;
+  daily_email_enabled?: InputMaybe<Scalars['Boolean']>;
   email?: InputMaybe<Scalars['String']>;
   first_name?: InputMaybe<Scalars['String']>;
   language_preference?: InputMaybe<Scalars['String']>;
@@ -2847,6 +2850,7 @@ export type User_On_Conflict = {
 /** Ordering options when selecting data from "user". */
 export type User_Order_By = {
   created_at?: InputMaybe<Order_By>;
+  daily_email_enabled?: InputMaybe<Order_By>;
   email?: InputMaybe<Order_By>;
   first_name?: InputMaybe<Order_By>;
   language_preference?: InputMaybe<Order_By>;
@@ -3393,6 +3397,8 @@ export enum User_Select_Column {
   /** column name */
   CreatedAt = 'created_at',
   /** column name */
+  DailyEmailEnabled = 'daily_email_enabled',
+  /** column name */
   Email = 'email',
   /** column name */
   FirstName = 'first_name',
@@ -3421,11 +3427,15 @@ export enum User_Select_Column {
 /** select "user_aggregate_bool_exp_bool_and_arguments_columns" columns of table "user" */
 export enum User_Select_Column_User_Aggregate_Bool_Exp_Bool_And_Arguments_Columns {
   /** column name */
+  DailyEmailEnabled = 'daily_email_enabled',
+  /** column name */
   SmsEnabled = 'sms_enabled'
 }
 
 /** select "user_aggregate_bool_exp_bool_or_arguments_columns" columns of table "user" */
 export enum User_Select_Column_User_Aggregate_Bool_Exp_Bool_Or_Arguments_Columns {
+  /** column name */
+  DailyEmailEnabled = 'daily_email_enabled',
   /** column name */
   SmsEnabled = 'sms_enabled'
 }
@@ -3433,6 +3443,7 @@ export enum User_Select_Column_User_Aggregate_Bool_Exp_Bool_Or_Arguments_Columns
 /** input type for updating data in table "user" */
 export type User_Set_Input = {
   created_at?: InputMaybe<Scalars['timestamptz']>;
+  daily_email_enabled?: InputMaybe<Scalars['Boolean']>;
   email?: InputMaybe<Scalars['String']>;
   first_name?: InputMaybe<Scalars['String']>;
   language_preference?: InputMaybe<Scalars['String']>;
@@ -3491,6 +3502,7 @@ export type User_Stream_Cursor_Input = {
 /** Initial value of the column from where the streaming should start */
 export type User_Stream_Cursor_Value_Input = {
   created_at?: InputMaybe<Scalars['timestamptz']>;
+  daily_email_enabled?: InputMaybe<Scalars['Boolean']>;
   email?: InputMaybe<Scalars['String']>;
   first_name?: InputMaybe<Scalars['String']>;
   language_preference?: InputMaybe<Scalars['String']>;
@@ -3520,6 +3532,8 @@ export type User_Sum_Order_By = {
 export enum User_Update_Column {
   /** column name */
   CreatedAt = 'created_at',
+  /** column name */
+  DailyEmailEnabled = 'daily_email_enabled',
   /** column name */
   Email = 'email',
   /** column name */
@@ -3852,7 +3866,7 @@ export type GetUserThemeQueryVariables = Exact<{
 }>;
 
 
-export type GetUserThemeQuery = { __typename?: 'query_root', user_by_pk?: { __typename?: 'user', tenant?: { __typename?: 'tenant', theme_id?: string | null } | null } | null };
+export type GetUserThemeQuery = { __typename?: 'query_root', user_by_pk?: { __typename?: 'user', tenant?: { __typename?: 'tenant', theme_id: string } | null } | null };
 
 export type GetUserAnswersByWeekQueryVariables = Exact<{
   userId: Scalars['uuid'];

@@ -23,14 +23,18 @@ export const DashboardHeader: FC = () => {
   if (isDesktop)
     return (
       <Header
-        left={
+        right={
           <HeaderUnansweredQuestions
-            before={<RichardsonLogo />}
             unansweredQuestions={dashboard.unanswered_questions}
             onStart={() => navigate("/next-question")}
           />
         }
-        right={<AccelerateButton tenantId={dashboard.tenant_id} />}
+        left={
+          <div className="flex items-center">
+            <RichardsonLogo />
+            <AccelerateButton tenantId={dashboard.tenant_id} />
+          </div>
+        }
       />
     );
 

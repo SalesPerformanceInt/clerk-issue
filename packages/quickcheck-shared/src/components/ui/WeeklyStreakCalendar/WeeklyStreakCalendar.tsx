@@ -17,8 +17,7 @@ const WeeklyStreakCalendar: FC<WeeklyStreakCalendarProps> = ({
 }) => (
   <div className={twMerge("flex", className)}>
     <CalendarMonth calendar={calendar} now={now} />
-
-    <WeeklyActivity calendar={calendar} />
+    <WeeklyActivity calendar={calendar} now={now} />
   </div>
 );
 

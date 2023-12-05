@@ -59,6 +59,6 @@ export const makeCalendar = (answerDates: DateTime[], now: string) =>
     times(identity),
     reverse(),
     map((n) =>
-      makeWeek(DateTime.fromISO(now).minus({ weeks: n }), answerDates),
+      makeWeek(DateTime.fromISO(now).minus({ weeks: n - 1 }), answerDates),
     ),
   );

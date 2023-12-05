@@ -1,13 +1,16 @@
 import React, { FC } from "react";
 import { useTranslation } from "react-i18next";
 
+import { DateTime } from "luxon";
+
 import { CalendarStatus, type Week } from "~/components";
 
 type WeeklyActivityProps = {
   calendar: Week[];
+  now: string;
 };
 
-const WeeklyActivity: FC<WeeklyActivityProps> = ({ calendar }) => {
+const WeeklyActivity: FC<WeeklyActivityProps> = ({ calendar, now }) => {
   const { t } = useTranslation();
 
   return (
@@ -21,13 +24,20 @@ const WeeklyActivity: FC<WeeklyActivityProps> = ({ calendar }) => {
           <div className="mt-0.5 h-0.5 w-0.5 bg-primary-25" />
           <div className="mt-0.5 h-full w-0.5 bg-primary-25" />
         </div>
-        {calendar.map(({ activity, days }) => (
-          <CalendarStatus
-            key={days[0]?.date.toISODate()}
-            activity={activity}
-            className="mt-4"
-          />
-        ))}
+        {calendar.map(({ activity, days }) => {
+          const sunday = days[0]?.date!;
+          const future =
+            sunday.startOf("day")! > DateTime.fromISO(now).startOf("day");
+
+          return (
+            <CalendarStatus
+              key={days[0]?.date.toISODate()}
+              activity={activity}
+              className="mt-4"
+              future={future}
+            />
+          );
+        })}
       </div>
     </div>
   );

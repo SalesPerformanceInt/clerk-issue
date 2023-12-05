@@ -36,7 +36,10 @@ export const WeeklyStreakCard: FC<CardProps> = ({ className, ...props }) => {
     [dashboard.user_answers],
   );
 
-  const calendar = useMemo(() => makeCalendar(answerDates, now), [answerDates]);
+  const calendar = useMemo(
+    () => makeCalendar(answerDates, now),
+    [answerDates, now],
+  );
 
   return (
     <Card className={twMerge("max-w-sm p-6", className)} {...props}>

@@ -23,6 +23,9 @@ export const GET_USER_EMAIL_DATA = graphql(/* GraphQL */ `
       ) {
         ...BaseUserQuestion
       }
+      user_enrollments(limit: 1, order_by: { created_at: asc }) {
+        ...BaseUserEnrollment
+      }
     }
   }
 `);
@@ -53,9 +56,14 @@ export async function getUserEmailData(
       last_user_answer: user_by_pk.user_answers[0],
       user_question_activated_today:
         user_by_pk.user_question_activated_today[0],
+      first_user_enrollment: user_by_pk.user_enrollments[0],
     };
   } catch (error) {
     console.log("ERROR", error);
     return null;
   }
 }
+
+export type GetUserEmailData = NonNullable<
+  Awaited<ReturnType<typeof getUserEmailData>>
+>;

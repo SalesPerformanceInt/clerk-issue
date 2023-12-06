@@ -2,7 +2,7 @@ import { redirect, type Session } from "@remix-run/node";
 
 import type { Expand } from "quickcheck-shared";
 
-import { sendDailyEmail } from "~/utils/email/sendDailyEmail.server";
+import { sendEmailTemplate } from "~/utils/email/sendEmailTemplate.server";
 
 import {
   SessionKeys,
@@ -69,7 +69,7 @@ export async function updateSessionNow(
   const userId = session.get(SessionKeys.USER_ID);
 
   if (userId) {
-    await sendDailyEmail(userId, request, now);
+    await sendEmailTemplate(request, userId, now);
   }
 
   return createSession({

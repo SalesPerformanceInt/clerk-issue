@@ -14,30 +14,26 @@ import {
   Tailwind,
   Text,
 } from "@react-email/components";
-import parse from "html-react-parser";
 import { TFunction } from "i18next";
 
-import type { Taxon, UserData } from "quickcheck-shared";
+import { theme } from "../../tailwind.config";
 
-import { theme } from "../../../tailwind.config";
-
-interface QuickcheckEnrollmentEmailProps {
-  enrollmentTaxonomy: Taxon;
-  loginUrl: string;
-  questionId: string;
+interface QuickcheckBasicEmailProps {
   t: TFunction;
-  userData: UserData;
+  greetingsText: string;
+  bodyText: string;
+  button: {
+    text: string;
+    url: string;
+  };
 }
 
-export const QuickcheckEnrollmentEmail: FC<QuickcheckEnrollmentEmailProps> = ({
-  enrollmentTaxonomy,
-  loginUrl,
-  questionId,
-  userData,
+export const QuickcheckBasicEmail: FC<QuickcheckBasicEmailProps> = ({
   t,
+  greetingsText,
+  bodyText,
+  button,
 }) => {
-  const path = `/question/${questionId}`;
-
   return (
     <Tailwind config={{ theme }}>
       <Html lang="en" dir="ltr">
@@ -74,15 +70,9 @@ export const QuickcheckEnrollmentEmail: FC<QuickcheckEnrollmentEmailProps> = ({
             </Section>
             <Section>
               <Text className="m-0 mt-2 text-base text-text">
-                {t("email.enrollment.greeting", {
-                  first_name: userData.first_name,
-                })}
+                {greetingsText}
               </Text>
-              <Text className="m-0 mt-2 text-base text-text">
-                {t("email.enrollment.body", {
-                  course_name: enrollmentTaxonomy.display_name,
-                })}
-              </Text>
+              <Text className="m-0 mt-2 text-base text-text">{bodyText}</Text>
             </Section>
             <Section
               className="mt-4 w-min rounded-sm bg-primary px-6 py-2"
@@ -90,10 +80,10 @@ export const QuickcheckEnrollmentEmail: FC<QuickcheckEnrollmentEmailProps> = ({
               width="quickcheck"
             >
               <Button
-                href={`${loginUrl}?p=${path}`}
+                href={button.url}
                 className="whitespace-nowrap text-base leading-[0] text-contrast no-underline"
               >
-                {t("email.enrollment.button")}
+                {button.text}
               </Button>
             </Section>
           </Container>

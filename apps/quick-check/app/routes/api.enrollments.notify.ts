@@ -1,10 +1,12 @@
 import { json, type LoaderArgs } from "@remix-run/node";
 
+import { DateTime } from "luxon";
+
 import { invariant, simpleErrorResponse } from "quickcheck-shared";
 
 import { getAdminApolloClientFromRequest } from "~/graphql";
 
-import { sendEnrollmentEmail } from "~/utils/email/sendEnrollmentEmail";
+import { sendEmailTemplate } from "~/utils/email/sendEmailTemplate.server";
 
 export const config = {
   maxDuration: 300,
@@ -18,7 +20,16 @@ export const loader = async ({ request }: LoaderArgs) => {
     invariant(enrollments, "Error fetching enrollments");
 
     const enrollmentEmails = enrollments.map(
-      async (enrollment) => await sendEnrollmentEmail(enrollment, request),
+      async (enrollment) =>
+        await sendEmailTemplate(
+          request,
+          enrollment.user_id,
+          DateTime.now().toISODate(),
+          {
+            type: "Enrollment",
+            data: { enrollment },
+          },
+        ),
     );
 
     await Promise.all(enrollmentEmails);

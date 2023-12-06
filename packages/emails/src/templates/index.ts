@@ -1,3 +1,2 @@
+export * from "./QuickcheckBasicEmail";
 export * from "./QuickcheckQuestionEmail";
-export * from "./QuickcheckInactivityEmail";
-export * from "./QuickcheckEnrollmentEmail";

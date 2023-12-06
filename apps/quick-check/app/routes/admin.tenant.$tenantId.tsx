@@ -15,7 +15,7 @@ import { invariant } from "quickcheck-shared";
 
 import { getAdminApolloClientFromRequest } from "~/graphql";
 
-import { sendDailyEmail } from "~/utils/email/sendDailyEmail.server";
+import { sendEmailTemplate } from "~/utils/email/sendEmailTemplate.server";
 import { parseSchema } from "~/utils/parseSchema";
 
 import {
@@ -108,7 +108,7 @@ export const action = async ({ request, params }: ActionArgs) => {
     }
 
     if (adminAction?.type === "SEND_QUESTION_EMAIL") {
-      await sendDailyEmail(adminAction.userId, request);
+      await sendEmailTemplate(request, adminAction.userId);
     }
 
     const { type, userId } = adminAction ?? {};

@@ -2,7 +2,6 @@ import React, { FC } from "react";
 
 import {
   Body,
-  Button,
   Column,
   Container,
   Head,
@@ -17,27 +16,37 @@ import {
 } from "@react-email/components";
 import parse from "html-react-parser";
 import { TFunction } from "i18next";
-import { chunk } from "remeda";
-import { twMerge } from "tailwind-merge";
 
 import { getVariant, type QuestionItem, type Taxon } from "quickcheck-shared";
 
-import { theme } from "../../../tailwind.config";
+import { theme } from "../../tailwind.config";
 
-interface QuickcheckInactivityEmailProps {
+interface QuickcheckQuestionEmailProps {
+  t: TFunction;
+  questionId: string;
   questionItem: QuestionItem;
   enrollmentTaxonomy: Taxon;
   loginUrl: string;
-  questionId: string;
-  t: TFunction;
+  header?: {
+    titleText: string;
+    subtitleText: string;
+    url: string;
+  };
+  footer: {
+    titleText: string;
+    subtitleText: string;
+    url: string;
+  };
 }
 
-export const QuickcheckInactivityEmail: FC<QuickcheckInactivityEmailProps> = ({
+export const QuickcheckQuestionEmail: FC<QuickcheckQuestionEmailProps> = ({
+  t,
+  questionId,
   questionItem,
   enrollmentTaxonomy,
   loginUrl,
-  questionId,
-  t,
+  header,
+  footer,
 }) => {
   const questionVariant = getVariant(questionItem, "mcquestion");
 
@@ -59,6 +68,7 @@ export const QuickcheckInactivityEmail: FC<QuickcheckInactivityEmailProps> = ({
             `}
           </style>
         </Head>
+
         <Body className="bg-background font-sans">
           <Container className="max-w-screen-sm">
             <Section className="w-full">
@@ -71,37 +81,48 @@ export const QuickcheckInactivityEmail: FC<QuickcheckInactivityEmailProps> = ({
                     alt="Richardson"
                   />
                 </Column>
+
                 <Column valign="middle">
                   <Heading className="m-0 ml-2 text-xxl font-semibold leading-8 text-text">
                     {t("common.quickcheck")}
                   </Heading>
                 </Column>
               </Row>
-
-              <Row className="mt-2">
-                <Column className="rounded-smd w-full bg-primary p-4">
-                  <Button
-                    href={loginUrl}
-                    className="w-full whitespace-pre-line text-xs leading-4 text-contrast"
-                  >
-                    {t("emails.inactive.jump_back")}
-                  </Button>
-                </Column>
-              </Row>
             </Section>
-            <Section className="mt-4">
+
+            {header && (
+              <Section className="pt-2">
+                <Section className="rounded-smd w-full bg-primary p-2">
+                  <Link
+                    href={header.url}
+                    className="w-full leading-[0] text-contrast"
+                  >
+                    <Text className="!inline text-xs leading-4">
+                      {header.titleText}
+                      <br />
+                      {header.subtitleText}
+                    </Text>
+                  </Link>
+                </Section>
+              </Section>
+            )}
+
+            <Section className="pt-2">
               <Text className="m-0 text-base font-bold text-primary-75">
                 {enrollmentTaxonomy.display_name}
               </Text>
+
               <Text className="m-0 text-xs font-semibold uppercase text-primary-75">
                 {questionItem.topic[0]?.display_name}
               </Text>
             </Section>
-            <Section className="mt-2">
+
+            <Section className="pt-2">
               <Text className="m-0 text-base text-primary">
                 {parse(questionVariant.mcquestion.stem)}
               </Text>
             </Section>
+
             <Section className="pt-4">
               {questionVariant.mcquestion.choices.map(({ choice }, index) => {
                 const path = `/question/${questionId}?c=${choice._metadata.uid}`;
@@ -131,6 +152,19 @@ export const QuickcheckInactivityEmail: FC<QuickcheckInactivityEmailProps> = ({
                   </Row>
                 );
               })}
+            </Section>
+
+            <Section className="rounded-smd w-full bg-primary p-2">
+              <Link
+                href={footer.url}
+                className="w-full leading-[0] text-contrast"
+              >
+                <Text className="!inline text-xs leading-4">
+                  {footer.titleText}
+                  <br />
+                  {footer.subtitleText}
+                </Text>
+              </Link>
             </Section>
           </Container>
         </Body>

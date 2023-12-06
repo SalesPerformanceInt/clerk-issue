@@ -7,19 +7,18 @@ import { EMAIL_FROM, POSTMARK_API_KEY } from "../../envs.server";
 
 const postmarkClient = new ServerClient(POSTMARK_API_KEY);
 
-export const sendEmail = async (
-  To: string,
-  Subject: string,
-  text: string,
-  htmlDom: ReactElement,
-) => {
+export type SendEmailArgs = {
+  To: string;
+  Subject: string;
+  TextBody: string;
+  HtmlBody: string;
+};
+
+export const sendEmail = async (sendEmailArgs: SendEmailArgs) => {
   const response = await postmarkClient.sendEmail({
     From: EMAIL_FROM,
-    To,
-    Subject,
-    HtmlBody: render(htmlDom),
-    TextBody: text,
     MessageStream: "outbound",
+    ...sendEmailArgs,
   });
 
   return response;

@@ -17,13 +17,16 @@ const sliceEnrollments = (
   userEnrollmentIndex: number,
 ) => {
   const LAST_ITEMS = ITEM_LIMIT - 1;
-  const LAST_THRESHOLD = enrollments.length - LAST_ITEMS - 1;
+  const LAST_THRESHOLD = enrollments.length - LAST_ITEMS;
 
   if (userEnrollmentIndex < ITEM_LIMIT) return enrollments.slice(1, ITEM_LIMIT);
   if (userEnrollmentIndex >= LAST_THRESHOLD)
     return enrollments.slice(-LAST_ITEMS);
 
-  return enrollments.slice(userEnrollmentIndex - 1, userEnrollmentIndex + 3);
+  return enrollments.slice(
+    userEnrollmentIndex - 1,
+    userEnrollmentIndex + (ITEM_LIMIT - 2),
+  );
 };
 
 /**

@@ -19,6 +19,7 @@ export const getEnrollmentLeaderboard = async (
     [userEnrollment.taxonomy_id],
     { tenantId: userEnrollment.user.tenant_id },
   );
+
   if (!enrollments) return null;
 
   const leaderboardEnrollments = prepareLeaderboardEnrollments(

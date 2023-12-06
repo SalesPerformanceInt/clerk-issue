@@ -16,15 +16,14 @@ const sliceEnrollments = (
   enrollments: LeaderboardEnrollment[],
   userEnrollmentIndex: number,
 ) => {
-  const LAST_ITEMS = ITEM_LIMIT - 1;
-  const LAST_THRESHOLD = enrollments.length - LAST_ITEMS;
+  const LAST_THRESHOLD = enrollments.length - ITEM_LIMIT;
 
-  if (userEnrollmentIndex < ITEM_LIMIT) return enrollments.slice(1, ITEM_LIMIT);
+  if (userEnrollmentIndex < ITEM_LIMIT) return enrollments.slice(0, ITEM_LIMIT);
   if (userEnrollmentIndex >= LAST_THRESHOLD)
-    return enrollments.slice(-LAST_ITEMS);
+    return enrollments.slice(-ITEM_LIMIT);
 
   return enrollments.slice(
-    userEnrollmentIndex - 1,
+    userEnrollmentIndex - 2,
     userEnrollmentIndex + (ITEM_LIMIT - 2),
   );
 };
@@ -41,19 +40,17 @@ export const prepareLeaderboardEnrollments = (
 
   const filteredEnrollments = enrollments.filter(isLeaderboardEnrollment);
 
-  const firstEnrollment = filteredEnrollments.at(0)!;
   const userEnrollmentIndex = filteredEnrollments.findIndex(
     (enrollment) => enrollment.user_id === userEnrollment.user_id,
   );
 
   if (filteredEnrollments.length <= ITEM_LIMIT) return filteredEnrollments;
-  if (!firstEnrollment || !userEnrollment.rank || userEnrollmentIndex === -1)
-    return null;
+  if (!userEnrollment.rank || userEnrollmentIndex === -1) return null;
 
   const leaderboardEnrollments = sliceEnrollments(
     filteredEnrollments,
     userEnrollmentIndex,
   );
 
-  return [firstEnrollment, ...leaderboardEnrollments];
+  return leaderboardEnrollments;
 };

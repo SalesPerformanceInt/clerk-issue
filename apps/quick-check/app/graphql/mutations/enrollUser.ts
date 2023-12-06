@@ -64,10 +64,11 @@ const getTaxon = async (taxonomy_id: string) => {
  * Prepare Questions
  */
 
+const getDescendantUids = (taxon: TreeNode<TaxonomyDataObj>) =>
+  taxon.getDescendants().map(({ dataObj }) => dataObj.uid);
+
 const getQuestions = async (taxon: TreeNode<TaxonomyDataObj>) => {
-  const descendantUids = taxon
-    .getDescendants()
-    .map(({ dataObj }) => dataObj.uid);
+  const descendantUids = getDescendantUids(taxon);
 
   const questions = await contentStack.getQuestionItems((query) =>
     query.containedIn("topic.uid", descendantUids),
@@ -107,11 +108,15 @@ const getQuestionsPerDay =
     return minQuestionsPerDay;
   };
 
-const prepareActiveQuestionsInput = (
-  user_id: string,
-  enrollment: EnrollUserEnrollment,
-) => {
-  return (questions: QuestionItem[]) => {
+const prepareActiveQuestionsInput =
+  (
+    user_id: string,
+    enrollment: EnrollUserEnrollment,
+    taxon: TreeNode<TaxonomyDataObj>,
+  ) =>
+  (questions: QuestionItem[]) => {
+    const descendantUids = getDescendantUids(taxon);
+
     const today = DateTime.now().toISODate()!;
     const enrollmentBaseDate =
       enrollment.start_date >= today
@@ -136,10 +141,14 @@ const prepareActiveQuestionsInput = (
           activeQuestionGap,
         );
 
+        const topic = question.topic.find(({ uid }) =>
+          descendantUids.includes(uid),
+        );
+
         return {
           user_id,
           question_id: question.uid,
-          taxonomy_id: question.topic?.[0]?.uid,
+          taxonomy_id: topic?.uid,
           active_on: activeDate,
           title: question.title,
         };
@@ -148,7 +157,6 @@ const prepareActiveQuestionsInput = (
 
     return activeQuestionsInput;
   };
-};
 
 /**
  * Prepare User Enrollment Input
@@ -193,11 +201,13 @@ export async function enrollUser(
 ) {
   const { userId, tenantId } = proxyData;
 
+  const taxon = await getTaxon(taxonomyId);
+
   const userEnrollment = await pipe(
-    getTaxon(taxonomyId),
+    taxon,
     andThen(getQuestions),
     andThen(shuffle()),
-    andThen(prepareActiveQuestionsInput(userId, enrollmentData)),
+    andThen(prepareActiveQuestionsInput(userId, enrollmentData, taxon)),
     andThen(prepareUserEnrollmentInput(userId, taxonomyId, enrollmentData)),
   );
 

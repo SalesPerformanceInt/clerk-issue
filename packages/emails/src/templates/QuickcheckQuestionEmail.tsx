@@ -17,7 +17,12 @@ import {
 import parse from "html-react-parser";
 import { TFunction } from "i18next";
 
-import { getVariant, type QuestionItem, type Taxon } from "quickcheck-shared";
+import {
+  deterministicallyRandomizeChoices,
+  getVariant,
+  type QuestionItem,
+  type Taxon,
+} from "quickcheck-shared";
 
 import { theme } from "../../tailwind.config";
 
@@ -52,6 +57,10 @@ export const QuickcheckQuestionEmail: FC<QuickcheckQuestionEmailProps> = ({
 
   if (!questionVariant || "mcquestion" in questionVariant === false)
     return null;
+
+  const deterministicallyRandomizedChoices = deterministicallyRandomizeChoices(
+    questionVariant.mcquestion.choices,
+  );
 
   return (
     <Tailwind config={{ theme }}>
@@ -124,7 +133,7 @@ export const QuickcheckQuestionEmail: FC<QuickcheckQuestionEmailProps> = ({
             </Section>
 
             <Section className="pt-4">
-              {questionVariant.mcquestion.choices.map(({ choice }, index) => {
+              {deterministicallyRandomizedChoices.map(({ choice }, index) => {
                 const path = `/question/${questionId}?c=${choice._metadata.uid}`;
 
                 return (

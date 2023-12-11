@@ -6,6 +6,8 @@ import { sortBy } from "remeda";
 
 import { MCQuestion } from "~/contentstack";
 
+import { useDeterministicallyRandomizeChoices } from "~/utils/deterministicallyRandomizeChoices";
+
 import { ResponsiveContainer } from "~/components";
 import { Title } from "~/components/Question/components";
 import { Choice } from "~/components/Question/components/QuestionVariant/components/Choice";
@@ -23,11 +25,8 @@ export const MultipleChoice: FC<MultipleChoiceProps> = ({ mcquestion }) => {
     mcquestion,
   });
 
-  const date = DateTime.now().toISODate() ?? "";
-  const deterministicallyRandomizedChoices = useMemo(
-    () => sortBy(choices, ({ choice }) => objectHash({ date, ...choice })),
-    [date, choices],
-  );
+  const deterministicallyRandomizedChoices =
+    useDeterministicallyRandomizeChoices(choices);
 
   return (
     <>

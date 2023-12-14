@@ -28,6 +28,7 @@ import {
   getLinkToken,
   getNotificationEnrollments,
   getRankeableEnrollments,
+  getTeamEnrollments,
   getTenants,
   getTenantUsers,
   getUser,
@@ -129,6 +130,7 @@ export class GraphQLClient implements WithApolloClient {
   getUsersForDailyEmail = getUsersForDailyEmail;
   getNotificationEnrollments = getNotificationEnrollments;
   getUserLastActiveToken = getUserLastActiveToken;
+  getTeamEnrollments = getTeamEnrollments;
 
   constructor(headers: GraphQLHeaders) {
     this.client = getClient(headers);

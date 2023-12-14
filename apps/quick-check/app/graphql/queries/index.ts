@@ -18,3 +18,4 @@ export * from "./getUserData";
 export * from "./getUsersForDailyEmail";
 export * from "./getNotificationEnrollments";
 export * from "./getUserLastActiveToken";
+export * from "./getTeamEnrollments";

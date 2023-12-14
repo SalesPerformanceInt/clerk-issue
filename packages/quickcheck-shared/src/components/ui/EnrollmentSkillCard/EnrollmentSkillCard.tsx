@@ -1,13 +1,8 @@
 import { type FC } from "react";
 import { useTranslation } from "react-i18next";
 
-import { faInfoCircle } from "@fortawesome/pro-light-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { identity, times } from "remeda";
-
 import { Card } from "../Card";
 import { Chart } from "./Chart";
-import { PercentageBar } from "./PercentageBar";
 import { EnrollmentSkillData } from "./types";
 
 export const EnrollmentSkillCard: FC<EnrollmentSkillData> = (props) => {

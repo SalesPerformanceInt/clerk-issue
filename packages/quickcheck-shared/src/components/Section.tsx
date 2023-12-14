@@ -33,6 +33,7 @@ export const Section: FC<DashboardSectionProps> = ({
           <Tooltip
             texts={tooltip}
             triggerClassName="text-xs translate-y-[1px]"
+            ariaLabel={title}
           />
         )}
       </div>

@@ -41,6 +41,9 @@ export const ActiveEnrollmentsCard: FC<ActiveEnrollmentsCardProps> = ({
             retired: enrollment.retired.aggregate?.count ?? 0,
             total: enrollment.total.aggregate?.count ?? 0,
           }}
+          ariaLabel={t(
+            "user.dashboard.active_enrollments.progress_bar.aria_label",
+          )}
         />
       ))}
     </Card>

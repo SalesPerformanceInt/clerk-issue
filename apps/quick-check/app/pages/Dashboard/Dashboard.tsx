@@ -43,27 +43,32 @@ export const Dashboard: FC<DashboardProps> = ({ dashboard }) => {
     <DashboardContextProvider dashboard={dashboard}>
       <DashboardHeader />
 
-      <ResponsiveContainer className="p-4 pb-8">
-        <MobileCarousel title={t("common.activity")} icon={faArrowUpRightDots}>
-          <WeeklyStreakCard />
+      <ResponsiveContainer className="p-4 pb-8" asChild>
+        <main>
+          <MobileCarousel
+            title={t("common.activity")}
+            icon={faArrowUpRightDots}
+          >
+            <WeeklyStreakCard />
 
-          <AchievementsCard />
+            <AchievementsCard />
 
-          <LeaderboardCard />
-        </MobileCarousel>
+            <LeaderboardCard />
+          </MobileCarousel>
 
-        <Section title={t("common.progress")} icon={<ProgressIcon />}>
-          <ActiveEnrollmentsCard />
-          <CompletedEnrollmentsCard />
-        </Section>
+          <Section title={t("common.progress")} icon={<ProgressIcon />}>
+            <ActiveEnrollmentsCard />
+            <CompletedEnrollmentsCard />
+          </Section>
 
-        {!isDesktop && (
-          <AccelerateButton
-            background="light"
-            className="-mt-2"
-            tenantId={dashboard.tenant_id}
-          />
-        )}
+          {!isDesktop && (
+            <AccelerateButton
+              background="light"
+              className="-mt-2"
+              tenantId={dashboard.tenant_id}
+            />
+          )}
+        </main>
       </ResponsiveContainer>
       <DashboardMobileAction />
     </DashboardContextProvider>

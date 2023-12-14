@@ -74,7 +74,7 @@ const config = {
         },
         text: {
           DEFAULT: "var(--text, #111111)",
-          50: "var(--text-50, #7D7D7D)",
+          50: "var(--text-50, #595959)",
         },
         contrast: {
           DEFAULT: "var(--contrast, #ffffff)",

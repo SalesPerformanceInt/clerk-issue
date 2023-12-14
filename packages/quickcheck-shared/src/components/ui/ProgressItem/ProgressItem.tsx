@@ -20,6 +20,7 @@ type ProgressItemProps = {
     retired: number;
     total: number;
   };
+  ariaLabel: string;
   onClick?: (id: string) => void;
 };
 
@@ -30,6 +31,7 @@ const ProgressItem: FC<ProgressItemProps> = ({
   score,
   progress,
   onClick,
+  ariaLabel,
 }) => {
   const { t } = useTranslation();
 
@@ -54,7 +56,7 @@ const ProgressItem: FC<ProgressItemProps> = ({
       >
         {title && (
           <div className="flex items-center justify-between font-normal text-text">
-            <h5 className="flex-[2] truncate">{title}</h5>
+            <h3 className="flex-[2] truncate">{title}</h3>
             <div className="flex flex-1 items-center justify-end gap-4">
               {!!ranking && (
                 <div className="flex items-center gap-1">
@@ -72,7 +74,10 @@ const ProgressItem: FC<ProgressItemProps> = ({
             </div>
           </div>
         )}
-        <Progress className="relative h-2 w-full overflow-hidden rounded-full bg-primary-25">
+        <Progress
+          className="relative h-2 w-full overflow-hidden rounded-full bg-primary-25"
+          aria-label={`${ariaLabel} ${t("common.progress_bar.aria_label")}`}
+        >
           <ProgressIndicator
             className="absolute h-full w-full bg-primary"
             style={{

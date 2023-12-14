@@ -29,7 +29,7 @@ export const MultipleChoice: FC<MultipleChoiceProps> = ({ mcquestion }) => {
     useDeterministicallyRandomizeChoices(choices);
 
   return (
-    <>
+    <main>
       <ResponsiveContainer className="bg-background p-4 sm:px-0 sm:py-6">
         <Title />
         <Stem content={mcquestion.stem} />
@@ -50,6 +50,6 @@ export const MultipleChoice: FC<MultipleChoiceProps> = ({ mcquestion }) => {
           ))}
         </div>
       </ResponsiveContainer>
-    </>
+    </main>
   );
 };

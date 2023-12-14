@@ -1,4 +1,5 @@
 import { type FC } from "react";
+import { useTranslation } from "react-i18next";
 
 import { CircularProgress, CircularProgressProps } from "~/components/ui";
 
@@ -14,6 +15,8 @@ export const Achievement: FC<AchievementProps> = ({
   tooltip,
   ...props
 }) => {
+  const { t } = useTranslation();
+
   return (
     <div className="w-18">
       <CircularProgress className="h-16 w-16" {...props} />
@@ -21,7 +24,12 @@ export const Achievement: FC<AchievementProps> = ({
       <div className="mt-2 w-full text-center text-2xs font-semibold uppercase leading-4">
         {label}
 
-        {tooltip && <Tooltip texts={tooltip} />}
+        {tooltip && (
+          <Tooltip
+            texts={tooltip}
+            ariaLabel={t("common.achievement.aria_label")}
+          />
+        )}
       </div>
     </div>
   );

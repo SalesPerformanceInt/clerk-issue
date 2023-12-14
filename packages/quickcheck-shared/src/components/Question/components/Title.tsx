@@ -8,14 +8,14 @@ export const Title: FC = () => {
   return (
     <div className="mb-2" data-testid="QuestionItem-Taxonomy">
       {enrollmentTaxonomy && (
-        <div className="font-bold text-primary-75">
+        <h1 className="font-bold text-primary-75">
           {enrollmentTaxonomy.display_name}
-        </div>
+        </h1>
       )}
 
-      <div className="text-xs font-semibold uppercase text-primary-75">
+      <h2 className="text-xs font-semibold uppercase text-primary-75">
         {questionItem.topic[0]?.display_name}
-      </div>
+      </h2>
     </div>
   );
 };

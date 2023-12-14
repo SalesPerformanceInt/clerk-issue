@@ -18,7 +18,7 @@ const CardTitle: FC<CardTitleProps> = ({ qty, title, className }) => {
         </span>
       )}
 
-      <h3 className="font-light uppercase text-text">{title}</h3>
+      <h2 className="font-light uppercase text-text">{title}</h2>
     </div>
   );
 };

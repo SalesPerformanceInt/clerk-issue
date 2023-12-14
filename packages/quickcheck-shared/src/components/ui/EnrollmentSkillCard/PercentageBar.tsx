@@ -14,16 +14,25 @@ const getClassName = (percentage: number) => {
 export interface PercentageBarProps {
   percent: number;
   empty?: boolean;
+  ariaLabel: string;
 }
 
-export const PercentageBar: FC<PercentageBarProps> = ({ percent, empty }) => {
+export const PercentageBar: FC<PercentageBarProps> = ({
+  percent,
+  empty,
+  ariaLabel,
+}) => {
   if (empty)
     return (
       <div className="flex h-6 w-full items-center justify-end rounded-full bg-gradient-to-r from-background-secondary from-50% px-2" />
     );
 
   return (
-    <Progress className="h-6 overflow-hidden rounded-full" value={percent}>
+    <Progress
+      className="h-6 overflow-hidden rounded-full"
+      value={percent}
+      aria-label={ariaLabel}
+    >
       <ProgressIndicator
         className={twMerge(
           "flex h-full w-full min-w-8 items-center justify-end rounded-full px-2",

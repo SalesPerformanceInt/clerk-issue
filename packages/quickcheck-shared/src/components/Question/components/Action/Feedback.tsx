@@ -85,7 +85,9 @@ export const Feedback: FC = () => {
               )}
             </div>
             <p className="text-base text-contrast">
-              {parse(selected?.feedback ?? "")}
+              {parse(
+                selected?.feedback.replace("<p>", "").replace("</p>", "") ?? "",
+              )}
             </p>
           </motion.div>
         )}

@@ -14,12 +14,14 @@ export type TooltipProps = {
   texts: string[];
   triggerClassName?: string;
   contentClassName?: string;
+  ariaLabel: string;
 };
 
 export const Tooltip: FC<TooltipProps> = ({
   texts,
   triggerClassName,
   contentClassName,
+  ariaLabel,
 }) => {
   const isDesktop = useIsDesktop();
   const { t } = useTranslation();
@@ -36,6 +38,7 @@ export const Tooltip: FC<TooltipProps> = ({
                 "ml-1 cursor-default text-[0.5rem]",
                 triggerClassName,
               )}
+              aria-label={`${ariaLabel} ${t("common.tooltip.aria_label")}`}
             >
               <Icon icon={faCircleInfo} className="text-size-inherit" />
             </RadixTooltip.Trigger>
@@ -69,6 +72,7 @@ export const Tooltip: FC<TooltipProps> = ({
               "ml-1 cursor-default text-[0.5rem]",
               triggerClassName,
             )}
+            aria-label={`${ariaLabel} ${t("common.popover.aria_label")}`}
           >
             <Icon icon={faCircleInfo} className="text-size-inherit" />
           </RadixPopover.Trigger>

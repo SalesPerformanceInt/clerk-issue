@@ -1,11 +1,8 @@
 import { type FC } from "react";
 import { useTranslation } from "react-i18next";
 
-import { faInfoCircle } from "@fortawesome/pro-light-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { identity, times } from "remeda";
 
-import { Card } from "../Card";
 import { PercentageBar } from "./PercentageBar";
 import { EnrollmentSkillData } from "./types";
 
@@ -16,6 +13,11 @@ export const Chart: FC<EnrollmentSkillData> = ({
   unanswered,
 }) => {
   const { t } = useTranslation();
+
+  const chartData = [
+    { type: t("common.baseline"), percent: baseline },
+    { type: t("common.current"), percent: current },
+  ];
 
   return (
     <div className="relative flex-1">
@@ -32,8 +34,13 @@ export const Chart: FC<EnrollmentSkillData> = ({
 
       <div className="absolute inset-0">
         <div className="flex h-full flex-col justify-center gap-4 px-4">
-          {[baseline, current].map((percent, i) => (
-            <PercentageBar key={i} percent={percent} empty={unanswered} />
+          {chartData.map(({ type, percent }) => (
+            <PercentageBar
+              key={`${skill}-${type}-${percent}`}
+              percent={percent}
+              empty={unanswered}
+              ariaLabel={`${skill} ${type}`}
+            />
           ))}
         </div>
       </div>

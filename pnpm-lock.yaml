@@ -7989,7 +7989,7 @@ packages:
       tailwindcss: '>=3.0.0 || >= 3.0.0-alpha.1'
     dependencies:
       mini-svg-data-uri: 1.4.4
-      tailwindcss: 3.3.5_ts-node@10.9.1
+      tailwindcss: 3.3.5
     dev: true
 
   /@teppeis/multimaps/2.0.0:

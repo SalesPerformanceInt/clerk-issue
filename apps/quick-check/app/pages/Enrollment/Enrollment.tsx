@@ -30,9 +30,11 @@ export const Enrollment: FC<EnrollmentProps> = ({
     >
       <EnrollmentHeader />
 
-      <ResponsiveContainer className="p-4">
-        <EnrollmentOverviewSection />
-        <EnrollmentSkillsSection />
+      <ResponsiveContainer className="p-4" asChild>
+        <main>
+          <EnrollmentOverviewSection />
+          <EnrollmentSkillsSection />
+        </main>
       </ResponsiveContainer>
 
       <EnrollmentMobileAction />

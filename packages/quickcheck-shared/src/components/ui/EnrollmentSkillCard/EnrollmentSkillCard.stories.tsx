@@ -1,8 +1,4 @@
-import React from "react";
-
 import type { Meta, StoryObj } from "@storybook/react";
-
-import { Card, CardTitle } from "~/components/ui/Card";
 
 import { EnrollmentSkillCard as EnrollmentSkillCardComponent } from "./EnrollmentSkillCard";
 import { EnrollmentSkillCardDecorator } from "./EnrollmentSkillCard.template";

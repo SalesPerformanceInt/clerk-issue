@@ -40,15 +40,9 @@ export const sendUserQuestionEmailTemplate: EmailTemplatesFn = async (
         loginUrl={loginUrl}
         footer={{
           url: loginUrl,
-          titleText: t("emails.question.footer.unanswered", {
-            unanswered: t("common.unanswered", {
-              count: user.unanswered_questions,
-            }),
-            courses_capabilities: t("common.courses_capabilities", {
-              count: user.active_enrollments,
-            }),
+          text: t("emails.question.footer.unanswered", {
+            count: user.unanswered_questions,
           }),
-          subtitleText: t("emails.question.footer.jump_back"),
         }}
       />,
     ),

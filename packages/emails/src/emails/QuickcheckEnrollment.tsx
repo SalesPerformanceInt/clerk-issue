@@ -1,25 +1,31 @@
 import type { Taxon, UserData } from "quickcheck-shared";
 
-import { QuickcheckEnrollmentEmail } from "../templates/QuickcheckEnrollmentEmail";
+import { QuickcheckBasicEmail } from "../templates/QuickcheckBasicEmail";
 import { i18n } from "../utils/i18n";
 
 const QuickcheckQuestionEmailPreview = () => {
   const t = i18n.getFixedT("en-us");
 
   return (
-    <QuickcheckEnrollmentEmail
-      enrollmentTaxonomy={enrollmentTaxonomyMock}
+    <QuickcheckBasicEmail
       t={t}
-      loginUrl="https://example.com/token/TOKEN"
-      questionId="questionId"
-      userData={userData}
+      greetingsText={t("emails.enrollment.greeting", {
+        first_name: userDataMock.first_name,
+      })}
+      bodyText={t("emails.enrollment.body", {
+        course_name: enrollmentTaxonomyMock.display_name,
+      })}
+      button={{
+        url: `http://richardson.com`,
+        text: t("emails.enrollment.button"),
+      }}
     />
   );
 };
 
 export default QuickcheckQuestionEmailPreview;
 
-const userData: UserData = {
+const userDataMock: UserData = {
   unanswered_questions: 24,
   active_enrollments: 3,
   first_name: "Tim",

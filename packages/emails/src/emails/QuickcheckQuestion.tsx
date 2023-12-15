@@ -3,16 +3,25 @@ import type { QuestionItem, Taxon, UserData } from "quickcheck-shared";
 import { QuickcheckQuestionEmail } from "../templates/QuickcheckQuestionEmail";
 import { i18n } from "../utils/i18n";
 
+const loginUrl = "http://richardson.com";
+
 const QuickcheckQuestionEmailPreview = () => {
   const t = i18n.getFixedT("en-us");
+
+  const j = t("emails.question.footer.jump_back");
   return (
     <QuickcheckQuestionEmail
-      userData={userData}
+      t={t}
+      questionId="questionId"
       questionItem={questionItemMock}
       enrollmentTaxonomy={enrollmentTaxonomyMock}
-      t={t}
-      loginUrl="https://example.com/token/TOKEN"
-      questionId="questionId"
+      loginUrl={loginUrl}
+      footer={{
+        url: loginUrl,
+        text: t("emails.question.footer.unanswered", {
+          count: userData.unanswered_questions,
+        }),
+      }}
     />
   );
 };

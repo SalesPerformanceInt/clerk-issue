@@ -37,20 +37,13 @@ export const sendUserAwayEmailTemplate: EmailTemplatesFn = async (
         loginUrl={loginUrl}
         header={{
           url: loginUrl,
-          titleText: t("emails.away.header.title"),
-          subtitleText: t("emails.away.header.jump_back"),
+          text: t("emails.away.header"),
         }}
         footer={{
           url: loginUrl,
-          titleText: t("emails.question.footer.unanswered", {
-            unanswered: t("common.unanswered", {
-              count: user.unanswered_questions,
-            }),
-            courses_capabilities: t("common.courses_capabilities", {
-              count: user.active_enrollments,
-            }),
+          text: t("emails.question.footer.unanswered", {
+            count: user.unanswered_questions,
           }),
-          subtitleText: t("emails.question.footer.jump_back"),
         }}
       />,
     ),

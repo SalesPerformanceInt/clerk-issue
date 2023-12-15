@@ -33,13 +33,11 @@ interface QuickcheckQuestionEmailProps {
   enrollmentTaxonomy: Taxon;
   loginUrl: string;
   header?: {
-    titleText: string;
-    subtitleText: string;
+    text: string;
     url: string;
   };
   footer: {
-    titleText: string;
-    subtitleText: string;
+    text: string;
     url: string;
   };
 }
@@ -107,9 +105,7 @@ export const QuickcheckQuestionEmail: FC<QuickcheckQuestionEmailProps> = ({
                     className="w-full leading-[0] text-contrast"
                   >
                     <Text className="!inline text-xs leading-4">
-                      {header.titleText}
-                      <br />
-                      {header.subtitleText}
+                      {header.text}
                     </Text>
                   </Link>
                 </Section>
@@ -168,11 +164,7 @@ export const QuickcheckQuestionEmail: FC<QuickcheckQuestionEmailProps> = ({
                 href={footer.url}
                 className="w-full leading-[0] text-contrast"
               >
-                <Text className="!inline text-xs leading-4">
-                  {footer.titleText}
-                  <br />
-                  {footer.subtitleText}
-                </Text>
+                <Text className="!inline text-xs leading-4">{footer.text}</Text>
               </Link>
             </Section>
           </Container>

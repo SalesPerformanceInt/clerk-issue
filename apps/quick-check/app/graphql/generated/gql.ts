@@ -16,7 +16,7 @@ const documents = {
     "\n  fragment BaseLearningRecord on learning_record {\n    __typename\n    created_at\n    data\n    event_type\n    id\n    user_id\n  }\n": types.BaseLearningRecordFragmentDoc,
     "\n  fragment BaseLinkToken on link_token {\n    __typename\n    id\n    created_at\n    active\n    user_id\n  }\n": types.BaseLinkTokenFragmentDoc,
     "\n  fragment UserWithActiveToken on user {\n    ...BaseUser\n    active_tokens: link_tokens(where: { active: { _eq: true } }) {\n      ...BaseLinkToken\n    }\n  }\n": types.UserWithActiveTokenFragmentDoc,
-    "\n  fragment BaseUser on user {\n    __typename\n    tenant_id\n    email\n    first_name\n    last_name\n    language_preference\n    next_question {\n      ...BaseUserQuestion\n    }\n    phone_number\n    timezone\n    user_id\n    sms_enabled\n  }\n": types.BaseUserFragmentDoc,
+    "\n  fragment BaseUser on user {\n    __typename\n    tenant_id\n    email\n    first_name\n    last_name\n    language_preference\n    next_question {\n      ...BaseUserQuestion\n    }\n    phone_number\n    timezone\n    user_id\n    sms_enabled\n    daily_email_enabled\n  }\n": types.BaseUserFragmentDoc,
     "\n  fragment UserUnansweredQuestions on user {\n    unanswered_questions: user_questions_aggregate(\n      where: {\n        retired_on: { _is_null: true }\n        active_on: { _is_null: false, _lte: $today }\n      }\n    ) {\n      aggregate {\n        count(distinct: true)\n      }\n    }\n  }\n": types.UserUnansweredQuestionsFragmentDoc,
     "\n  fragment UserActiveQuestionsData on user {\n    ...UserUnansweredQuestions\n    active_enrollments: user_enrollments_aggregate(\n      where: {\n        user_questions_aggregate: {\n          count: {\n            predicate: { _gt: 0 }\n            filter: {\n              retired_on: { _is_null: true }\n              active_on: { _is_null: false }\n            }\n          }\n        }\n      }\n    ) {\n      aggregate {\n        count(distinct: true)\n      }\n    }\n  }\n": types.UserActiveQuestionsDataFragmentDoc,
     "\n  fragment BaseUserAnswer on user_answer {\n    __typename\n    id\n    correct\n    created_at\n  }\n": types.BaseUserAnswerFragmentDoc,
@@ -29,7 +29,7 @@ const documents = {
     "\n  mutation EnrollUser(\n    $userEnrollment: user_enrollment_insert_input!\n    $tenantId: String!\n  ) {\n    insert_user_enrollment_one(object: $userEnrollment) {\n      ...NotificationUserEnrollment\n    }\n    insert_tenant_one(\n      object: { tenant_id: $tenantId }\n      on_conflict: { constraint: tenant_pkey, update_columns: [] }\n    ) {\n      tenant_id\n      theme_id\n    }\n  }\n": types.EnrollUserDocument,
     "\n  mutation GenerateNewToken($userId: uuid!, $tenantId: String!) {\n    update_link_token(\n      where: { user_id: { _eq: $userId }, active: { _eq: true } }\n      _set: { active: false }\n    ) {\n      returning {\n        ...BaseLinkToken\n      }\n    }\n    insert_link_token_one(\n      object: { user_id: $userId, tenant_id: $tenantId, active: true }\n    ) {\n      ...BaseLinkToken\n      user {\n        ...UserWithActiveToken\n      }\n    }\n  }\n": types.GenerateNewTokenDocument,
     "\n  mutation ResetUser($userId: uuid!) {\n    update_user_by_pk(\n      pk_columns: { user_id: $userId }\n      _set: { next_user_question_id: null }\n    ) {\n      ...BaseUser\n    }\n    delete_learning_record(where: { user_id: { _eq: $userId } }) {\n      affected_rows\n    }\n    delete_user_enrollment(where: { user_id: { _eq: $userId } }) {\n      affected_rows\n    }\n  }\n": types.ResetUserDocument,
-    "\n  mutation ToggleUserSMSEnabled($userId: uuid!, $sms_enabled: Boolean) {\n    update_user_by_pk(\n      pk_columns: { user_id: $userId }\n      _set: { sms_enabled: $sms_enabled }\n    ) {\n      ...BaseUser\n    }\n  }\n": types.ToggleUserSmsEnabledDocument,
+    "\n  mutation ToggleUserDailyEmailEnabled(\n    $userId: uuid!\n    $daily_email_enabled: Boolean\n  ) {\n    update_user_by_pk(\n      pk_columns: { user_id: $userId }\n      _set: { daily_email_enabled: $daily_email_enabled }\n    ) {\n      ...BaseUser\n    }\n  }\n": types.ToggleUserDailyEmailEnabledDocument,
     "\n  mutation UnenrollUser($userId: uuid!, $enrollmentId: uuid!) {\n    update_user_by_pk(\n      pk_columns: { user_id: $userId }\n      _set: { next_user_question_id: null }\n    ) {\n      ...BaseUser\n    }\n    delete_user_enrollment(\n      where: { user_id: { _eq: $userId }, id: { _eq: $enrollmentId } }\n    ) {\n      affected_rows\n    }\n  }\n": types.UnenrollUserDocument,
     "\n  mutation UpdateNextQuestionId($userId: uuid!, $nextUserQuestionId: uuid) {\n    update_user_by_pk(\n      pk_columns: { user_id: $userId }\n      _set: { next_user_question_id: $nextUserQuestionId }\n    ) {\n      ...BaseUser\n    }\n  }\n": types.UpdateNextQuestionIdDocument,
     "\n  mutation UpdateUser($userId: uuid!, $set: user_set_input) {\n    update_user_by_pk(pk_columns: { user_id: $userId }, _set: $set) {\n      ...BaseUser\n    }\n  }\n": types.UpdateUserDocument,
@@ -57,7 +57,7 @@ const documents = {
     "\n  query GetUserQuestionAnswers($userId: uuid!, $questionId: uuid!) {\n    user_answer(\n      where: { user_id: { _eq: $userId }, question_id: { _eq: $questionId } }\n      limit: 1\n      order_by: { created_at: desc }\n    ) {\n      ...BaseUserAnswer\n    }\n  }\n": types.GetUserQuestionAnswersDocument,
     "\n  query GetUserTheme($userId: uuid!) {\n    user_by_pk(user_id: $userId) {\n      tenant {\n        theme_id\n      }\n    }\n  }\n": types.GetUserThemeDocument,
     "\n  query GetUserAnswersByWeek(\n    $userId: uuid!\n    $start: timestamptz!\n    $end: timestamptz!\n  ) {\n    user_answer(\n      where: {\n        _and: [\n          { user_id: { _eq: $userId } }\n          { created_at: { _gte: $start } }\n          { created_at: { _lte: $end } }\n        ]\n      }\n    ) {\n      ...BaseUserAnswer\n    }\n  }\n": types.GetUserAnswersByWeekDocument,
-    "\n  query GetUsersForDailyEmail {\n    user(where: { sms_enabled: { _eq: true } }) {\n      user_id\n    }\n  }\n": types.GetUsersForDailyEmailDocument,
+    "\n  query GetUsersForDailyEmail {\n    user(where: { daily_email_enabled: { _eq: true } }) {\n      user_id\n    }\n  }\n": types.GetUsersForDailyEmailDocument,
 };
 
 /**
@@ -89,7 +89,7 @@ export function graphql(source: "\n  fragment UserWithActiveToken on user {\n   
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
-export function graphql(source: "\n  fragment BaseUser on user {\n    __typename\n    tenant_id\n    email\n    first_name\n    last_name\n    language_preference\n    next_question {\n      ...BaseUserQuestion\n    }\n    phone_number\n    timezone\n    user_id\n    sms_enabled\n  }\n"): (typeof documents)["\n  fragment BaseUser on user {\n    __typename\n    tenant_id\n    email\n    first_name\n    last_name\n    language_preference\n    next_question {\n      ...BaseUserQuestion\n    }\n    phone_number\n    timezone\n    user_id\n    sms_enabled\n  }\n"];
+export function graphql(source: "\n  fragment BaseUser on user {\n    __typename\n    tenant_id\n    email\n    first_name\n    last_name\n    language_preference\n    next_question {\n      ...BaseUserQuestion\n    }\n    phone_number\n    timezone\n    user_id\n    sms_enabled\n    daily_email_enabled\n  }\n"): (typeof documents)["\n  fragment BaseUser on user {\n    __typename\n    tenant_id\n    email\n    first_name\n    last_name\n    language_preference\n    next_question {\n      ...BaseUserQuestion\n    }\n    phone_number\n    timezone\n    user_id\n    sms_enabled\n    daily_email_enabled\n  }\n"];
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
@@ -141,7 +141,7 @@ export function graphql(source: "\n  mutation ResetUser($userId: uuid!) {\n    u
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
-export function graphql(source: "\n  mutation ToggleUserSMSEnabled($userId: uuid!, $sms_enabled: Boolean) {\n    update_user_by_pk(\n      pk_columns: { user_id: $userId }\n      _set: { sms_enabled: $sms_enabled }\n    ) {\n      ...BaseUser\n    }\n  }\n"): (typeof documents)["\n  mutation ToggleUserSMSEnabled($userId: uuid!, $sms_enabled: Boolean) {\n    update_user_by_pk(\n      pk_columns: { user_id: $userId }\n      _set: { sms_enabled: $sms_enabled }\n    ) {\n      ...BaseUser\n    }\n  }\n"];
+export function graphql(source: "\n  mutation ToggleUserDailyEmailEnabled(\n    $userId: uuid!\n    $daily_email_enabled: Boolean\n  ) {\n    update_user_by_pk(\n      pk_columns: { user_id: $userId }\n      _set: { daily_email_enabled: $daily_email_enabled }\n    ) {\n      ...BaseUser\n    }\n  }\n"): (typeof documents)["\n  mutation ToggleUserDailyEmailEnabled(\n    $userId: uuid!\n    $daily_email_enabled: Boolean\n  ) {\n    update_user_by_pk(\n      pk_columns: { user_id: $userId }\n      _set: { daily_email_enabled: $daily_email_enabled }\n    ) {\n      ...BaseUser\n    }\n  }\n"];
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
@@ -253,7 +253,7 @@ export function graphql(source: "\n  query GetUserAnswersByWeek(\n    $userId: u
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
-export function graphql(source: "\n  query GetUsersForDailyEmail {\n    user(where: { sms_enabled: { _eq: true } }) {\n      user_id\n    }\n  }\n"): (typeof documents)["\n  query GetUsersForDailyEmail {\n    user(where: { sms_enabled: { _eq: true } }) {\n      user_id\n    }\n  }\n"];
+export function graphql(source: "\n  query GetUsersForDailyEmail {\n    user(where: { daily_email_enabled: { _eq: true } }) {\n      user_id\n    }\n  }\n"): (typeof documents)["\n  query GetUsersForDailyEmail {\n    user(where: { daily_email_enabled: { _eq: true } }) {\n      user_id\n    }\n  }\n"];
 
 export function graphql(source: string) {
   return (documents as any)[source] ?? {};

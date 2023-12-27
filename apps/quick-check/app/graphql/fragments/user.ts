@@ -24,6 +24,7 @@ export const BaseUser = graphql(/* GraphQL */ `
     timezone
     user_id
     sms_enabled
+    daily_email_enabled
   }
 `);
 

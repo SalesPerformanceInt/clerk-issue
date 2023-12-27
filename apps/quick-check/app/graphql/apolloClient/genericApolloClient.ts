@@ -13,7 +13,7 @@ import {
   enrollUser,
   generateNewToken,
   resetUser,
-  toggleUserSMSEnabled,
+  toggleUserDailyEmailEnabled,
   unenrollUser,
   updateNextQuestionId,
   updateUser,
@@ -105,7 +105,7 @@ export class GraphQLClient implements WithApolloClient {
   resetUser = resetUser;
   getAllUsers = getAllUsers;
   generateNewToken = generateNewToken;
-  toggleUserSMSEnabled = toggleUserSMSEnabled;
+  toggleUserDailyEmailEnabled = toggleUserDailyEmailEnabled;
   getUserTheme = getUserTheme;
   enrollUser = enrollUser;
   getUserNextQuestion = getUserNextQuestion;

@@ -2,7 +2,7 @@ export * from "./createLearningRecord";
 export * from "./updateNextQuestionId";
 export * from "./resetUser";
 export * from "./generateNewToken";
-export * from "./toggleUserSMSEnabled";
+export * from "./toggleUserDailyEmailEnabled";
 export * from "./enrollUser";
 export * from "./updateUserQuestion";
 export * from "./createUserAnswer";

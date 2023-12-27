@@ -104,7 +104,7 @@ export const action = async ({ request, params }: ActionArgs) => {
     const adminAction = parseAdminActionRequest(formData);
 
     if (adminAction?.type === "TOGGLE_SMS_ENABLED") {
-      await adminApolloClient.toggleUserSMSEnabled({
+      await adminApolloClient.toggleUserDailyEmailEnabled({
         userId: adminAction.userId,
       });
     }

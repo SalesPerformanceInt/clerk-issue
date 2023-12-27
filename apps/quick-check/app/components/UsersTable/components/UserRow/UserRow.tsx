@@ -22,11 +22,11 @@ export const UserRow: FC<UserRowProps> = ({ user, row, link }) => {
 
   const { state, formData } = useNavigation();
 
-  const [checked, setChecked] = useState(user.sms_enabled);
+  const [checked, setChecked] = useState(user.daily_email_enabled);
 
   useEffect(() => {
-    setChecked(user.sms_enabled);
-  }, [user.sms_enabled]);
+    setChecked(user.daily_email_enabled);
+  }, [user.daily_email_enabled]);
 
   const isLoading = (actionType: AdminAction["type"]) => {
     if (state === "idle") return false;

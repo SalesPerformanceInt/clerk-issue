@@ -28,12 +28,7 @@ import { getUserDataFromSession } from "~/models/session";
 
 import { TimeTravel } from "~/components/TimeTravel";
 
-import {
-  QC_CONTENTSTACK_DELIVERY_TOKEN,
-  QC_CONTENTSTACK_ENVIRONMENT,
-  QC_CONTENTSTACK_STACK_KEY,
-  ZIPY_API_KEY,
-} from "./utils/envs.server";
+import { CONTENTSTACK_ENVS, ZIPY_API_KEY } from "./utils/envs.server";
 import { getSplit } from "./utils/getSplit";
 
 import { makeErrorBoundary } from "./components/error";
@@ -56,9 +51,7 @@ export const loader = async ({ request }: LoaderArgs) => {
   const locale = await remixI18next.getLocale(request);
 
   const ENV = {
-    QC_CONTENTSTACK_DELIVERY_TOKEN,
-    QC_CONTENTSTACK_ENVIRONMENT,
-    QC_CONTENTSTACK_STACK_KEY,
+    ...CONTENTSTACK_ENVS,
     ZIPY_API_KEY,
   };
 

@@ -1,3 +1,5 @@
+import { ContentStackEnvs } from "quickcheck-shared";
+
 export const QC_CONTENTSTACK_DELIVERY_TOKEN =
   process.env.QC_CONTENTSTACK_DELIVERY_TOKEN ?? "";
 
@@ -6,6 +8,9 @@ export const QC_CONTENTSTACK_STACK_KEY =
 
 export const QC_CONTENTSTACK_ENVIRONMENT =
   process.env.QC_CONTENTSTACK_ENVIRONMENT ?? "";
+
+export const QC_CONTENTSTACK_TRANSLATION_ID =
+  process.env.QC_CONTENTSTACK_TRANSLATION_ID ?? "";
 
 export const HASURA_AUTH_TOKEN = process.env.HASURA_AUTH_TOKEN ?? "";
 export const HASURA_API_URL = process.env.HASURA_API_URL ?? "";
@@ -37,13 +42,12 @@ export const APP_DOMAIN = process.env.APP_DOMAIN;
 export const ZIPY_API_KEY = process.env.ZIPY_API_KEY ?? "";
 export const isDevelopment = NODE_ENV === "development";
 
-export const CONTENTSTACK_ENVS = {
+export const CONTENTSTACK_ENVS: ContentStackEnvs = {
   QC_CONTENTSTACK_DELIVERY_TOKEN,
   QC_CONTENTSTACK_STACK_KEY,
   QC_CONTENTSTACK_ENVIRONMENT,
+  QC_CONTENTSTACK_TRANSLATION_ID,
 };
-
-export type ContentStackEnvs = typeof CONTENTSTACK_ENVS;
 
 declare global {
   interface Window {

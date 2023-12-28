@@ -4,12 +4,13 @@ import { RemixI18Next } from "remix-i18next";
 
 const CONTENTSTACK_BASE_URL = "cdn.contentstack.io";
 const TRANSLATION_CONTENT_TYPE = "translated_strings";
-const TRANSLATION_ENTRY_UID = "blt2a119974ec2050b6";
+// const TRANSLATION_ENTRY_UID = "blt37f4a4753e3711ad"; // "blt2a119974ec2050b6";
 
 export type ContentStackEnvs = {
   QC_CONTENTSTACK_DELIVERY_TOKEN: string;
   QC_CONTENTSTACK_STACK_KEY: string;
   QC_CONTENTSTACK_ENVIRONMENT: string;
+  QC_CONTENTSTACK_TRANSLATION_ID: string;
 };
 
 interface TranslatedStrings {
@@ -36,7 +37,7 @@ export const getBackendOptions = (
   envs: ContentStackEnvs,
 ): HttpBackendOptions => ({
   loadPath: function (_lngs, _namespaces) {
-    const path = `https://${CONTENTSTACK_BASE_URL}/v3/content_types/${TRANSLATION_CONTENT_TYPE}/entries/${TRANSLATION_ENTRY_UID}?environment=${envs.QC_CONTENTSTACK_ENVIRONMENT}&locale={{lng}}&include_fallback=true`;
+    const path = `https://${CONTENTSTACK_BASE_URL}/v3/content_types/${TRANSLATION_CONTENT_TYPE}/entries/${envs.QC_CONTENTSTACK_TRANSLATION_ID}?environment=${envs.QC_CONTENTSTACK_ENVIRONMENT}&locale={{lng}}&include_fallback=true`;
     return path;
   },
   parse: (data) => {

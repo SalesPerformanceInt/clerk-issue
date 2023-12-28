@@ -7,6 +7,8 @@ export const getCSENV = () => ({
     .QC_CONTENTSTACK_ENVIRONMENT as string,
   QC_CONTENTSTACK_MANAGEMENT_TOKEN: process.env
     .QC_CONTENTSTACK_MANAGEMENT_TOKEN as string,
+  QC_CONTENTSTACK_TRANSLATION_ID: process.env
+    .QC_CONTENTSTACK_TRANSLATION_ID as string,
 });
 
 export type CSENV = ReturnType<typeof getCSENV>;

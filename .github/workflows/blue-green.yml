@@ -18,7 +18,7 @@ jobs:
     if: "!contains(github.event.head_commit.message, '[skip ci]')"
     steps:
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
       - name: Deploy to Vercel Action
         uses: BetaHuhn/deploy-to-vercel-action@v1
         with:
@@ -39,7 +39,7 @@ jobs:
       - name: PNPM install Dependencies
         run: pnpm install --no-frozen-lockfile
       - name: Run Cucumber/Playwright Test Suite
-        run: pnpm run test:cu
+        run: pnpm exec playwright install && pnpm run test:cu
       - name: Merge main -> production
         uses: devmasx/merge-branch@master
         with:

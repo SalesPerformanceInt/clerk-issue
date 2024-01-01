@@ -4,16 +4,30 @@ env:
   VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
   VERCEL_TEAM_ID: ${{ secrets.VERCEL_TEAM_ID }}
   VERCEL_PROJECT_QUICKCHECK_ID: ${{ secrets.VERCEL_PROJECT_QUICKCHECK_ID }}
+  CUKE_BASE_URL: ${{ secrets.GREEN_DEPLOYMENT_URL }}
 on:
   push:
     branches:
       - "release/**"
+      - "main"
+  # pull_request:
+  #   types: [opened, synchronize, reopened]
 jobs:
-  Deploy-Green:
+  deploy_and_test:
     runs-on: ubuntu-latest
+    if: "!contains(github.event.head_commit.message, '[skip ci]')"
     steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Deploy to Vercel Action
+        uses: BetaHuhn/deploy-to-vercel-action@v1
+        with:
+          GITHUB_TOKEN: ${{ secrets.TIMS_GITHUB_TOKEN }}
+          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+          VERCEL_ORG_ID: ${{ secrets.VERCEL_TEAM_ID }}
+          VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_QUICKCHECK_ID }}
       - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
+      - uses: actions/setup-node@v4
         with:
           node-version: 18
       - uses: pnpm/action-setup@v2
@@ -22,18 +36,17 @@ jobs:
         with:
           version: 8
           run_install: false
-      - name: Install Dependencies
-        run: pnpm install
-      - name: Install Vercel CLI
-        run: npm install --global vercel@latest
-      - name: Path to Quickcheck
-        run: cd apps/quick-check
-      - name: Pull Vercel Environment Information
-        run: vercel pull --yes --environment=production --scope ${{ secrets.VERCEL_SCOPE }} --token ${{ secrets.VERCEL_TOKEN }}
-      - name: Vercel Build Project Artifacts
-        run: vercel build --yes --prod --scope ${{ secrets.VERCEL_SCOPE }} --token ${{ secrets.VERCEL_TOKEN }}
-      - name: Deploy Project Artifacts to Vercel
-        run: vercel deploy --prebuilt -f --scope ${{ secrets.VERCEL_SCOPE }} --token=${{ secrets.VERCEL_TOKEN }} > green.txt
+      - name: PNPM install Dependencies
+        run: pnpm install --no-frozen-lockfile
+      - name: Run Cucumber/Playwright Test Suite
+        run: pnpm run test:cu
+      - name: Merge main -> production
+        uses: devmasx/merge-branch@master
+        with:
+          type: now
+          from_branch: main
+          target_branch: production
+          github_token: ${{ secrets.TIMS_GITHUB_TOKEN }}
 # Run the Cucumber tests on the Green deployment
 #
 # Promote Green to production URL

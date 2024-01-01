@@ -5,6 +5,7 @@ env:
   VERCEL_TEAM_ID: ${{ secrets.VERCEL_TEAM_ID }}
   VERCEL_PROJECT_QUICKCHECK_ID: ${{ secrets.VERCEL_PROJECT_QUICKCHECK_ID }}
   CUKE_BASE_URL: ${{ secrets.GREEN_DEPLOYMENT_URL }}
+  IMPORT_SECRET_KEY: ${{ secrets.IMPORT_SECRET_KEY}}
 on:
   push:
     branches:

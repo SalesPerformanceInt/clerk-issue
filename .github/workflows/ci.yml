@@ -1,4 +1,4 @@
-name: Checkin Tests
+name: Continuous Integration
 on:
   push:
     branches-ignore:
@@ -8,7 +8,7 @@ on:
       - staging
   workflow_call:
 jobs:
-  code-tests:
+  code_tests:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3

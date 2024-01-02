@@ -10,7 +10,7 @@ Feature: Daily Reminder to Question Flow
     When the user visits the notification url
     Then the user should see a question in the UI
     When I choose one of the choices
-    Then the "check answer" button appears
-    When I click the "check answer" button
+    Then the "Check Answer" button appears
+    When I click the "Check Answer" button
     Then the choice feedback displays
 

@@ -10,7 +10,6 @@ Given("quickcheck has sent me a notification with a token", async () => {
 });
 
 When("the user visits the notification url", async () => {
-  // navigate to the app
   await page.goto(currentUser.loginUrl);
 });
 
@@ -24,16 +23,17 @@ Then("the user should see a question in the UI", async () => {
 
 When("I choose one of the choices", async () => {
   const choices = await page.getByTestId("QuestionItem-Choices");
-  await choices.locator("button").locator("nth=0").click();
+  const buttons = await choices.getByRole("button")
+  await buttons.locator("nth=0").click();
 });
 
 Then("the {string} button appears", async (string) => {
-  const checkBtn = page.getByText(string);
+  const checkBtn = await page.getByRole('button', { name: string })
   await expect(checkBtn).toBeVisible();
 });
 
 When("I click the {string} button", async (string) => {
-  await page.getByText(string).locator("visible=true").click();
+  await page.getByRole('button', { name: string }).click();
 });
 
 Then("the choice feedback displays", async () => {

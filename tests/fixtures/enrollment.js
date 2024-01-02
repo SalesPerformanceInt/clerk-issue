@@ -43,7 +43,6 @@ const fetchEnrollmentImport = async (enr) => {
   });
 
   const res_obj = await response.json();
-  console.log({ BASE_URL, enr, res_obj });
   return { status: response.status, ...res_obj };
 };
 

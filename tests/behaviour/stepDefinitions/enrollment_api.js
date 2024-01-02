@@ -71,7 +71,8 @@ Then("the user should land on the question flow", async () => {
 Then("be able to navigate to the dashboard", async () => {
   await page.click("text=Dashboard");
 
-  await page.click("text=I'm Sure");
+  const confirm = await page.getByTestId("OnClose-Confirm");
+  confirm.click();
 
   await expect(page).toHaveURL(`${BASE_URL}/dashboard`);
 });

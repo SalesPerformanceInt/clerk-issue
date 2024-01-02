@@ -76,7 +76,7 @@ importers:
       i18next: ^23.5.1
       i18next-browser-languagedetector: ^7.1.0
       i18next-http-backend: ^2.2.2
-      isbot: latest
+      isbot: ^4.1.1
       postcss: ^8.4.21
       quickcheck-shared: workspace:*
       react: ^18.2.0
@@ -99,7 +99,7 @@ importers:
       i18next: 23.7.7
       i18next-browser-languagedetector: 7.2.0
       i18next-http-backend: 2.4.2
-      isbot: 3.7.1
+      isbot: 4.1.1
       quickcheck-shared: link:../../packages/quickcheck-shared
       react: 18.2.0
       react-dom: 18.2.0_react@18.2.0
@@ -176,7 +176,7 @@ importers:
       i18next-browser-languagedetector: ^7.1.0
       i18next-fs-backend: ^2.1.5
       i18next-http-backend: ^2.2.2
-      isbot: ^3.6.5
+      isbot: ^4.1.1
       jose: ^4.14.4
       libphonenumber-js: ^1.10.34
       lodash: ^4.17.21
@@ -229,7 +229,7 @@ importers:
       i18next-browser-languagedetector: 7.2.0
       i18next-fs-backend: 2.3.0
       i18next-http-backend: 2.4.2
-      isbot: 3.7.1
+      isbot: 4.1.1
       jose: 4.15.4
       libphonenumber-js: 1.10.51
       lodash: 4.17.21
@@ -13535,9 +13535,9 @@ packages:
   /isarray/2.0.5:
     resolution: {integrity: sha512-xHjhDr3cNBK0BzdUJSPXZntQUx/mwMS5Rw4A7lPJ90XGAO6ISP/ePDNuo0vhqOZU+UD5JoodwCAAoZQd3FeAKw==}
 
-  /isbot/3.7.1:
-    resolution: {integrity: sha512-JfqOaY3O1lcWt2nc+D6Mq231CNpwZrBboLa59Go0J8hjGH+gY/Sy0CA/YLUSIScINmAVwTdJZIsOTk4PfBtRuw==}
-    engines: {node: '>=12'}
+  /isbot/4.1.1:
+    resolution: {integrity: sha512-kN+jdL5T+4kMfENZzLwv81KFymnpuv49rUQpp6jwHQhqMG++f1XPvNBgFRO9N0uaBqqft1d+Vn1Jls/TDhJpDw==}
+    engines: {node: '>=18'}
     dev: false
 
   /isexe/2.0.0:

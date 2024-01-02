@@ -4,6 +4,8 @@ on:
     branches-ignore:
       - master
       - main
+      - green
+      - staging
   workflow_call:
 jobs:
   code-tests:

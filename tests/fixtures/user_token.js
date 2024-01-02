@@ -11,8 +11,9 @@ const fetchUserToken = async (userId) => {
     body: JSON.stringify({ userId }),
   });
 
-  const parsed = await response.json();
-  return { status: response.status, ...parsed };
+  const res_obj = await response.json();
+  console.log({ BASE_URL, userId, res_obj });
+  return { status: response.status, ...res_obj };
 };
 
 module.exports = { user, fetchUserToken };

@@ -20,6 +20,7 @@ export type Scalars = {
   date: ISODate;
   jsonb: Jsonb;
   numeric: Numeric;
+  timestamp: TimestampTZ;
   timestamptz: TimestampTZ;
   uuid: Uuid;
 };
@@ -81,6 +82,756 @@ export type String_Comparison_Exp = {
   _regex?: InputMaybe<Scalars['String']>;
   /** does the column match the given SQL regular expression */
   _similar?: InputMaybe<Scalars['String']>;
+};
+
+/** columns and relationships of "acme-vib-staging.users" */
+export type Acme__Users = {
+  __typename?: 'acme__users';
+  account_id?: Maybe<Scalars['uuid']>;
+  active_tab?: Maybe<Scalars['String']>;
+  block_email?: Maybe<Scalars['Boolean']>;
+  can_delete_account: Scalars['Boolean'];
+  confirmation_sent_at?: Maybe<Scalars['timestamp']>;
+  confirmation_token?: Maybe<Scalars['String']>;
+  confirmed_at?: Maybe<Scalars['timestamp']>;
+  created_at?: Maybe<Scalars['timestamp']>;
+  current_sign_in_at?: Maybe<Scalars['timestamp']>;
+  current_sign_in_ip?: Maybe<Scalars['String']>;
+  email: Scalars['String'];
+  email_bounce_lock?: Maybe<Scalars['Boolean']>;
+  encrypted_password: Scalars['String'];
+  failed_attempts: Scalars['Int'];
+  first_name?: Maybe<Scalars['String']>;
+  force_reset_password_after_next_login?: Maybe<Scalars['Boolean']>;
+  id: Scalars['uuid'];
+  inactivated_at?: Maybe<Scalars['timestamp']>;
+  language_preference?: Maybe<Scalars['String']>;
+  last_name?: Maybe<Scalars['String']>;
+  last_sign_in_at?: Maybe<Scalars['timestamp']>;
+  last_sign_in_ip?: Maybe<Scalars['String']>;
+  last_visited_path?: Maybe<Scalars['String']>;
+  launch_email_method?: Maybe<Scalars['Int']>;
+  launch_email_schedule_later_at?: Maybe<Scalars['timestamp']>;
+  launch_email_schedule_later_job_id?: Maybe<Scalars['String']>;
+  locked_at?: Maybe<Scalars['timestamp']>;
+  manager_user_id?: Maybe<Scalars['uuid']>;
+  profile_picture?: Maybe<Scalars['String']>;
+  provider: Scalars['String'];
+  remember_created_at?: Maybe<Scalars['timestamp']>;
+  reset_password_sent_at?: Maybe<Scalars['timestamp']>;
+  reset_password_token?: Maybe<Scalars['String']>;
+  role?: Maybe<Scalars['Int']>;
+  sales_role_id?: Maybe<Scalars['uuid']>;
+  sign_in_count: Scalars['Int'];
+  status?: Maybe<Scalars['Int']>;
+  tokens?: Maybe<Scalars['jsonb']>;
+  uid: Scalars['String'];
+  unconfirmed_email?: Maybe<Scalars['String']>;
+  unlock_token?: Maybe<Scalars['String']>;
+  updated_at?: Maybe<Scalars['timestamp']>;
+};
+
+
+/** columns and relationships of "acme-vib-staging.users" */
+export type Acme__UsersTokensArgs = {
+  path?: InputMaybe<Scalars['String']>;
+};
+
+/** aggregated selection of "acme-vib-staging.users" */
+export type Acme__Users_Aggregate = {
+  __typename?: 'acme__users_aggregate';
+  aggregate?: Maybe<Acme__Users_Aggregate_Fields>;
+  nodes: Array<Acme__Users>;
+};
+
+/** aggregate fields of "acme-vib-staging.users" */
+export type Acme__Users_Aggregate_Fields = {
+  __typename?: 'acme__users_aggregate_fields';
+  avg?: Maybe<Acme__Users_Avg_Fields>;
+  count: Scalars['Int'];
+  max?: Maybe<Acme__Users_Max_Fields>;
+  min?: Maybe<Acme__Users_Min_Fields>;
+  stddev?: Maybe<Acme__Users_Stddev_Fields>;
+  stddev_pop?: Maybe<Acme__Users_Stddev_Pop_Fields>;
+  stddev_samp?: Maybe<Acme__Users_Stddev_Samp_Fields>;
+  sum?: Maybe<Acme__Users_Sum_Fields>;
+  var_pop?: Maybe<Acme__Users_Var_Pop_Fields>;
+  var_samp?: Maybe<Acme__Users_Var_Samp_Fields>;
+  variance?: Maybe<Acme__Users_Variance_Fields>;
+};
+
+
+/** aggregate fields of "acme-vib-staging.users" */
+export type Acme__Users_Aggregate_FieldsCountArgs = {
+  columns?: InputMaybe<Array<Acme__Users_Select_Column>>;
+  distinct?: InputMaybe<Scalars['Boolean']>;
+};
+
+/** append existing jsonb value of filtered columns with new jsonb value */
+export type Acme__Users_Append_Input = {
+  tokens?: InputMaybe<Scalars['jsonb']>;
+};
+
+/** aggregate avg on columns */
+export type Acme__Users_Avg_Fields = {
+  __typename?: 'acme__users_avg_fields';
+  failed_attempts?: Maybe<Scalars['Float']>;
+  launch_email_method?: Maybe<Scalars['Float']>;
+  role?: Maybe<Scalars['Float']>;
+  sign_in_count?: Maybe<Scalars['Float']>;
+  status?: Maybe<Scalars['Float']>;
+};
+
+/** Boolean expression to filter rows from the table "acme-vib-staging.users". All fields are combined with a logical 'AND'. */
+export type Acme__Users_Bool_Exp = {
+  _and?: InputMaybe<Array<Acme__Users_Bool_Exp>>;
+  _not?: InputMaybe<Acme__Users_Bool_Exp>;
+  _or?: InputMaybe<Array<Acme__Users_Bool_Exp>>;
+  account_id?: InputMaybe<Uuid_Comparison_Exp>;
+  active_tab?: InputMaybe<String_Comparison_Exp>;
+  block_email?: InputMaybe<Boolean_Comparison_Exp>;
+  can_delete_account?: InputMaybe<Boolean_Comparison_Exp>;
+  confirmation_sent_at?: InputMaybe<Timestamp_Comparison_Exp>;
+  confirmation_token?: InputMaybe<String_Comparison_Exp>;
+  confirmed_at?: InputMaybe<Timestamp_Comparison_Exp>;
+  created_at?: InputMaybe<Timestamp_Comparison_Exp>;
+  current_sign_in_at?: InputMaybe<Timestamp_Comparison_Exp>;
+  current_sign_in_ip?: InputMaybe<String_Comparison_Exp>;
+  email?: InputMaybe<String_Comparison_Exp>;
+  email_bounce_lock?: InputMaybe<Boolean_Comparison_Exp>;
+  encrypted_password?: InputMaybe<String_Comparison_Exp>;
+  failed_attempts?: InputMaybe<Int_Comparison_Exp>;
+  first_name?: InputMaybe<String_Comparison_Exp>;
+  force_reset_password_after_next_login?: InputMaybe<Boolean_Comparison_Exp>;
+  id?: InputMaybe<Uuid_Comparison_Exp>;
+  inactivated_at?: InputMaybe<Timestamp_Comparison_Exp>;
+  language_preference?: InputMaybe<String_Comparison_Exp>;
+  last_name?: InputMaybe<String_Comparison_Exp>;
+  last_sign_in_at?: InputMaybe<Timestamp_Comparison_Exp>;
+  last_sign_in_ip?: InputMaybe<String_Comparison_Exp>;
+  last_visited_path?: InputMaybe<String_Comparison_Exp>;
+  launch_email_method?: InputMaybe<Int_Comparison_Exp>;
+  launch_email_schedule_later_at?: InputMaybe<Timestamp_Comparison_Exp>;
+  launch_email_schedule_later_job_id?: InputMaybe<String_Comparison_Exp>;
+  locked_at?: InputMaybe<Timestamp_Comparison_Exp>;
+  manager_user_id?: InputMaybe<Uuid_Comparison_Exp>;
+  profile_picture?: InputMaybe<String_Comparison_Exp>;
+  provider?: InputMaybe<String_Comparison_Exp>;
+  remember_created_at?: InputMaybe<Timestamp_Comparison_Exp>;
+  reset_password_sent_at?: InputMaybe<Timestamp_Comparison_Exp>;
+  reset_password_token?: InputMaybe<String_Comparison_Exp>;
+  role?: InputMaybe<Int_Comparison_Exp>;
+  sales_role_id?: InputMaybe<Uuid_Comparison_Exp>;
+  sign_in_count?: InputMaybe<Int_Comparison_Exp>;
+  status?: InputMaybe<Int_Comparison_Exp>;
+  tokens?: InputMaybe<Jsonb_Comparison_Exp>;
+  uid?: InputMaybe<String_Comparison_Exp>;
+  unconfirmed_email?: InputMaybe<String_Comparison_Exp>;
+  unlock_token?: InputMaybe<String_Comparison_Exp>;
+  updated_at?: InputMaybe<Timestamp_Comparison_Exp>;
+};
+
+/** unique or primary key constraints on table "acme-vib-staging.users" */
+export enum Acme__Users_Constraint {
+  /** unique or primary key constraint on columns "email" */
+  IndexUsersOnEmail = 'index_users_on_email',
+  /** unique or primary key constraint on columns "reset_password_token" */
+  IndexUsersOnResetPasswordToken = 'index_users_on_reset_password_token',
+  /** unique or primary key constraint on columns "unlock_token" */
+  IndexUsersOnUnlockToken = 'index_users_on_unlock_token',
+  /** unique or primary key constraint on columns "id" */
+  UsersPkey = 'users_pkey'
+}
+
+/** delete the field or element with specified path (for JSON arrays, negative integers count from the end) */
+export type Acme__Users_Delete_At_Path_Input = {
+  tokens?: InputMaybe<Array<Scalars['String']>>;
+};
+
+/** delete the array element with specified index (negative integers count from the end). throws an error if top level container is not an array */
+export type Acme__Users_Delete_Elem_Input = {
+  tokens?: InputMaybe<Scalars['Int']>;
+};
+
+/** delete key/value pair or string element. key/value pairs are matched based on their key value */
+export type Acme__Users_Delete_Key_Input = {
+  tokens?: InputMaybe<Scalars['String']>;
+};
+
+/** input type for incrementing numeric columns in table "acme-vib-staging.users" */
+export type Acme__Users_Inc_Input = {
+  failed_attempts?: InputMaybe<Scalars['Int']>;
+  launch_email_method?: InputMaybe<Scalars['Int']>;
+  role?: InputMaybe<Scalars['Int']>;
+  sign_in_count?: InputMaybe<Scalars['Int']>;
+  status?: InputMaybe<Scalars['Int']>;
+};
+
+/** input type for inserting data into table "acme-vib-staging.users" */
+export type Acme__Users_Insert_Input = {
+  account_id?: InputMaybe<Scalars['uuid']>;
+  active_tab?: InputMaybe<Scalars['String']>;
+  block_email?: InputMaybe<Scalars['Boolean']>;
+  can_delete_account?: InputMaybe<Scalars['Boolean']>;
+  confirmation_sent_at?: InputMaybe<Scalars['timestamp']>;
+  confirmation_token?: InputMaybe<Scalars['String']>;
+  confirmed_at?: InputMaybe<Scalars['timestamp']>;
+  created_at?: InputMaybe<Scalars['timestamp']>;
+  current_sign_in_at?: InputMaybe<Scalars['timestamp']>;
+  current_sign_in_ip?: InputMaybe<Scalars['String']>;
+  email?: InputMaybe<Scalars['String']>;
+  email_bounce_lock?: InputMaybe<Scalars['Boolean']>;
+  encrypted_password?: InputMaybe<Scalars['String']>;
+  failed_attempts?: InputMaybe<Scalars['Int']>;
+  first_name?: InputMaybe<Scalars['String']>;
+  force_reset_password_after_next_login?: InputMaybe<Scalars['Boolean']>;
+  id?: InputMaybe<Scalars['uuid']>;
+  inactivated_at?: InputMaybe<Scalars['timestamp']>;
+  language_preference?: InputMaybe<Scalars['String']>;
+  last_name?: InputMaybe<Scalars['String']>;
+  last_sign_in_at?: InputMaybe<Scalars['timestamp']>;
+  last_sign_in_ip?: InputMaybe<Scalars['String']>;
+  last_visited_path?: InputMaybe<Scalars['String']>;
+  launch_email_method?: InputMaybe<Scalars['Int']>;
+  launch_email_schedule_later_at?: InputMaybe<Scalars['timestamp']>;
+  launch_email_schedule_later_job_id?: InputMaybe<Scalars['String']>;
+  locked_at?: InputMaybe<Scalars['timestamp']>;
+  manager_user_id?: InputMaybe<Scalars['uuid']>;
+  profile_picture?: InputMaybe<Scalars['String']>;
+  provider?: InputMaybe<Scalars['String']>;
+  remember_created_at?: InputMaybe<Scalars['timestamp']>;
+  reset_password_sent_at?: InputMaybe<Scalars['timestamp']>;
+  reset_password_token?: InputMaybe<Scalars['String']>;
+  role?: InputMaybe<Scalars['Int']>;
+  sales_role_id?: InputMaybe<Scalars['uuid']>;
+  sign_in_count?: InputMaybe<Scalars['Int']>;
+  status?: InputMaybe<Scalars['Int']>;
+  tokens?: InputMaybe<Scalars['jsonb']>;
+  uid?: InputMaybe<Scalars['String']>;
+  unconfirmed_email?: InputMaybe<Scalars['String']>;
+  unlock_token?: InputMaybe<Scalars['String']>;
+  updated_at?: InputMaybe<Scalars['timestamp']>;
+};
+
+/** aggregate max on columns */
+export type Acme__Users_Max_Fields = {
+  __typename?: 'acme__users_max_fields';
+  account_id?: Maybe<Scalars['uuid']>;
+  active_tab?: Maybe<Scalars['String']>;
+  confirmation_sent_at?: Maybe<Scalars['timestamp']>;
+  confirmation_token?: Maybe<Scalars['String']>;
+  confirmed_at?: Maybe<Scalars['timestamp']>;
+  created_at?: Maybe<Scalars['timestamp']>;
+  current_sign_in_at?: Maybe<Scalars['timestamp']>;
+  current_sign_in_ip?: Maybe<Scalars['String']>;
+  email?: Maybe<Scalars['String']>;
+  encrypted_password?: Maybe<Scalars['String']>;
+  failed_attempts?: Maybe<Scalars['Int']>;
+  first_name?: Maybe<Scalars['String']>;
+  id?: Maybe<Scalars['uuid']>;
+  inactivated_at?: Maybe<Scalars['timestamp']>;
+  language_preference?: Maybe<Scalars['String']>;
+  last_name?: Maybe<Scalars['String']>;
+  last_sign_in_at?: Maybe<Scalars['timestamp']>;
+  last_sign_in_ip?: Maybe<Scalars['String']>;
+  last_visited_path?: Maybe<Scalars['String']>;
+  launch_email_method?: Maybe<Scalars['Int']>;
+  launch_email_schedule_later_at?: Maybe<Scalars['timestamp']>;
+  launch_email_schedule_later_job_id?: Maybe<Scalars['String']>;
+  locked_at?: Maybe<Scalars['timestamp']>;
+  manager_user_id?: Maybe<Scalars['uuid']>;
+  profile_picture?: Maybe<Scalars['String']>;
+  provider?: Maybe<Scalars['String']>;
+  remember_created_at?: Maybe<Scalars['timestamp']>;
+  reset_password_sent_at?: Maybe<Scalars['timestamp']>;
+  reset_password_token?: Maybe<Scalars['String']>;
+  role?: Maybe<Scalars['Int']>;
+  sales_role_id?: Maybe<Scalars['uuid']>;
+  sign_in_count?: Maybe<Scalars['Int']>;
+  status?: Maybe<Scalars['Int']>;
+  uid?: Maybe<Scalars['String']>;
+  unconfirmed_email?: Maybe<Scalars['String']>;
+  unlock_token?: Maybe<Scalars['String']>;
+  updated_at?: Maybe<Scalars['timestamp']>;
+};
+
+/** aggregate min on columns */
+export type Acme__Users_Min_Fields = {
+  __typename?: 'acme__users_min_fields';
+  account_id?: Maybe<Scalars['uuid']>;
+  active_tab?: Maybe<Scalars['String']>;
+  confirmation_sent_at?: Maybe<Scalars['timestamp']>;
+  confirmation_token?: Maybe<Scalars['String']>;
+  confirmed_at?: Maybe<Scalars['timestamp']>;
+  created_at?: Maybe<Scalars['timestamp']>;
+  current_sign_in_at?: Maybe<Scalars['timestamp']>;
+  current_sign_in_ip?: Maybe<Scalars['String']>;
+  email?: Maybe<Scalars['String']>;
+  encrypted_password?: Maybe<Scalars['String']>;
+  failed_attempts?: Maybe<Scalars['Int']>;
+  first_name?: Maybe<Scalars['String']>;
+  id?: Maybe<Scalars['uuid']>;
+  inactivated_at?: Maybe<Scalars['timestamp']>;
+  language_preference?: Maybe<Scalars['String']>;
+  last_name?: Maybe<Scalars['String']>;
+  last_sign_in_at?: Maybe<Scalars['timestamp']>;
+  last_sign_in_ip?: Maybe<Scalars['String']>;
+  last_visited_path?: Maybe<Scalars['String']>;
+  launch_email_method?: Maybe<Scalars['Int']>;
+  launch_email_schedule_later_at?: Maybe<Scalars['timestamp']>;
+  launch_email_schedule_later_job_id?: Maybe<Scalars['String']>;
+  locked_at?: Maybe<Scalars['timestamp']>;
+  manager_user_id?: Maybe<Scalars['uuid']>;
+  profile_picture?: Maybe<Scalars['String']>;
+  provider?: Maybe<Scalars['String']>;
+  remember_created_at?: Maybe<Scalars['timestamp']>;
+  reset_password_sent_at?: Maybe<Scalars['timestamp']>;
+  reset_password_token?: Maybe<Scalars['String']>;
+  role?: Maybe<Scalars['Int']>;
+  sales_role_id?: Maybe<Scalars['uuid']>;
+  sign_in_count?: Maybe<Scalars['Int']>;
+  status?: Maybe<Scalars['Int']>;
+  uid?: Maybe<Scalars['String']>;
+  unconfirmed_email?: Maybe<Scalars['String']>;
+  unlock_token?: Maybe<Scalars['String']>;
+  updated_at?: Maybe<Scalars['timestamp']>;
+};
+
+/** response of any mutation on the table "acme-vib-staging.users" */
+export type Acme__Users_Mutation_Response = {
+  __typename?: 'acme__users_mutation_response';
+  /** number of rows affected by the mutation */
+  affected_rows: Scalars['Int'];
+  /** data from the rows affected by the mutation */
+  returning: Array<Acme__Users>;
+};
+
+/** on_conflict condition type for table "acme-vib-staging.users" */
+export type Acme__Users_On_Conflict = {
+  constraint: Acme__Users_Constraint;
+  update_columns?: Array<Acme__Users_Update_Column>;
+  where?: InputMaybe<Acme__Users_Bool_Exp>;
+};
+
+/** Ordering options when selecting data from "acme-vib-staging.users". */
+export type Acme__Users_Order_By = {
+  account_id?: InputMaybe<Order_By>;
+  active_tab?: InputMaybe<Order_By>;
+  block_email?: InputMaybe<Order_By>;
+  can_delete_account?: InputMaybe<Order_By>;
+  confirmation_sent_at?: InputMaybe<Order_By>;
+  confirmation_token?: InputMaybe<Order_By>;
+  confirmed_at?: InputMaybe<Order_By>;
+  created_at?: InputMaybe<Order_By>;
+  current_sign_in_at?: InputMaybe<Order_By>;
+  current_sign_in_ip?: InputMaybe<Order_By>;
+  email?: InputMaybe<Order_By>;
+  email_bounce_lock?: InputMaybe<Order_By>;
+  encrypted_password?: InputMaybe<Order_By>;
+  failed_attempts?: InputMaybe<Order_By>;
+  first_name?: InputMaybe<Order_By>;
+  force_reset_password_after_next_login?: InputMaybe<Order_By>;
+  id?: InputMaybe<Order_By>;
+  inactivated_at?: InputMaybe<Order_By>;
+  language_preference?: InputMaybe<Order_By>;
+  last_name?: InputMaybe<Order_By>;
+  last_sign_in_at?: InputMaybe<Order_By>;
+  last_sign_in_ip?: InputMaybe<Order_By>;
+  last_visited_path?: InputMaybe<Order_By>;
+  launch_email_method?: InputMaybe<Order_By>;
+  launch_email_schedule_later_at?: InputMaybe<Order_By>;
+  launch_email_schedule_later_job_id?: InputMaybe<Order_By>;
+  locked_at?: InputMaybe<Order_By>;
+  manager_user_id?: InputMaybe<Order_By>;
+  profile_picture?: InputMaybe<Order_By>;
+  provider?: InputMaybe<Order_By>;
+  remember_created_at?: InputMaybe<Order_By>;
+  reset_password_sent_at?: InputMaybe<Order_By>;
+  reset_password_token?: InputMaybe<Order_By>;
+  role?: InputMaybe<Order_By>;
+  sales_role_id?: InputMaybe<Order_By>;
+  sign_in_count?: InputMaybe<Order_By>;
+  status?: InputMaybe<Order_By>;
+  tokens?: InputMaybe<Order_By>;
+  uid?: InputMaybe<Order_By>;
+  unconfirmed_email?: InputMaybe<Order_By>;
+  unlock_token?: InputMaybe<Order_By>;
+  updated_at?: InputMaybe<Order_By>;
+};
+
+/** primary key columns input for table: acme-vib-staging.users */
+export type Acme__Users_Pk_Columns_Input = {
+  id: Scalars['uuid'];
+};
+
+/** prepend existing jsonb value of filtered columns with new jsonb value */
+export type Acme__Users_Prepend_Input = {
+  tokens?: InputMaybe<Scalars['jsonb']>;
+};
+
+/** select columns of table "acme-vib-staging.users" */
+export enum Acme__Users_Select_Column {
+  /** column name */
+  AccountId = 'account_id',
+  /** column name */
+  ActiveTab = 'active_tab',
+  /** column name */
+  BlockEmail = 'block_email',
+  /** column name */
+  CanDeleteAccount = 'can_delete_account',
+  /** column name */
+  ConfirmationSentAt = 'confirmation_sent_at',
+  /** column name */
+  ConfirmationToken = 'confirmation_token',
+  /** column name */
+  ConfirmedAt = 'confirmed_at',
+  /** column name */
+  CreatedAt = 'created_at',
+  /** column name */
+  CurrentSignInAt = 'current_sign_in_at',
+  /** column name */
+  CurrentSignInIp = 'current_sign_in_ip',
+  /** column name */
+  Email = 'email',
+  /** column name */
+  EmailBounceLock = 'email_bounce_lock',
+  /** column name */
+  EncryptedPassword = 'encrypted_password',
+  /** column name */
+  FailedAttempts = 'failed_attempts',
+  /** column name */
+  FirstName = 'first_name',
+  /** column name */
+  ForceResetPasswordAfterNextLogin = 'force_reset_password_after_next_login',
+  /** column name */
+  Id = 'id',
+  /** column name */
+  InactivatedAt = 'inactivated_at',
+  /** column name */
+  LanguagePreference = 'language_preference',
+  /** column name */
+  LastName = 'last_name',
+  /** column name */
+  LastSignInAt = 'last_sign_in_at',
+  /** column name */
+  LastSignInIp = 'last_sign_in_ip',
+  /** column name */
+  LastVisitedPath = 'last_visited_path',
+  /** column name */
+  LaunchEmailMethod = 'launch_email_method',
+  /** column name */
+  LaunchEmailScheduleLaterAt = 'launch_email_schedule_later_at',
+  /** column name */
+  LaunchEmailScheduleLaterJobId = 'launch_email_schedule_later_job_id',
+  /** column name */
+  LockedAt = 'locked_at',
+  /** column name */
+  ManagerUserId = 'manager_user_id',
+  /** column name */
+  ProfilePicture = 'profile_picture',
+  /** column name */
+  Provider = 'provider',
+  /** column name */
+  RememberCreatedAt = 'remember_created_at',
+  /** column name */
+  ResetPasswordSentAt = 'reset_password_sent_at',
+  /** column name */
+  ResetPasswordToken = 'reset_password_token',
+  /** column name */
+  Role = 'role',
+  /** column name */
+  SalesRoleId = 'sales_role_id',
+  /** column name */
+  SignInCount = 'sign_in_count',
+  /** column name */
+  Status = 'status',
+  /** column name */
+  Tokens = 'tokens',
+  /** column name */
+  Uid = 'uid',
+  /** column name */
+  UnconfirmedEmail = 'unconfirmed_email',
+  /** column name */
+  UnlockToken = 'unlock_token',
+  /** column name */
+  UpdatedAt = 'updated_at'
+}
+
+/** input type for updating data in table "acme-vib-staging.users" */
+export type Acme__Users_Set_Input = {
+  account_id?: InputMaybe<Scalars['uuid']>;
+  active_tab?: InputMaybe<Scalars['String']>;
+  block_email?: InputMaybe<Scalars['Boolean']>;
+  can_delete_account?: InputMaybe<Scalars['Boolean']>;
+  confirmation_sent_at?: InputMaybe<Scalars['timestamp']>;
+  confirmation_token?: InputMaybe<Scalars['String']>;
+  confirmed_at?: InputMaybe<Scalars['timestamp']>;
+  created_at?: InputMaybe<Scalars['timestamp']>;
+  current_sign_in_at?: InputMaybe<Scalars['timestamp']>;
+  current_sign_in_ip?: InputMaybe<Scalars['String']>;
+  email?: InputMaybe<Scalars['String']>;
+  email_bounce_lock?: InputMaybe<Scalars['Boolean']>;
+  encrypted_password?: InputMaybe<Scalars['String']>;
+  failed_attempts?: InputMaybe<Scalars['Int']>;
+  first_name?: InputMaybe<Scalars['String']>;
+  force_reset_password_after_next_login?: InputMaybe<Scalars['Boolean']>;
+  id?: InputMaybe<Scalars['uuid']>;
+  inactivated_at?: InputMaybe<Scalars['timestamp']>;
+  language_preference?: InputMaybe<Scalars['String']>;
+  last_name?: InputMaybe<Scalars['String']>;
+  last_sign_in_at?: InputMaybe<Scalars['timestamp']>;
+  last_sign_in_ip?: InputMaybe<Scalars['String']>;
+  last_visited_path?: InputMaybe<Scalars['String']>;
+  launch_email_method?: InputMaybe<Scalars['Int']>;
+  launch_email_schedule_later_at?: InputMaybe<Scalars['timestamp']>;
+  launch_email_schedule_later_job_id?: InputMaybe<Scalars['String']>;
+  locked_at?: InputMaybe<Scalars['timestamp']>;
+  manager_user_id?: InputMaybe<Scalars['uuid']>;
+  profile_picture?: InputMaybe<Scalars['String']>;
+  provider?: InputMaybe<Scalars['String']>;
+  remember_created_at?: InputMaybe<Scalars['timestamp']>;
+  reset_password_sent_at?: InputMaybe<Scalars['timestamp']>;
+  reset_password_token?: InputMaybe<Scalars['String']>;
+  role?: InputMaybe<Scalars['Int']>;
+  sales_role_id?: InputMaybe<Scalars['uuid']>;
+  sign_in_count?: InputMaybe<Scalars['Int']>;
+  status?: InputMaybe<Scalars['Int']>;
+  tokens?: InputMaybe<Scalars['jsonb']>;
+  uid?: InputMaybe<Scalars['String']>;
+  unconfirmed_email?: InputMaybe<Scalars['String']>;
+  unlock_token?: InputMaybe<Scalars['String']>;
+  updated_at?: InputMaybe<Scalars['timestamp']>;
+};
+
+/** aggregate stddev on columns */
+export type Acme__Users_Stddev_Fields = {
+  __typename?: 'acme__users_stddev_fields';
+  failed_attempts?: Maybe<Scalars['Float']>;
+  launch_email_method?: Maybe<Scalars['Float']>;
+  role?: Maybe<Scalars['Float']>;
+  sign_in_count?: Maybe<Scalars['Float']>;
+  status?: Maybe<Scalars['Float']>;
+};
+
+/** aggregate stddev_pop on columns */
+export type Acme__Users_Stddev_Pop_Fields = {
+  __typename?: 'acme__users_stddev_pop_fields';
+  failed_attempts?: Maybe<Scalars['Float']>;
+  launch_email_method?: Maybe<Scalars['Float']>;
+  role?: Maybe<Scalars['Float']>;
+  sign_in_count?: Maybe<Scalars['Float']>;
+  status?: Maybe<Scalars['Float']>;
+};
+
+/** aggregate stddev_samp on columns */
+export type Acme__Users_Stddev_Samp_Fields = {
+  __typename?: 'acme__users_stddev_samp_fields';
+  failed_attempts?: Maybe<Scalars['Float']>;
+  launch_email_method?: Maybe<Scalars['Float']>;
+  role?: Maybe<Scalars['Float']>;
+  sign_in_count?: Maybe<Scalars['Float']>;
+  status?: Maybe<Scalars['Float']>;
+};
+
+/** Streaming cursor of the table "acme__users" */
+export type Acme__Users_Stream_Cursor_Input = {
+  /** Stream column input with initial value */
+  initial_value: Acme__Users_Stream_Cursor_Value_Input;
+  /** cursor ordering */
+  ordering?: InputMaybe<Cursor_Ordering>;
+};
+
+/** Initial value of the column from where the streaming should start */
+export type Acme__Users_Stream_Cursor_Value_Input = {
+  account_id?: InputMaybe<Scalars['uuid']>;
+  active_tab?: InputMaybe<Scalars['String']>;
+  block_email?: InputMaybe<Scalars['Boolean']>;
+  can_delete_account?: InputMaybe<Scalars['Boolean']>;
+  confirmation_sent_at?: InputMaybe<Scalars['timestamp']>;
+  confirmation_token?: InputMaybe<Scalars['String']>;
+  confirmed_at?: InputMaybe<Scalars['timestamp']>;
+  created_at?: InputMaybe<Scalars['timestamp']>;
+  current_sign_in_at?: InputMaybe<Scalars['timestamp']>;
+  current_sign_in_ip?: InputMaybe<Scalars['String']>;
+  email?: InputMaybe<Scalars['String']>;
+  email_bounce_lock?: InputMaybe<Scalars['Boolean']>;
+  encrypted_password?: InputMaybe<Scalars['String']>;
+  failed_attempts?: InputMaybe<Scalars['Int']>;
+  first_name?: InputMaybe<Scalars['String']>;
+  force_reset_password_after_next_login?: InputMaybe<Scalars['Boolean']>;
+  id?: InputMaybe<Scalars['uuid']>;
+  inactivated_at?: InputMaybe<Scalars['timestamp']>;
+  language_preference?: InputMaybe<Scalars['String']>;
+  last_name?: InputMaybe<Scalars['String']>;
+  last_sign_in_at?: InputMaybe<Scalars['timestamp']>;
+  last_sign_in_ip?: InputMaybe<Scalars['String']>;
+  last_visited_path?: InputMaybe<Scalars['String']>;
+  launch_email_method?: InputMaybe<Scalars['Int']>;
+  launch_email_schedule_later_at?: InputMaybe<Scalars['timestamp']>;
+  launch_email_schedule_later_job_id?: InputMaybe<Scalars['String']>;
+  locked_at?: InputMaybe<Scalars['timestamp']>;
+  manager_user_id?: InputMaybe<Scalars['uuid']>;
+  profile_picture?: InputMaybe<Scalars['String']>;
+  provider?: InputMaybe<Scalars['String']>;
+  remember_created_at?: InputMaybe<Scalars['timestamp']>;
+  reset_password_sent_at?: InputMaybe<Scalars['timestamp']>;
+  reset_password_token?: InputMaybe<Scalars['String']>;
+  role?: InputMaybe<Scalars['Int']>;
+  sales_role_id?: InputMaybe<Scalars['uuid']>;
+  sign_in_count?: InputMaybe<Scalars['Int']>;
+  status?: InputMaybe<Scalars['Int']>;
+  tokens?: InputMaybe<Scalars['jsonb']>;
+  uid?: InputMaybe<Scalars['String']>;
+  unconfirmed_email?: InputMaybe<Scalars['String']>;
+  unlock_token?: InputMaybe<Scalars['String']>;
+  updated_at?: InputMaybe<Scalars['timestamp']>;
+};
+
+/** aggregate sum on columns */
+export type Acme__Users_Sum_Fields = {
+  __typename?: 'acme__users_sum_fields';
+  failed_attempts?: Maybe<Scalars['Int']>;
+  launch_email_method?: Maybe<Scalars['Int']>;
+  role?: Maybe<Scalars['Int']>;
+  sign_in_count?: Maybe<Scalars['Int']>;
+  status?: Maybe<Scalars['Int']>;
+};
+
+/** update columns of table "acme-vib-staging.users" */
+export enum Acme__Users_Update_Column {
+  /** column name */
+  AccountId = 'account_id',
+  /** column name */
+  ActiveTab = 'active_tab',
+  /** column name */
+  BlockEmail = 'block_email',
+  /** column name */
+  CanDeleteAccount = 'can_delete_account',
+  /** column name */
+  ConfirmationSentAt = 'confirmation_sent_at',
+  /** column name */
+  ConfirmationToken = 'confirmation_token',
+  /** column name */
+  ConfirmedAt = 'confirmed_at',
+  /** column name */
+  CreatedAt = 'created_at',
+  /** column name */
+  CurrentSignInAt = 'current_sign_in_at',
+  /** column name */
+  CurrentSignInIp = 'current_sign_in_ip',
+  /** column name */
+  Email = 'email',
+  /** column name */
+  EmailBounceLock = 'email_bounce_lock',
+  /** column name */
+  EncryptedPassword = 'encrypted_password',
+  /** column name */
+  FailedAttempts = 'failed_attempts',
+  /** column name */
+  FirstName = 'first_name',
+  /** column name */
+  ForceResetPasswordAfterNextLogin = 'force_reset_password_after_next_login',
+  /** column name */
+  Id = 'id',
+  /** column name */
+  InactivatedAt = 'inactivated_at',
+  /** column name */
+  LanguagePreference = 'language_preference',
+  /** column name */
+  LastName = 'last_name',
+  /** column name */
+  LastSignInAt = 'last_sign_in_at',
+  /** column name */
+  LastSignInIp = 'last_sign_in_ip',
+  /** column name */
+  LastVisitedPath = 'last_visited_path',
+  /** column name */
+  LaunchEmailMethod = 'launch_email_method',
+  /** column name */
+  LaunchEmailScheduleLaterAt = 'launch_email_schedule_later_at',
+  /** column name */
+  LaunchEmailScheduleLaterJobId = 'launch_email_schedule_later_job_id',
+  /** column name */
+  LockedAt = 'locked_at',
+  /** column name */
+  ManagerUserId = 'manager_user_id',
+  /** column name */
+  ProfilePicture = 'profile_picture',
+  /** column name */
+  Provider = 'provider',
+  /** column name */
+  RememberCreatedAt = 'remember_created_at',
+  /** column name */
+  ResetPasswordSentAt = 'reset_password_sent_at',
+  /** column name */
+  ResetPasswordToken = 'reset_password_token',
+  /** column name */
+  Role = 'role',
+  /** column name */
+  SalesRoleId = 'sales_role_id',
+  /** column name */
+  SignInCount = 'sign_in_count',
+  /** column name */
+  Status = 'status',
+  /** column name */
+  Tokens = 'tokens',
+  /** column name */
+  Uid = 'uid',
+  /** column name */
+  UnconfirmedEmail = 'unconfirmed_email',
+  /** column name */
+  UnlockToken = 'unlock_token',
+  /** column name */
+  UpdatedAt = 'updated_at'
+}
+
+export type Acme__Users_Updates = {
+  /** append existing jsonb value of filtered columns with new jsonb value */
+  _append?: InputMaybe<Acme__Users_Append_Input>;
+  /** delete the field or element with specified path (for JSON arrays, negative integers count from the end) */
+  _delete_at_path?: InputMaybe<Acme__Users_Delete_At_Path_Input>;
+  /** delete the array element with specified index (negative integers count from the end). throws an error if top level container is not an array */
+  _delete_elem?: InputMaybe<Acme__Users_Delete_Elem_Input>;
+  /** delete key/value pair or string element. key/value pairs are matched based on their key value */
+  _delete_key?: InputMaybe<Acme__Users_Delete_Key_Input>;
+  /** increments the numeric columns with given value of the filtered values */
+  _inc?: InputMaybe<Acme__Users_Inc_Input>;
+  /** prepend existing jsonb value of filtered columns with new jsonb value */
+  _prepend?: InputMaybe<Acme__Users_Prepend_Input>;
+  /** sets the columns of the filtered rows to the given values */
+  _set?: InputMaybe<Acme__Users_Set_Input>;
+  /** filter the rows which have to be updated */
+  where: Acme__Users_Bool_Exp;
+};
+
+/** aggregate var_pop on columns */
+export type Acme__Users_Var_Pop_Fields = {
+  __typename?: 'acme__users_var_pop_fields';
+  failed_attempts?: Maybe<Scalars['Float']>;
+  launch_email_method?: Maybe<Scalars['Float']>;
+  role?: Maybe<Scalars['Float']>;
+  sign_in_count?: Maybe<Scalars['Float']>;
+  status?: Maybe<Scalars['Float']>;
+};
+
+/** aggregate var_samp on columns */
+export type Acme__Users_Var_Samp_Fields = {
+  __typename?: 'acme__users_var_samp_fields';
+  failed_attempts?: Maybe<Scalars['Float']>;
+  launch_email_method?: Maybe<Scalars['Float']>;
+  role?: Maybe<Scalars['Float']>;
+  sign_in_count?: Maybe<Scalars['Float']>;
+  status?: Maybe<Scalars['Float']>;
+};
+
+/** aggregate variance on columns */
+export type Acme__Users_Variance_Fields = {
+  __typename?: 'acme__users_variance_fields';
+  failed_attempts?: Maybe<Scalars['Float']>;
+  launch_email_method?: Maybe<Scalars['Float']>;
+  role?: Maybe<Scalars['Float']>;
+  sign_in_count?: Maybe<Scalars['Float']>;
+  status?: Maybe<Scalars['Float']>;
 };
 
 /** ordering argument of a cursor */
@@ -220,7 +971,7 @@ export type Learning_Record_Bool_Exp = {
 /** unique or primary key constraints on table "learning_record" */
 export enum Learning_Record_Constraint {
   /** unique or primary key constraint on columns "id" */
-  LearningRecordsPkey = 'learning_records_pkey'
+  LearningRecordPkey = 'learning_record_pkey'
 }
 
 /** delete the field or element with specified path (for JSON arrays, negative integers count from the end) */
@@ -492,7 +1243,7 @@ export type Link_Token_Bool_Exp = {
 /** unique or primary key constraints on table "link_token" */
 export enum Link_Token_Constraint {
   /** unique or primary key constraint on columns "id" */
-  LinkTokensPkey = 'link_tokens_pkey'
+  LinkTokenPkey = 'link_token_pkey'
 }
 
 /** input type for inserting data into table "link_token" */
@@ -646,6 +1397,10 @@ export type Link_Token_Updates = {
 /** mutation root */
 export type Mutation_Root = {
   __typename?: 'mutation_root';
+  /** delete data from the table: "acme-vib-staging.users" */
+  delete_acme__users?: Maybe<Acme__Users_Mutation_Response>;
+  /** delete single row from the table: "acme-vib-staging.users" */
+  delete_acme__users_by_pk?: Maybe<Acme__Users>;
   /** delete data from the table: "learning_record" */
   delete_learning_record?: Maybe<Learning_Record_Mutation_Response>;
   /** delete single row from the table: "learning_record" */
@@ -674,6 +1429,10 @@ export type Mutation_Root = {
   delete_user_question?: Maybe<User_Question_Mutation_Response>;
   /** delete single row from the table: "user_question" */
   delete_user_question_by_pk?: Maybe<User_Question>;
+  /** insert data into the table: "acme-vib-staging.users" */
+  insert_acme__users?: Maybe<Acme__Users_Mutation_Response>;
+  /** insert a single row into the table: "acme-vib-staging.users" */
+  insert_acme__users_one?: Maybe<Acme__Users>;
   /** insert data into the table: "learning_record" */
   insert_learning_record?: Maybe<Learning_Record_Mutation_Response>;
   /** insert a single row into the table: "learning_record" */
@@ -702,6 +1461,12 @@ export type Mutation_Root = {
   insert_user_question?: Maybe<User_Question_Mutation_Response>;
   /** insert a single row into the table: "user_question" */
   insert_user_question_one?: Maybe<User_Question>;
+  /** update data of the table: "acme-vib-staging.users" */
+  update_acme__users?: Maybe<Acme__Users_Mutation_Response>;
+  /** update single row of the table: "acme-vib-staging.users" */
+  update_acme__users_by_pk?: Maybe<Acme__Users>;
+  /** update multiples rows of table: "acme-vib-staging.users" */
+  update_acme__users_many?: Maybe<Array<Maybe<Acme__Users_Mutation_Response>>>;
   /** update data of the table: "learning_record" */
   update_learning_record?: Maybe<Learning_Record_Mutation_Response>;
   /** update single row of the table: "learning_record" */
@@ -744,6 +1509,18 @@ export type Mutation_Root = {
   update_user_question_by_pk?: Maybe<User_Question>;
   /** update multiples rows of table: "user_question" */
   update_user_question_many?: Maybe<Array<Maybe<User_Question_Mutation_Response>>>;
+};
+
+
+/** mutation root */
+export type Mutation_RootDelete_Acme__UsersArgs = {
+  where: Acme__Users_Bool_Exp;
+};
+
+
+/** mutation root */
+export type Mutation_RootDelete_Acme__Users_By_PkArgs = {
+  id: Scalars['uuid'];
 };
 
 
@@ -828,6 +1605,20 @@ export type Mutation_RootDelete_User_QuestionArgs = {
 /** mutation root */
 export type Mutation_RootDelete_User_Question_By_PkArgs = {
   id: Scalars['uuid'];
+};
+
+
+/** mutation root */
+export type Mutation_RootInsert_Acme__UsersArgs = {
+  objects: Array<Acme__Users_Insert_Input>;
+  on_conflict?: InputMaybe<Acme__Users_On_Conflict>;
+};
+
+
+/** mutation root */
+export type Mutation_RootInsert_Acme__Users_OneArgs = {
+  object: Acme__Users_Insert_Input;
+  on_conflict?: InputMaybe<Acme__Users_On_Conflict>;
 };
 
 
@@ -926,6 +1717,38 @@ export type Mutation_RootInsert_User_QuestionArgs = {
 export type Mutation_RootInsert_User_Question_OneArgs = {
   object: User_Question_Insert_Input;
   on_conflict?: InputMaybe<User_Question_On_Conflict>;
+};
+
+
+/** mutation root */
+export type Mutation_RootUpdate_Acme__UsersArgs = {
+  _append?: InputMaybe<Acme__Users_Append_Input>;
+  _delete_at_path?: InputMaybe<Acme__Users_Delete_At_Path_Input>;
+  _delete_elem?: InputMaybe<Acme__Users_Delete_Elem_Input>;
+  _delete_key?: InputMaybe<Acme__Users_Delete_Key_Input>;
+  _inc?: InputMaybe<Acme__Users_Inc_Input>;
+  _prepend?: InputMaybe<Acme__Users_Prepend_Input>;
+  _set?: InputMaybe<Acme__Users_Set_Input>;
+  where: Acme__Users_Bool_Exp;
+};
+
+
+/** mutation root */
+export type Mutation_RootUpdate_Acme__Users_By_PkArgs = {
+  _append?: InputMaybe<Acme__Users_Append_Input>;
+  _delete_at_path?: InputMaybe<Acme__Users_Delete_At_Path_Input>;
+  _delete_elem?: InputMaybe<Acme__Users_Delete_Elem_Input>;
+  _delete_key?: InputMaybe<Acme__Users_Delete_Key_Input>;
+  _inc?: InputMaybe<Acme__Users_Inc_Input>;
+  _prepend?: InputMaybe<Acme__Users_Prepend_Input>;
+  _set?: InputMaybe<Acme__Users_Set_Input>;
+  pk_columns: Acme__Users_Pk_Columns_Input;
+};
+
+
+/** mutation root */
+export type Mutation_RootUpdate_Acme__Users_ManyArgs = {
+  updates: Array<Acme__Users_Updates>;
 };
 
 
@@ -1113,6 +1936,12 @@ export enum Order_By {
 
 export type Query_Root = {
   __typename?: 'query_root';
+  /** fetch data from the table: "acme-vib-staging.users" */
+  acme__users: Array<Acme__Users>;
+  /** fetch aggregated fields from the table: "acme-vib-staging.users" */
+  acme__users_aggregate: Acme__Users_Aggregate;
+  /** fetch data from the table: "acme-vib-staging.users" using primary key columns */
+  acme__users_by_pk?: Maybe<Acme__Users>;
   /** fetch data from the table: "learning_record" */
   learning_record: Array<Learning_Record>;
   /** fetch aggregated fields from the table: "learning_record" */
@@ -1155,6 +1984,29 @@ export type Query_Root = {
   user_question_aggregate: User_Question_Aggregate;
   /** fetch data from the table: "user_question" using primary key columns */
   user_question_by_pk?: Maybe<User_Question>;
+};
+
+
+export type Query_RootAcme__UsersArgs = {
+  distinct_on?: InputMaybe<Array<Acme__Users_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Array<Acme__Users_Order_By>>;
+  where?: InputMaybe<Acme__Users_Bool_Exp>;
+};
+
+
+export type Query_RootAcme__Users_AggregateArgs = {
+  distinct_on?: InputMaybe<Array<Acme__Users_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Array<Acme__Users_Order_By>>;
+  where?: InputMaybe<Acme__Users_Bool_Exp>;
+};
+
+
+export type Query_RootAcme__Users_By_PkArgs = {
+  id: Scalars['uuid'];
 };
 
 
@@ -1320,6 +2172,14 @@ export type Query_RootUser_Question_By_PkArgs = {
 
 export type Subscription_Root = {
   __typename?: 'subscription_root';
+  /** fetch data from the table: "acme-vib-staging.users" */
+  acme__users: Array<Acme__Users>;
+  /** fetch aggregated fields from the table: "acme-vib-staging.users" */
+  acme__users_aggregate: Acme__Users_Aggregate;
+  /** fetch data from the table: "acme-vib-staging.users" using primary key columns */
+  acme__users_by_pk?: Maybe<Acme__Users>;
+  /** fetch data from the table in a streaming manner: "acme-vib-staging.users" */
+  acme__users_stream: Array<Acme__Users>;
   /** fetch data from the table: "learning_record" */
   learning_record: Array<Learning_Record>;
   /** fetch aggregated fields from the table: "learning_record" */
@@ -1376,6 +2236,36 @@ export type Subscription_Root = {
   user_question_stream: Array<User_Question>;
   /** fetch data from the table in a streaming manner: "user" */
   user_stream: Array<User>;
+};
+
+
+export type Subscription_RootAcme__UsersArgs = {
+  distinct_on?: InputMaybe<Array<Acme__Users_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Array<Acme__Users_Order_By>>;
+  where?: InputMaybe<Acme__Users_Bool_Exp>;
+};
+
+
+export type Subscription_RootAcme__Users_AggregateArgs = {
+  distinct_on?: InputMaybe<Array<Acme__Users_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Array<Acme__Users_Order_By>>;
+  where?: InputMaybe<Acme__Users_Bool_Exp>;
+};
+
+
+export type Subscription_RootAcme__Users_By_PkArgs = {
+  id: Scalars['uuid'];
+};
+
+
+export type Subscription_RootAcme__Users_StreamArgs = {
+  batch_size: Scalars['Int'];
+  cursor: Array<InputMaybe<Acme__Users_Stream_Cursor_Input>>;
+  where?: InputMaybe<Acme__Users_Bool_Exp>;
 };
 
 
@@ -1755,6 +2645,19 @@ export type Tenant_Updates = {
   _set?: InputMaybe<Tenant_Set_Input>;
   /** filter the rows which have to be updated */
   where: Tenant_Bool_Exp;
+};
+
+/** Boolean expression to compare columns of type "timestamp". All fields are combined with logical 'AND'. */
+export type Timestamp_Comparison_Exp = {
+  _eq?: InputMaybe<Scalars['timestamp']>;
+  _gt?: InputMaybe<Scalars['timestamp']>;
+  _gte?: InputMaybe<Scalars['timestamp']>;
+  _in?: InputMaybe<Array<Scalars['timestamp']>>;
+  _is_null?: InputMaybe<Scalars['Boolean']>;
+  _lt?: InputMaybe<Scalars['timestamp']>;
+  _lte?: InputMaybe<Scalars['timestamp']>;
+  _neq?: InputMaybe<Scalars['timestamp']>;
+  _nin?: InputMaybe<Array<Scalars['timestamp']>>;
 };
 
 /** Boolean expression to compare columns of type "timestamptz". All fields are combined with logical 'AND'. */
@@ -2255,7 +3158,7 @@ export type User_Bool_Exp = {
 /** unique or primary key constraints on table "user" */
 export enum User_Constraint {
   /** unique or primary key constraint on columns "user_id" */
-  UsersPkey = 'users_pkey'
+  UserPkey = 'user_pkey'
 }
 
 /** columns and relationships of "user_enrollment" */
@@ -3759,7 +4662,7 @@ export const UpdateUserDocument = {"kind":"Document","definitions":[{"kind":"Ope
 export const UpdateUserEnrollmentDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"UpdateUserEnrollment"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"id"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"uuid"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"set"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"user_enrollment_set_input"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"inc"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"user_enrollment_inc_input"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"update_user_enrollment_by_pk"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"pk_columns"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"id"},"value":{"kind":"Variable","name":{"kind":"Name","value":"id"}}}]}},{"kind":"Argument","name":{"kind":"Name","value":"_set"},"value":{"kind":"Variable","name":{"kind":"Name","value":"set"}}},{"kind":"Argument","name":{"kind":"Name","value":"_inc"},"value":{"kind":"Variable","name":{"kind":"Name","value":"inc"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"BaseUserEnrollment"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"BaseUserEnrollment"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"user_enrollment"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"__typename"}},{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"user_id"}},{"kind":"Field","name":{"kind":"Name","value":"taxonomy_id"}},{"kind":"Field","name":{"kind":"Name","value":"created_at"}},{"kind":"Field","name":{"kind":"Name","value":"score"}},{"kind":"Field","name":{"kind":"Name","value":"rank"}},{"kind":"Field","name":{"kind":"Name","value":"start_date"}},{"kind":"Field","name":{"kind":"Name","value":"expiration_date"}}]}}]} as unknown as DocumentNode<UpdateUserEnrollmentMutation, UpdateUserEnrollmentMutationVariables>;
 export const UpdateUserEnrollmentsRanksDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"UpdateUserEnrollmentsRanks"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"enrollmentsUpdates"}},"type":{"kind":"NonNullType","type":{"kind":"ListType","type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"user_enrollment_updates"}}}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"update_user_enrollment_many"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"updates"},"value":{"kind":"Variable","name":{"kind":"Name","value":"enrollmentsUpdates"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"returning"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"BaseUserEnrollment"}}]}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"BaseUserEnrollment"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"user_enrollment"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"__typename"}},{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"user_id"}},{"kind":"Field","name":{"kind":"Name","value":"taxonomy_id"}},{"kind":"Field","name":{"kind":"Name","value":"created_at"}},{"kind":"Field","name":{"kind":"Name","value":"score"}},{"kind":"Field","name":{"kind":"Name","value":"rank"}},{"kind":"Field","name":{"kind":"Name","value":"start_date"}},{"kind":"Field","name":{"kind":"Name","value":"expiration_date"}}]}}]} as unknown as DocumentNode<UpdateUserEnrollmentsRanksMutation, UpdateUserEnrollmentsRanksMutationVariables>;
 export const UpdateUserQuestionDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"UpdateUserQuestion"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"id"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"uuid"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"set"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"user_question_set_input"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"update_user_question_by_pk"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"pk_columns"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"id"},"value":{"kind":"Variable","name":{"kind":"Name","value":"id"}}}]}},{"kind":"Argument","name":{"kind":"Name","value":"_set"},"value":{"kind":"Variable","name":{"kind":"Name","value":"set"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"BaseUserQuestion"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"BaseUserEnrollment"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"user_enrollment"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"__typename"}},{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"user_id"}},{"kind":"Field","name":{"kind":"Name","value":"taxonomy_id"}},{"kind":"Field","name":{"kind":"Name","value":"created_at"}},{"kind":"Field","name":{"kind":"Name","value":"score"}},{"kind":"Field","name":{"kind":"Name","value":"rank"}},{"kind":"Field","name":{"kind":"Name","value":"start_date"}},{"kind":"Field","name":{"kind":"Name","value":"expiration_date"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"BaseUserQuestion"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"user_question"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"__typename"}},{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"user_id"}},{"kind":"Field","name":{"kind":"Name","value":"taxonomy_id"}},{"kind":"Field","name":{"kind":"Name","value":"question_id"}},{"kind":"Field","name":{"kind":"Name","value":"retired_on"}},{"kind":"Field","name":{"kind":"Name","value":"active_on"}},{"kind":"Field","alias":{"kind":"Name","value":"attempts"},"name":{"kind":"Name","value":"user_answers_aggregate"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"aggregate"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"count"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"created_at"}},{"kind":"Field","name":{"kind":"Name","value":"streak"}},{"kind":"Field","name":{"kind":"Name","value":"difficulty"}},{"kind":"Field","name":{"kind":"Name","value":"latest_review_gap"}},{"kind":"Field","name":{"kind":"Name","value":"last_answered_on"}},{"kind":"Field","name":{"kind":"Name","value":"user_enrollment"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"BaseUserEnrollment"}}]}}]}}]} as unknown as DocumentNode<UpdateUserQuestionMutation, UpdateUserQuestionMutationVariables>;
-export const UpsertUserDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"UpsertUser"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"user"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"user_insert_input"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"insert_user_one"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"object"},"value":{"kind":"Variable","name":{"kind":"Name","value":"user"}}},{"kind":"Argument","name":{"kind":"Name","value":"on_conflict"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"constraint"},"value":{"kind":"EnumValue","value":"users_pkey"}},{"kind":"ObjectField","name":{"kind":"Name","value":"update_columns"},"value":{"kind":"ListValue","values":[{"kind":"EnumValue","value":"email"},{"kind":"EnumValue","value":"first_name"},{"kind":"EnumValue","value":"last_name"},{"kind":"EnumValue","value":"language_preference"},{"kind":"EnumValue","value":"phone_number"},{"kind":"EnumValue","value":"timezone"}]}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"UserWithActiveToken"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"BaseUserEnrollment"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"user_enrollment"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"__typename"}},{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"user_id"}},{"kind":"Field","name":{"kind":"Name","value":"taxonomy_id"}},{"kind":"Field","name":{"kind":"Name","value":"created_at"}},{"kind":"Field","name":{"kind":"Name","value":"score"}},{"kind":"Field","name":{"kind":"Name","value":"rank"}},{"kind":"Field","name":{"kind":"Name","value":"start_date"}},{"kind":"Field","name":{"kind":"Name","value":"expiration_date"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"BaseUserQuestion"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"user_question"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"__typename"}},{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"user_id"}},{"kind":"Field","name":{"kind":"Name","value":"taxonomy_id"}},{"kind":"Field","name":{"kind":"Name","value":"question_id"}},{"kind":"Field","name":{"kind":"Name","value":"retired_on"}},{"kind":"Field","name":{"kind":"Name","value":"active_on"}},{"kind":"Field","alias":{"kind":"Name","value":"attempts"},"name":{"kind":"Name","value":"user_answers_aggregate"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"aggregate"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"count"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"created_at"}},{"kind":"Field","name":{"kind":"Name","value":"streak"}},{"kind":"Field","name":{"kind":"Name","value":"difficulty"}},{"kind":"Field","name":{"kind":"Name","value":"latest_review_gap"}},{"kind":"Field","name":{"kind":"Name","value":"last_answered_on"}},{"kind":"Field","name":{"kind":"Name","value":"user_enrollment"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"BaseUserEnrollment"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"BaseUser"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"user"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"__typename"}},{"kind":"Field","name":{"kind":"Name","value":"tenant_id"}},{"kind":"Field","name":{"kind":"Name","value":"email"}},{"kind":"Field","name":{"kind":"Name","value":"first_name"}},{"kind":"Field","name":{"kind":"Name","value":"last_name"}},{"kind":"Field","name":{"kind":"Name","value":"language_preference"}},{"kind":"Field","name":{"kind":"Name","value":"next_question"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"BaseUserQuestion"}}]}},{"kind":"Field","name":{"kind":"Name","value":"phone_number"}},{"kind":"Field","name":{"kind":"Name","value":"timezone"}},{"kind":"Field","name":{"kind":"Name","value":"user_id"}},{"kind":"Field","name":{"kind":"Name","value":"sms_enabled"}},{"kind":"Field","name":{"kind":"Name","value":"daily_email_enabled"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"BaseLinkToken"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"link_token"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"__typename"}},{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"created_at"}},{"kind":"Field","name":{"kind":"Name","value":"active"}},{"kind":"Field","name":{"kind":"Name","value":"user_id"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"UserWithActiveToken"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"user"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"BaseUser"}},{"kind":"Field","alias":{"kind":"Name","value":"active_tokens"},"name":{"kind":"Name","value":"link_tokens"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"where"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"active"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"_eq"},"value":{"kind":"BooleanValue","value":true}}]}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"BaseLinkToken"}}]}}]}}]} as unknown as DocumentNode<UpsertUserMutation, UpsertUserMutationVariables>;
+export const UpsertUserDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"UpsertUser"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"user"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"user_insert_input"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"insert_user_one"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"object"},"value":{"kind":"Variable","name":{"kind":"Name","value":"user"}}},{"kind":"Argument","name":{"kind":"Name","value":"on_conflict"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"constraint"},"value":{"kind":"EnumValue","value":"user_pkey"}},{"kind":"ObjectField","name":{"kind":"Name","value":"update_columns"},"value":{"kind":"ListValue","values":[{"kind":"EnumValue","value":"email"},{"kind":"EnumValue","value":"first_name"},{"kind":"EnumValue","value":"last_name"},{"kind":"EnumValue","value":"language_preference"},{"kind":"EnumValue","value":"phone_number"},{"kind":"EnumValue","value":"timezone"}]}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"UserWithActiveToken"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"BaseUserEnrollment"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"user_enrollment"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"__typename"}},{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"user_id"}},{"kind":"Field","name":{"kind":"Name","value":"taxonomy_id"}},{"kind":"Field","name":{"kind":"Name","value":"created_at"}},{"kind":"Field","name":{"kind":"Name","value":"score"}},{"kind":"Field","name":{"kind":"Name","value":"rank"}},{"kind":"Field","name":{"kind":"Name","value":"start_date"}},{"kind":"Field","name":{"kind":"Name","value":"expiration_date"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"BaseUserQuestion"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"user_question"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"__typename"}},{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"user_id"}},{"kind":"Field","name":{"kind":"Name","value":"taxonomy_id"}},{"kind":"Field","name":{"kind":"Name","value":"question_id"}},{"kind":"Field","name":{"kind":"Name","value":"retired_on"}},{"kind":"Field","name":{"kind":"Name","value":"active_on"}},{"kind":"Field","alias":{"kind":"Name","value":"attempts"},"name":{"kind":"Name","value":"user_answers_aggregate"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"aggregate"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"count"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"created_at"}},{"kind":"Field","name":{"kind":"Name","value":"streak"}},{"kind":"Field","name":{"kind":"Name","value":"difficulty"}},{"kind":"Field","name":{"kind":"Name","value":"latest_review_gap"}},{"kind":"Field","name":{"kind":"Name","value":"last_answered_on"}},{"kind":"Field","name":{"kind":"Name","value":"user_enrollment"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"BaseUserEnrollment"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"BaseUser"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"user"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"__typename"}},{"kind":"Field","name":{"kind":"Name","value":"tenant_id"}},{"kind":"Field","name":{"kind":"Name","value":"email"}},{"kind":"Field","name":{"kind":"Name","value":"first_name"}},{"kind":"Field","name":{"kind":"Name","value":"last_name"}},{"kind":"Field","name":{"kind":"Name","value":"language_preference"}},{"kind":"Field","name":{"kind":"Name","value":"next_question"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"BaseUserQuestion"}}]}},{"kind":"Field","name":{"kind":"Name","value":"phone_number"}},{"kind":"Field","name":{"kind":"Name","value":"timezone"}},{"kind":"Field","name":{"kind":"Name","value":"user_id"}},{"kind":"Field","name":{"kind":"Name","value":"sms_enabled"}},{"kind":"Field","name":{"kind":"Name","value":"daily_email_enabled"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"BaseLinkToken"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"link_token"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"__typename"}},{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"created_at"}},{"kind":"Field","name":{"kind":"Name","value":"active"}},{"kind":"Field","name":{"kind":"Name","value":"user_id"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"UserWithActiveToken"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"user"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"BaseUser"}},{"kind":"Field","alias":{"kind":"Name","value":"active_tokens"},"name":{"kind":"Name","value":"link_tokens"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"where"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"active"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"_eq"},"value":{"kind":"BooleanValue","value":true}}]}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"BaseLinkToken"}}]}}]}}]} as unknown as DocumentNode<UpsertUserMutation, UpsertUserMutationVariables>;
 export const GetActiveUserQuestionDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetActiveUserQuestion"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"id"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"uuid"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"today"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"date"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"user_question"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"where"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"id"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"_eq"},"value":{"kind":"Variable","name":{"kind":"Name","value":"id"}}}]}},{"kind":"ObjectField","name":{"kind":"Name","value":"active_on"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"_lte"},"value":{"kind":"Variable","name":{"kind":"Name","value":"today"}}}]}},{"kind":"ObjectField","name":{"kind":"Name","value":"retired_on"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"_is_null"},"value":{"kind":"BooleanValue","value":true}}]}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"BaseUserQuestion"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"BaseUserEnrollment"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"user_enrollment"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"__typename"}},{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"user_id"}},{"kind":"Field","name":{"kind":"Name","value":"taxonomy_id"}},{"kind":"Field","name":{"kind":"Name","value":"created_at"}},{"kind":"Field","name":{"kind":"Name","value":"score"}},{"kind":"Field","name":{"kind":"Name","value":"rank"}},{"kind":"Field","name":{"kind":"Name","value":"start_date"}},{"kind":"Field","name":{"kind":"Name","value":"expiration_date"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"BaseUserQuestion"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"user_question"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"__typename"}},{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"user_id"}},{"kind":"Field","name":{"kind":"Name","value":"taxonomy_id"}},{"kind":"Field","name":{"kind":"Name","value":"question_id"}},{"kind":"Field","name":{"kind":"Name","value":"retired_on"}},{"kind":"Field","name":{"kind":"Name","value":"active_on"}},{"kind":"Field","alias":{"kind":"Name","value":"attempts"},"name":{"kind":"Name","value":"user_answers_aggregate"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"aggregate"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"count"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"created_at"}},{"kind":"Field","name":{"kind":"Name","value":"streak"}},{"kind":"Field","name":{"kind":"Name","value":"difficulty"}},{"kind":"Field","name":{"kind":"Name","value":"latest_review_gap"}},{"kind":"Field","name":{"kind":"Name","value":"last_answered_on"}},{"kind":"Field","name":{"kind":"Name","value":"user_enrollment"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"BaseUserEnrollment"}}]}}]}}]} as unknown as DocumentNode<GetActiveUserQuestionQuery, GetActiveUserQuestionQueryVariables>;
 export const GetAllUserDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetAllUser"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"user"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"order_by"},"value":{"kind":"ListValue","values":[{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"created_at"},"value":{"kind":"EnumValue","value":"asc"}}]},{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"email"},"value":{"kind":"EnumValue","value":"asc"}}]}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"UserWithActiveToken"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"BaseUserEnrollment"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"user_enrollment"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"__typename"}},{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"user_id"}},{"kind":"Field","name":{"kind":"Name","value":"taxonomy_id"}},{"kind":"Field","name":{"kind":"Name","value":"created_at"}},{"kind":"Field","name":{"kind":"Name","value":"score"}},{"kind":"Field","name":{"kind":"Name","value":"rank"}},{"kind":"Field","name":{"kind":"Name","value":"start_date"}},{"kind":"Field","name":{"kind":"Name","value":"expiration_date"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"BaseUserQuestion"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"user_question"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"__typename"}},{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"user_id"}},{"kind":"Field","name":{"kind":"Name","value":"taxonomy_id"}},{"kind":"Field","name":{"kind":"Name","value":"question_id"}},{"kind":"Field","name":{"kind":"Name","value":"retired_on"}},{"kind":"Field","name":{"kind":"Name","value":"active_on"}},{"kind":"Field","alias":{"kind":"Name","value":"attempts"},"name":{"kind":"Name","value":"user_answers_aggregate"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"aggregate"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"count"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"created_at"}},{"kind":"Field","name":{"kind":"Name","value":"streak"}},{"kind":"Field","name":{"kind":"Name","value":"difficulty"}},{"kind":"Field","name":{"kind":"Name","value":"latest_review_gap"}},{"kind":"Field","name":{"kind":"Name","value":"last_answered_on"}},{"kind":"Field","name":{"kind":"Name","value":"user_enrollment"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"BaseUserEnrollment"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"BaseUser"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"user"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"__typename"}},{"kind":"Field","name":{"kind":"Name","value":"tenant_id"}},{"kind":"Field","name":{"kind":"Name","value":"email"}},{"kind":"Field","name":{"kind":"Name","value":"first_name"}},{"kind":"Field","name":{"kind":"Name","value":"last_name"}},{"kind":"Field","name":{"kind":"Name","value":"language_preference"}},{"kind":"Field","name":{"kind":"Name","value":"next_question"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"BaseUserQuestion"}}]}},{"kind":"Field","name":{"kind":"Name","value":"phone_number"}},{"kind":"Field","name":{"kind":"Name","value":"timezone"}},{"kind":"Field","name":{"kind":"Name","value":"user_id"}},{"kind":"Field","name":{"kind":"Name","value":"sms_enabled"}},{"kind":"Field","name":{"kind":"Name","value":"daily_email_enabled"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"BaseLinkToken"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"link_token"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"__typename"}},{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"created_at"}},{"kind":"Field","name":{"kind":"Name","value":"active"}},{"kind":"Field","name":{"kind":"Name","value":"user_id"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"UserWithActiveToken"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"user"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"BaseUser"}},{"kind":"Field","alias":{"kind":"Name","value":"active_tokens"},"name":{"kind":"Name","value":"link_tokens"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"where"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"active"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"_eq"},"value":{"kind":"BooleanValue","value":true}}]}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"BaseLinkToken"}}]}}]}}]} as unknown as DocumentNode<GetAllUserQuery, GetAllUserQueryVariables>;
 export const GetLinkTokenDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetLinkToken"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"id"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"link_token_by_pk"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"id"},"value":{"kind":"Variable","name":{"kind":"Name","value":"id"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"user_id"}},{"kind":"Field","name":{"kind":"Name","value":"tenant_id"}},{"kind":"Field","name":{"kind":"Name","value":"created_at"}},{"kind":"Field","name":{"kind":"Name","value":"active"}}]}}]}}]} as unknown as DocumentNode<GetLinkTokenQuery, GetLinkTokenQueryVariables>;

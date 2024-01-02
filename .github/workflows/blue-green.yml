@@ -20,14 +20,6 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v3
-      - name: Deploy to Vercel Action
-        uses: BetaHuhn/deploy-to-vercel-action@v1
-        with:
-          GITHUB_TOKEN: ${{ secrets.TIMS_GITHUB_TOKEN }}
-          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
-          VERCEL_ORG_ID: ${{ secrets.VERCEL_TEAM_ID }}
-          VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_QUICKCHECK_ID }}
-      - uses: actions/checkout@v3
       - uses: actions/setup-node@v4
         with:
           node-version: 18
@@ -39,6 +31,19 @@ jobs:
           run_install: false
       - name: PNPM install Dependencies
         run: pnpm install --no-frozen-lockfile
+      - name: Eslint
+        run: pnpm lint
+      - name: Build packages + apps
+        run: pnpm build
+      - name: Tests
+        run: pnpm test
+      - name: Deploy to Vercel Action
+        uses: BetaHuhn/deploy-to-vercel-action@v1
+        with:
+          GITHUB_TOKEN: ${{ secrets.TIMS_GITHUB_TOKEN }}
+          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+          VERCEL_ORG_ID: ${{ secrets.VERCEL_TEAM_ID }}
+          VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_QUICKCHECK_ID }}
       - name: Run Cucumber/Playwright Test Suite
         run: pnpm exec playwright install chromium && pnpm run test:cu
       - name: Merge main -> production

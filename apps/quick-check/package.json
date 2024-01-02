@@ -34,7 +34,7 @@
     "i18next-browser-languagedetector": "^7.1.0",
     "i18next-fs-backend": "^2.1.5",
     "i18next-http-backend": "^2.2.2",
-    "isbot": "^3.6.5",
+    "isbot": "^4.1.1",
     "jose": "^4.14.4",
     "libphonenumber-js": "^1.10.34",
     "lodash": "^4.17.21",

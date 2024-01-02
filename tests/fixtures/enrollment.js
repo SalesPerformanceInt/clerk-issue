@@ -1,12 +1,15 @@
 const { invalidUser, user, fetchUserReset } = require("./user");
 const { BASE_URL, API_AUTH } = require("./env");
 
+const zeroPad = (num, places) => String(num).padStart(places, "0");
+
 const formatDate = (date) => {
   const year = date.getFullYear();
   const month = date.getMonth() + 1;
+  const months = zeroPad(month, 2);
   const day = date.getDate();
-  const days = day.toString().length === 1 ? `0${day}` : day;
-  return `${year}-${month}-${days}`;
+  const days = zeroPad(day, 2);
+  return `${year}-${months}-${days}`;
 };
 
 const now = new Date();

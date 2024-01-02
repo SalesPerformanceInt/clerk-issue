@@ -5,16 +5,17 @@ const PREFIX = "Invariant failed";
 export function invariant(
   condition: any,
   message?: string | (() => string),
-  expected?: unknown,
+  expected?: any,
 ): asserts condition {
   if (condition) {
     return;
   }
+  const str = (obj: any) => JSON.stringify(obj);
 
   const provided = typeof message === "function" ? message() : message;
 
   const value = provided 
-    ? `${PREFIX}: ${provided}, condition: ${String(condition)}, expected: ${String(expected)}` 
+    ? `${PREFIX}: ${provided}, condition: ${str(condition)}, expected: ${str(expected)}` 
     : PREFIX;
     
   throw new Error(value);

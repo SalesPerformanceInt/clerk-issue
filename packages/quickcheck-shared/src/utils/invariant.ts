@@ -12,6 +12,9 @@ export function invariant(
 
   const provided = typeof message === "function" ? message() : message;
 
-  const value = provided ? `${PREFIX}: ${provided}` : PREFIX;
+  const value = provided 
+    ? `${PREFIX}: ${provided}, got: ${condition}` 
+    : PREFIX;
+    
   throw new Error(value);
 }

@@ -27,7 +27,7 @@ export const getSplit = async (request: Request, treatments: string[]) => {
         impressionsRefreshRate: 1,
         eventsPushRate: 2,
       },
-      debug: true,
+      debug: false,
     });
 
     let client = SplitObj.client();

@@ -2,7 +2,7 @@ const { tenant } = require("./tenant");
 const { BASE_URL, API_AUTH } = require("./env");
 
 const user = {
-  user_id: "b000b1e5-8194-4892-a941-602fb6dc3aae",
+  user_id: "ea9342c1-6abc-4906-88c1-cf2265d77de7",
   account_subdomain: tenant.subdomain,
   first_name: "Erlich",
   last_name: "Bachman",

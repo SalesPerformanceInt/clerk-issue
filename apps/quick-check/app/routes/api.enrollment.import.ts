@@ -28,7 +28,7 @@ export const action = async ({ request }: ActionArgs) => {
     const userInputData = formatUserInputFromImport(importEnrollmentData.user);
     const user = await adminApolloClient.upsertUser(userInputData);
 
-    invariant(user, "User not found");
+    invariant(user, () => `User not returned from upsertUser ${JSON.stringify(userInputData)}`);
 
     const {
       cms_topic_id,
@@ -43,7 +43,7 @@ export const action = async ({ request }: ActionArgs) => {
       request,
     );
 
-    invariant(enrollment, "Enrollment not created");
+    invariant(enrollment, () => `Enrollment creation failed from enrollUser ${JSON.stringify(enrollmentData)}`);
 
     return json(
       {

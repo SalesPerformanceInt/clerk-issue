@@ -3,8 +3,10 @@ on:
   push:
     branches-ignore:
       - master
+      - main
+  workflow_call:
 jobs:
-  Quality-Check-Code:
+  code-tests:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3

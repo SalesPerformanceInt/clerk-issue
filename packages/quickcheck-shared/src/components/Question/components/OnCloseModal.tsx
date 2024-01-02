@@ -40,7 +40,12 @@ export const OnCloseModal: FC = () => {
           >
             {t("buttons.nevermind")}
           </Button>
-          <Button background="light" className="flex-1" onClick={onClose}>
+          <Button
+            background="light"
+            className="flex-1"
+            onClick={onClose}
+            data-testid="OnClose-Confirm"
+          >
             {t("buttons.im_sure")}
           </Button>
         </div>

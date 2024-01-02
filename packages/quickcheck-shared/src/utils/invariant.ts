@@ -5,6 +5,7 @@ const PREFIX = "Invariant failed";
 export function invariant(
   condition: any,
   message?: string | (() => string),
+  expected?: unknown,
 ): asserts condition {
   if (condition) {
     return;
@@ -12,6 +13,9 @@ export function invariant(
 
   const provided = typeof message === "function" ? message() : message;
 
-  const value = provided ? `${PREFIX}: ${provided}, received: ${String(condition)}` : PREFIX;
+  const value = provided 
+    ? `${PREFIX}: ${provided}, condition: ${String(condition)}, expected: ${String(expected)}` 
+    : PREFIX;
+    
   throw new Error(value);
 }

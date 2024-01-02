@@ -3,6 +3,7 @@ on:
   push:
     branches-ignore:
       - master
+      - main
 jobs:
   Quality-Check-Code:
     runs-on: ubuntu-latest

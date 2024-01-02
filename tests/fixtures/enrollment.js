@@ -19,7 +19,7 @@ expiry.setDate(now.getDate() + 14);
 const enrollment = {
   user,
   enrollment_id: "b88ff454-3e2b-4db7-9dba-9c895118b630",
-  cms_topic_id: "bltaf3e7b9abde0e86a", // Prosperous Account Strategy on Tantalum
+  cms_topic_id: "blt90e57509bde4acab", // Prosperous Account Strategy on Tantalum
   start_date: formatDate(now),
   expiration_date: formatDate(expiry),
 };
@@ -27,7 +27,7 @@ const enrollment = {
 const invalidEnrollment = {
   user: invalidUser,
   enrollment_id: "notvalid",
-  cms_topic_id: "bltaf3e7b9abde0e86a", // Prosperous Account Strategy on Tantalum
+  cms_topic_id: "blt90e57509bde4acab", // Prosperous Account Strategy on Tantalum
   start_date: formatDate(now),
   expiration_date: formatDate(expiry),
 };

@@ -27,9 +27,12 @@ jobs:
         uses: BetaHuhn/deploy-to-vercel-action@v1
         with:
           GITHUB_TOKEN: ${{ secrets.TIMS_GITHUB_TOKEN }}
+          VERCEL_SCOPE: ${{ secrets.VERCEL_SCOPE }}
           VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
           VERCEL_ORG_ID: ${{ secrets.VERCEL_TEAM_ID }}
           VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_QUICKCHECK_ID }}
+          ALIAS_DOMAINS: |
+            qc-green.richacc.com
   playwright_green_test:
     needs: deploy_to_green
     runs-on: ubuntu-latest

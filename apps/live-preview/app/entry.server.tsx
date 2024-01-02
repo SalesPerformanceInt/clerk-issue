@@ -9,7 +9,7 @@ import { RemixServer } from "@remix-run/react";
 
 import { createInstance } from "i18next";
 import Backend, { HttpBackendOptions } from "i18next-http-backend";
-import isbot from "isbot";
+import { isbot } from "isbot";
 
 import { getBackendOptions, i18nConfig } from "quickcheck-shared";
 

@@ -1,4 +1,4 @@
-name: Blue/Green Test on Vercel
+name: Blue/Green Test in Production
 env:
   VERCEL_SCOPE: ${{ secrets.VERCEL_SCOPE }}
   VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
@@ -11,8 +11,6 @@ on:
     branches:
       - "release/**"
       - main
-      - green
-      - staging
   # pull_request:
   #   types: [opened, synchronize, reopened]
 jobs:

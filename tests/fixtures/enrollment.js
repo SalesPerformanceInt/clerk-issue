@@ -25,7 +25,7 @@ const enrollment = {
 };
 
 const invalidEnrollment = {
-  invalidUser,
+  user: invalidUser,
   enrollment_id: "notvalid",
   cms_topic_id: "blt38ecbc80bb8dee1f", // Sprint Prospecting on Dev-tantalum
   start_date: formatDate(now),

@@ -11,6 +11,7 @@ on:
     branches:
       - "release/**"
       - main
+      - green
   # pull_request:
   #   types: [opened, synchronize, reopened]
 jobs:

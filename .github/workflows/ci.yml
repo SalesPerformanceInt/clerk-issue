@@ -4,6 +4,8 @@ on:
     branches-ignore:
       - master
       - main
+      - green
+      - production
   workflow_call:
 jobs:
   lint-build-test:

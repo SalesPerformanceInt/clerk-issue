@@ -12,7 +12,7 @@ const fetchUserToken = async (userId) => {
   });
 
   const res_obj = await response.json();
-  console.log({ BASE_URL, userId, res_obj });
+  console.log(res_obj.loginUrl)
   return { status: response.status, ...res_obj };
 };
 

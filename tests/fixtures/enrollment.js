@@ -42,9 +42,9 @@ const fetchEnrollmentImport = async (enr) => {
     body: JSON.stringify(enr),
   });
 
-  const parsed = await response.json();
-  console.log({ parsed, enr });
-  return { status: response.status, ...parsed };
+  const res_obj = await response.json();
+  console.log({ BASE_URL, enr, res_obj });
+  return { status: response.status, ...res_obj };
 };
 
 module.exports = { invalidEnrollment, enrollment, fetchEnrollmentImport };

@@ -22,17 +22,17 @@ Given("A Valid user and enrollment", async () => {
   console.log(`reset user`, { resp });
 });
 
+Given("An incomplete user and enrollment", async () => {
+  selectedEnrollment = invalidEnrollment;
+});
+
 When("The payload is sent to the enrollment API", async () => {
   enrollmentResponse = await fetchEnrollmentImport(selectedEnrollment);
-  console.log(`enroll user fresh`, { enrollmentResponse });
+  console.log(`enroll user response`, { enrollmentResponse });
 });
 
 Then("the API should respond with a {string} code", function (code) {
   expect(enrollmentResponse.status).toBe(Number(code));
-});
-
-Given("An incomplete user and enrollment", async () => {
-  selectedEnrollment = invalidEnrollment;
 });
 
 Given("A valid user ID", async () => {

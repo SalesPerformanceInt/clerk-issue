@@ -14,7 +14,7 @@ on:
   # pull_request:
   #   types: [opened, synchronize, reopened]
 jobs:
-  deploy_and_test:
+  setup:
     runs-on: ubuntu-latest
     if: ${{ !contains(github.event.head_commit.message, '[skip cuke]') }}
     steps:
@@ -31,12 +31,20 @@ jobs:
           run_install: false
       - name: PNPM install Dependencies
         run: pnpm install --no-frozen-lockfile
+  code_test:
+    needs: setup
+    runs-on: ubuntu-latest
+    steps:
       - name: Eslint
         run: pnpm lint
       - name: Build packages + apps
         run: pnpm build
       - name: Tests
         run: pnpm test
+  deploy_green:
+    needs: code_test
+    runs-on: ubuntu-latest
+    steps:
       - name: Deploy to Vercel Action
         uses: BetaHuhn/deploy-to-vercel-action@v1
         with:
@@ -44,8 +52,18 @@ jobs:
           VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
           VERCEL_ORG_ID: ${{ secrets.VERCEL_TEAM_ID }}
           VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_QUICKCHECK_ID }}
-      - name: Run Cucumber/Playwright Test Suite
-        run: pnpm exec playwright install chromium && pnpm run test:cu
+  cucumber_playwright_test:
+    needs: deploy_green
+    runs-on: ubuntu-latest
+    steps:
+      - name: Install Chromium
+        run: pnpm exec playwright install chromium
+      - name: Run Playwright Test Suite
+        run: pnpm run test:cu
+  merge_to_production:
+    needs: cucumber_playwright_test
+    runs-on: ubuntu-latest
+    steps:
       - name: Merge main -> production
         uses: devmasx/merge-branch@master
         with:

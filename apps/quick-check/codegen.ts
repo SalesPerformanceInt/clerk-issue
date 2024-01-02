@@ -31,6 +31,7 @@ const config: CodegenConfig = {
           uuid: "../scalars#Uuid",
           jsonb: "../scalars#Jsonb",
           timestamptz: "../scalars#TimestampTZ",
+          timestamp: "../scalars#TimestampTZ",
           numeric: "../scalars#Numeric",
           date: "../scalars#ISODate",
         },

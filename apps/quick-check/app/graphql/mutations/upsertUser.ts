@@ -16,7 +16,7 @@ export const UPSERT_USER = graphql(/* GraphQL */ `
     insert_user_one(
       object: $user
       on_conflict: {
-        constraint: users_pkey
+        constraint: user_pkey
         update_columns: [
           email
           first_name

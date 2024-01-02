@@ -9,12 +9,12 @@ const {
 const { chromium } = require("playwright");
 
 setDefaultTimeout(60000);
-const isLocal = true; //process.env.CUKE_BASE_URL?.includes("localhost");
+const isLocal = process.env.CUKE_BASE_URL?.includes("localhost");
 
 BeforeAll(async function () {
   global.browser = await chromium.launch({
     headless: isLocal ? false : true,
-    slowMo: isLocal ? 2000 : 0,
+    slowMo: 2000,
   });
 });
 

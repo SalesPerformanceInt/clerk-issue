@@ -28,7 +28,7 @@ export const action = async ({ request }: ActionArgs) => {
     const userInputData = formatUserInputFromImport(importEnrollmentData.user);
     const user = await adminApolloClient.upsertUser(userInputData);
 
-    invariant(user, `User not found`, userImportData);
+    invariant(user, `User not found`, userInputData);
 
     const {
       cms_topic_id,

@@ -27,7 +27,7 @@ export const action = async ({ request }: ActionArgs) => {
     const userInputData = formatUserInputFromImport(importUserData);
     const user = await adminApolloClient.upsertUser(userInputData);
 
-    invariant(user, "User not found");
+    invariant(user, "User not found for update");
 
     return json({ user_id: user.user_id }, { status: 201 });
   } catch (error) {

@@ -1,7 +1,5 @@
 import React, { useMemo } from "react";
 
-import i18next, { createInstance } from "i18next";
-
 import {
   Question,
   useLocalStorage,

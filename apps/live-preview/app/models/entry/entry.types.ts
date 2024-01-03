@@ -3,9 +3,18 @@ import type { Params } from "@remix-run/react";
 
 import type { LivePreviewQuery, Query } from "contentstack";
 
-import type { QuestionItem, Taxon } from "quickcheck-shared";
+import type { QuestionItemLivePreview } from "./questionItem/";
+import type { TaxonLivePreview } from "./taxonomy";
+
+/**
+ * Entry LP Query
+ */
 
 export type EntryLivePreviewQuery = LivePreviewQuery & Pick<Query, "entry_uid">;
+
+/**
+ * Entry LP Props
+ */
 
 export type GetEntryQueryProps = Pick<LoaderArgs, "request">;
 
@@ -17,14 +26,8 @@ export type GetEntryDataProps = {
 export type GetEntryProps = GetEntryQueryProps &
   Pick<GetEntryDataProps, "params">;
 
-type WithContentType<T, ContentType extends string> = T & {
-  content_type: { uid: ContentType };
-};
-
-export type QuestionItemLivePreview = WithContentType<
-  QuestionItem,
-  "questionitem"
->;
-export type TaxonLivePreview = WithContentType<Taxon, "taxon_bottom_up">;
+/**
+ * Entry LP Union
+ */
 
 export type EntryLivePreviewData = QuestionItemLivePreview | TaxonLivePreview;

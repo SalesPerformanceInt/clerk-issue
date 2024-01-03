@@ -1,4 +1,5 @@
 import { useTranslation } from "react-i18next";
+import reactflow from "reactflow/dist/style.css";
 import {
   json,
   type LinksFunction,
@@ -41,6 +42,7 @@ export const links: LinksFunction = () => [
   { rel: "stylesheet", href: tailwind },
   { rel: "stylesheet", href: sharedStyles },
   { rel: "stylesheet", href: contentStackStyles },
+  { rel: "stylesheet", href: reactflow },
 
   {
     rel: "preconnect",

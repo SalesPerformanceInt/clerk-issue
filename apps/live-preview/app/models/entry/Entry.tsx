@@ -1,8 +1,12 @@
 import React, { type FC } from "react";
 
-import type { EntryLivePreviewData } from "~/models/entry";
-
 import { QuestionItem } from "~/components/QuestionItem";
+
+import type { EntryLivePreviewData } from "./entry.types";
+
+/**
+ * Content Type Predicate
+ */
 
 const isContentType = <
   ContentType extends EntryLivePreviewData["content_type"]["uid"],
@@ -12,6 +16,10 @@ const isContentType = <
 ): entry is { content_type: { uid: ContentType } } => {
   return entry?.content_type?.uid === uid;
 };
+
+/**
+ * Dynamic Entry
+ */
 
 export const Entry: FC<{ entryData: EntryLivePreviewData }> = ({
   entryData,

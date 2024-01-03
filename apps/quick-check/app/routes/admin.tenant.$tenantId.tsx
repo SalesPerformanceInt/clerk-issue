@@ -68,9 +68,10 @@ export const action = async ({ request, params }: ActionArgs) => {
     const createUserInput = parseCreateUserRequest(formData);
 
     if (createUserInput) {
-      await adminApolloClient.upsertUser(
-        formatUserInputFromImport(createUserInput),
-      );
+      const [userInputData, proxyData] =
+        formatUserInputFromImport(createUserInput);
+
+      await adminApolloClient.upsertUser(userInputData, proxyData);
     }
 
     const adminAction = parseAdminActionRequest(formData);

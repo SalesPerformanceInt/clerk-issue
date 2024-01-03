@@ -20,7 +20,6 @@ export const BaseUser = graphql(/* GraphQL */ `
     next_question {
       ...BaseUserQuestion
     }
-    phone_number
     timezone
     user_id
     sms_enabled

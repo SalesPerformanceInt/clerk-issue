@@ -12,11 +12,11 @@ import {
   type CardProps,
 } from "quickcheck-shared";
 
+import { makeCalendar } from "~/utils/calendar";
+
 import { useDashboardContext } from "~/pages/Dashboard";
 
 import type { TimeTravelContext } from "~/components/TimeTravel";
-
-import { makeCalendar } from "../utils/calendar";
 
 /**
  * Weekly Streak

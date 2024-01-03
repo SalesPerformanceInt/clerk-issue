@@ -7,10 +7,9 @@ import { invariant, simpleErrorResponse } from "quickcheck-shared";
 import { getAdminApolloClientFromRequest } from "~/graphql";
 
 import { verifyApiRequest } from "~/models/api";
-import { getEnrollmentSkills } from "~/models/enrollment";
 
 const teamsSchema = z.object({
-  enrollmentId: z.string().uuid(),
+  userId: z.string().uuid(),
   accountSubdomain: z.string(),
 });
 
@@ -26,20 +25,17 @@ export const action = async ({ request }: ActionArgs) => {
 
     const body = await request.json();
 
-    const { enrollmentId, accountSubdomain } = teamsSchema.parse(body);
+    const { userId, accountSubdomain } = teamsSchema.parse(body);
 
-    const enrollment = await adminApolloClient.getUserEnrollment(enrollmentId);
+    const result = await adminApolloClient.getWeeklyStreakCalendar({ userId });
 
-    invariant(enrollment, "Error fetching enrollment");
+    invariant(result, "Error fetching data");
 
-    invariant(
-      enrollment?.user.tenant_id === accountSubdomain,
-      "Invalid account subdomain",
-    );
+    const { weeklyStreak, calendar, tenant_id } = result;
 
-    const skills = getEnrollmentSkills(enrollment);
+    invariant(tenant_id === accountSubdomain, "Invalid account subdomain");
 
-    return json({ skills });
+    return json({ weeklyStreak, calendar });
   } catch (error) {
     return simpleErrorResponse(error);
   }

@@ -44,6 +44,7 @@ import {
   getUsersForDailyEmail,
   getUserTheme,
   getUserWeeklyStreak,
+  getWeeklyStreakCalendar,
 } from "~/graphql/queries";
 
 import { HASURA_API_URL } from "~/utils/envs.server";
@@ -131,6 +132,7 @@ export class GraphQLClient implements WithApolloClient {
   getNotificationEnrollments = getNotificationEnrollments;
   getUserLastActiveToken = getUserLastActiveToken;
   getTeamEnrollments = getTeamEnrollments;
+  getWeeklyStreakCalendar = getWeeklyStreakCalendar;
 
   constructor(headers: GraphQLHeaders) {
     this.client = getClient(headers);

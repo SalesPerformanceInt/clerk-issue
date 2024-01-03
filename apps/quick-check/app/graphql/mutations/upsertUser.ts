@@ -4,6 +4,7 @@ import { invariant, RequiredKeys } from "quickcheck-shared";
 
 import {
   graphql,
+  type GQLProxyAllData,
   type GQLProxyData,
   type User_Insert_Input,
   type WithApolloClient,
@@ -12,7 +13,7 @@ import {
 import { generateNewToken } from "./generateNewToken";
 
 export const UPSERT_USER = graphql(/* GraphQL */ `
-  mutation UpsertUser($user: user_insert_input!) {
+  mutation UpsertUser($user: user_insert_input!, $tenantId: String!) {
     insert_user_one(
       object: $user
       on_conflict: {
@@ -29,6 +30,13 @@ export const UPSERT_USER = graphql(/* GraphQL */ `
     ) {
       ...UserWithActiveToken
     }
+    insert_tenant_one(
+      object: { tenant_id: $tenantId }
+      on_conflict: { constraint: tenant_pkey, update_columns: [] }
+    ) {
+      tenant_id
+      theme_id
+    }
   }
 `);
 
@@ -40,23 +48,19 @@ export type UpsertUserInput = RequiredKeys<
 export async function upsertUser(
   this: WithApolloClient,
   user: UpsertUserInput,
-  proxyData: GQLProxyData,
+  proxyData: GQLProxyAllData,
 ) {
-  const { now } = proxyData;
+  const { now, tenantId, userId } = proxyData;
 
   try {
     const result = await this.client.mutate({
       mutation: UPSERT_USER,
-      variables: { user },
+      variables: { user, tenantId },
     });
 
     const { data } = result;
 
-    const userId = data?.insert_user_one?.user_id;
-    const tenantId = data?.insert_user_one?.tenant_id;
-
-    invariant(userId, "User ID not found");
-    invariant(tenantId, "Tenant ID not found");
+    invariant(data?.insert_user_one, "User not found");
 
     if (isEmpty(data.insert_user_one?.active_tokens))
       await generateNewToken.call(this, { userId, tenantId, now });

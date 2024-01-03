@@ -25,8 +25,11 @@ export const action = async ({ request }: ActionArgs) => {
 
     const importEnrollmentData = inputEnrollmentSchema.parse(body);
 
-    const userInputData = formatUserInputFromImport(importEnrollmentData.user);
-    const user = await adminApolloClient.upsertUser(userInputData);
+    const [userInputData, proxyData] = formatUserInputFromImport(
+      importEnrollmentData.user,
+    );
+
+    const user = await adminApolloClient.upsertUser(userInputData, proxyData);
 
     invariant(
       user,

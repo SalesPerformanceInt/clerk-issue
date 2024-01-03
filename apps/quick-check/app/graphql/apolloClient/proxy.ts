@@ -20,10 +20,14 @@ declare global {
 export type GQLProxyData = { now: string };
 export type GQLProxyUserData = GQLProxyData & { userId: string };
 export type GQLProxyTenantData = GQLProxyData & { tenantId: string };
-export type GQLProxyPossibleData = GQLProxyData & {
-  userId?: string;
-  tenantId?: string;
+
+export type GQLUserTenantData = {
+  userId: string;
+  tenantId: string;
 };
+
+export type GQLProxyPossibleData = GQLProxyData & Partial<GQLUserTenantData>;
+
 export type GQLProxyAllData = Required<GQLProxyPossibleData>;
 
 /**

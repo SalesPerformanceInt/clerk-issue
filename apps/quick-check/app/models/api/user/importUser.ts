@@ -1,7 +1,7 @@
 import { z } from "zod";
 import { zfd } from "zod-form-data";
 
-import { type UpsertUserInput } from "~/graphql";
+import { GQLUserTenantData, type UpsertUserInput } from "~/graphql";
 
 import { parseSchema } from "~/utils/parseSchema";
 
@@ -21,11 +21,19 @@ export const formatUserInputFromImport = ({
   language,
   account_subdomain,
   ...data
-}: ImportUserData): UpsertUserInput => ({
-  ...data,
-  tenant_id: account_subdomain,
-  language_preference: language,
-});
+}: ImportUserData): [UpsertUserInput, GQLUserTenantData] => {
+  return [
+    {
+      ...data,
+      tenant_id: account_subdomain,
+      language_preference: language,
+    },
+    {
+      userId: data.user_id,
+      tenantId: account_subdomain,
+    },
+  ];
+};
 
 export const parseCreateUserRequest = (formData?: FormData) => {
   const data = formData && Object.fromEntries([...formData.entries()]);

@@ -24,8 +24,10 @@ export const action = async ({ request }: ActionArgs) => {
 
     const importUserData = importUserSchema.parse(body);
 
-    const userInputData = formatUserInputFromImport(importUserData);
-    const user = await adminApolloClient.upsertUser(userInputData);
+    const [userInputData, proxyData] =
+      formatUserInputFromImport(importUserData);
+
+    const user = await adminApolloClient.upsertUser(userInputData, proxyData);
 
     invariant(user, "User not found for update");
 

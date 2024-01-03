@@ -1,5 +1,7 @@
 import { json, type ActionArgs } from "@remix-run/node";
 
+import { invariant, simpleErrorResponse } from "quickcheck-shared";
+
 import { getAdminApolloClientFromRequest } from "~/graphql";
 
 import { formatUserInputFromImport, importUserSchema } from "~/models/api";
@@ -9,13 +11,19 @@ export const config = {
 };
 
 export const action = async ({ request }: ActionArgs) => {
-  const adminApolloClient = await getAdminApolloClientFromRequest(request);
+  try {
+    const adminApolloClient = await getAdminApolloClientFromRequest(request);
 
-  const body = await request.json();
+    const body = await request.json();
 
-  const importUserData = importUserSchema.parse(body);
-  const userInputData = formatUserInputFromImport(importUserData);
-  const user = await adminApolloClient.upsertUser(userInputData);
+    const importUserData = importUserSchema.parse(body);
+    const [userInputData, proxyData] =
+      formatUserInputFromImport(importUserData);
 
-  return json({ user });
+    const user = await adminApolloClient.upsertUser(userInputData, proxyData);
+
+    return json({ user });
+  } catch (error) {
+    return simpleErrorResponse(error);
+  }
 };

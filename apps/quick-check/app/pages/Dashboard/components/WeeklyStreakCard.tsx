@@ -42,7 +42,7 @@ export const WeeklyStreakCard: FC<CardProps> = ({ className, ...props }) => {
   );
 
   return (
-    <Card className={twMerge("max-w-sm p-6", className)} {...props}>
+    <Card className={twMerge("p-6", className)} {...props}>
       <CardTitle
         qty={dashboard.weeklyStreak ?? 0}
         title={t("user.dashboard.weekly_streak")}

@@ -13,7 +13,7 @@ export const EnrollmentSkillCard: FC<EnrollmentSkillData> = (props) => {
     <Card key={skill} {...other}>
       <div className="flex w-full flex-col gap-2 p-4">
         <div className="flex items-center gap-2">
-          <p className="text-base font-normal leading-6 ">{skill}</p>
+          <p className="truncate text-base font-normal leading-6">{skill}</p>
         </div>
         {unanswered ? (
           <div className="-mx-4 flex h-37">

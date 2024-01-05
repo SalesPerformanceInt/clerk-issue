@@ -38,7 +38,16 @@ const config = {
         37: "9.25rem",
         11: "2.75rem",
       },
+      width: {
+        18: "4.5rem",
+        "full-px-4": "calc(100% + 2rem)",
+        "full-px-10": "calc(100% + 5rem)",
+        "1/2-gap-4": "calc(50% - (1/2 * 1rem))",
+        "1/2-gap-8": "calc(50% - (1/2 * 2rem))",
+        "1/3-gap-4": "calc(33.3% - (2/3 * 1rem))",
+      },
       maxWidth: {
+        18: "4.5rem",
         desktop: "928px",
       },
       minWidth: {
@@ -50,6 +59,11 @@ const config = {
       },
       spacing: {
         "1.25": "0.3125rem",
+      },
+      flexBasis: {
+        "1/2-gap-4": "calc(50% - (1/2 * 1rem))",
+        "1/2-gap-8": "calc(50% - (1/2 * 2rem))",
+        "1/3-gap-4": "calc(33.3% - (2/3 * 1rem))",
       },
       colors: {
         primary: {

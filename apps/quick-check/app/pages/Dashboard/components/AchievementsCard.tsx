@@ -37,7 +37,7 @@ export const AchievementsCard: FC<AchievementsCardProps> = ({ className }) => {
     (retiredQuestions / totalQuestions) * 100 || 0;
 
   return (
-    <Card className={twMerge("max-w-sm", className)}>
+    <Card className={className}>
       <CardTitle title={t("common.achievements")} className="p-6 pb-0" />
 
       <section className="flex h-full items-center justify-between gap-4 p-6">

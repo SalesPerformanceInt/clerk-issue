@@ -35,7 +35,7 @@ export const LeaderboardCard: FC<LeaderboardCardProps> = ({ className }) => {
   if (!rankedEnrollments.length) return null;
 
   return (
-    <Card className={twMerge("max-w-sm", className)}>
+    <Card className={className}>
       <CardTitle title={t("common.leaderboard")} className="p-6 pb-0" />
 
       <section className="flex flex-col gap-4 p-6">

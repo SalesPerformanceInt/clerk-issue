@@ -1,4 +1,6 @@
-import { contentStack } from "~/contentstack.server";
+import { getContentStackClient } from "~/contentstack.server";
+
+import { logError } from "quickcheck-shared";
 
 import { graphql, type GQLProxyData, type WithApolloClient } from "~/graphql";
 
@@ -32,6 +34,7 @@ export const GET_USER_ENROLLMENT = graphql(/* GraphQL */ `
         first_name
         last_name
         tenant_id
+        language_preference
       }
     }
   }
@@ -57,6 +60,9 @@ export async function getUserEnrollment(
 
     if (!enrollment) return null;
 
+    const language = enrollment.user.language_preference;
+    const contentStack = getContentStackClient(language);
+
     const user_questions = await Promise.all(
       enrollment.user_questions.map(async (user_question) => {
         const taxonomy = await contentStack.getTaxonomy(
@@ -80,7 +86,7 @@ export async function getUserEnrollment(
         enrollment.user.unanswered_questions.aggregate?.count ?? 0,
     };
   } catch (error) {
-    console.log("ERROR", error);
+    logError({ error, log: "getUserEnrollment" });
     return null;
   }
 }

@@ -1,3 +1,5 @@
+import { logError } from "quickcheck-shared";
+
 import {
   graphql,
   type GQLProxyUserData,
@@ -51,7 +53,7 @@ export async function getUserNextQuestion(
 
     return result.data.user_by_pk?.user_questions?.[0] ?? null;
   } catch (error) {
-    console.log("ERROR", error);
+    logError({ error, log: "getUserNextQuestion" });
     return null;
   }
 }

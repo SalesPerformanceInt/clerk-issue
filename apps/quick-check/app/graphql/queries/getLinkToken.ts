@@ -1,3 +1,5 @@
+import { logError } from "quickcheck-shared";
+
 import { graphql, type GQLProxyData, type WithApolloClient } from "~/graphql";
 
 export const GET_LINK_TOKEN = graphql(/* GraphQL */ `
@@ -27,7 +29,7 @@ export async function getLinkToken(
 
     return data.link_token_by_pk;
   } catch (error) {
-    console.log("ERROR", error);
+    logError({ error, log: "getLinkToken" });
     return null;
   }
 }

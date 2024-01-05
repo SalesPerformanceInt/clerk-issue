@@ -1,6 +1,6 @@
 import { redirect, type LoaderArgs } from "@remix-run/node";
 
-import { invariant } from "quickcheck-shared";
+import { invariant, logError } from "quickcheck-shared";
 
 import { generateNextQuestionFromRequest } from "~/models/user";
 
@@ -16,7 +16,7 @@ export const loader = async ({ request }: LoaderArgs) => {
 
     return redirect(`/question/${nextQuestionId}`);
   } catch (error) {
-    console.log("ERROR - /next-question", error);
+    logError({ error, log: "/next-question" });
     return redirect(`/`);
   }
 };

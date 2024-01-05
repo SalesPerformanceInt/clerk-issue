@@ -1,3 +1,5 @@
+import { logError } from "quickcheck-shared";
+
 import { graphql, type GQLProxyData, type WithApolloClient } from "~/graphql";
 
 export const GET_TEAM_ENROLLMENTS = graphql(/* GraphQL */ `
@@ -47,7 +49,7 @@ export async function getTeamEnrollments(
       questionsAttempted: enrollment.attempted.aggregate?.count ?? 0,
     }));
   } catch (error) {
-    console.log("ERROR", error);
+    logError({ error, log: "getTeamEnrollments" });
     return null;
   }
 }

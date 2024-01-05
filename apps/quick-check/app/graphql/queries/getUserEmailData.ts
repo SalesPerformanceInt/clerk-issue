@@ -1,5 +1,7 @@
 import { DateTime } from "luxon";
 
+import { logError } from "quickcheck-shared";
+
 import {
   graphql,
   type GQLProxyUserData,
@@ -59,7 +61,7 @@ export async function getUserEmailData(
       first_user_enrollment: user_by_pk.user_enrollments[0],
     };
   } catch (error) {
-    console.log("ERROR", error);
+    logError({ error, log: "getUserEmailData" });
     return null;
   }
 }

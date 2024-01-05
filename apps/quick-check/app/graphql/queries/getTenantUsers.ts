@@ -1,3 +1,5 @@
+import { logError } from "quickcheck-shared";
+
 import {
   graphql,
   type GQLProxyTenantData,
@@ -29,7 +31,7 @@ export async function getTenantUsers(
 
     return result?.data?.user;
   } catch (error) {
-    console.log("ERROR", error);
+    logError({ error, log: "getTenantUsers" });
     return null;
   }
 }

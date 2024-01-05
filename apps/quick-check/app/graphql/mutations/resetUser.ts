@@ -1,3 +1,5 @@
+import { logError } from "quickcheck-shared";
+
 import {
   graphql,
   type GQLProxyUserData,
@@ -35,7 +37,7 @@ export async function resetUser(
 
     return result.data?.update_user_by_pk ?? null;
   } catch (error) {
-    console.log("ERROR", error);
+    logError({ error, log: "resetUser" });
     return null;
   }
 }

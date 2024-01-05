@@ -1,3 +1,5 @@
+import { logError } from "quickcheck-shared";
+
 import {
   graphql,
   type GQLProxyData,
@@ -30,7 +32,7 @@ export async function updateUserEnrollmentsRanks(
 
     return result.data?.update_user_enrollment_many ?? null;
   } catch (error) {
-    console.log("ERROR", error);
+    logError({ error, log: "updateUserEnrollmentsRanks" });
     return null;
   }
 }

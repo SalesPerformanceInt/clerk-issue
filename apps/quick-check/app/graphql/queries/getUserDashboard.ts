@@ -1,5 +1,7 @@
-import { contentStack } from "~/contentstack.server";
+import { getContentStackClient } from "~/contentstack.server";
 import { DateTime } from "luxon";
+
+import { logError } from "quickcheck-shared";
 
 import { graphql, type GQLProxyUserData, type GraphQLClient } from "~/graphql";
 
@@ -144,6 +146,9 @@ export async function getUserDashboard(
 
     const { user_by_pk } = result.data;
 
+    const language = user_by_pk.language_preference;
+    const contentStack = getContentStackClient(language);
+
     const active_user_enrollments = await Promise.all(
       user_by_pk.active_user_enrollments.map(async (enrollment) => {
         const taxonomy = await contentStack.getTaxonomy(enrollment.taxonomy_id);
@@ -179,7 +184,7 @@ export async function getUserDashboard(
       unanswered_questions: user_by_pk.unanswered_questions.aggregate?.count,
     };
   } catch (error) {
-    console.log("ERROR", error);
+    logError({ error, log: "getUserDashboard" });
     return null;
   }
 }

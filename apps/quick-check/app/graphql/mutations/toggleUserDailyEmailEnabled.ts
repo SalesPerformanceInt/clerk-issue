@@ -1,4 +1,4 @@
-import { invariant } from "quickcheck-shared";
+import { invariant, logError } from "quickcheck-shared";
 
 import {
   graphql,
@@ -49,7 +49,7 @@ export async function toggleUserDailyEmailEnabled(
 
     return data?.update_user_by_pk?.daily_email_enabled ?? null;
   } catch (error) {
-    console.log("ERROR", error);
+    logError({ error, log: "toggleUserDailyEmailEnabled" });
     return null;
   }
 }

@@ -20,3 +20,4 @@ export * from "./getNotificationEnrollments";
 export * from "./getUserLastActiveToken";
 export * from "./getTeamEnrollments";
 export * from "./getWeeklyStreakCalendar";
+export * from "./getUserLanguage";

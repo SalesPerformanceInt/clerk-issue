@@ -1,3 +1,5 @@
+import { logError } from "quickcheck-shared";
+
 import { graphql, type GQLProxyData, type WithApolloClient } from "~/graphql";
 
 export const GET_USER_FOR_DAILY_EMAIL = graphql(/* GraphQL */ `
@@ -20,7 +22,7 @@ export async function getUsersForDailyEmail(
 
     return result?.data?.user;
   } catch (error) {
-    console.log("ERROR", error);
+    logError({ error, log: "getUsersForDailyEmail" });
     return null;
   }
 }

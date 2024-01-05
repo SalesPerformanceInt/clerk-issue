@@ -1,3 +1,5 @@
+import { logError } from "quickcheck-shared";
+
 import { graphql, type GQLProxyData, type WithApolloClient } from "~/graphql";
 
 export const GET_ALL_USERS = graphql(/* GraphQL */ `
@@ -20,7 +22,7 @@ export async function getAllUsers(
 
     return result?.data?.user;
   } catch (error) {
-    console.log("ERROR", error);
+    logError({ error, log: "getAllUsers" });
     return null;
   }
 }

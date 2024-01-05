@@ -1,3 +1,5 @@
+import { logError } from "quickcheck-shared";
+
 import {
   graphql,
   type GQLProxyAllData,
@@ -39,7 +41,7 @@ export async function generateNewToken(
 
     return data?.insert_link_token_one ?? null;
   } catch (error) {
-    console.log("ERROR", error);
+    logError({ error, log: "generateNewToken" });
     return null;
   }
 }

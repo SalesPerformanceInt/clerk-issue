@@ -1,5 +1,6 @@
-import { contentStack } from "~/contentstack.server";
 import { DateTime } from "luxon";
+
+import { logError } from "quickcheck-shared";
 
 import { graphql, type GQLProxyUserData, type GraphQLClient } from "~/graphql";
 
@@ -53,7 +54,7 @@ export async function getWeeklyStreakCalendar(
       calendar,
     };
   } catch (error) {
-    console.log("ERROR", error);
+    logError({ error, log: "getWeeklyStreakCalendar" });
     return null;
   }
 }

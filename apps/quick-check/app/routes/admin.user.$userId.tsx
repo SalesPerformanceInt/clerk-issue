@@ -17,7 +17,12 @@ import { generateTokenAndSendSMS } from "~/notifications/twilio.server";
 import { DateTime } from "luxon";
 import { z } from "zod";
 
-import { Button, invariant } from "quickcheck-shared";
+import {
+  Button,
+  invariant,
+  logError,
+  simpleErrorResponse,
+} from "quickcheck-shared";
 
 import {
   getAdminApolloClientFromRequest,
@@ -141,8 +146,7 @@ export const action = async ({ request, params }: ActionArgs) => {
 
     return json(formData);
   } catch (error) {
-    console.log("ERROR", error);
-    return json({ error }, { status: 500 });
+    return simpleErrorResponse(error);
   }
 };
 

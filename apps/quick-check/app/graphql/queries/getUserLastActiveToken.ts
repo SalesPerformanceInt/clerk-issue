@@ -1,5 +1,7 @@
 import { DateTime } from "luxon";
 
+import { logError } from "quickcheck-shared";
+
 import {
   graphql,
   type GQLProxyUserData,
@@ -46,7 +48,7 @@ export async function getUserLastActiveToken(
 
     return token;
   } catch (error) {
-    console.log("ERROR", error);
+    logError({ error, log: "getUserLastActiveToken" });
     return null;
   }
 }

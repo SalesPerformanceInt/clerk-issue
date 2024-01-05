@@ -1,3 +1,5 @@
+import { logError } from "quickcheck-shared";
+
 import {
   graphql,
   type GQLProxyData,
@@ -30,7 +32,7 @@ export async function createLearningRecord(
 
     return data.insert_learning_record_one;
   } catch (error) {
-    console.log("ERROR", error);
+    logError({ error, log: "createLearningRecord" });
     return null;
   }
 }

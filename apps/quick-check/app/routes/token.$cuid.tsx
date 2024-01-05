@@ -1,6 +1,6 @@
 import { redirect, type LoaderArgs } from "@remix-run/node";
 
-import { invariant } from "quickcheck-shared";
+import { invariant, logError } from "quickcheck-shared";
 
 import { getUnauthenticatedApolloClient } from "~/graphql";
 
@@ -50,7 +50,7 @@ export const loader = async ({ params, request }: LoaderArgs) => {
       tenantId: token.tenant_id,
     });
   } catch (error) {
-    console.log("ERROR - /token/$cuid", error);
+    logError({ error, log: "/token/$cuid" });
     return invalidTokenRedirect();
   }
 };

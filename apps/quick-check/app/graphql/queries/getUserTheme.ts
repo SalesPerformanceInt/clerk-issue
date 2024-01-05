@@ -1,4 +1,6 @@
-import { contentStack } from "~/contentstack.server";
+import { getContentStackClient } from "~/contentstack.server";
+
+import { invariant, logError } from "quickcheck-shared";
 
 import {
   graphql,
@@ -9,6 +11,7 @@ import {
 export const GET_USER_THEME = graphql(/* GraphQL */ `
   query GetUserTheme($userId: uuid!) {
     user_by_pk(user_id: $userId) {
+      language_preference
       tenant {
         theme_id
       }
@@ -28,16 +31,19 @@ export async function getUserTheme(
       variables: { userId },
     });
 
-    const themeId = result?.data?.user_by_pk?.tenant?.theme_id;
+    invariant(result?.data?.user_by_pk?.tenant, "User not found");
 
-    if (themeId) {
-      const theme = await contentStack.getTheme(themeId);
-      return theme?.custom_styles;
-    }
+    const {
+      tenant: { theme_id },
+      language_preference,
+    } = result.data.user_by_pk;
 
-    return null;
+    const contentStack = getContentStackClient(language_preference);
+
+    const theme = await contentStack.getTheme(theme_id);
+    return theme?.custom_styles ?? null;
   } catch (error) {
-    console.log("ERROR - getUserTheme", error);
+    logError({ error, log: "getUserTheme" });
     return null;
   }
 }

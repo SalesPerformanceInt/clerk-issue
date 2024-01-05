@@ -1,3 +1,5 @@
+import { logError } from "quickcheck-shared";
+
 import {
   graphql,
   type GQLProxyUserData,
@@ -40,7 +42,7 @@ export async function getUserActiveQuestionsData(
         data.user_by_pk.unanswered_questions.aggregate?.count,
     };
   } catch (error) {
-    console.log("ERROR", error);
+    logError({ error, log: "getUserActiveQuestionsData" });
     return null;
   }
 }

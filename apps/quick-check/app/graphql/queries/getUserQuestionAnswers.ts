@@ -1,3 +1,5 @@
+import { logError } from "quickcheck-shared";
+
 import {
   graphql,
   type GQLProxyUserData,
@@ -32,7 +34,7 @@ export async function getUserQuestionAnswers(
 
     return result.data.user_answer ?? null;
   } catch (error) {
-    console.log("ERROR", error);
+    logError({ error, log: "getUserQuestionAnswers" });
     return null;
   }
 }

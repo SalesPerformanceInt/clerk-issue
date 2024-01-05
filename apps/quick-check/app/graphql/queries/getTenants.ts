@@ -1,3 +1,5 @@
+import { logError } from "quickcheck-shared";
+
 import { graphql, type GQLProxyData, type WithApolloClient } from "~/graphql";
 
 export const GET_TENANTS = graphql(/* GraphQL */ `
@@ -25,7 +27,7 @@ export async function getTenants(
 
     return result?.data?.tenant;
   } catch (error) {
-    console.log("ERROR", error);
+    logError({ error, log: "getTenants" });
     return null;
   }
 }

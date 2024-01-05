@@ -1,4 +1,4 @@
-import { contentStack } from "~/contentstack.server";
+import { getContentStackClient } from "~/contentstack.server";
 import { DateTime } from "luxon";
 import { pipe, shuffle } from "remeda";
 
@@ -7,7 +7,6 @@ import {
   getNodeInTreesById,
   invariant,
   logError,
-  promiseWrapper,
   type QuestionItem,
   type TreeNode,
 } from "quickcheck-shared";
@@ -15,9 +14,9 @@ import {
 import {
   graphql,
   type GQLProxyAllData,
+  type GraphQLClient,
   type User_Enrollment_Insert_Input,
   type User_Question_Insert_Input,
-  type WithApolloClient,
 } from "~/graphql";
 
 import { ENROLLMENT_DAYS } from "~/utils/constants";
@@ -67,17 +66,20 @@ const getTaxon = async (taxonomy_id: string) => {
 const getDescendantUids = (taxon: TreeNode<TaxonomyDataObj>) =>
   taxon.getDescendants().map(({ dataObj }) => dataObj.uid);
 
-const getQuestions = async (taxon: TreeNode<TaxonomyDataObj>) => {
-  const descendantUids = getDescendantUids(taxon);
+const getQuestions =
+  (language: string) => async (taxon: TreeNode<TaxonomyDataObj>) => {
+    const descendantUids = getDescendantUids(taxon);
 
-  const questions = await contentStack.getQuestionItems((query) =>
-    query.containedIn("topic.uid", descendantUids),
-  );
+    const contentStack = getContentStackClient(language);
 
-  invariant(questions, "No matching questions found.");
+    const questions = await contentStack.getQuestionItems((query) =>
+      query.containedIn("topic.uid", descendantUids),
+    );
 
-  return questions;
-};
+    invariant(questions, "No matching questions found.");
+
+    return questions;
+  };
 
 /**
  * Prepare Questions Input
@@ -194,36 +196,40 @@ export type EnrollUserEnrollment = {
 };
 
 export async function enrollUser(
-  this: WithApolloClient,
+  this: GraphQLClient,
   taxonomyId: string,
   enrollmentData: EnrollUserEnrollment,
   proxyData: GQLProxyAllData,
 ) {
-  const { userId, tenantId } = proxyData;
+  try {
+    const { userId, tenantId } = proxyData;
 
-  const taxon = await getTaxon(taxonomyId);
+    const taxon = await getTaxon(taxonomyId);
 
-  const userEnrollment = await pipe(
-    taxon,
-    andThen(getQuestions),
-    andThen(shuffle()),
-    andThen(prepareActiveQuestionsInput(userId, enrollmentData, taxon)),
-    andThen(prepareUserEnrollmentInput(userId, taxonomyId, enrollmentData)),
-  );
+    const language = await this.getUserLanguage(proxyData);
 
-  const [enrolledUser, error] = await promiseWrapper(
-    this.client.mutate({
+    invariant(language, "No user language found.");
+
+    const userEnrollment = await pipe(
+      taxon,
+      andThen(getQuestions(language)),
+      andThen(shuffle()),
+      andThen(prepareActiveQuestionsInput(userId, enrollmentData, taxon)),
+      andThen(prepareUserEnrollmentInput(userId, taxonomyId, enrollmentData)),
+    );
+
+    const enrolledUser = await this.client.mutate({
       mutation: ENROLL_USER,
       variables: { userEnrollment, tenantId },
-    }),
-  );
+    });
 
-  if (error || !enrolledUser) {
+    invariant(enrolledUser.data, "No user language found.");
+
+    const enrollment = enrolledUser.data.insert_user_enrollment_one;
+
+    return enrollment ?? null;
+  } catch (error) {
     logError({ error, log: "enrollUser" });
     return null;
   }
-
-  const enrollment = enrolledUser.data?.insert_user_enrollment_one;
-
-  return enrollment ?? null;
 }

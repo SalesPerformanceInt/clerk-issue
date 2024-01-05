@@ -5,6 +5,8 @@
 export const TODAY = new Date();
 export const DAY_MS = 1000 * 3600 * 24;
 
+export const DEFAULT_LANGUAGE = "en-us";
+
 /**
  * Enrollment
  */

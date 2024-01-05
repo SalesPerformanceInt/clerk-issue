@@ -1,6 +1,6 @@
 import type { RawNodeDatum } from "react-d3-tree";
 
-import { contentStack } from "~/contentstack.server";
+import { DEFAULT_LANGUAGE, getContentStackClient } from "~/contentstack.server";
 import { isArray } from "remeda";
 
 import { buildTrees, type Taxon, type TreeNode } from "quickcheck-shared";
@@ -34,6 +34,7 @@ export const treeNodeToRawNodeDatum = <T extends TaxonomyDataObj>(
 };
 
 export const buildTaxonTrees = async () => {
+  const contentStack = getContentStackClient(DEFAULT_LANGUAGE);
   const taxonomies = (await contentStack.getAllTaxonomies()) ?? [];
 
   const taxonomyDataObjects = taxonomies.map(toTaxonomyDataObj);

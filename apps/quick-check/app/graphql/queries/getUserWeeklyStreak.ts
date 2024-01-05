@@ -1,6 +1,8 @@
 import { DateTime } from "luxon";
 import { isEmpty } from "remeda";
 
+import { logError } from "quickcheck-shared";
+
 import { graphql, type GQLProxyUserData, type GraphQLClient } from "~/graphql";
 
 export const GET_USER_ANSWERS_BY_WEEK = graphql(/* GraphQL */ `
@@ -67,7 +69,7 @@ export async function getUserWeeklyStreak(
 
     return getWeeklyStreak(DateTime.fromISO(now));
   } catch (error) {
-    console.log("ERROR", error);
+    logError({ error, log: "getUserWeeklyStreak" });
     return null;
   }
 }

@@ -22,13 +22,21 @@ const getContentStackSDKClient = (
 
 export class ContentStackSDKClient {
   client: Stack;
+  language: string;
+
   getQuestionItems = getQuestionItems;
   getQuestionItem = getQuestionItem;
   getTheme = getTheme;
   getAllTaxonomies = getAllTaxonomies;
   getTaxonomy = getTaxonomy;
 
-  constructor(deliveryToken: string, apiKey: string, environment: string) {
+  constructor(
+    deliveryToken: string,
+    apiKey: string,
+    environment: string,
+    language: string,
+  ) {
+    this.language = language;
     this.client = getContentStackSDKClient(deliveryToken, apiKey, environment);
   }
 }

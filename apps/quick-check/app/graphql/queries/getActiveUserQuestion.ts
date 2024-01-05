@@ -1,6 +1,8 @@
 import { DateTime } from "luxon";
 import { first } from "remeda";
 
+import { logError } from "quickcheck-shared";
+
 import { graphql, type GQLProxyData, type WithApolloClient } from "~/graphql";
 
 import { getToday } from "~/utils/date";
@@ -37,7 +39,7 @@ export async function getActiveUserQuestion(
 
     return first(data?.user_question ?? []) ?? null;
   } catch (error) {
-    console.log("ERROR", error);
+    logError({ error, log: "getActiveUserQuestion" });
     return null;
   }
 }

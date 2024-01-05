@@ -1,4 +1,4 @@
-import { contentStack } from "~/contentstack.server";
+import { getContentStackClient } from "~/contentstack.server";
 
 import { invariant } from "quickcheck-shared";
 
@@ -7,6 +7,9 @@ import type { BaseUserQuestionFragment } from "~/graphql";
 export const getQuestionData = async (
   userQuestion: BaseUserQuestionFragment,
 ) => {
+  const language = userQuestion.user.language_preference;
+  const contentStack = getContentStackClient(language);
+
   const questionItem = await contentStack.getQuestionItem(
     userQuestion.question_id,
   );

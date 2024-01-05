@@ -1,4 +1,4 @@
-import { contentStack } from "~/contentstack.server";
+import { getContentStackClient } from "~/contentstack.server";
 import { QuickcheckBasicEmail, render } from "emails";
 
 import { invariant } from "quickcheck-shared";
@@ -21,6 +21,8 @@ export const sendUserEnrollmentEmailTemplate: EmailTemplatesFn = async (
 
   const firstQuestion = enrollment.first_question[0];
   invariant(firstQuestion, "No question found");
+
+  const contentStack = getContentStackClient(user.language_preference);
 
   const enrollmentTaxonomy = await contentStack.getTaxonomy(
     enrollment.taxonomy_id,

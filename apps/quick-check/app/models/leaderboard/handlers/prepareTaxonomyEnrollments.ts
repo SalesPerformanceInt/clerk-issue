@@ -1,4 +1,4 @@
-import { contentStack } from "~/contentstack.server";
+import { DEFAULT_LANGUAGE, getContentStackClient } from "~/contentstack.server";
 import { groupBy, pipe } from "remeda";
 
 import { invariant } from "quickcheck-shared";
@@ -33,6 +33,8 @@ const filterGroupedEnrollmentsByUser =
 const mapEnrollmentsWithTaxonomy = async (
   mappedEnrollments: MappedEnrollmentsByTaxonomyId,
 ) => {
+  const contentStack = getContentStackClient(DEFAULT_LANGUAGE);
+
   const taxonomyEnrollments = mappedEnrollments.map(
     async ([taxonomyId, enrollments]): Promise<EnrollmentsByTaxonomy> => {
       const taxonomy = await contentStack.getTaxonomy(taxonomyId);

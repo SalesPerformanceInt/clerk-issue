@@ -1,4 +1,4 @@
-import type { AtLeastOne } from "quickcheck-shared";
+import { logError, type AtLeastOne } from "quickcheck-shared";
 
 import {
   graphql,
@@ -41,7 +41,7 @@ export async function updateUserEnrollment(
 
     return result.data?.update_user_enrollment_by_pk ?? null;
   } catch (error) {
-    console.log("ERROR", error);
+    logError({ error, log: "updateUserEnrollment" });
     return null;
   }
 }

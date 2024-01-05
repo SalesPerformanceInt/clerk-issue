@@ -1,11 +1,10 @@
 import { isEmpty } from "lodash";
 
-import { invariant, RequiredKeys } from "quickcheck-shared";
+import { invariant, logError, RequiredKeys } from "quickcheck-shared";
 
 import {
   graphql,
   type GQLProxyAllData,
-  type GQLProxyData,
   type User_Insert_Input,
   type WithApolloClient,
 } from "~/graphql";
@@ -67,7 +66,7 @@ export async function upsertUser(
 
     return data?.insert_user_one ?? null;
   } catch (error) {
-    console.log("ERROR", error);
+    logError({ error, log: "upsertUser" });
     return null;
   }
 }

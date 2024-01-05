@@ -1,3 +1,5 @@
+import { logError } from "quickcheck-shared";
+
 import {
   graphql,
   type GQLProxyTenantData,
@@ -25,6 +27,7 @@ export const GET_RANKEABLE_ENROLLMENTS = graphql(/* GraphQL */ `
         first_name
         last_name
         tenant_id
+        language_preference
       }
     }
   }
@@ -50,7 +53,7 @@ export async function getRankeableEnrollments(
 
     return data.user_enrollment;
   } catch (error) {
-    console.log("ERROR", error);
+    logError({ error, log: "getRankeableEnrollments" });
     return null;
   }
 }

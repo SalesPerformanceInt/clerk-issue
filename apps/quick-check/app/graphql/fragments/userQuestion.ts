@@ -22,5 +22,9 @@ export const BaseUserQuestion = graphql(/* GraphQL */ `
     user_enrollment {
       ...BaseUserEnrollment
     }
+    user {
+      user_id
+      language_preference
+    }
   }
 `);

@@ -7,10 +7,19 @@ import type { QuestionItemLivePreview } from "./questionItem/";
 import type { TaxonLivePreview } from "./taxonomy";
 
 /**
+ * Entry Types
+ */
+
+export type EntryType = "questionitem" | "taxon_bottom_up";
+
+/**
  * Entry LP Query
  */
 
-export type EntryLivePreviewQuery = LivePreviewQuery & Pick<Query, "entry_uid">;
+export type EntryLivePreviewQuery = LivePreviewQuery &
+  Pick<Query, "entry_uid"> & {
+    content_type_uid: EntryType;
+  };
 
 /**
  * Entry LP Props

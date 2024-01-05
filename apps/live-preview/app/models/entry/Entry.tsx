@@ -1,8 +1,10 @@
 import React, { type FC } from "react";
 
+import { MatchedMap } from "quickcheck-shared";
+
 import { QuestionItem } from "~/components/QuestionItem";
 
-import type { EntryLivePreviewData } from "./entry.types";
+import type { EntryLivePreviewData, EntryType } from "./entry.types";
 
 /**
  * Content Type Predicate
@@ -30,3 +32,9 @@ export const Entry: FC<{ entryData: EntryLivePreviewData }> = ({
 
   return <></>;
 };
+
+export const entryTypeRouteMap = new MatchedMap<EntryType, string | null>([
+  ["questionitem", "questionitem"],
+  ["taxon_bottom_up", "taxonomy"],
+  ["_", null],
+]);

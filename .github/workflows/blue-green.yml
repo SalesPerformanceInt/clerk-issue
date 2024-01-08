@@ -10,6 +10,7 @@ on:
   push:
     branches:
       - "release/**"
+      - "e2e-**"
       - main
       - green
   # pull_request:

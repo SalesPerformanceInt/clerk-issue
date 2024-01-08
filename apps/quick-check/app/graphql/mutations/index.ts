@@ -11,3 +11,4 @@ export * from "./updateUser";
 export * from "./updateUserEnrollmentsRanks";
 export * from "./upsertUser";
 export * from "./unenrollUser";
+export * from "./cleanTestTenants";

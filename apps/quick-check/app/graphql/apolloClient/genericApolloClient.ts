@@ -8,6 +8,7 @@ import {
 } from "@apollo/client";
 
 import {
+  cleanTestTenants,
   createLearningRecord,
   createUserAnswer,
   enrollUser,
@@ -133,6 +134,7 @@ export class GraphQLClient implements WithApolloClient {
   getNotificationEnrollments = getNotificationEnrollments;
   getUserLastActiveToken = getUserLastActiveToken;
   getTeamEnrollments = getTeamEnrollments;
+  cleanTestTenants = cleanTestTenants;
   getWeeklyStreakCalendar = getWeeklyStreakCalendar;
   getUserLanguage = getUserLanguage;
 

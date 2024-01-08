@@ -1,5 +1,6 @@
-const { invalidUser, user, fetchUserReset } = require("./user");
+const { invalidUser, randomUser, user, fetchUserReset } = require("./user");
 const { BASE_URL, API_AUTH } = require("./env");
+const { v4: uuid } = require('uuid')
 
 const zeroPad = (num, places) => String(num).padStart(places, "0");
 
@@ -16,10 +17,20 @@ const now = new Date();
 const expiry = new Date();
 expiry.setDate(now.getDate() + 14);
 
+const PAS = "blt90e57509bde4acab"; // Prosperous Account Strategy on Tantalum
+
 const enrollment = {
   user,
   enrollment_id: "b88ff454-3e2b-4db7-9dba-9c895118b630",
-  cms_topic_id: "blt90e57509bde4acab", // Prosperous Account Strategy on Tantalum
+  cms_topic_id: PAS,
+  start_date: formatDate(now),
+  expiration_date: formatDate(expiry),
+};
+
+const randomEnrollment = {
+  user: randomUser,
+  enrollment_id: uuid(),
+  cms_topic_id: PAS,
   start_date: formatDate(now),
   expiration_date: formatDate(expiry),
 };
@@ -27,7 +38,7 @@ const enrollment = {
 const invalidEnrollment = {
   user: invalidUser,
   enrollment_id: "notvalid",
-  cms_topic_id: "blt90e57509bde4acab", // Prosperous Account Strategy on Tantalum
+  cms_topic_id: PAS,
   start_date: formatDate(now),
   expiration_date: formatDate(expiry),
 };
@@ -46,4 +57,4 @@ const fetchEnrollmentImport = async (enr) => {
   return { status: response.status, ...res_obj };
 };
 
-module.exports = { invalidEnrollment, enrollment, fetchEnrollmentImport };
+module.exports = { invalidEnrollment, enrollment, randomEnrollment, fetchEnrollmentImport };

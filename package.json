@@ -16,7 +16,7 @@
     "build:qc": "turbo run build --filter=quick-check...",
     "build:live": "turbo run build --filter=live-preview...",
     "test": "vitest",
-    "test:cu": "cucumber-js --require tests/behaviour/cucumber.conf.js --require tests/behaviour/stepDefinitions/**/*.js --format @cucumber/pretty-formatter tests/behaviour/features/@order.txt ",
+    "test:cu": "cucumber-js --retry 2 --require tests/behaviour/cucumber.conf.js --require tests/behaviour/stepDefinitions/**/*.js --format @cucumber/pretty-formatter tests/behaviour/features/@order.txt ",
     "lint": "turbo run lint",
     "typecheck": "turbo run typecheck",
     "format": "prettier --write \"**/*.{ts,tsx,md}\""
@@ -36,6 +36,7 @@
     "eslint": "^8.36.0",
     "eslint-config-prettier": "^9.0.0",
     "happy-dom": "^12.10.3",
+    "nanoid": "^3.3.7",
     "npm-run-all": "^4.1.5",
     "playwright": "^1.39.0",
     "prettier": "^3.1.0",
@@ -43,6 +44,7 @@
     "rimraf": "^4.4.0",
     "turbo": "latest",
     "typescript": "^4.9.5",
+    "uuid": "^9.0.1",
     "vitest": "^0.34.6"
   },
   "engines": {

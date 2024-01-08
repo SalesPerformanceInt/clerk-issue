@@ -7,6 +7,7 @@ const {
   setDefaultTimeout,
 } = require("@cucumber/cucumber");
 const { chromium } = require("playwright");
+const { fetchTenantClean } = require("../fixtures/tenant");
 
 setDefaultTimeout(60000);
 const isLocal = process.env.CUKE_BASE_URL?.includes("localhost");
@@ -20,6 +21,7 @@ BeforeAll(async function () {
 
 AfterAll(async function () {
   await global.browser.close();
+  await fetchTenantClean();
 });
 
 Before(async function () {

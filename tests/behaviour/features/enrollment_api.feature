@@ -27,3 +27,14 @@ Feature: Enrollment API enrolls a user and allows them to authenticate
     When The login link is visited
     Then the user should land on the question flow
     And be able to navigate to the dashboard
+
+  Scenario: Enrollment API is called with a valid randomized user/tenant/enrollment
+    Given A randomized user and enrollment
+    When The payload is sent to the enrollment API
+    Then the API should respond with a "201" code
+    When The randomized user
+    When The user token API is sent the valid user ID
+    Then The user token API should respond with a "200" code and a link to login
+    When The login link is visited
+    Then the user should land on the question flow
+    And be able to navigate to the dashboard

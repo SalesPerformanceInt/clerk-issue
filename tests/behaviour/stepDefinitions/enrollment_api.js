@@ -5,6 +5,7 @@ const {
   fetchEnrollmentImport,
   enrollment,
   invalidEnrollment,
+  randomEnrollment,
 } = require("../../fixtures/enrollment");
 const { fetchUserReset, user } = require("../../fixtures/user");
 const { fetchUserToken } = require("../../fixtures/user_token");
@@ -25,6 +26,10 @@ Given("An incomplete user and enrollment", async () => {
   selectedEnrollment = invalidEnrollment;
 });
 
+Given("A randomized user and enrollment", async () => {
+  selectedEnrollment = randomEnrollment;
+});
+
 When("The payload is sent to the enrollment API", async () => {
   enrollmentResponse = await fetchEnrollmentImport(selectedEnrollment);
 });
@@ -35,6 +40,10 @@ Then("the API should respond with a {string} code", function (code) {
 
 Given("A valid user ID", async () => {
   selectedUser = user;
+});
+
+When("The randomized user", async () => {
+  selectedUser = randomEnrollment.user;
 });
 
 When("The user token API is sent the valid user ID", async () => {
@@ -67,7 +76,7 @@ Then("the user should land on the question flow", async () => {
 });
 
 Then("be able to navigate to the dashboard", async () => {
-  await page.getByRole('button', { name: 'Dashboard' }).click();
-  await page.getByTestId('OnClose-Confirm').click();
+  await page.getByRole("button", { name: "Dashboard" }).click();
+  await page.getByTestId("OnClose-Confirm").click();
   await expect(page).toHaveURL(`${BASE_URL}/dashboard`);
 });

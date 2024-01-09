@@ -29,14 +29,14 @@ export const grow: Variants = {
     height: 0,
     transition: {
       ease: easeInOutBack,
-      duration: 0.4,
+      duration: 0.6,
     },
   },
   animate: {
     opacity: 1,
     height: "auto",
     transition: {
-      duration: 0.4,
+      duration: 0.6,
       ease: easeInOutBack,
     },
   },
@@ -44,7 +44,7 @@ export const grow: Variants = {
     opacity: 0,
     height: 0,
     transition: {
-      duration: 0.4,
+      duration: 0.6,
       ease: easeInOutBack,
     },
   },
@@ -66,13 +66,12 @@ export const fade = (duration = 0.25): Variants => ({
 
 export const slideLeft: Variants = {
   initial: {
-    x: "110%",
+    x: "100%",
   },
   animate: {
     x: 0,
     transition: {
-      duration: 0.6,
-      delayChildren: 1.2,
+      duration: 0.5,
       type: "spring",
     },
   },

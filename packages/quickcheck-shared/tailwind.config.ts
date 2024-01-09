@@ -88,6 +88,7 @@ const config = {
         },
         text: {
           DEFAULT: "var(--text, #111111)",
+          75: "var(--text-75, #444444)",
           50: "var(--text-50, #595959)",
         },
         contrast: {

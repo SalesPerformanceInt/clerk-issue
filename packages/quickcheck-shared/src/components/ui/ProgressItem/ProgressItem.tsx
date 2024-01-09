@@ -1,11 +1,8 @@
 import React, { type FC } from "react";
 import { useTranslation } from "react-i18next";
 
-import {
-  faAward,
-  faChevronRight,
-  faRankingStar,
-} from "@fortawesome/pro-light-svg-icons";
+import { faAward, faRankingStar } from "@fortawesome/pro-light-svg-icons";
+import { faChevronRight } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Progress, ProgressIndicator } from "@radix-ui/react-progress";
 import { twMerge } from "tailwind-merge";
@@ -113,8 +110,8 @@ const ProgressItem: FC<ProgressItemProps> = ({
         <div>
           <FontAwesomeIcon
             icon={faChevronRight}
-            size="lg"
-            className="text-primary-25"
+            size="xl"
+            className="text-text-75"
           />
         </div>
       )}

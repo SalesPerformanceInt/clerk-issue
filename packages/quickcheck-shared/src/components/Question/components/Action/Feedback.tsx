@@ -1,7 +1,7 @@
 import React, { FC } from "react";
 import { useTranslation } from "react-i18next";
 
-import { faAward } from "@fortawesome/pro-light-svg-icons";
+import { faAward } from "@fortawesome/pro-regular-svg-icons";
 import { faCheckCircle, faTimesCircle } from "@fortawesome/pro-solid-svg-icons";
 import {
   FontAwesomeIcon,
@@ -26,9 +26,9 @@ const FeedbackHeader: FC<FeedbackHeaderProps> = ({
   icon,
   message,
 }) => (
-  <div className={twMerge(" flex items-center space-x-4 font-bold", className)}>
+  <div className={twMerge("flex items-center space-x-2 font-bold", className)}>
     <FontAwesomeIcon icon={icon} />
-    <p className="text-bold">{message}</p>
+    <p>{message}</p>
   </div>
 );
 
@@ -45,7 +45,7 @@ export const Feedback: FC = () => {
             initial="initial"
             animate="animate"
             exit="exit"
-            className="mb-4 flex flex-col space-y-4 sm:mb-0 sm:mr-12"
+            className="mb-6 flex flex-col space-y-4 sm:mb-0 sm:mr-12"
             data-testid="QuestionItem-ChoiceFeedback"
           >
             <div className="flex items-center justify-between overflow-hidden">
@@ -69,17 +69,18 @@ export const Feedback: FC = () => {
                   initial="initial"
                   animate="animate"
                   exit="exit"
-                  className="flex items-center justify-end gap-3 text-sm"
+                  className="flex items-center justify-end gap-2"
                 >
-                  <motion.span variants={slideLeft} className="text-contrast">
-                    <FontAwesomeIcon icon={faAward} className="mr-1" />+{score}
+                  <motion.span className="flex items-center text-contrast">
+                    <FontAwesomeIcon
+                      icon={faAward}
+                      className="mr-1 translate-y-[1px] text-xs"
+                    />
+                    {totalScore}
                   </motion.span>
 
-                  <motion.span
-                    variants={slideLeft}
-                    className="uppercase text-success-50"
-                  >
-                    {t("question.feedback.score", { count: totalScore })}
+                  <motion.span className="font-bold text-success-50">
+                    +{score}
                   </motion.span>
                 </motion.div>
               )}

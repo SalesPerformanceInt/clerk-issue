@@ -20,7 +20,8 @@ export const GET_USER_EMAIL_DATA = graphql(/* GraphQL */ `
         question_id
       }
       user_question_activated_today: user_questions(
-        where: { active_on: { _eq: $today }, retired_on: { _is_null: true } }
+        where: { active_on: { _eq: $today }, retired_on: { _is_null: true } },
+        order_by: [{ user_answers_aggregate: { count: asc_nulls_first, max: { created_at: asc } } }],
         limit: 1
       ) {
         ...BaseUserQuestion

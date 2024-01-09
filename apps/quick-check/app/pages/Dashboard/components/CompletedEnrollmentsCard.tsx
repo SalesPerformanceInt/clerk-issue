@@ -33,6 +33,8 @@ export const CompletedEnrollmentsCard: FC<CompletedEnrollmentsCardProps> = ({
           key={enrollment.id}
           id={enrollment.id}
           title={enrollment.taxonomy?.display_name}
+          ranking={enrollment.rank}
+          score={enrollment.score}
           progress={{
             attempted: enrollment.attempted.aggregate?.count ?? 0,
             retired: enrollment.retired.aggregate?.count ?? 0,

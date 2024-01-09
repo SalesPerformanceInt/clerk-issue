@@ -34,6 +34,7 @@ import { sendEmailTemplate } from "~/utils/email/sendEmailTemplate.server";
 import { parseSchema } from "~/utils/parseSchema";
 
 import { enrollUser } from "~/models/enrollment";
+import { getDeleteCookieHeaders } from "~/models/session";
 import { buildTaxonTrees, treeNodeToRawNodeDatum } from "~/models/taxonomy";
 
 import { UsersTable } from "~/components";
@@ -126,6 +127,9 @@ export const action = async ({ request, params }: ActionArgs) => {
 
     if (adminAction?.type === "RESET_USER") {
       await adminApolloClient.resetUser({ userId: adminAction.userId });
+      return json(formData, {
+        headers: await getDeleteCookieHeaders(request),
+      });
     }
 
     if (adminAction?.type === "LOGIN_USER") {

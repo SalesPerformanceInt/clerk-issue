@@ -79,12 +79,16 @@ export async function updateSessionNow(
   });
 }
 
-export async function logout(request: Request) {
+export async function getDeleteCookieHeaders(request: Request) {
   const session = await getSession(request);
 
+  return {
+    "Set-Cookie": await sessionStorage.destroySession(session),
+  };
+}
+
+export async function logout(request: Request) {
   return redirect("/", {
-    headers: {
-      "Set-Cookie": await sessionStorage.destroySession(session),
-    },
+    headers: await getDeleteCookieHeaders(request),
   });
 }

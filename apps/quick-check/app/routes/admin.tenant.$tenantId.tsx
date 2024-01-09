@@ -22,6 +22,7 @@ import {
   formatUserInputFromImport,
   parseCreateUserRequest,
 } from "~/models/api";
+import { getDeleteCookieHeaders } from "~/models/session";
 
 import { CreateUserForm, UsersTable } from "~/components";
 
@@ -94,6 +95,9 @@ export const action = async ({ request, params }: ActionArgs) => {
 
     if (adminAction?.type === "RESET_USER") {
       await adminApolloClient.resetUser({ userId: adminAction.userId });
+      return json(adminAction, {
+        headers: await getDeleteCookieHeaders(request),
+      });
     }
 
     if (adminAction?.type === "LOGIN_USER") {

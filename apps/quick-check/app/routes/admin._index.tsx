@@ -1,7 +1,31 @@
-import { json, type LoaderArgs } from "@remix-run/node";
-import { Link, useLoaderData } from "@remix-run/react";
+import { json, type ActionArgs, type LoaderArgs } from "@remix-run/node";
+import {
+  Link,
+  useLoaderData,
+  useNavigation,
+  useSubmit,
+} from "@remix-run/react";
+
+import { faTrash } from "@fortawesome/pro-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { z } from "zod";
+
+import { Button } from "quickcheck-shared";
 
 import { getAdminApolloClientFromRequest } from "~/graphql";
+
+import { parseSchema } from "~/utils/parseSchema";
+
+export const adminTenantListActionSchema = z.object({
+  type: z.enum(["DELETE_TENANT"]),
+  tenantId: z.string(),
+});
+export type AdminTenantListAction = z.infer<typeof adminTenantListActionSchema>;
+
+export const parseAdminTenantListActionRequest = (formData?: FormData) => {
+  const data = formData?.get("data");
+  return parseSchema(data, adminTenantListActionSchema);
+};
 
 export const config = {
   maxDuration: 300,
@@ -14,8 +38,72 @@ export const loader = async ({ request }: LoaderArgs) => {
   return json({ tenants }, { status: 200 });
 };
 
+export const action = async ({ request }: ActionArgs) => {
+  try {
+    const adminApolloClient = await getAdminApolloClientFromRequest(request);
+    const formData = await request.formData();
+
+    const adminAction = parseAdminTenantListActionRequest(formData);
+
+    if (adminAction?.type === "DELETE_TENANT") {
+      await adminApolloClient.deleteTenant(adminAction.tenantId);
+    }
+
+    const { type, tenantId } = adminAction ?? {};
+
+    return json({ type, tenantId, ...adminAction }, { status: 200 });
+  } catch (error) {
+    return json(
+      { type: undefined, tenantId: undefined, error },
+      { status: 500 },
+    );
+  }
+};
+
 export default function Page() {
   const { tenants } = useLoaderData<typeof loader>();
+
+  const submit = useSubmit();
+  const { state, formData } = useNavigation();
+
+  const isLoading = (
+    actionType: AdminTenantListAction["type"],
+    tenantId: string,
+  ) => {
+    if (state === "idle") return false;
+
+    const data = parseAdminTenantListActionRequest(formData);
+    return tenantId === data?.tenantId && actionType === data?.type;
+  };
+
+  const makeAdminAction =
+    (
+      type: AdminTenantListAction["type"],
+      tenantId: string,
+      callback?: () => void,
+    ) =>
+    () => {
+      callback?.();
+      const payload: AdminTenantListAction = { type, tenantId };
+      const data = JSON.stringify(payload);
+
+      const formData = new FormData();
+      formData.append("data", data);
+
+      submit(formData, { method: "POST" });
+    };
+
+  const confirmDelete = (tenantId: string) => () => {
+    const confirmAction = window.prompt(
+      "Please type the tenant ID to confirm deletion",
+    );
+
+    if (confirmAction !== tenantId) {
+      window.alert("Tenant ID does not match");
+
+      throw new Error("Tenant ID does not match");
+    }
+  };
 
   return (
     <div className="bg-primary-dark p-8">
@@ -31,6 +119,9 @@ export default function Page() {
                     </th>
                     <th scope="col" className="w-full px-6 py-4">
                       # Users
+                    </th>
+                    <th scope="col" className="w-1 whitespace-nowrap px-6 py-4">
+                      Delete
                     </th>
                   </tr>
                 </thead>
@@ -50,7 +141,22 @@ export default function Page() {
                           {tenant.tenant_id}
                         </Link>
                       </td>
+
                       <td className="whitespace-nowrap px-6 py-4">{`${tenant.users_aggregate.aggregate?.count}`}</td>
+
+                      <td className="whitespace-nowrap px-6 py-4 text-center">
+                        <Button
+                          loading={isLoading("DELETE_TENANT", tenant.tenant_id)}
+                          onClick={makeAdminAction(
+                            "DELETE_TENANT",
+                            tenant.tenant_id,
+                            confirmDelete(tenant.tenant_id),
+                          )}
+                          className="h-8 w-auto py-0 "
+                        >
+                          <FontAwesomeIcon icon={faTrash} />
+                        </Button>
+                      </td>
                     </tr>
                   ))}
                 </tbody>

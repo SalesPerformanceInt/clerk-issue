@@ -11,6 +11,7 @@ import {
   cleanTestTenants,
   createLearningRecord,
   createUserAnswer,
+  deleteTenant,
   enrollUser,
   generateNewToken,
   resetUser,
@@ -137,6 +138,7 @@ export class GraphQLClient implements WithApolloClient {
   cleanTestTenants = cleanTestTenants;
   getWeeklyStreakCalendar = getWeeklyStreakCalendar;
   getUserLanguage = getUserLanguage;
+  deleteTenant = deleteTenant;
 
   constructor(headers: GraphQLHeaders) {
     this.client = getClient(headers);

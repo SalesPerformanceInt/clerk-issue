@@ -27,6 +27,7 @@ const documents = {
     "\n  mutation CleanTestTenants {\n    delete_tenant(where: { tenant_id: { _ilike: \"zzz%\" } }) {\n      affected_rows\n      returning {\n        tenant_id\n        theme_id\n      }\n    }\n  }\n": types.CleanTestTenantsDocument,
     "\n  mutation CreateLearningRecord(\n    $learning_record: learning_record_insert_input!\n  ) {\n    insert_learning_record_one(object: $learning_record) {\n      ...BaseLearningRecord\n    }\n  }\n": types.CreateLearningRecordDocument,
     "\n  mutation CreateUserAnswer($user_answer: user_answer_insert_input!) {\n    insert_user_answer_one(object: $user_answer) {\n      ...BaseUserAnswer\n    }\n  }\n": types.CreateUserAnswerDocument,
+    "\n  mutation DeleteTenant($tenantId: String!) {\n    delete_tenant_by_pk(tenant_id: $tenantId) {\n      tenant_id\n    }\n  }\n": types.DeleteTenantDocument,
     "\n  mutation EnrollUser(\n    $userEnrollment: user_enrollment_insert_input!\n    $tenantId: String!\n  ) {\n    insert_user_enrollment_one(object: $userEnrollment) {\n      ...NotificationUserEnrollment\n    }\n    insert_tenant_one(\n      object: { tenant_id: $tenantId }\n      on_conflict: { constraint: tenant_pkey, update_columns: [] }\n    ) {\n      tenant_id\n      theme_id\n    }\n  }\n": types.EnrollUserDocument,
     "\n  mutation GenerateNewToken($userId: uuid!, $tenantId: String!) {\n    update_link_token(\n      where: { user_id: { _eq: $userId }, active: { _eq: true } }\n      _set: { active: false }\n    ) {\n      returning {\n        ...BaseLinkToken\n      }\n    }\n    insert_link_token_one(\n      object: { user_id: $userId, tenant_id: $tenantId, active: true }\n    ) {\n      ...BaseLinkToken\n      user {\n        ...UserWithActiveToken\n      }\n    }\n  }\n": types.GenerateNewTokenDocument,
     "\n  mutation ResetUser($userId: uuid!) {\n    update_user_by_pk(\n      pk_columns: { user_id: $userId }\n      _set: { next_user_question_id: null }\n    ) {\n      ...BaseUser\n    }\n    delete_learning_record(where: { user_id: { _eq: $userId } }) {\n      affected_rows\n    }\n    delete_user_enrollment(where: { user_id: { _eq: $userId } }) {\n      affected_rows\n    }\n  }\n": types.ResetUserDocument,
@@ -133,6 +134,10 @@ export function graphql(source: "\n  mutation CreateLearningRecord(\n    $learni
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function graphql(source: "\n  mutation CreateUserAnswer($user_answer: user_answer_insert_input!) {\n    insert_user_answer_one(object: $user_answer) {\n      ...BaseUserAnswer\n    }\n  }\n"): (typeof documents)["\n  mutation CreateUserAnswer($user_answer: user_answer_insert_input!) {\n    insert_user_answer_one(object: $user_answer) {\n      ...BaseUserAnswer\n    }\n  }\n"];
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(source: "\n  mutation DeleteTenant($tenantId: String!) {\n    delete_tenant_by_pk(tenant_id: $tenantId) {\n      tenant_id\n    }\n  }\n"): (typeof documents)["\n  mutation DeleteTenant($tenantId: String!) {\n    delete_tenant_by_pk(tenant_id: $tenantId) {\n      tenant_id\n    }\n  }\n"];
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */

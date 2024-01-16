@@ -20,7 +20,6 @@ import tailwind from "~/tailwind.css";
 import { useChangeLanguage } from "remix-i18next";
 
 import { i18nConfig } from "quickcheck-shared";
-import sharedStyles from "quickcheck-shared/dist/index.css";
 
 import { remixI18next } from "~/utils/i18next.server";
 
@@ -64,7 +63,6 @@ export const handle = {
 
 export const links: LinksFunction = () => [
   { rel: "stylesheet", href: tailwind },
-  { rel: "stylesheet", href: sharedStyles },
   { rel: "stylesheet", href: fontAwesome },
 
   {

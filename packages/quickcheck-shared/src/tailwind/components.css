@@ -1,0 +1,32 @@
+@layer components {
+  .CircularProgress {
+  }
+
+  .CircularProgress .CircularProgress-path {
+    stroke-linecap: round;
+    -webkit-transition: stroke-dashoffset 0.5s ease 0s;
+    transition: stroke-dashoffset 0.5s ease 0s;
+  }
+
+  .CircularProgress .CircularProgress-trail {
+    stroke-linecap: round;
+  }
+
+  .CircularProgress .CircularProgress-text {
+    dominant-baseline: middle;
+    text-anchor: middle;
+  }
+
+  .CircularProgress .CircularProgress-background {
+  }
+
+  [data-test-id="CircularProgressbarWithChildren"] > div {
+    display: flex;
+    justify-content: center;
+  }
+
+  [data-test-id="CircularProgressbarWithChildren__children"] {
+    margin-top: 0 !important;
+    top: 0;
+  }
+}

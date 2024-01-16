@@ -73,3 +73,7 @@ export async function getUserWeeklyStreak(
     return null;
   }
 }
+
+export type UserDashboardWeeklyStreak = NonNullable<
+  Awaited<ReturnType<typeof getUserWeeklyStreak>>
+>;

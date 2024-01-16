@@ -1,11 +1,11 @@
-import type { DashboardData } from "~/graphql";
+import type { UserDashboardActiveEnrollments } from "~/graphql";
 
 /**
  * Get User Leaderboard
  */
 
 export const getUserLeaderboard = (
-  activeUserEnrollments: DashboardData["active_user_enrollments"],
+  activeUserEnrollments: UserDashboardActiveEnrollments,
 ) => {
   return activeUserEnrollments
     .filter((enrollment) => enrollment.rank && enrollment.score)

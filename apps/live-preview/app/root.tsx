@@ -20,7 +20,6 @@ import contentStackStyles from "@contentstack/live-preview-utils/dist/main.css";
 import tailwind from "~/tailwind.css";
 
 import { i18nConfig } from "quickcheck-shared";
-import sharedStyles from "quickcheck-shared/dist/index.css";
 
 import { remixI18next } from "~/utils/server";
 
@@ -40,7 +39,6 @@ export const handle = {
 
 export const links: LinksFunction = () => [
   { rel: "stylesheet", href: tailwind },
-  { rel: "stylesheet", href: sharedStyles },
   { rel: "stylesheet", href: contentStackStyles },
   { rel: "stylesheet", href: reactflow },
 

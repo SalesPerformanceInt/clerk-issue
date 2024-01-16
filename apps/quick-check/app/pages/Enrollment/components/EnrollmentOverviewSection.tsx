@@ -1,6 +1,6 @@
 import { useTranslation } from "react-i18next";
 
-import { Card, Section, useIsDesktop } from "quickcheck-shared";
+import { Section, useIsDesktop } from "quickcheck-shared";
 
 import { useEnrollmentContext } from "~/pages/Enrollment";
 

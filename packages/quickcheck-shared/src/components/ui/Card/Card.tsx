@@ -1,13 +1,19 @@
-import React, { HTMLAttributes, type FC } from "react";
+import React, { type FC, type HTMLAttributes, type ReactNode } from "react";
 
-import { twMerge } from "tailwind-merge";
+import { cn } from "~/utils";
 
-type CardProps = HTMLAttributes<HTMLDivElement>;
+import { CardTitleSkeleton, type CardTitleSkeletonProps } from "./CardTitle";
 
-const Card: FC<CardProps> = ({ children, className }) => {
+/**
+ * Card Component
+ */
+
+export type CardProps = HTMLAttributes<HTMLDivElement>;
+
+export const Card: FC<CardProps> = ({ children, className }) => {
   return (
     <div
-      className={twMerge(
+      className={cn(
         "flex flex-col rounded bg-background shadow-card",
         className,
       )}
@@ -17,4 +23,25 @@ const Card: FC<CardProps> = ({ children, className }) => {
   );
 };
 
-export { Card, type CardProps };
+/**
+ * Card Skeleton Component
+ */
+
+export type CardSkeletonProps = CardTitleSkeletonProps & {
+  children?: ReactNode;
+};
+
+export const CardSkeleton: FC<CardSkeletonProps> = ({
+  className,
+  qty,
+  title,
+  children,
+}) => {
+  return (
+    <Card className={className}>
+      <CardTitleSkeleton qty={qty} title={title} />
+
+      {children}
+    </Card>
+  );
+};

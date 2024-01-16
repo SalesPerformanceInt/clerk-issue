@@ -1,16 +1,10 @@
-import { defer, redirect, type LoaderArgs } from "@remix-run/node";
-import { useLoaderData } from "@remix-run/react";
+import { type LoaderArgs } from "@remix-run/node";
 
-import { deserialize, serialize } from "remix-typedjson";
+import { redirect, typeddefer, useTypedLoaderData } from "remix-typedjson";
 
-import { simpleErrorResponse } from "quickcheck-shared";
+import { getUserDashboard } from "~/models/userDashboard";
 
-import {
-  getOptionalUserApolloClientFromRequest,
-  type DashboardData,
-} from "~/graphql";
-
-import { Dashboard } from "~/pages";
+import { UserDashboard } from "~/pages";
 
 export const config = {
   maxDuration: 300,
@@ -22,17 +16,11 @@ export const config = {
 
 export const loader = async ({ request }: LoaderArgs) => {
   try {
-    const userApolloClient =
-      await getOptionalUserApolloClientFromRequest(request);
+    const userDashboard = await getUserDashboard(request);
 
-    const dashboard = await userApolloClient?.getUserDashboard();
-    if (!dashboard) return redirect("/login");
-
-    return defer({
-      dashboard: serialize(dashboard),
-    });
+    return typeddefer({ ...userDashboard });
   } catch (error) {
-    return simpleErrorResponse(error);
+    throw redirect("/login", { status: 500 });
   }
 };
 
@@ -41,11 +29,12 @@ export const loader = async ({ request }: LoaderArgs) => {
  */
 
 export default function Page() {
-  const data = useLoaderData<typeof loader>();
+  const { userDashboardData, ...userDashboard } =
+    useTypedLoaderData<typeof loader>();
 
-  if (!("dashboard" in data)) return redirect("/login");
+  if (!userDashboardData) return redirect("/login");
 
-  const dashboard = deserialize<DashboardData>(data.dashboard)!;
-
-  return <Dashboard dashboard={dashboard} />;
+  return (
+    <UserDashboard userDashboard={{ userDashboardData, ...userDashboard }} />
+  );
 }

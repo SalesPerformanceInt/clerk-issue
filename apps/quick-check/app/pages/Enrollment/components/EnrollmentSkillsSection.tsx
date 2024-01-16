@@ -22,7 +22,11 @@ export const EnrollmentSkillsSection: FC = () => {
       ]}
     >
       {skills.map((skill) => (
-        <EnrollmentSkillCard key={skill.skill} {...skill} />
+        <EnrollmentSkillCard
+          key={skill.skill}
+          className="flow h-fit w-full flex-grow overflow-hidden md:w-1/2-gap-8"
+          {...skill}
+        />
       ))}
     </Section>
   );

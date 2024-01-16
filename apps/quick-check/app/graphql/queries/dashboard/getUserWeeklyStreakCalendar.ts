@@ -6,10 +6,10 @@ import { graphql, type GQLProxyUserData, type GraphQLClient } from "~/graphql";
 
 import { makeCalendar } from "~/utils/calendar";
 
-export const GET_WEEKLY_STREAK_CALENDAR = graphql(/* GraphQL */ `
-  query GetWeeklyStreakCalendar($userId: uuid!, $monthAgo: timestamptz!) {
+export const GET_USER_WEEKLY_STREAK_CALENDAR = graphql(/* GraphQL */ `
+  query GetUserWeeklyStreakCalendar($userId: uuid!, $monthAgo: timestamptz!) {
     user_by_pk(user_id: $userId) {
-      ...BaseUser
+      tenant_id
       user_answers(where: { created_at: { _gte: $monthAgo } }) {
         ...BaseUserAnswer
       }
@@ -17,7 +17,7 @@ export const GET_WEEKLY_STREAK_CALENDAR = graphql(/* GraphQL */ `
   }
 `);
 
-export async function getWeeklyStreakCalendar(
+export async function getUserWeeklyStreakCalendar(
   this: GraphQLClient,
   proxyData: GQLProxyUserData,
 ) {
@@ -25,7 +25,7 @@ export async function getWeeklyStreakCalendar(
     const { userId, now } = proxyData;
 
     const result = await this.client.query({
-      query: GET_WEEKLY_STREAK_CALENDAR,
+      query: GET_USER_WEEKLY_STREAK_CALENDAR,
       variables: {
         userId,
         monthAgo: DateTime.fromISO(now)
@@ -54,11 +54,11 @@ export async function getWeeklyStreakCalendar(
       calendar,
     };
   } catch (error) {
-    logError({ error, log: "getWeeklyStreakCalendar" });
+    logError({ error, log: "getUserWeeklyStreakCalendar" });
     return null;
   }
 }
 
-export type WeeklyStreakCalendarData = NonNullable<
-  Awaited<ReturnType<typeof getWeeklyStreakCalendar>>
+export type UserDashboardWeeklyStreakCalendar = NonNullable<
+  Awaited<ReturnType<typeof getUserWeeklyStreakCalendar>>
 >;

@@ -84,6 +84,7 @@ const config = {
         },
         background: {
           DEFAULT: "var(--background, #ffffff)",
+          skeleton: "var(--background-skeleton, #f0f0f0)",
           secondary: "var(--background-secondary, #ede8e8)",
         },
         text: {

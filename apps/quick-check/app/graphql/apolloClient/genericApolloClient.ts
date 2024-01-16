@@ -34,8 +34,11 @@ import {
   getTenants,
   getTenantUsers,
   getUser,
+  getUserAchievements,
+  getUserActiveEnrollments,
   getUserActiveQuestionsData,
-  getUserDashboard,
+  getUserCompletedEnrollments,
+  getUserDashboardData,
   getUserData,
   getUserEmailData,
   getUserEnrollment,
@@ -47,7 +50,7 @@ import {
   getUsersForDailyEmail,
   getUserTheme,
   getUserWeeklyStreak,
-  getWeeklyStreakCalendar,
+  getUserWeeklyStreakCalendar,
 } from "~/graphql/queries";
 
 import { HASURA_API_URL } from "~/utils/envs.server";
@@ -115,7 +118,6 @@ export class GraphQLClient implements WithApolloClient {
   getUserNextQuestion = getUserNextQuestion;
   updateUserQuestion = updateUserQuestion;
   getUserQuestion = getUserQuestion;
-  getUserDashboard = getUserDashboard;
   getUserActiveQuestionsData = getUserActiveQuestionsData;
   getUserEmailData = getUserEmailData;
   createUserAnswer = createUserAnswer;
@@ -136,9 +138,13 @@ export class GraphQLClient implements WithApolloClient {
   getUserLastActiveToken = getUserLastActiveToken;
   getTeamEnrollments = getTeamEnrollments;
   cleanTestTenants = cleanTestTenants;
-  getWeeklyStreakCalendar = getWeeklyStreakCalendar;
   getUserLanguage = getUserLanguage;
   deleteTenant = deleteTenant;
+  getUserAchievements = getUserAchievements;
+  getUserActiveEnrollments = getUserActiveEnrollments;
+  getUserCompletedEnrollments = getUserCompletedEnrollments;
+  getUserDashboardData = getUserDashboardData;
+  getUserWeeklyStreakCalendar = getUserWeeklyStreakCalendar;
 
   constructor(headers: GraphQLHeaders) {
     this.client = getClient(headers);

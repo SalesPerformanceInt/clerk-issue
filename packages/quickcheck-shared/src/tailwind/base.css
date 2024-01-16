@@ -1,0 +1,50 @@
+@layer base {
+  :root {
+    --primary: #22154c;
+    --primary-75: #564974;
+    --primary-50: #8c81a2;
+    --primary-25: #c4becf;
+
+    --secondary: #b07882;
+
+    --text: #111111;
+    --text-75: #444444;
+    --text-50: #595959;
+
+    --contrast: #ffffff;
+
+    --background: #ffffff;
+    --background-secondary: #ede8e8;
+
+    --success: #767b0e;
+    --success-50: #93b262;
+
+    --warning: #820d30;
+    --warning-50: #e56682;
+
+    --highlight: #cfb0b5;
+
+    --accent: #ad8000;
+    --accent-50: #e8b066;
+
+    --chart-1: #787d0f;
+    --chart-2: #b570b0;
+    --chart-3: #004d6b;
+    --chart-green: #94b263;
+    --chart-yellow: #e8b066;
+    --chart-orange: #d9782b;
+    --chart-red: #820d30;
+
+    --system-font: system-ui, "Segoe UI", Roboto, Helvetica, Arial, sans-serif,
+      "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+    --font-face: var(--system-font);
+  }
+
+  body {
+    @apply bg-background text-text;
+  }
+
+  ul {
+    @apply list-inside list-disc;
+  }
+}

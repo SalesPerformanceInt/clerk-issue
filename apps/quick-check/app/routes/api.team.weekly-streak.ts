@@ -27,7 +27,9 @@ export const action = async ({ request }: ActionArgs) => {
 
     const { userId, accountSubdomain } = teamsSchema.parse(body);
 
-    const result = await adminApolloClient.getWeeklyStreakCalendar({ userId });
+    const result = await adminApolloClient.getUserWeeklyStreakCalendar({
+      userId,
+    });
 
     invariant(result, "Error fetching data");
 

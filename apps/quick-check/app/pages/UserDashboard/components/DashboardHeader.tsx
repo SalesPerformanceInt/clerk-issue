@@ -1,5 +1,4 @@
 import { type FC } from "react";
-import { useTranslation } from "react-i18next";
 import { useNavigate } from "@remix-run/react";
 
 import {
@@ -9,14 +8,14 @@ import {
   useIsDesktop,
 } from "quickcheck-shared";
 
-import { useDashboardContext } from "~/pages/Dashboard";
+import { useUserDashboardContext } from "~/pages/UserDashboard";
 
 import { AccelerateButton } from "~/components";
 
 export const DashboardHeader: FC = () => {
   const navigate = useNavigate();
 
-  const { dashboard } = useDashboardContext();
+  const { userDashboardData } = useUserDashboardContext();
 
   const isDesktop = useIsDesktop();
 
@@ -25,14 +24,14 @@ export const DashboardHeader: FC = () => {
       <Header
         right={
           <HeaderUnansweredQuestions
-            unansweredQuestions={dashboard.unanswered_questions}
+            unansweredQuestions={userDashboardData.unanswered_questions}
             onStart={() => navigate("/next-question")}
           />
         }
         left={
           <div className="flex items-center">
             <RichardsonLogo />
-            <AccelerateButton tenantId={dashboard.tenant_id} />
+            <AccelerateButton tenantId={userDashboardData.tenant_id} />
           </div>
         }
       />

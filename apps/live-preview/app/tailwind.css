@@ -1,14 +1,15 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "quickcheck-shared";
 
-*,
-*::after,
-**::before {
-  box-sizing: border-box;
-}
+@layer base {
+  *,
+  *::after,
+  **::before {
+    box-sizing: border-box;
+  }
 
-html,
-body {
-  height: 100%;
+  html,
+  body {
+    height: 100%;
+    @apply font-body;
+  }
 }

@@ -1,10 +1,4 @@
-import React, {
-  Children,
-  createElement,
-  type FC,
-  type ReactElement,
-  type ReactNode,
-} from "react";
+import React, { type FC, type ReactElement } from "react";
 
 import { Icon, IconProps } from "./Icon";
 import { Tooltip } from "./Tooltip";
@@ -37,16 +31,8 @@ export const Section: FC<DashboardSectionProps> = ({
           />
         )}
       </div>
-      <div className="flex w-full flex-wrap gap-4 sm:gap-8">
-        {Children.map(children, (child) =>
-          createElement(child.type, {
-            ...{
-              ...child.props,
-              className: "flow h-fit flex-grow w-full sm:w-1/2-gap-8",
-            },
-          }),
-        )}
-      </div>
+
+      <div className="flex w-full flex-wrap gap-4 sm:gap-8">{children}</div>
     </section>
   );
 };

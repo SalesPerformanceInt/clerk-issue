@@ -9,3 +9,4 @@ export * from "./CircularProgress";
 export * from "./EnrollmentSkillCard";
 export * from "./Header";
 export * from "./MobileMenu";
+export * from "./Skeleton";

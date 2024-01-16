@@ -3,16 +3,16 @@ import { useNavigate } from "@remix-run/react";
 
 import { MobileMenu } from "quickcheck-shared";
 
-import { useDashboardContext } from "~/pages/Dashboard";
+import { useUserDashboardContext } from "~/pages/UserDashboard";
 
 export const DashboardMobileAction: FC = () => {
   const navigate = useNavigate();
 
-  const { dashboard } = useDashboardContext();
+  const { userDashboardData } = useUserDashboardContext();
 
   return (
     <MobileMenu
-      unansweredQuestions={dashboard.unanswered_questions}
+      unansweredQuestions={userDashboardData.unanswered_questions}
       onStart={() => navigate("/next-question")}
     />
   );

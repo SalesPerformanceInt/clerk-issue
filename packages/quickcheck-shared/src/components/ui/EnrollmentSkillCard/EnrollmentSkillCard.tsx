@@ -1,16 +1,21 @@
 import { type FC } from "react";
 import { useTranslation } from "react-i18next";
 
-import { Card } from "../Card";
+import { Card, type CardProps } from "../Card";
 import { Chart } from "./Chart";
 import { EnrollmentSkillData } from "./types";
 
-export const EnrollmentSkillCard: FC<EnrollmentSkillData> = (props) => {
+type EnrollmentSkillCardProps = CardProps & EnrollmentSkillData;
+
+export const EnrollmentSkillCard: FC<EnrollmentSkillCardProps> = ({
+  className,
+  ...props
+}) => {
   const { skill, baseline, current, unanswered, ...other } = props;
   const { t } = useTranslation();
 
   return (
-    <Card key={skill} {...other}>
+    <Card key={skill} className={className} {...other}>
       <div className="flex w-full flex-col gap-2 p-4">
         <div className="flex items-center gap-2">
           <p className="truncate text-base font-normal leading-6">{skill}</p>

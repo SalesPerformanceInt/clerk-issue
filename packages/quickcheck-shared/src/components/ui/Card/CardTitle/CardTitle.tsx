@@ -1,15 +1,22 @@
 import React, { type FC, type ReactNode } from "react";
 
+import { cn } from "~/utils";
 import { isNil } from "remeda";
 import { twMerge } from "tailwind-merge";
 
-type CardTitleProps = {
+import { Skeleton } from "~/components/ui/Skeleton";
+
+/**
+ * Card Title Component
+ */
+
+export type CardTitleProps = {
   qty?: number;
   title: ReactNode;
   className?: string;
 };
 
-const CardTitle: FC<CardTitleProps> = ({ qty, title, className }) => {
+export const CardTitle: FC<CardTitleProps> = ({ qty, title, className }) => {
   return (
     <div className={twMerge("flex items-center gap-2", className)}>
       {!isNil(qty) && (
@@ -23,4 +30,26 @@ const CardTitle: FC<CardTitleProps> = ({ qty, title, className }) => {
   );
 };
 
-export { CardTitle, type CardTitleProps };
+/**
+ * Card Title Skeleton Component
+ */
+
+export type CardTitleSkeletonProps = {
+  qty?: boolean;
+  title?: boolean;
+  className?: string;
+};
+
+export const CardTitleSkeleton: FC<CardTitleSkeletonProps> = ({
+  qty,
+  title,
+  className,
+}) => {
+  return (
+    <div className={cn("flex items-center gap-2", className)}>
+      {qty && <Skeleton className="h-6 w-6 rounded-full" />}
+
+      {title && <Skeleton className="h-5 w-3/4" />}
+    </div>
+  );
+};

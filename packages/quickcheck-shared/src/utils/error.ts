@@ -1,5 +1,7 @@
 import { json } from "@remix-run/node";
 
+import { typedjson } from "remix-typedjson";
+
 export type ErrorWithMessage = {
   message: string;
 };
@@ -31,4 +33,8 @@ export const getErrorMessage = (error: unknown) => {
 
 export const simpleErrorResponse = (error: unknown) => {
   return json({ error: getErrorMessage(error) }, { status: 500 });
+};
+
+export const typedSimpleErrorResponse = (error: unknown) => {
+  return typedjson({ error: getErrorMessage(error) }, { status: 500 });
 };

@@ -1,4 +1,4 @@
-import { type FC } from "react";
+import { useState, type FC } from "react";
 import { useNavigate } from "@remix-run/react";
 
 import {
@@ -10,15 +10,25 @@ import {
 import { useEnrollmentContext } from "../context/EnrollmentContext";
 
 export const EnrollmentHeader: FC = () => {
+  const [start, setStart] = useState(false);
+
   const navigate = useNavigate();
   const { enrollment } = useEnrollmentContext();
+
+  const startQuestions = () => {
+    setStart(true);
+
+    navigate("/next-question");
+  };
+
   return (
     <Header
       left={<HeaderReturnToDashboard onClose={() => navigate("/")} />}
       right={
         <HeaderUnansweredQuestions
           unansweredQuestions={enrollment.unanswered_questions}
-          onStart={() => navigate("/next-question")}
+          onStart={() => startQuestions()}
+          loading={start}
         />
       }
     />

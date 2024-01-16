@@ -1,5 +1,6 @@
 import { type FC } from "react";
 import { useTranslation } from "react-i18next";
+import { useNavigation } from "@remix-run/react";
 
 import { twMerge } from "tailwind-merge";
 
@@ -10,6 +11,9 @@ import { useQuestionContext } from "../context";
 export const OnCloseModal: FC = () => {
   const { showOnCloseModal, onClose, onCancelClose } = useQuestionContext();
   const { t } = useTranslation();
+
+  const { state } = useNavigation();
+  const loading = state !== "idle";
 
   if (!showOnCloseModal) return null;
 
@@ -40,11 +44,13 @@ export const OnCloseModal: FC = () => {
           >
             {t("buttons.nevermind")}
           </Button>
+
           <Button
             background="light"
             className="flex-1"
             onClick={onClose}
             data-testid="OnClose-Confirm"
+            loading={loading}
           >
             {t("buttons.im_sure")}
           </Button>

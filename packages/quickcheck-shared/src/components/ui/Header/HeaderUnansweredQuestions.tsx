@@ -1,22 +1,22 @@
-import React, { FC, ReactNode } from "react";
+import React, { type FC } from "react";
 import { useTranslation } from "react-i18next";
 
 import { faArrowRight } from "@fortawesome/pro-light-svg-icons";
 
-import { getUserInitials } from "~/utils/getUserInitials";
-import { UserDataWithName } from "~/utils/types";
 import { useIsDesktop } from "~/utils/useIsDesktop";
 
-import { Avatar, Button } from "~/components";
+import { Button } from "~/components";
 
 interface HeaderUnansweredQuestionsProps {
   unansweredQuestions?: number;
   onStart?: () => void;
+  loading?: boolean;
 }
 
 export const HeaderUnansweredQuestions: FC<HeaderUnansweredQuestionsProps> = ({
   unansweredQuestions,
   onStart,
+  loading,
 }) => {
   const isDesktop = useIsDesktop();
   const { t } = useTranslation();
@@ -31,7 +31,7 @@ export const HeaderUnansweredQuestions: FC<HeaderUnansweredQuestionsProps> = ({
         </p>
 
         {isDesktop && !!unansweredQuestions && onStart && (
-          <Button onClick={onStart} rightIcon={faArrowRight}>
+          <Button onClick={onStart} rightIcon={faArrowRight} loading={loading}>
             {t("common.start")}
           </Button>
         )}

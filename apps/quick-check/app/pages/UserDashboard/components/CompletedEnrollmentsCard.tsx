@@ -1,4 +1,4 @@
-import { Suspense, type FC } from "react";
+import { Suspense, useState, type FC } from "react";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "@remix-run/react";
 
@@ -61,10 +61,18 @@ type CompletedEnrollmentsCardProps = CardProps & {
 const CompletedEnrollmentsCard: FC<CompletedEnrollmentsCardProps> = ({
   completedEnrollments,
 }) => {
+  const [enrollmentNavigation, setEnrollmentNavigation] = useState<string>();
+
   const { t } = useTranslation();
   const navigate = useNavigate();
 
   if (!completedEnrollments.length) return null;
+
+  const goToEnrollment = (id: string) => {
+    setEnrollmentNavigation(id);
+
+    navigate(`/dashboard/enrollment/${id}`);
+  };
 
   return (
     <Card className="flow h-fit w-full flex-grow overflow-hidden md:w-1/2-gap-8">
@@ -76,7 +84,7 @@ const CompletedEnrollmentsCard: FC<CompletedEnrollmentsCardProps> = ({
 
       {completedEnrollments.map((enrollment) => (
         <ProgressItem
-          onClick={(id) => navigate(`/dashboard/enrollment/${id}`)}
+          onClick={(id) => goToEnrollment(id)}
           key={enrollment.id}
           id={enrollment.id}
           title={enrollment.taxonomy?.display_name}
@@ -90,6 +98,7 @@ const CompletedEnrollmentsCard: FC<CompletedEnrollmentsCardProps> = ({
           ariaLabel={t(
             "user.dashboard.completed_enrollments.progress_bar.aria_label",
           )}
+          loading={enrollmentNavigation === enrollment.id}
         />
       ))}
     </Card>

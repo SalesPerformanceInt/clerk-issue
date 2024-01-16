@@ -3,6 +3,7 @@ import { useTranslation } from "react-i18next";
 
 import { faAward, faRankingStar } from "@fortawesome/pro-light-svg-icons";
 import { faChevronRight } from "@fortawesome/pro-regular-svg-icons";
+import { faSpinner } from "@fortawesome/pro-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Progress, ProgressIndicator } from "@radix-ui/react-progress";
 import { twMerge } from "tailwind-merge";
@@ -18,6 +19,7 @@ type ProgressItemProps = {
     total: number;
   };
   ariaLabel: string;
+  loading?: boolean;
   onClick?: (id: string) => void;
 };
 
@@ -29,6 +31,7 @@ const ProgressItem: FC<ProgressItemProps> = ({
   progress,
   onClick,
   ariaLabel,
+  loading,
 }) => {
   const { t } = useTranslation();
 
@@ -106,7 +109,19 @@ const ProgressItem: FC<ProgressItemProps> = ({
           <span>{t("user.dashboard.total", { count: progress.total })}</span>
         </div>
       </div>
-      {!!onClick && (
+
+      {!!onClick && loading && (
+        <div>
+          <FontAwesomeIcon
+            icon={faSpinner}
+            size="lg"
+            className="text-text-75"
+            spinPulse
+          />
+        </div>
+      )}
+
+      {!!onClick && !loading && (
         <div>
           <FontAwesomeIcon
             icon={faChevronRight}

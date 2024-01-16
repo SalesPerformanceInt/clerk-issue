@@ -1,4 +1,4 @@
-import { type FC } from "react";
+import { useState, type FC } from "react";
 import { useNavigate } from "@remix-run/react";
 
 import {
@@ -13,11 +13,19 @@ import { useUserDashboardContext } from "~/pages/UserDashboard";
 import { AccelerateButton } from "~/components";
 
 export const DashboardHeader: FC = () => {
+  const [start, setStart] = useState(false);
+
   const navigate = useNavigate();
 
   const { userDashboardData } = useUserDashboardContext();
 
   const isDesktop = useIsDesktop();
+
+  const startQuestions = () => {
+    setStart(true);
+
+    navigate("/next-question");
+  };
 
   if (isDesktop)
     return (
@@ -25,7 +33,8 @@ export const DashboardHeader: FC = () => {
         right={
           <HeaderUnansweredQuestions
             unansweredQuestions={userDashboardData.unanswered_questions}
-            onStart={() => navigate("/next-question")}
+            onStart={() => startQuestions()}
+            loading={start}
           />
         }
         left={

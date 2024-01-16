@@ -1,4 +1,4 @@
-import * as React from "react";
+import React from "react";
 
 import { faSpinner } from "@fortawesome/pro-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";

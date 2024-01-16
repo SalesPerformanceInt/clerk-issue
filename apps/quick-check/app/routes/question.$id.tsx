@@ -1,8 +1,8 @@
 import {
   json,
   redirect,
-  type ActionArgs,
-  type LoaderArgs,
+  type ActionFunctionArgs,
+  type LoaderFunctionArgs,
 } from "@remix-run/node";
 import {
   PrefetchPageLinks,
@@ -45,7 +45,7 @@ export const config = {
   maxDuration: 300,
 };
 
-export const loader = async ({ params, request }: LoaderArgs) => {
+export const loader = async ({ params, request }: LoaderFunctionArgs) => {
   try {
     const { id } = params;
     invariant(id, "ID not found");
@@ -85,7 +85,7 @@ export const shouldRevalidate: ShouldRevalidateFunction = ({
   return !hasSubmittedAnswer;
 };
 
-export const action = async ({ request }: ActionArgs) => {
+export const action = async ({ request }: ActionFunctionArgs) => {
   const { currentAnswer, reviewedAnswer, totalScore } =
     await saveAnswer(request);
 

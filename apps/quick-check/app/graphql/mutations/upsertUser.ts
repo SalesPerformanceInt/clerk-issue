@@ -1,4 +1,4 @@
-import { isEmpty } from "lodash";
+import { isEmpty } from "remeda";
 
 import { invariant, logError, RequiredKeys } from "quickcheck-shared";
 

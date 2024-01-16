@@ -1,6 +1,6 @@
 import React, { type FC, type ReactElement } from "react";
 
-import { Icon, IconProps } from "./Icon";
+import { Icon, type IconProps } from "./Icon";
 import { Tooltip } from "./Tooltip";
 
 export interface DashboardSectionProps {

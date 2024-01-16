@@ -1,4 +1,3 @@
-import type { LoaderArgs } from "@remix-run/node";
 import type { Params } from "@remix-run/react";
 
 import type { LivePreviewQuery, Query } from "contentstack";
@@ -25,7 +24,9 @@ export type EntryLivePreviewQuery = LivePreviewQuery &
  * Entry LP Props
  */
 
-export type GetEntryQueryProps = Pick<LoaderArgs, "request">;
+export type GetEntryQueryProps = {
+  request: Request;
+};
 
 export type GetEntryDataProps = {
   entryQuery: EntryLivePreviewQuery;

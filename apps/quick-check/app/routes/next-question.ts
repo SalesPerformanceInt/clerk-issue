@@ -1,4 +1,4 @@
-import { redirect, type LoaderArgs } from "@remix-run/node";
+import { redirect, type LoaderFunctionArgs } from "@remix-run/node";
 
 import { invariant, logError } from "quickcheck-shared";
 
@@ -8,7 +8,7 @@ export const config = {
   maxDuration: 300,
 };
 
-export const loader = async ({ request }: LoaderArgs) => {
+export const loader = async ({ request }: LoaderFunctionArgs) => {
   try {
     const nextQuestionId = await generateNextQuestionFromRequest(request);
 

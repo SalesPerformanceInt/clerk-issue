@@ -1,4 +1,4 @@
-import { type LoaderArgs } from "@remix-run/node";
+import { type LoaderFunctionArgs } from "@remix-run/node";
 
 import { typedjson, useTypedLoaderData } from "remix-typedjson";
 
@@ -12,7 +12,7 @@ import { TaxonomyLivePreview } from "~/components/Taxonomy";
  * Loader
  */
 
-export const loader = async ({ request, params }: LoaderArgs) => {
+export const loader = async ({ request, params }: LoaderFunctionArgs) => {
   const taxonomyResponse = await getTaxonomyTreeFromRequest({
     request,
     params,

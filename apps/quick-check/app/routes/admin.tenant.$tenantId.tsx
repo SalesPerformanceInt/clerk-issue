@@ -1,8 +1,8 @@
 import {
   json,
   redirect,
-  type ActionArgs,
-  type LoaderArgs,
+  type ActionFunctionArgs,
+  type LoaderFunctionArgs,
 } from "@remix-run/node";
 import { useLoaderData, useNavigate, useParams } from "@remix-run/react";
 
@@ -48,7 +48,7 @@ export const config = {
   maxDuration: 300,
 };
 
-export const loader = async ({ request, params }: LoaderArgs) => {
+export const loader = async ({ request, params }: LoaderFunctionArgs) => {
   const { tenantId } = params;
   invariant(tenantId, "Tenant ID not found");
 
@@ -58,7 +58,7 @@ export const loader = async ({ request, params }: LoaderArgs) => {
   return json({ users }, { status: 200 });
 };
 
-export const action = async ({ request, params }: ActionArgs) => {
+export const action = async ({ request, params }: ActionFunctionArgs) => {
   try {
     const { tenantId } = params;
     invariant(tenantId, "Tenant ID not found");

@@ -1,4 +1,4 @@
-import type { ActionArgs } from "@remix-run/node";
+import type { ActionFunctionArgs } from "@remix-run/node";
 
 import { invariant } from "quickcheck-shared";
 
@@ -8,7 +8,7 @@ export const config = {
   maxDuration: 300,
 };
 
-export const action = async ({ request }: ActionArgs) => {
+export const action = async ({ request }: ActionFunctionArgs) => {
   const data = await request.formData();
 
   const searchParams = new URL(request.url).searchParams;

@@ -1,8 +1,5 @@
-import { type FC } from "react";
-import {
-  CircularProgressbar,
-  CircularProgressbarWithChildren,
-} from "react-circular-progressbar";
+import React, { type FC } from "react";
+import { CircularProgressbarWithChildren } from "react-circular-progressbar";
 
 import { twMerge } from "tailwind-merge";
 

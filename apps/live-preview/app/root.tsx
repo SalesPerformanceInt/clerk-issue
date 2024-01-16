@@ -3,7 +3,7 @@ import reactflow from "reactflow/dist/style.css";
 import {
   json,
   type LinksFunction,
-  type LoaderArgs,
+  type LoaderFunctionArgs,
   type MetaFunction,
 } from "@remix-run/node";
 import {
@@ -25,7 +25,7 @@ import { remixI18next } from "~/utils/server";
 
 import { getCSENV } from "./utils/server/env.server";
 
-export const loader = async ({ request }: LoaderArgs) => {
+export const loader = async ({ request }: LoaderFunctionArgs) => {
   const locale = await remixI18next.getLocale(request);
 
   const ENV = getCSENV();
@@ -59,29 +59,33 @@ export const links: LinksFunction = () => [
   },
 ];
 
-export const meta: MetaFunction = () => ({
-  charset: "utf-8",
-  title: "Accelerate QuickCheck",
-  viewport: "width=device-width,initial-scale=1",
-});
+export const meta: MetaFunction = () => [
+  { charset: "utf-8" },
+  { title: "QuickCheck LivePreview" },
+  { name: "viewport", content: "width=device-width,initial-scale=1" },
+];
 
 export default function App() {
   const { locale, ENV } = useLoaderData<typeof loader>();
+
   const { i18n } = useTranslation();
 
   return (
-    <html lang={locale} dir={i18n.dir()} className="h-full overflow-hidden">
+    <html lang={locale} dir={i18n.dir()} className="h-full">
       <head>
         <Meta />
         <Links />
+
         <script
           dangerouslySetInnerHTML={{
             __html: `window.ENV = ${JSON.stringify(ENV)}`,
           }}
         />
       </head>
-      <body className="h-full overflow-auto bg-background-secondary">
+
+      <body className="h-full overscroll-none bg-background-secondary">
         <Outlet />
+
         <ScrollRestoration />
         <Scripts />
         <LiveReload />

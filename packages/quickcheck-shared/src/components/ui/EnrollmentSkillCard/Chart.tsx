@@ -1,4 +1,4 @@
-import { type FC } from "react";
+import React, { type FC } from "react";
 import { useTranslation } from "react-i18next";
 
 import { identity, times } from "remeda";

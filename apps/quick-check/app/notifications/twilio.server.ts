@@ -3,7 +3,6 @@ import twilio from "twilio";
 import { invariant } from "quickcheck-shared";
 
 import {
-  getAdminApolloClientFromRequest,
   type BaseUserFragment,
   type UserWithActiveTokenFragment,
 } from "~/graphql";

@@ -20,7 +20,7 @@ import {
 } from "~/graphql";
 
 import { ENROLLMENT_DAYS } from "~/utils/constants";
-import { getNextValidBusinessDate, getToday } from "~/utils/date";
+import { getNextValidBusinessDate } from "~/utils/date";
 
 import { buildTaxonTrees, type TaxonomyDataObj } from "~/models/taxonomy";
 

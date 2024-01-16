@@ -1,4 +1,4 @@
-import { type LoaderArgs } from "@remix-run/node";
+import { type LoaderFunctionArgs } from "@remix-run/node";
 
 import { redirect, typeddefer, useTypedLoaderData } from "remix-typedjson";
 
@@ -14,13 +14,13 @@ export const config = {
  * Loader
  */
 
-export const loader = async ({ request }: LoaderArgs) => {
+export const loader = async ({ request }: LoaderFunctionArgs) => {
   try {
     const userDashboard = await getUserDashboard(request);
 
     return typeddefer({ ...userDashboard });
   } catch (error) {
-    throw redirect("/login", { status: 500 });
+    throw redirect("/login");
   }
 };
 

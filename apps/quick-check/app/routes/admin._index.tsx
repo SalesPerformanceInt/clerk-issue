@@ -1,4 +1,8 @@
-import { json, type ActionArgs, type LoaderArgs } from "@remix-run/node";
+import {
+  json,
+  type ActionFunctionArgs,
+  type LoaderFunctionArgs,
+} from "@remix-run/node";
 import {
   Link,
   useLoaderData,
@@ -31,14 +35,14 @@ export const config = {
   maxDuration: 300,
 };
 
-export const loader = async ({ request }: LoaderArgs) => {
+export const loader = async ({ request }: LoaderFunctionArgs) => {
   const adminApolloClient = await getAdminApolloClientFromRequest(request);
 
   const tenants = (await adminApolloClient.getTenants()) ?? [];
   return json({ tenants }, { status: 200 });
 };
 
-export const action = async ({ request }: ActionArgs) => {
+export const action = async ({ request }: ActionFunctionArgs) => {
   try {
     const adminApolloClient = await getAdminApolloClientFromRequest(request);
     const formData = await request.formData();

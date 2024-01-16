@@ -1,9 +1,9 @@
-import * as React from "react";
+import React from "react";
 
 import { faSpinner } from "@fortawesome/pro-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { cn } from "~/utils";
-import { cva, type VariantProps } from "class-variance-authority";
+import type { VariantProps } from "class-variance-authority";
 import { twMerge } from "tailwind-merge";
 
 import { useIsDesktop } from "~/utils/useIsDesktop";

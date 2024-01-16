@@ -1,5 +1,3 @@
-import type { Expand } from "quickcheck-shared";
-
 /**
  * Proxy Augmentation
  */

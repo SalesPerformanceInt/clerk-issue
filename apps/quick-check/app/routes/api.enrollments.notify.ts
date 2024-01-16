@@ -1,4 +1,4 @@
-import { json, type LoaderArgs } from "@remix-run/node";
+import { json, type LoaderFunctionArgs } from "@remix-run/node";
 
 import { DateTime } from "luxon";
 
@@ -12,7 +12,7 @@ export const config = {
   maxDuration: 300,
 };
 
-export const loader = async ({ request }: LoaderArgs) => {
+export const loader = async ({ request }: LoaderFunctionArgs) => {
   try {
     const adminApolloClient = await getAdminApolloClientFromRequest(request);
     const enrollments = await adminApolloClient.getNotificationEnrollments();

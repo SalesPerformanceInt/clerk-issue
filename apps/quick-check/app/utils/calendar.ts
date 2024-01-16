@@ -1,4 +1,4 @@
-import { DateTime } from "luxon";
+import { DateTime, type WeekdayNumbers } from "luxon";
 import { find, identity, isTruthy, map, pipe, reverse, times } from "remeda";
 
 import type { Day, Week } from "quickcheck-shared";
@@ -20,7 +20,7 @@ const getDayActivity = (date: DateTime, answerDates: DateTime[]) =>
 const makeDay =
   (startDate: DateTime, answerDates: DateTime[]) =>
   (weekday: number): Day => {
-    const date = startDate.set({ weekday });
+    const date = startDate.set({ weekday: weekday as WeekdayNumbers });
     const activity = getDayActivity(date, answerDates);
 
     return { date, activity };

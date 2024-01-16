@@ -1,4 +1,4 @@
-import { redirect, type LoaderArgs } from "@remix-run/node";
+import { redirect, type LoaderFunctionArgs } from "@remix-run/node";
 
 import { invariant, logError } from "quickcheck-shared";
 
@@ -17,7 +17,7 @@ export const config = {
   maxDuration: 300,
 };
 
-export const loader = async ({ params, request }: LoaderArgs) => {
+export const loader = async ({ params, request }: LoaderFunctionArgs) => {
   try {
     const { cuid } = params;
     invariant(cuid, "cuid not found");

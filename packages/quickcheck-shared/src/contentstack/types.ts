@@ -1,4 +1,4 @@
-import { WithLiveData } from "./utilities";
+import type { WithLiveData } from "./utilities";
 
 export type Metadata = {
   uid: string;

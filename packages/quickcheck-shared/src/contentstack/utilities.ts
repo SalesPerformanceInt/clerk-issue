@@ -1,4 +1,4 @@
-import { Expand } from "..";
+import type { Expand } from "..";
 
 export type DataCSLP = Expand<{
   "data-cslp": string;

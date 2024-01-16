@@ -1,6 +1,6 @@
 import type { QuestionItemVariant } from "~/contentstack";
 
-import { QuestionItem, Variant } from "~/components/Question";
+import type { QuestionItem, Variant } from "~/components/Question";
 
 export type RestrictQuestionItemVariant<
   V extends Variant,

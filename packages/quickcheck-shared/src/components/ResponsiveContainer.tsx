@@ -1,4 +1,4 @@
-import React, { forwardRef, ReactNode } from "react";
+import React, { forwardRef, type ReactNode } from "react";
 
 import { Slot } from "@radix-ui/react-slot";
 import { twMerge } from "tailwind-merge";

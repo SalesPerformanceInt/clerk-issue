@@ -1,4 +1,4 @@
-import { json, redirect, type LoaderArgs } from "@remix-run/node";
+import { json, redirect, type LoaderFunctionArgs } from "@remix-run/node";
 import { useLoaderData } from "@remix-run/react";
 
 import { invariant } from "quickcheck-shared";
@@ -14,7 +14,7 @@ export const config = {
   maxDuration: 300,
 };
 
-export const loader = async ({ params, request }: LoaderArgs) => {
+export const loader = async ({ params, request }: LoaderFunctionArgs) => {
   try {
     await requireUserSession(request);
 

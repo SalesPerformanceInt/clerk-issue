@@ -1,4 +1,4 @@
-import { type FC } from "react";
+import React, { type FC } from "react";
 
 import { Progress, ProgressIndicator } from "@radix-ui/react-progress";
 import { twMerge } from "tailwind-merge";

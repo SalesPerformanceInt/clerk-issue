@@ -1,8 +1,8 @@
 import {
   json,
   redirect,
-  type ActionArgs,
-  type LoaderArgs,
+  type ActionFunctionArgs,
+  type LoaderFunctionArgs,
 } from "@remix-run/node";
 import {
   useLoaderData,
@@ -17,12 +17,7 @@ import { generateTokenAndSendSMS } from "~/notifications/twilio.server";
 import { DateTime } from "luxon";
 import { z } from "zod";
 
-import {
-  Button,
-  invariant,
-  logError,
-  simpleErrorResponse,
-} from "quickcheck-shared";
+import { Button, invariant, simpleErrorResponse } from "quickcheck-shared";
 
 import {
   getAdminApolloClientFromRequest,
@@ -45,7 +40,7 @@ export const config = {
   maxDuration: 300,
 };
 
-export const loader = async ({ request, params }: LoaderArgs) => {
+export const loader = async ({ request, params }: LoaderFunctionArgs) => {
   const adminApolloClient = await getAdminApolloClientFromRequest(request);
 
   const { userId } = params;
@@ -75,7 +70,7 @@ const parseUserActionRequest = (formData?: FormData) => {
   return parseSchema(data, userActionSchema);
 };
 
-export const action = async ({ request, params }: ActionArgs) => {
+export const action = async ({ request, params }: ActionFunctionArgs) => {
   try {
     const { userId } = params;
     invariant(userId, "No User ID found");

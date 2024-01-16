@@ -13,20 +13,15 @@ const packages = glob
 module.exports = {
   appDirectory: "app",
   ignoredRouteFiles: ["**/.*"],
-
-  devServerPort: 4011,
+  serverModuleFormat: "cjs",
 
   tailwind: true,
   postcss: true,
 
-  future: {
-    v2_errorBoundary: true,
-    v2_meta: true,
-    v2_normalizeFormMethod: true,
-    v2_routeConvention: true,
+  dev: {
+    port: 4011,
   },
 
   serverDependenciesToBundle: [/.*/],
-
   watchPaths: [...packages],
 };

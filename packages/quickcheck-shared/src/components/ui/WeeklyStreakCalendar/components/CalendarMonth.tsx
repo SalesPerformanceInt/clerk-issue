@@ -1,6 +1,6 @@
 import React, { type FC } from "react";
 
-import { DateTime } from "luxon";
+import { DateTime, type WeekdayNumbers } from "luxon";
 import { identity, map, pipe, times } from "remeda";
 
 import { CalendarWeek, type Week } from "~/components";
@@ -8,7 +8,7 @@ import { CalendarWeek, type Week } from "~/components";
 const daysOfWeek = pipe(
   7,
   times(identity),
-  map((weekday) => DateTime.now().set({ weekday })),
+  map((weekday) => DateTime.now().set({ weekday: weekday as WeekdayNumbers })),
 );
 
 const DaysOfWeek = () => (

@@ -1,9 +1,9 @@
-import { type FC } from "react";
+import React, { type FC } from "react";
 import { useTranslation } from "react-i18next";
 
 import { Card, type CardProps } from "../Card";
 import { Chart } from "./Chart";
-import { EnrollmentSkillData } from "./types";
+import type { EnrollmentSkillData } from "./types";
 
 type EnrollmentSkillCardProps = CardProps & EnrollmentSkillData;
 

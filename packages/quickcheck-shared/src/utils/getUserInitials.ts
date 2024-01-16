@@ -1,4 +1,4 @@
-import { UserDataWithName } from "./types";
+import type { UserDataWithName } from "./types";
 
 const getInitial = (name?: string) => name?.substring(0, 1).toUpperCase();
 

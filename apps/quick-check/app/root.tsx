@@ -2,8 +2,8 @@ import { useTranslation } from "react-i18next";
 import {
   json,
   type LinksFunction,
-  type LoaderArgs,
-  type V2_MetaFunction,
+  type LoaderFunctionArgs,
+  type MetaFunction,
 } from "@remix-run/node";
 import {
   Links,
@@ -36,7 +36,7 @@ import { getOptionalUserApolloClientFromRequest } from "./graphql";
 
 export const ErrorBoundary = makeErrorBoundary({ wat: "root level error" });
 
-export const loader = async ({ request }: LoaderArgs) => {
+export const loader = async ({ request }: LoaderFunctionArgs) => {
   const [now] = await getUserDataFromSession(request);
   const [timeTravelFlag = false] = await getSplit(request, [
     "quickcheck__time_travel",
@@ -81,7 +81,7 @@ export const links: LinksFunction = () => [
   },
 ];
 
-export const meta: V2_MetaFunction = () => [
+export const meta: MetaFunction = () => [
   { charset: "utf-8" },
   { title: "QuickCheck" },
   { name: "viewport", content: "width=device-width,initial-scale=1" },

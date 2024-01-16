@@ -1,16 +1,16 @@
-import { json, type ActionArgs } from "@remix-run/node";
+import { json, type ActionFunctionArgs } from "@remix-run/node";
 
-import { invariant, simpleErrorResponse } from "quickcheck-shared";
+import { simpleErrorResponse } from "quickcheck-shared";
 
 import { getAdminApolloClientFromRequest } from "~/graphql";
 
-import { getUserSchema, verifyApiRequest } from "~/models/api";
+import { verifyApiRequest } from "~/models/api";
 
 export const config = {
   maxDuration: 300,
 };
 
-export const action = async ({ request }: ActionArgs) => {
+export const action = async ({ request }: ActionFunctionArgs) => {
   try {
     const adminApolloClient = await getAdminApolloClientFromRequest(request);
 

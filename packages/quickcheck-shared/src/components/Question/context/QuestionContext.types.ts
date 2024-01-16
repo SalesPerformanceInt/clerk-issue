@@ -1,4 +1,4 @@
-import { ReactNode } from "react";
+import type { ReactNode } from "react";
 
 import type { QuestionProps } from "../Question";
 import type { Selection } from "../Question.types";

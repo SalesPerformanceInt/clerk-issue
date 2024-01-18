@@ -16,7 +16,7 @@ const CONTENT_STACK_LANGUES = [
   "de-de",
   "it-it",
   "ja-jp",
-  "pt=br",
+  "pt-br",
   "es-419",
   "tr-tr",
   "zu",

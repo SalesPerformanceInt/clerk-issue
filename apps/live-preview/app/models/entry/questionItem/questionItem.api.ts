@@ -1,6 +1,7 @@
 import { addEditableTags } from "@contentstack/utils";
 
 import { contentStackClient } from "~/utils/server";
+import { getCSENV } from "~/utils/server/env.server";
 
 import { getEntryQuery } from "../entry.api";
 import type { GetEntryDataProps, GetEntryProps } from "../entry.types";
@@ -10,11 +11,10 @@ import type { QuestionItemLivePreview } from "./questionItem.types";
  * Get QuestionItem Data
  */
 
-const getQuestionItemData = async ({
-  entryQuery,
-  params,
-}: GetEntryDataProps) => {
-  const contentStackAPI = contentStackClient({ environment: params.env });
+const getQuestionItemData = async ({ entryQuery }: GetEntryDataProps) => {
+  const contentStackAPI = contentStackClient({
+    environment: getCSENV().QC_CONTENTSTACK_ENVIRONMENT,
+  });
 
   contentStackAPI.livePreviewQuery(entryQuery);
 
@@ -55,14 +55,14 @@ export const getQuestionItemFromRequest = async ({
 
 type GetQuestionItemsProps = {
   ids: string[];
-  env: string;
 };
 
 export const getQuestionItemsFromIds = async ({
   ids,
-  env,
 }: GetQuestionItemsProps) => {
-  const contentStackAPI = contentStackClient({ environment: env });
+  const contentStackAPI = contentStackClient({
+    environment: getCSENV().QC_CONTENTSTACK_ENVIRONMENT,
+  });
 
   const questionItemsData = (
     await contentStackAPI

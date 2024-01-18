@@ -30,7 +30,7 @@ export type GetEntryQueryProps = {
 
 export type GetEntryDataProps = {
   entryQuery: EntryLivePreviewQuery;
-  params: Params<string>;
+  params?: Params<string>;
 };
 
 export type GetEntryProps = GetEntryQueryProps &

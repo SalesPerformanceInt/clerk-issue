@@ -1,4 +1,5 @@
 import { contentStackClient } from "~/utils/server";
+import { getCSENV } from "~/utils/server/env.server";
 
 import { getEntryQuery } from "../entry.api";
 import type { GetEntryDataProps, GetEntryProps } from "../entry.types";
@@ -8,11 +9,10 @@ import type { TaxonLivePreview } from "./taxonomy.types";
  * Taxonomy Children
  */
 
-const getTaxonomyChildren = async ({
-  entryQuery,
-  params,
-}: GetEntryDataProps) => {
-  const contentStackAPI = contentStackClient({ environment: params.env });
+const getTaxonomyChildren = async ({ entryQuery }: GetEntryDataProps) => {
+  const contentStackAPI = contentStackClient({
+    environment: getCSENV().QC_CONTENTSTACK_ENVIRONMENT,
+  });
 
   const taxonomyChildren = (
     (await contentStackAPI
@@ -31,8 +31,10 @@ const getTaxonomyChildren = async ({
  * Get Taxonomy Data
  */
 
-const getTaxonomyData = async ({ entryQuery, params }: GetEntryDataProps) => {
-  const contentStackAPI = contentStackClient({ environment: params.env });
+const getTaxonomyData = async ({ entryQuery }: GetEntryDataProps) => {
+  const contentStackAPI = contentStackClient({
+    environment: getCSENV().QC_CONTENTSTACK_ENVIRONMENT,
+  });
 
   contentStackAPI.livePreviewQuery({
     content_type_uid: entryQuery.content_type_uid,
@@ -56,7 +58,6 @@ const getTaxonomyData = async ({ entryQuery, params }: GetEntryDataProps) => {
 
 export const getTaxonomyTreeFromRequest = async ({
   request,
-  params,
 }: GetEntryProps) => {
   const { entryQuery } = getEntryQuery({ request });
 
@@ -65,10 +66,9 @@ export const getTaxonomyTreeFromRequest = async ({
 
   const { taxonomyChildren } = await getTaxonomyChildren({
     entryQuery,
-    params,
   });
 
-  const { taxonomyData } = await getTaxonomyData({ entryQuery, params });
+  const { taxonomyData } = await getTaxonomyData({ entryQuery });
 
   const taxonIds = taxonomyChildren
     .map((taxon) => taxon.uid)

@@ -26,6 +26,7 @@ interface QuickcheckBasicEmailProps {
     text: string;
     url: string;
   };
+  footerText?: string;
 }
 
 export const QuickcheckBasicEmail: FC<QuickcheckBasicEmailProps> = ({
@@ -33,6 +34,7 @@ export const QuickcheckBasicEmail: FC<QuickcheckBasicEmailProps> = ({
   greetingsText,
   bodyText,
   button,
+  footerText,
 }) => {
   return (
     <Tailwind config={{ theme }}>
@@ -86,6 +88,11 @@ export const QuickcheckBasicEmail: FC<QuickcheckBasicEmailProps> = ({
                 {button.text}
               </Button>
             </Section>
+            {footerText && (
+              <Section className="mt-4">
+                <Text className="text-base text-text-25">{footerText}</Text>
+              </Section>
+            )}
           </Container>
         </Body>
       </Html>

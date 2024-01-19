@@ -17,6 +17,8 @@ const config = {
         "3xs": "0.5rem",
         "2xs": "0.625rem",
         xxl: "1.375rem",
+        "3xxl": ["32px", { lineHeight: "32px" }],
+        huge: ["64px", { lineHeight: "72px" }],
         "size-inherit": "inherit",
       },
       fontFamily: {
@@ -59,6 +61,10 @@ const config = {
       },
       spacing: {
         "1.25": "0.3125rem",
+        18: "4.5rem",
+      },
+      padding: {
+        18: "72px",
       },
       flexBasis: {
         "1/2-gap-4": "calc(50% - (1/2 * 1rem))",
@@ -91,7 +97,8 @@ const config = {
           DEFAULT: "var(--text, #111111)",
           75: "var(--text-75, #444444)",
           50: "var(--text-50, #595959)",
-          25: "var(--text-25, #bcbcbc)",
+          25: "var(--text-50, #757575)",
+          10: "var(--text-25, #bcbcbc)",
         },
         contrast: {
           DEFAULT: "var(--contrast, #ffffff)",

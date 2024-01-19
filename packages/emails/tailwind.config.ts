@@ -7,6 +7,9 @@ const config = {
   content: ["./src/**/*.{ts,tsx,jsx,js}"],
   theme: {
     extend: {
+      screens: {
+        desktop: "928px",
+      },
       fontFamily: {
         sans: ["Open Sans", "ui-sans-serif", "system-ui"],
         body: ["Open Sans", "ui-sans-serif", "system-ui"],
@@ -43,6 +46,7 @@ const config = {
         },
         text: {
           DEFAULT: "#111111",
+          25: "#757575",
         },
         contrast: {
           DEFAULT: "#FFFFFF",

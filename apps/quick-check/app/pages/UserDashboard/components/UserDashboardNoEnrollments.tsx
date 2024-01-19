@@ -25,7 +25,7 @@ export const UserDashboardNoEnrollments: FC = () => {
       <section className="flex flex-col gap-6 sm:flex-row sm:items-center sm:justify-center sm:gap-12">
         <FontAwesomeIcon
           icon={faBellSchool}
-          className="text-9xl text-text-25"
+          className="text-text-10 text-9xl"
         />
 
         <section className="flex flex-col gap-6 sm:gap-3">

@@ -1,8 +1,6 @@
 import { redirect, type Session } from "@remix-run/node";
 
-import type { Expand } from "quickcheck-shared";
-
-import { sendEmailTemplate } from "~/utils/email/sendEmailTemplate.server";
+import { invariant, type Expand } from "quickcheck-shared";
 
 import {
   SessionKeys,
@@ -10,7 +8,6 @@ import {
   type SessionData,
   type SessionFlashData,
 } from "./sessionStorage";
-import { getUserDataFromSession } from "./userSession.server";
 
 /**
  * Session Creation
@@ -36,13 +33,15 @@ export async function createSession({
   remember,
   redirectTo,
 }: CreateSessionProps) {
+  const setCookieHeader = await sessionStorage.commitSession(session, {
+    maxAge: remember
+      ? 60 * 60 * 24 // 1 day
+      : undefined,
+  });
+
   return redirect(redirectTo, {
     headers: {
-      "Set-Cookie": await sessionStorage.commitSession(session, {
-        maxAge: remember
-          ? 60 * 60 * 24 // 1 day
-          : undefined,
-      }),
+      "Set-Cookie": setCookieHeader,
     },
   });
 }
@@ -63,18 +62,16 @@ export async function updateSessionNow(
   now: string,
 ) {
   const session = await getSession(request);
-
   session.set(SessionKeys.NOW, now);
 
   const userId = session.get(SessionKeys.USER_ID);
+  invariant(userId, "No User in Session");
 
-  if (userId) {
-    await sendEmailTemplate(request, userId, now);
-  }
+  const sendEmailPath = `/email/user/${userId}?redirectTo=${redirectTo}`;
 
   return createSession({
     session,
-    redirectTo,
+    redirectTo: sendEmailPath,
     remember: true,
   });
 }

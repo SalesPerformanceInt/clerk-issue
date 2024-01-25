@@ -19921,6 +19921,22 @@
             "deprecationReason": null
           },
           {
+            "name": "show_leaderboard",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Boolean",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "sms_enabled",
             "description": null,
             "args": [],
@@ -22936,6 +22952,18 @@
             "type": {
               "kind": "INPUT_OBJECT",
               "name": "String_comparison_exp",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "show_leaderboard",
+            "description": null,
+            "type": {
+              "kind": "INPUT_OBJECT",
+              "name": "Boolean_comparison_exp",
               "ofType": null
             },
             "defaultValue": null,
@@ -26190,6 +26218,18 @@
             "deprecationReason": null
           },
           {
+            "name": "show_leaderboard",
+            "description": null,
+            "type": {
+              "kind": "SCALAR",
+              "name": "Boolean",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "sms_enabled",
             "description": null,
             "type": {
@@ -27095,6 +27135,18 @@
           },
           {
             "name": "phone_number",
+            "description": null,
+            "type": {
+              "kind": "ENUM",
+              "name": "order_by",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "show_leaderboard",
             "description": null,
             "type": {
               "kind": "ENUM",
@@ -31169,6 +31221,12 @@
             "deprecationReason": null
           },
           {
+            "name": "show_leaderboard",
+            "description": "column name",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "sms_enabled",
             "description": "column name",
             "isDeprecated": false,
@@ -31210,6 +31268,12 @@
             "deprecationReason": null
           },
           {
+            "name": "show_leaderboard",
+            "description": "column name",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "sms_enabled",
             "description": "column name",
             "isDeprecated": false,
@@ -31228,6 +31292,12 @@
         "enumValues": [
           {
             "name": "daily_email_enabled",
+            "description": "column name",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "show_leaderboard",
             "description": "column name",
             "isDeprecated": false,
             "deprecationReason": null
@@ -31337,6 +31407,18 @@
             "type": {
               "kind": "SCALAR",
               "name": "String",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "show_leaderboard",
+            "description": null,
+            "type": {
+              "kind": "SCALAR",
+              "name": "Boolean",
               "ofType": null
             },
             "defaultValue": null,
@@ -31538,6 +31620,18 @@
             "deprecationReason": null
           },
           {
+            "name": "show_leaderboard",
+            "description": null,
+            "type": {
+              "kind": "SCALAR",
+              "name": "Boolean",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "sms_enabled",
             "description": null,
             "type": {
@@ -31642,6 +31736,12 @@
           },
           {
             "name": "phone_number",
+            "description": "column name",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "show_leaderboard",
             "description": "column name",
             "isDeprecated": false,
             "deprecationReason": null

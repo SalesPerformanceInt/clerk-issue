@@ -24,6 +24,7 @@ export const UPSERT_USER = graphql(/* GraphQL */ `
           language_preference
           phone_number
           timezone
+          show_leaderboard
         ]
       }
     ) {

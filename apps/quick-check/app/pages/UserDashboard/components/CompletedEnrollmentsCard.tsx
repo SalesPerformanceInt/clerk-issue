@@ -14,6 +14,8 @@ import {
 
 import type { UserDashboardCompletedEnrollments } from "~/graphql";
 
+import { useUserDashboardContext } from "../context/UserDashboardContext";
+
 /**
  * Completed Enrollments Suspense Component
  */
@@ -74,6 +76,10 @@ const CompletedEnrollmentsCard: FC<CompletedEnrollmentsCardProps> = ({
     navigate(`/dashboard/enrollment/${id}`);
   };
 
+  const {
+    userDashboardData: { show_leaderboard },
+  } = useUserDashboardContext();
+
   return (
     <Card className="flow h-fit w-full flex-grow overflow-hidden md:w-1/2-gap-8">
       <CardTitle
@@ -88,7 +94,7 @@ const CompletedEnrollmentsCard: FC<CompletedEnrollmentsCardProps> = ({
           key={enrollment.id}
           id={enrollment.id}
           title={enrollment.taxonomy?.display_name}
-          ranking={enrollment.rank}
+          ranking={show_leaderboard && enrollment.rank}
           score={enrollment.score}
           progress={{
             attempted: enrollment.attempted.aggregate?.count ?? 0,

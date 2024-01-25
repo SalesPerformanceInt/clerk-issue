@@ -1,11 +1,11 @@
-import React, { type FC, type HTMLAttributes, type ReactElement } from "react";
+import React, { type FC, type HTMLAttributes, type ReactNode } from "react";
 
 import { cn } from "~/utils";
 
 import { Icon, IconProps } from "~/components";
 
 type MobileCarouselProps = HTMLAttributes<HTMLDivElement> & {
-  children: ReactElement | ReactElement[];
+  children: ReactNode | ReactNode[];
   title: string;
   icon?: IconProps["icon"];
 };

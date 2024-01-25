@@ -1,4 +1,5 @@
 import { useEffect, useState, type FC } from "react";
+import type { SerializeFrom } from "@remix-run/node";
 import { Link, useNavigation, useSubmit } from "@remix-run/react";
 
 import {
@@ -8,24 +9,31 @@ import {
   faRightToBracket,
 } from "@fortawesome/pro-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  parseAdminActionRequest,
-  type AdminAction,
-} from "~/routes/admin.tenant.$tenantId";
 
 import { Button } from "quickcheck-shared";
 
-import type { UserRowProps } from "./UserRow.types";
+import type { UserWithActiveTokenFragment } from "~/graphql";
+
+import { parseAdminActionRequest, type AdminAction } from "~/models/admin";
+
+export interface UserRowProps {
+  user: SerializeFrom<UserWithActiveTokenFragment>;
+  row: number;
+  link?: boolean;
+}
 
 export const UserRow: FC<UserRowProps> = ({ user, row, link }) => {
   const submit = useSubmit();
 
   const { state, formData } = useNavigation();
 
-  const [checked, setChecked] = useState(user.daily_email_enabled);
+  const [dailyEmailEnabled, setDailyEmailEnabled] = useState(
+    user.daily_email_enabled,
+  );
+  const [showLeaderboard, setShowLeaderboard] = useState(user.show_leaderboard);
 
   useEffect(() => {
-    setChecked(user.daily_email_enabled);
+    setDailyEmailEnabled(user.daily_email_enabled);
   }, [user.daily_email_enabled]);
 
   const isLoading = (actionType: AdminAction["type"]) => {
@@ -67,9 +75,21 @@ export const UserRow: FC<UserRowProps> = ({ user, row, link }) => {
       <td className="whitespace-nowrap px-6 py-4">{user.email}</td>
       <td className="whitespace-nowrap px-6 py-4 text-center">
         <input
-          checked={checked}
+          checked={showLeaderboard}
+          onChange={makeUserAction("TOGGLE_SHOW_LEADERBOARD", () =>
+            setShowLeaderboard(!showLeaderboard),
+          )}
+          id="default-checkbox"
+          type="checkbox"
+          value=""
+          className="h-4 w-4 rounded border-gray-300 bg-gray-100 text-blue-600"
+        />
+      </td>
+      <td className="whitespace-nowrap px-6 py-4 text-center">
+        <input
+          checked={dailyEmailEnabled}
           onChange={makeUserAction("TOGGLE_SMS_ENABLED", () =>
-            setChecked(!checked),
+            setDailyEmailEnabled(!dailyEmailEnabled),
           )}
           id="default-checkbox"
           type="checkbox"

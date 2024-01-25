@@ -81,10 +81,12 @@ export const UserDashboard: FC<UserDashboardProps> = ({ userDashboard }) => {
               achievementsPromise={userDashboardAchievements}
             />
 
-            <LeaderboardSuspense
-              activeEnrollmentsPromise={userDashboardActiveEnrollments}
-              completedEnrollmentsPromise={userDashboardCompletedEnrollments}
-            />
+            {userDashboardData.show_leaderboard && (
+              <LeaderboardSuspense
+                activeEnrollmentsPromise={userDashboardActiveEnrollments}
+                completedEnrollmentsPromise={userDashboardCompletedEnrollments}
+              />
+            )}
           </MobileCarousel>
 
           <Section title={t("common.progress")} icon={<ProgressIcon />}>

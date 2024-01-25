@@ -28,7 +28,7 @@ const EnrollmentOverviewSectionDesktop = () => {
           <EnrollmentProgress />
         </div>
       </div>
-      <EnrollmentLeaderboardCard />
+      {enrollment.user.show_leaderboard && <EnrollmentLeaderboardCard />}
     </section>
   );
 };

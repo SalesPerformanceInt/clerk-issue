@@ -1,8 +1,7 @@
 import React from "react";
 
 import type { Meta, StoryObj } from "@storybook/react";
-
-import { Card, CardTitle } from "~/components/ui/Card";
+import { Card, CardTitle } from "~qcs/components/ui/Card";
 
 import { MobileCarousel as MobileCarouselComponent } from "./MobileCarousel";
 import { MobileCarouselDecorator } from "./MobileCarousel.template";

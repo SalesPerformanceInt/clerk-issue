@@ -1,6 +1,6 @@
 import React, { type FC, type HTMLAttributes, type ReactNode } from "react";
 
-import { cn } from "~/utils";
+import { cn } from "~qcs/utils";
 
 import { CardTitleSkeleton, type CardTitleSkeletonProps } from "./CardTitle";
 

@@ -3,10 +3,9 @@ import React, { forwardRef, type ElementRef } from "react";
 import { faCheck } from "@fortawesome/pro-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import * as AvatarPrimitive from "@radix-ui/react-avatar";
-import { cn } from "~/utils";
+import { AvatarFallback } from "~qcs/components";
+import { cn } from "~qcs/utils";
 import { cva } from "class-variance-authority";
-
-import { AvatarFallback } from "~/components";
 
 const calendarStatusVariants = cva(
   "relative flex h-5 w-5 shrink-0 overflow-hidden rounded-full",

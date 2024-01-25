@@ -4,9 +4,8 @@ import { useTranslation } from "react-i18next";
 import { faCircleInfo } from "@fortawesome/pro-light-svg-icons";
 import * as RadixPopover from "@radix-ui/react-popover";
 import * as RadixTooltip from "@radix-ui/react-tooltip";
+import { useIsDesktop } from "~qcs/utils/useIsDesktop";
 import { twMerge } from "tailwind-merge";
-
-import { useIsDesktop } from "~/utils/useIsDesktop";
 
 import { Icon } from "./Icon";
 

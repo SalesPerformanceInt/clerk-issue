@@ -1,8 +1,7 @@
 import { useCallback, useEffect, useMemo } from "react";
 
+import { useQuestionContext } from "~qcs/components/Question";
 import { compact, find } from "remeda";
-
-import { useQuestionContext } from "~/components/Question";
 
 import type { MultipleChoiceProps } from "../MultipleChoice";
 import type { OnMCChoiceSelect } from "../MultipleChoice.types";

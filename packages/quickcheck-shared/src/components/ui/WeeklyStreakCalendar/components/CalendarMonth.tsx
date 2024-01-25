@@ -1,9 +1,8 @@
 import React, { type FC } from "react";
 
+import { CalendarWeek, type Week } from "~qcs/components";
 import { DateTime, type WeekdayNumbers } from "luxon";
 import { identity, map, pipe, times } from "remeda";
-
-import { CalendarWeek, type Week } from "~/components";
 
 const daysOfWeek = pipe(
   7,

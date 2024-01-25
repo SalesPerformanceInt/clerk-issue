@@ -1,8 +1,7 @@
 import React, { type FC } from "react";
 
+import { CalendarMonth, WeeklyActivity, type Week } from "~qcs/components";
 import { twMerge } from "tailwind-merge";
-
-import { CalendarMonth, WeeklyActivity, type Week } from "~/components";
 
 type WeeklyStreakCalendarProps = {
   calendar: Week[];

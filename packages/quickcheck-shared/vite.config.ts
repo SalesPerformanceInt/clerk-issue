@@ -14,7 +14,7 @@ export default defineConfig({
     }),
   ],
   resolve: {
-    alias: [{ find: "~", replacement: resolve(__dirname, "src") }],
+    alias: [{ find: "~qcs", replacement: resolve(__dirname, "src") }],
   },
   build: {
     lib: {

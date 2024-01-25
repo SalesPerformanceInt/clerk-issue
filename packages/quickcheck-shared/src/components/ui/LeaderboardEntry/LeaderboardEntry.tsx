@@ -6,9 +6,8 @@ import {
   faDash,
 } from "@fortawesome/pro-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { MatchedMap } from "~qcs/utils/matchedMap";
 import { twMerge } from "tailwind-merge";
-
-import { MatchedMap } from "~/utils/matchedMap";
 
 type LeaderboardEntryProps = {
   direction?: "up" | "down" | "neutral";

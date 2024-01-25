@@ -3,9 +3,8 @@ import { useTranslation } from "react-i18next";
 
 import { faAngleLeft, faChevronLeft } from "@fortawesome/pro-light-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { RichardsonLogo } from "~/images/RichardsonLogo";
-
-import { useIsDesktop } from "~/utils/useIsDesktop";
+import { RichardsonLogo } from "~qcs/images/RichardsonLogo";
+import { useIsDesktop } from "~qcs/utils/useIsDesktop";
 
 interface HeaderReturnToDashboardProps {
   onClose: () => void;

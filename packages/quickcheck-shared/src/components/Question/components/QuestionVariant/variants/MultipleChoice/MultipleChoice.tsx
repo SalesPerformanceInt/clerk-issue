@@ -1,12 +1,10 @@
 import React, { type FC } from "react";
 
-import { MCQuestion } from "~/contentstack";
-
-import { useDeterministicallyRandomizeChoices } from "~/utils/deterministicallyRandomizeChoices";
-
-import { ResponsiveContainer } from "~/components";
-import { Title } from "~/components/Question/components";
-import { Choice } from "~/components/Question/components/QuestionVariant/components/Choice";
+import { ResponsiveContainer } from "~qcs/components";
+import { Title } from "~qcs/components/Question/components";
+import { Choice } from "~qcs/components/Question/components/QuestionVariant/components/Choice";
+import { MCQuestion } from "~qcs/contentstack";
+import { useDeterministicallyRandomizeChoices } from "~qcs/utils/deterministicallyRandomizeChoices";
 
 import { useMultipleChoices } from "./hooks/useMultipleChoice";
 

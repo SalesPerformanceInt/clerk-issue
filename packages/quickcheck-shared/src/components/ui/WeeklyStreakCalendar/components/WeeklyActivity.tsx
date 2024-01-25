@@ -1,9 +1,8 @@
 import React, { type FC } from "react";
 import { useTranslation } from "react-i18next";
 
+import { CalendarStatus, type Week } from "~qcs/components";
 import { DateTime } from "luxon";
-
-import { CalendarStatus, type Week } from "~/components";
 
 type WeeklyActivityProps = {
   calendar: Week[];

@@ -1,7 +1,10 @@
 import React, { type FC } from "react";
 import { useTranslation } from "react-i18next";
 
-import { CircularProgress, type CircularProgressProps } from "~/components/ui";
+import {
+  CircularProgress,
+  type CircularProgressProps,
+} from "~qcs/components/ui";
 
 import { Tooltip } from "./Tooltip";
 

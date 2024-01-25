@@ -1,6 +1,6 @@
 import React, { type FC } from "react";
 
-import { useQuestionContext } from "~/components/Question";
+import { useQuestionContext } from "~qcs/components/Question";
 
 export const Title: FC = () => {
   const { questionItem, enrollmentTaxonomy } = useQuestionContext();

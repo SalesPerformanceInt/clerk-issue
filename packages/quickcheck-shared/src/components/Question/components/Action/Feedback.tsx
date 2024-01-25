@@ -7,13 +7,12 @@ import {
   FontAwesomeIcon,
   FontAwesomeIconProps,
 } from "@fortawesome/react-fontawesome";
-import { grow, slideLeft } from "~/config/animations";
+import { useQuestionContext } from "~qcs/components/Question";
+import { grow, slideLeft } from "~qcs/config/animations";
 import { AnimatePresence, motion } from "framer-motion";
 import parse from "html-react-parser";
 import { isNumber } from "remeda";
 import { twMerge } from "tailwind-merge";
-
-import { useQuestionContext } from "~/components/Question";
 
 interface FeedbackHeaderProps {
   className?: string;

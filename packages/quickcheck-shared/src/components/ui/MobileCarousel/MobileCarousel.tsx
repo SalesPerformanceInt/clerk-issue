@@ -1,8 +1,7 @@
 import React, { type FC, type HTMLAttributes, type ReactNode } from "react";
 
-import { cn } from "~/utils";
-
-import { Icon, IconProps } from "~/components";
+import { Icon, IconProps } from "~qcs/components";
+import { cn } from "~qcs/utils";
 
 type MobileCarouselProps = HTMLAttributes<HTMLDivElement> & {
   children: ReactNode | ReactNode[];

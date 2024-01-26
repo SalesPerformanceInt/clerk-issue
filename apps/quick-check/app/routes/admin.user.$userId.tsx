@@ -103,7 +103,7 @@ export const action = async ({ request, params }: ActionFunctionArgs) => {
       return json({ ok: true });
     }
 
-    performAdminAction(requestForAdminAction);
+    return performAdminAction(requestForAdminAction);
   } catch (error) {
     return simpleErrorResponse(error);
   }

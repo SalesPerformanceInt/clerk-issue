@@ -51,6 +51,7 @@ export const action = async ({ request, params }: ActionFunctionArgs) => {
         formatUserInputFromImport(createUserInput);
 
       await adminApolloClient.upsertUser(userInputData, proxyData);
+      return json({ ok: true });
     }
 
     return performAdminAction(requestForAdminAction);

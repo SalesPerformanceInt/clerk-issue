@@ -73,17 +73,14 @@ export const Action: FC = () => {
     <>
       <div style={{ height }} />
 
-      <ResponsiveContainer
-        ref={ref}
-        className="fixed inset-x-0 bottom-0 bg-primary"
-      >
+      <ResponsiveContainer ref={ref} className="fixed inset-x-0 bottom-0">
         <div
           style={offset ? { marginBottom: offset } : undefined}
-          className="flex flex-col p-4 sm:flex-row sm:justify-between sm:px-0 sm:py-6"
+          className="flex flex-col bg-primary p-4 sm:justify-between sm:px-12 sm:py-6"
         >
           <Feedback />
 
-          <div className="flex items-end">
+          <div className="flex items-end justify-end">
             <ActionButton />
           </div>
         </div>

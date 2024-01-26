@@ -44,7 +44,7 @@ export const Feedback: FC = () => {
             initial="initial"
             animate="animate"
             exit="exit"
-            className="mb-6 flex flex-col space-y-4 sm:mb-0 sm:mr-12"
+            className="mb-6 flex flex-col space-y-4"
             data-testid="QuestionItem-ChoiceFeedback"
           >
             <div className="flex items-center justify-between overflow-hidden">

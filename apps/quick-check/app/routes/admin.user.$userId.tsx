@@ -76,9 +76,9 @@ export const action = async ({ request, params }: ActionFunctionArgs) => {
 
     const adminApolloClient = await getAdminApolloClientFromRequest(request);
 
-    const userAction = parseUserActionRequest(formData);
-
     const user = await adminApolloClient.getUser({ userId });
+
+    const userAction = parseUserActionRequest(formData);
 
     if (user && userAction?.type === "ENROLL" && userAction?.taxonomyId) {
       const enrollment: EnrollUserEnrollment = {
@@ -92,15 +92,18 @@ export const action = async ({ request, params }: ActionFunctionArgs) => {
         enrollment,
         request,
       );
+
+      return json({ ok: true });
     }
 
     if (userAction?.type === "UNENROLL" && userAction?.enrollmentId) {
       await adminApolloClient.unenrollUser(userAction?.enrollmentId, {
         userId,
       });
+      return json({ ok: true });
     }
 
-    return performAdminAction(requestForAdminAction);
+    performAdminAction(requestForAdminAction);
   } catch (error) {
     return simpleErrorResponse(error);
   }

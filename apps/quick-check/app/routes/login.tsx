@@ -16,7 +16,11 @@ import {
   getDeleteCookieHeaders,
 } from "~/models/session";
 
-import { Landing, landingActionValidator } from "~/pages/Landing";
+import {
+  Landing,
+  landingActionValidator,
+  type LandingActionResponse,
+} from "~/pages/Landing";
 
 export const loader = async ({ request }: LoaderFunctionArgs) => {
   const searchParams = new URL(request.url).searchParams;
@@ -52,7 +56,7 @@ export const action = async ({ request }: ActionFunctionArgs) => {
     });
   }
 
-  return json({ email });
+  return json<LandingActionResponse>({ email, ok: true });
 };
 
 export default function Page() {

@@ -1,25 +1,22 @@
 import type { FC } from "react";
-import { useTranslation } from "react-i18next";
-import { useSearchParams } from "@remix-run/react";
-
-import { useFormContext } from "remix-validated-form";
+import { useActionData, useSearchParams } from "@remix-run/react";
 
 import { Card } from "quickcheck-shared";
 
+import { LandingActionResponse } from "../Landing.types";
 import { LandingEmailSubmit } from "./LandingEmailSubmit";
 import { LandingEmailSubmitted } from "./LandingEmailSubmitted";
 import { LandingExpiredLink } from "./LandingExpiredLink";
 
 export const LandingCard: FC = () => {
-  const { t } = useTranslation();
-  const { hasBeenSubmitted } = useFormContext();
   const [searchParams] = useSearchParams();
+  const actionResponse = useActionData<LandingActionResponse>();
 
   const expired = searchParams.get("expired") === "true";
 
   const renderContent = () => {
     if (expired) return <LandingExpiredLink />;
-    if (hasBeenSubmitted) return <LandingEmailSubmitted />;
+    if (actionResponse?.ok) return <LandingEmailSubmitted />;
     return <LandingEmailSubmit />;
   };
 

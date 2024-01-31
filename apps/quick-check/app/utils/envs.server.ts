@@ -15,6 +15,7 @@ export const QC_CONTENTSTACK_TRANSLATION_ID =
 export const HASURA_AUTH_TOKEN = process.env.HASURA_AUTH_TOKEN ?? "";
 export const HASURA_API_URL = process.env.HASURA_API_URL ?? "";
 export const HASURA_SECRET_KEY = process.env.HASURA_SECRET_KEY ?? "";
+export const HASURA_JWT_OFFSET = process.env.HASURA_JWT_OFFSET;
 
 export const SESSION_SECRET = process.env.SESSION_SECRET ?? "";
 

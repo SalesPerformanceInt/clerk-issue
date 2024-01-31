@@ -13,8 +13,7 @@ export const getSplit = async (request: Request, treatments: string[]) => {
   try {
     const [_now, userId, tenant] = await getUserDataFromSession(request);
 
-    invariant(userId, "Missing User ID");
-    invariant(tenant, "Missing Tenant ID");
+    if (!userId || !tenant) return [false];
 
     const SplitObj = SplitFactory({
       core: {

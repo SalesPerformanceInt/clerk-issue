@@ -857,6 +857,215 @@ export type Date_Comparison_Exp = {
   _nin?: InputMaybe<Array<Scalars['date']['input']>>;
 };
 
+/** columns and relationships of "event" */
+export type Event = {
+  __typename?: 'event';
+  created_at: Scalars['timestamptz']['output'];
+  data: Scalars['jsonb']['output'];
+  id: Scalars['uuid']['output'];
+  stream_name: Scalars['String']['output'];
+  type: Scalars['String']['output'];
+};
+
+
+/** columns and relationships of "event" */
+export type EventDataArgs = {
+  path?: InputMaybe<Scalars['String']['input']>;
+};
+
+/** aggregated selection of "event" */
+export type Event_Aggregate = {
+  __typename?: 'event_aggregate';
+  aggregate?: Maybe<Event_Aggregate_Fields>;
+  nodes: Array<Event>;
+};
+
+/** aggregate fields of "event" */
+export type Event_Aggregate_Fields = {
+  __typename?: 'event_aggregate_fields';
+  count: Scalars['Int']['output'];
+  max?: Maybe<Event_Max_Fields>;
+  min?: Maybe<Event_Min_Fields>;
+};
+
+
+/** aggregate fields of "event" */
+export type Event_Aggregate_FieldsCountArgs = {
+  columns?: InputMaybe<Array<Event_Select_Column>>;
+  distinct?: InputMaybe<Scalars['Boolean']['input']>;
+};
+
+/** append existing jsonb value of filtered columns with new jsonb value */
+export type Event_Append_Input = {
+  data?: InputMaybe<Scalars['jsonb']['input']>;
+};
+
+/** Boolean expression to filter rows from the table "event". All fields are combined with a logical 'AND'. */
+export type Event_Bool_Exp = {
+  _and?: InputMaybe<Array<Event_Bool_Exp>>;
+  _not?: InputMaybe<Event_Bool_Exp>;
+  _or?: InputMaybe<Array<Event_Bool_Exp>>;
+  created_at?: InputMaybe<Timestamptz_Comparison_Exp>;
+  data?: InputMaybe<Jsonb_Comparison_Exp>;
+  id?: InputMaybe<Uuid_Comparison_Exp>;
+  stream_name?: InputMaybe<String_Comparison_Exp>;
+  type?: InputMaybe<String_Comparison_Exp>;
+};
+
+/** unique or primary key constraints on table "event" */
+export enum Event_Constraint {
+  /** unique or primary key constraint on columns "id" */
+  EventPkey = 'event_pkey'
+}
+
+/** delete the field or element with specified path (for JSON arrays, negative integers count from the end) */
+export type Event_Delete_At_Path_Input = {
+  data?: InputMaybe<Array<Scalars['String']['input']>>;
+};
+
+/** delete the array element with specified index (negative integers count from the end). throws an error if top level container is not an array */
+export type Event_Delete_Elem_Input = {
+  data?: InputMaybe<Scalars['Int']['input']>;
+};
+
+/** delete key/value pair or string element. key/value pairs are matched based on their key value */
+export type Event_Delete_Key_Input = {
+  data?: InputMaybe<Scalars['String']['input']>;
+};
+
+/** input type for inserting data into table "event" */
+export type Event_Insert_Input = {
+  created_at?: InputMaybe<Scalars['timestamptz']['input']>;
+  data?: InputMaybe<Scalars['jsonb']['input']>;
+  id?: InputMaybe<Scalars['uuid']['input']>;
+  stream_name?: InputMaybe<Scalars['String']['input']>;
+  type?: InputMaybe<Scalars['String']['input']>;
+};
+
+/** aggregate max on columns */
+export type Event_Max_Fields = {
+  __typename?: 'event_max_fields';
+  created_at?: Maybe<Scalars['timestamptz']['output']>;
+  id?: Maybe<Scalars['uuid']['output']>;
+  stream_name?: Maybe<Scalars['String']['output']>;
+  type?: Maybe<Scalars['String']['output']>;
+};
+
+/** aggregate min on columns */
+export type Event_Min_Fields = {
+  __typename?: 'event_min_fields';
+  created_at?: Maybe<Scalars['timestamptz']['output']>;
+  id?: Maybe<Scalars['uuid']['output']>;
+  stream_name?: Maybe<Scalars['String']['output']>;
+  type?: Maybe<Scalars['String']['output']>;
+};
+
+/** response of any mutation on the table "event" */
+export type Event_Mutation_Response = {
+  __typename?: 'event_mutation_response';
+  /** number of rows affected by the mutation */
+  affected_rows: Scalars['Int']['output'];
+  /** data from the rows affected by the mutation */
+  returning: Array<Event>;
+};
+
+/** on_conflict condition type for table "event" */
+export type Event_On_Conflict = {
+  constraint: Event_Constraint;
+  update_columns?: Array<Event_Update_Column>;
+  where?: InputMaybe<Event_Bool_Exp>;
+};
+
+/** Ordering options when selecting data from "event". */
+export type Event_Order_By = {
+  created_at?: InputMaybe<Order_By>;
+  data?: InputMaybe<Order_By>;
+  id?: InputMaybe<Order_By>;
+  stream_name?: InputMaybe<Order_By>;
+  type?: InputMaybe<Order_By>;
+};
+
+/** primary key columns input for table: event */
+export type Event_Pk_Columns_Input = {
+  id: Scalars['uuid']['input'];
+};
+
+/** prepend existing jsonb value of filtered columns with new jsonb value */
+export type Event_Prepend_Input = {
+  data?: InputMaybe<Scalars['jsonb']['input']>;
+};
+
+/** select columns of table "event" */
+export enum Event_Select_Column {
+  /** column name */
+  CreatedAt = 'created_at',
+  /** column name */
+  Data = 'data',
+  /** column name */
+  Id = 'id',
+  /** column name */
+  StreamName = 'stream_name',
+  /** column name */
+  Type = 'type'
+}
+
+/** input type for updating data in table "event" */
+export type Event_Set_Input = {
+  created_at?: InputMaybe<Scalars['timestamptz']['input']>;
+  data?: InputMaybe<Scalars['jsonb']['input']>;
+  id?: InputMaybe<Scalars['uuid']['input']>;
+  stream_name?: InputMaybe<Scalars['String']['input']>;
+  type?: InputMaybe<Scalars['String']['input']>;
+};
+
+/** Streaming cursor of the table "event" */
+export type Event_Stream_Cursor_Input = {
+  /** Stream column input with initial value */
+  initial_value: Event_Stream_Cursor_Value_Input;
+  /** cursor ordering */
+  ordering?: InputMaybe<Cursor_Ordering>;
+};
+
+/** Initial value of the column from where the streaming should start */
+export type Event_Stream_Cursor_Value_Input = {
+  created_at?: InputMaybe<Scalars['timestamptz']['input']>;
+  data?: InputMaybe<Scalars['jsonb']['input']>;
+  id?: InputMaybe<Scalars['uuid']['input']>;
+  stream_name?: InputMaybe<Scalars['String']['input']>;
+  type?: InputMaybe<Scalars['String']['input']>;
+};
+
+/** update columns of table "event" */
+export enum Event_Update_Column {
+  /** column name */
+  CreatedAt = 'created_at',
+  /** column name */
+  Data = 'data',
+  /** column name */
+  Id = 'id',
+  /** column name */
+  StreamName = 'stream_name',
+  /** column name */
+  Type = 'type'
+}
+
+export type Event_Updates = {
+  /** append existing jsonb value of filtered columns with new jsonb value */
+  _append?: InputMaybe<Event_Append_Input>;
+  /** delete the field or element with specified path (for JSON arrays, negative integers count from the end) */
+  _delete_at_path?: InputMaybe<Event_Delete_At_Path_Input>;
+  /** delete the array element with specified index (negative integers count from the end). throws an error if top level container is not an array */
+  _delete_elem?: InputMaybe<Event_Delete_Elem_Input>;
+  /** delete key/value pair or string element. key/value pairs are matched based on their key value */
+  _delete_key?: InputMaybe<Event_Delete_Key_Input>;
+  /** prepend existing jsonb value of filtered columns with new jsonb value */
+  _prepend?: InputMaybe<Event_Prepend_Input>;
+  /** sets the columns of the filtered rows to the given values */
+  _set?: InputMaybe<Event_Set_Input>;
+  /** filter the rows which have to be updated */
+  where: Event_Bool_Exp;
+};
+
 export type Jsonb_Cast_Exp = {
   String?: InputMaybe<String_Comparison_Exp>;
 };
@@ -1403,6 +1612,10 @@ export type Mutation_Root = {
   delete_acme__users?: Maybe<Acme__Users_Mutation_Response>;
   /** delete single row from the table: "acme-vib-staging.users" */
   delete_acme__users_by_pk?: Maybe<Acme__Users>;
+  /** delete data from the table: "event" */
+  delete_event?: Maybe<Event_Mutation_Response>;
+  /** delete single row from the table: "event" */
+  delete_event_by_pk?: Maybe<Event>;
   /** delete data from the table: "learning_record" */
   delete_learning_record?: Maybe<Learning_Record_Mutation_Response>;
   /** delete single row from the table: "learning_record" */
@@ -1435,6 +1648,10 @@ export type Mutation_Root = {
   insert_acme__users?: Maybe<Acme__Users_Mutation_Response>;
   /** insert a single row into the table: "acme-vib-staging.users" */
   insert_acme__users_one?: Maybe<Acme__Users>;
+  /** insert data into the table: "event" */
+  insert_event?: Maybe<Event_Mutation_Response>;
+  /** insert a single row into the table: "event" */
+  insert_event_one?: Maybe<Event>;
   /** insert data into the table: "learning_record" */
   insert_learning_record?: Maybe<Learning_Record_Mutation_Response>;
   /** insert a single row into the table: "learning_record" */
@@ -1469,6 +1686,12 @@ export type Mutation_Root = {
   update_acme__users_by_pk?: Maybe<Acme__Users>;
   /** update multiples rows of table: "acme-vib-staging.users" */
   update_acme__users_many?: Maybe<Array<Maybe<Acme__Users_Mutation_Response>>>;
+  /** update data of the table: "event" */
+  update_event?: Maybe<Event_Mutation_Response>;
+  /** update single row of the table: "event" */
+  update_event_by_pk?: Maybe<Event>;
+  /** update multiples rows of table: "event" */
+  update_event_many?: Maybe<Array<Maybe<Event_Mutation_Response>>>;
   /** update data of the table: "learning_record" */
   update_learning_record?: Maybe<Learning_Record_Mutation_Response>;
   /** update single row of the table: "learning_record" */
@@ -1522,6 +1745,18 @@ export type Mutation_RootDelete_Acme__UsersArgs = {
 
 /** mutation root */
 export type Mutation_RootDelete_Acme__Users_By_PkArgs = {
+  id: Scalars['uuid']['input'];
+};
+
+
+/** mutation root */
+export type Mutation_RootDelete_EventArgs = {
+  where: Event_Bool_Exp;
+};
+
+
+/** mutation root */
+export type Mutation_RootDelete_Event_By_PkArgs = {
   id: Scalars['uuid']['input'];
 };
 
@@ -1621,6 +1856,20 @@ export type Mutation_RootInsert_Acme__UsersArgs = {
 export type Mutation_RootInsert_Acme__Users_OneArgs = {
   object: Acme__Users_Insert_Input;
   on_conflict?: InputMaybe<Acme__Users_On_Conflict>;
+};
+
+
+/** mutation root */
+export type Mutation_RootInsert_EventArgs = {
+  objects: Array<Event_Insert_Input>;
+  on_conflict?: InputMaybe<Event_On_Conflict>;
+};
+
+
+/** mutation root */
+export type Mutation_RootInsert_Event_OneArgs = {
+  object: Event_Insert_Input;
+  on_conflict?: InputMaybe<Event_On_Conflict>;
 };
 
 
@@ -1751,6 +2000,36 @@ export type Mutation_RootUpdate_Acme__Users_By_PkArgs = {
 /** mutation root */
 export type Mutation_RootUpdate_Acme__Users_ManyArgs = {
   updates: Array<Acme__Users_Updates>;
+};
+
+
+/** mutation root */
+export type Mutation_RootUpdate_EventArgs = {
+  _append?: InputMaybe<Event_Append_Input>;
+  _delete_at_path?: InputMaybe<Event_Delete_At_Path_Input>;
+  _delete_elem?: InputMaybe<Event_Delete_Elem_Input>;
+  _delete_key?: InputMaybe<Event_Delete_Key_Input>;
+  _prepend?: InputMaybe<Event_Prepend_Input>;
+  _set?: InputMaybe<Event_Set_Input>;
+  where: Event_Bool_Exp;
+};
+
+
+/** mutation root */
+export type Mutation_RootUpdate_Event_By_PkArgs = {
+  _append?: InputMaybe<Event_Append_Input>;
+  _delete_at_path?: InputMaybe<Event_Delete_At_Path_Input>;
+  _delete_elem?: InputMaybe<Event_Delete_Elem_Input>;
+  _delete_key?: InputMaybe<Event_Delete_Key_Input>;
+  _prepend?: InputMaybe<Event_Prepend_Input>;
+  _set?: InputMaybe<Event_Set_Input>;
+  pk_columns: Event_Pk_Columns_Input;
+};
+
+
+/** mutation root */
+export type Mutation_RootUpdate_Event_ManyArgs = {
+  updates: Array<Event_Updates>;
 };
 
 
@@ -1944,6 +2223,12 @@ export type Query_Root = {
   acme__users_aggregate: Acme__Users_Aggregate;
   /** fetch data from the table: "acme-vib-staging.users" using primary key columns */
   acme__users_by_pk?: Maybe<Acme__Users>;
+  /** fetch data from the table: "event" */
+  event: Array<Event>;
+  /** fetch aggregated fields from the table: "event" */
+  event_aggregate: Event_Aggregate;
+  /** fetch data from the table: "event" using primary key columns */
+  event_by_pk?: Maybe<Event>;
   /** fetch data from the table: "learning_record" */
   learning_record: Array<Learning_Record>;
   /** fetch aggregated fields from the table: "learning_record" */
@@ -2008,6 +2293,29 @@ export type Query_RootAcme__Users_AggregateArgs = {
 
 
 export type Query_RootAcme__Users_By_PkArgs = {
+  id: Scalars['uuid']['input'];
+};
+
+
+export type Query_RootEventArgs = {
+  distinct_on?: InputMaybe<Array<Event_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<Event_Order_By>>;
+  where?: InputMaybe<Event_Bool_Exp>;
+};
+
+
+export type Query_RootEvent_AggregateArgs = {
+  distinct_on?: InputMaybe<Array<Event_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<Event_Order_By>>;
+  where?: InputMaybe<Event_Bool_Exp>;
+};
+
+
+export type Query_RootEvent_By_PkArgs = {
   id: Scalars['uuid']['input'];
 };
 
@@ -2182,6 +2490,14 @@ export type Subscription_Root = {
   acme__users_by_pk?: Maybe<Acme__Users>;
   /** fetch data from the table in a streaming manner: "acme-vib-staging.users" */
   acme__users_stream: Array<Acme__Users>;
+  /** fetch data from the table: "event" */
+  event: Array<Event>;
+  /** fetch aggregated fields from the table: "event" */
+  event_aggregate: Event_Aggregate;
+  /** fetch data from the table: "event" using primary key columns */
+  event_by_pk?: Maybe<Event>;
+  /** fetch data from the table in a streaming manner: "event" */
+  event_stream: Array<Event>;
   /** fetch data from the table: "learning_record" */
   learning_record: Array<Learning_Record>;
   /** fetch aggregated fields from the table: "learning_record" */
@@ -2268,6 +2584,36 @@ export type Subscription_RootAcme__Users_StreamArgs = {
   batch_size: Scalars['Int']['input'];
   cursor: Array<InputMaybe<Acme__Users_Stream_Cursor_Input>>;
   where?: InputMaybe<Acme__Users_Bool_Exp>;
+};
+
+
+export type Subscription_RootEventArgs = {
+  distinct_on?: InputMaybe<Array<Event_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<Event_Order_By>>;
+  where?: InputMaybe<Event_Bool_Exp>;
+};
+
+
+export type Subscription_RootEvent_AggregateArgs = {
+  distinct_on?: InputMaybe<Array<Event_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<Event_Order_By>>;
+  where?: InputMaybe<Event_Bool_Exp>;
+};
+
+
+export type Subscription_RootEvent_By_PkArgs = {
+  id: Scalars['uuid']['input'];
+};
+
+
+export type Subscription_RootEvent_StreamArgs = {
+  batch_size: Scalars['Int']['input'];
+  cursor: Array<InputMaybe<Event_Stream_Cursor_Input>>;
+  where?: InputMaybe<Event_Bool_Exp>;
 };
 
 

@@ -35,7 +35,7 @@ export async function createSession({
 }: CreateSessionProps) {
   const setCookieHeader = await sessionStorage.commitSession(session, {
     maxAge: remember
-      ? 60 * 60 * 24 // 1 day
+      ? 60 * 60 // 1 hour
       : undefined,
   });
 

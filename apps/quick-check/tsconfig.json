@@ -1,24 +1,28 @@
 {
   "extends": "../../tsconfig.json",
+  "compilerOptions": {
+    "baseUrl": "./",
+    "jsx": "react-jsx",
+    "moduleResolution": "Bundler",
+    "noEmit": true,
+    "outDir": "./dist",
+    "paths": {
+      "~/*": ["./app/*"],
+      "~qcs/*": ["../../packages/quickcheck-shared/src/*"],
+      "quickcheck-shared": ["../../packages/quickcheck-shared/src"],
+    },
+  },
+  "references": [
+    {
+      "path": "../../packages/quickcheck-shared",
+    },
+  ],
+  "files": ["./app/root.tsx"],
   "include": [
     "remix.env.d.ts",
     "**/*.ts",
     "**/*.tsx",
     ".eslintrc.js",
-    "i18n.d.ts"
+    "i18n.d.ts",
   ],
-  "compilerOptions": {
-    "lib": ["DOM", "DOM.Iterable", "ES2019"],
-    "target": "ES2019",
-    "baseUrl": ".",
-    "paths": {
-      "~/*": ["./app/*"]
-    },
-    // Remix takes care of building everything in `remix build`.
-    "noEmit": true,
-    "jsx": "react-jsx",
-    "resolveJsonModule": true,
-    "esModuleInterop": true,
-    "moduleResolution": "Bundler"
-  }
 }

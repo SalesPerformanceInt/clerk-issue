@@ -1,10 +1,9 @@
 import React, { type FC, type ReactNode } from "react";
 
-import { cn } from "~/utils";
+import { Skeleton } from "~qcs/components/ui/Skeleton";
+import { cn } from "~qcs/utils";
 import { isNil } from "remeda";
 import { twMerge } from "tailwind-merge";
-
-import { Skeleton } from "~/components/ui/Skeleton";
 
 /**
  * Card Title Component

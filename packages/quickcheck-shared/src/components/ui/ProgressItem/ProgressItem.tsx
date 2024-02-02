@@ -11,7 +11,7 @@ import { twMerge } from "tailwind-merge";
 type ProgressItemProps = {
   id: string;
   title?: string;
-  ranking?: string | number | null;
+  ranking?: string | number | null | false;
   score?: string | number | null;
   progress: {
     attempted: number;

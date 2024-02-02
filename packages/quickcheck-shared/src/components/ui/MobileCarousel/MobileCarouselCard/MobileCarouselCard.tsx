@@ -1,13 +1,12 @@
 import React, { type FC, type ReactNode } from "react";
 
-import { cn } from "~/utils";
-
 import {
   Card,
   CardTitleSkeleton,
   type CardProps,
   type CardTitleSkeletonProps,
-} from "~/components/ui/Card";
+} from "~qcs/components/ui/Card";
+import { cn } from "~qcs/utils";
 
 /**
  * Mobile Carousel Card Component

@@ -5,7 +5,7 @@ import React, {
 } from "react";
 
 import * as AvatarPrimitive from "@radix-ui/react-avatar";
-import { cn } from "~/utils";
+import { cn } from "~qcs/utils";
 
 export type AvatarProps = Omit<
   ComponentPropsWithoutRef<typeof AvatarPrimitive.Root>,

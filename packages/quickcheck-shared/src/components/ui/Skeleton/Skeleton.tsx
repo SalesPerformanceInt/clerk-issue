@@ -1,6 +1,6 @@
 import React, { type FC, type HTMLAttributes } from "react";
 
-import { cn } from "~/utils";
+import { cn } from "~qcs/utils";
 
 /**
  * Skeleton Props
@@ -20,7 +20,7 @@ export const Skeleton: FC<SkeletonProps> = ({
   return (
     <div
       className={cn(
-        "bg-background-skeleton animate-pulse rounded-md",
+        "animate-pulse rounded-md bg-background-skeleton",
         className,
       )}
       {...props}

@@ -31,11 +31,13 @@ export const DashboardHeader: FC = () => {
     return (
       <Header
         right={
-          <HeaderUnansweredQuestions
-            unansweredQuestions={userDashboardData.unanswered_questions}
-            onStart={() => startQuestions()}
-            loading={start}
-          />
+          userDashboardData.total_enrollments > 0 && (
+            <HeaderUnansweredQuestions
+              unansweredQuestions={userDashboardData.unanswered_questions}
+              onStart={() => startQuestions()}
+              loading={start}
+            />
+          )
         }
         left={
           <div className="flex items-center">

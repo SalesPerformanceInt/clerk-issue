@@ -1,4 +1,4 @@
-import type { DataCSLP, QuestionItem } from "~/contentstack";
+import type { DataCSLP, QuestionItem } from "~qcs/contentstack";
 
 export { QuestionItem };
 

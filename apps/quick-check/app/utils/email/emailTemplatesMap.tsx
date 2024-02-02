@@ -13,6 +13,7 @@ import {
   sendUserEnrollmentEmailTemplate,
   sendUserInactiveEmailTemplate,
   sendUserQuestionEmailTemplate,
+  sendUserRequestedLinkEmailTemplate,
 } from "./emailTemplates";
 
 /**
@@ -26,7 +27,8 @@ export type EmailTemplate =
       type: "Enrollment";
       data: { enrollment: NotificationUserEnrollmentFragment };
     }
-  | { type: "Question"; data: null };
+  | { type: "Question"; data: null }
+  | { type: "RequestedLink"; data: null };
 
 /**
  * Email Templates Fn
@@ -60,5 +62,6 @@ export const emailTemplateMap = new MatchedMap<
   ["Away", sendUserAwayEmailTemplate],
   ["Enrollment", sendUserEnrollmentEmailTemplate],
   ["Question", sendUserQuestionEmailTemplate],
+  ["RequestedLink", sendUserRequestedLinkEmailTemplate],
   ["_", sendUserInactiveEmailTemplate],
 ]);

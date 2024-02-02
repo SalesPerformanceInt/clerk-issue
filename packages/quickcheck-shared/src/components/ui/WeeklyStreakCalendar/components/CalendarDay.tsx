@@ -1,8 +1,7 @@
 import React, { forwardRef, type ElementRef } from "react";
 
+import { CalendarStatus, type Day } from "~qcs/components";
 import { DateTime } from "luxon";
-
-import { CalendarStatus, type Day } from "~/components";
 
 type CalendarDayProps = {
   day: Day;

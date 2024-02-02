@@ -1,12 +1,11 @@
-import { Stack } from "contentstack";
-
 import {
   getAllTaxonomies,
   getQuestionItem,
   getQuestionItems,
   getTaxonomy,
   getTheme,
-} from "~/contentstack/queries";
+} from "~qcs/contentstack/queries";
+import { Stack } from "contentstack";
 
 const getContentStackSDKClient = (
   deliveryToken: string,

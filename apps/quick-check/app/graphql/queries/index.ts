@@ -19,3 +19,4 @@ export * from "./getUserLastActiveToken";
 export * from "./getTeamEnrollments";
 export * from "./getUserLanguage";
 export * from "./dashboard";
+export * from "./getUserByEmail";

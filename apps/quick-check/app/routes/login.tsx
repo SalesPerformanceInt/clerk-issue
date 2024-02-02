@@ -1,29 +1,66 @@
-import { json, type LoaderFunctionArgs } from "@remix-run/node";
+import {
+  json,
+  type ActionFunctionArgs,
+  type LoaderFunctionArgs,
+} from "@remix-run/node";
 import { useLoaderData } from "@remix-run/react";
 
-import { AccelerateButton } from "~/components";
+import { validationError } from "remix-validated-form";
 
-/**
- * Loader
- */
+import { getAdminApolloClientFromRequest } from "~/graphql";
+
+import { sendEmailTemplate } from "~/utils/email/sendEmailTemplate.server";
+
+import {
+  getAdminDataFromFromSession,
+  getDeleteCookieHeaders,
+} from "~/models/session";
+
+import {
+  Landing,
+  landingActionValidator,
+  type LandingActionResponse,
+} from "~/pages/Landing";
 
 export const loader = async ({ request }: LoaderFunctionArgs) => {
   const searchParams = new URL(request.url).searchParams;
   const message = searchParams.get("message");
 
-  return json({ message });
+  return json(
+    { message },
+    {
+      headers: await getDeleteCookieHeaders(request),
+    },
+  );
 };
 
-/**
- * Route Component
- */
+export const action = async ({ request }: ActionFunctionArgs) => {
+  const result = await landingActionValidator.validate(
+    await request.formData(),
+  );
+
+  if (result.error) return validationError(result.error);
+
+  const { email } = result.data;
+
+  const adminApolloClient = await getAdminApolloClientFromRequest(request);
+
+  const user = await adminApolloClient.getUserByEmail(email);
+
+  if (user) {
+    const [now] = await getAdminDataFromFromSession(request);
+
+    await sendEmailTemplate(request, user.user_id, now, {
+      type: "RequestedLink",
+      data: null,
+    });
+  }
+
+  return json<LandingActionResponse>({ email, ok: true });
+};
 
 export default function Page() {
   const { message } = useLoaderData<typeof loader>();
 
-  return (
-    <div className="flex h-full flex-col items-center justify-center space-y-4">
-      <AccelerateButton tenantId="rsp" />
-    </div>
-  );
+  return <Landing />;
 }

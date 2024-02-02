@@ -5,3 +5,4 @@ export * from "./DashboardHeader";
 export * from "./DashboardMobileAction";
 export * from "./LeaderboardCard";
 export * from "./WeeklyStreakCard";
+export * from "./UserDashboardNoEnrollments";

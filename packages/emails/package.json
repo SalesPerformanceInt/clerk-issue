@@ -7,7 +7,7 @@
     "dev": "pnpm run build --watch",
     "preview": "dotenv-load email dev --dir src/emails",
     "export": "email export --dir src/emails",
-    "build": "tsup src/index.tsx --format esm,cjs --dts --external react",
+    "build": "tsup",
     "typecheck": "tsc"
   },
   "dependencies": {

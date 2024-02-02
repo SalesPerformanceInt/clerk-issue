@@ -1,6 +1,6 @@
 import React, { type FC, type ReactNode } from "react";
 
-import { ResponsiveContainer } from "~/components";
+import { ResponsiveContainer } from "~qcs/components";
 
 interface HeaderProps {
   left?: ReactNode;

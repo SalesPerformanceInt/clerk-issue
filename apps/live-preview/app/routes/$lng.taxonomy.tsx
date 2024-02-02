@@ -1,5 +1,6 @@
 import { type LoaderFunctionArgs } from "@remix-run/node";
 
+import { useChangeLanguage } from "remix-i18next";
 import { typedjson, useTypedLoaderData } from "remix-typedjson";
 
 import { getQuestionItemsFromIds } from "~/models/entry/questionItem";
@@ -24,12 +25,12 @@ export const loader = async ({ request, params }: LoaderFunctionArgs) => {
         nodes: [],
         edges: [],
       },
+      lng: params.lng || "en-us",
     });
 
   const { taxonomyChildren, taxonomyData, taxonIds } = taxonomyResponse;
 
   const { questionItemsData } = await getQuestionItemsFromIds({
-    env: params.env!,
     ids: taxonIds,
   });
 
@@ -40,7 +41,7 @@ export const loader = async ({ request, params }: LoaderFunctionArgs) => {
     taxonIds,
   });
 
-  return typedjson({ taxonomyTree });
+  return typedjson({ taxonomyTree, lng: params.lng || "en-us" });
 };
 
 /**
@@ -48,7 +49,9 @@ export const loader = async ({ request, params }: LoaderFunctionArgs) => {
  */
 
 export default function TaxonomyRoute() {
-  const { taxonomyTree } = useTypedLoaderData<typeof loader>();
+  const { taxonomyTree, lng } = useTypedLoaderData<typeof loader>();
+
+  useChangeLanguage(lng);
 
   return <TaxonomyLivePreview taxonomyTree={taxonomyTree} />;
 }

@@ -1,15 +1,22 @@
 {
   "extends": "../../tsconfig.json",
-  "include": ["remix.env.d.ts", "**/*.ts", "**/*.tsx", ".eslintrc.js"],
   "compilerOptions": {
-    "lib": ["DOM", "DOM.Iterable", "ES2019"],
-    "target": "ES2019",
-    "baseUrl": ".",
-    "paths": {
-      "~/*": ["./app/*"]
-    },
-    "noEmit": true,
+    "baseUrl": "./",
     "jsx": "react-jsx",
-    "moduleResolution": "Bundler"
-  }
+    "moduleResolution": "Bundler",
+    "noEmit": true,
+    "outDir": "./build",
+    "paths": {
+      "~/*": ["./app/*"],
+      "~qcs/*": ["../../packages/quickcheck-shared/src/*"],
+      "quickcheck-shared": ["../../packages/quickcheck-shared/src"],
+    },
+  },
+  "references": [
+    {
+      "path": "../../packages/quickcheck-shared",
+    },
+  ],
+  "files": ["./app/root.tsx"],
+  "include": ["remix.env.d.ts", "**/*.ts", "**/*.tsx", ".eslintrc.js"],
 }

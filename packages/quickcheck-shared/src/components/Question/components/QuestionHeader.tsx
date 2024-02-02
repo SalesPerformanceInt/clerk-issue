@@ -4,8 +4,8 @@ import {
   Header,
   HeaderReturnToDashboard,
   HeaderUnansweredQuestions,
-} from "~/components";
-import { useQuestionContext } from "~/components/Question";
+} from "~qcs/components";
+import { useQuestionContext } from "~qcs/components/Question";
 
 export const QuestionHeader: FC = () => {
   const { userData, onShowOnCloseModal, submitted } = useQuestionContext();

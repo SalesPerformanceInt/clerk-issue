@@ -16,6 +16,7 @@ import {
   generateNewToken,
   resetUser,
   toggleUserDailyEmailEnabled,
+  toggleUserShowLeaderboard,
   unenrollUser,
   updateNextQuestionId,
   updateUser,
@@ -37,6 +38,7 @@ import {
   getUserAchievements,
   getUserActiveEnrollments,
   getUserActiveQuestionsData,
+  getUserByEmail,
   getUserCompletedEnrollments,
   getUserDashboardData,
   getUserData,
@@ -145,6 +147,8 @@ export class GraphQLClient implements WithApolloClient {
   getUserCompletedEnrollments = getUserCompletedEnrollments;
   getUserDashboardData = getUserDashboardData;
   getUserWeeklyStreakCalendar = getUserWeeklyStreakCalendar;
+  getUserByEmail = getUserByEmail;
+  toggleUserShowLeaderboard = toggleUserShowLeaderboard;
 
   constructor(headers: GraphQLHeaders) {
     this.client = getClient(headers);

@@ -5,6 +5,7 @@ import {
   Header,
   HeaderReturnToDashboard,
   HeaderUnansweredQuestions,
+  useIsDesktop,
 } from "quickcheck-shared";
 
 import { useEnrollmentContext } from "../context/EnrollmentContext";
@@ -14,6 +15,8 @@ export const EnrollmentHeader: FC = () => {
 
   const navigate = useNavigate();
   const { enrollment } = useEnrollmentContext();
+
+  const isDesktop = useIsDesktop();
 
   const startQuestions = () => {
     setStart(true);
@@ -25,11 +28,13 @@ export const EnrollmentHeader: FC = () => {
     <Header
       left={<HeaderReturnToDashboard onClose={() => navigate("/")} />}
       right={
-        <HeaderUnansweredQuestions
-          unansweredQuestions={enrollment.unanswered_questions}
-          onStart={() => startQuestions()}
-          loading={start}
-        />
+        isDesktop && (
+          <HeaderUnansweredQuestions
+            unansweredQuestions={enrollment.unanswered_questions}
+            onStart={() => startQuestions()}
+            loading={start}
+          />
+        )
       }
     />
   );

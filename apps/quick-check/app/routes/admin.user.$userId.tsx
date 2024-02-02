@@ -1,6 +1,5 @@
 import {
   json,
-  redirect,
   type ActionFunctionArgs,
   type LoaderFunctionArgs,
 } from "@remix-run/node";
@@ -13,7 +12,6 @@ import {
 
 import { faChevronLeft } from "@fortawesome/pro-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { generateTokenAndSendSMS } from "~/notifications/twilio.server";
 import { DateTime } from "luxon";
 import { z } from "zod";
 
@@ -25,16 +23,13 @@ import {
   type User_Answer,
 } from "~/graphql";
 
-import { sendEmailTemplate } from "~/utils/email/sendEmailTemplate.server";
 import { parseSchema } from "~/utils/parseSchema";
 
+import { performAdminAction } from "~/models/admin";
 import { enrollUser } from "~/models/enrollment";
-import { getDeleteCookieHeaders } from "~/models/session";
 import { buildTaxonTrees, treeNodeToRawNodeDatum } from "~/models/taxonomy";
 
 import { UsersTable } from "~/components";
-
-import { parseAdminActionRequest } from "./admin.tenant.$tenantId";
 
 export const config = {
   maxDuration: 300,
@@ -74,13 +69,16 @@ export const action = async ({ request, params }: ActionFunctionArgs) => {
   try {
     const { userId } = params;
     invariant(userId, "No User ID found");
+
+    const requestForAdminAction = request.clone();
+
     const formData = await request.formData();
 
     const adminApolloClient = await getAdminApolloClientFromRequest(request);
 
-    const userAction = parseUserActionRequest(formData);
-
     const user = await adminApolloClient.getUser({ userId });
+
+    const userAction = parseUserActionRequest(formData);
 
     if (user && userAction?.type === "ENROLL" && userAction?.taxonomyId) {
       const enrollment: EnrollUserEnrollment = {
@@ -94,56 +92,18 @@ export const action = async ({ request, params }: ActionFunctionArgs) => {
         enrollment,
         request,
       );
+
+      return json({ ok: true });
     }
 
     if (userAction?.type === "UNENROLL" && userAction?.enrollmentId) {
       await adminApolloClient.unenrollUser(userAction?.enrollmentId, {
         userId,
       });
+      return json({ ok: true });
     }
 
-    const adminAction = parseAdminActionRequest(formData);
-
-    if (adminAction?.type === "TOGGLE_SMS_ENABLED") {
-      await adminApolloClient.toggleUserDailyEmailEnabled({
-        userId: adminAction.userId,
-      });
-    }
-
-    if (adminAction?.type === "GENERATE_TOKEN_AND_SEND_SMS") {
-      const user = await adminApolloClient.getUser({
-        userId: adminAction.userId,
-      });
-
-      invariant(user, "No user found");
-
-      await generateTokenAndSendSMS(user, request);
-    }
-
-    if (adminAction?.type === "RESET_USER") {
-      await adminApolloClient.resetUser({ userId: adminAction.userId });
-      return json(formData, {
-        headers: await getDeleteCookieHeaders(request),
-      });
-    }
-
-    if (adminAction?.type === "LOGIN_USER") {
-      const user = await adminApolloClient.getUser({
-        userId: adminAction.userId,
-      });
-
-      invariant(user, "No user found");
-
-      const activeToken = user.active_tokens[0]?.id ?? "";
-
-      return redirect(`/token/${activeToken}`);
-    }
-
-    if (adminAction?.type === "SEND_QUESTION_EMAIL") {
-      await sendEmailTemplate(request, adminAction.userId);
-    }
-
-    return json(formData);
+    return performAdminAction(requestForAdminAction);
   } catch (error) {
     return simpleErrorResponse(error);
   }

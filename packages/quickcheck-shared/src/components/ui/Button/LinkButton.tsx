@@ -2,13 +2,11 @@ import React from "react";
 
 import { faSpinner } from "@fortawesome/pro-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { cn } from "~/utils";
+import { Icon, IconProps } from "~qcs/components/Icon";
+import { cn } from "~qcs/utils";
+import { useIsDesktop } from "~qcs/utils/useIsDesktop";
 import type { VariantProps } from "class-variance-authority";
 import { twMerge } from "tailwind-merge";
-
-import { useIsDesktop } from "~/utils/useIsDesktop";
-
-import { Icon, IconProps } from "~/components/Icon";
 
 import { buttonVariants } from "./Button";
 

@@ -1,6 +1,6 @@
 import { SignJWT } from "jose";
 
-import { HASURA_SECRET_KEY } from "~/utils/envs.server";
+import { HASURA_JWT_OFFSET, HASURA_SECRET_KEY } from "~/utils/envs.server";
 
 /**
  * Hasura JWT Helpers
@@ -17,6 +17,6 @@ export const getHasuraJWT = async (claims: Record<string, unknown>) =>
     "https://hasura.io/jwt/claims": claims,
   })
     .setProtectedHeader({ alg: "HS256", typ: "JWT" })
-    .setIssuedAt()
+    .setIssuedAt(HASURA_JWT_OFFSET && Number(HASURA_JWT_OFFSET))
     .setExpirationTime("2h")
     .sign(secretKey);

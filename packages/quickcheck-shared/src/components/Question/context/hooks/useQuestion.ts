@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-import { invariant } from "~/utils/invariant";
+import { invariant } from "~qcs/utils/invariant";
 
 import type { Selection } from "../../Question.types";
 import type { QuestionContextProps } from "../QuestionContext.types";

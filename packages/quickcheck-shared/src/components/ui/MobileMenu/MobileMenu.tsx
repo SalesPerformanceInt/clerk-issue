@@ -3,10 +3,8 @@ import { useTranslation } from "react-i18next";
 import { useMeasure } from "react-use";
 
 import { faArrowRight } from "@fortawesome/pro-light-svg-icons";
-
-import { useIsDesktop } from "~/utils/useIsDesktop";
-
-import { Button, ResponsiveContainer } from "~/components";
+import { Button, ResponsiveContainer } from "~qcs/components";
+import { useIsDesktop } from "~qcs/utils/useIsDesktop";
 
 interface MobileMenuProps {
   unansweredQuestions?: number;

@@ -1,7 +1,6 @@
-import type { Taxon } from "~/contentstack";
-import type { ContentStackSDKClient } from "~/contentstack/client";
-
-import { logError } from "~/utils/logger";
+import type { Taxon } from "~qcs/contentstack";
+import type { ContentStackSDKClient } from "~qcs/contentstack/client";
+import { logError } from "~qcs/utils/logger";
 
 export async function getTaxonomy(this: ContentStackSDKClient, uid: string) {
   try {

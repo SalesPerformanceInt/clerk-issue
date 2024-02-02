@@ -21,7 +21,7 @@ interface TranslatedStrings {
   };
 }
 
-const supportedLngs = ["en-us"];
+const supportedLngs = ["en-us", "pt-br"];
 const fallbackLng = "en-us";
 
 export const i18nConfig = {

@@ -1,12 +1,10 @@
 import React from "react";
 
-import { useQuestionContext } from "~/index";
+import type { QuestionItemChoice } from "~qcs/contentstack";
+import { useQuestionContext } from "~qcs/index";
+import type { Expand } from "~qcs/utils/expand";
 import parse from "html-react-parser";
 import { twMerge } from "tailwind-merge";
-
-import type { QuestionItemChoice } from "~/contentstack";
-
-import type { Expand } from "~/utils/expand";
 
 export type ChoiceProps = Expand<
   {

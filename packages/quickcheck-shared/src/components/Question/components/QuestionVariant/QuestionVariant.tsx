@@ -1,8 +1,7 @@
 import React, { type FC } from "react";
 
-import { getVariant } from "~/utils/getVariant";
-
-import { useQuestionContext } from "~/components/Question";
+import { useQuestionContext } from "~qcs/components/Question";
+import { getVariant } from "~qcs/utils/getVariant";
 
 import { MultipleChoice } from "./variants";
 

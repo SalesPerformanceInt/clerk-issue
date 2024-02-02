@@ -25,6 +25,7 @@ export const BaseUser = graphql(/* GraphQL */ `
     sms_enabled
     daily_email_enabled
     phone_number
+    show_leaderboard
   }
 `);
 

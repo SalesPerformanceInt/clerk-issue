@@ -2,9 +2,8 @@ import React, { type FC } from "react";
 import { useTranslation } from "react-i18next";
 import { useNavigation } from "@remix-run/react";
 
+import { Button } from "~qcs/components";
 import { twMerge } from "tailwind-merge";
-
-import { Button } from "~/components";
 
 import { useQuestionContext } from "../context";
 

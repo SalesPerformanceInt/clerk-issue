@@ -22,6 +22,7 @@ import {
   DashboardHeader,
   DashboardMobileAction,
   LeaderboardSuspense,
+  UserDashboardNoEnrollments,
   WeeklyStreakSuspense,
 } from "./components";
 
@@ -43,16 +44,27 @@ export const UserDashboard: FC<UserDashboardProps> = ({ userDashboard }) => {
   const isDesktop = useIsDesktop();
 
   const {
+    userDashboardData,
     userDashboardWeeklyStreakCalendar,
     userDashboardAchievements,
     userDashboardActiveEnrollments,
     userDashboardCompletedEnrollments,
   } = userDashboard;
 
+  if (userDashboardData.total_enrollments === 0) {
+    return (
+      <UserDashboardContextProvider userDashboardData={userDashboardData}>
+        <main className="flex h-full flex-col">
+          <DashboardHeader />
+
+          <UserDashboardNoEnrollments />
+        </main>
+      </UserDashboardContextProvider>
+    );
+  }
+
   return (
-    <UserDashboardContextProvider
-      userDashboardData={userDashboard.userDashboardData}
-    >
+    <UserDashboardContextProvider userDashboardData={userDashboardData}>
       <DashboardHeader />
 
       <ResponsiveContainer className="p-4 pb-8" asChild>
@@ -69,10 +81,12 @@ export const UserDashboard: FC<UserDashboardProps> = ({ userDashboard }) => {
               achievementsPromise={userDashboardAchievements}
             />
 
-            <LeaderboardSuspense
-              activeEnrollmentsPromise={userDashboardActiveEnrollments}
-              completedEnrollmentsPromise={userDashboardCompletedEnrollments}
-            />
+            {userDashboardData.show_leaderboard && (
+              <LeaderboardSuspense
+                activeEnrollmentsPromise={userDashboardActiveEnrollments}
+                completedEnrollmentsPromise={userDashboardCompletedEnrollments}
+              />
+            )}
           </MobileCarousel>
 
           <Section title={t("common.progress")} icon={<ProgressIcon />}>
@@ -89,7 +103,7 @@ export const UserDashboard: FC<UserDashboardProps> = ({ userDashboard }) => {
             <AccelerateButton
               background="light"
               className="-mt-2"
-              tenantId={userDashboard.userDashboardData.tenant_id}
+              tenantId={userDashboardData.tenant_id}
             />
           )}
         </main>

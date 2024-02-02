@@ -13,3 +13,4 @@ export * from "./upsertUser";
 export * from "./unenrollUser";
 export * from "./cleanTestTenants";
 export * from "./deleteTenant";
+export * from "./toggleUserShowLeaderboard";

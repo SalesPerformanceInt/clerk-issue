@@ -1,9 +1,7 @@
+import type { QuestionItem } from "~qcs/contentstack";
+import type { ContentStackSDKClient } from "~qcs/contentstack/client";
+import { logError } from "~qcs/utils/logger";
 import type { Query } from "contentstack";
-
-import type { QuestionItem } from "~/contentstack";
-import type { ContentStackSDKClient } from "~/contentstack/client";
-
-import { logError } from "~/utils/logger";
 
 export async function getQuestionItems(
   this: ContentStackSDKClient,

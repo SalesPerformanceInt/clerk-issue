@@ -12,6 +12,7 @@ export const importUserSchema = z.object({
   last_name: z.string().min(1, { message: "Required" }),
   language: z.string().optional(),
   phone_number: z.string().optional(),
+  show_leaderboard: z.boolean().optional(),
 });
 
 export type ImportUserData = z.infer<typeof importUserSchema>;

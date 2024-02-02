@@ -2,7 +2,7 @@ import React from "react";
 
 import { faArrowRight } from "@fortawesome/pro-light-svg-icons";
 import type { Meta, StoryObj } from "@storybook/react";
-import { ProgressIcon } from "~/images";
+import { ProgressIcon } from "~qcs/images";
 
 import { Button as ButtonComponent } from "./Button";
 import { ButtonDecorator } from "./Button.template";

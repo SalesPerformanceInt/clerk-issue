@@ -35,6 +35,7 @@ export const GET_USER_ENROLLMENT = graphql(/* GraphQL */ `
         last_name
         tenant_id
         language_preference
+        show_leaderboard
       }
     }
   }

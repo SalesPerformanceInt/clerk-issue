@@ -2,16 +2,14 @@ import React from "react";
 
 import { faSpinner } from "@fortawesome/pro-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { cn } from "~/utils";
+import { Icon, IconProps } from "~qcs/components/Icon";
+import { cn } from "~qcs/utils";
+import { useIsDesktop } from "~qcs/utils/useIsDesktop";
 import { cva, type VariantProps } from "class-variance-authority";
 import { twMerge } from "tailwind-merge";
 
-import { useIsDesktop } from "~/utils/useIsDesktop";
-
-import { Icon, IconProps } from "~/components/Icon";
-
 const buttonVariants = cva(
-  "px-6 py-2 inline-flex items-center relative justify-center box-border rounded-sm text-base text-contrast font-base ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:text-primary-50",
+  "border border-transparent px-6 py-2 inline-flex items-center relative justify-center box-border rounded-sm text-base text-contrast font-base ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:text-primary-50",
   {
     variants: {
       background: {
@@ -31,13 +29,12 @@ const buttonVariants = cva(
       {
         background: "dark",
         variant: "secondary",
-        class: "bg-primary border border-primary-25 disabled:border-0",
+        class: "bg-primary border-primary-25 disabled:border-0",
       },
       {
         background: "light",
         variant: "secondary",
-        class:
-          "bg-transparent text-primary border border-primary disabled:border-0",
+        class: "bg-transparent text-primary border-primary disabled:border-0",
       },
     ],
     defaultVariants: {

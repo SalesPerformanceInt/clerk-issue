@@ -4,7 +4,14 @@ import { invariant, logError } from "quickcheck-shared";
 
 import { getUnauthenticatedApolloClient } from "~/graphql";
 
-import { createUserSession, getSession, SessionKeys } from "~/models/session";
+import { sendEmailTemplate } from "~/utils/email/sendEmailTemplate.server";
+
+import {
+  createUserSession,
+  getAdminDataFromFromSession,
+  getSession,
+  SessionKeys,
+} from "~/models/session";
 
 const invalidTokenRedirect = () => {
   const searchParams = new URLSearchParams({
@@ -25,13 +32,22 @@ export const loader = async ({ params, request }: LoaderFunctionArgs) => {
     const unauthenticatedApolloClient =
       await getUnauthenticatedApolloClient(cuid);
     const token = await unauthenticatedApolloClient.getLinkToken(cuid);
+
     invariant(token, "token not found");
-    invariant(token.active, "token expired");
 
     const searchParams = new URL(request.url).searchParams;
     const path = searchParams.get("p");
 
     const redirectTo = path ?? "/next-question";
+
+    if (!token.active) {
+      const [now] = await getAdminDataFromFromSession(request);
+      await sendEmailTemplate(request, token.user_id, now, {
+        type: "RequestedLink",
+        data: null,
+      });
+      return redirect("/login?expired=true");
+    }
 
     const session = await getSession(request);
 

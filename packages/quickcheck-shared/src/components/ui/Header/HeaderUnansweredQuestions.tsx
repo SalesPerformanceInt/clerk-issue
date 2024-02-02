@@ -2,10 +2,8 @@ import React, { type FC } from "react";
 import { useTranslation } from "react-i18next";
 
 import { faArrowRight } from "@fortawesome/pro-light-svg-icons";
-
-import { useIsDesktop } from "~/utils/useIsDesktop";
-
-import { Button } from "~/components";
+import { Button } from "~qcs/components";
+import { useIsDesktop } from "~qcs/utils/useIsDesktop";
 
 interface HeaderUnansweredQuestionsProps {
   unansweredQuestions?: number;

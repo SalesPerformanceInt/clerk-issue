@@ -13,7 +13,7 @@ export const loader = async ({ request, params }: LoaderFunctionArgs) => {
 
   if (!entryRoute) return typedjson({});
 
-  return redirect(`/${params.env}/${entryRoute}`);
+  return redirect(`/${params.lng}/${entryRoute}`);
 };
 
 /**

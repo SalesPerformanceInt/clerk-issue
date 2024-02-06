@@ -40,6 +40,8 @@ export const SPLIT_API_KEY = process.env.SPLIT_API_KEY ?? "";
 export const IMPORT_SECRET_KEY = process.env.IMPORT_SECRET_KEY ?? "";
 export const APP_DOMAIN = process.env.APP_DOMAIN;
 
+export const ALLOWED_ORIGIN_REGEX = process.env.ALLOWED_ORIGIN_REGEX ?? ""
+
 export const ZIPY_API_KEY = process.env.ZIPY_API_KEY ?? "";
 export const isDevelopment = NODE_ENV === "development";
 

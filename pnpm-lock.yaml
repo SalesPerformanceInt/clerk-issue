@@ -318,6 +318,9 @@ importers:
       remix-typedjson:
         specifier: ^0.4.1
         version: 0.4.1(@remix-run/react@2.5.0)(@remix-run/server-runtime@2.5.0)(react@18.3.0-canary-08cd087ca-20240110)
+      remix-utils:
+        specifier: ^7.5.0
+        version: 7.5.0(@remix-run/node@2.5.0)(@remix-run/react@2.5.0)(react@18.3.0-canary-08cd087ca-20240110)(zod@3.22.4)
       remix-validated-form:
         specifier: ^5.1.0
         version: 5.1.5(@remix-run/node@2.5.0)(@remix-run/react@2.5.0)(@remix-run/server-runtime@2.5.0)(@types/react@18.2.48)(react@18.3.0-canary-08cd087ca-20240110)

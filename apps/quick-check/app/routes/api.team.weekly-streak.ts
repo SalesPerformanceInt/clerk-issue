@@ -1,4 +1,4 @@
-import { json, type ActionFunctionArgs } from "@remix-run/node";
+import { LoaderFunctionArgs, type ActionFunctionArgs } from "@remix-run/node";
 
 import { z } from "zod";
 
@@ -8,6 +8,8 @@ import { getAdminApolloClientFromRequest } from "~/graphql";
 
 import { verifyApiRequest } from "~/models/api";
 
+import { corsResponse } from "~/utils/cors";
+
 const teamsSchema = z.object({
   userId: z.string().uuid(),
   accountSubdomain: z.string(),
@@ -16,6 +18,10 @@ const teamsSchema = z.object({
 export const config = {
   maxDuration: 300,
 };
+
+export async function loader({ request }: LoaderFunctionArgs) {
+  return await corsResponse(request, null, { status: 200 });
+}
 
 export const action = async ({ request }: ActionFunctionArgs) => {
   try {
@@ -37,7 +43,8 @@ export const action = async ({ request }: ActionFunctionArgs) => {
 
     invariant(tenant_id === accountSubdomain, "Invalid account subdomain");
 
-    return json({ weeklyStreak, calendar });
+    return await corsResponse(request, {weeklyStreak, calendar});
+    
   } catch (error) {
     return simpleErrorResponse(error);
   }

@@ -1,9 +1,10 @@
-import { json, type ActionFunctionArgs } from "@remix-run/node";
+import { LoaderFunctionArgs, type ActionFunctionArgs } from "@remix-run/node";
 
 import { invariant, simpleErrorResponse } from "quickcheck-shared";
 
 import { getAdminApolloClientFromRequest } from "~/graphql";
 
+import { corsResponse } from "~/utils/cors";
 import { getLoginUrl } from "~/utils/urls";
 
 import { getUserSchema, verifyApiRequest } from "~/models/api";
@@ -12,6 +13,11 @@ import { getUserActiveToken } from "~/models/token";
 export const config = {
   maxDuration: 300,
 };
+
+// Browser will send the options request so we need to handle options request with allow cors origin header.
+export async function loader({ request }: LoaderFunctionArgs) {
+  return await corsResponse(request, null, { status: 204 });
+}
 
 export const action = async ({ request }: ActionFunctionArgs) => {
   try {
@@ -38,7 +44,7 @@ export const action = async ({ request }: ActionFunctionArgs) => {
       questionsAvailable: 0, //TODO: find the user's unanswered question count
     };
 
-    return json(response);
+    return await corsResponse(request, response);
   } catch (error) {
     return simpleErrorResponse(error);
   }

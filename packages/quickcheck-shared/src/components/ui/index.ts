@@ -10,3 +10,5 @@ export * from "./EnrollmentSkillCard";
 export * from "./Header";
 export * from "./MobileMenu";
 export * from "./Skeleton";
+export * from "./PageTitle";
+export * from "./QuestionReviewCard";

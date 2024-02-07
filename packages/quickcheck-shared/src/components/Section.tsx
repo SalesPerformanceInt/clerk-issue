@@ -1,11 +1,13 @@
-import React, { type FC, type ReactElement } from "react";
+import React, { type ComponentPropsWithoutRef, type FC } from "react";
+
+import { cn } from "~qcs/utils";
 
 import { Icon, type IconProps } from "./Icon";
 import { Tooltip } from "./Tooltip";
 
-export interface DashboardSectionProps {
-  children: ReactElement | ReactElement[];
-  title: string;
+export interface DashboardSectionProps
+  extends ComponentPropsWithoutRef<"section"> {
+  title?: string;
   icon?: IconProps["icon"];
   tooltip?: string[];
 }
@@ -15,15 +17,16 @@ export const Section: FC<DashboardSectionProps> = ({
   title,
   icon,
   tooltip,
+  className,
 }) => {
   return (
-    <section className="mb-10 flex flex-col gap-4 last:mb-0">
+    <section className={cn("mb-10 flex flex-col gap-4 last:mb-0", className)}>
       <div className="flex w-full items-center gap-2">
         {icon && <Icon icon={icon} className="text-primary-50" />}
 
-        <h1 className="text-xxl font-normal">{title}</h1>
+        {title && <h1 className="text-xxl font-normal">{title}</h1>}
 
-        {tooltip && (
+        {tooltip && title && (
           <Tooltip
             texts={tooltip}
             triggerClassName="text-xs translate-y-[1px]"

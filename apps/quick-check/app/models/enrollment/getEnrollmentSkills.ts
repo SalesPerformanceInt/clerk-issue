@@ -48,13 +48,14 @@ const getSkillData = (
     skill: String(skill),
     baseline: getSkillPercentage(baselineCount),
     current: getSkillPercentage(currentCount),
+    id: questions[0]?.taxonomy_id ?? "",
     unanswered,
   };
 };
 
-export const getEnrollmentSkills = (enrollment: EnrollmentData) =>
+export const getEnrollmentSkills = (questions: UserQuestion[]) =>
   pipe(
-    enrollment.user_questions,
+    questions,
     groupBy(prop("taxonomy_name")),
     mapValues(getSkillData),
     values,

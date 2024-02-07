@@ -68,3 +68,45 @@ export const UserEnrollmentWithCounts = graphql(/* GraphQL */ `
     }
   }
 `);
+
+export const UserEnrollmentSkillWithCounts = graphql(/* GraphQL */ `
+  fragment UserEnrollmentSkillWithCounts on user_enrollment {
+    ...BaseUserEnrollment
+    attempted_by_skill: user_questions_aggregate(
+      where: {
+        _or: [{ retired_on: { _is_null: true } }]
+        taxonomy_id: { _eq: $skillId }
+        user_answers_aggregate: { count: { predicate: { _gt: 0 } } }
+      }
+    ) {
+      aggregate {
+        count
+      }
+    }
+    unattempted_by_skill: user_questions_aggregate(
+      where: {
+        _or: [{ retired_on: { _is_null: true } }]
+        taxonomy_id: { _eq: $skillId }
+        user_answers_aggregate: { count: { predicate: { _eq: 0 } } }
+      }
+    ) {
+      aggregate {
+        count
+      }
+    }
+    retired_by_skill: user_questions_aggregate(
+      where: { retired_on: { _is_null: false }, taxonomy_id: { _eq: $skillId } }
+    ) {
+      aggregate {
+        count
+      }
+    }
+    total_by_skill: user_questions_aggregate(
+      where: { taxonomy_id: { _eq: $skillId } }
+    ) {
+      aggregate {
+        count
+      }
+    }
+  }
+`);

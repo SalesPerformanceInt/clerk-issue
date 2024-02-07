@@ -4,9 +4,6 @@ const env = process.env.NODE_ENV;
 
 export const tsup: Options = {
   dts: true,
-  clean: true,
-  splitting: true,
-  skipNodeModulesBundle: true,
 
   minify: env === "production",
 

@@ -1,5 +1,6 @@
-import { type FC } from "react";
+import { useState, type FC } from "react";
 import { useTranslation } from "react-i18next";
+import { useNavigate } from "@remix-run/react";
 
 import { EnrollmentSkillCard, Section } from "quickcheck-shared";
 
@@ -8,10 +9,21 @@ import { getEnrollmentSkills } from "~/models/enrollment";
 import { useEnrollmentContext } from "~/pages/Enrollment";
 
 export const EnrollmentSkillsSection: FC = () => {
-  const { enrollment } = useEnrollmentContext();
-  const { t } = useTranslation();
+  const [enrollmentSkillNavigation, setEnrollmentSkillNavigation] =
+    useState<string>();
 
-  const skills = getEnrollmentSkills(enrollment);
+  const { enrollment } = useEnrollmentContext();
+
+  const { t } = useTranslation();
+  const navigate = useNavigate();
+
+  const skills = getEnrollmentSkills(enrollment.user_questions);
+
+  const goToEnrollmentSkill = (skillId: string) => {
+    setEnrollmentSkillNavigation(skillId);
+
+    navigate(`/dashboard/enrollment/${enrollment.id}/skill/${skillId}`);
+  };
 
   return (
     <Section
@@ -24,7 +36,10 @@ export const EnrollmentSkillsSection: FC = () => {
       {skills.map((skill) => (
         <EnrollmentSkillCard
           key={skill.skill}
+          categories={["baseline", "current"]}
           className="flow h-fit w-full flex-grow overflow-hidden md:w-1/2-gap-8"
+          onClick={(skillId) => goToEnrollmentSkill(skillId)}
+          loading={enrollmentSkillNavigation === skill.id}
           {...skill}
         />
       ))}

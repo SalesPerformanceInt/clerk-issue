@@ -8,10 +8,12 @@ import { useIsDesktop } from "~qcs/utils/useIsDesktop";
 
 interface HeaderReturnToDashboardProps {
   onClose: () => void;
+  name?: string;
 }
 
 export const HeaderReturnToDashboard: FC<HeaderReturnToDashboardProps> = ({
   onClose,
+  name,
 }) => {
   const isDesktop = useIsDesktop();
   const { t } = useTranslation();
@@ -25,7 +27,7 @@ export const HeaderReturnToDashboard: FC<HeaderReturnToDashboardProps> = ({
           className="w-6 text-center text-2xl font-light leading-6 text-contrast sm:w-[10px] sm:text-base"
         />
         <div className="ml-2 font-light text-contrast sm:ml-4 sm:font-bold">
-          {t("common.dashboard")}
+          {name ?? t("common.dashboard")}
         </div>
       </button>
     </>

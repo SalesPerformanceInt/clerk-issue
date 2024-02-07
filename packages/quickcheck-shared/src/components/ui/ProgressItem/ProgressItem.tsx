@@ -6,7 +6,7 @@ import { faChevronRight } from "@fortawesome/pro-regular-svg-icons";
 import { faSpinner } from "@fortawesome/pro-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Progress, ProgressIndicator } from "@radix-ui/react-progress";
-import { twMerge } from "tailwind-merge";
+import { cn } from "~qcs/utils";
 
 type ProgressItemProps = {
   id: string;
@@ -21,6 +21,7 @@ type ProgressItemProps = {
   ariaLabel: string;
   loading?: boolean;
   onClick?: (id: string) => void;
+  className?: string;
 };
 
 const ProgressItem: FC<ProgressItemProps> = ({
@@ -32,6 +33,7 @@ const ProgressItem: FC<ProgressItemProps> = ({
   onClick,
   ariaLabel,
   loading,
+  className,
 }) => {
   const { t } = useTranslation();
 
@@ -42,14 +44,15 @@ const ProgressItem: FC<ProgressItemProps> = ({
 
   return (
     <div
-      className={twMerge(
+      className={cn(
         "flex w-full items-center justify-between gap-6 border-b border-b-background-secondary p-4 last:border-b-0",
         !!onClick && "cursor-pointer hover:backdrop-brightness-95",
+        className,
       )}
       onClick={() => onClick?.(id)}
     >
       <div
-        className={twMerge(
+        className={cn(
           "flex w-full flex-col gap-2 overflow-hidden",
           !title && "gap-4",
         )}

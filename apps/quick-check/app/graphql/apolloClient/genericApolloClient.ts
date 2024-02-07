@@ -28,6 +28,8 @@ import {
 import {
   getActiveUserQuestion,
   getAllUsers,
+  getEnrollmentSkillDashboardData,
+  getEnrollmentSkillQuestions,
   getLinkToken,
   getNotificationEnrollments,
   getRankeableEnrollments,
@@ -149,6 +151,8 @@ export class GraphQLClient implements WithApolloClient {
   getUserWeeklyStreakCalendar = getUserWeeklyStreakCalendar;
   getUserByEmail = getUserByEmail;
   toggleUserShowLeaderboard = toggleUserShowLeaderboard;
+  getEnrollmentSkillDashboardData = getEnrollmentSkillDashboardData;
+  getEnrollmentSkillQuestions = getEnrollmentSkillQuestions;
 
   constructor(headers: GraphQLHeaders) {
     this.client = getClient(headers);

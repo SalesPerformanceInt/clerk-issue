@@ -10,13 +10,14 @@ import { CardTitleSkeleton, type CardTitleSkeletonProps } from "./CardTitle";
 
 export type CardProps = HTMLAttributes<HTMLDivElement>;
 
-export const Card: FC<CardProps> = ({ children, className }) => {
+export const Card: FC<CardProps> = ({ children, className, ...props }) => {
   return (
     <div
       className={cn(
         "flex flex-col rounded bg-background shadow-card",
         className,
       )}
+      {...props}
     >
       {children}
     </div>

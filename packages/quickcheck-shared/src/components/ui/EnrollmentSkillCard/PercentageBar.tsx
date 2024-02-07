@@ -35,7 +35,7 @@ export const PercentageBar: FC<PercentageBarProps> = ({
     >
       <ProgressIndicator
         className={twMerge(
-          "flex h-full w-full min-w-8 items-center justify-end rounded-full px-2",
+          "flex h-full w-full min-w-fit items-center justify-end rounded-full px-2",
           getClassName(percent),
         )}
         style={{ width: `${percent}%` }}

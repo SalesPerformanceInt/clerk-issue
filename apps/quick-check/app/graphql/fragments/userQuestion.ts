@@ -28,3 +28,23 @@ export const BaseUserQuestion = graphql(/* GraphQL */ `
     }
   }
 `);
+
+export const UserQuestionFirstLastAnswer = graphql(/* GraphQL */ `
+  fragment UserQuestionFirstLastAnswer on user_question {
+    first_answer: user_answers(limit: 1, order_by: { created_at: asc }) {
+      correct
+      id
+      created_at
+    }
+    current_answer: user_answers(limit: 1, order_by: { created_at: desc }) {
+      correct
+      id
+      created_at
+    }
+    user_answers_aggregate {
+      aggregate {
+        count
+      }
+    }
+  }
+`);

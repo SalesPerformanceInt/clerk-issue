@@ -20,10 +20,12 @@ export const sendUserInactiveEmailTemplate: EmailTemplatesFn = async (
 
   invariant(nextQuestion, "Next question not found");
 
+  const text = loginUrl;
+
   const emailResponse = await sendEmail({
     To: user.email,
     Subject: t("emails.inactive.subject.come_back"),
-    TextBody: loginUrl,
+    TextBody: text,
     HtmlBody: render(
       <QuickcheckBasicEmail
         t={t}
@@ -42,5 +44,6 @@ export const sendUserInactiveEmailTemplate: EmailTemplatesFn = async (
   return {
     type: "Inactive",
     emailResponse,
+    text,
   };
 };

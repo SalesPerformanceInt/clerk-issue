@@ -30,6 +30,8 @@ export type EmailTemplate =
   | { type: "Question"; data: null }
   | { type: "RequestedLink"; data: null };
 
+export type Template = EmailTemplate["type"];
+
 /**
  * Email Templates Fn
  */
@@ -47,6 +49,7 @@ export type EmailTemplatesFn = (
   data?: EmailTemplate["data"],
 ) => Promise<{
   type: EmailTemplate["type"];
+  text: string;
   emailResponse: MessageSendingResponse;
 }>;
 

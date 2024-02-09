@@ -1,4 +1,3 @@
-export * from "./createLearningRecord";
 export * from "./updateNextQuestionId";
 export * from "./resetUser";
 export * from "./generateNewToken";
@@ -14,3 +13,5 @@ export * from "./unenrollUser";
 export * from "./cleanTestTenants";
 export * from "./deleteTenant";
 export * from "./toggleUserShowLeaderboard";
+export * from "./createEvent";
+export * from "./createEvents";

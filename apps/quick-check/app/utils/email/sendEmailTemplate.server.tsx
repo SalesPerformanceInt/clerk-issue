@@ -42,7 +42,7 @@ const getUserEmailAdditionalData = async (
   request: Request,
   user: GetUserEmailData,
 ) => {
-  const activeToken = (
+  const token = (
     await getUserActiveToken(request, {
       userId: user.user_id,
       tenantId: user.tenant_id,
@@ -51,9 +51,9 @@ const getUserEmailAdditionalData = async (
 
   const t = await remixI18next.getFixedT(user.language_preference);
 
-  const loginUrl = getLoginUrl(activeToken, request);
+  const loginUrl = getLoginUrl(token, request);
 
-  return { t, loginUrl };
+  return { t, loginUrl, token };
 };
 
 /**
@@ -68,7 +68,10 @@ export const sendEmailTemplate = async (
 ) => {
   const user = await getUserEmailData(request, userId, now);
 
-  const { t, loginUrl } = await getUserEmailAdditionalData(request, user);
+  const { t, loginUrl, token } = await getUserEmailAdditionalData(
+    request,
+    user,
+  );
 
   const emailTemplate =
     template ||
@@ -83,6 +86,20 @@ export const sendEmailTemplate = async (
     request,
     { user, userId, t, loginUrl },
     emailTemplate.data,
+  );
+
+  const adminApolloClient = await getAdminApolloClientFromRequest(request);
+  await adminApolloClient.createEvent(
+    {
+      type: "NotificationSent",
+      data: {
+        message: emailTemplateResponse.text,
+        channel: "email",
+        template: emailTemplate.type,
+        token,
+      },
+    },
+    { userId, tenantId: user.tenant_id },
   );
 
   return emailTemplateResponse;

@@ -23,6 +23,19 @@ export const enrollUser = async (
     user,
   );
 
+  if (enrollment) {
+    await adminApolloClient.createEvent(
+      {
+        type: "EnrollmentAdded",
+        data: {
+          enrollment_id: enrollment.id,
+          taxonomy_id: enrollment.taxonomy_id,
+        },
+      },
+      user,
+    );
+  }
+
   const [now] = await getAdminDataFromFromSession(request);
 
   const today = getToday(now);

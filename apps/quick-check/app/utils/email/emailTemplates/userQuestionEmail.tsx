@@ -25,12 +25,14 @@ export const sendUserQuestionEmailTemplate: EmailTemplatesFn = async (
     user.user_question_activated_today,
   );
 
+  const text = loginUrl;
+
   const emailResponse = await sendEmail({
     To: user.email,
     Subject: t("emails.question.subject", {
       first_name: user.first_name,
     }),
-    TextBody: loginUrl,
+    TextBody: text,
     HtmlBody: render(
       <QuickcheckQuestionEmail
         t={t}
@@ -51,5 +53,6 @@ export const sendUserQuestionEmailTemplate: EmailTemplatesFn = async (
   return {
     type: "Away",
     emailResponse,
+    text,
   };
 };

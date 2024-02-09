@@ -64,6 +64,16 @@ export const loader = async ({ params, request }: LoaderFunctionArgs) => {
     const variant = getFirstVariant(questionItem.variants);
     invariant(variant, "No valid variant");
 
+    await userApolloClient.createEvent({
+      type: "QuestionViewed",
+      data: {
+        enrollment_id: userQuestion.user_enrollment.id,
+        question_id: userQuestion.id,
+        taxonomy_id: userQuestion.user_enrollment.taxonomy_id,
+        variant,
+      },
+    });
+
     return json({
       questionItem,
       enrollmentTaxonomy,

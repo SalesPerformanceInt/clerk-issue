@@ -14,9 +14,6 @@ export const RESET_USER = graphql(/* GraphQL */ `
     ) {
       ...BaseUser
     }
-    delete_learning_record(where: { user_id: { _eq: $userId } }) {
-      affected_rows
-    }
     delete_user_enrollment(where: { user_id: { _eq: $userId } }) {
       affected_rows
     }

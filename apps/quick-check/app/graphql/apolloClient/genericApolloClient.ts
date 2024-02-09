@@ -9,7 +9,8 @@ import {
 
 import {
   cleanTestTenants,
-  createLearningRecord,
+  createEvent,
+  createEvents,
   createUserAnswer,
   deleteTenant,
   enrollUser,
@@ -110,7 +111,6 @@ export class GraphQLClient implements WithApolloClient {
 
   getLinkToken = getLinkToken;
   getUser = getUser;
-  createLearningRecord = createLearningRecord;
   getUserQuestionAnswers = getUserQuestionAnswers;
   updateNextQuestionId = updateNextQuestionId;
   resetUser = resetUser;
@@ -151,6 +151,8 @@ export class GraphQLClient implements WithApolloClient {
   getUserWeeklyStreakCalendar = getUserWeeklyStreakCalendar;
   getUserByEmail = getUserByEmail;
   toggleUserShowLeaderboard = toggleUserShowLeaderboard;
+  createEvent = createEvent;
+  createEvents = createEvents;
   getEnrollmentSkillDashboardData = getEnrollmentSkillDashboardData;
   getEnrollmentSkillQuestions = getEnrollmentSkillQuestions;
 

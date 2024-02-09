@@ -2,7 +2,10 @@ import { redirect, type LoaderFunctionArgs } from "@remix-run/node";
 
 import { invariant, logError } from "quickcheck-shared";
 
-import { getUnauthenticatedApolloClient } from "~/graphql";
+import {
+  getAdminApolloClientFromRequest,
+  getUnauthenticatedApolloClient,
+} from "~/graphql";
 
 import { sendEmailTemplate } from "~/utils/email/sendEmailTemplate.server";
 
@@ -39,6 +42,17 @@ export const loader = async ({ params, request }: LoaderFunctionArgs) => {
     const path = searchParams.get("p");
 
     const redirectTo = path ?? "/next-question";
+
+    const adminApolloClient = await getAdminApolloClientFromRequest(request);
+    await adminApolloClient.createEvent(
+      {
+        type: "Authenticated",
+        data: {
+          token: token.id,
+        },
+      },
+      { userId: token.user_id, tenantId: token.tenant_id },
+    );
 
     if (!token.active) {
       const [now] = await getAdminDataFromFromSession(request);

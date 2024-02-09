@@ -12,10 +12,12 @@ export const sendUserRequestedLinkEmailTemplate: EmailTemplatesFn = async (
   _request,
   { user, t, loginUrl },
 ) => {
+  const text = loginUrl;
+
   const emailResponse = await sendEmail({
     To: user.email,
     Subject: t("emails.requested_link.subject"),
-    TextBody: loginUrl,
+    TextBody: text,
     HtmlBody: render(
       <QuickcheckBasicEmail
         t={t}
@@ -35,5 +37,6 @@ export const sendUserRequestedLinkEmailTemplate: EmailTemplatesFn = async (
   return {
     type: "RequestedLink",
     emailResponse,
+    text,
   };
 };

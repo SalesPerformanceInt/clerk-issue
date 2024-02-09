@@ -29,13 +29,15 @@ export const sendUserEnrollmentEmailTemplate: EmailTemplatesFn = async (
   );
   invariant(enrollmentTaxonomy, "No taxonomy found");
 
+  const text = loginUrl;
+
   const emailResponse = await sendEmail({
     To: user.email,
     Subject: t("emails.enrollment.subject", {
       first_name: user.first_name,
       course_name: enrollmentTaxonomy.display_name,
     }),
-    TextBody: loginUrl,
+    TextBody: text,
     HtmlBody: render(
       <QuickcheckBasicEmail
         t={t}
@@ -56,5 +58,6 @@ export const sendUserEnrollmentEmailTemplate: EmailTemplatesFn = async (
   return {
     type: "Enrollment",
     emailResponse,
+    text,
   };
 };

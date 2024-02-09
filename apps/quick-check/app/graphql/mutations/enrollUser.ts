@@ -12,6 +12,9 @@ import {
 } from "quickcheck-shared";
 
 import {
+  BaseUserQuestionFragment,
+  EventInput,
+  getEventStreamName,
   graphql,
   type GQLProxyAllData,
   type GraphQLClient,
@@ -35,6 +38,9 @@ export const ENROLL_USER = graphql(/* GraphQL */ `
   ) {
     insert_user_enrollment_one(object: $userEnrollment) {
       ...NotificationUserEnrollment
+      user_questions {
+        ...BaseUserQuestion
+      }
     }
     insert_tenant_one(
       object: { tenant_id: $tenantId }
@@ -223,9 +229,23 @@ export async function enrollUser(
       variables: { userEnrollment, tenantId },
     });
 
-    invariant(enrolledUser.data, "No user language found.");
+    const enrollment = enrolledUser?.data?.insert_user_enrollment_one;
 
-    const enrollment = enrolledUser.data.insert_user_enrollment_one;
+    invariant(enrollment, "No user language found.");
+
+    const questionScheduledEvents = enrollment.user_questions.map(
+      (question): EventInput => ({
+        type: "QuestionScheduled",
+        data: {
+          enrollment_id: enrollment.id,
+          question_id: question.id,
+          taxonomy_id: question.taxonomy_id,
+          attempts: question.attempts.aggregate?.count ?? 0,
+          scheduled: question.active_on!,
+        },
+      }),
+    );
+    await this.createEvents(questionScheduledEvents, proxyData);
 
     return enrollment ?? null;
   } catch (error) {

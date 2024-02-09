@@ -24,10 +24,12 @@ export const sendUserAwayEmailTemplate: EmailTemplatesFn = async (
   const { questionItem, enrollmentTaxonomy } =
     await getQuestionData(nextQuestion);
 
+  const text = loginUrl;
+
   const emailResponse = await sendEmail({
     To: user.email,
     Subject: t("emails.away.subject.come_back"),
-    TextBody: loginUrl,
+    TextBody: text,
     HtmlBody: render(
       <QuickcheckQuestionEmail
         t={t}
@@ -52,5 +54,6 @@ export const sendUserAwayEmailTemplate: EmailTemplatesFn = async (
   return {
     type: "Away",
     emailResponse,
+    text,
   };
 };

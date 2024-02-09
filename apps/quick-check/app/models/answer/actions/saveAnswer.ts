@@ -3,7 +3,7 @@ import {
   type User_Answer_Insert_Input,
 } from "~/graphql";
 
-import { ANSWER, type SaveAnswerData } from "../answer.type";
+import { type SaveAnswerData } from "../answer.type";
 
 /**
  * Save User Answer
@@ -11,7 +11,7 @@ import { ANSWER, type SaveAnswerData } from "../answer.type";
 
 export const saveUserAnswer = async (
   request: Request,
-  { user, userQuestion, currentAnswer, reviewedAnswer }: SaveAnswerData,
+  { userQuestion, currentAnswer, reviewedAnswer }: SaveAnswerData,
 ) => {
   const userApolloClient = await getUserApolloClientFromRequest(request);
 

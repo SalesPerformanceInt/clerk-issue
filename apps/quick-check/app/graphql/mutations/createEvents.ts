@@ -9,6 +9,8 @@ import {
   type WithApolloClient,
 } from "~/graphql";
 
+import { posthog } from "~/utils/posthog";
+
 export const CREATE_EVENTS = graphql(/* GraphQL */ `
   mutation CreateEvents($events: [event_insert_input!]!) {
     insert_event(objects: $events) {
@@ -28,10 +30,10 @@ export async function createEvents(
 
   const stream_name = getEventStreamName(userId, tenantId);
 
-  const events: Event_Insert_Input[] = inputs.map((input) => ({
+  const events = inputs.map((input) => ({
     ...input,
     stream_name,
-  }));
+  })) satisfies Event_Insert_Input[];
 
   try {
     const { data } = await this.client.mutate({
@@ -39,9 +41,18 @@ export async function createEvents(
       variables: { events },
     });
 
-    if (!data?.insert_event) return null;
+    for (const event of events) {
+      posthog.capture({
+        distinctId: userId,
+        event: event.type,
+        properties: { ...event.data, subdomain: tenantId },
+      });
+    }
+    await posthog.flushAsync();
 
-    return data.insert_event;
+    if (!data?.insert_event?.returning) return null;
+
+    return data.insert_event.returning;
   } catch (error) {
     logError({ error, log: "createEvent" });
     return null;

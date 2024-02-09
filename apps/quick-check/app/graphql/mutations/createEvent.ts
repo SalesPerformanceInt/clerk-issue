@@ -8,6 +8,7 @@ import {
 } from "~/graphql";
 
 import { Template } from "~/utils/email/emailTemplatesMap";
+import { posthog } from "~/utils/posthog";
 
 type Events = {
   EnrollmentAdded: {
@@ -87,16 +88,23 @@ export async function createEvent(
 ) {
   const { userId, tenantId } = proxyData;
 
-  const event: Event_Insert_Input = {
+  const event = {
     ...input,
     stream_name: getEventStreamName(userId, tenantId),
-  };
+  } satisfies Event_Insert_Input;
 
   try {
     const { data } = await this.client.mutate({
       mutation: CREATE_EVENT,
       variables: { event },
     });
+
+    posthog.capture({
+      distinctId: userId,
+      event: event.type,
+      properties: { ...event.data, subdomain: tenantId },
+    });
+    await posthog.flushAsync();
 
     if (!data?.insert_event_one) return null;
 

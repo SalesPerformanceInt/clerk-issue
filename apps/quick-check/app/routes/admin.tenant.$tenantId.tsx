@@ -8,7 +8,7 @@ import { useLoaderData, useNavigate, useParams } from "@remix-run/react";
 import { faChevronLeft } from "@fortawesome/pro-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-import { invariant } from "quickcheck-shared";
+import { invariant, simpleErrorResponse } from "quickcheck-shared";
 
 import { getAdminApolloClientFromRequest } from "~/graphql";
 
@@ -56,7 +56,7 @@ export const action = async ({ request, params }: ActionFunctionArgs) => {
 
     return performAdminAction(requestForAdminAction);
   } catch (error) {
-    return json({ type: undefined, userId: undefined, error }, { status: 500 });
+    return simpleErrorResponse(error);
   }
 };
 

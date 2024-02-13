@@ -1,6 +1,6 @@
 import { json, type ActionFunctionArgs } from "@remix-run/node";
 
-import { invariant } from "quickcheck-shared";
+import { invariant, simpleErrorResponse } from "quickcheck-shared";
 
 import { getAdminApolloClientFromRequest } from "~/graphql";
 
@@ -33,6 +33,6 @@ export const action = async ({ request }: ActionFunctionArgs) => {
 
     return json({ user_id: user.user_id }, { status: 201 });
   } catch (error) {
-    return json({ error }, { status: 500 });
+    return simpleErrorResponse(error);
   }
 };

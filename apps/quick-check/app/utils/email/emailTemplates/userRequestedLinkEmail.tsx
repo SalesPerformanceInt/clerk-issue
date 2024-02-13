@@ -1,10 +1,6 @@
 import { QuickcheckBasicEmail, render } from "emails";
 
-import { invariant } from "quickcheck-shared";
-
 import { sendEmail } from "~/utils/email/postmark/email";
-
-import { generateNextQuestionForUser } from "~/models/user";
 
 import type { EmailTemplatesFn } from "../emailTemplatesMap";
 

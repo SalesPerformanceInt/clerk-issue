@@ -14,7 +14,7 @@ import { faTrash } from "@fortawesome/pro-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { z } from "zod";
 
-import { Button } from "quickcheck-shared";
+import { Button, simpleErrorResponse } from "quickcheck-shared";
 
 import { getAdminApolloClientFromRequest } from "~/graphql";
 
@@ -57,10 +57,7 @@ export const action = async ({ request }: ActionFunctionArgs) => {
 
     return json({ type, tenantId, ...adminAction }, { status: 200 });
   } catch (error) {
-    return json(
-      { type: undefined, tenantId: undefined, error },
-      { status: 500 },
-    );
+    return simpleErrorResponse(error);
   }
 };
 

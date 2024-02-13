@@ -231,7 +231,7 @@ export async function enrollUser(
 
     const enrollment = enrolledUser?.data?.insert_user_enrollment_one;
 
-    invariant(enrollment, "No user language found.");
+    invariant(enrollment, "No enrollment found.");
 
     const questionScheduledEvents = enrollment.user_questions.map(
       (question): EventInput => ({

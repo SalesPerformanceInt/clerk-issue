@@ -1,6 +1,7 @@
 import { json, type LoaderFunctionArgs } from "@remix-run/node";
 
 import { generateTokenAndSendSMS } from "~/notifications/twilio.server";
+import { simpleErrorResponse } from "~qcs/index";
 
 import { getAdminApolloClientFromRequest } from "~/graphql";
 
@@ -19,7 +20,7 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
 
     return json({ tokens }, { status: 200 });
   } catch (error) {
-    return json({ error, tokens: null }, { status: 500 });
+    return simpleErrorResponse(error);
   }
 };
 

@@ -1,4 +1,4 @@
-import { invariant } from "quickcheck-shared";
+import { invariant, logError } from "quickcheck-shared";
 
 import {
   getAdminApolloClient,
@@ -66,41 +66,46 @@ export const sendEmailTemplate = async (
   now?: string,
   template?: EmailTemplate,
 ) => {
-  const user = await getUserEmailData(request, userId, now);
+  try {
+    const user = await getUserEmailData(request, userId, now);
 
-  const { t, loginUrl, token } = await getUserEmailAdditionalData(
-    request,
-    user,
-  );
+    const { t, loginUrl, token } = await getUserEmailAdditionalData(
+      request,
+      user,
+    );
 
-  const emailTemplate =
-    template ||
-    getUserInactiveTemplate(user, now) ||
-    getUserAwayTemplate(user, now) ||
-    getUserQuestionActivatedTemplate(user);
+    const emailTemplate =
+      template ||
+      getUserInactiveTemplate(user, now) ||
+      getUserAwayTemplate(user, now) ||
+      getUserQuestionActivatedTemplate(user);
 
-  if (!emailTemplate) return null;
+    if (!emailTemplate) return null;
 
-  const emailTemplateSender = emailTemplateMap.get(emailTemplate.type);
-  const emailTemplateResponse = await emailTemplateSender(
-    request,
-    { user, userId, t, loginUrl },
-    emailTemplate.data,
-  );
+    const emailTemplateSender = emailTemplateMap.get(emailTemplate.type);
+    const emailTemplateResponse = await emailTemplateSender(
+      request,
+      { user, userId, t, loginUrl },
+      emailTemplate.data,
+    );
 
-  const adminApolloClient = await getAdminApolloClientFromRequest(request);
-  await adminApolloClient.createEvent(
-    {
-      type: "NotificationSent",
-      data: {
-        message: emailTemplateResponse.text,
-        channel: "email",
-        template: emailTemplate.type,
-        token,
+    const adminApolloClient = await getAdminApolloClientFromRequest(request);
+    await adminApolloClient.createEvent(
+      {
+        type: "NotificationSent",
+        data: {
+          message: emailTemplateResponse.text,
+          channel: "email",
+          template: emailTemplate.type,
+          token,
+        },
       },
-    },
-    { userId, tenantId: user.tenant_id },
-  );
+      { userId, tenantId: user.tenant_id },
+    );
 
-  return emailTemplateResponse;
+    return emailTemplateResponse;
+  } catch (error) {
+    logError({ error, log: "sendEmailTemplate" });
+    return null;
+  }
 };

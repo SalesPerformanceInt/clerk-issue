@@ -11,7 +11,7 @@ describe("fetchEnrollmentImport", () => {
     await fetchEnrollmentImport(enr);
 
     expect(fetchMock).toHaveBeenCalledTimes(1);
-    expect(fetchMock).toHaveBeenCalledWith(`${BASE_URL}/api/enrollment/import`, {
+    expect(fetchMock).toHaveBeenCalledWith(`${BASE_URL}/api/enrollment/sync`, {
       method: "POST",
       headers: {
         Authorization: API_AUTH,

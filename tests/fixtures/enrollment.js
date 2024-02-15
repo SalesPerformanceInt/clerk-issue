@@ -44,7 +44,7 @@ const invalidEnrollment = {
 };
 
 const fetchEnrollmentImport = async (enr) => {
-  const response = await fetch(`${BASE_URL}/api/enrollment/import`, {
+  const response = await fetch(`${BASE_URL}/api/enrollment/sync`, {
     method: "POST",
     headers: {
       Authorization: API_AUTH,

@@ -15,6 +15,24 @@ type Events = {
     enrollment_id: string;
     taxonomy_id: string;
   };
+  EnrollmentUpdated: {
+    enrollment_id: string;
+    taxonomy_id: string;
+    previous_expiration_date: string;
+    new_expiration_date: string;
+  };
+  EnrollmentReset: {
+    enrollment_id: string;
+    taxonomy_id: string;
+    previous_start_date: string;
+    new_start_date: string;
+    previous_expiration_date: string;
+    new_expiration_date: string;
+  };
+  EnrollmentDeleted: {
+    enrollment_id: string;
+    user_id: string;
+  };
   NotificationSent: {
     enrollment_id?: string;
     message: string;

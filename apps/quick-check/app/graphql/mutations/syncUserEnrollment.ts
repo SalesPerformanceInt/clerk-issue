@@ -12,9 +12,7 @@ import {
 } from "quickcheck-shared";
 
 import {
-  BaseUserQuestionFragment,
   EventInput,
-  getEventStreamName,
   graphql,
   type GQLProxyAllData,
   type GraphQLClient,
@@ -31,12 +29,18 @@ import { buildTaxonTrees, type TaxonomyDataObj } from "~/models/taxonomy";
  * GraphQL
  */
 
-export const ENROLL_USER = graphql(/* GraphQL */ `
-  mutation EnrollUser(
+export const SYNC_USER_ENROLLMENT = graphql(/* GraphQL */ `
+  mutation SyncUserEnrollment(
     $userEnrollment: user_enrollment_insert_input!
     $tenantId: String!
   ) {
-    insert_user_enrollment_one(object: $userEnrollment) {
+    insert_user_enrollment_one(
+      object: $userEnrollment
+      on_conflict: {
+        constraint: user_enrollment_pkey
+        update_columns: [start_date, expiration_date]
+      }
+    ) {
       ...NotificationUserEnrollment
       user_questions {
         ...BaseUserQuestion
@@ -196,12 +200,14 @@ const prepareUserEnrollmentInput =
  */
 
 export type EnrollUserEnrollment = {
-  enrollment_id?: string;
+  enrollment_id: string;
   start_date: string;
   expiration_date: string;
+  user_id?: string | null;
+  topic_id?: string | null;
 };
 
-export async function enrollUser(
+export async function syncUserEnrollment(
   this: GraphQLClient,
   taxonomyId: string,
   enrollmentData: EnrollUserEnrollment,
@@ -225,7 +231,7 @@ export async function enrollUser(
     );
 
     const enrolledUser = await this.client.mutate({
-      mutation: ENROLL_USER,
+      mutation: SYNC_USER_ENROLLMENT,
       variables: { userEnrollment, tenantId },
     });
 
@@ -249,7 +255,11 @@ export async function enrollUser(
 
     return enrollment ?? null;
   } catch (error) {
-    logError({ error, log: "enrollUser" });
+    logError({ error, log: "syncUserEnrollment" });
     return null;
   }
 }
+
+export type SyncUserEnrollment = NonNullable<
+  Awaited<ReturnType<typeof syncUserEnrollment>>
+>;

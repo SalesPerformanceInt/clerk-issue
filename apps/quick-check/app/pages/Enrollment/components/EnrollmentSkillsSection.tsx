@@ -4,7 +4,7 @@ import { useNavigate } from "@remix-run/react";
 
 import { EnrollmentSkillCard, Section } from "quickcheck-shared";
 
-import { getEnrollmentSkills } from "~/models/enrollment";
+import { getEnrollmentSkills } from "~/models/enrollment/handlers/getEnrollmentSkills";
 
 import { useEnrollmentContext } from "~/pages/Enrollment";
 

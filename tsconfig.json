@@ -16,5 +16,14 @@
     "strict": true,
     "target": "ESNext",
   },
-  "exclude": ["**/dist", "**/node_modules", "**/.turbo", "**/cache", "**/api"],
+  "exclude": [
+    "**/dist",
+    "**/node_modules",
+    "**/.turbo",
+    "**/cache",
+    "**/public",
+    "**/build",
+    "**/.cache",
+    "**/api/index.js",
+  ],
 }

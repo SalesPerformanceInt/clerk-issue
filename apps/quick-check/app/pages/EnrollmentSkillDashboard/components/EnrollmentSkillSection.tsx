@@ -12,7 +12,7 @@ import {
 
 import type { EnrollmentSkillDashboardQuestions } from "~/graphql";
 
-import { getEnrollmentSkills } from "~/models/enrollment";
+import { getEnrollmentSkills } from "~/models/enrollment/handlers/getEnrollmentSkills";
 
 import { useEnrollmentSkillDashboardContext } from "~/pages/EnrollmentSkillDashboard";
 

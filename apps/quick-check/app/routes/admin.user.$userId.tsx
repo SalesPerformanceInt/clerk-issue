@@ -13,6 +13,7 @@ import {
 import { faChevronLeft } from "@fortawesome/pro-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { DateTime } from "luxon";
+import { v4 as uuidV4 } from "uuid";
 import { z } from "zod";
 
 import { Button, invariant, simpleErrorResponse } from "quickcheck-shared";
@@ -26,7 +27,7 @@ import {
 import { parseSchema } from "~/utils/parseSchema";
 
 import { performAdminAction } from "~/models/admin";
-import { enrollUser } from "~/models/enrollment";
+import { handleUserEnrollment } from "~/models/enrollment";
 import { buildTaxonTrees, treeNodeToRawNodeDatum } from "~/models/taxonomy";
 
 import { UsersTable } from "~/components";
@@ -82,18 +83,19 @@ export const action = async ({ request, params }: ActionFunctionArgs) => {
 
     if (user && userAction?.type === "ENROLL" && userAction?.taxonomyId) {
       const enrollment: EnrollUserEnrollment = {
+        enrollment_id: uuidV4(),
         start_date: DateTime.now().toISO()!,
         expiration_date: DateTime.now().plus({ weeks: 12 }).toISO()!,
       };
 
-      await enrollUser(
-        { userId, tenantId: user.tenant_id },
-        userAction.taxonomyId,
-        enrollment,
+      const enrollmentActionResponse = await handleUserEnrollment({
         request,
-      );
+        user: { userId, tenantId: user.tenant_id },
+        newEnrollmentData: enrollment,
+        taxonomyId: userAction.taxonomyId,
+      });
 
-      return json({ ok: true });
+      return json({ ok: true, ...enrollmentActionResponse });
     }
 
     if (userAction?.type === "UNENROLL" && userAction?.enrollmentId) {

@@ -13,9 +13,10 @@ import {
   createEvents,
   createUserAnswer,
   deleteTenant,
-  enrollUser,
   generateNewToken,
   resetUser,
+  resetUserEnrollment,
+  syncUserEnrollment,
   toggleUserDailyEmailEnabled,
   toggleUserShowLeaderboard,
   unenrollUser,
@@ -118,7 +119,7 @@ export class GraphQLClient implements WithApolloClient {
   generateNewToken = generateNewToken;
   toggleUserDailyEmailEnabled = toggleUserDailyEmailEnabled;
   getUserTheme = getUserTheme;
-  enrollUser = enrollUser;
+  syncUserEnrollment = syncUserEnrollment;
   getUserNextQuestion = getUserNextQuestion;
   updateUserQuestion = updateUserQuestion;
   getUserQuestion = getUserQuestion;
@@ -155,6 +156,7 @@ export class GraphQLClient implements WithApolloClient {
   createEvents = createEvents;
   getEnrollmentSkillDashboardData = getEnrollmentSkillDashboardData;
   getEnrollmentSkillQuestions = getEnrollmentSkillQuestions;
+  resetUserEnrollment = resetUserEnrollment;
 
   constructor(headers: GraphQLHeaders) {
     this.client = getClient(headers);

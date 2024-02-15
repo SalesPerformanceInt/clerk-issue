@@ -7,7 +7,7 @@ import { invariant, simpleErrorResponse } from "quickcheck-shared";
 import { getAdminApolloClientFromRequest } from "~/graphql";
 
 import { verifyApiRequest } from "~/models/api";
-import { getEnrollmentSkills } from "~/models/enrollment";
+import { getEnrollmentSkills } from "~/models/enrollment/handlers/getEnrollmentSkills";
 
 const teamsSchema = z.object({
   enrollmentId: z.string().uuid(),
@@ -37,7 +37,7 @@ export const action = async ({ request }: ActionFunctionArgs) => {
       "Invalid account subdomain",
     );
 
-    const skills = getEnrollmentSkills(enrollment);
+    const skills = getEnrollmentSkills(enrollment.user_questions);
 
     return json({ skills });
   } catch (error) {

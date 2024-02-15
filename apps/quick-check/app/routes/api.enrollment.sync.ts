@@ -9,7 +9,7 @@ import {
   inputEnrollmentSchema,
   verifyApiRequest,
 } from "~/models/api";
-import { enrollUser } from "~/models/enrollment";
+import { handleUserEnrollment } from "~/models/enrollment";
 
 export const config = {
   maxDuration: 300,
@@ -43,28 +43,26 @@ export const action = async ({ request }: ActionFunctionArgs) => {
       ...enrollmentData
     } = importEnrollmentData;
 
-    const enrollment = await enrollUser(
-      { userId: user.user_id, tenantId: user.tenant_id },
-      cms_topic_id,
-      enrollmentData,
+    const enrollmentActionResponse = await handleUserEnrollment({
       request,
-    );
+      user: { userId: user.user_id, tenantId: user.tenant_id },
+      newEnrollmentData: enrollmentData,
+      taxonomyId: cms_topic_id,
+    });
 
     invariant(
-      enrollment,
+      enrollmentActionResponse,
       () =>
-        `Enrollment creation failed from enrollUser ${JSON.stringify(
+        `Enrollment sync failed from handleUserEnrollment ${JSON.stringify({
+          user: { userId: user.user_id, tenantId: user.tenant_id },
+          taxonomyId: cms_topic_id,
           enrollmentData,
-        )}`,
+        })}`,
     );
 
-    return json(
-      {
-        user_id: user.user_id,
-        enrollment_id: enrollment.id,
-      },
-      { status: 201 },
-    );
+    const { status, ...apiResponse } = enrollmentActionResponse;
+
+    return json(apiResponse, { status });
   } catch (error) {
     return simpleErrorResponse(error);
   }

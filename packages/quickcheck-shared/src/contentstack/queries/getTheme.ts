@@ -1,5 +1,6 @@
 import type { QuickcheckTheme } from "~qcs/contentstack";
 import type { ContentStackSDKClient } from "~qcs/contentstack/client";
+
 import { logError } from "~qcs/utils/logger";
 
 export async function getTheme(this: ContentStackSDKClient, uid: string) {
@@ -9,6 +10,7 @@ export async function getTheme(this: ContentStackSDKClient, uid: string) {
     const entry = contentType
       .Entry(uid)
       .language(this.language)
+      .includeFallback()
       .includeContentType()
       .toJSON();
 

@@ -1,4 +1,4 @@
-import { I18nextProvider, initReactI18next } from "react-i18next";
+import { initReactI18next } from "react-i18next";
 
 import { createInstance } from "i18next";
 import Backend, { HttpBackendOptions } from "i18next-http-backend";
@@ -10,6 +10,8 @@ const CONTENTSTACK_ENVS = {
   QC_CONTENTSTACK_DELIVERY_TOKEN:
     process.env.QC_CONTENTSTACK_DELIVERY_TOKEN ?? "",
   QC_CONTENTSTACK_ENVIRONMENT: process.env.QC_CONTENTSTACK_ENVIRONMENT ?? "",
+  QC_CONTENTSTACK_TRANSLATION_ID:
+    process.env.QC_CONTENTSTACK_TRANSLATION_ID ?? "",
 };
 
 const i18n = createInstance();

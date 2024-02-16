@@ -21,14 +21,14 @@ import { useChangeLanguage } from "remix-i18next";
 
 import { i18nConfig } from "quickcheck-shared";
 
-import { remixI18next } from "~/utils/i18next.server";
-
 import { getUserDataFromSession } from "~/models/session";
 
 import { TimeTravel } from "~/components/TimeTravel";
 
 import { CONTENTSTACK_ENVS, ZIPY_API_KEY } from "./utils/envs.server";
 import { getSplit } from "./utils/getSplit";
+
+import { getUserConfig } from "./models/user";
 
 import { makeErrorBoundary } from "./components/error";
 
@@ -45,9 +45,7 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
   const userApolloClient =
     await getOptionalUserApolloClientFromRequest(request);
 
-  const theme = await userApolloClient?.getUserTheme();
-
-  const locale = await remixI18next.getLocale(request);
+  const { theme, locale } = await getUserConfig(request);
 
   const ENV = {
     ...CONTENTSTACK_ENVS,
@@ -95,7 +93,7 @@ export default function App() {
   useChangeLanguage(locale);
 
   return (
-    <html lang={locale} dir={i18n.dir()} className="h-full">
+    <html lang={i18n.resolvedLanguage} dir={i18n.dir()} className="h-full">
       <head>
         <Meta />
         <Links />

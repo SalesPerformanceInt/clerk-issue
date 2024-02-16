@@ -1,5 +1,6 @@
 import type { QuestionItem } from "~qcs/contentstack";
 import type { ContentStackSDKClient } from "~qcs/contentstack/client";
+
 import { logError } from "~qcs/utils/logger";
 
 export async function getQuestionItem(
@@ -12,6 +13,7 @@ export async function getQuestionItem(
     const entry = contentType
       .Entry(uid)
       .language(this.language)
+      .includeFallback()
       .includeContentType()
       .includeReference(["topic", "topic.parent_taxonomy"])
       .toJSON();

@@ -1,4 +1,7 @@
-import { getContentStackClient } from "~/contentstack.server";
+import {
+  getContentStackClient,
+  getContentStackLanguage,
+} from "~/contentstack.server";
 
 import { invariant, logError } from "quickcheck-shared";
 
@@ -41,7 +44,11 @@ export async function getUserTheme(
     const contentStack = getContentStackClient(language_preference);
 
     const theme = await contentStack.getTheme(theme_id);
-    return theme?.custom_styles ?? null;
+
+    return {
+      theme: theme?.custom_styles ?? null,
+      langauge: getContentStackLanguage(language_preference),
+    };
   } catch (error) {
     logError({ error, log: "getUserTheme" });
     return null;

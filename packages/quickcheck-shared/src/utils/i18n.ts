@@ -1,10 +1,9 @@
 import Backend, { type HttpBackendOptions } from "i18next-http-backend";
-import { fromPairs, map, pipe } from "remeda";
+import { clone, fromPairs, map, pipe } from "remeda";
 import { RemixI18Next } from "remix-i18next";
 
 const CONTENTSTACK_BASE_URL = "cdn.contentstack.io";
 const TRANSLATION_CONTENT_TYPE = "translated_strings";
-// const TRANSLATION_ENTRY_UID = "blt37f4a4753e3711ad"; // "blt2a119974ec2050b6";
 
 export type ContentStackEnvs = {
   QC_CONTENTSTACK_DELIVERY_TOKEN: string;
@@ -21,8 +20,20 @@ interface TranslatedStrings {
   };
 }
 
-const supportedLngs = ["en-us", "pt-br"];
-const fallbackLng = "en-us";
+export const supportedLngs = [
+  "en-us",
+  "zh-cn",
+  "fr-fr",
+  "de-de",
+  "it-it",
+  "ja-jp",
+  "pt-br",
+  "es-419",
+  "tr-tr",
+  "zu",
+] as const;
+
+export const fallbackLng = "en-us";
 
 export const i18nConfig = {
   supportedLngs,
@@ -58,7 +69,7 @@ export const getBackendOptions = (
 export const getRemixI18next = (envs: ContentStackEnvs) =>
   new RemixI18Next({
     detection: {
-      supportedLanguages: supportedLngs,
+      supportedLanguages: supportedLngs.map((lng) => lng),
       fallbackLanguage: fallbackLng,
     },
     // This is the configuration for i18next used

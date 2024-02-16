@@ -75,5 +75,3 @@ export async function getUserData(
     return null;
   }
 }
-
-// export type GetUserData = NonNullable<Awaited<ReturnType<typeof getUserData>>>;

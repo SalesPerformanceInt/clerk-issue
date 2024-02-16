@@ -1,7 +1,10 @@
 import {
   getAdminApolloClientFromRequest,
+  getOptionalUserApolloClientFromRequest,
   getUserApolloClientFromRequest,
 } from "~/graphql";
+
+import { remixI18next } from "~/utils/i18next.server";
 
 export const getUserFromRequest = async (request: Request) => {
   try {
@@ -45,4 +48,16 @@ export const generateNextQuestionForUser = async (
   });
 
   return nextQuestion;
+};
+
+export const getUserConfig = async (request: Request) => {
+  const userApolloClient =
+    await getOptionalUserApolloClientFromRequest(request);
+
+  const userConfig = await userApolloClient?.getUserTheme();
+
+  return {
+    theme: userConfig?.theme ?? null,
+    locale: userConfig?.langauge || (await remixI18next.getLocale(request)),
+  };
 };

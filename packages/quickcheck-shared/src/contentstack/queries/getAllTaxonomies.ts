@@ -1,7 +1,9 @@
+import type { Query } from "contentstack";
+
 import type { Taxon } from "~qcs/contentstack";
 import type { ContentStackSDKClient } from "~qcs/contentstack/client";
+
 import { logError } from "~qcs/utils/logger";
-import type { Query } from "contentstack";
 
 export async function getAllTaxonomies(
   this: ContentStackSDKClient,
@@ -9,9 +11,10 @@ export async function getAllTaxonomies(
 ) {
   try {
     const contentType = this.client.ContentType("taxon_bottom_up");
-    // const result = query(contentType.Query());
+
     const [result] = (await query(contentType.Query())
       .language(this.language)
+      .includeFallback()
       .includeReference(["parent_taxonomy"])
       .limit(1000)
       .includeContentType()

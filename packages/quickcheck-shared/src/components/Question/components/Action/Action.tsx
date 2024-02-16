@@ -4,10 +4,11 @@ import { useMeasure } from "react-use";
 import { useNavigation } from "@remix-run/react";
 
 import { faArrowRight } from "@fortawesome/pro-light-svg-icons";
+import { isNumber } from "remeda";
+
 import { ResponsiveContainer } from "~qcs/components";
 import { useQuestionContext } from "~qcs/components/Question";
 import { Button } from "~qcs/components/ui/Button";
-import { isNumber } from "remeda";
 
 import { Feedback } from "./Feedback";
 

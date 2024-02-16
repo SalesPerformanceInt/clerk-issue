@@ -1,6 +1,11 @@
 import { map } from "remeda";
 
-import { ContentStackSDKClient, MatchedMap } from "quickcheck-shared";
+import {
+  ContentStackSDKClient,
+  fallbackLng,
+  MatchedMap,
+  supportedLngs,
+} from "quickcheck-shared";
 
 import { DEFAULT_LANGUAGE } from "~/utils/constants";
 import {
@@ -9,30 +14,17 @@ import {
   QC_CONTENTSTACK_STACK_KEY,
 } from "~/utils/envs.server";
 
-const CONTENT_STACK_LANGUES = [
-  "en-us",
-  "zh-cn",
-  "fr-fr",
-  "de-de",
-  "it-it",
-  "ja-jp",
-  "pt-br",
-  "es-419",
-  "tr-tr",
-  "zu",
-] as const;
-
-type ContentStackLanguage = (typeof CONTENT_STACK_LANGUES)[number];
+type ContentStackLanguage = (typeof supportedLngs)[number];
 
 const validLanguages = map(
-  CONTENT_STACK_LANGUES,
+  supportedLngs,
   (lng) => <[ContentStackLanguage, ContentStackLanguage]>[lng, lng],
 );
 
 const contentStackLanguages = new MatchedMap<string, ContentStackLanguage>([
   ...validLanguages,
-  ["en-US", "en-us"],
-  ["_", "en-us"],
+  ["en-US", fallbackLng],
+  ["_", fallbackLng],
 ]);
 
 export const getContentStackLanguage = (language: string) =>

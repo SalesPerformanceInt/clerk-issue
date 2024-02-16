@@ -16,6 +16,7 @@ export async function getQuestionItems(
       .includeReference(["topic"])
       .includeContentType()
       .language(this.language)
+      .includeFallback()
       .toJSON()
       .find()) as [QuestionItem[]];
 

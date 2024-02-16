@@ -1,11 +1,20 @@
 import { DateTime } from "luxon";
 import { isDefined } from "remeda";
 
-import { MatchedMap } from "quickcheck-shared";
+import { Expand, MatchedMap } from "quickcheck-shared";
 
 import type { EnrollmentData, EnrollUserEnrollment } from "~/graphql";
 
 import { BasicUserData } from "~/models/user";
+
+/**
+ * Enrollment New Data
+ */
+
+export type EnrollmentNewData = {
+  start_date?: string | null;
+  expiration_date?: string | null;
+} & Pick<EnrollUserEnrollment, "user_id" | "topic_id" | "enrollment_id">;
 
 /**
  * Enrollment Actions
@@ -30,7 +39,7 @@ type EnrollmentActionProps = {
   request: Request;
   user: BasicUserData;
   taxonomyId: string;
-  newEnrollmentData: EnrollUserEnrollment;
+  newEnrollmentData: EnrollmentNewData;
   currentEnrollment?: EnrollmentData | null;
 };
 
@@ -111,7 +120,7 @@ const getEnrollmentDateStatus = (
  */
 
 export type BreakdownEnrollmentProps = {
-  newEnrollmentData: EnrollUserEnrollment;
+  newEnrollmentData: EnrollmentNewData;
   currentEnrollment: EnrollmentData | null;
 };
 

@@ -12,8 +12,10 @@ export const inputEnrollmentSchema = z.object({
   user: importUserSchema,
   enrollment_id: zfd.text(z.string().uuid()),
   cms_topic_id: zfd.text(),
-  start_date: zfd.text(z.string().regex(...ZOD_DATE_REGEX_ARGS)),
-  expiration_date: zfd.text(z.string().regex(...ZOD_DATE_REGEX_ARGS)),
+  start_date: zfd.text(z.string().regex(...ZOD_DATE_REGEX_ARGS)).nullable(),
+  expiration_date: zfd
+    .text(z.string().regex(...ZOD_DATE_REGEX_ARGS))
+    .nullable(),
 });
 
 export type ImportEnrollmentData = z.infer<typeof inputEnrollmentSchema>;

@@ -53,7 +53,15 @@ export const GET_USER_ACHIEVEMENTS = graphql(/* GraphQL */ `
         }
       }
       retired_questions: user_questions_aggregate(
-        where: { retired_on: { _is_null: false } }
+        where: {
+          retired_on: { _is_null: false }
+          user_answers_aggregate: {
+            count: {
+              filter: { correct: { _eq: true } }
+              predicate: { _gte: 2 }
+            }
+          }
+        }
       ) {
         aggregate {
           count

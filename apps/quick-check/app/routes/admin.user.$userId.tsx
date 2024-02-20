@@ -129,11 +129,11 @@ export default function Page() {
   const { state, formData } = useNavigation();
 
   return (
-    <div className="bg-primary-dark p-8">
+    <div className="sm:p-8">
       <div className="flex w-full flex-col">
         <div className="overflow-x-auto sm:-mx-6 desktop:-mx-8">
           <div className="inline-block min-w-full py-2 sm:px-6 desktop:px-8">
-            <div className="mb-8 flex items-center justify-between">
+            <div className="mb-8 flex items-center justify-between px-4 pt-4 sm:p-0">
               <button
                 className="flex items-center"
                 onClick={() => navigate(`/admin/tenant/${user?.tenant_id}`)}

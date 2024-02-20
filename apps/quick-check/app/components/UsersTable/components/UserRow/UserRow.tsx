@@ -7,11 +7,14 @@ import {
   faEnvelope,
   faKey,
   faRightToBracket,
+  faSpinner,
 } from "@fortawesome/pro-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { twMerge } from "tailwind-merge";
 
-import { Button } from "quickcheck-shared";
+import { Button, supportedLngs } from "quickcheck-shared";
 
+import { getContentStackLanguage } from "~/contentstack";
 import type { UserWithActiveTokenFragment } from "~/graphql";
 
 import { parseAdminActionRequest, type AdminAction } from "~/models/admin";
@@ -31,6 +34,9 @@ export const UserRow: FC<UserRowProps> = ({ user, row, link }) => {
     user.daily_email_enabled,
   );
   const [showLeaderboard, setShowLeaderboard] = useState(user.show_leaderboard);
+  const [language, setLanguage] = useState(
+    getContentStackLanguage(user.language_preference),
+  );
 
   useEffect(() => {
     setDailyEmailEnabled(user.daily_email_enabled);
@@ -43,9 +49,19 @@ export const UserRow: FC<UserRowProps> = ({ user, row, link }) => {
   };
 
   const makeUserAction =
-    (type: AdminAction["type"], callback?: () => void) => () => {
+    (
+      type: AdminAction["type"],
+      callback?: () => void,
+      other?: Omit<AdminAction, "type" | "userId" | "tenantId">,
+    ) =>
+    () => {
       callback?.();
-      const payload: AdminAction = { type, userId: user.user_id };
+      const payload: AdminAction = {
+        type,
+        userId: user.user_id,
+        tenantId: user.tenant_id,
+        ...other,
+      };
       const data = JSON.stringify(payload);
 
       const formData = new FormData();
@@ -79,7 +95,7 @@ export const UserRow: FC<UserRowProps> = ({ user, row, link }) => {
           onChange={makeUserAction("TOGGLE_SHOW_LEADERBOARD", () =>
             setShowLeaderboard(!showLeaderboard),
           )}
-          id="default-checkbox"
+          id="leaderboard"
           type="checkbox"
           value=""
           className="h-4 w-4 rounded border-gray-300 bg-gray-100 text-blue-600"
@@ -91,11 +107,43 @@ export const UserRow: FC<UserRowProps> = ({ user, row, link }) => {
           onChange={makeUserAction("TOGGLE_SMS_ENABLED", () =>
             setDailyEmailEnabled(!dailyEmailEnabled),
           )}
-          id="default-checkbox"
+          id="daily_email"
           type="checkbox"
           value=""
           className="h-4 w-4 rounded border-gray-300 bg-gray-100 text-blue-600"
         />
+      </td>
+      <td className="relative whitespace-nowrap px-6 py-4 text-center">
+        {isLoading("CHANGE_LANGUAGE") && (
+          <FontAwesomeIcon
+            icon={faSpinner}
+            spinPulse
+            className="absolute bottom-0 left-0 right-0 top-0 m-auto"
+          />
+        )}
+        <select
+          disabled={isLoading("CHANGE_LANGUAGE")}
+          value={getContentStackLanguage(user.language_preference)}
+          onChange={({ target: { value } }) => {
+            const languageSelection = getContentStackLanguage(value);
+            makeUserAction(
+              "CHANGE_LANGUAGE",
+              () => setLanguage(languageSelection),
+              { language: getContentStackLanguage(languageSelection) },
+            )();
+          }}
+          className={twMerge(
+            "rounded-sm border px-2 py-2",
+            isLoading("CHANGE_LANGUAGE") && "text-transparent",
+          )}
+        >
+          <FontAwesomeIcon icon={faSpinner} spinPulse />
+          {supportedLngs.map((lng) => (
+            <option key={lng} value={lng}>
+              {lng}
+            </option>
+          ))}
+        </select>
       </td>
       <td className="whitespace-nowrap px-6 py-4 text-center">
         <Button

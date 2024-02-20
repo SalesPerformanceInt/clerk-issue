@@ -1,9 +1,11 @@
 import type { RawNodeDatum } from "react-d3-tree";
 
-import { DEFAULT_LANGUAGE, getContentStackClient } from "~/contentstack.server";
+import { getContentStackClient } from "~/contentstack.server";
 import { isArray } from "remeda";
 
 import { buildTrees, type Taxon, type TreeNode } from "quickcheck-shared";
+
+import { DEFAULT_LANGUAGE } from "~/contentstack";
 
 import type { TaxonomyDataObj } from "./taxonomy.types";
 

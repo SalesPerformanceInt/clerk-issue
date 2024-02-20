@@ -3,7 +3,7 @@ import { json, redirect } from "@remix-run/node";
 import { generateTokenAndSendSMS } from "~/notifications/twilio.server";
 import { z } from "zod";
 
-import { invariant } from "quickcheck-shared";
+import { invariant, supportedLngs } from "quickcheck-shared";
 
 import { getAdminApolloClientFromRequest } from "~/graphql";
 
@@ -20,8 +20,11 @@ export const adminActionSchema = z.object({
     "LOGIN_USER",
     "SEND_QUESTION_EMAIL",
     "TOGGLE_SHOW_LEADERBOARD",
+    "CHANGE_LANGUAGE",
   ]),
   userId: z.string(),
+  tenantId: z.string(),
+  language: z.enum(supportedLngs).optional(),
 });
 
 export type AdminAction = z.infer<typeof adminActionSchema>;
@@ -40,7 +43,10 @@ export const performAdminAction = async (request: Request) => {
 
   invariant(adminAction, "No action parsed");
 
-  const proxyData = { userId: adminAction.userId };
+  const proxyData = {
+    userId: adminAction.userId,
+    tenantId: adminAction.tenantId,
+  };
 
   if (adminAction?.type === "TOGGLE_SMS_ENABLED") {
     await adminApolloClient.toggleUserDailyEmailEnabled(proxyData);
@@ -77,6 +83,13 @@ export const performAdminAction = async (request: Request) => {
 
   if (adminAction?.type === "SEND_QUESTION_EMAIL") {
     await sendEmailTemplate(request, adminAction.userId);
+  }
+
+  if (adminAction?.type === "CHANGE_LANGUAGE" && adminAction.language) {
+    await adminApolloClient.updateUser(
+      { language_preference: adminAction.language },
+      proxyData,
+    );
   }
 
   return json(formData);

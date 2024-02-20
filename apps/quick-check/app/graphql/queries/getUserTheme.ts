@@ -1,10 +1,8 @@
-import {
-  getContentStackClient,
-  getContentStackLanguage,
-} from "~/contentstack.server";
+import { getContentStackClient } from "~/contentstack.server";
 
 import { invariant, logError } from "quickcheck-shared";
 
+import { getContentStackLanguage } from "~/contentstack";
 import {
   graphql,
   type GQLProxyUserData,

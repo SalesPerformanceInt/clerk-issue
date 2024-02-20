@@ -1,8 +1,9 @@
-import { DEFAULT_LANGUAGE, getContentStackClient } from "~/contentstack.server";
+import { getContentStackClient } from "~/contentstack.server";
 import { groupBy, pipe } from "remeda";
 
 import { invariant } from "quickcheck-shared";
 
+import { DEFAULT_LANGUAGE } from "~/contentstack";
 import type { RankeableEnrollment } from "~/graphql";
 
 import type {

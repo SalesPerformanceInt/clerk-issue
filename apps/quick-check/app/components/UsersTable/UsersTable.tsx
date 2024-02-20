@@ -22,6 +22,9 @@ export const UsersTable: FC<UserTableProps> = ({ users, link }) => {
             Daily Email
           </th>
           <th scope="col" className="w-1 whitespace-nowrap px-6 py-4">
+            Language
+          </th>
+          <th scope="col" className="w-1 whitespace-nowrap px-6 py-4">
             New Token
           </th>
           <th scope="col" className="w-1 whitespace-nowrap px-6 py-4">

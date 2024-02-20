@@ -107,10 +107,10 @@ export default function Page() {
   };
 
   return (
-    <div className="bg-primary-dark p-8">
+    <div className="sm:p-8">
       <div className="flex w-full flex-col">
         <div className="overflow-x-auto sm:-mx-6 desktop:-mx-8">
-          <div className="inline-block min-w-full py-2 sm:px-6 desktop:px-8">
+          <div className="inline-block min-w-full sm:px-6 desktop:px-8">
             <div className="overflow-hidden">
               <table className="min-w-full table-auto text-left text-sm">
                 <thead className="border-b bg-white font-medium">

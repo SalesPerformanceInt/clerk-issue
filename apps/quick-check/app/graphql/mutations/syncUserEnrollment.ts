@@ -102,9 +102,13 @@ const prepareActiveQuestionGap =
 const getEnrollmentPeriodInWeeks =
   (enrollmentBaseDate: Date) =>
   ({ expiration_date }: EnrollUserEnrollment) => {
+    const baseExpirationDate =
+      expiration_date ??
+      DateTime.fromJSDate(enrollmentBaseDate).plus({ weeks: 12 }).toISODate()!;
+
     const enrollmentPeriodInWeeks =
       DateTime.fromJSDate(enrollmentBaseDate)
-        .diff(DateTime.fromISO(expiration_date), ["weeks"])
+        .diff(DateTime.fromISO(baseExpirationDate), ["weeks"])
         .toObject().weeks ?? 1;
 
     return Math.abs(Math.floor(enrollmentPeriodInWeeks));
@@ -202,9 +206,9 @@ const prepareUserEnrollmentInput =
 export type EnrollUserEnrollment = {
   enrollment_id: string;
   start_date: string;
-  expiration_date: string;
-  user_id?: string | null;
-  topic_id?: string | null;
+  expiration_date: string | null;
+  user_id: string;
+  topic_id: string;
 };
 
 export async function syncUserEnrollment(

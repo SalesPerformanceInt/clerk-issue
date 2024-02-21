@@ -1,9 +1,10 @@
 import { getAdminApolloClientFromRequest } from "~/graphql";
 
+import type { EnrollmentActionFn } from "../enrollment.types";
 import {
-  enrollmentErrorResponse,
-  type EnrollmentActionFn,
-} from "../enrollment";
+  prepareEnrollmentError,
+  prepareEnrollmentResponse,
+} from "../handlers/prepareEnrollmentResponse";
 
 /**
  * Delete UserEnrollment
@@ -12,37 +13,20 @@ import {
 export const deleteUserEnrollment: EnrollmentActionFn = async ({
   request,
   user,
-  newEnrollmentData,
+  enrollmentNewData,
+  logEnrollmentEvent,
 }) => {
-  const adminApolloClient = await getAdminApolloClientFromRequest(request);
+  const enrollmentErrorResponse = prepareEnrollmentError();
 
+  const adminApolloClient = await getAdminApolloClientFromRequest(request);
   const deletedEnrollment = await adminApolloClient.unenrollUser(
-    newEnrollmentData.enrollment_id,
+    enrollmentNewData.enrollment_id,
     { userId: user.userId },
   );
 
-  if (!deletedEnrollment)
-    return enrollmentErrorResponse(
-      500,
-      user.userId,
-      newEnrollmentData.enrollment_id,
-    );
+  if (!deletedEnrollment) return enrollmentErrorResponse;
 
-  adminApolloClient.createEvent(
-    {
-      type: "EnrollmentDeleted",
-      data: {
-        enrollment_id: newEnrollmentData.enrollment_id,
-        user_id: user.userId,
-      },
-    },
-    user,
-  );
+  logEnrollmentEvent({ type: "EnrollmentDeleted" });
 
-  return {
-    status: 204,
-    message: "Enrollment deleted successfully",
-    user_id: user.userId,
-    enrollment_id: newEnrollmentData.enrollment_id,
-  };
+  return prepareEnrollmentResponse({ status: 204 });
 };

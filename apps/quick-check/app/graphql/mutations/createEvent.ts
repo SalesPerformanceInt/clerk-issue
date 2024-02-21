@@ -10,29 +10,35 @@ import {
 import { Template } from "~/utils/email/emailTemplatesMap";
 import { posthog } from "~/utils/posthog";
 
-type Events = {
+export type Events = {
   EnrollmentAdded: {
     enrollment_id: string;
+    user_id: string;
     taxonomy_id: string;
   };
   EnrollmentUpdated: {
     enrollment_id: string;
+    user_id: string;
     taxonomy_id: string;
-    previous_expiration_date: string;
-    new_expiration_date: string;
+    previous_expiration_date: string | null;
+    new_expiration_date: string | null;
   };
   EnrollmentReset: {
     enrollment_id: string;
+    user_id: string;
     taxonomy_id: string;
     previous_start_date: string;
     new_start_date: string;
-    previous_expiration_date: string;
-    new_expiration_date: string;
+    previous_expiration_date: string | null;
+    new_expiration_date: string | null;
   };
   EnrollmentDeleted: {
     enrollment_id: string;
     user_id: string;
+    taxonomy_id: string;
   };
+  EnrollmentRejected: Events["EnrollmentDeleted"];
+  EnrollmentIgnored: Events["EnrollmentDeleted"];
   NotificationSent: {
     enrollment_id?: string;
     message: string;
@@ -81,11 +87,16 @@ type Events = {
   };
 };
 
-export type EventInput<T extends keyof Events = keyof Events> = T extends any
-  ? {
-      type: T;
-      data: Events[T];
-    }
+export type EventInput<
+  EventsData = Events,
+  EventKey extends keyof EventsData = keyof EventsData,
+> = EventKey extends any
+  ? keyof EventsData[EventKey] extends never
+    ? { type: EventKey }
+    : {
+        type: EventKey;
+        data: EventsData[EventKey];
+      }
   : never;
 
 export const CREATE_EVENT = graphql(/* GraphQL */ `

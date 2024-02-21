@@ -91,7 +91,7 @@ export const action = async ({ request, params }: ActionFunctionArgs) => {
       const enrollmentActionResponse = await handleUserEnrollment({
         request,
         user: { userId, tenantId: user.tenant_id },
-        newEnrollmentData: enrollment,
+        enrollmentNewData: enrollment,
         taxonomyId: userAction.taxonomyId,
       });
 

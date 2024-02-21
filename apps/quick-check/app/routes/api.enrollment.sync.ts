@@ -40,13 +40,13 @@ export const action = async ({ request }: ActionFunctionArgs) => {
     const {
       cms_topic_id,
       user: _enrollmentUser,
-      ...enrollmentData
+      ...enrollmentNewData
     } = importEnrollmentData;
 
     const enrollmentActionResponse = await handleUserEnrollment({
       request,
       user: { userId: user.user_id, tenantId: user.tenant_id },
-      newEnrollmentData: enrollmentData,
+      enrollmentNewData,
       taxonomyId: cms_topic_id,
     });
 
@@ -56,7 +56,7 @@ export const action = async ({ request }: ActionFunctionArgs) => {
         `Enrollment sync failed from handleUserEnrollment ${JSON.stringify({
           user: { userId: user.user_id, tenantId: user.tenant_id },
           taxonomyId: cms_topic_id,
-          enrollmentData,
+          enrollmentData: enrollmentNewData,
         })}`,
     );
 

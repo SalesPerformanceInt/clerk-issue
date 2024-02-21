@@ -38,6 +38,8 @@ const config = {
     "^~/components/(.*)$|^~/components$",
     "^~qcs/components/(.*)$|^~qcs/components$",
     "",
+    "^../(.*)$|^../$",
+    "",
     "^./utils/(.*)$",
     "",
     "^./models/(.*)$|^./mocks/(.*)$",

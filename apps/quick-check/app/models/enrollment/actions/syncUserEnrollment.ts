@@ -1,9 +1,11 @@
 import { getAdminApolloClientFromRequest } from "~/graphql";
 
+import type { EnrollmentActionFn } from "../enrollment.types";
 import {
-  enrollmentErrorResponse,
-  type EnrollmentActionFn,
-} from "../enrollment";
+  prepareEnrollmentError,
+  prepareEnrollmentResponse,
+} from "../handlers/prepareEnrollmentResponse";
+
 import { notifyUserEnrollment } from "./notifyUserEnrollment";
 
 /**
@@ -13,41 +15,26 @@ import { notifyUserEnrollment } from "./notifyUserEnrollment";
 export const syncUserEnrollment: EnrollmentActionFn = async ({
   request,
   user,
-  newEnrollmentData,
+  enrollmentNewData: { start_date, ...enrollmentNewData },
   taxonomyId,
+  logEnrollmentEvent,
 }) => {
-  const adminApolloClient = await getAdminApolloClientFromRequest(request);
+  const enrollmentErrorResponse = prepareEnrollmentError();
 
+  if (!start_date) return enrollmentErrorResponse;
+
+  const adminApolloClient = await getAdminApolloClientFromRequest(request);
   const syncedEnrollment = await adminApolloClient.syncUserEnrollment(
     taxonomyId,
-    newEnrollmentData,
+    { start_date, ...enrollmentNewData },
     user,
   );
 
-  if (!syncedEnrollment)
-    return enrollmentErrorResponse(
-      500,
-      user.userId,
-      newEnrollmentData.enrollment_id,
-    );
+  if (!syncedEnrollment) return enrollmentErrorResponse;
 
-  adminApolloClient.createEvent(
-    {
-      type: "EnrollmentAdded",
-      data: {
-        enrollment_id: syncedEnrollment.id,
-        taxonomy_id: syncedEnrollment.taxonomy_id,
-      },
-    },
-    user,
-  );
+  logEnrollmentEvent({ type: "EnrollmentAdded" });
 
   notifyUserEnrollment({ request, user, enrollment: syncedEnrollment });
 
-  return {
-    status: 201,
-    message: "Enrollment created successfully",
-    user_id: user.userId,
-    enrollment_id: syncedEnrollment.id,
-  };
+  return prepareEnrollmentResponse({ status: 201 });
 };

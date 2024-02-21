@@ -1,49 +1,61 @@
 import { MatchedMap } from "quickcheck-shared";
 
 import { deleteUserEnrollment } from "../actions/deleteUserEnrollment";
+import { ignoreUserEnrollment } from "../actions/ignoreUserEnrollment";
+import { rejectUserEnrollment } from "../actions/rejectUserEnrollment";
 import { resetUserEnrollment } from "../actions/resetUserEnrollment";
 import { syncUserEnrollment } from "../actions/syncUserEnrollment";
 import { updateUserEnrollment } from "../actions/updateUserEnrollment";
+import type { EnrollmentActionFn } from "../enrollment.types";
+
 import {
   breakdownEnrollment,
-  EnrollmentActions,
-  enrollmentErrorResponse,
+  type BreakdownEnrollmentProps,
+} from "./breakdownEnrollment";
+import {
+  EnrollmentActionType,
   enrollmentValidationMap,
-  type EnrollmentActionFn,
-  type BreakdownEnrollmentProps as GetEnrollmentActionProps,
-} from "../enrollment";
+} from "./validateEnrollment";
 
 /**
  * Enrollment Actions Map
  */
 
 const enrollmentActionsMap = new MatchedMap<
-  EnrollmentActions,
+  EnrollmentActionType,
   EnrollmentActionFn
 >([
-  [EnrollmentActions.Sync, syncUserEnrollment],
-  [EnrollmentActions.Reset, resetUserEnrollment],
-  [EnrollmentActions.Update, updateUserEnrollment],
-  [EnrollmentActions.Delete, deleteUserEnrollment],
-  [EnrollmentActions.Reject, async () => enrollmentErrorResponse(400)],
-  ["_", async () => enrollmentErrorResponse(400)],
+  [EnrollmentActionType.Sync, syncUserEnrollment],
+  [EnrollmentActionType.Reset, resetUserEnrollment],
+  [EnrollmentActionType.Update, updateUserEnrollment],
+  [EnrollmentActionType.Delete, deleteUserEnrollment],
+  [EnrollmentActionType.Ignore, ignoreUserEnrollment],
+  [EnrollmentActionType.Reject, rejectUserEnrollment],
+  ["_", rejectUserEnrollment],
 ]);
 
 /**
  * Get Enrollment Action
  */
 
+type GetEnrollmentActionProps = BreakdownEnrollmentProps;
+
 export const getEnrollmentAction = ({
+  enrollmentNewData,
   currentEnrollment,
-  newEnrollmentData,
 }: GetEnrollmentActionProps) => {
   const enrollmentBreakdown = breakdownEnrollment({
+    enrollmentNewData,
     currentEnrollment,
-    newEnrollmentData,
   });
 
-  const enrollmentAction = enrollmentValidationMap.get(enrollmentBreakdown);
-  const enrollmentActionHandler = enrollmentActionsMap.get(enrollmentAction);
+  const { type: enrollmentActionType, message: enrollmentResponseMessage } =
+    enrollmentValidationMap.get(enrollmentBreakdown);
 
-  return enrollmentActionHandler;
+  const enrollmentActionFn = enrollmentActionsMap.get(enrollmentActionType);
+
+  return {
+    enrollmentActionFn,
+    enrollmentResponseMessage,
+  };
 };

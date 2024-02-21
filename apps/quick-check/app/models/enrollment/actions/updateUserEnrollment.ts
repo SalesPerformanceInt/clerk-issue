@@ -1,9 +1,10 @@
 import { getAdminApolloClientFromRequest } from "~/graphql";
 
+import type { EnrollmentActionFn } from "../enrollment.types";
 import {
-  enrollmentErrorResponse,
-  type EnrollmentActionFn,
-} from "../enrollment";
+  prepareEnrollmentError,
+  prepareEnrollmentResponse,
+} from "../handlers/prepareEnrollmentResponse";
 
 /**
  * Update UserEnrollment
@@ -11,44 +12,29 @@ import {
 
 export const updateUserEnrollment: EnrollmentActionFn = async ({
   request,
-  user,
-  newEnrollmentData,
+  enrollmentNewData,
   currentEnrollment,
+  logEnrollmentEvent,
 }) => {
-  const errorResponse = enrollmentErrorResponse(
-    500,
-    user.userId,
-    newEnrollmentData.enrollment_id,
-  );
+  const enrollmentErrorResponse = prepareEnrollmentError();
 
-  if (!currentEnrollment) return errorResponse;
+  if (!currentEnrollment) return enrollmentErrorResponse;
 
   const adminApolloClient = await getAdminApolloClientFromRequest(request);
-
   const updatedEnrollment = await adminApolloClient.updateUserEnrollment(
-    newEnrollmentData.enrollment_id,
-    { set: { expiration_date: newEnrollmentData.expiration_date } },
+    enrollmentNewData.enrollment_id,
+    { set: { expiration_date: enrollmentNewData.expiration_date } },
   );
 
-  if (!updatedEnrollment) return errorResponse;
+  if (!updatedEnrollment) return enrollmentErrorResponse;
 
-  adminApolloClient.createEvent(
-    {
-      type: "EnrollmentUpdated",
-      data: {
-        enrollment_id: updatedEnrollment.id,
-        taxonomy_id: updatedEnrollment.taxonomy_id,
-        previous_expiration_date: currentEnrollment.expiration_date,
-        new_expiration_date: newEnrollmentData.expiration_date,
-      },
+  logEnrollmentEvent({
+    type: "EnrollmentUpdated",
+    data: {
+      previous_expiration_date: currentEnrollment.expiration_date ?? null,
+      new_expiration_date: enrollmentNewData.expiration_date,
     },
-    user,
-  );
+  });
 
-  return {
-    status: 200,
-    message: "Enrollment updated successfully",
-    user_id: user.userId,
-    enrollment_id: updatedEnrollment.id,
-  };
+  return prepareEnrollmentResponse({ status: 200 });
 };

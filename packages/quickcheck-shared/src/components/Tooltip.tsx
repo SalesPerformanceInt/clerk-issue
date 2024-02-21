@@ -101,7 +101,7 @@ export const Tooltip: FC<TooltipProps> = ({
 
               {texts.map((text) => parseText(text))}
 
-              <RadixPopover.Close className="mt-2 text-right uppercase">
+              <RadixPopover.Close className="ml-auto mt-2 w-fit px-2 py-1 text-right uppercase outline-primary-50">
                 {t("common.tooltip.close")}
               </RadixPopover.Close>
             </RadixPopover.Content>

@@ -1,5 +1,7 @@
 import React, { type FC } from "react";
 
+import { useIsDesktop } from "~qcs/utils/useIsDesktop";
+
 import {
   Header,
   HeaderReturnToDashboard,
@@ -9,6 +11,7 @@ import { useQuestionContext } from "~qcs/components/Question";
 
 export const QuestionHeader: FC = () => {
   const { userData, onShowOnCloseModal, submitted } = useQuestionContext();
+  const isDesktop = useIsDesktop();
 
   const modifier = submitted ? 1 : 0;
   const unansweredQuestions = Math.max(
@@ -20,7 +23,10 @@ export const QuestionHeader: FC = () => {
     <Header
       left={<HeaderReturnToDashboard onClose={onShowOnCloseModal} />}
       right={
-        <HeaderUnansweredQuestions unansweredQuestions={unansweredQuestions} />
+        <HeaderUnansweredQuestions
+          unansweredQuestions={unansweredQuestions}
+          short={!isDesktop}
+        />
       }
     />
   );

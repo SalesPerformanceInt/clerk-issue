@@ -1,10 +1,12 @@
 import React from "react";
 
-import type { QuestionItemChoice } from "~qcs/contentstack";
 import { useQuestionContext } from "~qcs/index";
-import type { Expand } from "~qcs/utils/expand";
 import parse from "html-react-parser";
 import { twMerge } from "tailwind-merge";
+
+import type { QuestionItemChoice } from "~qcs/contentstack";
+
+import type { Expand } from "~qcs/utils/expand";
 
 export type ChoiceProps = Expand<
   {
@@ -34,7 +36,7 @@ export const Choice = ({
       disabled={disabled}
       onClick={onClick}
       className={twMerge(
-        "flex w-full items-start border-t border-primary-25 bg-background-secondary px-4 py-6 text-left transition last:border-b hover:bg-background disabled:hover:bg-background-secondary sm:rounded-sm sm:border sm:border-highlight sm:px-8 sm:shadow-card",
+        "flex w-full items-start border-t border-primary-25 bg-background-secondary px-4 py-6 text-left transition last:border-b hover:border-primary disabled:hover:border-primary-25 sm:rounded-sm sm:border sm:border-highlight sm:px-8 sm:shadow-card",
         isSelected && "bg-background",
         correctlyAnswered &&
           "border-t-0 bg-success-50 disabled:hover:bg-success-50 sm:border-t",

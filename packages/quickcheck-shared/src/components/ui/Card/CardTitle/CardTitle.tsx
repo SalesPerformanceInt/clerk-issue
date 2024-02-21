@@ -1,9 +1,13 @@
 import React, { type FC, type ReactNode } from "react";
+import { useTranslation } from "react-i18next";
 
-import { Skeleton } from "~qcs/components/ui/Skeleton";
-import { cn } from "~qcs/utils";
 import { isNil } from "remeda";
 import { twMerge } from "tailwind-merge";
+
+import { cn } from "~qcs/utils";
+
+import { Tooltip, type TooltipProps } from "~qcs/components/Tooltip";
+import { Skeleton } from "~qcs/components/ui/Skeleton";
 
 /**
  * Card Title Component
@@ -13,9 +17,17 @@ export type CardTitleProps = {
   qty?: number;
   title: ReactNode;
   className?: string;
+  tooltip?: TooltipProps["texts"];
 };
 
-export const CardTitle: FC<CardTitleProps> = ({ qty, title, className }) => {
+export const CardTitle: FC<CardTitleProps> = ({
+  qty,
+  title,
+  tooltip,
+  className,
+}) => {
+  const { t } = useTranslation();
+
   return (
     <div className={twMerge("flex items-center gap-2", className)}>
       {!isNil(qty) && (
@@ -25,6 +37,14 @@ export const CardTitle: FC<CardTitleProps> = ({ qty, title, className }) => {
       )}
 
       <h2 className="font-light uppercase text-text">{title}</h2>
+
+      {tooltip && (
+        <Tooltip
+          texts={tooltip}
+          ariaLabel={t("common.leaderboard")}
+          contentClassName="sm:max-w-[484px]"
+        />
+      )}
     </div>
   );
 };

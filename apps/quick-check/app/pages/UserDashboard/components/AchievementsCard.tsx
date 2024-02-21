@@ -72,6 +72,9 @@ const AchievementsCard: FC<AchievementsCardProps> = ({
           text={`${attemptedSkills}`}
           pathClassName="stroke-chart-1"
           label={t("user.dashboard.achievements.skills_attempted")}
+          tooltip={[
+            t("user.dashboard.achievements.questions_attempted.tooltip"),
+          ]}
         />
         <Achievement
           percentage={completedEnrollmentsPercentage}

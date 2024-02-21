@@ -6,11 +6,11 @@ import {
   type CircularProgressProps,
 } from "~qcs/components/ui";
 
-import { Tooltip } from "./Tooltip";
+import { Tooltip, type TooltipProps } from "./Tooltip";
 
 type AchievementProps = Omit<CircularProgressProps, "className"> & {
   label: string;
-  tooltip?: string[];
+  tooltip?: TooltipProps["texts"];
 };
 
 export const Achievement: FC<AchievementProps> = ({

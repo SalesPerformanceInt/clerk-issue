@@ -81,7 +81,18 @@ const LeaderboardCard: FC<LeaderboardCardProps> = ({
 
   return (
     <MobileCarouselCard {...props}>
-      <CardTitle title={t("common.leaderboard")} className="p-6 pb-0" />
+      <CardTitle
+        className="p-6 pb-0"
+        title={t("common.leaderboard")}
+        tooltip={[
+          t("user.dashboard.leaderboard.tooltip.title"),
+          <ul className="list-outside space-y-1 pl-5">
+            <li>{t("user.dashboard.leaderboard.tooltip.first_item")}</li>
+            <li>{t("user.dashboard.leaderboard.tooltip.second_item")}</li>
+            <li>{t("user.dashboard.leaderboard.tooltip.third_item")}</li>
+          </ul>,
+        ]}
+      />
 
       <section className="flex flex-col gap-4 p-6">
         {rankedEnrollments.map((enrollment) => (

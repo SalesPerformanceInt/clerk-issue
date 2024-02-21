@@ -1,19 +1,31 @@
-import React, { type FC } from "react";
+import React, {
+  Fragment,
+  isValidElement,
+  type FC,
+  type ReactElement,
+} from "react";
 import { useTranslation } from "react-i18next";
 
 import { faCircleInfo } from "@fortawesome/pro-light-svg-icons";
 import * as RadixPopover from "@radix-ui/react-popover";
 import * as RadixTooltip from "@radix-ui/react-tooltip";
-import { useIsDesktop } from "~qcs/utils/useIsDesktop";
 import { twMerge } from "tailwind-merge";
+
+import { useIsDesktop } from "~qcs/utils/useIsDesktop";
 
 import { Icon } from "./Icon";
 
 export type TooltipProps = {
-  texts: string[];
+  texts: (string | ReactElement)[];
   triggerClassName?: string;
   contentClassName?: string;
   ariaLabel: string;
+};
+
+const parseText = (text: string | ReactElement) => {
+  const Wrapper = isValidElement(text) ? Fragment : "p";
+
+  return <Wrapper key={text.toString()}>{text}</Wrapper>;
 };
 
 export const Tooltip: FC<TooltipProps> = ({
@@ -55,9 +67,7 @@ export const Tooltip: FC<TooltipProps> = ({
               >
                 <RadixTooltip.Arrow />
 
-                {texts.map((text) => (
-                  <p key={text}>{text}</p>
-                ))}
+                {texts.map((text) => parseText(text))}
               </RadixTooltip.Content>
             </RadixTooltip.Portal>
           </RadixTooltip.Root>
@@ -89,9 +99,7 @@ export const Tooltip: FC<TooltipProps> = ({
             >
               <RadixPopover.Arrow />
 
-              {texts.map((text) => (
-                <p key={text}>{text}</p>
-              ))}
+              {texts.map((text) => parseText(text))}
 
               <RadixPopover.Close className="mt-2 text-right uppercase">
                 {t("common.tooltip.close")}

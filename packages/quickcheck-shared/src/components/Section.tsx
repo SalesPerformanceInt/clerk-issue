@@ -3,13 +3,13 @@ import React, { type ComponentPropsWithoutRef, type FC } from "react";
 import { cn } from "~qcs/utils";
 
 import { Icon, type IconProps } from "./Icon";
-import { Tooltip } from "./Tooltip";
+import { Tooltip, type TooltipProps } from "./Tooltip";
 
 export interface DashboardSectionProps
   extends ComponentPropsWithoutRef<"section"> {
   title?: string;
   icon?: IconProps["icon"];
-  tooltip?: string[];
+  tooltip?: TooltipProps["texts"];
 }
 
 export const Section: FC<DashboardSectionProps> = ({

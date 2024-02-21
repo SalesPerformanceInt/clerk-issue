@@ -76,9 +76,10 @@ const WeeklyStreakCard: FC<WeeklyStreakCardProps> = ({
   return (
     <MobileCarouselCard className="p-6" {...props}>
       <CardTitle
+        className="pb-6"
         qty={weeklyStreakData.weeklyStreak ?? 0}
         title={t("user.dashboard.weekly_streak")}
-        className="pb-6"
+        tooltip={[t("user.dashboard.weekly_streak.tooltip")]}
       />
 
       <WeeklyStreakCalendar calendar={calendar} now={now} />

@@ -5,3 +5,4 @@ export * from "./Icon";
 export * from "./Section";
 export * from "./Achievement";
 export * from "./Tooltip";
+export * from "./Support";

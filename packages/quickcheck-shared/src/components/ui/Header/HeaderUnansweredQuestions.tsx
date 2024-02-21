@@ -5,7 +5,7 @@ import { faArrowRight } from "@fortawesome/pro-light-svg-icons";
 
 import { useIsDesktop } from "~qcs/utils/useIsDesktop";
 
-import { Button } from "~qcs/components";
+import { Button, Support } from "~qcs/components";
 
 interface HeaderUnansweredQuestionsProps {
   unansweredQuestions?: number;
@@ -38,6 +38,8 @@ export const HeaderUnansweredQuestions: FC<HeaderUnansweredQuestionsProps> = ({
             {t("common.start")}
           </Button>
         )}
+
+        <Support />
       </div>
     </div>
   );

@@ -5,6 +5,7 @@ import {
   Header,
   HeaderUnansweredQuestions,
   RichardsonLogo,
+  Support,
   useIsDesktop,
 } from "quickcheck-shared";
 
@@ -48,5 +49,5 @@ export const DashboardHeader: FC = () => {
       />
     );
 
-  return <Header left={<RichardsonLogo />} />;
+  return <Header right={<Support />} left={<RichardsonLogo />} />;
 };

@@ -5,6 +5,7 @@ import {
   Header,
   HeaderReturnToDashboard,
   HeaderUnansweredQuestions,
+  Support,
   useIsDesktop,
 } from "quickcheck-shared";
 
@@ -28,13 +29,13 @@ export const EnrollmentHeader: FC = () => {
     <Header
       left={<HeaderReturnToDashboard onClose={() => navigate("/")} />}
       right={
-        isDesktop && (
+        isDesktop ? (
           <HeaderUnansweredQuestions
             unansweredQuestions={enrollment.unanswered_questions}
             onStart={() => startQuestions()}
             loading={start}
           />
-        )
+        ) : <Support />
       }
     />
   );

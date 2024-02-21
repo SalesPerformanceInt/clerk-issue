@@ -6,7 +6,10 @@ import React, {
 } from "react";
 import { useTranslation } from "react-i18next";
 
-import { faCircleInfo } from "@fortawesome/pro-light-svg-icons";
+import {
+  faCircleInfo,
+  faCircleQuestion,
+} from "@fortawesome/pro-light-svg-icons";
 import * as RadixPopover from "@radix-ui/react-popover";
 import * as RadixTooltip from "@radix-ui/react-tooltip";
 import { twMerge } from "tailwind-merge";
@@ -20,6 +23,8 @@ export type TooltipProps = {
   triggerClassName?: string;
   contentClassName?: string;
   ariaLabel: string;
+  type?: "info" | "question";
+  closeButton?: boolean;
 };
 
 const parseText = (text: string | ReactElement) => {
@@ -33,11 +38,15 @@ export const Tooltip: FC<TooltipProps> = ({
   triggerClassName,
   contentClassName,
   ariaLabel,
+  closeButton = true,
+  type = "info",
 }) => {
   const isDesktop = useIsDesktop();
   const { t } = useTranslation();
 
   if (!texts.length) return null;
+
+  const icon = type === "info" ? faCircleInfo : faCircleQuestion;
 
   return (
     <>
@@ -51,7 +60,7 @@ export const Tooltip: FC<TooltipProps> = ({
               )}
               aria-label={`${ariaLabel} ${t("common.tooltip.aria_label")}`}
             >
-              <Icon icon={faCircleInfo} className="text-size-inherit" />
+              <Icon icon={icon} className="text-size-inherit" />
             </RadixTooltip.Trigger>
 
             <RadixTooltip.Portal>
@@ -65,7 +74,7 @@ export const Tooltip: FC<TooltipProps> = ({
                   contentClassName,
                 )}
               >
-                <RadixTooltip.Arrow />
+                <RadixTooltip.Arrow className="fill-current" />
 
                 {texts.map((text) => parseText(text))}
               </RadixTooltip.Content>
@@ -83,7 +92,7 @@ export const Tooltip: FC<TooltipProps> = ({
             )}
             aria-label={`${ariaLabel} ${t("common.popover.aria_label")}`}
           >
-            <Icon icon={faCircleInfo} className="text-size-inherit" />
+            <Icon icon={icon} className="text-size-inherit" />
           </RadixPopover.Trigger>
 
           <RadixPopover.Portal>
@@ -97,13 +106,15 @@ export const Tooltip: FC<TooltipProps> = ({
                 contentClassName,
               )}
             >
-              <RadixPopover.Arrow />
+              <RadixPopover.Arrow className="fill-current" />
 
               {texts.map((text) => parseText(text))}
 
-              <RadixPopover.Close className="ml-auto mt-2 w-fit px-2 py-1 text-right uppercase outline-primary-50">
-                {t("common.tooltip.close")}
-              </RadixPopover.Close>
+              {closeButton && (
+                <RadixPopover.Close className="ml-auto mt-2 w-fit px-2 py-1 text-right uppercase outline-primary-50">
+                  {t("common.tooltip.close")}
+                </RadixPopover.Close>
+              )}
             </RadixPopover.Content>
           </RadixPopover.Portal>
         </RadixPopover.Root>

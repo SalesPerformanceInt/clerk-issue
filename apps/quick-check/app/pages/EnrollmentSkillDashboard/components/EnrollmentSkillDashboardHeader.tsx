@@ -6,6 +6,7 @@ import {
   HeaderReturnToDashboard,
   HeaderUnansweredQuestions,
   RichardsonLogo,
+  Support,
   useIsDesktop,
 } from "quickcheck-shared";
 
@@ -55,5 +56,5 @@ export const EnrollmentSkillDashboardHeader: FC = () => {
       />
     );
 
-  return <Header left={<RichardsonLogo />} />;
+  return <Header right={<Support />} left={<RichardsonLogo />} />;
 };

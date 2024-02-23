@@ -6,7 +6,7 @@ import type { EnrollmentActionResponse } from "../enrollment.types";
  * Enrollment Response Codes & Messages
  */
 
-type EnrollmentResponseCodes = 200 | 201 | 202 | 204 | 208 | 400 | 500;
+type EnrollmentResponseCodes = 200 | 201 | 202 | 208 | 400 | 500;
 
 const enrollmentResponseMessagesMap = new MatchedMap<
   EnrollmentResponseCodes,
@@ -15,7 +15,6 @@ const enrollmentResponseMessagesMap = new MatchedMap<
   [200, "Enrollment updated successfully"],
   [201, "Enrollment created successfully"],
   [202, "Enrollment reset successfully"],
-  [204, "Enrollment deleted successfully."],
   [208, "Ignored Request"],
   [400, "Invalid Request"],
   [500, "Internal Server Error"],

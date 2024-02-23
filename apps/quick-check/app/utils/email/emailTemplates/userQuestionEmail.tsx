@@ -16,6 +16,8 @@ export const sendUserQuestionEmailTemplate: EmailTemplatesFn = async (
   _request,
   { user, t, loginUrl },
 ) => {
+  const unansweredQuestions = user.unanswered_questions ?? 1;
+
   invariant(
     user.user_question_activated_today,
     "Active User Question not found",
@@ -31,6 +33,7 @@ export const sendUserQuestionEmailTemplate: EmailTemplatesFn = async (
     To: user.email,
     Subject: t("emails.question.subject", {
       first_name: user.first_name,
+      count: unansweredQuestions,
     }),
     TextBody: text,
     HtmlBody: render(
@@ -43,7 +46,7 @@ export const sendUserQuestionEmailTemplate: EmailTemplatesFn = async (
         footer={{
           url: loginUrl,
           text: t("emails.question.footer.unanswered", {
-            count: user.unanswered_questions,
+            count: unansweredQuestions,
           }),
         }}
       />,

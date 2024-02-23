@@ -28,5 +28,8 @@ export const deleteUserEnrollment: EnrollmentActionFn = async ({
 
   logEnrollmentEvent({ type: "EnrollmentDeleted" });
 
-  return prepareEnrollmentResponse({ status: 204 });
+  return prepareEnrollmentResponse({
+    status: 200,
+    message: "Enrollment deleted successfully.",
+  });
 };

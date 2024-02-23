@@ -24,7 +24,7 @@ export const sendUserInactiveEmailTemplate: EmailTemplatesFn = async (
 
   const emailResponse = await sendEmail({
     To: user.email,
-    Subject: t("emails.inactive.subject.come_back"),
+    Subject: t("emails.inactive.subject"),
     TextBody: text,
     HtmlBody: render(
       <QuickcheckBasicEmail

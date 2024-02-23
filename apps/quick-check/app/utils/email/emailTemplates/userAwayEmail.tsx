@@ -43,7 +43,7 @@ export const sendUserAwayEmailTemplate: EmailTemplatesFn = async (
         }}
         footer={{
           url: loginUrl,
-          text: t("emails.question.footer.unanswered", {
+          text: t("emails.away.footer", {
             count: user.unanswered_questions,
           }),
         }}

@@ -25,7 +25,6 @@ export const sendUserRequestedLinkEmailTemplate: EmailTemplatesFn = async (
           url: loginUrl,
           text: t("emails.requested_link.button"),
         }}
-        footerText={t("emails.requested_link.footer")}
       />,
     ),
   });

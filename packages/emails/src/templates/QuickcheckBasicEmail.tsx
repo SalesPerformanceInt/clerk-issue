@@ -14,6 +14,7 @@ import {
   Tailwind,
   Text,
 } from "@react-email/components";
+import parse from "html-react-parser";
 import { TFunction } from "i18next";
 
 import { theme } from "../../tailwind.config";
@@ -74,7 +75,9 @@ export const QuickcheckBasicEmail: FC<QuickcheckBasicEmailProps> = ({
               <Text className="m-0 mt-2 text-base text-text">
                 {greetingsText}
               </Text>
-              <Text className="m-0 mt-2 text-base text-text">{bodyText}</Text>
+              <Text className="m-0 mt-2 text-base text-text">
+                {parse(bodyText)}
+              </Text>
             </Section>
             <Section
               className="mt-4 w-min rounded-sm bg-primary px-6 py-2"
@@ -90,7 +93,9 @@ export const QuickcheckBasicEmail: FC<QuickcheckBasicEmailProps> = ({
             </Section>
             {footerText && (
               <Section className="mt-4">
-                <Text className="text-base text-text-25">{footerText}</Text>
+                <Text className="text-base text-text-25">
+                  {parse(footerText)}
+                </Text>
               </Section>
             )}
           </Container>

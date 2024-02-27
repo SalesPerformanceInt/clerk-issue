@@ -85,6 +85,12 @@ export type Events = {
     score: number;
     rank: number;
   };
+  EnrollmentCompleted: {
+    enrollment_id: string;
+    taxonomy_id: string;
+    score: number;
+    rank: number;
+  };
 };
 
 export type EventInput<

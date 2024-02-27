@@ -8,7 +8,20 @@ import { getToday } from "~/utils/date";
 
 export const GET_NOTIFICATION_ENROLLMENTS = graphql(/* GraphQL */ `
   query GetNotificationEnrollments($today: date!) {
-    user_enrollment(where: { start_date: { _eq: $today } }) {
+    new_enrollments: user_enrollment(where: { start_date: { _eq: $today } }) {
+      ...NotificationUserEnrollment
+    }
+    completed_enrollments: user_enrollment(
+      where: {
+        expiration_date: { _eq: $today }
+        user_questions_aggregate: {
+          count: {
+            predicate: { _gt: 0 }
+            filter: { retired_on: { _is_null: true } }
+          }
+        }
+      }
+    ) {
       ...NotificationUserEnrollment
     }
   }
@@ -29,13 +42,18 @@ export async function getNotificationEnrollments(
       fetchPolicy: "no-cache",
     });
 
-    const enrollments = data?.user_enrollment.filter(
+    const newEnrollments = data?.new_enrollments.filter(
       ({ created_at }) => DateTime.fromISO(created_at).toISODate()! < today,
     );
 
-    return enrollments;
+    const completedEnrollments = data?.completed_enrollments;
+
+    return {
+      newEnrollments,
+      completedEnrollments,
+    };
   } catch (error) {
     logError({ error, log: "getNotificationEnrollments" });
-    return null;
+    return {};
   }
 }

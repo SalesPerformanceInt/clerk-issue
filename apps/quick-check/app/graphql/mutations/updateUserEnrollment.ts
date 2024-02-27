@@ -19,7 +19,14 @@ export const UPDATE_USER_ENROLLMENT = graphql(/* GraphQL */ `
       _set: $set
       _inc: $inc
     ) {
-      ...BaseUserEnrollment
+      ...NotificationUserEnrollment
+      unretired_questions: user_questions_aggregate(
+        where: { retired_on: { _is_null: true } }
+      ) {
+        aggregate {
+          count
+        }
+      }
     }
   }
 `);

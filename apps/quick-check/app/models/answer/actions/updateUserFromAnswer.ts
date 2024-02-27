@@ -1,5 +1,7 @@
 import { getUserApolloClientFromRequest } from "~/graphql";
 
+import { completeEnrollmentAndNotify } from "~/models/enrollment/actions/completeEnrollmentAndNotify";
+
 import type { SaveAnswerData } from "../answer.type";
 import { getRetiredOn } from "../handlers/retireAnswer";
 
@@ -52,10 +54,12 @@ export const updateUserFromAnswer = async (
 
   const updatedEnrollment = await userApolloClient.updateUserEnrollment(
     userQuestion.user_enrollment.id,
-    {
-      inc: { score: reviewedAnswer.score },
-    },
+    { inc: { score: reviewedAnswer.score } },
   );
+
+  if (updatedEnrollment?.unretired_questions.aggregate?.count === 0) {
+    await completeEnrollmentAndNotify(request, updatedEnrollment);
+  }
 
   userApolloClient.createEvent({
     type: "EnrollmentScored",

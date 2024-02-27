@@ -3,7 +3,7 @@ import type { Taxon, UserData } from "quickcheck-shared";
 import { QuickcheckBasicEmail } from "../templates/QuickcheckBasicEmail";
 import { i18n } from "../utils/i18n";
 
-const QuickcheckQuestionEmailPreview = () => {
+const QuickcheckEnrollmentPreview = () => {
   const t = i18n.getFixedT("en-us");
 
   return (
@@ -23,7 +23,7 @@ const QuickcheckQuestionEmailPreview = () => {
   );
 };
 
-export default QuickcheckQuestionEmailPreview;
+export default QuickcheckEnrollmentPreview;
 
 const userDataMock: UserData = {
   unanswered_questions: 24,

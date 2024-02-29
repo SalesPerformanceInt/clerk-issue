@@ -7,6 +7,8 @@ import { Icon } from "./Icon";
 import { Tooltip } from "./Tooltip";
 import { LinkButton } from "./ui/Button";
 
+export const SUPPORT_URL = "https://www.richardsonsupport.com/home/";
+
 export const Support: FC = () => {
   const { t } = useTranslation();
 
@@ -20,7 +22,7 @@ export const Support: FC = () => {
       texts={[
         <LinkButton
           className="bg-background px-4 py-3 text-text"
-          href="https://www.richardsonsupport.com/home/"
+          href={SUPPORT_URL}
           target="_blank"
         >
           <Icon icon={faUserHeadset} className="mr-2" />

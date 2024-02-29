@@ -1,0 +1,88 @@
+table:
+  name: user
+  schema: public
+object_relationships:
+  - name: next_question
+    using:
+      foreign_key_constraint_on: next_user_question_id
+  - name: tenant
+    using:
+      manual_configuration:
+        column_mapping:
+          tenant_id: tenant_id
+        insertion_order: null
+        remote_table:
+          name: tenant
+          schema: public
+array_relationships:
+  - name: link_tokens
+    using:
+      manual_configuration:
+        column_mapping:
+          user_id: user_id
+        insertion_order: null
+        remote_table:
+          name: link_token
+          schema: public
+  - name: user_answers
+    using:
+      foreign_key_constraint_on:
+        column: user_id
+        table:
+          name: user_answer
+          schema: public
+  - name: user_enrollments
+    using:
+      foreign_key_constraint_on:
+        column: user_id
+        table:
+          name: user_enrollment
+          schema: public
+  - name: user_questions
+    using:
+      foreign_key_constraint_on:
+        column: user_id
+        table:
+          name: user_question
+          schema: public
+select_permissions:
+  - role: user
+    permission:
+      columns:
+        - created_at
+        - daily_email_enabled
+        - email
+        - first_name
+        - language_preference
+        - last_name
+        - next_user_question_id
+        - phone_number
+        - show_leaderboard
+        - sms_enabled
+        - tenant_id
+        - timezone
+        - user_id
+      filter:
+        user_id:
+          _eq: X-Hasura-User-Id
+      allow_aggregations: true
+    comment: ""
+update_permissions:
+  - role: user
+    permission:
+      columns:
+        - daily_email_enabled
+        - email
+        - first_name
+        - language_preference
+        - last_name
+        - next_user_question_id
+        - phone_number
+        - show_leaderboard
+        - sms_enabled
+        - timezone
+      filter:
+        user_id:
+          _eq: X-Hasura-User-Id
+      check: null
+    comment: ""

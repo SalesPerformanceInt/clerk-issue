@@ -22,7 +22,6 @@ export type Scalars = {
   date: { input: ISODate; output: ISODate; }
   jsonb: { input: Jsonb; output: Jsonb; }
   numeric: { input: Numeric; output: Numeric; }
-  timestamp: { input: TimestampTZ; output: TimestampTZ; }
   timestamptz: { input: TimestampTZ; output: TimestampTZ; }
   uuid: { input: Uuid; output: Uuid; }
 };
@@ -84,756 +83,6 @@ export type String_Comparison_Exp = {
   _regex?: InputMaybe<Scalars['String']['input']>;
   /** does the column match the given SQL regular expression */
   _similar?: InputMaybe<Scalars['String']['input']>;
-};
-
-/** columns and relationships of "acme-vib-staging.users" */
-export type Acme__Users = {
-  __typename?: 'acme__users';
-  account_id?: Maybe<Scalars['uuid']['output']>;
-  active_tab?: Maybe<Scalars['String']['output']>;
-  block_email?: Maybe<Scalars['Boolean']['output']>;
-  can_delete_account: Scalars['Boolean']['output'];
-  confirmation_sent_at?: Maybe<Scalars['timestamp']['output']>;
-  confirmation_token?: Maybe<Scalars['String']['output']>;
-  confirmed_at?: Maybe<Scalars['timestamp']['output']>;
-  created_at?: Maybe<Scalars['timestamp']['output']>;
-  current_sign_in_at?: Maybe<Scalars['timestamp']['output']>;
-  current_sign_in_ip?: Maybe<Scalars['String']['output']>;
-  email: Scalars['String']['output'];
-  email_bounce_lock?: Maybe<Scalars['Boolean']['output']>;
-  encrypted_password: Scalars['String']['output'];
-  failed_attempts: Scalars['Int']['output'];
-  first_name?: Maybe<Scalars['String']['output']>;
-  force_reset_password_after_next_login?: Maybe<Scalars['Boolean']['output']>;
-  id: Scalars['uuid']['output'];
-  inactivated_at?: Maybe<Scalars['timestamp']['output']>;
-  language_preference?: Maybe<Scalars['String']['output']>;
-  last_name?: Maybe<Scalars['String']['output']>;
-  last_sign_in_at?: Maybe<Scalars['timestamp']['output']>;
-  last_sign_in_ip?: Maybe<Scalars['String']['output']>;
-  last_visited_path?: Maybe<Scalars['String']['output']>;
-  launch_email_method?: Maybe<Scalars['Int']['output']>;
-  launch_email_schedule_later_at?: Maybe<Scalars['timestamp']['output']>;
-  launch_email_schedule_later_job_id?: Maybe<Scalars['String']['output']>;
-  locked_at?: Maybe<Scalars['timestamp']['output']>;
-  manager_user_id?: Maybe<Scalars['uuid']['output']>;
-  profile_picture?: Maybe<Scalars['String']['output']>;
-  provider: Scalars['String']['output'];
-  remember_created_at?: Maybe<Scalars['timestamp']['output']>;
-  reset_password_sent_at?: Maybe<Scalars['timestamp']['output']>;
-  reset_password_token?: Maybe<Scalars['String']['output']>;
-  role?: Maybe<Scalars['Int']['output']>;
-  sales_role_id?: Maybe<Scalars['uuid']['output']>;
-  sign_in_count: Scalars['Int']['output'];
-  status?: Maybe<Scalars['Int']['output']>;
-  tokens?: Maybe<Scalars['jsonb']['output']>;
-  uid: Scalars['String']['output'];
-  unconfirmed_email?: Maybe<Scalars['String']['output']>;
-  unlock_token?: Maybe<Scalars['String']['output']>;
-  updated_at?: Maybe<Scalars['timestamp']['output']>;
-};
-
-
-/** columns and relationships of "acme-vib-staging.users" */
-export type Acme__UsersTokensArgs = {
-  path?: InputMaybe<Scalars['String']['input']>;
-};
-
-/** aggregated selection of "acme-vib-staging.users" */
-export type Acme__Users_Aggregate = {
-  __typename?: 'acme__users_aggregate';
-  aggregate?: Maybe<Acme__Users_Aggregate_Fields>;
-  nodes: Array<Acme__Users>;
-};
-
-/** aggregate fields of "acme-vib-staging.users" */
-export type Acme__Users_Aggregate_Fields = {
-  __typename?: 'acme__users_aggregate_fields';
-  avg?: Maybe<Acme__Users_Avg_Fields>;
-  count: Scalars['Int']['output'];
-  max?: Maybe<Acme__Users_Max_Fields>;
-  min?: Maybe<Acme__Users_Min_Fields>;
-  stddev?: Maybe<Acme__Users_Stddev_Fields>;
-  stddev_pop?: Maybe<Acme__Users_Stddev_Pop_Fields>;
-  stddev_samp?: Maybe<Acme__Users_Stddev_Samp_Fields>;
-  sum?: Maybe<Acme__Users_Sum_Fields>;
-  var_pop?: Maybe<Acme__Users_Var_Pop_Fields>;
-  var_samp?: Maybe<Acme__Users_Var_Samp_Fields>;
-  variance?: Maybe<Acme__Users_Variance_Fields>;
-};
-
-
-/** aggregate fields of "acme-vib-staging.users" */
-export type Acme__Users_Aggregate_FieldsCountArgs = {
-  columns?: InputMaybe<Array<Acme__Users_Select_Column>>;
-  distinct?: InputMaybe<Scalars['Boolean']['input']>;
-};
-
-/** append existing jsonb value of filtered columns with new jsonb value */
-export type Acme__Users_Append_Input = {
-  tokens?: InputMaybe<Scalars['jsonb']['input']>;
-};
-
-/** aggregate avg on columns */
-export type Acme__Users_Avg_Fields = {
-  __typename?: 'acme__users_avg_fields';
-  failed_attempts?: Maybe<Scalars['Float']['output']>;
-  launch_email_method?: Maybe<Scalars['Float']['output']>;
-  role?: Maybe<Scalars['Float']['output']>;
-  sign_in_count?: Maybe<Scalars['Float']['output']>;
-  status?: Maybe<Scalars['Float']['output']>;
-};
-
-/** Boolean expression to filter rows from the table "acme-vib-staging.users". All fields are combined with a logical 'AND'. */
-export type Acme__Users_Bool_Exp = {
-  _and?: InputMaybe<Array<Acme__Users_Bool_Exp>>;
-  _not?: InputMaybe<Acme__Users_Bool_Exp>;
-  _or?: InputMaybe<Array<Acme__Users_Bool_Exp>>;
-  account_id?: InputMaybe<Uuid_Comparison_Exp>;
-  active_tab?: InputMaybe<String_Comparison_Exp>;
-  block_email?: InputMaybe<Boolean_Comparison_Exp>;
-  can_delete_account?: InputMaybe<Boolean_Comparison_Exp>;
-  confirmation_sent_at?: InputMaybe<Timestamp_Comparison_Exp>;
-  confirmation_token?: InputMaybe<String_Comparison_Exp>;
-  confirmed_at?: InputMaybe<Timestamp_Comparison_Exp>;
-  created_at?: InputMaybe<Timestamp_Comparison_Exp>;
-  current_sign_in_at?: InputMaybe<Timestamp_Comparison_Exp>;
-  current_sign_in_ip?: InputMaybe<String_Comparison_Exp>;
-  email?: InputMaybe<String_Comparison_Exp>;
-  email_bounce_lock?: InputMaybe<Boolean_Comparison_Exp>;
-  encrypted_password?: InputMaybe<String_Comparison_Exp>;
-  failed_attempts?: InputMaybe<Int_Comparison_Exp>;
-  first_name?: InputMaybe<String_Comparison_Exp>;
-  force_reset_password_after_next_login?: InputMaybe<Boolean_Comparison_Exp>;
-  id?: InputMaybe<Uuid_Comparison_Exp>;
-  inactivated_at?: InputMaybe<Timestamp_Comparison_Exp>;
-  language_preference?: InputMaybe<String_Comparison_Exp>;
-  last_name?: InputMaybe<String_Comparison_Exp>;
-  last_sign_in_at?: InputMaybe<Timestamp_Comparison_Exp>;
-  last_sign_in_ip?: InputMaybe<String_Comparison_Exp>;
-  last_visited_path?: InputMaybe<String_Comparison_Exp>;
-  launch_email_method?: InputMaybe<Int_Comparison_Exp>;
-  launch_email_schedule_later_at?: InputMaybe<Timestamp_Comparison_Exp>;
-  launch_email_schedule_later_job_id?: InputMaybe<String_Comparison_Exp>;
-  locked_at?: InputMaybe<Timestamp_Comparison_Exp>;
-  manager_user_id?: InputMaybe<Uuid_Comparison_Exp>;
-  profile_picture?: InputMaybe<String_Comparison_Exp>;
-  provider?: InputMaybe<String_Comparison_Exp>;
-  remember_created_at?: InputMaybe<Timestamp_Comparison_Exp>;
-  reset_password_sent_at?: InputMaybe<Timestamp_Comparison_Exp>;
-  reset_password_token?: InputMaybe<String_Comparison_Exp>;
-  role?: InputMaybe<Int_Comparison_Exp>;
-  sales_role_id?: InputMaybe<Uuid_Comparison_Exp>;
-  sign_in_count?: InputMaybe<Int_Comparison_Exp>;
-  status?: InputMaybe<Int_Comparison_Exp>;
-  tokens?: InputMaybe<Jsonb_Comparison_Exp>;
-  uid?: InputMaybe<String_Comparison_Exp>;
-  unconfirmed_email?: InputMaybe<String_Comparison_Exp>;
-  unlock_token?: InputMaybe<String_Comparison_Exp>;
-  updated_at?: InputMaybe<Timestamp_Comparison_Exp>;
-};
-
-/** unique or primary key constraints on table "acme-vib-staging.users" */
-export enum Acme__Users_Constraint {
-  /** unique or primary key constraint on columns "email" */
-  IndexUsersOnEmail = 'index_users_on_email',
-  /** unique or primary key constraint on columns "reset_password_token" */
-  IndexUsersOnResetPasswordToken = 'index_users_on_reset_password_token',
-  /** unique or primary key constraint on columns "unlock_token" */
-  IndexUsersOnUnlockToken = 'index_users_on_unlock_token',
-  /** unique or primary key constraint on columns "id" */
-  UsersPkey = 'users_pkey'
-}
-
-/** delete the field or element with specified path (for JSON arrays, negative integers count from the end) */
-export type Acme__Users_Delete_At_Path_Input = {
-  tokens?: InputMaybe<Array<Scalars['String']['input']>>;
-};
-
-/** delete the array element with specified index (negative integers count from the end). throws an error if top level container is not an array */
-export type Acme__Users_Delete_Elem_Input = {
-  tokens?: InputMaybe<Scalars['Int']['input']>;
-};
-
-/** delete key/value pair or string element. key/value pairs are matched based on their key value */
-export type Acme__Users_Delete_Key_Input = {
-  tokens?: InputMaybe<Scalars['String']['input']>;
-};
-
-/** input type for incrementing numeric columns in table "acme-vib-staging.users" */
-export type Acme__Users_Inc_Input = {
-  failed_attempts?: InputMaybe<Scalars['Int']['input']>;
-  launch_email_method?: InputMaybe<Scalars['Int']['input']>;
-  role?: InputMaybe<Scalars['Int']['input']>;
-  sign_in_count?: InputMaybe<Scalars['Int']['input']>;
-  status?: InputMaybe<Scalars['Int']['input']>;
-};
-
-/** input type for inserting data into table "acme-vib-staging.users" */
-export type Acme__Users_Insert_Input = {
-  account_id?: InputMaybe<Scalars['uuid']['input']>;
-  active_tab?: InputMaybe<Scalars['String']['input']>;
-  block_email?: InputMaybe<Scalars['Boolean']['input']>;
-  can_delete_account?: InputMaybe<Scalars['Boolean']['input']>;
-  confirmation_sent_at?: InputMaybe<Scalars['timestamp']['input']>;
-  confirmation_token?: InputMaybe<Scalars['String']['input']>;
-  confirmed_at?: InputMaybe<Scalars['timestamp']['input']>;
-  created_at?: InputMaybe<Scalars['timestamp']['input']>;
-  current_sign_in_at?: InputMaybe<Scalars['timestamp']['input']>;
-  current_sign_in_ip?: InputMaybe<Scalars['String']['input']>;
-  email?: InputMaybe<Scalars['String']['input']>;
-  email_bounce_lock?: InputMaybe<Scalars['Boolean']['input']>;
-  encrypted_password?: InputMaybe<Scalars['String']['input']>;
-  failed_attempts?: InputMaybe<Scalars['Int']['input']>;
-  first_name?: InputMaybe<Scalars['String']['input']>;
-  force_reset_password_after_next_login?: InputMaybe<Scalars['Boolean']['input']>;
-  id?: InputMaybe<Scalars['uuid']['input']>;
-  inactivated_at?: InputMaybe<Scalars['timestamp']['input']>;
-  language_preference?: InputMaybe<Scalars['String']['input']>;
-  last_name?: InputMaybe<Scalars['String']['input']>;
-  last_sign_in_at?: InputMaybe<Scalars['timestamp']['input']>;
-  last_sign_in_ip?: InputMaybe<Scalars['String']['input']>;
-  last_visited_path?: InputMaybe<Scalars['String']['input']>;
-  launch_email_method?: InputMaybe<Scalars['Int']['input']>;
-  launch_email_schedule_later_at?: InputMaybe<Scalars['timestamp']['input']>;
-  launch_email_schedule_later_job_id?: InputMaybe<Scalars['String']['input']>;
-  locked_at?: InputMaybe<Scalars['timestamp']['input']>;
-  manager_user_id?: InputMaybe<Scalars['uuid']['input']>;
-  profile_picture?: InputMaybe<Scalars['String']['input']>;
-  provider?: InputMaybe<Scalars['String']['input']>;
-  remember_created_at?: InputMaybe<Scalars['timestamp']['input']>;
-  reset_password_sent_at?: InputMaybe<Scalars['timestamp']['input']>;
-  reset_password_token?: InputMaybe<Scalars['String']['input']>;
-  role?: InputMaybe<Scalars['Int']['input']>;
-  sales_role_id?: InputMaybe<Scalars['uuid']['input']>;
-  sign_in_count?: InputMaybe<Scalars['Int']['input']>;
-  status?: InputMaybe<Scalars['Int']['input']>;
-  tokens?: InputMaybe<Scalars['jsonb']['input']>;
-  uid?: InputMaybe<Scalars['String']['input']>;
-  unconfirmed_email?: InputMaybe<Scalars['String']['input']>;
-  unlock_token?: InputMaybe<Scalars['String']['input']>;
-  updated_at?: InputMaybe<Scalars['timestamp']['input']>;
-};
-
-/** aggregate max on columns */
-export type Acme__Users_Max_Fields = {
-  __typename?: 'acme__users_max_fields';
-  account_id?: Maybe<Scalars['uuid']['output']>;
-  active_tab?: Maybe<Scalars['String']['output']>;
-  confirmation_sent_at?: Maybe<Scalars['timestamp']['output']>;
-  confirmation_token?: Maybe<Scalars['String']['output']>;
-  confirmed_at?: Maybe<Scalars['timestamp']['output']>;
-  created_at?: Maybe<Scalars['timestamp']['output']>;
-  current_sign_in_at?: Maybe<Scalars['timestamp']['output']>;
-  current_sign_in_ip?: Maybe<Scalars['String']['output']>;
-  email?: Maybe<Scalars['String']['output']>;
-  encrypted_password?: Maybe<Scalars['String']['output']>;
-  failed_attempts?: Maybe<Scalars['Int']['output']>;
-  first_name?: Maybe<Scalars['String']['output']>;
-  id?: Maybe<Scalars['uuid']['output']>;
-  inactivated_at?: Maybe<Scalars['timestamp']['output']>;
-  language_preference?: Maybe<Scalars['String']['output']>;
-  last_name?: Maybe<Scalars['String']['output']>;
-  last_sign_in_at?: Maybe<Scalars['timestamp']['output']>;
-  last_sign_in_ip?: Maybe<Scalars['String']['output']>;
-  last_visited_path?: Maybe<Scalars['String']['output']>;
-  launch_email_method?: Maybe<Scalars['Int']['output']>;
-  launch_email_schedule_later_at?: Maybe<Scalars['timestamp']['output']>;
-  launch_email_schedule_later_job_id?: Maybe<Scalars['String']['output']>;
-  locked_at?: Maybe<Scalars['timestamp']['output']>;
-  manager_user_id?: Maybe<Scalars['uuid']['output']>;
-  profile_picture?: Maybe<Scalars['String']['output']>;
-  provider?: Maybe<Scalars['String']['output']>;
-  remember_created_at?: Maybe<Scalars['timestamp']['output']>;
-  reset_password_sent_at?: Maybe<Scalars['timestamp']['output']>;
-  reset_password_token?: Maybe<Scalars['String']['output']>;
-  role?: Maybe<Scalars['Int']['output']>;
-  sales_role_id?: Maybe<Scalars['uuid']['output']>;
-  sign_in_count?: Maybe<Scalars['Int']['output']>;
-  status?: Maybe<Scalars['Int']['output']>;
-  uid?: Maybe<Scalars['String']['output']>;
-  unconfirmed_email?: Maybe<Scalars['String']['output']>;
-  unlock_token?: Maybe<Scalars['String']['output']>;
-  updated_at?: Maybe<Scalars['timestamp']['output']>;
-};
-
-/** aggregate min on columns */
-export type Acme__Users_Min_Fields = {
-  __typename?: 'acme__users_min_fields';
-  account_id?: Maybe<Scalars['uuid']['output']>;
-  active_tab?: Maybe<Scalars['String']['output']>;
-  confirmation_sent_at?: Maybe<Scalars['timestamp']['output']>;
-  confirmation_token?: Maybe<Scalars['String']['output']>;
-  confirmed_at?: Maybe<Scalars['timestamp']['output']>;
-  created_at?: Maybe<Scalars['timestamp']['output']>;
-  current_sign_in_at?: Maybe<Scalars['timestamp']['output']>;
-  current_sign_in_ip?: Maybe<Scalars['String']['output']>;
-  email?: Maybe<Scalars['String']['output']>;
-  encrypted_password?: Maybe<Scalars['String']['output']>;
-  failed_attempts?: Maybe<Scalars['Int']['output']>;
-  first_name?: Maybe<Scalars['String']['output']>;
-  id?: Maybe<Scalars['uuid']['output']>;
-  inactivated_at?: Maybe<Scalars['timestamp']['output']>;
-  language_preference?: Maybe<Scalars['String']['output']>;
-  last_name?: Maybe<Scalars['String']['output']>;
-  last_sign_in_at?: Maybe<Scalars['timestamp']['output']>;
-  last_sign_in_ip?: Maybe<Scalars['String']['output']>;
-  last_visited_path?: Maybe<Scalars['String']['output']>;
-  launch_email_method?: Maybe<Scalars['Int']['output']>;
-  launch_email_schedule_later_at?: Maybe<Scalars['timestamp']['output']>;
-  launch_email_schedule_later_job_id?: Maybe<Scalars['String']['output']>;
-  locked_at?: Maybe<Scalars['timestamp']['output']>;
-  manager_user_id?: Maybe<Scalars['uuid']['output']>;
-  profile_picture?: Maybe<Scalars['String']['output']>;
-  provider?: Maybe<Scalars['String']['output']>;
-  remember_created_at?: Maybe<Scalars['timestamp']['output']>;
-  reset_password_sent_at?: Maybe<Scalars['timestamp']['output']>;
-  reset_password_token?: Maybe<Scalars['String']['output']>;
-  role?: Maybe<Scalars['Int']['output']>;
-  sales_role_id?: Maybe<Scalars['uuid']['output']>;
-  sign_in_count?: Maybe<Scalars['Int']['output']>;
-  status?: Maybe<Scalars['Int']['output']>;
-  uid?: Maybe<Scalars['String']['output']>;
-  unconfirmed_email?: Maybe<Scalars['String']['output']>;
-  unlock_token?: Maybe<Scalars['String']['output']>;
-  updated_at?: Maybe<Scalars['timestamp']['output']>;
-};
-
-/** response of any mutation on the table "acme-vib-staging.users" */
-export type Acme__Users_Mutation_Response = {
-  __typename?: 'acme__users_mutation_response';
-  /** number of rows affected by the mutation */
-  affected_rows: Scalars['Int']['output'];
-  /** data from the rows affected by the mutation */
-  returning: Array<Acme__Users>;
-};
-
-/** on_conflict condition type for table "acme-vib-staging.users" */
-export type Acme__Users_On_Conflict = {
-  constraint: Acme__Users_Constraint;
-  update_columns?: Array<Acme__Users_Update_Column>;
-  where?: InputMaybe<Acme__Users_Bool_Exp>;
-};
-
-/** Ordering options when selecting data from "acme-vib-staging.users". */
-export type Acme__Users_Order_By = {
-  account_id?: InputMaybe<Order_By>;
-  active_tab?: InputMaybe<Order_By>;
-  block_email?: InputMaybe<Order_By>;
-  can_delete_account?: InputMaybe<Order_By>;
-  confirmation_sent_at?: InputMaybe<Order_By>;
-  confirmation_token?: InputMaybe<Order_By>;
-  confirmed_at?: InputMaybe<Order_By>;
-  created_at?: InputMaybe<Order_By>;
-  current_sign_in_at?: InputMaybe<Order_By>;
-  current_sign_in_ip?: InputMaybe<Order_By>;
-  email?: InputMaybe<Order_By>;
-  email_bounce_lock?: InputMaybe<Order_By>;
-  encrypted_password?: InputMaybe<Order_By>;
-  failed_attempts?: InputMaybe<Order_By>;
-  first_name?: InputMaybe<Order_By>;
-  force_reset_password_after_next_login?: InputMaybe<Order_By>;
-  id?: InputMaybe<Order_By>;
-  inactivated_at?: InputMaybe<Order_By>;
-  language_preference?: InputMaybe<Order_By>;
-  last_name?: InputMaybe<Order_By>;
-  last_sign_in_at?: InputMaybe<Order_By>;
-  last_sign_in_ip?: InputMaybe<Order_By>;
-  last_visited_path?: InputMaybe<Order_By>;
-  launch_email_method?: InputMaybe<Order_By>;
-  launch_email_schedule_later_at?: InputMaybe<Order_By>;
-  launch_email_schedule_later_job_id?: InputMaybe<Order_By>;
-  locked_at?: InputMaybe<Order_By>;
-  manager_user_id?: InputMaybe<Order_By>;
-  profile_picture?: InputMaybe<Order_By>;
-  provider?: InputMaybe<Order_By>;
-  remember_created_at?: InputMaybe<Order_By>;
-  reset_password_sent_at?: InputMaybe<Order_By>;
-  reset_password_token?: InputMaybe<Order_By>;
-  role?: InputMaybe<Order_By>;
-  sales_role_id?: InputMaybe<Order_By>;
-  sign_in_count?: InputMaybe<Order_By>;
-  status?: InputMaybe<Order_By>;
-  tokens?: InputMaybe<Order_By>;
-  uid?: InputMaybe<Order_By>;
-  unconfirmed_email?: InputMaybe<Order_By>;
-  unlock_token?: InputMaybe<Order_By>;
-  updated_at?: InputMaybe<Order_By>;
-};
-
-/** primary key columns input for table: acme-vib-staging.users */
-export type Acme__Users_Pk_Columns_Input = {
-  id: Scalars['uuid']['input'];
-};
-
-/** prepend existing jsonb value of filtered columns with new jsonb value */
-export type Acme__Users_Prepend_Input = {
-  tokens?: InputMaybe<Scalars['jsonb']['input']>;
-};
-
-/** select columns of table "acme-vib-staging.users" */
-export enum Acme__Users_Select_Column {
-  /** column name */
-  AccountId = 'account_id',
-  /** column name */
-  ActiveTab = 'active_tab',
-  /** column name */
-  BlockEmail = 'block_email',
-  /** column name */
-  CanDeleteAccount = 'can_delete_account',
-  /** column name */
-  ConfirmationSentAt = 'confirmation_sent_at',
-  /** column name */
-  ConfirmationToken = 'confirmation_token',
-  /** column name */
-  ConfirmedAt = 'confirmed_at',
-  /** column name */
-  CreatedAt = 'created_at',
-  /** column name */
-  CurrentSignInAt = 'current_sign_in_at',
-  /** column name */
-  CurrentSignInIp = 'current_sign_in_ip',
-  /** column name */
-  Email = 'email',
-  /** column name */
-  EmailBounceLock = 'email_bounce_lock',
-  /** column name */
-  EncryptedPassword = 'encrypted_password',
-  /** column name */
-  FailedAttempts = 'failed_attempts',
-  /** column name */
-  FirstName = 'first_name',
-  /** column name */
-  ForceResetPasswordAfterNextLogin = 'force_reset_password_after_next_login',
-  /** column name */
-  Id = 'id',
-  /** column name */
-  InactivatedAt = 'inactivated_at',
-  /** column name */
-  LanguagePreference = 'language_preference',
-  /** column name */
-  LastName = 'last_name',
-  /** column name */
-  LastSignInAt = 'last_sign_in_at',
-  /** column name */
-  LastSignInIp = 'last_sign_in_ip',
-  /** column name */
-  LastVisitedPath = 'last_visited_path',
-  /** column name */
-  LaunchEmailMethod = 'launch_email_method',
-  /** column name */
-  LaunchEmailScheduleLaterAt = 'launch_email_schedule_later_at',
-  /** column name */
-  LaunchEmailScheduleLaterJobId = 'launch_email_schedule_later_job_id',
-  /** column name */
-  LockedAt = 'locked_at',
-  /** column name */
-  ManagerUserId = 'manager_user_id',
-  /** column name */
-  ProfilePicture = 'profile_picture',
-  /** column name */
-  Provider = 'provider',
-  /** column name */
-  RememberCreatedAt = 'remember_created_at',
-  /** column name */
-  ResetPasswordSentAt = 'reset_password_sent_at',
-  /** column name */
-  ResetPasswordToken = 'reset_password_token',
-  /** column name */
-  Role = 'role',
-  /** column name */
-  SalesRoleId = 'sales_role_id',
-  /** column name */
-  SignInCount = 'sign_in_count',
-  /** column name */
-  Status = 'status',
-  /** column name */
-  Tokens = 'tokens',
-  /** column name */
-  Uid = 'uid',
-  /** column name */
-  UnconfirmedEmail = 'unconfirmed_email',
-  /** column name */
-  UnlockToken = 'unlock_token',
-  /** column name */
-  UpdatedAt = 'updated_at'
-}
-
-/** input type for updating data in table "acme-vib-staging.users" */
-export type Acme__Users_Set_Input = {
-  account_id?: InputMaybe<Scalars['uuid']['input']>;
-  active_tab?: InputMaybe<Scalars['String']['input']>;
-  block_email?: InputMaybe<Scalars['Boolean']['input']>;
-  can_delete_account?: InputMaybe<Scalars['Boolean']['input']>;
-  confirmation_sent_at?: InputMaybe<Scalars['timestamp']['input']>;
-  confirmation_token?: InputMaybe<Scalars['String']['input']>;
-  confirmed_at?: InputMaybe<Scalars['timestamp']['input']>;
-  created_at?: InputMaybe<Scalars['timestamp']['input']>;
-  current_sign_in_at?: InputMaybe<Scalars['timestamp']['input']>;
-  current_sign_in_ip?: InputMaybe<Scalars['String']['input']>;
-  email?: InputMaybe<Scalars['String']['input']>;
-  email_bounce_lock?: InputMaybe<Scalars['Boolean']['input']>;
-  encrypted_password?: InputMaybe<Scalars['String']['input']>;
-  failed_attempts?: InputMaybe<Scalars['Int']['input']>;
-  first_name?: InputMaybe<Scalars['String']['input']>;
-  force_reset_password_after_next_login?: InputMaybe<Scalars['Boolean']['input']>;
-  id?: InputMaybe<Scalars['uuid']['input']>;
-  inactivated_at?: InputMaybe<Scalars['timestamp']['input']>;
-  language_preference?: InputMaybe<Scalars['String']['input']>;
-  last_name?: InputMaybe<Scalars['String']['input']>;
-  last_sign_in_at?: InputMaybe<Scalars['timestamp']['input']>;
-  last_sign_in_ip?: InputMaybe<Scalars['String']['input']>;
-  last_visited_path?: InputMaybe<Scalars['String']['input']>;
-  launch_email_method?: InputMaybe<Scalars['Int']['input']>;
-  launch_email_schedule_later_at?: InputMaybe<Scalars['timestamp']['input']>;
-  launch_email_schedule_later_job_id?: InputMaybe<Scalars['String']['input']>;
-  locked_at?: InputMaybe<Scalars['timestamp']['input']>;
-  manager_user_id?: InputMaybe<Scalars['uuid']['input']>;
-  profile_picture?: InputMaybe<Scalars['String']['input']>;
-  provider?: InputMaybe<Scalars['String']['input']>;
-  remember_created_at?: InputMaybe<Scalars['timestamp']['input']>;
-  reset_password_sent_at?: InputMaybe<Scalars['timestamp']['input']>;
-  reset_password_token?: InputMaybe<Scalars['String']['input']>;
-  role?: InputMaybe<Scalars['Int']['input']>;
-  sales_role_id?: InputMaybe<Scalars['uuid']['input']>;
-  sign_in_count?: InputMaybe<Scalars['Int']['input']>;
-  status?: InputMaybe<Scalars['Int']['input']>;
-  tokens?: InputMaybe<Scalars['jsonb']['input']>;
-  uid?: InputMaybe<Scalars['String']['input']>;
-  unconfirmed_email?: InputMaybe<Scalars['String']['input']>;
-  unlock_token?: InputMaybe<Scalars['String']['input']>;
-  updated_at?: InputMaybe<Scalars['timestamp']['input']>;
-};
-
-/** aggregate stddev on columns */
-export type Acme__Users_Stddev_Fields = {
-  __typename?: 'acme__users_stddev_fields';
-  failed_attempts?: Maybe<Scalars['Float']['output']>;
-  launch_email_method?: Maybe<Scalars['Float']['output']>;
-  role?: Maybe<Scalars['Float']['output']>;
-  sign_in_count?: Maybe<Scalars['Float']['output']>;
-  status?: Maybe<Scalars['Float']['output']>;
-};
-
-/** aggregate stddev_pop on columns */
-export type Acme__Users_Stddev_Pop_Fields = {
-  __typename?: 'acme__users_stddev_pop_fields';
-  failed_attempts?: Maybe<Scalars['Float']['output']>;
-  launch_email_method?: Maybe<Scalars['Float']['output']>;
-  role?: Maybe<Scalars['Float']['output']>;
-  sign_in_count?: Maybe<Scalars['Float']['output']>;
-  status?: Maybe<Scalars['Float']['output']>;
-};
-
-/** aggregate stddev_samp on columns */
-export type Acme__Users_Stddev_Samp_Fields = {
-  __typename?: 'acme__users_stddev_samp_fields';
-  failed_attempts?: Maybe<Scalars['Float']['output']>;
-  launch_email_method?: Maybe<Scalars['Float']['output']>;
-  role?: Maybe<Scalars['Float']['output']>;
-  sign_in_count?: Maybe<Scalars['Float']['output']>;
-  status?: Maybe<Scalars['Float']['output']>;
-};
-
-/** Streaming cursor of the table "acme__users" */
-export type Acme__Users_Stream_Cursor_Input = {
-  /** Stream column input with initial value */
-  initial_value: Acme__Users_Stream_Cursor_Value_Input;
-  /** cursor ordering */
-  ordering?: InputMaybe<Cursor_Ordering>;
-};
-
-/** Initial value of the column from where the streaming should start */
-export type Acme__Users_Stream_Cursor_Value_Input = {
-  account_id?: InputMaybe<Scalars['uuid']['input']>;
-  active_tab?: InputMaybe<Scalars['String']['input']>;
-  block_email?: InputMaybe<Scalars['Boolean']['input']>;
-  can_delete_account?: InputMaybe<Scalars['Boolean']['input']>;
-  confirmation_sent_at?: InputMaybe<Scalars['timestamp']['input']>;
-  confirmation_token?: InputMaybe<Scalars['String']['input']>;
-  confirmed_at?: InputMaybe<Scalars['timestamp']['input']>;
-  created_at?: InputMaybe<Scalars['timestamp']['input']>;
-  current_sign_in_at?: InputMaybe<Scalars['timestamp']['input']>;
-  current_sign_in_ip?: InputMaybe<Scalars['String']['input']>;
-  email?: InputMaybe<Scalars['String']['input']>;
-  email_bounce_lock?: InputMaybe<Scalars['Boolean']['input']>;
-  encrypted_password?: InputMaybe<Scalars['String']['input']>;
-  failed_attempts?: InputMaybe<Scalars['Int']['input']>;
-  first_name?: InputMaybe<Scalars['String']['input']>;
-  force_reset_password_after_next_login?: InputMaybe<Scalars['Boolean']['input']>;
-  id?: InputMaybe<Scalars['uuid']['input']>;
-  inactivated_at?: InputMaybe<Scalars['timestamp']['input']>;
-  language_preference?: InputMaybe<Scalars['String']['input']>;
-  last_name?: InputMaybe<Scalars['String']['input']>;
-  last_sign_in_at?: InputMaybe<Scalars['timestamp']['input']>;
-  last_sign_in_ip?: InputMaybe<Scalars['String']['input']>;
-  last_visited_path?: InputMaybe<Scalars['String']['input']>;
-  launch_email_method?: InputMaybe<Scalars['Int']['input']>;
-  launch_email_schedule_later_at?: InputMaybe<Scalars['timestamp']['input']>;
-  launch_email_schedule_later_job_id?: InputMaybe<Scalars['String']['input']>;
-  locked_at?: InputMaybe<Scalars['timestamp']['input']>;
-  manager_user_id?: InputMaybe<Scalars['uuid']['input']>;
-  profile_picture?: InputMaybe<Scalars['String']['input']>;
-  provider?: InputMaybe<Scalars['String']['input']>;
-  remember_created_at?: InputMaybe<Scalars['timestamp']['input']>;
-  reset_password_sent_at?: InputMaybe<Scalars['timestamp']['input']>;
-  reset_password_token?: InputMaybe<Scalars['String']['input']>;
-  role?: InputMaybe<Scalars['Int']['input']>;
-  sales_role_id?: InputMaybe<Scalars['uuid']['input']>;
-  sign_in_count?: InputMaybe<Scalars['Int']['input']>;
-  status?: InputMaybe<Scalars['Int']['input']>;
-  tokens?: InputMaybe<Scalars['jsonb']['input']>;
-  uid?: InputMaybe<Scalars['String']['input']>;
-  unconfirmed_email?: InputMaybe<Scalars['String']['input']>;
-  unlock_token?: InputMaybe<Scalars['String']['input']>;
-  updated_at?: InputMaybe<Scalars['timestamp']['input']>;
-};
-
-/** aggregate sum on columns */
-export type Acme__Users_Sum_Fields = {
-  __typename?: 'acme__users_sum_fields';
-  failed_attempts?: Maybe<Scalars['Int']['output']>;
-  launch_email_method?: Maybe<Scalars['Int']['output']>;
-  role?: Maybe<Scalars['Int']['output']>;
-  sign_in_count?: Maybe<Scalars['Int']['output']>;
-  status?: Maybe<Scalars['Int']['output']>;
-};
-
-/** update columns of table "acme-vib-staging.users" */
-export enum Acme__Users_Update_Column {
-  /** column name */
-  AccountId = 'account_id',
-  /** column name */
-  ActiveTab = 'active_tab',
-  /** column name */
-  BlockEmail = 'block_email',
-  /** column name */
-  CanDeleteAccount = 'can_delete_account',
-  /** column name */
-  ConfirmationSentAt = 'confirmation_sent_at',
-  /** column name */
-  ConfirmationToken = 'confirmation_token',
-  /** column name */
-  ConfirmedAt = 'confirmed_at',
-  /** column name */
-  CreatedAt = 'created_at',
-  /** column name */
-  CurrentSignInAt = 'current_sign_in_at',
-  /** column name */
-  CurrentSignInIp = 'current_sign_in_ip',
-  /** column name */
-  Email = 'email',
-  /** column name */
-  EmailBounceLock = 'email_bounce_lock',
-  /** column name */
-  EncryptedPassword = 'encrypted_password',
-  /** column name */
-  FailedAttempts = 'failed_attempts',
-  /** column name */
-  FirstName = 'first_name',
-  /** column name */
-  ForceResetPasswordAfterNextLogin = 'force_reset_password_after_next_login',
-  /** column name */
-  Id = 'id',
-  /** column name */
-  InactivatedAt = 'inactivated_at',
-  /** column name */
-  LanguagePreference = 'language_preference',
-  /** column name */
-  LastName = 'last_name',
-  /** column name */
-  LastSignInAt = 'last_sign_in_at',
-  /** column name */
-  LastSignInIp = 'last_sign_in_ip',
-  /** column name */
-  LastVisitedPath = 'last_visited_path',
-  /** column name */
-  LaunchEmailMethod = 'launch_email_method',
-  /** column name */
-  LaunchEmailScheduleLaterAt = 'launch_email_schedule_later_at',
-  /** column name */
-  LaunchEmailScheduleLaterJobId = 'launch_email_schedule_later_job_id',
-  /** column name */
-  LockedAt = 'locked_at',
-  /** column name */
-  ManagerUserId = 'manager_user_id',
-  /** column name */
-  ProfilePicture = 'profile_picture',
-  /** column name */
-  Provider = 'provider',
-  /** column name */
-  RememberCreatedAt = 'remember_created_at',
-  /** column name */
-  ResetPasswordSentAt = 'reset_password_sent_at',
-  /** column name */
-  ResetPasswordToken = 'reset_password_token',
-  /** column name */
-  Role = 'role',
-  /** column name */
-  SalesRoleId = 'sales_role_id',
-  /** column name */
-  SignInCount = 'sign_in_count',
-  /** column name */
-  Status = 'status',
-  /** column name */
-  Tokens = 'tokens',
-  /** column name */
-  Uid = 'uid',
-  /** column name */
-  UnconfirmedEmail = 'unconfirmed_email',
-  /** column name */
-  UnlockToken = 'unlock_token',
-  /** column name */
-  UpdatedAt = 'updated_at'
-}
-
-export type Acme__Users_Updates = {
-  /** append existing jsonb value of filtered columns with new jsonb value */
-  _append?: InputMaybe<Acme__Users_Append_Input>;
-  /** delete the field or element with specified path (for JSON arrays, negative integers count from the end) */
-  _delete_at_path?: InputMaybe<Acme__Users_Delete_At_Path_Input>;
-  /** delete the array element with specified index (negative integers count from the end). throws an error if top level container is not an array */
-  _delete_elem?: InputMaybe<Acme__Users_Delete_Elem_Input>;
-  /** delete key/value pair or string element. key/value pairs are matched based on their key value */
-  _delete_key?: InputMaybe<Acme__Users_Delete_Key_Input>;
-  /** increments the numeric columns with given value of the filtered values */
-  _inc?: InputMaybe<Acme__Users_Inc_Input>;
-  /** prepend existing jsonb value of filtered columns with new jsonb value */
-  _prepend?: InputMaybe<Acme__Users_Prepend_Input>;
-  /** sets the columns of the filtered rows to the given values */
-  _set?: InputMaybe<Acme__Users_Set_Input>;
-  /** filter the rows which have to be updated */
-  where: Acme__Users_Bool_Exp;
-};
-
-/** aggregate var_pop on columns */
-export type Acme__Users_Var_Pop_Fields = {
-  __typename?: 'acme__users_var_pop_fields';
-  failed_attempts?: Maybe<Scalars['Float']['output']>;
-  launch_email_method?: Maybe<Scalars['Float']['output']>;
-  role?: Maybe<Scalars['Float']['output']>;
-  sign_in_count?: Maybe<Scalars['Float']['output']>;
-  status?: Maybe<Scalars['Float']['output']>;
-};
-
-/** aggregate var_samp on columns */
-export type Acme__Users_Var_Samp_Fields = {
-  __typename?: 'acme__users_var_samp_fields';
-  failed_attempts?: Maybe<Scalars['Float']['output']>;
-  launch_email_method?: Maybe<Scalars['Float']['output']>;
-  role?: Maybe<Scalars['Float']['output']>;
-  sign_in_count?: Maybe<Scalars['Float']['output']>;
-  status?: Maybe<Scalars['Float']['output']>;
-};
-
-/** aggregate variance on columns */
-export type Acme__Users_Variance_Fields = {
-  __typename?: 'acme__users_variance_fields';
-  failed_attempts?: Maybe<Scalars['Float']['output']>;
-  launch_email_method?: Maybe<Scalars['Float']['output']>;
-  role?: Maybe<Scalars['Float']['output']>;
-  sign_in_count?: Maybe<Scalars['Float']['output']>;
-  status?: Maybe<Scalars['Float']['output']>;
 };
 
 /** ordering argument of a cursor */
@@ -1094,275 +343,6 @@ export type Jsonb_Comparison_Exp = {
   _nin?: InputMaybe<Array<Scalars['jsonb']['input']>>;
 };
 
-/** columns and relationships of "learning_record" */
-export type Learning_Record = {
-  __typename?: 'learning_record';
-  created_at: Scalars['timestamptz']['output'];
-  data: Scalars['jsonb']['output'];
-  event_type: Scalars['String']['output'];
-  id: Scalars['uuid']['output'];
-  tenant_id: Scalars['String']['output'];
-  /** An object relationship */
-  user: User;
-  user_id: Scalars['uuid']['output'];
-};
-
-
-/** columns and relationships of "learning_record" */
-export type Learning_RecordDataArgs = {
-  path?: InputMaybe<Scalars['String']['input']>;
-};
-
-/** aggregated selection of "learning_record" */
-export type Learning_Record_Aggregate = {
-  __typename?: 'learning_record_aggregate';
-  aggregate?: Maybe<Learning_Record_Aggregate_Fields>;
-  nodes: Array<Learning_Record>;
-};
-
-export type Learning_Record_Aggregate_Bool_Exp = {
-  count?: InputMaybe<Learning_Record_Aggregate_Bool_Exp_Count>;
-};
-
-export type Learning_Record_Aggregate_Bool_Exp_Count = {
-  arguments?: InputMaybe<Array<Learning_Record_Select_Column>>;
-  distinct?: InputMaybe<Scalars['Boolean']['input']>;
-  filter?: InputMaybe<Learning_Record_Bool_Exp>;
-  predicate: Int_Comparison_Exp;
-};
-
-/** aggregate fields of "learning_record" */
-export type Learning_Record_Aggregate_Fields = {
-  __typename?: 'learning_record_aggregate_fields';
-  count: Scalars['Int']['output'];
-  max?: Maybe<Learning_Record_Max_Fields>;
-  min?: Maybe<Learning_Record_Min_Fields>;
-};
-
-
-/** aggregate fields of "learning_record" */
-export type Learning_Record_Aggregate_FieldsCountArgs = {
-  columns?: InputMaybe<Array<Learning_Record_Select_Column>>;
-  distinct?: InputMaybe<Scalars['Boolean']['input']>;
-};
-
-/** order by aggregate values of table "learning_record" */
-export type Learning_Record_Aggregate_Order_By = {
-  count?: InputMaybe<Order_By>;
-  max?: InputMaybe<Learning_Record_Max_Order_By>;
-  min?: InputMaybe<Learning_Record_Min_Order_By>;
-};
-
-/** append existing jsonb value of filtered columns with new jsonb value */
-export type Learning_Record_Append_Input = {
-  data?: InputMaybe<Scalars['jsonb']['input']>;
-};
-
-/** input type for inserting array relation for remote table "learning_record" */
-export type Learning_Record_Arr_Rel_Insert_Input = {
-  data: Array<Learning_Record_Insert_Input>;
-  /** upsert condition */
-  on_conflict?: InputMaybe<Learning_Record_On_Conflict>;
-};
-
-/** Boolean expression to filter rows from the table "learning_record". All fields are combined with a logical 'AND'. */
-export type Learning_Record_Bool_Exp = {
-  _and?: InputMaybe<Array<Learning_Record_Bool_Exp>>;
-  _not?: InputMaybe<Learning_Record_Bool_Exp>;
-  _or?: InputMaybe<Array<Learning_Record_Bool_Exp>>;
-  created_at?: InputMaybe<Timestamptz_Comparison_Exp>;
-  data?: InputMaybe<Jsonb_Comparison_Exp>;
-  event_type?: InputMaybe<String_Comparison_Exp>;
-  id?: InputMaybe<Uuid_Comparison_Exp>;
-  tenant_id?: InputMaybe<String_Comparison_Exp>;
-  user?: InputMaybe<User_Bool_Exp>;
-  user_id?: InputMaybe<Uuid_Comparison_Exp>;
-};
-
-/** unique or primary key constraints on table "learning_record" */
-export enum Learning_Record_Constraint {
-  /** unique or primary key constraint on columns "id" */
-  LearningRecordPkey = 'learning_record_pkey'
-}
-
-/** delete the field or element with specified path (for JSON arrays, negative integers count from the end) */
-export type Learning_Record_Delete_At_Path_Input = {
-  data?: InputMaybe<Array<Scalars['String']['input']>>;
-};
-
-/** delete the array element with specified index (negative integers count from the end). throws an error if top level container is not an array */
-export type Learning_Record_Delete_Elem_Input = {
-  data?: InputMaybe<Scalars['Int']['input']>;
-};
-
-/** delete key/value pair or string element. key/value pairs are matched based on their key value */
-export type Learning_Record_Delete_Key_Input = {
-  data?: InputMaybe<Scalars['String']['input']>;
-};
-
-/** input type for inserting data into table "learning_record" */
-export type Learning_Record_Insert_Input = {
-  created_at?: InputMaybe<Scalars['timestamptz']['input']>;
-  data?: InputMaybe<Scalars['jsonb']['input']>;
-  event_type?: InputMaybe<Scalars['String']['input']>;
-  id?: InputMaybe<Scalars['uuid']['input']>;
-  tenant_id?: InputMaybe<Scalars['String']['input']>;
-  user?: InputMaybe<User_Obj_Rel_Insert_Input>;
-  user_id?: InputMaybe<Scalars['uuid']['input']>;
-};
-
-/** aggregate max on columns */
-export type Learning_Record_Max_Fields = {
-  __typename?: 'learning_record_max_fields';
-  created_at?: Maybe<Scalars['timestamptz']['output']>;
-  event_type?: Maybe<Scalars['String']['output']>;
-  id?: Maybe<Scalars['uuid']['output']>;
-  tenant_id?: Maybe<Scalars['String']['output']>;
-  user_id?: Maybe<Scalars['uuid']['output']>;
-};
-
-/** order by max() on columns of table "learning_record" */
-export type Learning_Record_Max_Order_By = {
-  created_at?: InputMaybe<Order_By>;
-  event_type?: InputMaybe<Order_By>;
-  id?: InputMaybe<Order_By>;
-  tenant_id?: InputMaybe<Order_By>;
-  user_id?: InputMaybe<Order_By>;
-};
-
-/** aggregate min on columns */
-export type Learning_Record_Min_Fields = {
-  __typename?: 'learning_record_min_fields';
-  created_at?: Maybe<Scalars['timestamptz']['output']>;
-  event_type?: Maybe<Scalars['String']['output']>;
-  id?: Maybe<Scalars['uuid']['output']>;
-  tenant_id?: Maybe<Scalars['String']['output']>;
-  user_id?: Maybe<Scalars['uuid']['output']>;
-};
-
-/** order by min() on columns of table "learning_record" */
-export type Learning_Record_Min_Order_By = {
-  created_at?: InputMaybe<Order_By>;
-  event_type?: InputMaybe<Order_By>;
-  id?: InputMaybe<Order_By>;
-  tenant_id?: InputMaybe<Order_By>;
-  user_id?: InputMaybe<Order_By>;
-};
-
-/** response of any mutation on the table "learning_record" */
-export type Learning_Record_Mutation_Response = {
-  __typename?: 'learning_record_mutation_response';
-  /** number of rows affected by the mutation */
-  affected_rows: Scalars['Int']['output'];
-  /** data from the rows affected by the mutation */
-  returning: Array<Learning_Record>;
-};
-
-/** on_conflict condition type for table "learning_record" */
-export type Learning_Record_On_Conflict = {
-  constraint: Learning_Record_Constraint;
-  update_columns?: Array<Learning_Record_Update_Column>;
-  where?: InputMaybe<Learning_Record_Bool_Exp>;
-};
-
-/** Ordering options when selecting data from "learning_record". */
-export type Learning_Record_Order_By = {
-  created_at?: InputMaybe<Order_By>;
-  data?: InputMaybe<Order_By>;
-  event_type?: InputMaybe<Order_By>;
-  id?: InputMaybe<Order_By>;
-  tenant_id?: InputMaybe<Order_By>;
-  user?: InputMaybe<User_Order_By>;
-  user_id?: InputMaybe<Order_By>;
-};
-
-/** primary key columns input for table: learning_record */
-export type Learning_Record_Pk_Columns_Input = {
-  id: Scalars['uuid']['input'];
-};
-
-/** prepend existing jsonb value of filtered columns with new jsonb value */
-export type Learning_Record_Prepend_Input = {
-  data?: InputMaybe<Scalars['jsonb']['input']>;
-};
-
-/** select columns of table "learning_record" */
-export enum Learning_Record_Select_Column {
-  /** column name */
-  CreatedAt = 'created_at',
-  /** column name */
-  Data = 'data',
-  /** column name */
-  EventType = 'event_type',
-  /** column name */
-  Id = 'id',
-  /** column name */
-  TenantId = 'tenant_id',
-  /** column name */
-  UserId = 'user_id'
-}
-
-/** input type for updating data in table "learning_record" */
-export type Learning_Record_Set_Input = {
-  created_at?: InputMaybe<Scalars['timestamptz']['input']>;
-  data?: InputMaybe<Scalars['jsonb']['input']>;
-  event_type?: InputMaybe<Scalars['String']['input']>;
-  id?: InputMaybe<Scalars['uuid']['input']>;
-  tenant_id?: InputMaybe<Scalars['String']['input']>;
-  user_id?: InputMaybe<Scalars['uuid']['input']>;
-};
-
-/** Streaming cursor of the table "learning_record" */
-export type Learning_Record_Stream_Cursor_Input = {
-  /** Stream column input with initial value */
-  initial_value: Learning_Record_Stream_Cursor_Value_Input;
-  /** cursor ordering */
-  ordering?: InputMaybe<Cursor_Ordering>;
-};
-
-/** Initial value of the column from where the streaming should start */
-export type Learning_Record_Stream_Cursor_Value_Input = {
-  created_at?: InputMaybe<Scalars['timestamptz']['input']>;
-  data?: InputMaybe<Scalars['jsonb']['input']>;
-  event_type?: InputMaybe<Scalars['String']['input']>;
-  id?: InputMaybe<Scalars['uuid']['input']>;
-  tenant_id?: InputMaybe<Scalars['String']['input']>;
-  user_id?: InputMaybe<Scalars['uuid']['input']>;
-};
-
-/** update columns of table "learning_record" */
-export enum Learning_Record_Update_Column {
-  /** column name */
-  CreatedAt = 'created_at',
-  /** column name */
-  Data = 'data',
-  /** column name */
-  EventType = 'event_type',
-  /** column name */
-  Id = 'id',
-  /** column name */
-  TenantId = 'tenant_id',
-  /** column name */
-  UserId = 'user_id'
-}
-
-export type Learning_Record_Updates = {
-  /** append existing jsonb value of filtered columns with new jsonb value */
-  _append?: InputMaybe<Learning_Record_Append_Input>;
-  /** delete the field or element with specified path (for JSON arrays, negative integers count from the end) */
-  _delete_at_path?: InputMaybe<Learning_Record_Delete_At_Path_Input>;
-  /** delete the array element with specified index (negative integers count from the end). throws an error if top level container is not an array */
-  _delete_elem?: InputMaybe<Learning_Record_Delete_Elem_Input>;
-  /** delete key/value pair or string element. key/value pairs are matched based on their key value */
-  _delete_key?: InputMaybe<Learning_Record_Delete_Key_Input>;
-  /** prepend existing jsonb value of filtered columns with new jsonb value */
-  _prepend?: InputMaybe<Learning_Record_Prepend_Input>;
-  /** sets the columns of the filtered rows to the given values */
-  _set?: InputMaybe<Learning_Record_Set_Input>;
-  /** filter the rows which have to be updated */
-  where: Learning_Record_Bool_Exp;
-};
-
 /** columns and relationships of "link_token" */
 export type Link_Token = {
   __typename?: 'link_token';
@@ -1608,18 +588,10 @@ export type Link_Token_Updates = {
 /** mutation root */
 export type Mutation_Root = {
   __typename?: 'mutation_root';
-  /** delete data from the table: "acme-vib-staging.users" */
-  delete_acme__users?: Maybe<Acme__Users_Mutation_Response>;
-  /** delete single row from the table: "acme-vib-staging.users" */
-  delete_acme__users_by_pk?: Maybe<Acme__Users>;
   /** delete data from the table: "event" */
   delete_event?: Maybe<Event_Mutation_Response>;
   /** delete single row from the table: "event" */
   delete_event_by_pk?: Maybe<Event>;
-  /** delete data from the table: "learning_record" */
-  delete_learning_record?: Maybe<Learning_Record_Mutation_Response>;
-  /** delete single row from the table: "learning_record" */
-  delete_learning_record_by_pk?: Maybe<Learning_Record>;
   /** delete data from the table: "link_token" */
   delete_link_token?: Maybe<Link_Token_Mutation_Response>;
   /** delete single row from the table: "link_token" */
@@ -1644,18 +616,10 @@ export type Mutation_Root = {
   delete_user_question?: Maybe<User_Question_Mutation_Response>;
   /** delete single row from the table: "user_question" */
   delete_user_question_by_pk?: Maybe<User_Question>;
-  /** insert data into the table: "acme-vib-staging.users" */
-  insert_acme__users?: Maybe<Acme__Users_Mutation_Response>;
-  /** insert a single row into the table: "acme-vib-staging.users" */
-  insert_acme__users_one?: Maybe<Acme__Users>;
   /** insert data into the table: "event" */
   insert_event?: Maybe<Event_Mutation_Response>;
   /** insert a single row into the table: "event" */
   insert_event_one?: Maybe<Event>;
-  /** insert data into the table: "learning_record" */
-  insert_learning_record?: Maybe<Learning_Record_Mutation_Response>;
-  /** insert a single row into the table: "learning_record" */
-  insert_learning_record_one?: Maybe<Learning_Record>;
   /** insert data into the table: "link_token" */
   insert_link_token?: Maybe<Link_Token_Mutation_Response>;
   /** insert a single row into the table: "link_token" */
@@ -1680,24 +644,12 @@ export type Mutation_Root = {
   insert_user_question?: Maybe<User_Question_Mutation_Response>;
   /** insert a single row into the table: "user_question" */
   insert_user_question_one?: Maybe<User_Question>;
-  /** update data of the table: "acme-vib-staging.users" */
-  update_acme__users?: Maybe<Acme__Users_Mutation_Response>;
-  /** update single row of the table: "acme-vib-staging.users" */
-  update_acme__users_by_pk?: Maybe<Acme__Users>;
-  /** update multiples rows of table: "acme-vib-staging.users" */
-  update_acme__users_many?: Maybe<Array<Maybe<Acme__Users_Mutation_Response>>>;
   /** update data of the table: "event" */
   update_event?: Maybe<Event_Mutation_Response>;
   /** update single row of the table: "event" */
   update_event_by_pk?: Maybe<Event>;
   /** update multiples rows of table: "event" */
   update_event_many?: Maybe<Array<Maybe<Event_Mutation_Response>>>;
-  /** update data of the table: "learning_record" */
-  update_learning_record?: Maybe<Learning_Record_Mutation_Response>;
-  /** update single row of the table: "learning_record" */
-  update_learning_record_by_pk?: Maybe<Learning_Record>;
-  /** update multiples rows of table: "learning_record" */
-  update_learning_record_many?: Maybe<Array<Maybe<Learning_Record_Mutation_Response>>>;
   /** update data of the table: "link_token" */
   update_link_token?: Maybe<Link_Token_Mutation_Response>;
   /** update single row of the table: "link_token" */
@@ -1738,18 +690,6 @@ export type Mutation_Root = {
 
 
 /** mutation root */
-export type Mutation_RootDelete_Acme__UsersArgs = {
-  where: Acme__Users_Bool_Exp;
-};
-
-
-/** mutation root */
-export type Mutation_RootDelete_Acme__Users_By_PkArgs = {
-  id: Scalars['uuid']['input'];
-};
-
-
-/** mutation root */
 export type Mutation_RootDelete_EventArgs = {
   where: Event_Bool_Exp;
 };
@@ -1757,18 +697,6 @@ export type Mutation_RootDelete_EventArgs = {
 
 /** mutation root */
 export type Mutation_RootDelete_Event_By_PkArgs = {
-  id: Scalars['uuid']['input'];
-};
-
-
-/** mutation root */
-export type Mutation_RootDelete_Learning_RecordArgs = {
-  where: Learning_Record_Bool_Exp;
-};
-
-
-/** mutation root */
-export type Mutation_RootDelete_Learning_Record_By_PkArgs = {
   id: Scalars['uuid']['input'];
 };
 
@@ -1846,20 +774,6 @@ export type Mutation_RootDelete_User_Question_By_PkArgs = {
 
 
 /** mutation root */
-export type Mutation_RootInsert_Acme__UsersArgs = {
-  objects: Array<Acme__Users_Insert_Input>;
-  on_conflict?: InputMaybe<Acme__Users_On_Conflict>;
-};
-
-
-/** mutation root */
-export type Mutation_RootInsert_Acme__Users_OneArgs = {
-  object: Acme__Users_Insert_Input;
-  on_conflict?: InputMaybe<Acme__Users_On_Conflict>;
-};
-
-
-/** mutation root */
 export type Mutation_RootInsert_EventArgs = {
   objects: Array<Event_Insert_Input>;
   on_conflict?: InputMaybe<Event_On_Conflict>;
@@ -1870,20 +784,6 @@ export type Mutation_RootInsert_EventArgs = {
 export type Mutation_RootInsert_Event_OneArgs = {
   object: Event_Insert_Input;
   on_conflict?: InputMaybe<Event_On_Conflict>;
-};
-
-
-/** mutation root */
-export type Mutation_RootInsert_Learning_RecordArgs = {
-  objects: Array<Learning_Record_Insert_Input>;
-  on_conflict?: InputMaybe<Learning_Record_On_Conflict>;
-};
-
-
-/** mutation root */
-export type Mutation_RootInsert_Learning_Record_OneArgs = {
-  object: Learning_Record_Insert_Input;
-  on_conflict?: InputMaybe<Learning_Record_On_Conflict>;
 };
 
 
@@ -1972,38 +872,6 @@ export type Mutation_RootInsert_User_Question_OneArgs = {
 
 
 /** mutation root */
-export type Mutation_RootUpdate_Acme__UsersArgs = {
-  _append?: InputMaybe<Acme__Users_Append_Input>;
-  _delete_at_path?: InputMaybe<Acme__Users_Delete_At_Path_Input>;
-  _delete_elem?: InputMaybe<Acme__Users_Delete_Elem_Input>;
-  _delete_key?: InputMaybe<Acme__Users_Delete_Key_Input>;
-  _inc?: InputMaybe<Acme__Users_Inc_Input>;
-  _prepend?: InputMaybe<Acme__Users_Prepend_Input>;
-  _set?: InputMaybe<Acme__Users_Set_Input>;
-  where: Acme__Users_Bool_Exp;
-};
-
-
-/** mutation root */
-export type Mutation_RootUpdate_Acme__Users_By_PkArgs = {
-  _append?: InputMaybe<Acme__Users_Append_Input>;
-  _delete_at_path?: InputMaybe<Acme__Users_Delete_At_Path_Input>;
-  _delete_elem?: InputMaybe<Acme__Users_Delete_Elem_Input>;
-  _delete_key?: InputMaybe<Acme__Users_Delete_Key_Input>;
-  _inc?: InputMaybe<Acme__Users_Inc_Input>;
-  _prepend?: InputMaybe<Acme__Users_Prepend_Input>;
-  _set?: InputMaybe<Acme__Users_Set_Input>;
-  pk_columns: Acme__Users_Pk_Columns_Input;
-};
-
-
-/** mutation root */
-export type Mutation_RootUpdate_Acme__Users_ManyArgs = {
-  updates: Array<Acme__Users_Updates>;
-};
-
-
-/** mutation root */
 export type Mutation_RootUpdate_EventArgs = {
   _append?: InputMaybe<Event_Append_Input>;
   _delete_at_path?: InputMaybe<Event_Delete_At_Path_Input>;
@@ -2030,36 +898,6 @@ export type Mutation_RootUpdate_Event_By_PkArgs = {
 /** mutation root */
 export type Mutation_RootUpdate_Event_ManyArgs = {
   updates: Array<Event_Updates>;
-};
-
-
-/** mutation root */
-export type Mutation_RootUpdate_Learning_RecordArgs = {
-  _append?: InputMaybe<Learning_Record_Append_Input>;
-  _delete_at_path?: InputMaybe<Learning_Record_Delete_At_Path_Input>;
-  _delete_elem?: InputMaybe<Learning_Record_Delete_Elem_Input>;
-  _delete_key?: InputMaybe<Learning_Record_Delete_Key_Input>;
-  _prepend?: InputMaybe<Learning_Record_Prepend_Input>;
-  _set?: InputMaybe<Learning_Record_Set_Input>;
-  where: Learning_Record_Bool_Exp;
-};
-
-
-/** mutation root */
-export type Mutation_RootUpdate_Learning_Record_By_PkArgs = {
-  _append?: InputMaybe<Learning_Record_Append_Input>;
-  _delete_at_path?: InputMaybe<Learning_Record_Delete_At_Path_Input>;
-  _delete_elem?: InputMaybe<Learning_Record_Delete_Elem_Input>;
-  _delete_key?: InputMaybe<Learning_Record_Delete_Key_Input>;
-  _prepend?: InputMaybe<Learning_Record_Prepend_Input>;
-  _set?: InputMaybe<Learning_Record_Set_Input>;
-  pk_columns: Learning_Record_Pk_Columns_Input;
-};
-
-
-/** mutation root */
-export type Mutation_RootUpdate_Learning_Record_ManyArgs = {
-  updates: Array<Learning_Record_Updates>;
 };
 
 
@@ -2217,24 +1055,12 @@ export enum Order_By {
 
 export type Query_Root = {
   __typename?: 'query_root';
-  /** fetch data from the table: "acme-vib-staging.users" */
-  acme__users: Array<Acme__Users>;
-  /** fetch aggregated fields from the table: "acme-vib-staging.users" */
-  acme__users_aggregate: Acme__Users_Aggregate;
-  /** fetch data from the table: "acme-vib-staging.users" using primary key columns */
-  acme__users_by_pk?: Maybe<Acme__Users>;
   /** fetch data from the table: "event" */
   event: Array<Event>;
   /** fetch aggregated fields from the table: "event" */
   event_aggregate: Event_Aggregate;
   /** fetch data from the table: "event" using primary key columns */
   event_by_pk?: Maybe<Event>;
-  /** fetch data from the table: "learning_record" */
-  learning_record: Array<Learning_Record>;
-  /** fetch aggregated fields from the table: "learning_record" */
-  learning_record_aggregate: Learning_Record_Aggregate;
-  /** fetch data from the table: "learning_record" using primary key columns */
-  learning_record_by_pk?: Maybe<Learning_Record>;
   /** fetch data from the table: "link_token" */
   link_token: Array<Link_Token>;
   /** fetch aggregated fields from the table: "link_token" */
@@ -2274,29 +1100,6 @@ export type Query_Root = {
 };
 
 
-export type Query_RootAcme__UsersArgs = {
-  distinct_on?: InputMaybe<Array<Acme__Users_Select_Column>>;
-  limit?: InputMaybe<Scalars['Int']['input']>;
-  offset?: InputMaybe<Scalars['Int']['input']>;
-  order_by?: InputMaybe<Array<Acme__Users_Order_By>>;
-  where?: InputMaybe<Acme__Users_Bool_Exp>;
-};
-
-
-export type Query_RootAcme__Users_AggregateArgs = {
-  distinct_on?: InputMaybe<Array<Acme__Users_Select_Column>>;
-  limit?: InputMaybe<Scalars['Int']['input']>;
-  offset?: InputMaybe<Scalars['Int']['input']>;
-  order_by?: InputMaybe<Array<Acme__Users_Order_By>>;
-  where?: InputMaybe<Acme__Users_Bool_Exp>;
-};
-
-
-export type Query_RootAcme__Users_By_PkArgs = {
-  id: Scalars['uuid']['input'];
-};
-
-
 export type Query_RootEventArgs = {
   distinct_on?: InputMaybe<Array<Event_Select_Column>>;
   limit?: InputMaybe<Scalars['Int']['input']>;
@@ -2316,29 +1119,6 @@ export type Query_RootEvent_AggregateArgs = {
 
 
 export type Query_RootEvent_By_PkArgs = {
-  id: Scalars['uuid']['input'];
-};
-
-
-export type Query_RootLearning_RecordArgs = {
-  distinct_on?: InputMaybe<Array<Learning_Record_Select_Column>>;
-  limit?: InputMaybe<Scalars['Int']['input']>;
-  offset?: InputMaybe<Scalars['Int']['input']>;
-  order_by?: InputMaybe<Array<Learning_Record_Order_By>>;
-  where?: InputMaybe<Learning_Record_Bool_Exp>;
-};
-
-
-export type Query_RootLearning_Record_AggregateArgs = {
-  distinct_on?: InputMaybe<Array<Learning_Record_Select_Column>>;
-  limit?: InputMaybe<Scalars['Int']['input']>;
-  offset?: InputMaybe<Scalars['Int']['input']>;
-  order_by?: InputMaybe<Array<Learning_Record_Order_By>>;
-  where?: InputMaybe<Learning_Record_Bool_Exp>;
-};
-
-
-export type Query_RootLearning_Record_By_PkArgs = {
   id: Scalars['uuid']['input'];
 };
 
@@ -2482,14 +1262,6 @@ export type Query_RootUser_Question_By_PkArgs = {
 
 export type Subscription_Root = {
   __typename?: 'subscription_root';
-  /** fetch data from the table: "acme-vib-staging.users" */
-  acme__users: Array<Acme__Users>;
-  /** fetch aggregated fields from the table: "acme-vib-staging.users" */
-  acme__users_aggregate: Acme__Users_Aggregate;
-  /** fetch data from the table: "acme-vib-staging.users" using primary key columns */
-  acme__users_by_pk?: Maybe<Acme__Users>;
-  /** fetch data from the table in a streaming manner: "acme-vib-staging.users" */
-  acme__users_stream: Array<Acme__Users>;
   /** fetch data from the table: "event" */
   event: Array<Event>;
   /** fetch aggregated fields from the table: "event" */
@@ -2498,14 +1270,6 @@ export type Subscription_Root = {
   event_by_pk?: Maybe<Event>;
   /** fetch data from the table in a streaming manner: "event" */
   event_stream: Array<Event>;
-  /** fetch data from the table: "learning_record" */
-  learning_record: Array<Learning_Record>;
-  /** fetch aggregated fields from the table: "learning_record" */
-  learning_record_aggregate: Learning_Record_Aggregate;
-  /** fetch data from the table: "learning_record" using primary key columns */
-  learning_record_by_pk?: Maybe<Learning_Record>;
-  /** fetch data from the table in a streaming manner: "learning_record" */
-  learning_record_stream: Array<Learning_Record>;
   /** fetch data from the table: "link_token" */
   link_token: Array<Link_Token>;
   /** fetch aggregated fields from the table: "link_token" */
@@ -2557,36 +1321,6 @@ export type Subscription_Root = {
 };
 
 
-export type Subscription_RootAcme__UsersArgs = {
-  distinct_on?: InputMaybe<Array<Acme__Users_Select_Column>>;
-  limit?: InputMaybe<Scalars['Int']['input']>;
-  offset?: InputMaybe<Scalars['Int']['input']>;
-  order_by?: InputMaybe<Array<Acme__Users_Order_By>>;
-  where?: InputMaybe<Acme__Users_Bool_Exp>;
-};
-
-
-export type Subscription_RootAcme__Users_AggregateArgs = {
-  distinct_on?: InputMaybe<Array<Acme__Users_Select_Column>>;
-  limit?: InputMaybe<Scalars['Int']['input']>;
-  offset?: InputMaybe<Scalars['Int']['input']>;
-  order_by?: InputMaybe<Array<Acme__Users_Order_By>>;
-  where?: InputMaybe<Acme__Users_Bool_Exp>;
-};
-
-
-export type Subscription_RootAcme__Users_By_PkArgs = {
-  id: Scalars['uuid']['input'];
-};
-
-
-export type Subscription_RootAcme__Users_StreamArgs = {
-  batch_size: Scalars['Int']['input'];
-  cursor: Array<InputMaybe<Acme__Users_Stream_Cursor_Input>>;
-  where?: InputMaybe<Acme__Users_Bool_Exp>;
-};
-
-
 export type Subscription_RootEventArgs = {
   distinct_on?: InputMaybe<Array<Event_Select_Column>>;
   limit?: InputMaybe<Scalars['Int']['input']>;
@@ -2614,36 +1348,6 @@ export type Subscription_RootEvent_StreamArgs = {
   batch_size: Scalars['Int']['input'];
   cursor: Array<InputMaybe<Event_Stream_Cursor_Input>>;
   where?: InputMaybe<Event_Bool_Exp>;
-};
-
-
-export type Subscription_RootLearning_RecordArgs = {
-  distinct_on?: InputMaybe<Array<Learning_Record_Select_Column>>;
-  limit?: InputMaybe<Scalars['Int']['input']>;
-  offset?: InputMaybe<Scalars['Int']['input']>;
-  order_by?: InputMaybe<Array<Learning_Record_Order_By>>;
-  where?: InputMaybe<Learning_Record_Bool_Exp>;
-};
-
-
-export type Subscription_RootLearning_Record_AggregateArgs = {
-  distinct_on?: InputMaybe<Array<Learning_Record_Select_Column>>;
-  limit?: InputMaybe<Scalars['Int']['input']>;
-  offset?: InputMaybe<Scalars['Int']['input']>;
-  order_by?: InputMaybe<Array<Learning_Record_Order_By>>;
-  where?: InputMaybe<Learning_Record_Bool_Exp>;
-};
-
-
-export type Subscription_RootLearning_Record_By_PkArgs = {
-  id: Scalars['uuid']['input'];
-};
-
-
-export type Subscription_RootLearning_Record_StreamArgs = {
-  batch_size: Scalars['Int']['input'];
-  cursor: Array<InputMaybe<Learning_Record_Stream_Cursor_Input>>;
-  where?: InputMaybe<Learning_Record_Bool_Exp>;
 };
 
 
@@ -2995,19 +1699,6 @@ export type Tenant_Updates = {
   where: Tenant_Bool_Exp;
 };
 
-/** Boolean expression to compare columns of type "timestamp". All fields are combined with logical 'AND'. */
-export type Timestamp_Comparison_Exp = {
-  _eq?: InputMaybe<Scalars['timestamp']['input']>;
-  _gt?: InputMaybe<Scalars['timestamp']['input']>;
-  _gte?: InputMaybe<Scalars['timestamp']['input']>;
-  _in?: InputMaybe<Array<Scalars['timestamp']['input']>>;
-  _is_null?: InputMaybe<Scalars['Boolean']['input']>;
-  _lt?: InputMaybe<Scalars['timestamp']['input']>;
-  _lte?: InputMaybe<Scalars['timestamp']['input']>;
-  _neq?: InputMaybe<Scalars['timestamp']['input']>;
-  _nin?: InputMaybe<Array<Scalars['timestamp']['input']>>;
-};
-
 /** Boolean expression to compare columns of type "timestamptz". All fields are combined with logical 'AND'. */
 export type Timestamptz_Comparison_Exp = {
   _eq?: InputMaybe<Scalars['timestamptz']['input']>;
@@ -3030,10 +1721,6 @@ export type User = {
   first_name: Scalars['String']['output'];
   language_preference: Scalars['String']['output'];
   last_name: Scalars['String']['output'];
-  /** An array relationship */
-  learning_records: Array<Learning_Record>;
-  /** An aggregate relationship */
-  learning_records_aggregate: Learning_Record_Aggregate;
   /** An array relationship */
   link_tokens: Array<Link_Token>;
   /** An aggregate relationship */
@@ -3061,26 +1748,6 @@ export type User = {
   user_questions: Array<User_Question>;
   /** An aggregate relationship */
   user_questions_aggregate: User_Question_Aggregate;
-};
-
-
-/** columns and relationships of "user" */
-export type UserLearning_RecordsArgs = {
-  distinct_on?: InputMaybe<Array<Learning_Record_Select_Column>>;
-  limit?: InputMaybe<Scalars['Int']['input']>;
-  offset?: InputMaybe<Scalars['Int']['input']>;
-  order_by?: InputMaybe<Array<Learning_Record_Order_By>>;
-  where?: InputMaybe<Learning_Record_Bool_Exp>;
-};
-
-
-/** columns and relationships of "user" */
-export type UserLearning_Records_AggregateArgs = {
-  distinct_on?: InputMaybe<Array<Learning_Record_Select_Column>>;
-  limit?: InputMaybe<Scalars['Int']['input']>;
-  offset?: InputMaybe<Scalars['Int']['input']>;
-  order_by?: InputMaybe<Array<Learning_Record_Order_By>>;
-  where?: InputMaybe<Learning_Record_Bool_Exp>;
 };
 
 
@@ -3484,8 +2151,6 @@ export type User_Bool_Exp = {
   first_name?: InputMaybe<String_Comparison_Exp>;
   language_preference?: InputMaybe<String_Comparison_Exp>;
   last_name?: InputMaybe<String_Comparison_Exp>;
-  learning_records?: InputMaybe<Learning_Record_Bool_Exp>;
-  learning_records_aggregate?: InputMaybe<Learning_Record_Aggregate_Bool_Exp>;
   link_tokens?: InputMaybe<Link_Token_Bool_Exp>;
   link_tokens_aggregate?: InputMaybe<Link_Token_Aggregate_Bool_Exp>;
   next_question?: InputMaybe<User_Question_Bool_Exp>;
@@ -3942,7 +2607,6 @@ export type User_Insert_Input = {
   first_name?: InputMaybe<Scalars['String']['input']>;
   language_preference?: InputMaybe<Scalars['String']['input']>;
   last_name?: InputMaybe<Scalars['String']['input']>;
-  learning_records?: InputMaybe<Learning_Record_Arr_Rel_Insert_Input>;
   link_tokens?: InputMaybe<Link_Token_Arr_Rel_Insert_Input>;
   next_question?: InputMaybe<User_Question_Obj_Rel_Insert_Input>;
   next_user_question_id?: InputMaybe<Scalars['uuid']['input']>;
@@ -4047,7 +2711,6 @@ export type User_Order_By = {
   first_name?: InputMaybe<Order_By>;
   language_preference?: InputMaybe<Order_By>;
   last_name?: InputMaybe<Order_By>;
-  learning_records_aggregate?: InputMaybe<Learning_Record_Aggregate_Order_By>;
   link_tokens_aggregate?: InputMaybe<Link_Token_Aggregate_Order_By>;
   next_question?: InputMaybe<User_Question_Order_By>;
   next_user_question_id?: InputMaybe<Order_By>;

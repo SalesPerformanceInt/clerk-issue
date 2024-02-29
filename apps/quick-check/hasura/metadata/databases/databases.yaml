@@ -1,0 +1,9 @@
+- name: quickcheck
+  kind: postgres
+  configuration:
+    connection_info:
+      database_url:
+        from_env: QUICK_CHECK_DATABASE_URL
+      isolation_level: read-committed
+      use_prepared_statements: false
+  tables: "!include quickcheck/tables/tables.yaml"

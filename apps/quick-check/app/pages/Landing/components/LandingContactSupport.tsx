@@ -1,7 +1,7 @@
 import type { FC } from "react";
 import { useTranslation } from "react-i18next";
 
-import { LinkButton } from "quickcheck-shared";
+import { LinkButton, SUPPORT_URL } from "quickcheck-shared";
 
 export const LandingContactSupport: FC = () => {
   const { t } = useTranslation();
@@ -10,7 +10,7 @@ export const LandingContactSupport: FC = () => {
     <div className="flex items-center justify-between">
       <p className="">{t("landing.no_account")}</p>
       <LinkButton
-        href="mailto:support@richardsonaccelerate.com"
+        href={SUPPORT_URL}
         target="_blank"
         background="light"
         variant="secondary"

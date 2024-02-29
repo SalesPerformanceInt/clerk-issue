@@ -1,0 +1,22 @@
+table:
+  name: tenant
+  schema: public
+array_relationships:
+  - name: users
+    using:
+      manual_configuration:
+        column_mapping:
+          tenant_id: tenant_id
+        insertion_order: null
+        remote_table:
+          name: user
+          schema: public
+select_permissions:
+  - role: user
+    permission:
+      columns:
+        - tenant_id
+        - theme_id
+      filter:
+        tenant_id:
+          _eq: X-Hasura-Tenant-Id

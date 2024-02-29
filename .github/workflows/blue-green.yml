@@ -56,8 +56,35 @@ jobs:
         run: pnpm exec playwright install chromium
       - name: Run Playwright Test Suite
         run: pnpm run test:cu
-  merge_to_production:
+  migrate_production_hasura_databases:
     needs: playwright_green_test
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 18
+      - uses: pnpm/action-setup@v2
+        name: Install pnpm
+        id: pnpm-install
+        with:
+          version: 8
+          run_install: false
+      - name: PNPM install Dependencies
+        run: pnpm install --no-frozen-lockfile
+      - name: Change directory to quick-check/hasura
+        run: cd ./apps/quick-check/hasura
+      - name: Apply EU Migrations
+        run: hasura migrate apply --endpoint 'https://hasura-eu.richardsonaccelerate.com/' --admin-secret ${{ secrets.HASURA_ADMIN_SECRET_EU }} --database-name quickcheck
+      - name: Apply EU Metadata
+        run: hasura metadata apply --endpoint 'https://hasura-eu.richardsonaccelerate.com/' --admin-secret ${{ secrets.HASURA_ADMIN_SECRET_EU }}
+      - name: Apply US Migrations
+        run: hasura migrate apply --endpoint 'https://hasura-us.richardsonaccelerate.com/' --admin-secret ${{ secrets.HASURA_ADMIN_SECRET_US }} --database-name quickcheck
+      - name: Apply US Metadata
+        run: hasura metadata apply --endpoint 'https://hasura-us.richardsonaccelerate.com/' --admin-secret ${{ secrets.HASURA_ADMIN_SECRET_US }}
+  merge_to_production:
+    needs: migrate_production_hasura_databases
     runs-on: ubuntu-latest
     steps:
       - name: Merge main -> production

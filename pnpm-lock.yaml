@@ -171,6 +171,7 @@ importers:
       concurrently: ^8.2.2
       contentstack: ^3.17.2
       dotenv: ^16.3.1
+      dotenv-load: ^3.0.0
       emails: workspace:*
       eslint: ^8.56.0
       framer-motion: ^10.18.0
@@ -229,6 +230,7 @@ importers:
       '@sendgrid/mail': 7.7.0
       '@splitsoftware/splitio': 10.25.1
       '@splitsoftware/splitio-react': 1.11.0_qfley7esqx25r4haockyb2y6hu
+      dotenv-load: 3.0.0
       emails: link:../../packages/emails
       framer-motion: 10.18.0_2cgrvk7u4uihcgzrpy3ggjsfmi
       glob: 10.3.10
@@ -9527,7 +9529,7 @@ packages:
       '@babel/plugin-syntax-typescript': 7.23.3_@babel+core@7.24.0
       '@vanilla-extract/babel-plugin-debug-ids': 1.0.5
       '@vanilla-extract/css': 1.14.1
-      esbuild: 0.17.6
+      esbuild: 0.19.12
       eval: 0.1.8
       find-up: 5.0.0
       javascript-stringify: 2.1.0
@@ -11727,7 +11729,6 @@ packages:
       dotenv: 16.4.5
       dotenv-expand: 10.0.0
       shelljs: 0.8.5
-    dev: true
 
   /dotenv/16.4.5:
     resolution: {integrity: sha512-ZmdL2rui+eB2YwhsWzjInR8LldtZHGDoQ1ugH85ppHKwpUHL7j7rN0Ti9NCnGiQbhaZ11FpR+7ao1dNsmduNUg==}

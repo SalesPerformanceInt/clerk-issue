@@ -9,6 +9,6 @@
       "~/*": ["./src/*"],
     },
   },
-  "include": ["src"],
+  "include": ["src", "tailwind.config.ts"],
   "exclude": ["**/.react-email", "node_modules", "dist"],
 }

@@ -43,7 +43,9 @@ export const QuestionReviewAnswers: FC<QuestionReviewAnswersProps> = ({
               choice.correct && "border-none bg-success-50",
             )}
           >
-            <p className="font-bold text-text">"{parse(choice.body)}"</p>
+            <p className="font-bold text-text">
+              {parse(choice.body)}
+            </p>
 
             <span className="text-text">{parse(choice.feedback)}</span>
           </div>

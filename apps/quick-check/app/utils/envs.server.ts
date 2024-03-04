@@ -12,8 +12,9 @@ export const QC_CONTENTSTACK_ENVIRONMENT =
 export const QC_CONTENTSTACK_TRANSLATION_ID =
   process.env.QC_CONTENTSTACK_TRANSLATION_ID ?? "";
 
-export const HASURA_AUTH_TOKEN = process.env.HASURA_AUTH_TOKEN ?? "";
-export const HASURA_API_URL = process.env.HASURA_API_URL ?? "";
+export const HASURA_GRAPHQL_ADMIN_SECRET =
+  process.env.HASURA_GRAPHQL_ADMIN_SECRET ?? "";
+export const HASURA_API_URL = `${process.env.HASURA_GRAPHQL_ENDPOINT}/v1/graphql`;
 export const HASURA_SECRET_KEY = process.env.HASURA_SECRET_KEY ?? "";
 export const HASURA_JWT_OFFSET = process.env.HASURA_JWT_OFFSET;
 

@@ -1,4 +1,4 @@
-import { HASURA_AUTH_TOKEN } from "~/utils/envs.server";
+import { HASURA_GRAPHQL_ADMIN_SECRET } from "~/utils/envs.server";
 
 import { getAdminDataFromFromSession } from "~/models/session";
 
@@ -20,7 +20,7 @@ export const getAdminApolloClient = async (now: string) => {
   const jwt = await getHasuraJWT({
     "x-hasura-default-role": "admin",
     "x-hasura-allowed-roles": ["admin"],
-    "x-hasura-admin-secret": HASURA_AUTH_TOKEN,
+    "x-hasura-admin-secret": HASURA_GRAPHQL_ADMIN_SECRET,
   });
 
   const adminApolloClient = new AdminGraphQLClient(jwt);

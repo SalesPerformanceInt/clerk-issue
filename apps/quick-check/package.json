@@ -7,8 +7,7 @@
     "dev": "concurrently \"remix dev --manual\" \"pnpm run codegen --watch\"",
     "typecheck": "tsc",
     "codegen": "graphql-codegen --config codegen.ts",
-    "hasura:migrate": "dotenv-load hasura migrate apply --database-name quickcheck --project hasura",
-    "hasura:metadata": "dotenv-load hasura metadata apply --project hasura"
+    "hasura": "dotenv-load hasura console --project hasura"
   },
   "dependencies": {
     "@apollo/client": "^3.8.9",

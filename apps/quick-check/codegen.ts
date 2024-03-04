@@ -1,18 +1,18 @@
 import type { CodegenConfig } from "@graphql-codegen/cli";
 import dotenv from "dotenv";
-import { UUIDResolver } from "graphql-scalars";
 
 dotenv.config();
 
-const HASURA_AUTH_TOKEN = process.env.HASURA_AUTH_TOKEN ?? "";
-const HASURA_API_URL = process.env.HASURA_API_URL ?? "";
+const HASURA_GRAPHQL_ADMIN_SECRET =
+  process.env.HASURA_GRAPHQL_ADMIN_SECRET ?? "";
+const HASURA_API_URL = `${process.env.HASURA_GRAPHQL_ENDPOINT}/v1/graphql`;
 
 const config: CodegenConfig = {
   schema: [
     {
       [HASURA_API_URL]: {
         headers: {
-          "x-hasura-admin-secret": HASURA_AUTH_TOKEN,
+          "x-hasura-admin-secret": HASURA_GRAPHQL_ADMIN_SECRET,
         },
       },
     },

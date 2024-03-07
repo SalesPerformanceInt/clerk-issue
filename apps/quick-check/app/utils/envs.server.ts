@@ -1,5 +1,7 @@
 import { ContentStackEnvs } from "quickcheck-shared";
 
+export const QC_ENV = process.env.QC_ENV ?? "";
+
 export const QC_CONTENTSTACK_DELIVERY_TOKEN =
   process.env.QC_CONTENTSTACK_DELIVERY_TOKEN ?? "";
 
@@ -11,6 +13,8 @@ export const QC_CONTENTSTACK_ENVIRONMENT =
 
 export const QC_CONTENTSTACK_TRANSLATION_ID =
   process.env.QC_CONTENTSTACK_TRANSLATION_ID ?? "";
+
+export const QC_ADMIN_SECRET = process.env.QC_ADMIN_SECRET ?? "";
 
 export const HASURA_GRAPHQL_ADMIN_SECRET =
   process.env.HASURA_GRAPHQL_ADMIN_SECRET ?? "";

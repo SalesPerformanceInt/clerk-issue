@@ -28,6 +28,7 @@ import { getAdminApolloClientFromRequest } from "~/graphql";
 import { parseSchema } from "~/utils/parseSchema";
 
 import { contentReportHeaders, getContentReport } from "~/models/admin";
+import { authAdminSession } from "~/models/session";
 
 export const adminTenantListActionSchema = z.object({
   type: z.enum(["DELETE_TENANT"]),
@@ -45,13 +46,18 @@ export const config = {
 };
 
 export const loader = async ({ request }: LoaderFunctionArgs) => {
-  const adminApolloClient = await getAdminApolloClientFromRequest(request);
+  try {
+    const authAdmin = await authAdminSession(request);
+    if (authAdmin) return authAdmin;
 
-  const tenants = (await adminApolloClient.getTenants()) ?? [];
+    const adminApolloClient = await getAdminApolloClientFromRequest(request);
 
-  const contentReport = await getContentReport();
+    const tenants = (await adminApolloClient.getTenants()) ?? [];
 
-  return json({ tenants, contentReport }, { status: 200 });
+    const contentReport = await getContentReport();
+
+    return json({ tenants, contentReport }, { status: 200 });
+  } catch (error) {}
 };
 
 export const action = async ({ request }: ActionFunctionArgs) => {

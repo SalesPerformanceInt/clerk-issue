@@ -17,6 +17,7 @@ import {
   formatUserInputFromImport,
   parseCreateUserRequest,
 } from "~/models/api";
+import { authAdminSession } from "~/models/session";
 
 import { CreateUserForm, UsersTable } from "~/components";
 
@@ -25,6 +26,9 @@ export const config = {
 };
 
 export const loader = async ({ request, params }: LoaderFunctionArgs) => {
+  const authAdmin = await authAdminSession(request);
+  if (authAdmin) return authAdmin;
+
   const { tenantId } = params;
   invariant(tenantId, "Tenant ID not found");
 

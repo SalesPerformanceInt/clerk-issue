@@ -14,12 +14,14 @@ export enum SessionKeys {
   USER_ID = "userId",
   TENANT_ID = "tenantId",
   NOW = "now",
+  ADMIN = "admin",
 }
 
 export type SessionData = {
   [SessionKeys.USER_ID]: string;
   [SessionKeys.TENANT_ID]: string;
   [SessionKeys.NOW]?: string;
+  [SessionKeys.ADMIN]?: boolean;
 };
 export type SessionFlashData = { error: string };
 

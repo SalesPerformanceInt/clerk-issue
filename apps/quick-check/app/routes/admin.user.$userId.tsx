@@ -28,6 +28,7 @@ import { parseSchema } from "~/utils/parseSchema";
 
 import { performAdminAction } from "~/models/admin";
 import { handleUserEnrollment } from "~/models/enrollment";
+import { authAdminSession } from "~/models/session";
 import { buildTaxonTrees, treeNodeToRawNodeDatum } from "~/models/taxonomy";
 
 import { UsersTable } from "~/components";
@@ -37,6 +38,9 @@ export const config = {
 };
 
 export const loader = async ({ request, params }: LoaderFunctionArgs) => {
+  const authAdmin = await authAdminSession(request);
+  if (authAdmin) return authAdmin;
+
   const adminApolloClient = await getAdminApolloClientFromRequest(request);
 
   const { userId } = params;
@@ -82,7 +86,7 @@ export const action = async ({ request, params }: ActionFunctionArgs) => {
     const userAction = parseUserActionRequest(formData);
 
     if (user && userAction?.type === "ENROLL" && userAction?.taxonomyId) {
-      const enrollment = {
+      const enrollment: Omit<EnrollUserEnrollment, "user_id" | "topic_id"> = {
         enrollment_id: uuidV4(),
         start_date: DateTime.now().toISO()!,
         expiration_date: DateTime.now().plus({ weeks: 12 }).toISO()!,

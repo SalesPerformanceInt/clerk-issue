@@ -83,12 +83,15 @@ export async function createUserSession({
   userId,
   tenantId,
   now,
+  admin,
 }: UserSession) {
   const session = await getSession(request);
 
   session.set(SessionKeys.USER_ID, userId);
   session.set(SessionKeys.TENANT_ID, tenantId);
   session.set(SessionKeys.NOW, now);
+
+  admin && session.set(SessionKeys.ADMIN, admin);
 
   return createSession({
     session,

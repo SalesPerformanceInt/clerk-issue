@@ -7,6 +7,7 @@ import {
   getNodeInTreesById,
   invariant,
   logError,
+  Tree,
   type QuestionItem,
   type TreeNode,
 } from "quickcheck-shared";
@@ -59,9 +60,10 @@ export const SYNC_USER_ENROLLMENT = graphql(/* GraphQL */ `
 /**
  * Prepare Taxon
  */
-
-const getTaxon = async (taxonomy_id: string) => {
-  const taxonTrees = await buildTaxonTrees();
+export const getTaxon = async (
+  taxonomy_id: string,
+  taxonTrees: Tree<TaxonomyDataObj>[],
+) => {
   const taxon = getNodeInTreesById(taxonTrees, taxonomy_id);
 
   invariant(taxon, "No matching Taxon found.");
@@ -220,7 +222,8 @@ export async function syncUserEnrollment(
   try {
     const { userId, tenantId } = proxyData;
 
-    const taxon = await getTaxon(taxonomyId);
+    const taxonTrees = await buildTaxonTrees();
+    const taxon = await getTaxon(taxonomyId, taxonTrees);
 
     const language = await this.getUserLanguage(proxyData);
 

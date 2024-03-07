@@ -1,5 +1,9 @@
+import type {
+  QuestionItemByTaxonomy,
+  QuestionItemVariant,
+} from "~qcs/contentstack";
+
 import type { QuestionItem, Variant } from "~qcs/components/Question";
-import type { QuestionItemVariant } from "~qcs/contentstack";
 
 export type RestrictQuestionItemVariant<
   V extends Variant,
@@ -7,7 +11,7 @@ export type RestrictQuestionItemVariant<
 > = Q extends unknown ? (V extends keyof Q ? Q : undefined) : undefined;
 
 export const getVariant = <V extends Variant>(
-  questionItem: QuestionItem,
+  questionItem: QuestionItem | QuestionItemByTaxonomy,
   variant: V,
 ) => {
   const questionVariant = questionItem.variants.find(

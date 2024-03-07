@@ -1,3 +1,4 @@
+import { Expand } from "..";
 import type { WithLiveData } from "./utilities";
 
 export type Metadata = {
@@ -127,9 +128,14 @@ export type QuestionItem = WithLiveData<{
   locale: string;
   created_at: string;
   variants: QuestionItemVariant[];
-  // taxonomy: Taxon[];
   topic: Taxon[];
 }>;
+
+export type QuestionItemByTaxonomy = Expand<
+  Omit<QuestionItem, "topic"> & {
+    topic: Taxon;
+  }
+>;
 
 export type Taxon = WithLiveData<{
   title: string;
@@ -144,6 +150,17 @@ export type QuickcheckTheme = WithLiveData<{
   uid: string;
   css_theme: string;
   custom_styles: string;
+}>;
+
+export type Course = WithLiveData<{
+  uid: string;
+  title: string;
+  metadata: {
+    display_title: string;
+    quickcheck_taxonomy: {
+      uid: string;
+    }[];
+  };
 }>;
 
 export type ContentType = QuestionItem | Taxon;

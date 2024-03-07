@@ -82,7 +82,7 @@ export const action = async ({ request, params }: ActionFunctionArgs) => {
     const userAction = parseUserActionRequest(formData);
 
     if (user && userAction?.type === "ENROLL" && userAction?.taxonomyId) {
-      const enrollment: EnrollUserEnrollment = {
+      const enrollment = {
         enrollment_id: uuidV4(),
         start_date: DateTime.now().toISO()!,
         expiration_date: DateTime.now().plus({ weeks: 12 }).toISO()!,

@@ -1,3 +1,4 @@
+import { CSVLink } from "react-csv";
 import {
   json,
   type ActionFunctionArgs,
@@ -12,13 +13,21 @@ import {
 
 import { faTrash } from "@fortawesome/pro-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { DateTime } from "luxon";
 import { z } from "zod";
 
-import { Button, simpleErrorResponse } from "quickcheck-shared";
+import {
+  Button,
+  buttonVariants,
+  cn,
+  simpleErrorResponse,
+} from "quickcheck-shared";
 
 import { getAdminApolloClientFromRequest } from "~/graphql";
 
 import { parseSchema } from "~/utils/parseSchema";
+
+import { contentReportHeaders, getContentReport } from "~/models/admin";
 
 export const adminTenantListActionSchema = z.object({
   type: z.enum(["DELETE_TENANT"]),
@@ -39,7 +48,10 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
   const adminApolloClient = await getAdminApolloClientFromRequest(request);
 
   const tenants = (await adminApolloClient.getTenants()) ?? [];
-  return json({ tenants }, { status: 200 });
+
+  const contentReport = await getContentReport();
+
+  return json({ tenants, contentReport }, { status: 200 });
 };
 
 export const action = async ({ request }: ActionFunctionArgs) => {
@@ -62,7 +74,7 @@ export const action = async ({ request }: ActionFunctionArgs) => {
 };
 
 export default function Page() {
-  const { tenants } = useLoaderData<typeof loader>();
+  const { tenants, contentReport } = useLoaderData<typeof loader>();
 
   const submit = useSubmit();
   const { state, formData } = useNavigation();
@@ -162,6 +174,23 @@ export default function Page() {
                   ))}
                 </tbody>
               </table>
+              <div className="mt-6">
+                <CSVLink
+                  data={contentReport}
+                  headers={contentReportHeaders}
+                  filename={`quickcheck_content_${DateTime.now().toISODate()}.csv`}
+                  target="_blank"
+                  className={cn(
+                    buttonVariants({
+                      background: "light",
+                      isDesktop: true,
+                      className: "hover:backdrop-brightness-95",
+                    }),
+                  )}
+                >
+                  Download Content Report
+                </CSVLink>
+              </div>
             </div>
           </div>
         </div>

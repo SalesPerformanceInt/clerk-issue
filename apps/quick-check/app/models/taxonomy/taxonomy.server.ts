@@ -37,7 +37,7 @@ export const treeNodeToRawNodeDatum = <T extends TaxonomyDataObj>(
 
 export const buildTaxonTrees = async () => {
   const contentStack = getContentStackClient(DEFAULT_LANGUAGE);
-  const taxonomies = (await contentStack.getAllTaxonomies()) ?? [];
+  const taxonomies = (await contentStack.getTaxonomies()) ?? [];
 
   const taxonomyDataObjects = taxonomies.map(toTaxonomyDataObj);
 

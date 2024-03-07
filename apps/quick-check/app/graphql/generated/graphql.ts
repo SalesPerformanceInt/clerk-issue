@@ -600,10 +600,6 @@ export type Mutation_Root = {
   delete_tenant?: Maybe<Tenant_Mutation_Response>;
   /** delete single row from the table: "tenant" */
   delete_tenant_by_pk?: Maybe<Tenant>;
-  /** delete data from the table: "test_table" */
-  delete_test_table?: Maybe<Test_Table_Mutation_Response>;
-  /** delete single row from the table: "test_table" */
-  delete_test_table_by_pk?: Maybe<Test_Table>;
   /** delete data from the table: "user" */
   delete_user?: Maybe<User_Mutation_Response>;
   /** delete data from the table: "user_answer" */
@@ -632,10 +628,6 @@ export type Mutation_Root = {
   insert_tenant?: Maybe<Tenant_Mutation_Response>;
   /** insert a single row into the table: "tenant" */
   insert_tenant_one?: Maybe<Tenant>;
-  /** insert data into the table: "test_table" */
-  insert_test_table?: Maybe<Test_Table_Mutation_Response>;
-  /** insert a single row into the table: "test_table" */
-  insert_test_table_one?: Maybe<Test_Table>;
   /** insert data into the table: "user" */
   insert_user?: Maybe<User_Mutation_Response>;
   /** insert data into the table: "user_answer" */
@@ -670,12 +662,6 @@ export type Mutation_Root = {
   update_tenant_by_pk?: Maybe<Tenant>;
   /** update multiples rows of table: "tenant" */
   update_tenant_many?: Maybe<Array<Maybe<Tenant_Mutation_Response>>>;
-  /** update data of the table: "test_table" */
-  update_test_table?: Maybe<Test_Table_Mutation_Response>;
-  /** update single row of the table: "test_table" */
-  update_test_table_by_pk?: Maybe<Test_Table>;
-  /** update multiples rows of table: "test_table" */
-  update_test_table_many?: Maybe<Array<Maybe<Test_Table_Mutation_Response>>>;
   /** update data of the table: "user" */
   update_user?: Maybe<User_Mutation_Response>;
   /** update data of the table: "user_answer" */
@@ -736,18 +722,6 @@ export type Mutation_RootDelete_TenantArgs = {
 /** mutation root */
 export type Mutation_RootDelete_Tenant_By_PkArgs = {
   tenant_id: Scalars['String']['input'];
-};
-
-
-/** mutation root */
-export type Mutation_RootDelete_Test_TableArgs = {
-  where: Test_Table_Bool_Exp;
-};
-
-
-/** mutation root */
-export type Mutation_RootDelete_Test_Table_By_PkArgs = {
-  id: Scalars['uuid']['input'];
 };
 
 
@@ -838,20 +812,6 @@ export type Mutation_RootInsert_TenantArgs = {
 export type Mutation_RootInsert_Tenant_OneArgs = {
   object: Tenant_Insert_Input;
   on_conflict?: InputMaybe<Tenant_On_Conflict>;
-};
-
-
-/** mutation root */
-export type Mutation_RootInsert_Test_TableArgs = {
-  objects: Array<Test_Table_Insert_Input>;
-  on_conflict?: InputMaybe<Test_Table_On_Conflict>;
-};
-
-
-/** mutation root */
-export type Mutation_RootInsert_Test_Table_OneArgs = {
-  object: Test_Table_Insert_Input;
-  on_conflict?: InputMaybe<Test_Table_On_Conflict>;
 };
 
 
@@ -978,26 +938,6 @@ export type Mutation_RootUpdate_Tenant_By_PkArgs = {
 /** mutation root */
 export type Mutation_RootUpdate_Tenant_ManyArgs = {
   updates: Array<Tenant_Updates>;
-};
-
-
-/** mutation root */
-export type Mutation_RootUpdate_Test_TableArgs = {
-  _set?: InputMaybe<Test_Table_Set_Input>;
-  where: Test_Table_Bool_Exp;
-};
-
-
-/** mutation root */
-export type Mutation_RootUpdate_Test_Table_By_PkArgs = {
-  _set?: InputMaybe<Test_Table_Set_Input>;
-  pk_columns: Test_Table_Pk_Columns_Input;
-};
-
-
-/** mutation root */
-export type Mutation_RootUpdate_Test_Table_ManyArgs = {
-  updates: Array<Test_Table_Updates>;
 };
 
 
@@ -1133,12 +1073,6 @@ export type Query_Root = {
   tenant_aggregate: Tenant_Aggregate;
   /** fetch data from the table: "tenant" using primary key columns */
   tenant_by_pk?: Maybe<Tenant>;
-  /** fetch data from the table: "test_table" */
-  test_table: Array<Test_Table>;
-  /** fetch aggregated fields from the table: "test_table" */
-  test_table_aggregate: Test_Table_Aggregate;
-  /** fetch data from the table: "test_table" using primary key columns */
-  test_table_by_pk?: Maybe<Test_Table>;
   /** fetch data from the table: "user" */
   user: Array<User>;
   /** fetch aggregated fields from the table: "user" */
@@ -1232,29 +1166,6 @@ export type Query_RootTenant_AggregateArgs = {
 
 export type Query_RootTenant_By_PkArgs = {
   tenant_id: Scalars['String']['input'];
-};
-
-
-export type Query_RootTest_TableArgs = {
-  distinct_on?: InputMaybe<Array<Test_Table_Select_Column>>;
-  limit?: InputMaybe<Scalars['Int']['input']>;
-  offset?: InputMaybe<Scalars['Int']['input']>;
-  order_by?: InputMaybe<Array<Test_Table_Order_By>>;
-  where?: InputMaybe<Test_Table_Bool_Exp>;
-};
-
-
-export type Query_RootTest_Table_AggregateArgs = {
-  distinct_on?: InputMaybe<Array<Test_Table_Select_Column>>;
-  limit?: InputMaybe<Scalars['Int']['input']>;
-  offset?: InputMaybe<Scalars['Int']['input']>;
-  order_by?: InputMaybe<Array<Test_Table_Order_By>>;
-  where?: InputMaybe<Test_Table_Bool_Exp>;
-};
-
-
-export type Query_RootTest_Table_By_PkArgs = {
-  id: Scalars['uuid']['input'];
 };
 
 
@@ -1375,14 +1286,6 @@ export type Subscription_Root = {
   tenant_by_pk?: Maybe<Tenant>;
   /** fetch data from the table in a streaming manner: "tenant" */
   tenant_stream: Array<Tenant>;
-  /** fetch data from the table: "test_table" */
-  test_table: Array<Test_Table>;
-  /** fetch aggregated fields from the table: "test_table" */
-  test_table_aggregate: Test_Table_Aggregate;
-  /** fetch data from the table: "test_table" using primary key columns */
-  test_table_by_pk?: Maybe<Test_Table>;
-  /** fetch data from the table in a streaming manner: "test_table" */
-  test_table_stream: Array<Test_Table>;
   /** fetch data from the table: "user" */
   user: Array<User>;
   /** fetch aggregated fields from the table: "user" */
@@ -1505,36 +1408,6 @@ export type Subscription_RootTenant_StreamArgs = {
   batch_size: Scalars['Int']['input'];
   cursor: Array<InputMaybe<Tenant_Stream_Cursor_Input>>;
   where?: InputMaybe<Tenant_Bool_Exp>;
-};
-
-
-export type Subscription_RootTest_TableArgs = {
-  distinct_on?: InputMaybe<Array<Test_Table_Select_Column>>;
-  limit?: InputMaybe<Scalars['Int']['input']>;
-  offset?: InputMaybe<Scalars['Int']['input']>;
-  order_by?: InputMaybe<Array<Test_Table_Order_By>>;
-  where?: InputMaybe<Test_Table_Bool_Exp>;
-};
-
-
-export type Subscription_RootTest_Table_AggregateArgs = {
-  distinct_on?: InputMaybe<Array<Test_Table_Select_Column>>;
-  limit?: InputMaybe<Scalars['Int']['input']>;
-  offset?: InputMaybe<Scalars['Int']['input']>;
-  order_by?: InputMaybe<Array<Test_Table_Order_By>>;
-  where?: InputMaybe<Test_Table_Bool_Exp>;
-};
-
-
-export type Subscription_RootTest_Table_By_PkArgs = {
-  id: Scalars['uuid']['input'];
-};
-
-
-export type Subscription_RootTest_Table_StreamArgs = {
-  batch_size: Scalars['Int']['input'];
-  cursor: Array<InputMaybe<Test_Table_Stream_Cursor_Input>>;
-  where?: InputMaybe<Test_Table_Bool_Exp>;
 };
 
 
@@ -1824,128 +1697,6 @@ export type Tenant_Updates = {
   _set?: InputMaybe<Tenant_Set_Input>;
   /** filter the rows which have to be updated */
   where: Tenant_Bool_Exp;
-};
-
-/** columns and relationships of "test_table" */
-export type Test_Table = {
-  __typename?: 'test_table';
-  id: Scalars['uuid']['output'];
-};
-
-/** aggregated selection of "test_table" */
-export type Test_Table_Aggregate = {
-  __typename?: 'test_table_aggregate';
-  aggregate?: Maybe<Test_Table_Aggregate_Fields>;
-  nodes: Array<Test_Table>;
-};
-
-/** aggregate fields of "test_table" */
-export type Test_Table_Aggregate_Fields = {
-  __typename?: 'test_table_aggregate_fields';
-  count: Scalars['Int']['output'];
-  max?: Maybe<Test_Table_Max_Fields>;
-  min?: Maybe<Test_Table_Min_Fields>;
-};
-
-
-/** aggregate fields of "test_table" */
-export type Test_Table_Aggregate_FieldsCountArgs = {
-  columns?: InputMaybe<Array<Test_Table_Select_Column>>;
-  distinct?: InputMaybe<Scalars['Boolean']['input']>;
-};
-
-/** Boolean expression to filter rows from the table "test_table". All fields are combined with a logical 'AND'. */
-export type Test_Table_Bool_Exp = {
-  _and?: InputMaybe<Array<Test_Table_Bool_Exp>>;
-  _not?: InputMaybe<Test_Table_Bool_Exp>;
-  _or?: InputMaybe<Array<Test_Table_Bool_Exp>>;
-  id?: InputMaybe<Uuid_Comparison_Exp>;
-};
-
-/** unique or primary key constraints on table "test_table" */
-export enum Test_Table_Constraint {
-  /** unique or primary key constraint on columns "id" */
-  TestTablePkey = 'test_table_pkey'
-}
-
-/** input type for inserting data into table "test_table" */
-export type Test_Table_Insert_Input = {
-  id?: InputMaybe<Scalars['uuid']['input']>;
-};
-
-/** aggregate max on columns */
-export type Test_Table_Max_Fields = {
-  __typename?: 'test_table_max_fields';
-  id?: Maybe<Scalars['uuid']['output']>;
-};
-
-/** aggregate min on columns */
-export type Test_Table_Min_Fields = {
-  __typename?: 'test_table_min_fields';
-  id?: Maybe<Scalars['uuid']['output']>;
-};
-
-/** response of any mutation on the table "test_table" */
-export type Test_Table_Mutation_Response = {
-  __typename?: 'test_table_mutation_response';
-  /** number of rows affected by the mutation */
-  affected_rows: Scalars['Int']['output'];
-  /** data from the rows affected by the mutation */
-  returning: Array<Test_Table>;
-};
-
-/** on_conflict condition type for table "test_table" */
-export type Test_Table_On_Conflict = {
-  constraint: Test_Table_Constraint;
-  update_columns?: Array<Test_Table_Update_Column>;
-  where?: InputMaybe<Test_Table_Bool_Exp>;
-};
-
-/** Ordering options when selecting data from "test_table". */
-export type Test_Table_Order_By = {
-  id?: InputMaybe<Order_By>;
-};
-
-/** primary key columns input for table: test_table */
-export type Test_Table_Pk_Columns_Input = {
-  id: Scalars['uuid']['input'];
-};
-
-/** select columns of table "test_table" */
-export enum Test_Table_Select_Column {
-  /** column name */
-  Id = 'id'
-}
-
-/** input type for updating data in table "test_table" */
-export type Test_Table_Set_Input = {
-  id?: InputMaybe<Scalars['uuid']['input']>;
-};
-
-/** Streaming cursor of the table "test_table" */
-export type Test_Table_Stream_Cursor_Input = {
-  /** Stream column input with initial value */
-  initial_value: Test_Table_Stream_Cursor_Value_Input;
-  /** cursor ordering */
-  ordering?: InputMaybe<Cursor_Ordering>;
-};
-
-/** Initial value of the column from where the streaming should start */
-export type Test_Table_Stream_Cursor_Value_Input = {
-  id?: InputMaybe<Scalars['uuid']['input']>;
-};
-
-/** update columns of table "test_table" */
-export enum Test_Table_Update_Column {
-  /** column name */
-  Id = 'id'
-}
-
-export type Test_Table_Updates = {
-  /** sets the columns of the filtered rows to the given values */
-  _set?: InputMaybe<Test_Table_Set_Input>;
-  /** filter the rows which have to be updated */
-  where: Test_Table_Bool_Exp;
 };
 
 /** Boolean expression to compare columns of type "timestamptz". All fields are combined with logical 'AND'. */

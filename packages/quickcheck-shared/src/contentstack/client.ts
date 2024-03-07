@@ -1,12 +1,16 @@
-import { Stack } from "contentstack";
+import { Query, Stack } from "contentstack";
+import { isEmpty } from "remeda";
 
 import {
-  getAllTaxonomies,
+  getCourses,
   getQuestionItem,
   getQuestionItems,
+  getTaxonomies,
   getTaxonomy,
   getTheme,
 } from "~qcs/contentstack/queries";
+
+const BATCH_SIZE = 250;
 
 const getContentStackSDKClient = (
   deliveryToken: string,
@@ -27,8 +31,34 @@ export class ContentStackSDKClient {
   getQuestionItems = getQuestionItems;
   getQuestionItem = getQuestionItem;
   getTheme = getTheme;
-  getAllTaxonomies = getAllTaxonomies;
+  getTaxonomies = getTaxonomies;
   getTaxonomy = getTaxonomy;
+  getCourses = getCourses;
+
+  async getAllEntries<T>(
+    type: string,
+    query: (query: Query) => Query = (query) => query,
+    batch = 0,
+    fetched: T[] = [],
+  ): Promise<T[]> {
+    const contentType = this.client.ContentType(type);
+
+    const [result] = (await query(contentType.Query())
+      .language(this.language)
+      .includeFallback()
+      .skip(batch * BATCH_SIZE)
+      .limit(250)
+      .includeContentType()
+      .toJSON()
+      .find()) as [T[]];
+
+    if (isEmpty(result)) return fetched;
+
+    return this.getAllEntries<T>(type, query, batch + 1, [
+      ...fetched,
+      ...result,
+    ]);
+  }
 
   constructor(
     deliveryToken: string,

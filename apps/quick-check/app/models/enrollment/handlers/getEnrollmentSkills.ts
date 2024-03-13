@@ -29,6 +29,7 @@ const getSkillData = (
   );
 
   const unanswered = answersCount <= 0;
+  const completed = questions.every((question) => !!question.retired_on);
 
   const baselineCount = pipe(
     questions,
@@ -50,6 +51,7 @@ const getSkillData = (
     current: getSkillPercentage(currentCount),
     id: questions[0]?.taxonomy_id ?? "",
     unanswered,
+    completed,
   };
 };
 
@@ -58,5 +60,5 @@ export const getEnrollmentSkills = (questions: UserQuestion[]) =>
     questions,
     groupBy(prop("taxonomy_name")),
     mapValues(getSkillData),
-    values,
+    (skills) => values(skills),
   );

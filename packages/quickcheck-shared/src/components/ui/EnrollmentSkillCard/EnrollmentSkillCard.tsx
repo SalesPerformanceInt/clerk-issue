@@ -4,9 +4,11 @@ import { useTranslation } from "react-i18next";
 import { faChevronRight } from "@fortawesome/pro-regular-svg-icons";
 import { faSpinner } from "@fortawesome/pro-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+
 import { cn } from "~qcs/utils";
 
 import { Card, type CardProps } from "../Card";
+
 import { Chart } from "./Chart";
 import type { EnrollmentSkillData } from "./types";
 
@@ -25,20 +27,21 @@ export const EnrollmentSkillCard: FC<EnrollmentSkillCardProps> = ({
   children,
   ...props
 }) => {
-  const { skill, baseline, current, unanswered, id, ...other } = props;
+  const { skill, baseline, current, unanswered, id, completed, ...other } =
+    props;
   const { t } = useTranslation();
 
   return (
     <Card
       key={skill}
       className={className}
-      onClick={() => onClick?.(id)}
+      onClick={() => completed && onClick?.(id)}
       {...other}
     >
       <div
         className={cn(
           "flex w-full items-center justify-between gap-6 p-4",
-          !!onClick && "cursor-pointer hover:backdrop-brightness-95",
+          !!completed && "cursor-pointer hover:backdrop-brightness-95",
         )}
       >
         <div className="flex w-full flex-col justify-center gap-2">
@@ -89,7 +92,7 @@ export const EnrollmentSkillCard: FC<EnrollmentSkillCardProps> = ({
           )}
         </div>
 
-        {!!onClick && loading && (
+        {completed && loading && (
           <div>
             <FontAwesomeIcon
               icon={faSpinner}
@@ -100,7 +103,7 @@ export const EnrollmentSkillCard: FC<EnrollmentSkillCardProps> = ({
           </div>
         )}
 
-        {!!onClick && !loading && (
+        {completed && !loading && (
           <div>
             <FontAwesomeIcon
               icon={faChevronRight}

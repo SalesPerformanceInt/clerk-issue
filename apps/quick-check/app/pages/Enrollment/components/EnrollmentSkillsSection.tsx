@@ -33,13 +33,14 @@ export const EnrollmentSkillsSection: FC = () => {
         t("enrollment.dashboard.skills.tooltip_current"),
       ]}
     >
-      {skills.map((skill) => (
+      {skills.map(({ completed, ...skill }) => (
         <EnrollmentSkillCard
           key={skill.skill}
           categories={["baseline", "current"]}
           className="flow h-fit w-full flex-grow overflow-hidden md:w-1/2-gap-8"
           onClick={(skillId) => goToEnrollmentSkill(skillId)}
           loading={enrollmentSkillNavigation === skill.id}
+          completed={enrollment.expired || completed}
           {...skill}
         />
       ))}

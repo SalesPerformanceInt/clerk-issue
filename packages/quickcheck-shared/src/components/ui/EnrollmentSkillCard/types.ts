@@ -4,4 +4,5 @@ export interface EnrollmentSkillData {
   current: number;
   unanswered: boolean;
   id: string;
+  completed: boolean;
 }

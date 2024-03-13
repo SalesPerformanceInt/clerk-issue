@@ -13,6 +13,7 @@ export const GET_USER_ENROLLMENT = graphql(/* GraphQL */ `
       user_questions {
         id
         taxonomy_id
+        retired_on
         ...UserQuestionFirstLastAnswer
       }
       user {
@@ -64,11 +65,14 @@ export async function getUserEnrollment(
     );
 
     const taxonomy = await contentStack.getTaxonomy(enrollment.taxonomy_id);
+    const expired =
+      !!enrollment.expiration_date && today >= enrollment.expiration_date;
 
     return {
       ...enrollment,
       user_questions,
       taxonomy,
+      expired,
       unanswered_questions:
         enrollment.user.unanswered_questions.aggregate?.count ?? 0,
     };

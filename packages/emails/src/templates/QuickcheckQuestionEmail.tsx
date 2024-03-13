@@ -148,7 +148,11 @@ export const QuickcheckQuestionEmail: FC<QuickcheckQuestionEmailProps> = ({
                             {parse(
                               choice.body
                                 .replace("<p>", "")
-                                .replace("</p>", ""),
+                                .replace("</p>", "")
+                                .replace(
+                                  "<ul>",
+                                  '<ul style="line-height: 1.25">',
+                                ),
                             )}
                           </Text>
                         </Link>

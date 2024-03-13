@@ -17,6 +17,8 @@ import { Button, supportedLngs } from "quickcheck-shared";
 import { getContentStackLanguage } from "~/contentstack";
 import type { UserWithActiveTokenFragment } from "~/graphql";
 
+import { useOutletContext } from "~/utils/outletContext";
+
 import { parseAdminActionRequest, type AdminAction } from "~/models/admin";
 
 export interface UserRowProps {
@@ -26,6 +28,7 @@ export interface UserRowProps {
 }
 
 export const UserRow: FC<UserRowProps> = ({ user, row, link }) => {
+  const { isAdminEnabled } = useOutletContext();
   const submit = useSubmit();
 
   const { state, formData } = useNavigation();
@@ -92,68 +95,85 @@ export const UserRow: FC<UserRowProps> = ({ user, row, link }) => {
       <td className="whitespace-nowrap px-6 py-4 text-center">
         <input
           checked={showLeaderboard}
-          onChange={makeUserAction("TOGGLE_SHOW_LEADERBOARD", () =>
-            setShowLeaderboard(!showLeaderboard),
-          )}
           id="leaderboard"
           type="checkbox"
           value=""
           className="h-4 w-4 rounded border-gray-300 bg-gray-100 text-blue-600"
+          disabled={!isAdminEnabled}
+          {...(isAdminEnabled && {
+            onChange: makeUserAction("TOGGLE_SHOW_LEADERBOARD", () =>
+              setShowLeaderboard(!showLeaderboard),
+            ),
+          })}
         />
       </td>
       <td className="whitespace-nowrap px-6 py-4 text-center">
         <input
           checked={dailyEmailEnabled}
-          onChange={makeUserAction("TOGGLE_SMS_ENABLED", () =>
-            setDailyEmailEnabled(!dailyEmailEnabled),
-          )}
           id="daily_email"
           type="checkbox"
           value=""
           className="h-4 w-4 rounded border-gray-300 bg-gray-100 text-blue-600"
+          disabled={!isAdminEnabled}
+          {...(isAdminEnabled && {
+            onChange: makeUserAction("TOGGLE_SMS_ENABLED", () =>
+              setDailyEmailEnabled(!dailyEmailEnabled),
+            ),
+          })}
         />
       </td>
-      <td className="relative whitespace-nowrap px-6 py-4 text-center">
-        {isLoading("CHANGE_LANGUAGE") && (
-          <FontAwesomeIcon
-            icon={faSpinner}
-            spinPulse
-            className="absolute bottom-0 left-0 right-0 top-0 m-auto"
-          />
-        )}
-        <select
-          disabled={isLoading("CHANGE_LANGUAGE")}
-          value={getContentStackLanguage(user.language_preference)}
-          onChange={({ target: { value } }) => {
-            const languageSelection = getContentStackLanguage(value);
-            makeUserAction(
-              "CHANGE_LANGUAGE",
-              () => setLanguage(languageSelection),
-              { language: getContentStackLanguage(languageSelection) },
-            )();
-          }}
-          className={twMerge(
-            "rounded-sm border px-2 py-2",
-            isLoading("CHANGE_LANGUAGE") && "text-transparent",
+
+      {isAdminEnabled ? (
+        <td className="relative whitespace-nowrap px-6 py-4 text-center">
+          {isLoading("CHANGE_LANGUAGE") && (
+            <FontAwesomeIcon
+              icon={faSpinner}
+              spinPulse
+              className="absolute bottom-0 left-0 right-0 top-0 m-auto"
+            />
           )}
-        >
-          <FontAwesomeIcon icon={faSpinner} spinPulse />
-          {supportedLngs.map((lng) => (
-            <option key={lng} value={lng}>
-              {lng}
-            </option>
-          ))}
-        </select>
-      </td>
-      <td className="whitespace-nowrap px-6 py-4 text-center">
-        <Button
-          loading={isLoading("GENERATE_TOKEN_AND_SEND_SMS")}
-          onClick={makeUserAction("GENERATE_TOKEN_AND_SEND_SMS")}
-          className="h-8 w-auto py-0 "
-        >
-          <FontAwesomeIcon icon={faKey} />
-        </Button>
-      </td>
+          <select
+            value={getContentStackLanguage(user.language_preference)}
+            className={twMerge(
+              "rounded-sm border px-2 py-2",
+              isLoading("CHANGE_LANGUAGE") && "text-transparent",
+            )}
+            disabled={isLoading("CHANGE_LANGUAGE")}
+            onChange={({ target: { value } }) => {
+              const languageSelection = getContentStackLanguage(value);
+              makeUserAction(
+                "CHANGE_LANGUAGE",
+                () => setLanguage(languageSelection),
+                { language: getContentStackLanguage(languageSelection) },
+              )();
+            }}
+          >
+            <FontAwesomeIcon icon={faSpinner} spinPulse />
+            {supportedLngs.map((lng) => (
+              <option key={lng} value={lng}>
+                {lng}
+              </option>
+            ))}
+          </select>
+        </td>
+      ) : (
+        <td className="relative whitespace-nowrap px-6 py-4 text-center">
+          {language}
+        </td>
+      )}
+
+      {isAdminEnabled && (
+        <td className="whitespace-nowrap px-6 py-4 text-center">
+          <Button
+            loading={isLoading("GENERATE_TOKEN_AND_SEND_SMS")}
+            onClick={makeUserAction("GENERATE_TOKEN_AND_SEND_SMS")}
+            className="h-8 w-auto py-0 "
+          >
+            <FontAwesomeIcon icon={faKey} />
+          </Button>
+        </td>
+      )}
+
       <td className="whitespace-nowrap px-6 py-4 text-center">
         <Button
           disabled={!activeToken}
@@ -164,25 +184,30 @@ export const UserRow: FC<UserRowProps> = ({ user, row, link }) => {
           <FontAwesomeIcon icon={faRightToBracket} />
         </Button>
       </td>
-      <td className="whitespace-nowrap px-6 py-4 text-center">
-        <Button
-          loading={isLoading("RESET_USER")}
-          onClick={makeUserAction("RESET_USER")}
-          className="h-8 w-auto py-0"
-        >
-          <FontAwesomeIcon icon={faArrowsRotate} />
-        </Button>
-      </td>
-      <td className="whitespace-nowrap px-6 py-4 text-center">
-        <Button
-          disabled={!activeToken}
-          loading={isLoading("SEND_QUESTION_EMAIL")}
-          onClick={makeUserAction("SEND_QUESTION_EMAIL")}
-          className="h-8 w-auto py-0"
-        >
-          <FontAwesomeIcon icon={faEnvelope} />
-        </Button>
-      </td>
+
+      {isAdminEnabled && (
+        <>
+          <td className="whitespace-nowrap px-6 py-4 text-center">
+            <Button
+              loading={isLoading("RESET_USER")}
+              onClick={makeUserAction("RESET_USER")}
+              className="h-8 w-auto py-0"
+            >
+              <FontAwesomeIcon icon={faArrowsRotate} />
+            </Button>
+          </td>
+          <td className="whitespace-nowrap px-6 py-4 text-center">
+            <Button
+              disabled={!activeToken}
+              loading={isLoading("SEND_QUESTION_EMAIL")}
+              onClick={makeUserAction("SEND_QUESTION_EMAIL")}
+              className="h-8 w-auto py-0"
+            >
+              <FontAwesomeIcon icon={faEnvelope} />
+            </Button>
+          </td>
+        </>
+      )}
     </tr>
   );
 };

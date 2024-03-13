@@ -25,6 +25,7 @@ import {
 
 import { getAdminApolloClientFromRequest } from "~/graphql";
 
+import { useOutletContext } from "~/utils/outletContext";
 import { parseSchema } from "~/utils/parseSchema";
 
 import { contentReportHeaders, getContentReport } from "~/models/admin";
@@ -81,6 +82,7 @@ export const action = async ({ request }: ActionFunctionArgs) => {
 
 export default function Page() {
   const { tenants, contentReport } = useLoaderData<typeof loader>();
+  const { isAdminEnabled } = useOutletContext();
 
   const submit = useSubmit();
   const { state, formData } = useNavigation();
@@ -136,12 +138,19 @@ export default function Page() {
                     <th scope="col" className="px-6 py-4">
                       Tenant
                     </th>
+
                     <th scope="col" className="w-full px-6 py-4">
                       # Users
                     </th>
-                    <th scope="col" className="w-1 whitespace-nowrap px-6 py-4">
-                      Delete
-                    </th>
+
+                    {isAdminEnabled && (
+                      <th
+                        scope="col"
+                        className="w-1 whitespace-nowrap px-6 py-4"
+                      >
+                        Delete
+                      </th>
+                    )}
                   </tr>
                 </thead>
                 <tbody>
@@ -163,19 +172,24 @@ export default function Page() {
 
                       <td className="whitespace-nowrap px-6 py-4">{`${tenant.users_aggregate.aggregate?.count}`}</td>
 
-                      <td className="whitespace-nowrap px-6 py-4 text-center">
-                        <Button
-                          loading={isLoading("DELETE_TENANT", tenant.tenant_id)}
-                          onClick={makeAdminAction(
-                            "DELETE_TENANT",
-                            tenant.tenant_id,
-                            confirmDelete(tenant.tenant_id),
-                          )}
-                          className="h-8 w-auto py-0 "
-                        >
-                          <FontAwesomeIcon icon={faTrash} />
-                        </Button>
-                      </td>
+                      {isAdminEnabled && (
+                        <td className="whitespace-nowrap px-6 py-4 text-center">
+                          <Button
+                            loading={isLoading(
+                              "DELETE_TENANT",
+                              tenant.tenant_id,
+                            )}
+                            onClick={makeAdminAction(
+                              "DELETE_TENANT",
+                              tenant.tenant_id,
+                              confirmDelete(tenant.tenant_id),
+                            )}
+                            className="h-8 w-auto py-0 "
+                          >
+                            <FontAwesomeIcon icon={faTrash} />
+                          </Button>
+                        </td>
+                      )}
                     </tr>
                   ))}
                 </tbody>

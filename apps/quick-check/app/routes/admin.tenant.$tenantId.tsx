@@ -12,6 +12,8 @@ import { invariant, simpleErrorResponse } from "quickcheck-shared";
 
 import { getAdminApolloClientFromRequest } from "~/graphql";
 
+import { useOutletContext } from "~/utils/outletContext";
+
 import { performAdminAction } from "~/models/admin";
 import {
   formatUserInputFromImport,
@@ -69,6 +71,8 @@ export default function Page() {
   const { tenantId } = useParams();
   const navigate = useNavigate();
 
+  const { isAdminEnabled } = useOutletContext();
+
   return (
     <div className="sm:p-8">
       <div className="flex w-full flex-col">
@@ -88,10 +92,12 @@ export default function Page() {
               <h1 className="text-center text-4xl font-bold">{tenantId}</h1>
               <div />
             </div>
+
             <div className="mb-8 overflow-hidden">
               <UsersTable users={users} link />
             </div>
-            <CreateUserForm />
+
+            {isAdminEnabled && <CreateUserForm />}
           </div>
         </div>
       </div>

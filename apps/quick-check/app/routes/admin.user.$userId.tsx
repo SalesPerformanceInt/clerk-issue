@@ -24,6 +24,8 @@ import {
   type User_Answer,
 } from "~/graphql";
 
+import { formatDate } from "~/utils/date";
+import { useOutletContext } from "~/utils/outletContext";
 import { parseSchema } from "~/utils/parseSchema";
 
 import { performAdminAction } from "~/models/admin";
@@ -132,6 +134,8 @@ export default function Page() {
 
   const { state, formData } = useNavigation();
 
+  const { isAdminEnabled } = useOutletContext();
+
   return (
     <div className="sm:p-8">
       <div className="flex w-full flex-col">
@@ -165,12 +169,27 @@ export default function Page() {
                     <th scope="col" className="px-6 py-4">
                       Course
                     </th>
-                    <th scope="col" className="w-full px-6 py-4">
+                    <th scope="col" className="px-6 py-4">
                       # Questions
                     </th>
-                    <th scope="col" className="w-1 whitespace-nowrap px-6 py-4">
-                      View
+                    <th scope="col" className="px-6 py-4">
+                      Enrolled Date
                     </th>
+                    <th scope="col" className="px-6 py-4">
+                      Start Date
+                    </th>
+                    <th scope="col" className="px-6 py-4">
+                      Expiration Date
+                    </th>
+
+                    {isAdminEnabled && (
+                      <th
+                        scope="col"
+                        className="w-1 whitespace-nowrap px-6 py-4"
+                      >
+                        View
+                      </th>
+                    )}
                   </tr>
                 </thead>
                 <tbody>
@@ -179,6 +198,8 @@ export default function Page() {
                       ({ taxonomy_id }) =>
                         taxonomy_id === course.attributes?.uid,
                     );
+
+                    if (!isAdminEnabled && !enrollment) return null;
 
                     return (
                       <tr
@@ -194,34 +215,47 @@ export default function Page() {
                           {enrollment?.user_questions_aggregate.aggregate
                             ?.count ?? null}
                         </td>
-                        <td className="whitespace-nowrap px-6 py-4 text-center">
-                          <Button
-                            background="light"
-                            variant={!!enrollment ? "primary" : "secondary"}
-                            loading={
-                              state !== "idle" &&
-                              parseUserActionRequest(formData)?.taxonomyId ===
-                                course.attributes?.uid
-                            }
-                            onClick={() => {
-                              const payload: UserAction = {
-                                type: !!enrollment ? "UNENROLL" : "ENROLL",
-                                taxonomyId: `${course.attributes?.uid}` ?? null,
-                                enrollmentId: enrollment?.id || null,
-                              };
-                              const data = JSON.stringify(payload);
-                              const formData = new FormData();
-                              formData.append("data", data);
-
-                              submit(formData, {
-                                method: "POST",
-                              });
-                            }}
-                            className="h-8 w-20 py-0"
-                          >
-                            {enrollment ? "Unenroll" : "Enroll"}
-                          </Button>
+                        <td className="whitespace-nowrap px-6 py-4">
+                          {formatDate(enrollment?.created_at)}
                         </td>
+                        <td className="whitespace-nowrap px-6 py-4">
+                          {formatDate(enrollment?.start_date)}
+                        </td>
+                        <td className="whitespace-nowrap px-6 py-4">
+                          {formatDate(enrollment?.expiration_date)}
+                        </td>
+
+                        {isAdminEnabled && (
+                          <td className="whitespace-nowrap px-6 py-4 text-center">
+                            <Button
+                              background="light"
+                              variant={!!enrollment ? "primary" : "secondary"}
+                              loading={
+                                state !== "idle" &&
+                                parseUserActionRequest(formData)?.taxonomyId ===
+                                  course.attributes?.uid
+                              }
+                              onClick={() => {
+                                const payload: UserAction = {
+                                  type: !!enrollment ? "UNENROLL" : "ENROLL",
+                                  taxonomyId:
+                                    `${course.attributes?.uid}` ?? null,
+                                  enrollmentId: enrollment?.id || null,
+                                };
+                                const data = JSON.stringify(payload);
+                                const formData = new FormData();
+                                formData.append("data", data);
+
+                                submit(formData, {
+                                  method: "POST",
+                                });
+                              }}
+                              className="h-8 w-20 py-0"
+                            >
+                              {enrollment ? "Unenroll" : "Enroll"}
+                            </Button>
+                          </td>
+                        )}
                       </tr>
                     );
                   })}
@@ -275,9 +309,7 @@ export default function Page() {
                           {question.title || question.id}
                         </td>
                         <td className="whitespace-nowrap px-6 py-4">
-                          {DateTime.fromISO(question.active_on ?? "").toFormat(
-                            "LLL dd yyyy",
-                          )}
+                          {formatDate(question.active_on)}
                         </td>
                         <td className="whitespace-nowrap px-6 py-4">
                           {course?.name}

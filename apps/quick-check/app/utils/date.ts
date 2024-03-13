@@ -15,3 +15,6 @@ export const getNextValidBusinessDate = (
 };
 
 export const getToday = (now: string) => DateTime.fromISO(now).toISODate()!;
+
+export const formatDate = (date: string | undefined | null) =>
+  date ? DateTime.fromISO(date).toFormat("LLL dd yyyy") : "";

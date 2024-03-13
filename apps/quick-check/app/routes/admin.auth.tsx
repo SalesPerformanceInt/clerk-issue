@@ -24,7 +24,7 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
   const searchParams = new URL(request.url).searchParams;
   const redirectTo = searchParams.get("redirectTo") ?? "/admin";
 
-  if (QC_ENV === "prod") {
+  if (QC_ENV === "development") {
     const [now] = await getAdminDataFromFromSession(request);
 
     return createAdminSession({

@@ -25,14 +25,13 @@ import { getUserDataFromSession } from "~/models/session";
 
 import { TimeTravel } from "~/components/TimeTravel";
 
-import { CONTENTSTACK_ENVS, ZIPY_API_KEY } from "./utils/envs.server";
+import { CONTENTSTACK_ENVS, QC_ENV, ZIPY_API_KEY } from "./utils/envs.server";
 import { getSplit } from "./utils/getSplit";
+import type { OutletContext } from "./utils/outletContext";
 
 import { getUserConfig } from "./models/user";
 
 import { makeErrorBoundary } from "./components/error";
-
-import { getOptionalUserApolloClientFromRequest } from "./graphql";
 
 export const ErrorBoundary = makeErrorBoundary({ wat: "root level error" });
 
@@ -42,17 +41,16 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
     "quickcheck__time_travel",
   ]);
 
-  const userApolloClient =
-    await getOptionalUserApolloClientFromRequest(request);
-
   const { theme, locale } = await getUserConfig(request);
+
+  const isAdminEnabled = QC_ENV !== "production";
 
   const ENV = {
     ...CONTENTSTACK_ENVS,
     ZIPY_API_KEY,
   };
 
-  return json({ theme, locale, ENV, timeTravelFlag, now });
+  return json({ theme, locale, ENV, timeTravelFlag, now, isAdminEnabled });
 };
 
 export const handle = {
@@ -86,11 +84,16 @@ export const meta: MetaFunction = () => [
 ];
 
 export default function App() {
-  const { theme, locale, ENV, timeTravelFlag, now } =
+  const { theme, locale, ENV, timeTravelFlag, now, isAdminEnabled } =
     useLoaderData<typeof loader>();
 
   const { i18n } = useTranslation();
   useChangeLanguage(locale);
+
+  const outletContext: OutletContext = {
+    now,
+    isAdminEnabled,
+  };
 
   return (
     <html lang={i18n.resolvedLanguage} dir={i18n.dir()} className="h-full">
@@ -116,7 +119,7 @@ export default function App() {
       <body className="h-full overscroll-none bg-background-secondary">
         <TimeTravel now={now} flag={timeTravelFlag} />
 
-        <Outlet context={{ now }} />
+        <Outlet context={outletContext} />
         <ScrollRestoration />
         <Scripts />
         <LiveReload />

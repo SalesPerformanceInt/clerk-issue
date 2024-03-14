@@ -1,10 +1,13 @@
+import { Suspense } from "react";
 import { CSVLink } from "react-csv";
 import {
+  defer,
   json,
   type ActionFunctionArgs,
   type LoaderFunctionArgs,
 } from "@remix-run/node";
 import {
+  Await,
   Link,
   useLoaderData,
   useNavigation,
@@ -21,6 +24,7 @@ import {
   buttonVariants,
   cn,
   simpleErrorResponse,
+  useIsDesktop,
 } from "quickcheck-shared";
 
 import { getAdminApolloClientFromRequest } from "~/graphql";
@@ -55,9 +59,9 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
 
     const tenants = (await adminApolloClient.getTenants()) ?? [];
 
-    const contentReport = await getContentReport();
+    const contentReport = getContentReport();
 
-    return json({ tenants, contentReport }, { status: 200 });
+    return defer({ tenants, contentReport }, { status: 200 });
   } catch (error) {}
 };
 
@@ -83,6 +87,7 @@ export const action = async ({ request }: ActionFunctionArgs) => {
 export default function Page() {
   const { tenants, contentReport } = useLoaderData<typeof loader>();
   const { isAdminEnabled } = useOutletContext();
+  const isDesktop = useIsDesktop();
 
   const submit = useSubmit();
   const { state, formData } = useNavigation();
@@ -194,22 +199,34 @@ export default function Page() {
                   ))}
                 </tbody>
               </table>
-              <div className="mt-6">
-                <CSVLink
-                  data={contentReport}
-                  headers={contentReportHeaders}
-                  filename={`quickcheck_content_${DateTime.now().toISODate()}.csv`}
-                  target="_blank"
-                  className={cn(
-                    buttonVariants({
-                      background: "light",
-                      isDesktop: true,
-                      className: "hover:backdrop-brightness-95",
-                    }),
-                  )}
+              <div className="mt-6 px-4 sm:px-0">
+                <Suspense
+                  fallback={
+                    <Button background="light" disabled>
+                      Download Content Report
+                    </Button>
+                  }
                 >
-                  Download Content Report
-                </CSVLink>
+                  <Await resolve={contentReport}>
+                    {(data) => (
+                      <CSVLink
+                        data={data}
+                        headers={contentReportHeaders}
+                        filename={`quickcheck_content_${DateTime.now().toISODate()}.csv`}
+                        target="_blank"
+                        className={cn(
+                          buttonVariants({
+                            background: "light",
+                            isDesktop,
+                            className: "hover:backdrop-brightness-95",
+                          }),
+                        )}
+                      >
+                        Download Content Report
+                      </CSVLink>
+                    )}
+                  </Await>
+                </Suspense>
               </div>
             </div>
           </div>

@@ -1,6 +1,7 @@
 import React, { useEffect, type FC } from "react";
 
 import { Taxon } from "~qcs/contentstack";
+
 import type { UserData } from "~qcs/utils/types";
 
 import {

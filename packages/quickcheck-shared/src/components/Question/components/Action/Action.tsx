@@ -5,6 +5,7 @@ import { useNavigation } from "@remix-run/react";
 
 import { faArrowRight } from "@fortawesome/pro-light-svg-icons";
 import { isNumber } from "remeda";
+import { twMerge } from "tailwind-merge";
 
 import { ResponsiveContainer } from "~qcs/components";
 import { useQuestionContext } from "~qcs/components/Question";
@@ -81,7 +82,12 @@ export const Action: FC = () => {
         >
           <Feedback />
 
-          <div className="flex items-end justify-end">
+          <div
+            className={twMerge(
+              "flex items-end justify-end",
+              offset && "justify-start",
+            )}
+          >
             <ActionButton />
           </div>
         </div>

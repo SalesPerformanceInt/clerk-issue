@@ -1,14 +1,18 @@
 import React, { type FC } from "react";
 import { useTranslation } from "react-i18next";
+import { useMeasure } from "react-use";
 import { useNavigation } from "@remix-run/react";
 
 import { faArrowRight } from "@fortawesome/pro-light-svg-icons";
 import { isNumber } from "remeda";
 
+import { ResponsiveContainer } from "~qcs/components";
 import { useQuestionContext } from "~qcs/components/Question";
 import { Button } from "~qcs/components/ui/Button";
 
-export const QuestionActionButton: FC = () => {
+import { Feedback } from "./Feedback";
+
+const ActionButton: FC = () => {
   const {
     submitAnswer,
     hasSelected,
@@ -58,5 +62,30 @@ export const QuestionActionButton: FC = () => {
     >
       {t("question.buttons.check_answer")}
     </Button>
+  );
+};
+
+export const Action: FC = () => {
+  const { offset } = useQuestionContext();
+
+  const [ref, { height }] = useMeasure<HTMLDivElement>();
+
+  return (
+    <>
+      <div style={{ height }} />
+
+      <ResponsiveContainer ref={ref} className="fixed inset-x-0 bottom-0">
+        <div
+          style={offset ? { marginBottom: offset } : undefined}
+          className="flex flex-col bg-primary p-4 sm:justify-between sm:px-12 sm:py-6"
+        >
+          <Feedback />
+
+          <div className="flex items-end justify-end">
+            <ActionButton />
+          </div>
+        </div>
+      </ResponsiveContainer>
+    </>
   );
 };

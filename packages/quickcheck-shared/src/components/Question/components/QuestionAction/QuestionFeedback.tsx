@@ -7,20 +7,21 @@ import {
   FontAwesomeIcon,
   FontAwesomeIconProps,
 } from "@fortawesome/react-fontawesome";
-import { useQuestionContext } from "~qcs/components/Question";
 import { grow, slideLeft } from "~qcs/config/animations";
 import { AnimatePresence, motion } from "framer-motion";
 import parse from "html-react-parser";
 import { isNumber } from "remeda";
 import { twMerge } from "tailwind-merge";
 
-interface FeedbackHeaderProps {
+import { useQuestionContext } from "~qcs/components/Question";
+
+interface QuestionFeedbackHeaderProps {
   className?: string;
   icon: FontAwesomeIconProps["icon"];
   message: string;
 }
 
-const FeedbackHeader: FC<FeedbackHeaderProps> = ({
+const QuestionFeedbackHeader: FC<QuestionFeedbackHeaderProps> = ({
   className,
   icon,
   message,
@@ -31,7 +32,7 @@ const FeedbackHeader: FC<FeedbackHeaderProps> = ({
   </div>
 );
 
-export const Feedback: FC = () => {
+export const QuestionFeedback: FC = () => {
   const { selected, submitted, score, totalScore } = useQuestionContext();
   const { t } = useTranslation();
 
@@ -49,13 +50,13 @@ export const Feedback: FC = () => {
           >
             <div className="flex items-center justify-between overflow-hidden">
               {selected?.correct ? (
-                <FeedbackHeader
+                <QuestionFeedbackHeader
                   className="text-success-50"
                   icon={faCheckCircle}
                   message={t("question.feedback.correct")}
                 />
               ) : (
-                <FeedbackHeader
+                <QuestionFeedbackHeader
                   className="text-warning-50"
                   icon={faTimesCircle}
                   message={t("question.feedback.incorrect")}

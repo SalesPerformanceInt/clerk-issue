@@ -1,11 +1,12 @@
 import React, { useEffect, type FC } from "react";
 
 import { Taxon } from "~qcs/contentstack";
+
 import type { UserData } from "~qcs/utils/types";
 
 import {
-  Action,
   OnCloseModal,
+  QuestionAction,
   QuestionHeader,
   QuestionVariant,
 } from "./components";
@@ -36,7 +37,7 @@ export const Question: FC<QuestionProps> = (props) => {
     <QuestionContextProvider {...props}>
       <QuestionHeader />
       <QuestionVariant />
-      <Action />
+      <QuestionAction />
       <OnCloseModal />
     </QuestionContextProvider>
   );

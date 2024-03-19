@@ -5,7 +5,6 @@ import {
   type LoaderFunctionArgs,
 } from "@remix-run/node";
 import {
-  PrefetchPageLinks,
   useActionData,
   useLoaderData,
   useNavigate,
@@ -14,36 +13,14 @@ import {
   type ShouldRevalidateFunction,
 } from "@remix-run/react";
 
-import { compact, first, map, pipe } from "remeda";
-
-import {
-  invariant,
-  Question,
-  variants,
-  type OnSubmit,
-  type QuestionItemVariant,
-} from "quickcheck-shared";
+import { invariant, Question, type OnSubmit } from "quickcheck-shared";
 
 import { getUserApolloClientFromRequest } from "~/graphql";
 
 import { saveAnswer, type Answer } from "~/models/answer";
-import { getQuestionData } from "~/models/question";
+import { getFirstVariant, getQuestionData } from "~/models/question";
 import { requireUserSession } from "~/models/session";
 import { generateNextQuestionFromRequest } from "~/models/user";
-
-const getVariantNames = (questionItemVariants: QuestionItemVariant[]) =>
-  pipe(
-    questionItemVariants,
-    map((variant) => variants.find((_variant) => _variant in variant)),
-    compact,
-  );
-
-const getFirstVariant = (questionItemVariants: QuestionItemVariant[]) =>
-  pipe(questionItemVariants, getVariantNames, first());
-
-export const config = {
-  maxDuration: 300,
-};
 
 export const loader = async ({ params, request }: LoaderFunctionArgs) => {
   try {

@@ -1,14 +1,16 @@
 import React, { type FC } from "react";
 
-import { ResponsiveContainer } from "~qcs/components";
-import { Title } from "~qcs/components/Question/components";
-import { Choice } from "~qcs/components/Question/components/QuestionVariant/components/Choice";
 import { MCQuestion } from "~qcs/contentstack";
+
 import { useDeterministicallyRandomizeChoices } from "~qcs/utils/deterministicallyRandomizeChoices";
 
-import { useMultipleChoices } from "./hooks/useMultipleChoice";
+import { ResponsiveContainer } from "~qcs/components";
+import { QuestionTitle } from "~qcs/components/Question/components";
+import { Choice } from "~qcs/components/Question/components/QuestionVariant/components/Choice";
 
 import { Stem } from "../../components";
+
+import { useMultipleChoices } from "./hooks/useMultipleChoice";
 
 export type MultipleChoiceProps = {
   mcquestion: MCQuestion["mcquestion"];
@@ -25,7 +27,7 @@ export const MultipleChoice: FC<MultipleChoiceProps> = ({ mcquestion }) => {
   return (
     <main>
       <ResponsiveContainer className="bg-background p-4 sm:px-0 sm:py-6">
-        <Title />
+        <QuestionTitle />
         <Stem content={mcquestion.stem} />
       </ResponsiveContainer>
       <ResponsiveContainer className="bg-background-secondary">

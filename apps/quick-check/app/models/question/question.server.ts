@@ -1,6 +1,11 @@
 import { getContentStackClient } from "~/contentstack.server";
+import { compact, first, map, pipe } from "remeda";
 
-import { invariant } from "quickcheck-shared";
+import {
+  invariant,
+  variants,
+  type QuestionItemVariant,
+} from "quickcheck-shared";
 
 import type { BaseUserQuestionFragment } from "~/graphql";
 
@@ -21,4 +26,18 @@ export const getQuestionData = async (
   invariant(enrollmentTaxonomy, "enrollmentTaxonomy not found");
 
   return { questionItem, enrollmentTaxonomy };
+};
+
+const getVariantNames = (questionItemVariants: QuestionItemVariant[]) =>
+  pipe(
+    questionItemVariants,
+    map((variant) => variants.find((_variant) => _variant in variant)),
+    compact,
+  );
+
+export const getFirstVariant = (questionItemVariants: QuestionItemVariant[]) =>
+  pipe(questionItemVariants, getVariantNames, first());
+
+export const config = {
+  maxDuration: 300,
 };

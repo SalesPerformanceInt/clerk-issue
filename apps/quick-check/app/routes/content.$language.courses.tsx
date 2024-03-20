@@ -1,13 +1,12 @@
-import { useState } from "react";
 import { json, type LoaderFunctionArgs } from "@remix-run/node";
 import { Link, useLoaderData } from "@remix-run/react";
 
 import { getContentStackClient } from "~/contentstack.server";
-import { first, isArray } from "remeda";
+import { first, isArray, sortBy } from "remeda";
 
 import { invariant, simpleErrorResponse } from "quickcheck-shared";
 
-import { Pagination, PaginationProps } from "~/components";
+import { Pagination, PaginationProps, usePagination } from "~/components";
 
 export const loader = async ({ params, request }: LoaderFunctionArgs) => {
   try {
@@ -35,23 +34,19 @@ export const loader = async ({ params, request }: LoaderFunctionArgs) => {
 export default function QuestionPage() {
   const { courses, language } = useLoaderData<typeof loader>();
 
-  const itemsPerPage = 10;
+  const orderedCorses = sortBy(courses, (c) => c.metadata.display_title);
 
-  const [itemOffset, setItemOffset] = useState(0);
-  const endOffset = itemOffset + itemsPerPage;
-  const currentCourses = courses.slice(itemOffset, endOffset);
-  const pageCount = Math.ceil(courses.length / itemsPerPage);
-
-  const handlePageClick: PaginationProps["onPageChange"] = ({ selected }) => {
-    const newOffset = (selected * itemsPerPage) % courses.length;
-    setItemOffset(newOffset);
-  };
+  const { onPageChange, currentItems, pageCount } =
+    usePagination(orderedCorses);
 
   return (
     <div className="sm:p-8">
       <div className="flex w-full flex-col">
         <div className="overflow-x-auto sm:-mx-6 desktop:-mx-8">
           <div className="inline-block min-w-full sm:px-6 desktop:px-8">
+            <div className="mb-8 flex items-center justify-center px-4 pt-4 sm:p-0">
+              <h1 className="text-center text-4xl font-bold">Courses</h1>
+            </div>
             <div className="overflow-hidden">
               <table className="min-w-full table-auto text-left text-sm">
                 <thead className="border-b bg-white font-medium">
@@ -66,7 +61,7 @@ export default function QuestionPage() {
                   </tr>
                 </thead>
                 <tbody>
-                  {currentCourses.map((course, row) => (
+                  {currentItems.map((course, row) => (
                     <tr
                       key={course.uid}
                       className={`border-b ${
@@ -90,10 +85,7 @@ export default function QuestionPage() {
                   ))}
                 </tbody>
               </table>
-              <Pagination
-                onPageChange={handlePageClick}
-                pageCount={pageCount}
-              />
+              <Pagination onPageChange={onPageChange} pageCount={pageCount} />
             </div>
           </div>
         </div>

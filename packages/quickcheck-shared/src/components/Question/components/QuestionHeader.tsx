@@ -1,5 +1,7 @@
 import React, { type FC } from "react";
 
+import { isNumber } from "remeda";
+
 import { useIsDesktop } from "~qcs/utils/useIsDesktop";
 
 import {
@@ -14,19 +16,19 @@ export const QuestionHeader: FC = () => {
   const isDesktop = useIsDesktop();
 
   const modifier = submitted ? 1 : 0;
-  const unansweredQuestions = Math.max(
-    (userData?.unanswered_questions ?? 0) - modifier,
-    0,
-  );
+  const unansweredQuestions =
+    userData && Math.max((userData.unanswered_questions ?? 0) - modifier, 0);
 
   return (
     <Header
       left={<HeaderReturnToDashboard onClose={onShowOnCloseModal} />}
       right={
-        <HeaderUnansweredQuestions
-          unansweredQuestions={unansweredQuestions}
-          short={!isDesktop}
-        />
+        isNumber(unansweredQuestions) && (
+          <HeaderUnansweredQuestions
+            unansweredQuestions={unansweredQuestions}
+            short={!isDesktop}
+          />
+        )
       }
     />
   );

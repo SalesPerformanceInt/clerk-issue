@@ -61,10 +61,10 @@ export const SYNC_USER_ENROLLMENT = graphql(/* GraphQL */ `
  * Prepare Taxon
  */
 export const getTaxon = async (
-  taxonomy_id: string,
+  taxonomyId: string,
   taxonTrees: Tree<TaxonomyDataObj>[],
 ) => {
-  const taxon = getNodeInTreesById(taxonTrees, taxonomy_id);
+  const taxon = getNodeInTreesById(taxonTrees, taxonomyId);
 
   invariant(taxon, "No matching Taxon found.");
 
@@ -78,7 +78,7 @@ export const getTaxon = async (
 const getDescendantUids = (taxon: TreeNode<TaxonomyDataObj>) =>
   taxon.getDescendants().map(({ dataObj }) => dataObj.uid);
 
-const getQuestions =
+export const getQuestions =
   (language: string) => async (taxon: TreeNode<TaxonomyDataObj>) => {
     const descendantUids = getDescendantUids(taxon);
 

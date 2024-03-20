@@ -13,7 +13,9 @@ export async function getQuestionItems(
   query: (query: Query) => Query = (query) => query,
 ) {
   try {
-    return await this.getAllEntries<QuestionItem>("questionitem", query);
+    return await this.getAllEntries<QuestionItem>("questionitem", (q) =>
+      query(q.includeReference(["topic"])),
+    );
   } catch (error) {
     logError({ error, log: "getQuestionItems" });
     return null;

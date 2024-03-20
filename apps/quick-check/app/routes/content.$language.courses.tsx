@@ -6,7 +6,7 @@ import { first, isArray, sortBy } from "remeda";
 
 import { invariant, simpleErrorResponse } from "quickcheck-shared";
 
-import { Pagination, PaginationProps, usePagination } from "~/components";
+import { Pagination, usePagination } from "~/components";
 
 export const loader = async ({ params, request }: LoaderFunctionArgs) => {
   try {

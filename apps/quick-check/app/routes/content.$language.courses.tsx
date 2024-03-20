@@ -1,10 +1,14 @@
 import { json, type LoaderFunctionArgs } from "@remix-run/node";
-import { Link, useLoaderData } from "@remix-run/react";
+import { Link, useLoaderData, useNavigate } from "@remix-run/react";
 
 import { getContentStackClient } from "~/contentstack.server";
 import { first, isArray, sortBy } from "remeda";
 
-import { invariant, simpleErrorResponse } from "quickcheck-shared";
+import {
+  invariant,
+  simpleErrorResponse,
+  supportedLngs,
+} from "quickcheck-shared";
 
 import { Pagination, usePagination } from "~/components";
 
@@ -33,6 +37,7 @@ export const loader = async ({ params, request }: LoaderFunctionArgs) => {
 
 export default function CoursesPage() {
   const { courses, language } = useLoaderData<typeof loader>();
+  const navigate = useNavigate();
 
   const orderedCorses = sortBy(courses, (c) => c.metadata.display_title);
 
@@ -44,8 +49,24 @@ export default function CoursesPage() {
       <div className="flex w-full flex-col">
         <div className="overflow-x-auto sm:-mx-6 desktop:-mx-8">
           <div className="inline-block min-w-full sm:px-6 desktop:px-8">
-            <div className="mb-8 flex items-center justify-center px-4 pt-4 sm:p-0">
+            <div className="mb-8 flex items-center justify-between px-4 pt-4 sm:p-0">
+              <div />
               <h1 className="text-center text-4xl font-bold">Courses</h1>
+              <div>
+                <select
+                  value={language}
+                  onChange={(e) =>
+                    navigate(`/content/${e.target.value}/courses`)
+                  }
+                  className="px-6 py-4"
+                >
+                  {supportedLngs.map((lng) => (
+                    <option value={lng} key={lng}>
+                      {lng}
+                    </option>
+                  ))}
+                </select>
+              </div>
             </div>
             <div className="overflow-hidden">
               <table className="min-w-full table-auto text-left text-sm">

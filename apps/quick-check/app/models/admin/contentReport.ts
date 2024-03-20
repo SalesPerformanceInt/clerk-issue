@@ -1,5 +1,5 @@
 import { getContentStackClient } from "~/contentstack.server";
-import { first, last } from "remeda";
+import { first, isArray, last } from "remeda";
 import { stripHtml } from "string-strip-html";
 
 import {
@@ -49,13 +49,13 @@ export const getContentReport = async () => {
       const course = courses.find(
         ({ metadata }) =>
           topLevelTaxonId &&
-          first(metadata.quickcheck_taxonomy ?? [])?.uid === topLevelTaxonId,
+          isArray(metadata.quickcheck_taxonomy) &&
+          first(metadata.quickcheck_taxonomy)?.uid === topLevelTaxonId,
       );
 
-      const rootTaxonomy = taxonomies.find(
-        ({ uid }) =>
-          uid === first(course?.metadata.quickcheck_taxonomy ?? [])?.uid,
-      );
+      const rootTaxonomy = isArray(course?.metadata.quickcheck_taxonomy)
+        ? first(course?.metadata.quickcheck_taxonomy)
+        : null;
 
       return {
         course_display_title: course?.metadata.display_title ?? null,

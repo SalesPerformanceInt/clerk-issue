@@ -48,6 +48,7 @@
     "react-d3-tree": "^3.6.2",
     "react-dom": "18.3.0-canary-08cd087ca-20240110",
     "react-i18next": "^14.0.0",
+    "react-paginate": "^8.2.0",
     "react-phone-input-2": "^2.15.1",
     "react-use": "^17.4.3",
     "remeda": "^1.36.0",

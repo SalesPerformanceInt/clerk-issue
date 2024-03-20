@@ -157,9 +157,7 @@ export type Course = WithLiveData<{
   title: string;
   metadata: {
     display_title: string;
-    quickcheck_taxonomy: {
-      uid: string;
-    }[];
+    quickcheck_taxonomy?: Taxon[];
   };
 }>;
 

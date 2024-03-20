@@ -1,6 +1,6 @@
 import { useCallback, useState } from "react";
 import { json, type LoaderFunctionArgs } from "@remix-run/node";
-import { useLoaderData } from "@remix-run/react";
+import { useLoaderData, useNavigate } from "@remix-run/react";
 
 import { getContentStackClient } from "~/contentstack.server";
 
@@ -28,6 +28,7 @@ export const loader = async ({ params, request }: LoaderFunctionArgs) => {
     invariant(variant, "No valid variant");
 
     return json({
+      language,
       questionItem,
       variant,
       id,
@@ -38,10 +39,11 @@ export const loader = async ({ params, request }: LoaderFunctionArgs) => {
 };
 
 export default function QuestionPage() {
-  const { questionItem, variant } = useLoaderData<typeof loader>();
+  const { questionItem, variant, language } = useLoaderData<typeof loader>();
   const [score, setScore] = useState<number>();
+  const navigate = useNavigate();
 
-  const onClose = () => {
+  const onReload = () => {
     window.location.reload();
   };
 
@@ -49,12 +51,14 @@ export default function QuestionPage() {
     setTimeout(() => setScore(selection.correct ? 25 : 10), 1000);
   }, []);
 
+  const onClose = () => navigate(`/content/${language}/courses`);
+
   return (
     <Question
       key={questionItem.uid}
       onSubmit={onSubmit}
       variant={variant}
-      onContinue={onClose}
+      onContinue={onReload}
       onClose={onClose}
       questionItem={questionItem}
       score={score}

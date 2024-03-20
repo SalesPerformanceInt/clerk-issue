@@ -50,7 +50,7 @@ export const loader = async ({ params, request }: LoaderFunctionArgs) => {
   }
 };
 
-export default function QuestionPage() {
+export default function CoursePage() {
   const { course, questions, language } = useLoaderData<typeof loader>();
   const navigate = useNavigate();
 

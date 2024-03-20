@@ -31,7 +31,7 @@ export const loader = async ({ params, request }: LoaderFunctionArgs) => {
   }
 };
 
-export default function QuestionPage() {
+export default function CoursesPage() {
   const { courses, language } = useLoaderData<typeof loader>();
 
   const orderedCorses = sortBy(courses, (c) => c.metadata.display_title);

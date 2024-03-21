@@ -15,7 +15,7 @@ export async function getCourses(
   try {
     const level2Courses = await this.getAllEntries<Course>(
       "level_2_course",
-      query,
+      (q) => query(q.includeReference(["metadata.quickcheck_taxonomy"])),
     );
     const level3Courses = await this.getAllEntries<Course>(
       "level_3_course",

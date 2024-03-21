@@ -26,6 +26,7 @@ export type QuestionProps = {
   userData?: UserData | null;
   score?: number;
   totalScore?: number;
+  closeLable?: string;
 };
 
 export const Question: FC<QuestionProps> = (props) => {

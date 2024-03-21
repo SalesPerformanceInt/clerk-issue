@@ -32,7 +32,7 @@ export const EnrollmentSkillDashboardHeader: FC = () => {
       <Header
         left={
           <HeaderReturnToDashboard
-            name={
+            label={
               enrollmentSkillDashboardData.enrollment_taxonomy?.display_name
             }
             onClose={() =>

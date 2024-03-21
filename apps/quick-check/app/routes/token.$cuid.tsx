@@ -55,11 +55,13 @@ export const loader = async ({ params, request }: LoaderFunctionArgs) => {
     );
 
     if (!token.active) {
-      const [now] = await getAdminDataFromFromSession(request);
-      await sendEmailTemplate(request, token.user_id, now, {
-        type: "RequestedLink",
-        data: null,
-      });
+      if (request.method === "GET") {
+        const [now] = await getAdminDataFromFromSession(request);
+        await sendEmailTemplate(request, token.user_id, now, {
+          type: "RequestedLink",
+          data: null,
+        });
+      }
       return redirect("/login?expired=true");
     }
 

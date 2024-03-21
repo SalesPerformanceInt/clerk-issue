@@ -101,7 +101,7 @@ export default function CoursePage() {
                       <td className="whitespace-nowrap px-6 py-4">
                         <Link
                           className="text-primary-50 hover:text-primary-75 hover:underline"
-                          to={`/content/${language}/question/${question.uid}`}
+                          to={`/content/${language}/question/${question.uid}?courseId=${course.uid}`}
                         >
                           {question.title}
                         </Link>

@@ -58,7 +58,7 @@ export default function CoursesPage() {
                   onChange={(e) =>
                     navigate(`/content/${e.target.value}/courses`)
                   }
-                  className="px-6 py-4"
+                  className="rounded-sm border px-2 py-2"
                 >
                   {supportedLngs.map((lng) => (
                     <option value={lng} key={lng}>

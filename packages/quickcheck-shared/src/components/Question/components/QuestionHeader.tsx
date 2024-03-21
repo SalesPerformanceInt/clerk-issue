@@ -12,7 +12,8 @@ import {
 import { useQuestionContext } from "~qcs/components/Question";
 
 export const QuestionHeader: FC = () => {
-  const { userData, onShowOnCloseModal, submitted } = useQuestionContext();
+  const { userData, onShowOnCloseModal, submitted, closeLable } =
+    useQuestionContext();
   const isDesktop = useIsDesktop();
 
   const modifier = submitted ? 1 : 0;
@@ -21,7 +22,12 @@ export const QuestionHeader: FC = () => {
 
   return (
     <Header
-      left={<HeaderReturnToDashboard onClose={onShowOnCloseModal} />}
+      left={
+        <HeaderReturnToDashboard
+          onClose={onShowOnCloseModal}
+          label={closeLable}
+        />
+      }
       right={
         isNumber(unansweredQuestions) && (
           <HeaderUnansweredQuestions

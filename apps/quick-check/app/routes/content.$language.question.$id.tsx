@@ -1,6 +1,6 @@
 import { useCallback, useState } from "react";
 import { json, type LoaderFunctionArgs } from "@remix-run/node";
-import { useLoaderData, useNavigate } from "@remix-run/react";
+import { useLoaderData, useNavigate, useSearchParams } from "@remix-run/react";
 
 import { getContentStackClient } from "~/contentstack.server";
 
@@ -42,6 +42,9 @@ export default function QuestionPage() {
   const { questionItem, variant, language } = useLoaderData<typeof loader>();
   const [score, setScore] = useState<number>();
   const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
+
+  const courseId = searchParams.get("courseId");
 
   const onReload = () => {
     window.location.reload();
@@ -51,10 +54,13 @@ export default function QuestionPage() {
     setTimeout(() => setScore(selection.correct ? 25 : 10), 1000);
   }, []);
 
-  const onClose = () => navigate(`/content/${language}/courses`);
+  const onClose = courseId
+    ? () => navigate(`/content/${language}/course/${courseId}`)
+    : onReload;
 
   return (
     <Question
+      closeLable={courseId ? "Course" : undefined}
       key={questionItem.uid}
       onSubmit={onSubmit}
       variant={variant}

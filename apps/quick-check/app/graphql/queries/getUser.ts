@@ -1,10 +1,6 @@
 import { logError } from "quickcheck-shared";
 
-import {
-  graphql,
-  type GQLProxyUserData,
-  type WithApolloClient,
-} from "~/graphql";
+import { graphql, type GQLProxyUserData, type GraphQLClient } from "~/graphql";
 
 export const GET_USER = graphql(/* GraphQL */ `
   query GetUser($userId: uuid!) {
@@ -15,13 +11,13 @@ export const GET_USER = graphql(/* GraphQL */ `
 `);
 
 export async function getUser(
-  this: WithApolloClient,
+  this: GraphQLClient,
   proxyData: GQLProxyUserData,
 ) {
   const { userId } = proxyData;
 
   try {
-    const { data } = await this.client.query({
+    const { data } = await this.query({
       query: GET_USER,
       variables: { userId },
       fetchPolicy: "no-cache",

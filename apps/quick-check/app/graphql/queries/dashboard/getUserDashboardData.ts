@@ -27,7 +27,7 @@ export async function getUserDashboardData(
 
     const today = getToday(now);
 
-    const result = await this.client.query({
+    const result = await this.query({
       query: GET_USER_DASHBOARD_DATA,
       variables: {
         userId,

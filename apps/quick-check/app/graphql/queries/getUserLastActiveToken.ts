@@ -2,11 +2,7 @@ import { DateTime } from "luxon";
 
 import { logError } from "quickcheck-shared";
 
-import {
-  graphql,
-  type GQLProxyUserData,
-  type WithApolloClient,
-} from "~/graphql";
+import { graphql, type GQLProxyUserData, type GraphQLClient } from "~/graphql";
 
 export const GET_USER_LAST_ACTIVE_TOKEN = graphql(/* GraphQL */ `
   query GetUserLastActiveToken($userId: uuid!) {
@@ -25,13 +21,13 @@ export const GET_USER_LAST_ACTIVE_TOKEN = graphql(/* GraphQL */ `
 `);
 
 export async function getUserLastActiveToken(
-  this: WithApolloClient,
+  this: GraphQLClient,
   proxyData: GQLProxyUserData,
 ) {
   const { userId } = proxyData;
 
   try {
-    const { data } = await this.client.query({
+    const { data } = await this.query({
       query: GET_USER_LAST_ACTIVE_TOKEN,
       variables: { userId },
     });

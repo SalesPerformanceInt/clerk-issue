@@ -3,8 +3,8 @@ import { logError } from "quickcheck-shared";
 import {
   graphql,
   type GQLProxyUserData,
+  type GraphQLClient,
   type User_Question_Bool_Exp,
-  type WithApolloClient,
 } from "~/graphql";
 
 import { getToday } from "~/utils/date";
@@ -32,7 +32,7 @@ export const GET_USER_NEXT_QUESTION = graphql(/* GraphQL */ `
 `);
 
 export async function getUserNextQuestion(
-  this: WithApolloClient,
+  this: GraphQLClient,
   currentQuestionId: string = "",
   proxyData: GQLProxyUserData,
 ) {
@@ -45,7 +45,7 @@ export async function getUserNextQuestion(
     : {};
 
   try {
-    const result = await this.client.query({
+    const result = await this.query({
       query: GET_USER_NEXT_QUESTION,
       variables: { userId, today, where },
       fetchPolicy: "no-cache",

@@ -24,7 +24,7 @@ export async function getUserWeeklyStreakCalendar(
   try {
     const { userId, now } = proxyData;
 
-    const result = await this.client.query({
+    const result = await this.query({
       query: GET_USER_WEEKLY_STREAK_CALENDAR,
       variables: {
         userId,

@@ -1,6 +1,6 @@
 import { logError } from "quickcheck-shared";
 
-import { graphql, type GQLProxyData, type WithApolloClient } from "~/graphql";
+import { graphql, type GQLProxyData, type GraphQLClient } from "~/graphql";
 
 export const GET_USER_BY_EMAIL = graphql(/* GraphQL */ `
   query GetUserByEmail($email: String!) {
@@ -11,12 +11,12 @@ export const GET_USER_BY_EMAIL = graphql(/* GraphQL */ `
 `);
 
 export async function getUserByEmail(
-  this: WithApolloClient,
+  this: GraphQLClient,
   email: string,
   _proxyData: GQLProxyData,
 ) {
   try {
-    const { data } = await this.client.query({
+    const { data } = await this.query({
       query: GET_USER_BY_EMAIL,
       variables: { email },
       fetchPolicy: "no-cache",

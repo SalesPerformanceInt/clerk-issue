@@ -4,7 +4,7 @@ import {
   graphql,
   type Event_Insert_Input,
   type GQLProxyAllData,
-  type WithApolloClient,
+  type GraphQLClient,
 } from "~/graphql";
 
 import { Template } from "~/utils/email/emailTemplatesMap";
@@ -117,7 +117,7 @@ export const getEventStreamName = (userId: string, tenantId: string) =>
   `qc:user:${tenantId}:${userId}`;
 
 export async function createEvent(
-  this: WithApolloClient,
+  this: GraphQLClient,
   input: EventInput,
   proxyData: GQLProxyAllData,
 ) {
@@ -129,7 +129,7 @@ export async function createEvent(
   } satisfies Event_Insert_Input;
 
   try {
-    const { data } = await this.client.mutate({
+    const result = await this.mutate({
       mutation: CREATE_EVENT,
       variables: { event },
     });
@@ -141,9 +141,9 @@ export async function createEvent(
     });
     await posthog.flushAsync();
 
-    if (!data?.insert_event_one) return null;
+    if (!result.data?.insert_event_one) return null;
 
-    return data.insert_event_one;
+    return result.data.insert_event_one;
   } catch (error) {
     logError({ error, log: "createEvent" });
     return null;

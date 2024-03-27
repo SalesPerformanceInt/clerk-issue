@@ -6,7 +6,7 @@ import {
   type Event_Insert_Input,
   type EventInput,
   type GQLProxyAllData,
-  type WithApolloClient,
+  type GraphQLClient,
 } from "~/graphql";
 
 import { posthog } from "~/utils/posthog";
@@ -22,7 +22,7 @@ export const CREATE_EVENTS = graphql(/* GraphQL */ `
 `);
 
 export async function createEvents(
-  this: WithApolloClient,
+  this: GraphQLClient,
   inputs: EventInput[],
   proxyData: GQLProxyAllData,
 ) {
@@ -36,7 +36,7 @@ export async function createEvents(
   })) satisfies Event_Insert_Input[];
 
   try {
-    const { data } = await this.client.mutate({
+    const { data } = await this.mutate({
       mutation: CREATE_EVENTS,
       variables: { events },
     });

@@ -1,6 +1,6 @@
 import { logError } from "quickcheck-shared";
 
-import { graphql, type GQLProxyData, type WithApolloClient } from "~/graphql";
+import { graphql, type GQLProxyData, type GraphQLClient } from "~/graphql";
 
 export const GET_TEAM_ENROLLMENTS = graphql(/* GraphQL */ `
   query GetTeamEnrollments(
@@ -26,13 +26,13 @@ export const GET_TEAM_ENROLLMENTS = graphql(/* GraphQL */ `
 `);
 
 export async function getTeamEnrollments(
-  this: WithApolloClient,
+  this: GraphQLClient,
   enrollmentIds: string[],
   accountSubdomain: string,
   _proxyData: GQLProxyData,
 ) {
   try {
-    const { data } = await this.client.query({
+    const { data } = await this.query({
       query: GET_TEAM_ENROLLMENTS,
       variables: { enrollmentIds, accountSubdomain },
       fetchPolicy: "no-cache",

@@ -1,10 +1,6 @@
 import { logError } from "quickcheck-shared";
 
-import {
-  graphql,
-  type GQLProxyUserData,
-  type WithApolloClient,
-} from "~/graphql";
+import { graphql, type GQLProxyUserData, type GraphQLClient } from "~/graphql";
 
 export const UNENROLL_USER = graphql(/* GraphQL */ `
   mutation UnenrollUser($userId: uuid!, $enrollmentId: uuid!) {
@@ -23,14 +19,14 @@ export const UNENROLL_USER = graphql(/* GraphQL */ `
 `);
 
 export async function unenrollUser(
-  this: WithApolloClient,
+  this: GraphQLClient,
   enrollmentId: string,
   proxyData: GQLProxyUserData,
 ) {
   const { userId } = proxyData;
 
   try {
-    const result = await this.client.mutate({
+    const result = await this.mutate({
       mutation: UNENROLL_USER,
       variables: { userId, enrollmentId },
     });

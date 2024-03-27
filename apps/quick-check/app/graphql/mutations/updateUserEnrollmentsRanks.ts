@@ -3,8 +3,8 @@ import { logError } from "quickcheck-shared";
 import {
   graphql,
   type GQLProxyData,
+  type GraphQLClient,
   type User_Enrollment_Updates,
-  type WithApolloClient,
 } from "~/graphql";
 
 export const UPDATE_USER_ENROLLMENTS_RANKS = graphql(/* GraphQL */ `
@@ -20,12 +20,12 @@ export const UPDATE_USER_ENROLLMENTS_RANKS = graphql(/* GraphQL */ `
 `);
 
 export async function updateUserEnrollmentsRanks(
-  this: WithApolloClient,
+  this: GraphQLClient,
   enrollmentsUpdates: User_Enrollment_Updates[],
   _proxyData: GQLProxyData,
 ) {
   try {
-    const result = await this.client.mutate({
+    const result = await this.mutate({
       mutation: UPDATE_USER_ENROLLMENTS_RANKS,
       variables: { enrollmentsUpdates },
     });

@@ -1,6 +1,6 @@
 import { logError } from "quickcheck-shared";
 
-import { graphql, type GQLProxyData, type WithApolloClient } from "~/graphql";
+import { graphql, type GQLProxyData, type GraphQLClient } from "~/graphql";
 
 export const GET_LINK_TOKEN = graphql(/* GraphQL */ `
   query GetLinkToken($id: String!) {
@@ -15,12 +15,12 @@ export const GET_LINK_TOKEN = graphql(/* GraphQL */ `
 `);
 
 export async function getLinkToken(
-  this: WithApolloClient,
+  this: GraphQLClient,
   id: string,
   _proxyData?: GQLProxyData,
 ) {
   try {
-    const { data } = await this.client.query({
+    const { data } = await this.query({
       query: GET_LINK_TOKEN,
       variables: { id },
     });

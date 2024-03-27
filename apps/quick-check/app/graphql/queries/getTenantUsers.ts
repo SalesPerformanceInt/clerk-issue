@@ -3,7 +3,7 @@ import { logError } from "quickcheck-shared";
 import {
   graphql,
   type GQLProxyTenantData,
-  type WithApolloClient,
+  type GraphQLClient,
 } from "~/graphql";
 
 export const GET_TENANT_USERS = graphql(/* GraphQL */ `
@@ -18,12 +18,12 @@ export const GET_TENANT_USERS = graphql(/* GraphQL */ `
 `);
 
 export async function getTenantUsers(
-  this: WithApolloClient,
+  this: GraphQLClient,
   proxyData: GQLProxyTenantData,
 ) {
   const { tenantId } = proxyData;
   try {
-    const result = await this.client.query({
+    const result = await this.query({
       query: GET_TENANT_USERS,
       fetchPolicy: "network-only",
       variables: { tenantId },

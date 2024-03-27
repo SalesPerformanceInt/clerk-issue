@@ -1,6 +1,6 @@
 import { logError } from "quickcheck-shared";
 
-import { graphql, type GQLProxyData, type WithApolloClient } from "~/graphql";
+import { graphql, type GQLProxyData, type GraphQLClient } from "~/graphql";
 
 export const DELETE_TENANT = graphql(/* GraphQL */ `
   mutation DeleteTenant($tenantId: String!) {
@@ -11,12 +11,12 @@ export const DELETE_TENANT = graphql(/* GraphQL */ `
 `);
 
 export async function deleteTenant(
-  this: WithApolloClient,
+  this: GraphQLClient,
   tenantId: string,
   _proxyData: GQLProxyData,
 ) {
   try {
-    const result = await this.client.mutate({
+    const result = await this.mutate({
       mutation: DELETE_TENANT,
       variables: { tenantId },
     });

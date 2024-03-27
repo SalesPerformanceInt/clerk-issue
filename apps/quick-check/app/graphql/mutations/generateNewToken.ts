@@ -1,10 +1,6 @@
 import { logError } from "quickcheck-shared";
 
-import {
-  graphql,
-  type GQLProxyAllData,
-  type WithApolloClient,
-} from "~/graphql";
+import { graphql, type GQLProxyAllData, type GraphQLClient } from "~/graphql";
 
 export const GENERATE_NEW_TOKEN = graphql(/* GraphQL */ `
   mutation GenerateNewToken($userId: uuid!, $tenantId: String!) {
@@ -28,13 +24,13 @@ export const GENERATE_NEW_TOKEN = graphql(/* GraphQL */ `
 `);
 
 export async function generateNewToken(
-  this: WithApolloClient,
+  this: GraphQLClient,
   proxyData: GQLProxyAllData,
 ) {
   const { userId, tenantId } = proxyData;
 
   try {
-    const { data } = await this.client.mutate({
+    const { data } = await this.mutate({
       mutation: GENERATE_NEW_TOKEN,
       variables: { userId, tenantId },
     });

@@ -41,7 +41,7 @@ export async function getUserCompletedEnrollments(
 
     const today = getToday(now);
 
-    const result = await this.client.query({
+    const result = await this.query({
       query: GET_USER_COMPLETED_ENROLLMENTS,
       variables: { userId, today },
       fetchPolicy: "no-cache",

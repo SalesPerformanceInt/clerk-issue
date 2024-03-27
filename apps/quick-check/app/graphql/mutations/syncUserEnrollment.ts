@@ -237,7 +237,7 @@ export async function syncUserEnrollment(
       andThen(prepareUserEnrollmentInput(userId, taxonomyId, enrollmentData)),
     );
 
-    const enrolledUser = await this.client.mutate({
+    const enrolledUser = await this.mutate({
       mutation: SYNC_USER_ENROLLMENT,
       variables: { userEnrollment, tenantId },
     });

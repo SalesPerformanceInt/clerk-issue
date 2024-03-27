@@ -1,10 +1,6 @@
 import { logError } from "quickcheck-shared";
 
-import {
-  graphql,
-  type GQLProxyUserData,
-  type WithApolloClient,
-} from "~/graphql";
+import { graphql, type GQLProxyUserData, type GraphQLClient } from "~/graphql";
 
 export const GET_USER_LANGUAGE = graphql(/* GraphQL */ `
   query GetUserLanguage($userId: uuid!) {
@@ -16,13 +12,13 @@ export const GET_USER_LANGUAGE = graphql(/* GraphQL */ `
 `);
 
 export async function getUserLanguage(
-  this: WithApolloClient,
+  this: GraphQLClient,
   proxyData: GQLProxyUserData,
 ) {
   const { userId } = proxyData;
 
   try {
-    const { data } = await this.client.query({
+    const { data } = await this.query({
       query: GET_USER_LANGUAGE,
       variables: { userId },
       fetchPolicy: "no-cache",

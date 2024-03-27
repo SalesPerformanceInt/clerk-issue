@@ -1,10 +1,6 @@
 import { logError } from "quickcheck-shared";
 
-import {
-  graphql,
-  type GQLProxyUserData,
-  type WithApolloClient,
-} from "~/graphql";
+import { graphql, type GQLProxyUserData, type GraphQLClient } from "~/graphql";
 
 import { getToday } from "~/utils/date";
 
@@ -19,7 +15,7 @@ export const GET_USER_ACTIVE_QUESTIONS_DATA = graphql(/* GraphQL */ `
 `);
 
 export async function getUserActiveQuestionsData(
-  this: WithApolloClient,
+  this: GraphQLClient,
   proxyData: GQLProxyUserData,
 ) {
   const { userId, now } = proxyData;
@@ -27,7 +23,7 @@ export async function getUserActiveQuestionsData(
   const today = getToday(now);
 
   try {
-    const { data } = await this.client.query({
+    const { data } = await this.query({
       query: GET_USER_ACTIVE_QUESTIONS_DATA,
       variables: { userId, today },
       fetchPolicy: "no-cache",

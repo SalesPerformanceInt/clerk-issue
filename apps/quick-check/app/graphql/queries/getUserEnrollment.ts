@@ -2,7 +2,7 @@ import { getContentStackClient } from "~/contentstack.server";
 
 import { logError } from "quickcheck-shared";
 
-import { graphql, type GQLProxyData, type WithApolloClient } from "~/graphql";
+import { graphql, type GQLProxyData, type GraphQLClient } from "~/graphql";
 
 import { getToday } from "~/utils/date";
 
@@ -29,7 +29,7 @@ export const GET_USER_ENROLLMENT = graphql(/* GraphQL */ `
 `);
 
 export async function getUserEnrollment(
-  this: WithApolloClient,
+  this: GraphQLClient,
   id: string,
   proxyData: GQLProxyData,
 ) {
@@ -38,7 +38,7 @@ export async function getUserEnrollment(
   const today = getToday(now);
 
   try {
-    const { data } = await this.client.query({
+    const { data } = await this.query({
       query: GET_USER_ENROLLMENT,
       variables: { id, today },
       fetchPolicy: "no-cache",

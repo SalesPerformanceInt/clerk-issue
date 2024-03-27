@@ -1,10 +1,6 @@
 import { invariant, logError } from "quickcheck-shared";
 
-import {
-  graphql,
-  type GQLProxyUserData,
-  type WithApolloClient,
-} from "~/graphql";
+import { graphql, type GQLProxyUserData, type GraphQLClient } from "~/graphql";
 import { GET_USER } from "~/graphql/queries";
 
 export const TOGGLE_USER_DAILY_ENAIL_ENABLED = graphql(/* GraphQL */ `
@@ -22,7 +18,7 @@ export const TOGGLE_USER_DAILY_ENAIL_ENABLED = graphql(/* GraphQL */ `
 `);
 
 export async function toggleUserDailyEmailEnabled(
-  this: WithApolloClient,
+  this: GraphQLClient,
   proxyData: GQLProxyUserData,
 ) {
   const { userId } = proxyData;
@@ -30,7 +26,7 @@ export async function toggleUserDailyEmailEnabled(
   try {
     const {
       data: { user_by_pk },
-    } = await this.client.query({
+    } = await this.query({
       query: GET_USER,
       variables: { userId },
     });
@@ -39,7 +35,7 @@ export async function toggleUserDailyEmailEnabled(
 
     const daily_email_enabled = !user_by_pk?.daily_email_enabled;
 
-    const { data } = await this.client.mutate({
+    const { data } = await this.mutate({
       mutation: TOGGLE_USER_DAILY_ENAIL_ENABLED,
       variables: { userId, daily_email_enabled },
       optimisticResponse: {

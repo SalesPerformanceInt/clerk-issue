@@ -1,10 +1,6 @@
 import { logError } from "quickcheck-shared";
 
-import {
-  graphql,
-  type GQLProxyUserData,
-  type WithApolloClient,
-} from "~/graphql";
+import { graphql, type GQLProxyUserData, type GraphQLClient } from "~/graphql";
 
 export const RESET_USER = graphql(/* GraphQL */ `
   mutation ResetUser($userId: uuid!) {
@@ -21,13 +17,13 @@ export const RESET_USER = graphql(/* GraphQL */ `
 `);
 
 export async function resetUser(
-  this: WithApolloClient,
+  this: GraphQLClient,
   proxyData: GQLProxyUserData,
 ) {
   const { userId } = proxyData;
 
   try {
-    const result = await this.client.mutate({
+    const result = await this.mutate({
       mutation: RESET_USER,
       variables: { userId },
     });

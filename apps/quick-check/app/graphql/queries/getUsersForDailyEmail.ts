@@ -1,6 +1,6 @@
 import { logError } from "quickcheck-shared";
 
-import { graphql, type GQLProxyData, type WithApolloClient } from "~/graphql";
+import { graphql, type GQLProxyData, type GraphQLClient } from "~/graphql";
 
 export const GET_USER_FOR_DAILY_EMAIL = graphql(/* GraphQL */ `
   query GetUsersForDailyEmail {
@@ -11,11 +11,11 @@ export const GET_USER_FOR_DAILY_EMAIL = graphql(/* GraphQL */ `
 `);
 
 export async function getUsersForDailyEmail(
-  this: WithApolloClient,
+  this: GraphQLClient,
   _proxyData: GQLProxyData,
 ) {
   try {
-    const result = await this.client.query({
+    const result = await this.query({
       query: GET_USER_FOR_DAILY_EMAIL,
       fetchPolicy: "network-only",
     });

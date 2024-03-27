@@ -103,12 +103,8 @@ const getClient = (headers: GraphQLHeaders) => {
  * Generic Apollo Client Declaration
  */
 
-export interface WithApolloClient {
+export class GraphQLClient {
   client: ApolloClient<NormalizedCacheObject>;
-}
-
-export class GraphQLClient implements WithApolloClient {
-  client: WithApolloClient["client"];
 
   getLinkToken = getLinkToken;
   getUser = getUser;
@@ -157,6 +153,18 @@ export class GraphQLClient implements WithApolloClient {
   getEnrollmentSkillDashboardData = getEnrollmentSkillDashboardData;
   getEnrollmentSkillQuestions = getEnrollmentSkillQuestions;
   resetUserEnrollment = resetUserEnrollment;
+
+  mutate: ApolloClient<NormalizedCacheObject>["mutate"] = async (...args) => {
+    const result = await this.client.mutate(...args);
+    if (result.errors) throw result.errors;
+    return result;
+  };
+
+  query: ApolloClient<NormalizedCacheObject>["query"] = async (...args) => {
+    const result = await this.client.query(...args);
+    if (result.errors) throw result.errors;
+    return result;
+  };
 
   constructor(headers: GraphQLHeaders) {
     this.client = getClient(headers);

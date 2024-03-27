@@ -2,7 +2,7 @@ import { getContentStackClient } from "~/contentstack.server";
 
 import { logError } from "quickcheck-shared";
 
-import { graphql, type GQLProxyData, type WithApolloClient } from "~/graphql";
+import { graphql, type GQLProxyData, type GraphQLClient } from "~/graphql";
 
 export const GET_ENROLLMENT_SKILL_QUESTIONS = graphql(/* GraphQL */ `
   query GetEnrollmentSkillQuestions($enrollmentId: uuid!, $skillId: String) {
@@ -26,13 +26,13 @@ export const GET_ENROLLMENT_SKILL_QUESTIONS = graphql(/* GraphQL */ `
 `);
 
 export async function getEnrollmentSkillQuestions(
-  this: WithApolloClient,
+  this: GraphQLClient,
   enrollmentId: string,
   skillId: string,
   _proxyData: GQLProxyData,
 ) {
   try {
-    const { data } = await this.client.query({
+    const { data } = await this.query({
       query: GET_ENROLLMENT_SKILL_QUESTIONS,
       variables: { enrollmentId, skillId },
       fetchPolicy: "no-cache",

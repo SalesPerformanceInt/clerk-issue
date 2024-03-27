@@ -3,9 +3,9 @@ import { logError, type AtLeastOne } from "quickcheck-shared";
 import {
   graphql,
   type GQLProxyData,
+  type GraphQLClient,
   type User_Enrollment_Inc_Input,
   type User_Enrollment_Set_Input,
-  type WithApolloClient,
 } from "~/graphql";
 
 export const UPDATE_USER_ENROLLMENT = graphql(/* GraphQL */ `
@@ -32,7 +32,7 @@ export const UPDATE_USER_ENROLLMENT = graphql(/* GraphQL */ `
 `);
 
 export async function updateUserEnrollment(
-  this: WithApolloClient,
+  this: GraphQLClient,
   id: string,
   data: AtLeastOne<{
     set: User_Enrollment_Set_Input;
@@ -41,7 +41,7 @@ export async function updateUserEnrollment(
   _proxyData: GQLProxyData,
 ) {
   try {
-    const result = await this.client.mutate({
+    const result = await this.mutate({
       mutation: UPDATE_USER_ENROLLMENT,
       variables: { id, set: data.set || {}, inc: data.inc || {} },
     });

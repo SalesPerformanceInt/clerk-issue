@@ -5,8 +5,8 @@ import { invariant, logError, RequiredKeys } from "quickcheck-shared";
 import {
   graphql,
   type GQLProxyAllData,
+  type GraphQLClient,
   type User_Insert_Input,
-  type WithApolloClient,
 } from "~/graphql";
 
 import { generateNewToken } from "./generateNewToken";
@@ -46,14 +46,14 @@ export type UpsertUserInput = RequiredKeys<
 >;
 
 export async function upsertUser(
-  this: WithApolloClient,
+  this: GraphQLClient,
   user: UpsertUserInput,
   proxyData: GQLProxyAllData,
 ) {
   const { now, tenantId, userId } = proxyData;
 
   try {
-    const result = await this.client.mutate({
+    const result = await this.mutate({
       mutation: UPSERT_USER,
       variables: { user, tenantId },
     });

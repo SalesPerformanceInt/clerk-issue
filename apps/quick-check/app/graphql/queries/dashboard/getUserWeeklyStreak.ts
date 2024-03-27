@@ -37,7 +37,7 @@ export async function getUserWeeklyStreak(
       initial = true,
       count = 0,
     ): Promise<number> => {
-      const result = await this.client.query({
+      const result = await this.query({
         query: GET_USER_ANSWERS_BY_WEEK,
         variables: {
           userId,

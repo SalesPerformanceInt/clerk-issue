@@ -1,10 +1,6 @@
 import { logError } from "quickcheck-shared";
 
-import {
-  graphql,
-  type GQLProxyUserData,
-  type WithApolloClient,
-} from "~/graphql";
+import { graphql, type GQLProxyUserData, type GraphQLClient } from "~/graphql";
 
 export const GET_USER_QUESTION_ANSWERS = graphql(/* GraphQL */ `
   query GetUserQuestionAnswers($userId: uuid!, $questionId: uuid!) {
@@ -19,14 +15,14 @@ export const GET_USER_QUESTION_ANSWERS = graphql(/* GraphQL */ `
 `);
 
 export async function getUserQuestionAnswers(
-  this: WithApolloClient,
+  this: GraphQLClient,
   questionId: string,
   proxyData: GQLProxyUserData,
 ) {
   const { userId } = proxyData;
 
   try {
-    const result = await this.client.query({
+    const result = await this.query({
       query: GET_USER_QUESTION_ANSWERS,
       variables: { userId, questionId },
       fetchPolicy: "no-cache",

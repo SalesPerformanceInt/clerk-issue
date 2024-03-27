@@ -85,7 +85,7 @@ export async function getUserAchievements(
 
     const today = getToday(now);
 
-    const result = await this.client.query({
+    const result = await this.query({
       query: GET_USER_ACHIEVEMENTS,
       variables: { userId, today },
       fetchPolicy: "no-cache",

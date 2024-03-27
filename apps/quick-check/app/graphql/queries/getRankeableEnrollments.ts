@@ -3,7 +3,7 @@ import { logError } from "quickcheck-shared";
 import {
   graphql,
   type GQLProxyTenantData,
-  type WithApolloClient,
+  type GraphQLClient,
 } from "~/graphql";
 
 /**
@@ -38,14 +38,14 @@ export const GET_RANKEABLE_ENROLLMENTS = graphql(/* GraphQL */ `
  */
 
 export async function getRankeableEnrollments(
-  this: WithApolloClient,
+  this: GraphQLClient,
   taxonomyIds: string[],
   proxyData: GQLProxyTenantData,
 ) {
   const { tenantId } = proxyData;
 
   try {
-    const { data } = await this.client.query({
+    const { data } = await this.query({
       query: GET_RANKEABLE_ENROLLMENTS,
       variables: { taxonomyIds, tenantId },
       fetchPolicy: "no-cache",

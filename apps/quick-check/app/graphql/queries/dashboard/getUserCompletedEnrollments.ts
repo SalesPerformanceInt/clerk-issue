@@ -14,7 +14,7 @@ export const GET_USER_COMPLETED_ENROLLMENTS = graphql(/* GraphQL */ `
         where: {
           user_questions_aggregate: { count: { predicate: { _gt: 0 } } }
           _or: [
-            { expiration_date: { _is_null: false, _lte: $today } }
+            { expiration_date: { _is_null: false, _lt: $today } }
             {
               user_questions_aggregate: {
                 count: {

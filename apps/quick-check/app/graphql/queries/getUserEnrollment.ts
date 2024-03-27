@@ -66,7 +66,7 @@ export async function getUserEnrollment(
 
     const taxonomy = await contentStack.getTaxonomy(enrollment.taxonomy_id);
     const expired =
-      !!enrollment.expiration_date && today >= enrollment.expiration_date;
+      !!enrollment.expiration_date && today > enrollment.expiration_date;
 
     return {
       ...enrollment,

@@ -37,10 +37,6 @@ export const sendUserAwayEmailTemplate: EmailTemplatesFn = async (
         questionItem={questionItem}
         enrollmentTaxonomy={enrollmentTaxonomy}
         loginUrl={loginUrl}
-        header={{
-          url: loginUrl,
-          text: t("emails.away.header"),
-        }}
         footer={{
           url: loginUrl,
           text: t("emails.away.footer", {

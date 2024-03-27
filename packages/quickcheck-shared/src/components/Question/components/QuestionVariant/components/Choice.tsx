@@ -37,7 +37,8 @@ export const Choice = ({
       onClick={onClick}
       className={twMerge(
         "flex w-full items-start border-t border-primary-25 bg-background-secondary px-4 py-6 text-left transition last:border-b hover:border-primary disabled:hover:border-primary-25 sm:rounded-sm sm:border sm:border-highlight sm:px-8 sm:shadow-card",
-        isSelected && "bg-background",
+        isSelected &&
+          "bg-background hover:border-primary-25 sm:hover:border-primary",
         correctlyAnswered &&
           "border-t-0 bg-success-50 disabled:hover:bg-success-50 sm:border-t",
         incorrectlyAnswered &&

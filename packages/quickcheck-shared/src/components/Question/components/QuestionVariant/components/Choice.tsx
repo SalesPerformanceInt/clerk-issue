@@ -1,6 +1,7 @@
 import React from "react";
 
 import { useQuestionContext } from "~qcs/index";
+import { AnimatePresence, motion } from "framer-motion";
 import parse from "html-react-parser";
 import { twMerge } from "tailwind-merge";
 
@@ -36,18 +37,32 @@ export const Choice = ({
       disabled={disabled}
       onClick={onClick}
       className={twMerge(
-        "flex w-full items-start border-t border-primary-25 bg-background-secondary px-4 py-6 text-left transition last:border-b hover:border-primary disabled:hover:border-primary-25 sm:rounded-sm sm:border sm:border-highlight sm:px-8 sm:shadow-card",
+        choice.correct && "text-teal-900",
+        "relative flex w-full items-center border-t border-primary-25 bg-background-secondary px-4 py-6 text-left transition last:border-b hover:border-primary disabled:hover:border-primary-25 sm:rounded-sm sm:border sm:border-highlight sm:px-8 sm:shadow-card",
         isSelected &&
           "bg-background hover:border-primary-25 sm:hover:border-primary",
         correctlyAnswered &&
           "border-t-0 bg-success-50 disabled:hover:bg-success-50 sm:border-t",
-        incorrectlyAnswered &&
-          "border-l-8 border-t-0 border-l-warning bg-highlight disabled:hover:bg-highlight sm:border-l-16 sm:border-t sm:border-l-warning",
-        actualAnswer &&
-          "border-l-8 border-l-success sm:border-l-16 sm:border-l-success",
       )}
       {...choice.$?.body}
     >
+      <AnimatePresence>
+        {(incorrectlyAnswered || actualAnswer) && (
+          <motion.div
+            variants={{
+              initial: { width: 0 },
+              animate: { width: 16, transition: { duration: 0.35 } },
+            }}
+            initial="initial"
+            animate="animate"
+            className={twMerge(
+              "absolute inset-y-0 left-0 h-full",
+              incorrectlyAnswered && "bg-warning",
+              actualAnswer && "bg-success",
+            )}
+          />
+        )}
+      </AnimatePresence>
       {parse(choice.body)}
     </button>
   );

@@ -82,3 +82,19 @@ export const slideLeft: Variants = {
     },
   },
 };
+
+export const activateBackground: Variants = {
+  initial: {
+    backgroundColor: "var(--background-secondary)",
+    borderTopColor: "var(--primary-50)",
+    borderTopWidth: "1px",
+  },
+  active: {
+    backgroundColor: "var(--primary)",
+    borderTopColor: "var(--primary)",
+    borderTopWidth: "0px",
+    transition: {
+      duration: 0.35,
+    },
+  },
+};

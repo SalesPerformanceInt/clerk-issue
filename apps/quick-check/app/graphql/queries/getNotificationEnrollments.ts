@@ -7,10 +7,8 @@ import { graphql, type GQLProxyData, type GraphQLClient } from "~/graphql";
 import { getToday } from "~/utils/date";
 
 export const GET_NOTIFICATION_ENROLLMENTS = graphql(/* GraphQL */ `
-  query GetNotificationEnrollments($yesterday: date!) {
-    new_enrollments: user_enrollment(
-      where: { start_date: { _eq: $yesterday } }
-    ) {
+  query GetNotificationEnrollments($today: date!, $yesterday: date!) {
+    new_enrollments: user_enrollment(where: { start_date: { _eq: $today } }) {
       ...NotificationUserEnrollment
     }
     completed_enrollments: user_enrollment(
@@ -41,7 +39,7 @@ export async function getNotificationEnrollments(
   try {
     const { data } = await this.query({
       query: GET_NOTIFICATION_ENROLLMENTS,
-      variables: { yesterday },
+      variables: { today, yesterday },
       fetchPolicy: "no-cache",
     });
 

@@ -20,6 +20,12 @@ export const GET_USER_NEXT_QUESTION = graphql(/* GraphQL */ `
         where: {
           active_on: { _lte: $today }
           retired_on: { _is_null: true }
+          user_enrollment: {
+            _or: [
+              { expiration_date: { _is_null: true } }
+              { expiration_date: { _gt: $today } }
+            ]
+          }
           _and: [$where]
         }
         order_by: { active_on: asc }

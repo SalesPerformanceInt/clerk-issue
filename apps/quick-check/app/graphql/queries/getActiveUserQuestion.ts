@@ -13,6 +13,12 @@ export const GET_ACTIVE_USER_QUESTION = graphql(/* GraphQL */ `
         id: { _eq: $id }
         active_on: { _lte: $today }
         retired_on: { _is_null: true }
+        user_enrollment: {
+          _or: [
+            { expiration_date: { _is_null: true } }
+            { expiration_date: { _gt: $today } }
+          ]
+        }
       }
     ) {
       ...BaseUserQuestion

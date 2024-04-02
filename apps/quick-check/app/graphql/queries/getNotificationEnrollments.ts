@@ -4,7 +4,7 @@ import { logError } from "quickcheck-shared";
 
 import { graphql, type GQLProxyData, type GraphQLClient } from "~/graphql";
 
-import { getToday } from "~/utils/date";
+import { getToday, getYesterday } from "~/utils/date";
 
 export const GET_NOTIFICATION_ENROLLMENTS = graphql(/* GraphQL */ `
   query GetNotificationEnrollments($today: date!, $yesterday: date!) {
@@ -34,7 +34,7 @@ export async function getNotificationEnrollments(
   const { now } = proxyData;
 
   const today = getToday(now);
-  const yesterday = DateTime.fromISO(today).minus({ days: 1 }).toISODate()!;
+  const yesterday = getYesterday(today);
 
   try {
     const { data } = await this.query({

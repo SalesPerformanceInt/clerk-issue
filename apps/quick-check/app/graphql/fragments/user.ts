@@ -35,6 +35,12 @@ export const UserUnansweredQuestions = graphql(/* GraphQL */ `
       where: {
         retired_on: { _is_null: true }
         active_on: { _is_null: false, _lte: $today }
+        user_enrollment: {
+          _or: [
+            { expiration_date: { _is_null: true } }
+            { expiration_date: { _gt: $today } }
+          ]
+        }
       }
     ) {
       aggregate {
@@ -55,6 +61,12 @@ export const UserActiveQuestionsData = graphql(/* GraphQL */ `
             filter: {
               retired_on: { _is_null: true }
               active_on: { _is_null: false }
+              user_enrollment: {
+                _or: [
+                  { expiration_date: { _is_null: true } }
+                  { expiration_date: { _gt: $today } }
+                ]
+              }
             }
           }
         }

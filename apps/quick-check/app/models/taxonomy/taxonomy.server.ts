@@ -3,7 +3,14 @@ import type { RawNodeDatum } from "react-d3-tree";
 import { getContentStackClient } from "~/contentstack.server";
 import { isArray } from "remeda";
 
-import { buildTrees, type Taxon, type TreeNode } from "quickcheck-shared";
+import {
+  buildTrees,
+  getNodeInTreesById,
+  invariant,
+  type Taxon,
+  type Tree,
+  type TreeNode,
+} from "quickcheck-shared";
 
 import { DEFAULT_LANGUAGE } from "~/contentstack";
 
@@ -43,4 +50,18 @@ export const buildTaxonTrees = async () => {
 
   const trees = buildTrees(taxonomyDataObjects);
   return trees;
+};
+
+export const getDescendantUids = (taxon: TreeNode<TaxonomyDataObj>) =>
+  taxon.getDescendants().map(({ dataObj }) => dataObj.uid);
+
+export const getTaxon = async (
+  taxonomyId: string,
+  taxonTrees: Tree<TaxonomyDataObj>[],
+) => {
+  const taxon = getNodeInTreesById(taxonTrees, taxonomyId);
+
+  invariant(taxon, "No matching Taxon found.");
+
+  return taxon;
 };

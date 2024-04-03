@@ -5,6 +5,7 @@ import {
   prepareEnrollmentError,
   prepareEnrollmentResponse,
 } from "../handlers/prepareEnrollmentResponse";
+
 import { notifyUserEnrollment } from "./notifyUserEnrollment";
 
 /**

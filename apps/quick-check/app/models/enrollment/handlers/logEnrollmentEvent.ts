@@ -31,7 +31,7 @@ type EnrollmentEventInput = EventInput<PartialEnrollmentEvents>;
  * Curry Enrollment Event
  */
 
-type CurryEnrollmentEventProps = {
+type CreateLogEnrollmentEventProps = {
   request: Request;
   enrollment_id: string;
   user_id: string;
@@ -39,8 +39,8 @@ type CurryEnrollmentEventProps = {
   tenant_id: string;
 };
 
-export const curryEnrollmentEvent =
-  (curriedData: CurryEnrollmentEventProps) =>
+export const createLogEnrollmentEvent =
+  (curriedData: CreateLogEnrollmentEventProps) =>
   async <Input extends EnrollmentEventInput>(enrollmentInput: Input) => {
     const { request, tenant_id, ...baseEventData } = curriedData;
 
@@ -67,7 +67,7 @@ export const curryEnrollmentEvent =
  * Log Enrollment Event
  */
 
-type LogEnrollmentEventFn = ReturnType<typeof curryEnrollmentEvent>;
+type LogEnrollmentEventFn = ReturnType<typeof createLogEnrollmentEvent>;
 export type LogEnrollmentEvent = {
   logEnrollmentEvent: LogEnrollmentEventFn;
 };

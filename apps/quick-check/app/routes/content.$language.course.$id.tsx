@@ -4,13 +4,12 @@ import { Link, useLoaderData, useNavigate } from "@remix-run/react";
 import { faChevronLeft } from "@fortawesome/pro-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { getContentStackClient } from "~/contentstack.server";
-import { first, isArray, sortBy } from "remeda";
+import { first, isArray } from "remeda";
 
 import { invariant, simpleErrorResponse } from "quickcheck-shared";
 
-import { getQuestions, getTaxon } from "~/graphql";
-
-import { buildTaxonTrees } from "~/models/taxonomy";
+import { getTranslatedQuestionsFromTaxon } from "~/models/question";
+import { buildTaxonTrees, getTaxon } from "~/models/taxonomy";
 
 import { Pagination, usePagination } from "~/components";
 
@@ -38,7 +37,7 @@ export const loader = async ({ params, request }: LoaderFunctionArgs) => {
     const taxonTrees = await buildTaxonTrees();
     const taxon = await getTaxon(quickcheckTaxonomyId, taxonTrees);
 
-    const questions = await getQuestions(language)(taxon);
+    const questions = await getTranslatedQuestionsFromTaxon(language, taxon);
 
     return json({
       course,

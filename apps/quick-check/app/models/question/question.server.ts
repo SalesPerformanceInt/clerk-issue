@@ -5,9 +5,12 @@ import {
   invariant,
   variants,
   type QuestionItemVariant,
+  type TreeNode,
 } from "quickcheck-shared";
 
 import type { BaseUserQuestionFragment } from "~/graphql";
+
+import { getDescendantUids, TaxonomyDataObj } from "~/models/taxonomy";
 
 export const getQuestionData = async (
   userQuestion: BaseUserQuestionFragment,
@@ -38,6 +41,19 @@ const getVariantNames = (questionItemVariants: QuestionItemVariant[]) =>
 export const getFirstVariant = (questionItemVariants: QuestionItemVariant[]) =>
   pipe(questionItemVariants, getVariantNames, first());
 
-export const config = {
-  maxDuration: 300,
+export const getTranslatedQuestionsFromTaxon = async (
+  language: string,
+  taxon: TreeNode<TaxonomyDataObj>,
+) => {
+  const descendantUids = getDescendantUids(taxon);
+
+  const contentStack = getContentStackClient(language);
+
+  const questions = await contentStack.getQuestionItems((query) =>
+    query.containedIn("topic.uid", descendantUids),
+  );
+
+  invariant(questions, "No matching questions found.");
+
+  return questions;
 };

@@ -1,7 +1,7 @@
 import { getAdminApolloClientFromRequest } from "~/graphql";
 
 import { getEnrollmentAction } from "./handlers/getEnrollmentAction";
-import { curryEnrollmentEvent } from "./handlers/logEnrollmentEvent";
+import { createLogEnrollmentEvent } from "./handlers/logEnrollmentEvent";
 
 import type {
   EnrollmentActionProps,
@@ -40,7 +40,7 @@ export const handleUserEnrollment = async ({
     enrollmentNewData.enrollment_id,
   );
 
-  const logEnrollmentEvent = curryEnrollmentEvent({
+  const logEnrollmentEvent = createLogEnrollmentEvent({
     request,
     enrollment_id: enrollmentNewData.enrollment_id,
     user_id: user.userId,

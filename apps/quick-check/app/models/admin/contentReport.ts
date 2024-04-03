@@ -9,9 +9,8 @@ import {
 } from "quickcheck-shared";
 
 import { DEFAULT_LANGUAGE } from "~/contentstack";
-import { getTaxon } from "~/graphql";
 
-import { buildTaxonTrees } from "~/models/taxonomy";
+import { buildTaxonTrees, getTaxon } from "~/models/taxonomy";
 
 export const getContentReport = async () => {
   const contentStack = getContentStackClient(DEFAULT_LANGUAGE);

@@ -4,10 +4,8 @@ import { pipe, shuffle } from "remeda";
 
 import {
   andThen,
-  getNodeInTreesById,
   invariant,
   logError,
-  Tree,
   type QuestionItem,
   type TreeNode,
 } from "quickcheck-shared";
@@ -24,7 +22,13 @@ import {
 import { ENROLLMENT_DAYS } from "~/utils/constants";
 import { getNextValidBusinessDate } from "~/utils/date";
 
-import { buildTaxonTrees, type TaxonomyDataObj } from "~/models/taxonomy";
+import { getTranslatedQuestionsFromTaxon } from "~/models/question";
+import {
+  buildTaxonTrees,
+  getDescendantUids,
+  getTaxon,
+  type TaxonomyDataObj,
+} from "~/models/taxonomy";
 
 /**
  * GraphQL
@@ -57,41 +61,9 @@ export const SYNC_USER_ENROLLMENT = graphql(/* GraphQL */ `
   }
 `);
 
-/**
- * Prepare Taxon
- */
-export const getTaxon = async (
-  taxonomyId: string,
-  taxonTrees: Tree<TaxonomyDataObj>[],
-) => {
-  const taxon = getNodeInTreesById(taxonTrees, taxonomyId);
-
-  invariant(taxon, "No matching Taxon found.");
-
-  return taxon;
-};
-
-/**
- * Prepare Questions
- */
-
-const getDescendantUids = (taxon: TreeNode<TaxonomyDataObj>) =>
-  taxon.getDescendants().map(({ dataObj }) => dataObj.uid);
-
-export const getQuestions =
-  (language: string) => async (taxon: TreeNode<TaxonomyDataObj>) => {
-    const descendantUids = getDescendantUids(taxon);
-
-    const contentStack = getContentStackClient(language);
-
-    const questions = await contentStack.getQuestionItems((query) =>
-      query.containedIn("topic.uid", descendantUids),
-    );
-
-    invariant(questions, "No matching questions found.");
-
-    return questions;
-  };
+const getQuestions =
+  (language: string) => async (taxon: TreeNode<TaxonomyDataObj>) =>
+    getTranslatedQuestionsFromTaxon(language, taxon);
 
 /**
  * Prepare Questions Input

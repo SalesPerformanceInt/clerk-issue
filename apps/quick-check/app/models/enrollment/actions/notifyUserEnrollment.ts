@@ -26,7 +26,11 @@ export const notifyUserEnrollment = async ({
 
   const firstQuestion = enrollment?.first_question[0];
 
-  if (enrollment && firstQuestion?.active_on === today) {
+  if (
+    enrollment &&
+    firstQuestion?.active_on &&
+    firstQuestion.active_on <= today
+  ) {
     sendEmailTemplate(request, user.userId, now, {
       type: "Enrollment",
       data: { enrollment },

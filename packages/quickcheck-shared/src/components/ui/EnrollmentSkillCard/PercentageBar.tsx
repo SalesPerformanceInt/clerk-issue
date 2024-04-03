@@ -7,7 +7,7 @@ const getClassName = (percentage: number) => {
   if (percentage > 75) return "bg-chart-green";
   if (percentage > 50) return "bg-chart-yellow";
   if (percentage > 25) return "bg-chart-orange";
-  if (percentage > 0) return "bg-chart-red text-background";
+  if (percentage >= 0) return "bg-chart-red text-background";
   return "bg-transparent text-chart-red";
 };
 

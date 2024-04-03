@@ -37,9 +37,15 @@ export const ErrorBoundary = makeErrorBoundary({ wat: "root level error" });
 
 export const loader = async ({ request }: LoaderFunctionArgs) => {
   const [now] = await getUserDataFromSession(request);
-  const [timeTravelFlag = false] = await getSplit(request, [
-    "quickcheck__time_travel",
-  ]);
+  const [timeTravelFlag = false, accelerateEnabledFlag = false] =
+    await getSplit(request, [
+      "quickcheck__time_travel",
+      "quickcheck__accelerate_enabled",
+    ]);
+  const featureFlags = {
+    timeTravelFlag,
+    accelerateEnabledFlag,
+  };
 
   const { theme, locale } = await getUserConfig(request);
 
@@ -50,7 +56,7 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
     ZIPY_API_KEY,
   };
 
-  return json({ theme, locale, ENV, timeTravelFlag, now, isAdminEnabled });
+  return json({ theme, locale, ENV, now, isAdminEnabled, featureFlags });
 };
 
 export const handle = {
@@ -84,7 +90,7 @@ export const meta: MetaFunction = () => [
 ];
 
 export default function App() {
-  const { theme, locale, ENV, timeTravelFlag, now, isAdminEnabled } =
+  const { theme, locale, ENV, now, isAdminEnabled, featureFlags } =
     useLoaderData<typeof loader>();
 
   const { i18n } = useTranslation();
@@ -93,6 +99,7 @@ export default function App() {
   const outletContext: OutletContext = {
     now,
     isAdminEnabled,
+    featureFlags,
   };
 
   return (
@@ -117,7 +124,7 @@ export default function App() {
         />
       </head>
       <body className="h-full overscroll-none bg-background-secondary">
-        <TimeTravel now={now} flag={timeTravelFlag} />
+        <TimeTravel now={now} flag={featureFlags.timeTravelFlag} />
 
         <Outlet context={outletContext} />
         <ScrollRestoration />

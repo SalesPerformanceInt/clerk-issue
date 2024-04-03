@@ -5,6 +5,8 @@ import { faArrowUpRightFromSquare } from "@fortawesome/pro-light-svg-icons";
 
 import { Icon, LinkButton, LinkButtonProps } from "quickcheck-shared";
 
+import { useOutletContext } from "~/utils/outletContext";
+
 interface AccelerateButtonProps extends Omit<LinkButtonProps, "children"> {
   tenantId: string;
 }
@@ -14,6 +16,11 @@ export const AccelerateButton: FC<AccelerateButtonProps> = ({
   ...props
 }) => {
   const { t } = useTranslation();
+  const {
+    featureFlags: { accelerateEnabledFlag },
+  } = useOutletContext();
+
+  if (!accelerateEnabledFlag) return null;
 
   return (
     <LinkButton

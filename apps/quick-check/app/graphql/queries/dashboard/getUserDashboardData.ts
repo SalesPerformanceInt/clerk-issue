@@ -1,6 +1,11 @@
 import { logError } from "quickcheck-shared";
 
-import { graphql, type GQLProxyUserData, type GraphQLClient } from "~/graphql";
+import {
+  flattenUserActiveQuestionsData,
+  graphql,
+  type GQLProxyUserData,
+  type GraphQLClient,
+} from "~/graphql";
 
 import { getToday } from "~/utils/date";
 
@@ -48,8 +53,7 @@ export async function getUserDashboardData(
     return {
       ...dashboard_data,
       total_enrollments: activeEnrollments + completedEnrollments,
-      unanswered_questions:
-        dashboard_data.unanswered_questions.aggregate?.count,
+      ...flattenUserActiveQuestionsData(dashboard_data),
     };
   } catch (error) {
     logError({ error, log: "getUserDashboardData" });

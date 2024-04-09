@@ -34,7 +34,7 @@ export const DashboardHeader: FC = () => {
         right={
           userDashboardData.total_enrollments > 0 && (
             <HeaderUnansweredQuestions
-              unansweredQuestions={userDashboardData.unanswered_questions}
+              userData={userDashboardData}
               onStart={() => startQuestions()}
               loading={start}
             />

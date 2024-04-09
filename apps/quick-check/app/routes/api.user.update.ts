@@ -31,7 +31,7 @@ export const action = async ({ request }: ActionFunctionArgs) => {
 
     invariant(user, "User not found for update");
 
-    return json({ user_id: user.user_id }, { status: 201 });
+    return json({ user_id: user.user_id }, { status: 200 });
   } catch (error) {
     return simpleErrorResponse(error);
   }

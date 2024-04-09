@@ -2,7 +2,12 @@ import { getContentStackClient } from "~/contentstack.server";
 
 import { logError } from "quickcheck-shared";
 
-import { graphql, type GQLProxyData, type GraphQLClient } from "~/graphql";
+import {
+  flattenUserActiveQuestionsData,
+  graphql,
+  type GQLProxyData,
+  type GraphQLClient,
+} from "~/graphql";
 
 import { getToday } from "~/utils/date";
 
@@ -17,7 +22,7 @@ export const GET_USER_ENROLLMENT = graphql(/* GraphQL */ `
         ...UserQuestionFirstLastAnswer
       }
       user {
-        ...UserUnansweredQuestions
+        ...UserActiveQuestionsData
         first_name
         last_name
         tenant_id
@@ -73,8 +78,7 @@ export async function getUserEnrollment(
       user_questions,
       taxonomy,
       expired,
-      unanswered_questions:
-        enrollment.user.unanswered_questions.aggregate?.count ?? 0,
+      ...flattenUserActiveQuestionsData(enrollment.user),
     };
   } catch (error) {
     logError({ error, log: "getUserEnrollment" });

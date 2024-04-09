@@ -12,7 +12,7 @@ export const DashboardMobileAction: FC = () => {
 
   return (
     <MobileMenu
-      unansweredQuestions={userDashboardData.unanswered_questions}
+      userData={userDashboardData}
       onStart={() => navigate("/next-question")}
     />
   );

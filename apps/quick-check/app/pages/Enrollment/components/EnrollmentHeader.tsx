@@ -3,7 +3,7 @@ import { useNavigate } from "@remix-run/react";
 
 import {
   Header,
-  HeaderReturnToDashboard,
+  HeaderReturn,
   HeaderUnansweredQuestions,
   Support,
   useIsDesktop,
@@ -27,15 +27,17 @@ export const EnrollmentHeader: FC = () => {
 
   return (
     <Header
-      left={<HeaderReturnToDashboard onClose={() => navigate("/")} />}
+      left={<HeaderReturn onClose={() => navigate("/")} />}
       right={
         isDesktop ? (
           <HeaderUnansweredQuestions
-            unansweredQuestions={enrollment.unanswered_questions}
+            userData={enrollment}
             onStart={() => startQuestions()}
             loading={start}
           />
-        ) : <Support />
+        ) : (
+          <Support />
+        )
       }
     />
   );

@@ -12,7 +12,7 @@ export const EnrollmentMobileAction: FC = () => {
 
   return (
     <MobileMenu
-      unansweredQuestions={enrollment.unanswered_questions}
+      userData={enrollment}
       onStart={() => navigate("/next-question")}
     />
   );

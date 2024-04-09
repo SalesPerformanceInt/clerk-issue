@@ -3,21 +3,23 @@ import { useTranslation } from "react-i18next";
 import { useMeasure } from "react-use";
 
 import { faArrowRight } from "@fortawesome/pro-light-svg-icons";
-import { Button, ResponsiveContainer } from "~qcs/components";
+
+import { UserData } from "~qcs/utils/types";
 import { useIsDesktop } from "~qcs/utils/useIsDesktop";
 
+import { Button, ResponsiveContainer } from "~qcs/components";
+
 interface MobileMenuProps {
-  unansweredQuestions?: number;
+  userData?: UserData;
   onStart: () => void;
 }
 
-export const MobileMenu: FC<MobileMenuProps> = ({
-  unansweredQuestions,
-  onStart,
-}) => {
+export const MobileMenu: FC<MobileMenuProps> = ({ userData, onStart }) => {
   const isDesktop = useIsDesktop();
   const [ref, { height }] = useMeasure<HTMLDivElement>();
   const { t } = useTranslation();
+
+  const allEnrollmentsComplete = userData?.active_enrollments === 0;
 
   if (isDesktop) return null;
 
@@ -30,9 +32,14 @@ export const MobileMenu: FC<MobileMenuProps> = ({
       >
         <div className="flex flex-col items-center gap-1 px-4 pb-4 pt-2">
           <p className="text-xs uppercase text-primary-75">
-            {t("common.unanswered", { count: unansweredQuestions })}
+            {t(
+              allEnrollmentsComplete
+                ? "common.all_enrollments_complete"
+                : "common.unanswered",
+              { count: userData?.unanswered_questions },
+            )}
           </p>
-          {!!unansweredQuestions && (
+          {!!userData?.unanswered_questions && (
             <Button
               background="light"
               onClick={onStart}

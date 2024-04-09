@@ -2,7 +2,12 @@ import { DateTime } from "luxon";
 
 import { logError } from "quickcheck-shared";
 
-import { graphql, type GQLProxyUserData, type GraphQLClient } from "~/graphql";
+import {
+  flattenUserActiveQuestionsData,
+  graphql,
+  type GQLProxyUserData,
+  type GraphQLClient,
+} from "~/graphql";
 
 export const GET_USER_EMAIL_DATA = graphql(/* GraphQL */ `
   query GetUserEmailData($userId: uuid!, $today: date!) {
@@ -57,12 +62,11 @@ export async function getUserEmailData(
 
     return {
       ...user_by_pk,
-      active_enrollments: user_by_pk.active_enrollments.aggregate?.count,
-      unanswered_questions: user_by_pk.unanswered_questions.aggregate?.count,
       last_user_answer: user_by_pk.user_answers[0],
       user_question_activated_today:
         user_by_pk.user_question_activated_today[0],
       first_user_enrollment: user_by_pk.user_enrollments[0],
+      ...flattenUserActiveQuestionsData(user_by_pk),
     };
   } catch (error) {
     logError({ error, log: "getUserEmailData" });

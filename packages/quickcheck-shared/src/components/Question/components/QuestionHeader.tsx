@@ -6,7 +6,7 @@ import { useIsDesktop } from "~qcs/utils/useIsDesktop";
 
 import {
   Header,
-  HeaderReturnToDashboard,
+  HeaderReturn,
   HeaderUnansweredQuestions,
 } from "~qcs/components";
 import { useQuestionContext } from "~qcs/components/Question";
@@ -17,21 +17,23 @@ export const QuestionHeader: FC = () => {
   const isDesktop = useIsDesktop();
 
   const modifier = submitted ? 1 : 0;
-  const unansweredQuestions =
-    userData && Math.max((userData.unanswered_questions ?? 0) - modifier, 0);
+  const unansweredQuestions = Math.max(
+    (userData?.unanswered_questions ?? 0) - modifier,
+    0,
+  );
+
+  const optimisticUserData = {
+    ...userData,
+    unanswered_questions: unansweredQuestions,
+  };
 
   return (
     <Header
-      left={
-        <HeaderReturnToDashboard
-          onClose={onShowOnCloseModal}
-          label={closeLable}
-        />
-      }
+      left={<HeaderReturn onClose={onShowOnCloseModal} label={closeLable} />}
       right={
         isNumber(unansweredQuestions) && (
           <HeaderUnansweredQuestions
-            unansweredQuestions={unansweredQuestions}
+            userData={optimisticUserData}
             short={!isDesktop}
           />
         )

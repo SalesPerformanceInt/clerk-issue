@@ -3,9 +3,8 @@ import { useNavigate } from "@remix-run/react";
 
 import {
   Header,
-  HeaderReturnToDashboard,
+  HeaderReturn,
   HeaderUnansweredQuestions,
-  RichardsonLogo,
   Support,
   useIsDesktop,
 } from "quickcheck-shared";
@@ -27,34 +26,27 @@ export const EnrollmentSkillDashboardHeader: FC = () => {
     navigate("/next-question");
   };
 
-  if (isDesktop)
-    return (
-      <Header
-        left={
-          <HeaderReturnToDashboard
-            label={
-              enrollmentSkillDashboardData.enrollment_taxonomy?.display_name
-            }
-            onClose={() =>
-              navigate(
-                `/dashboard/enrollment/${enrollmentSkillDashboardData.id}`,
-              )
-            }
+  return (
+    <Header
+      left={
+        <HeaderReturn
+          label={enrollmentSkillDashboardData.enrollment_taxonomy?.display_name}
+          onClose={() =>
+            navigate(`/dashboard/enrollment/${enrollmentSkillDashboardData.id}`)
+          }
+        />
+      }
+      right={
+        isDesktop ? (
+          <HeaderUnansweredQuestions
+            userData={enrollmentSkillDashboardData}
+            onStart={() => startQuestions()}
+            loading={start}
           />
-        }
-        right={
-          isDesktop && (
-            <HeaderUnansweredQuestions
-              unansweredQuestions={
-                enrollmentSkillDashboardData.unanswered_questions
-              }
-              onStart={() => startQuestions()}
-              loading={start}
-            />
-          )
-        }
-      />
-    );
-
-  return <Header right={<Support />} left={<RichardsonLogo />} />;
+        ) : (
+          <Support />
+        )
+      }
+    />
+  );
 };

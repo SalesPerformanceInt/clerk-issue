@@ -7,15 +7,12 @@ import { RichardsonLogo } from "~qcs/images/RichardsonLogo";
 
 import { useIsDesktop } from "~qcs/utils/useIsDesktop";
 
-interface HeaderReturnToDashboardProps {
+interface HeaderReturnProps {
   onClose: () => void;
   label?: string;
 }
 
-export const HeaderReturnToDashboard: FC<HeaderReturnToDashboardProps> = ({
-  onClose,
-  label,
-}) => {
+export const HeaderReturn: FC<HeaderReturnProps> = ({ onClose, label }) => {
   const isDesktop = useIsDesktop();
   const { t } = useTranslation();
 

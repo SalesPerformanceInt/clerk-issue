@@ -2,7 +2,12 @@ import { getContentStackClient } from "~/contentstack.server";
 
 import { invariant, logError } from "quickcheck-shared";
 
-import { graphql, type GQLProxyData, type GraphQLClient } from "~/graphql";
+import {
+  flattenUserActiveQuestionsData,
+  graphql,
+  type GQLProxyData,
+  type GraphQLClient,
+} from "~/graphql";
 
 import { getToday } from "~/utils/date";
 
@@ -15,7 +20,7 @@ export const GET_ENROLLMENT_SKILL_DASHBOARD_DATA = graphql(/* GraphQL */ `
     user_enrollment_by_pk(id: $enrollmentId) {
       ...UserEnrollmentSkillWithCounts
       user {
-        ...UserUnansweredQuestions
+        ...UserActiveQuestionsData
         first_name
         last_name
         tenant_id
@@ -64,8 +69,7 @@ export async function getEnrollmentSkillDashboardData(
       ...enrollment,
       enrollment_taxonomy,
       skill_taxonomy,
-      unanswered_questions:
-        enrollment.user.unanswered_questions.aggregate?.count ?? 0,
+      ...flattenUserActiveQuestionsData(enrollment.user),
     };
   } catch (error) {
     logError({ error, log: "getEnrollmentSkillDashboardData" });

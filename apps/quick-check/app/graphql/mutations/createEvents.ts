@@ -9,7 +9,7 @@ import {
   type GraphQLClient,
 } from "~/graphql";
 
-import { posthog } from "~/utils/posthog";
+import { caputrePosthogEvents } from "~/utils/posthog";
 
 export const CREATE_EVENTS = graphql(/* GraphQL */ `
   mutation CreateEvents($events: [event_insert_input!]!) {
@@ -41,14 +41,13 @@ export async function createEvents(
       variables: { events },
     });
 
-    for (const event of events) {
-      posthog.capture({
+    await caputrePosthogEvents(
+      events.map((event) => ({
         distinctId: userId,
         event: event.type,
         properties: { ...event.data, subdomain: tenantId },
-      });
-    }
-    await posthog.flushAsync();
+      })),
+    );
 
     if (!data?.insert_event?.returning) return null;
 

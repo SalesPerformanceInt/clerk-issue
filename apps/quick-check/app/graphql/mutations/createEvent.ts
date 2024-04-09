@@ -8,7 +8,7 @@ import {
 } from "~/graphql";
 
 import { Template } from "~/utils/email/emailTemplatesMap";
-import { posthog } from "~/utils/posthog";
+import { caputrePosthogEvent } from "~/utils/posthog";
 
 export type Events = {
   EnrollmentAdded: {
@@ -134,12 +134,11 @@ export async function createEvent(
       variables: { event },
     });
 
-    posthog.capture({
+    await caputrePosthogEvent({
       distinctId: userId,
       event: event.type,
       properties: { ...event.data, subdomain: tenantId },
     });
-    await posthog.flushAsync();
 
     if (!result.data?.insert_event_one) return null;
 

@@ -86,7 +86,7 @@ const config = {
           50: "var(--accent-50, #e8b066)",
         },
         highlight: {
-          DEFAULT: "var(--highlight, 350 24% 75%)",
+          DEFAULT: "var(--highlight, #CFB0B5)",
         },
         background: {
           DEFAULT: "var(--background, #ffffff)",

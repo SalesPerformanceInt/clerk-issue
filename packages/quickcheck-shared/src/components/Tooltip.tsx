@@ -54,10 +54,7 @@ export const Tooltip: FC<TooltipProps> = ({
         <RadixTooltip.Provider>
           <RadixTooltip.Root delayDuration={0}>
             <RadixTooltip.Trigger
-              className={twMerge(
-                "ml-1 cursor-default text-[0.5rem]",
-                triggerClassName,
-              )}
+              className={twMerge("cursor-default text-xs", triggerClassName)}
               aria-label={`${ariaLabel} ${t("common.tooltip.aria_label")}`}
             >
               <Icon icon={icon} className="text-size-inherit" />
@@ -86,10 +83,7 @@ export const Tooltip: FC<TooltipProps> = ({
       {texts && !isDesktop && (
         <RadixPopover.Root>
           <RadixPopover.Trigger
-            className={twMerge(
-              "ml-1 cursor-default text-[0.5rem]",
-              triggerClassName,
-            )}
+            className={twMerge("cursor-default text-xs", triggerClassName)}
             aria-label={`${ariaLabel} ${t("common.popover.aria_label")}`}
           >
             <Icon icon={icon} className="text-size-inherit" />
@@ -111,7 +105,7 @@ export const Tooltip: FC<TooltipProps> = ({
               {texts.map((text) => parseText(text))}
 
               {closeButton && (
-                <RadixPopover.Close className="ml-auto mt-2 w-fit px-2 py-1 text-right uppercase outline-primary-50 outline">
+                <RadixPopover.Close className="ml-auto mt-2 w-fit px-2 py-1 text-right uppercase outline outline-primary-50">
                   {t("common.tooltip.close")}
                 </RadixPopover.Close>
               )}

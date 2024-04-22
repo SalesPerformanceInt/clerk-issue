@@ -1,6 +1,6 @@
 import React from "react";
 
-import { useQuestionContext } from "~qcs/index";
+import { useIsDesktop, useQuestionContext } from "~qcs/index";
 import { AnimatePresence, motion } from "framer-motion";
 import parse from "html-react-parser";
 import { twMerge } from "tailwind-merge";
@@ -24,6 +24,7 @@ export const Choice = ({
   choice,
 }: ChoiceProps) => {
   const { selected, submitted } = useQuestionContext();
+  const isDesktop = useIsDesktop();
 
   if (!choice) return null;
 
@@ -42,6 +43,7 @@ export const Choice = ({
           "bg-background hover:border-primary-25 sm:hover:border-primary",
         correctlyAnswered &&
           "border-t-0 bg-success-50 disabled:hover:bg-success-50 sm:border-t",
+        incorrectlyAnswered && "bg-highlight",
       )}
       {...choice.$?.body}
     >
@@ -50,7 +52,10 @@ export const Choice = ({
           <motion.div
             variants={{
               initial: { width: 0 },
-              animate: { width: 16, transition: { duration: 0.35 } },
+              animate: {
+                width: isDesktop ? 16 : 8,
+                transition: { duration: 0.35 },
+              },
             }}
             initial="initial"
             animate="animate"

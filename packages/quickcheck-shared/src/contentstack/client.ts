@@ -8,6 +8,7 @@ import {
   getTaxonomies,
   getTaxonomy,
   getTheme,
+  getTranslatedStrings,
 } from "~qcs/contentstack/queries";
 
 const BATCH_SIZE = 250;
@@ -34,6 +35,7 @@ export class ContentStackSDKClient {
   getTaxonomies = getTaxonomies;
   getTaxonomy = getTaxonomy;
   getCourses = getCourses;
+  getTranslatedStrings = getTranslatedStrings;
 
   async getAllEntries<T>(
     type: string,

@@ -33,6 +33,8 @@ export const supportedLngs = [
   "zu",
 ] as const;
 
+export type SupportedLanguage = (typeof supportedLngs)[number];
+
 export const fallbackLng = "en-us";
 
 export const i18nConfig = {

@@ -16,6 +16,7 @@ import {
 
 import { faTrash } from "@fortawesome/pro-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { getContentStackClient } from "~/contentstack.server";
 import { DateTime } from "luxon";
 import { z } from "zod";
 
@@ -27,12 +28,19 @@ import {
   useIsDesktop,
 } from "quickcheck-shared";
 
+import { DEFAULT_LANGUAGE } from "~/contentstack";
 import { getAdminApolloClientFromRequest } from "~/graphql";
 
+import { QC_CONTENTSTACK_TRANSLATION_ID } from "~/utils/envs.server";
 import { useOutletContext } from "~/utils/outletContext";
 import { parseSchema } from "~/utils/parseSchema";
 
-import { contentReportHeaders, getContentReport } from "~/models/admin";
+import {
+  contentReportHeaders,
+  getContentReport,
+  getTranslatedStringsReport,
+  translatedStringsHeaders,
+} from "~/models/admin";
 import { authAdminSession } from "~/models/session";
 
 export const adminTenantListActionSchema = z.object({
@@ -61,7 +69,12 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
 
     const contentReport = getContentReport();
 
-    return defer({ tenants, contentReport }, { status: 200 });
+    const translatedStringsReport = getTranslatedStringsReport();
+
+    return defer(
+      { tenants, contentReport, translatedStringsReport },
+      { status: 200 },
+    );
   } catch (error) {}
 };
 
@@ -85,7 +98,8 @@ export const action = async ({ request }: ActionFunctionArgs) => {
 };
 
 export default function Page() {
-  const { tenants, contentReport } = useLoaderData<typeof loader>();
+  const { tenants, contentReport, translatedStringsReport } =
+    useLoaderData<typeof loader>();
   const { isAdminEnabled } = useOutletContext();
   const isDesktop = useIsDesktop();
 
@@ -199,7 +213,7 @@ export default function Page() {
                   ))}
                 </tbody>
               </table>
-              <div className="mt-6 px-4 sm:px-0">
+              <div className="mt-6 flex space-x-4 px-4 sm:px-0">
                 <Suspense
                   fallback={
                     <Button background="light" disabled>
@@ -223,6 +237,34 @@ export default function Page() {
                         )}
                       >
                         Download Content Report
+                      </CSVLink>
+                    )}
+                  </Await>
+                </Suspense>
+
+                <Suspense
+                  fallback={
+                    <Button background="light" disabled>
+                      Download Translation Report
+                    </Button>
+                  }
+                >
+                  <Await resolve={translatedStringsReport}>
+                    {(data) => (
+                      <CSVLink
+                        data={data}
+                        headers={translatedStringsHeaders}
+                        filename={`quickcheck_translations_${DateTime.now().toISODate()}.csv`}
+                        target="_blank"
+                        className={cn(
+                          buttonVariants({
+                            background: "light",
+                            isDesktop,
+                            className: "hover:backdrop-brightness-95",
+                          }),
+                        )}
+                      >
+                        Download Translation Report
                       </CSVLink>
                     )}
                   </Await>

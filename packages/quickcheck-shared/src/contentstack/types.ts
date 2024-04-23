@@ -162,3 +162,12 @@ export type Course = WithLiveData<{
 }>;
 
 export type ContentType = QuestionItem | Taxon;
+
+export type TranslatedStrings = WithLiveData<{
+  locale: "en-us";
+  uid: "blt37f4a4753e3711ad";
+  title: string;
+  translations: {
+    value: { key: string; value: string }[];
+  };
+}>;

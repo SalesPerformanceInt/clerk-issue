@@ -1,5 +1,5 @@
 import Backend, { type HttpBackendOptions } from "i18next-http-backend";
-import { clone, fromPairs, map, pipe } from "remeda";
+import { fromPairs, map, pipe } from "remeda";
 import { RemixI18Next } from "remix-i18next";
 
 const CONTENTSTACK_BASE_URL = "cdn.contentstack.io";

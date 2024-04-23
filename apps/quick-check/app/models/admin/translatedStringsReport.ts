@@ -1,14 +1,7 @@
 import { getContentStackClient } from "~/contentstack.server";
-import { first, isArray, keys, mergeAll } from "remeda";
-import { stripHtml } from "string-strip-html";
+import { keys, mergeAll } from "remeda";
 
-import {
-  getVariant,
-  invariant,
-  QuestionItemByTaxonomy,
-  SupportedLanguage,
-  supportedLngs,
-} from "quickcheck-shared";
+import { SupportedLanguage, supportedLngs } from "quickcheck-shared";
 
 import { DEFAULT_LANGUAGE } from "~/contentstack";
 
@@ -42,7 +35,7 @@ export const getTranslatedStringsReport = async () => {
     Record<string, string>
   >;
 
-  const translationKeys = keys(merged[DEFAULT_LANGUAGE]);
+  const translationKeys = keys(merged[DEFAULT_LANGUAGE]).sort();
 
   const rows = translationKeys.map((key) => ({
     key,

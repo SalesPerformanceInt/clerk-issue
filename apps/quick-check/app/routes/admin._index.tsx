@@ -16,7 +16,6 @@ import {
 
 import { faTrash } from "@fortawesome/pro-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { getContentStackClient } from "~/contentstack.server";
 import { DateTime } from "luxon";
 import { z } from "zod";
 

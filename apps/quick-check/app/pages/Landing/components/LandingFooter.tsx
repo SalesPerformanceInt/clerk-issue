@@ -4,8 +4,6 @@ import { useTranslation } from "react-i18next";
 import RichardsonLogomark from "~/images/richardson_logomark.svg";
 import { twMerge } from "tailwind-merge";
 
-import { RichardsonLogo } from "quickcheck-shared";
-
 import { useLandingContext } from "../LandingContext";
 
 export const LandingFooter: FC = () => {

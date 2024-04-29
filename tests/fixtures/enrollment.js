@@ -1,6 +1,6 @@
 const { invalidUser, randomUser, user, fetchUserReset } = require("./user");
 const { BASE_URL, API_AUTH } = require("./env");
-const { v4: uuid } = require("uuid");
+const { v4: uuid } = require('uuid')
 
 const zeroPad = (num, places) => String(num).padStart(places, "0");
 
@@ -21,7 +21,7 @@ const PAS = "blt90e57509bde4acab"; // Prosperous Account Strategy on Tantalum
 
 const enrollment = {
   user,
-  enrollment_id: "b83ff454-3e2b-4db7-9dba-9c895118b630",
+  enrollment_id: "b88ff454-3e2b-4db7-9dba-9c895118b630",
   cms_topic_id: PAS,
   start_date: formatDate(now),
   expiration_date: formatDate(expiry),
@@ -37,14 +37,14 @@ const randomEnrollment = {
 
 const invalidEnrollment = {
   user: invalidUser,
-  enrollment_id: "not_valid",
+  enrollment_id: "notvalid",
   cms_topic_id: PAS,
   start_date: formatDate(now),
   expiration_date: formatDate(expiry),
 };
 
 const fetchEnrollmentImport = async (enr) => {
-  const response = await fetch(`${BASE_URL}/api/enrollment/import`, {
+  const response = await fetch(`${BASE_URL}/api/enrollment/sync`, {
     method: "POST",
     headers: {
       Authorization: API_AUTH,
@@ -57,9 +57,4 @@ const fetchEnrollmentImport = async (enr) => {
   return { status: response.status, ...res_obj };
 };
 
-module.exports = {
-  invalidEnrollment,
-  enrollment,
-  randomEnrollment,
-  fetchEnrollmentImport,
-};
+module.exports = { invalidEnrollment, enrollment, randomEnrollment, fetchEnrollmentImport };

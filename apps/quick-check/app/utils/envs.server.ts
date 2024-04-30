@@ -38,6 +38,7 @@ export const SENDGRID_FROM = process.env.SENDGRID_FROM ?? "";
 
 export const AWS_SES_REGION = process.env.AWS_SES_REGION ?? "us-east-1";
 export const POSTMARK_API_KEY = process.env.POSTMARK_API_KEY ?? "";
+export const POSTMARK_MESSAGE_STREAM = process.env.POSTMARK_MESSAGE_STREAM ?? "outbound";
 export const EMAIL_FROM = process.env.EMAIL_FROM ?? "";
 
 export const SPLIT_API_KEY = process.env.SPLIT_API_KEY ?? "";

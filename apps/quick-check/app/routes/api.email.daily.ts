@@ -4,7 +4,7 @@ import { invariant, simpleErrorResponse } from "quickcheck-shared";
 
 import { getAdminApolloClientFromRequest } from "~/graphql";
 
-import { IMPORT_SECRET_KEY } from "~/utils/envs.server";
+import { IMPORT_SECRET_KEY, APP_DOMAIN } from "~/utils/envs.server";
 
 export const config = {
   maxDuration: 300,
@@ -17,11 +17,9 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
 
     invariant(users, "Error fetching users");
 
-    const origin = new URL(request.url).origin;
-
     const userEmails = users.map(
       async (user) =>
-        await fetch(`${origin}/api/email/user/${user.user_id}`, {
+        await fetch(`${APP_DOMAIN}/api/email/user/${user.user_id}`, {
           method: "POST",
           headers: {
             Authorization: IMPORT_SECRET_KEY,

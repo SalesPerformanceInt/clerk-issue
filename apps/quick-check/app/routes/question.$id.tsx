@@ -126,7 +126,6 @@ export default function QuestionPage() {
         score={actionData?.reviewedAnswer?.score}
         totalScore={actionData?.totalScore}
       />
-
       {/* {actionData && actionData.nextQuestionId && (
         <PrefetchPageLinks page={`/question/${actionData.nextQuestionId}`} />
       )} */}

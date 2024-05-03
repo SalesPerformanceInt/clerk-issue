@@ -6,3 +6,4 @@ export * from "./getUserWeeklyStreak";
 export * from "./getUserWeeklyStreakCalendar";
 export * from "./getEnrollmentSkillDashboardData";
 export * from "./getEnrollmentSkillQuestions";
+export * from "./getSurveyEligibility";

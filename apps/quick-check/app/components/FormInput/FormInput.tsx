@@ -1,29 +1,36 @@
-import type { FC } from "react";
+import type { FC, InputHTMLAttributes } from "react";
 import PhoneInput from "react-phone-input-2";
 
 import { useField } from "remix-validated-form";
+import { twMerge } from "tailwind-merge";
 
 const textInputClassName =
   "block w-full appearance-none border-gray-200 rounded !border !bg-background !px-2 !py-2 text-gray-700 focus:bg-white text-sm !leading-6";
 
-export interface FormInputProps {
+export interface FormInputProps
+  extends Omit<InputHTMLAttributes<HTMLInputElement>, "name"> {
   name: string;
-  label: string;
-  placeholder?: string;
+  label?: string;
 }
 
-export const FormInput: FC<FormInputProps> = ({ name, label, placeholder }) => {
+export const FormInput: FC<FormInputProps> = ({
+  name,
+  label,
+  className,
+  ...options
+}) => {
   const { error, getInputProps } = useField(name);
 
   return (
     <div className="relative">
-      <label htmlFor={name} className="text-xs font-semibold uppercase">
-        {label}
-      </label>
+      {label && (
+        <label htmlFor={name} className="text-xs font-semibold uppercase">
+          {label}
+        </label>
+      )}
       <input
-        {...getInputProps({ id: name })}
-        className={textInputClassName}
-        placeholder={placeholder}
+        {...getInputProps({ id: name, ...options })}
+        className={twMerge(textInputClassName, className)}
       />
       <p className="absolute -bottom-4 text-xs text-red-600">{error}</p>
     </div>

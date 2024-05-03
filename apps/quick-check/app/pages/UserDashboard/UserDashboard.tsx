@@ -13,7 +13,7 @@ import {
 
 import { UserDashboard as UserDashboardData } from "~/models/userDashboard";
 
-import { AccelerateButton } from "~/components";
+import { AccelerateButton, SurveyModalSuspense } from "~/components";
 
 import {
   AchievementsSuspense,
@@ -49,6 +49,7 @@ export const UserDashboard: FC<UserDashboardProps> = ({ userDashboard }) => {
     userDashboardAchievements,
     userDashboardActiveEnrollments,
     userDashboardCompletedEnrollments,
+    userDashboardSurveyEligibility,
   } = userDashboard;
 
   if (userDashboardData.total_enrollments === 0) {
@@ -110,6 +111,9 @@ export const UserDashboard: FC<UserDashboardProps> = ({ userDashboard }) => {
       </ResponsiveContainer>
 
       <DashboardMobileAction />
+      <SurveyModalSuspense
+        surveyEligibilityPromise={userDashboardSurveyEligibility}
+      />
     </UserDashboardContextProvider>
   );
 };

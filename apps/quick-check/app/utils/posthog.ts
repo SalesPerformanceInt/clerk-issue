@@ -5,16 +5,16 @@ import { POSTHOG_HOST, POSTHOG_KEY } from "./envs.server";
 
 export const posthog = new PostHog(POSTHOG_KEY, { host: POSTHOG_HOST });
 
-export const caputrePosthogEvent: PostHog["capture"] = async (eventMessage) => {
+export const capturePosthogEvent: PostHog["capture"] = async (eventMessage) => {
   try {
     posthog.capture(eventMessage);
     await posthog.flushAsync();
   } catch (error) {
-    logError({ error, log: `caputrePosthogEvent - ${eventMessage.event}` });
+    logError({ error, log: `capturePosthogEvent - ${eventMessage.event}` });
   }
 };
 
-export const caputrePosthogEvents = async (
+export const capturePosthogEvents = async (
   eventMessages: Parameters<PostHog["capture"]>[0][],
 ) => {
   try {
@@ -25,7 +25,7 @@ export const caputrePosthogEvents = async (
   } catch (error) {
     logError({
       error,
-      log: `caputrePosthogEvents - ${eventMessages[0]?.event}`,
+      log: `capturePosthogEvents - ${eventMessages[0]?.event}`,
     });
   }
 };

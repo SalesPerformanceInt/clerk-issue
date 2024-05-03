@@ -1,5 +1,3 @@
-import { DateTime } from "luxon";
-
 import { logError } from "quickcheck-shared";
 
 import {
@@ -8,6 +6,8 @@ import {
   type GQLProxyUserData,
   type GraphQLClient,
 } from "~/graphql";
+
+import { getToday } from "~/utils/date";
 
 export const GET_USER_EMAIL_DATA = graphql(/* GraphQL */ `
   query GetUserEmailData($userId: uuid!, $today: date!) {
@@ -47,7 +47,7 @@ export async function getUserEmailData(
 ) {
   const { userId, now } = proxyData;
 
-  const today = DateTime.fromISO(now).toISODate()!;
+  const today = getToday(now);
 
   try {
     const { data } = await this.query({

@@ -53,6 +53,9 @@ export const POSTHOG_HOST =
   process.env.POSTHOG_HOST ?? "https://eu.posthog.com";
 
 export const ZIPY_API_KEY = process.env.ZIPY_API_KEY ?? "";
+
+export const SURVEY_ID = process.env.SURVEY_ID ?? "";
+
 export const isDevelopment = NODE_ENV === "development";
 
 export const CONTENTSTACK_ENVS: ContentStackEnvs = {

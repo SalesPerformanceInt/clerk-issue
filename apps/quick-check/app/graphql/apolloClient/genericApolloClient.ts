@@ -11,6 +11,7 @@ import {
   cleanTestTenants,
   createEvent,
   createEvents,
+  createSurveyResponse,
   createUserAnswer,
   deleteTenant,
   generateNewToken,
@@ -35,6 +36,7 @@ import {
   getLinkToken,
   getNotificationEnrollments,
   getRankeableEnrollments,
+  getSurveyEligibility,
   getTeamEnrollments,
   getTenants,
   getTenantUsers,
@@ -153,6 +155,8 @@ export class GraphQLClient {
   getEnrollmentSkillDashboardData = getEnrollmentSkillDashboardData;
   getEnrollmentSkillQuestions = getEnrollmentSkillQuestions;
   resetUserEnrollment = resetUserEnrollment;
+  getSurveyEligibility = getSurveyEligibility;
+  createSurveyResponse = createSurveyResponse;
 
   mutate: ApolloClient<NormalizedCacheObject>["mutate"] = async (...args) => {
     const result = await this.client.mutate(...args);

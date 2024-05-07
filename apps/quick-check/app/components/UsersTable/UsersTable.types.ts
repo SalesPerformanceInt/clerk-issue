@@ -1,8 +1,8 @@
 import type { SerializeFrom } from "@remix-run/node";
 
-import type { UserWithActiveTokenFragment } from "~/graphql";
+import type { AdminUserDataFragment } from "~/graphql";
 
 export interface UserTableProps {
-  users: SerializeFrom<UserWithActiveTokenFragment>[];
+  users: SerializeFrom<AdminUserDataFragment>[];
   link?: boolean;
 }

@@ -17,3 +17,4 @@ export * from "./createEvent";
 export * from "./createEvents";
 export * from "./resetUserEnrollment";
 export * from "./createSurveyResponse";
+export * from "./resetSurveyResponse";

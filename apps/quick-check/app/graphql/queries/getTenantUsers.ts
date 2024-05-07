@@ -12,7 +12,7 @@ export const GET_TENANT_USERS = graphql(/* GraphQL */ `
       where: { tenant_id: { _eq: $tenantId } }
       order_by: [{ created_at: asc }, { email: asc }]
     ) {
-      ...UserWithActiveToken
+      ...AdminUserData
     }
   }
 `);

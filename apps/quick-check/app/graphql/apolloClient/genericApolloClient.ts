@@ -15,6 +15,7 @@ import {
   createUserAnswer,
   deleteTenant,
   generateNewToken,
+  resetSurveyResponse,
   resetUser,
   resetUserEnrollment,
   syncUserEnrollment,
@@ -30,6 +31,7 @@ import {
 } from "~/graphql/mutations";
 import {
   getActiveUserQuestion,
+  getAdminUserData,
   getAllUsers,
   getEnrollmentSkillDashboardData,
   getEnrollmentSkillQuestions,
@@ -47,7 +49,6 @@ import {
   getUserByEmail,
   getUserCompletedEnrollments,
   getUserDashboardData,
-  getUserData,
   getUserEmailData,
   getUserEnrollment,
   getUserLanguage,
@@ -134,7 +135,7 @@ export class GraphQLClient {
   upsertUser = upsertUser;
   getTenantUsers = getTenantUsers;
   getTenants = getTenants;
-  getUserData = getUserData;
+  getAdminUserData = getAdminUserData;
   unenrollUser = unenrollUser;
   getUsersForDailyEmail = getUsersForDailyEmail;
   getNotificationEnrollments = getNotificationEnrollments;
@@ -157,6 +158,7 @@ export class GraphQLClient {
   resetUserEnrollment = resetUserEnrollment;
   getSurveyEligibility = getSurveyEligibility;
   createSurveyResponse = createSurveyResponse;
+  resetSurveyResponse = resetSurveyResponse;
 
   mutate: ApolloClient<NormalizedCacheObject>["mutate"] = async (...args) => {
     const result = await this.client.mutate(...args);

@@ -9,6 +9,18 @@ export const UserWithActiveToken = graphql(/* GraphQL */ `
   }
 `);
 
+export const AdminUserData = graphql(/* GraphQL */ `
+  fragment AdminUserData on user {
+    ...UserWithActiveToken
+    product_surveys {
+      id
+      sentiment
+      comment
+      created_at
+    }
+  }
+`);
+
 export const BaseUser = graphql(/* GraphQL */ `
   fragment BaseUser on user {
     __typename

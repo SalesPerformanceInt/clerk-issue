@@ -13,6 +13,9 @@ export const RESET_USER = graphql(/* GraphQL */ `
     delete_user_enrollment(where: { user_id: { _eq: $userId } }) {
       affected_rows
     }
+    delete_product_survey(where: { user_id: { _eq: $userId } }) {
+      affected_rows
+    }
   }
 `);
 

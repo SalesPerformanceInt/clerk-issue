@@ -13,38 +13,38 @@ export const UsersTable: FC<UserTableProps> = ({ users, link }) => {
     <table className="min-w-full table-auto text-left text-sm">
       <thead className="border-b bg-white font-medium">
         <tr>
-          <th scope="col" className="px-6 py-4">
+          <th scope="col" className="p-4">
             Name
           </th>
-          <th scope="col" className="px-6 py-4">
+          <th scope="col" className="p-4">
             Email
           </th>
-          <th scope="col" className="w-1 whitespace-nowrap px-6 py-4">
+          <th scope="col" className="w-1 whitespace-nowrap p-4">
             Leaderboard
           </th>
-          <th scope="col" className="w-1 whitespace-nowrap px-6 py-4">
+          <th scope="col" className="w-1 whitespace-nowrap p-4">
             Daily Email
           </th>
-          <th scope="col" className="w-1 whitespace-nowrap px-6 py-4">
+          <th scope="col" className="w-1 whitespace-nowrap p-4">
             Language
           </th>
 
           {isAdminEnabled && (
-            <th scope="col" className="w-1 whitespace-nowrap px-6 py-4">
+            <th scope="col" className="w-1 whitespace-nowrap p-4">
               New Token
             </th>
           )}
 
-          <th scope="col" className="w-1 whitespace-nowrap px-6 py-4">
+          <th scope="col" className="w-1 whitespace-nowrap p-4">
             Login
           </th>
 
           {isAdminEnabled && (
             <>
-              <th scope="col" className="w-1 whitespace-nowrap px-6 py-4">
-                Reset
+              <th scope="col" className="w-1 whitespace-nowrap p-4">
+                Reset User
               </th>
-              <th scope="col" className="w-1 whitespace-nowrap px-6 py-4">
+              <th scope="col" className="w-1 whitespace-nowrap p-4">
                 Send Email
               </th>
             </>

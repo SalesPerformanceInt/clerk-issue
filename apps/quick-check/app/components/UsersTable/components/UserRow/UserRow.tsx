@@ -1,6 +1,12 @@
 import { useEffect, useState, type FC } from "react";
 import type { SerializeFrom } from "@remix-run/node";
-import { Link, useNavigation, useSubmit } from "@remix-run/react";
+import {
+  Link,
+  Navigation,
+  SubmitFunction,
+  useNavigation,
+  useSubmit,
+} from "@remix-run/react";
 
 import {
   faArrowsRotate,
@@ -8,56 +14,37 @@ import {
   faKey,
   faRightToBracket,
   faSpinner,
+  faTrash,
 } from "@fortawesome/pro-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { isEmpty } from "remeda";
 import { twMerge } from "tailwind-merge";
 
 import { Button, supportedLngs } from "quickcheck-shared";
 
 import { getContentStackLanguage } from "~/contentstack";
-import type { UserWithActiveTokenFragment } from "~/graphql";
+import type { AdminUserDataFragment } from "~/graphql";
 
 import { useOutletContext } from "~/utils/outletContext";
 
 import { parseAdminActionRequest, type AdminAction } from "~/models/admin";
 
 export interface UserRowProps {
-  user: SerializeFrom<UserWithActiveTokenFragment>;
+  user: SerializeFrom<AdminUserDataFragment>;
   row: number;
   link?: boolean;
 }
 
-export const UserRow: FC<UserRowProps> = ({ user, row, link }) => {
-  const { isAdminEnabled } = useOutletContext();
-  const submit = useSubmit();
+export const useMakeUserAction =
+  (user: UserRowProps["user"]) =>
+  (
+    type: AdminAction["type"],
+    callback?: () => void,
+    other?: Omit<AdminAction, "type" | "userId" | "tenantId">,
+  ) => {
+    const submit = useSubmit();
 
-  const { state, formData } = useNavigation();
-
-  const [dailyEmailEnabled, setDailyEmailEnabled] = useState(
-    user.daily_email_enabled,
-  );
-  const [showLeaderboard, setShowLeaderboard] = useState(user.show_leaderboard);
-  const [language, setLanguage] = useState(
-    getContentStackLanguage(user.language_preference),
-  );
-
-  useEffect(() => {
-    setDailyEmailEnabled(user.daily_email_enabled);
-  }, [user.daily_email_enabled]);
-
-  const isLoading = (actionType: AdminAction["type"]) => {
-    if (state === "idle") return false;
-    const data = parseAdminActionRequest(formData);
-    return data?.userId === user.user_id && actionType === data?.type;
-  };
-
-  const makeUserAction =
-    (
-      type: AdminAction["type"],
-      callback?: () => void,
-      other?: Omit<AdminAction, "type" | "userId" | "tenantId">,
-    ) =>
-    () => {
+    return () => {
       callback?.();
       const payload: AdminAction = {
         type,
@@ -72,6 +59,35 @@ export const UserRow: FC<UserRowProps> = ({ user, row, link }) => {
 
       submit(formData, { method: "POST" });
     };
+  };
+
+export const useIsLoading = (user: UserRowProps["user"]) => {
+  const { state, formData } = useNavigation();
+
+  return (actionType: AdminAction["type"]) => {
+    if (state === "idle") return false;
+    const data = parseAdminActionRequest(formData);
+    return data?.userId === user.user_id && actionType === data?.type;
+  };
+};
+
+export const UserRow: FC<UserRowProps> = ({ user, row, link }) => {
+  const { isAdminEnabled } = useOutletContext();
+
+  const [dailyEmailEnabled, setDailyEmailEnabled] = useState(
+    user.daily_email_enabled,
+  );
+  const [showLeaderboard, setShowLeaderboard] = useState(user.show_leaderboard);
+  const [language, setLanguage] = useState(
+    getContentStackLanguage(user.language_preference),
+  );
+
+  useEffect(() => {
+    setDailyEmailEnabled(user.daily_email_enabled);
+  }, [user.daily_email_enabled]);
+
+  const isLoading = useIsLoading(user);
+  const makeUserAction = useMakeUserAction(user);
 
   const activeToken = user.active_tokens[0]?.id ?? "";
 
@@ -79,7 +95,7 @@ export const UserRow: FC<UserRowProps> = ({ user, row, link }) => {
 
   return (
     <tr className={`border-b ${row % 2 === 0 ? "bg-neutral-100" : "bg-white"}`}>
-      <td className="whitespace-nowrap px-6 py-4">
+      <td className="whitespace-nowrap p-4">
         {link ? (
           <Link
             className="text-primary-50 hover:text-primary-75 hover:underline"
@@ -91,8 +107,8 @@ export const UserRow: FC<UserRowProps> = ({ user, row, link }) => {
           fullName
         )}
       </td>
-      <td className="whitespace-nowrap px-6 py-4">{user.email}</td>
-      <td className="whitespace-nowrap px-6 py-4 text-center">
+      <td className="w-full whitespace-nowrap p-4">{user.email}</td>
+      <td className="whitespace-nowrap p-4 text-center">
         <input
           checked={showLeaderboard}
           id="leaderboard"
@@ -107,7 +123,7 @@ export const UserRow: FC<UserRowProps> = ({ user, row, link }) => {
           })}
         />
       </td>
-      <td className="whitespace-nowrap px-6 py-4 text-center">
+      <td className="whitespace-nowrap p-4 text-center">
         <input
           checked={dailyEmailEnabled}
           id="daily_email"
@@ -124,7 +140,7 @@ export const UserRow: FC<UserRowProps> = ({ user, row, link }) => {
       </td>
 
       {isAdminEnabled ? (
-        <td className="relative whitespace-nowrap px-6 py-4 text-center">
+        <td className="relative whitespace-nowrap p-4 text-center">
           {isLoading("CHANGE_LANGUAGE") && (
             <FontAwesomeIcon
               icon={faSpinner}
@@ -157,13 +173,13 @@ export const UserRow: FC<UserRowProps> = ({ user, row, link }) => {
           </select>
         </td>
       ) : (
-        <td className="relative whitespace-nowrap px-6 py-4 text-center">
+        <td className="relative whitespace-nowrap p-4 text-center">
           {language}
         </td>
       )}
 
       {isAdminEnabled && (
-        <td className="whitespace-nowrap px-6 py-4 text-center">
+        <td className="whitespace-nowrap p-4 text-center">
           <Button
             loading={isLoading("GENERATE_TOKEN_AND_SEND_SMS")}
             onClick={makeUserAction("GENERATE_TOKEN_AND_SEND_SMS")}
@@ -174,7 +190,7 @@ export const UserRow: FC<UserRowProps> = ({ user, row, link }) => {
         </td>
       )}
 
-      <td className="whitespace-nowrap px-6 py-4 text-center">
+      <td className="whitespace-nowrap p-4 text-center">
         <Button
           disabled={!activeToken}
           loading={isLoading("LOGIN_USER")}
@@ -187,7 +203,7 @@ export const UserRow: FC<UserRowProps> = ({ user, row, link }) => {
 
       {isAdminEnabled && (
         <>
-          <td className="whitespace-nowrap px-6 py-4 text-center">
+          <td className="whitespace-nowrap p-4 text-center">
             <Button
               loading={isLoading("RESET_USER")}
               onClick={makeUserAction("RESET_USER")}
@@ -196,7 +212,7 @@ export const UserRow: FC<UserRowProps> = ({ user, row, link }) => {
               <FontAwesomeIcon icon={faArrowsRotate} />
             </Button>
           </td>
-          <td className="whitespace-nowrap px-6 py-4 text-center">
+          <td className="whitespace-nowrap p-4 text-center">
             <Button
               disabled={!activeToken}
               loading={isLoading("SEND_QUESTION_EMAIL")}

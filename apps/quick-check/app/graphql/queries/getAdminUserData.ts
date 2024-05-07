@@ -2,10 +2,10 @@ import { logError } from "quickcheck-shared";
 
 import { graphql, type GQLProxyUserData, type GraphQLClient } from "~/graphql";
 
-export const GET_USER_DATA = graphql(/* GraphQL */ `
-  query GetUserData($userId: uuid!) {
+export const GET_ADMIN_USER_DATA = graphql(/* GraphQL */ `
+  query GetAdminUserData($userId: uuid!) {
     user_by_pk(user_id: $userId) {
-      ...UserWithActiveToken
+      ...AdminUserData
       user_enrollments {
         id
         taxonomy_id
@@ -50,7 +50,7 @@ export const GET_USER_DATA = graphql(/* GraphQL */ `
   }
 `);
 
-export async function getUserData(
+export async function getAdminUserData(
   this: GraphQLClient,
   proxyData: GQLProxyUserData,
 ) {
@@ -58,7 +58,7 @@ export async function getUserData(
 
   try {
     const { data } = await this.query({
-      query: GET_USER_DATA,
+      query: GET_ADMIN_USER_DATA,
       variables: { userId },
       fetchPolicy: "no-cache",
     });
@@ -67,7 +67,7 @@ export async function getUserData(
 
     return data.user_by_pk;
   } catch (error) {
-    logError({ error, log: "getUserData" });
+    logError({ error, log: "getAdminUserData" });
     return null;
   }
 }

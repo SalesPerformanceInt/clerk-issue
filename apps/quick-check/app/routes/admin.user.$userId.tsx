@@ -10,9 +10,10 @@ import {
   useSubmit,
 } from "@remix-run/react";
 
-import { faChevronLeft } from "@fortawesome/pro-solid-svg-icons";
+import { faChevronLeft, faTrash } from "@fortawesome/pro-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { DateTime } from "luxon";
+import { first } from "remeda";
 import { v4 as uuidV4 } from "uuid";
 import { z } from "zod";
 
@@ -34,6 +35,10 @@ import { authAdminSession } from "~/models/session";
 import { buildTaxonTrees, treeNodeToRawNodeDatum } from "~/models/taxonomy";
 
 import { UsersTable } from "~/components";
+import {
+  useIsLoading,
+  useMakeUserAction,
+} from "~/components/UsersTable/components/UserRow";
 
 export const config = {
   maxDuration: 300,
@@ -48,7 +53,7 @@ export const loader = async ({ request, params }: LoaderFunctionArgs) => {
   const { userId } = params;
   invariant(userId, "No User ID found");
 
-  const user = await adminApolloClient?.getUserData({ userId });
+  const user = await adminApolloClient?.getAdminUserData({ userId });
   invariant(user, "No User found");
 
   const taxonTrees = await buildTaxonTrees();
@@ -136,6 +141,11 @@ export default function Page() {
 
   const { isAdminEnabled } = useOutletContext();
 
+  const productSurvey = first(user.product_surveys);
+
+  const isLoading = useIsLoading(user);
+  const makeUserAction = useMakeUserAction(user);
+
   return (
     <div className="sm:p-8">
       <div className="flex w-full flex-col">
@@ -162,6 +172,58 @@ export default function Page() {
             <div className="mb-8 overflow-hidden">
               <UsersTable users={[user]} />
             </div>
+
+            <div className="mb-8 overflow-hidden">
+              <table className="min-w-full table-auto text-left text-sm">
+                <thead className="border-b bg-white font-medium">
+                  <tr>
+                    <th scope="col" className="px-6 py-4">
+                      Survey
+                    </th>
+                    <th scope="col" className="px-6 py-4">
+                      Sentiment
+                    </th>
+                    <th scope="col" className="w-full px-6 py-4">
+                      Comment
+                    </th>
+                    {isAdminEnabled && (
+                      <th
+                        scope="col"
+                        className="w-1 whitespace-nowrap px-6 py-4"
+                      >
+                        Delete
+                      </th>
+                    )}
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr className="bg-neutral-100">
+                    <td className="whitespace-nowrap px-6 py-4">
+                      {formatDate(productSurvey?.created_at) || "---"}
+                    </td>
+                    <td className="whitespace-nowrap px-6 py-4">
+                      {productSurvey?.sentiment}
+                    </td>
+                    <td className="whitespace-nowrap px-6 py-4">
+                      {productSurvey?.comment}
+                    </td>
+                    {isAdminEnabled && (
+                      <td className="whitespace-nowrap px-6 py-4 text-center">
+                        <Button
+                          disabled={!productSurvey}
+                          loading={isLoading("RESET_SURVEY")}
+                          onClick={makeUserAction("RESET_SURVEY")}
+                          className="h-8 w-auto py-0"
+                        >
+                          <FontAwesomeIcon icon={faTrash} />
+                        </Button>
+                      </td>
+                    )}
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
             <div className="mb-8 overflow-hidden">
               <table className="min-w-full table-auto text-left text-sm">
                 <thead className="border-b bg-white font-medium">

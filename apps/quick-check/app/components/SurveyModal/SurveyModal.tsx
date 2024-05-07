@@ -10,6 +10,7 @@ import {
 } from "@fortawesome/pro-light-svg-icons";
 import { withZod } from "@remix-validated-form/with-zod";
 import { grow } from "~qcs/config/animations";
+import { useIsDesktop } from "~qcs/index";
 import { AnimatePresence, motion } from "framer-motion";
 import { TypedAwait } from "remix-typedjson";
 import { ValidatedForm } from "remix-validated-form";
@@ -41,9 +42,7 @@ export const SurveyModalSuspense: FC<SurveyModalSuspenseProps> = ({
   return (
     <Suspense>
       <TypedAwait resolve={surveyEligibilityPromise}>
-        {(show) => {
-          return <SurveyModal show={show} />;
-        }}
+        {(show) => <SurveyModal show={show} />}
       </TypedAwait>
     </Suspense>
   );
@@ -77,11 +76,26 @@ export const SurveyModal: FC<SurveyModalProps> = ({ show }) => {
     onClose();
   };
 
+  const isDesktop = useIsDesktop();
+
   return (
     <AnimatePresence>
       {open && (
         <motion.div
-          variants={grow}
+          variants={{
+            initial: {
+              opacity: 0,
+              transition: { duration: 0.6 },
+            },
+            animate: {
+              opacity: 1,
+              transition: { duration: 0.6 },
+            },
+            exit: {
+              opacity: 0,
+              transition: { duration: 0.6, delay: 0.6 },
+            },
+          }}
           initial="initial"
           animate="animate"
           exit="exit"
@@ -91,56 +105,75 @@ export const SurveyModal: FC<SurveyModalProps> = ({ show }) => {
             className="fixed bottom-0 left-0 right-0 top-0 w-full bg-black opacity-50"
             onClick={makeOnDismiss(false)}
           />
-          <ValidatedForm
-            validator={surveyValidator}
-            method="post"
-            onSubmit={(data, event) => {
-              event.preventDefault();
-              fetcher.submit(data, {
-                method: "POST",
-                action: "/survey",
-              });
-              onClose();
+          <motion.div
+            key={isDesktop ? "desktop" : "mobile"}
+            variants={{
+              initial: {
+                transform: `translateY(calc(100% + ${isDesktop ? "24px" : "8px"}))`,
+                transition: { duration: 0.6 },
+              },
+              animate: {
+                transform: "translateY(0)",
+                transition: { duration: 0.6, delay: 0.6 },
+              },
+              exit: {
+                transform: `translateY(calc(100% + ${isDesktop ? "24px" : "8px"}))`,
+                transition: { duration: 0.6 },
+              },
             }}
             className={twMerge(
-              "fixed bottom-2 left-2 right-2 flex flex-col gap-4 rounded bg-primary p-4 shadow-card",
+              "fixed bottom-2 left-2 right-2 rounded bg-primary p-4 shadow-card",
               "sm:bottom-6 sm:left-auto sm:right-6 sm:box-content sm:w-96",
             )}
           >
-            <h1 className="text-center text-base font-bold leading-6 text-contrast">
-              {t("survey.body")}
-            </h1>
-            <div className="flex gap-4">
-              <SurveyChoice
-                sentiment="good"
-                icon={faFaceSmileBeam}
-                label={t("survey.choices.good")}
-              />
-              <SurveyChoice
-                sentiment="neutral"
-                icon={faFaceDiagonalMouth}
-                label={t("survey.choices.neutral")}
-              />
-              <SurveyChoice
-                sentiment="bad"
-                icon={faFaceWorried}
-                label={t("survey.choices.bad")}
-              />
-            </div>
-            <SurveyComment />
-            <div className="flex gap-4">
-              <Button
-                background="dark"
-                variant="secondary"
-                className="flex-1 text-nowrap"
-                onClick={makeOnDismiss(true)}
-              >
-                {t("survey.buttons.remind_me")}
-              </Button>
+            <ValidatedForm
+              validator={surveyValidator}
+              method="post"
+              onSubmit={(data, event) => {
+                event.preventDefault();
+                fetcher.submit(data, {
+                  method: "POST",
+                  action: "/survey",
+                });
+                onClose();
+              }}
+              className="flex flex-col gap-4"
+            >
+              <h1 className="text-center text-base font-bold leading-6 text-contrast">
+                {t("survey.body")}
+              </h1>
+              <div className="flex gap-4">
+                <SurveyChoice
+                  sentiment="good"
+                  icon={faFaceSmileBeam}
+                  label={t("survey.choices.good")}
+                />
+                <SurveyChoice
+                  sentiment="neutral"
+                  icon={faFaceDiagonalMouth}
+                  label={t("survey.choices.neutral")}
+                />
+                <SurveyChoice
+                  sentiment="bad"
+                  icon={faFaceWorried}
+                  label={t("survey.choices.bad")}
+                />
+              </div>
+              <SurveyComment />
+              <div className="flex gap-4">
+                <Button
+                  background="dark"
+                  variant="secondary"
+                  className="flex-1 text-nowrap"
+                  onClick={makeOnDismiss(true)}
+                >
+                  {t("survey.buttons.remind_me")}
+                </Button>
 
-              <SurveySubmitButton />
-            </div>
-          </ValidatedForm>
+                <SurveySubmitButton />
+              </div>
+            </ValidatedForm>
+          </motion.div>
         </motion.div>
       )}
     </AnimatePresence>

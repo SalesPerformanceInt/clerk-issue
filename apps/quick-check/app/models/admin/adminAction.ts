@@ -22,6 +22,7 @@ export const adminActionSchema = z.object({
     "TOGGLE_SHOW_LEADERBOARD",
     "CHANGE_LANGUAGE",
     "RESET_SURVEY",
+    "RESET_SURVEY_DISMISSED",
   ]),
   userId: z.string(),
   tenantId: z.string(),
@@ -51,6 +52,10 @@ export const performAdminAction = async (request: Request) => {
 
   if (adminAction?.type === "RESET_SURVEY") {
     await adminApolloClient.resetSurveyResponse(proxyData);
+  }
+
+  if (adminAction?.type === "RESET_SURVEY_DISMISSED") {
+    await adminApolloClient.updateUser({ survey_dismissed: null }, proxyData);
   }
 
   if (adminAction?.type === "TOGGLE_SMS_ENABLED") {

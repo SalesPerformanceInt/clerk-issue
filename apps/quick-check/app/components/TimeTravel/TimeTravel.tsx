@@ -45,7 +45,7 @@ export const TimeTravel: FC<TimeTravelProps> = ({ now, flag }) => {
 
   return (
     <>
-      <div className="absolute left-0 right-0 top-8 z-20 flex justify-center sm:top-12">
+      <div className="fixed left-0 right-0 top-8 z-20 flex justify-center sm:top-12">
         <button
           className={twMerge(
             "flex items-center gap-2 rounded bg-primary-75 px-2 py-1 text-xl text-background shadow-md",

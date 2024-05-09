@@ -38,6 +38,7 @@ export const BaseUser = graphql(/* GraphQL */ `
     daily_email_enabled
     phone_number
     show_leaderboard
+    survey_dismissed
   }
 `);
 

@@ -10,7 +10,11 @@ import {
   useSubmit,
 } from "@remix-run/react";
 
-import { faChevronLeft, faTrash } from "@fortawesome/pro-solid-svg-icons";
+import {
+  faArrowsRotate,
+  faChevronLeft,
+  faTrash,
+} from "@fortawesome/pro-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { DateTime } from "luxon";
 import { first } from "remeda";
@@ -186,13 +190,24 @@ export default function Page() {
                     <th scope="col" className="w-full px-6 py-4">
                       Comment
                     </th>
+                    <th scope="col" className="w-full px-6 py-4">
+                      Snoozed
+                    </th>
                     {isAdminEnabled && (
-                      <th
-                        scope="col"
-                        className="w-1 whitespace-nowrap px-6 py-4"
-                      >
-                        Delete
-                      </th>
+                      <>
+                        <th
+                          scope="col"
+                          className="w-1 whitespace-nowrap px-6 py-4"
+                        >
+                          Reset Snooze
+                        </th>
+                        <th
+                          scope="col"
+                          className="w-1 whitespace-nowrap px-6 py-4"
+                        >
+                          Delete
+                        </th>
+                      </>
                     )}
                   </tr>
                 </thead>
@@ -207,17 +222,32 @@ export default function Page() {
                     <td className="whitespace-nowrap px-6 py-4">
                       {productSurvey?.comment}
                     </td>
+                    <td className="whitespace-nowrap px-6 py-4 text-center">
+                      {formatDate(user.survey_dismissed) || "---"}
+                    </td>
                     {isAdminEnabled && (
-                      <td className="whitespace-nowrap px-6 py-4 text-center">
-                        <Button
-                          disabled={!productSurvey}
-                          loading={isLoading("RESET_SURVEY")}
-                          onClick={makeUserAction("RESET_SURVEY")}
-                          className="h-8 w-auto py-0"
-                        >
-                          <FontAwesomeIcon icon={faTrash} />
-                        </Button>
-                      </td>
+                      <>
+                        <td className="whitespace-nowrap px-6 py-4 text-center">
+                          <Button
+                            disabled={!user.survey_dismissed}
+                            loading={isLoading("RESET_SURVEY_DISMISSED")}
+                            onClick={makeUserAction("RESET_SURVEY_DISMISSED")}
+                            className="h-8 w-auto py-0"
+                          >
+                            <FontAwesomeIcon icon={faArrowsRotate} />
+                          </Button>
+                        </td>
+                        <td className="whitespace-nowrap px-6 py-4 text-center">
+                          <Button
+                            disabled={!productSurvey}
+                            loading={isLoading("RESET_SURVEY")}
+                            onClick={makeUserAction("RESET_SURVEY")}
+                            className="h-8 w-auto py-0"
+                          >
+                            <FontAwesomeIcon icon={faTrash} />
+                          </Button>
+                        </td>
+                      </>
                     )}
                   </tr>
                 </tbody>

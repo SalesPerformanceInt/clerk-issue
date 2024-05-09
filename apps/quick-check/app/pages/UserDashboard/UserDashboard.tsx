@@ -13,7 +13,12 @@ import {
 
 import { UserDashboard as UserDashboardData } from "~/models/userDashboard";
 
-import { AccelerateButton, SurveyModalSuspense } from "~/components";
+import {
+  AccelerateButton,
+  SurveyContextProvider,
+  SurveyModal,
+  SurveyToast,
+} from "~/components";
 
 import {
   AchievementsSuspense,
@@ -49,7 +54,6 @@ export const UserDashboard: FC<UserDashboardProps> = ({ userDashboard }) => {
     userDashboardAchievements,
     userDashboardActiveEnrollments,
     userDashboardCompletedEnrollments,
-    userDashboardSurveyEligibility,
   } = userDashboard;
 
   if (userDashboardData.total_enrollments === 0) {
@@ -66,54 +70,56 @@ export const UserDashboard: FC<UserDashboardProps> = ({ userDashboard }) => {
 
   return (
     <UserDashboardContextProvider userDashboardData={userDashboardData}>
-      <DashboardHeader />
+      <SurveyContextProvider show={userDashboardData.surveyEligibility}>
+        <DashboardHeader />
 
-      <ResponsiveContainer className="p-4 pb-8" asChild>
-        <main>
-          <MobileCarousel
-            title={t("common.activity")}
-            icon={faArrowUpRightDots}
-          >
-            <WeeklyStreakSuspense
-              weeklyStreakPromise={userDashboardWeeklyStreakCalendar}
-            />
+        <ResponsiveContainer className="p-4 pb-8" asChild>
+          <main>
+            <MobileCarousel
+              title={t("common.activity")}
+              icon={faArrowUpRightDots}
+            >
+              <WeeklyStreakSuspense
+                weeklyStreakPromise={userDashboardWeeklyStreakCalendar}
+              />
 
-            <AchievementsSuspense
-              achievementsPromise={userDashboardAchievements}
-            />
+              <AchievementsSuspense
+                achievementsPromise={userDashboardAchievements}
+              />
 
-            {userDashboardData.show_leaderboard && (
-              <LeaderboardSuspense
+              {userDashboardData.show_leaderboard && (
+                <LeaderboardSuspense
+                  activeEnrollmentsPromise={userDashboardActiveEnrollments}
+                  completedEnrollmentsPromise={
+                    userDashboardCompletedEnrollments
+                  }
+                />
+              )}
+            </MobileCarousel>
+
+            <Section title={t("common.progress")} icon={<ProgressIcon />}>
+              <ActiveEnrollmentsSuspense
                 activeEnrollmentsPromise={userDashboardActiveEnrollments}
+              />
+
+              <CompletedEnrollmentsSuspense
                 completedEnrollmentsPromise={userDashboardCompletedEnrollments}
               />
+            </Section>
+
+            {!isDesktop && (
+              <AccelerateButton
+                background="light"
+                className="-mt-2"
+                tenantId={userDashboardData.tenant_id}
+              />
             )}
-          </MobileCarousel>
-
-          <Section title={t("common.progress")} icon={<ProgressIcon />}>
-            <ActiveEnrollmentsSuspense
-              activeEnrollmentsPromise={userDashboardActiveEnrollments}
-            />
-
-            <CompletedEnrollmentsSuspense
-              completedEnrollmentsPromise={userDashboardCompletedEnrollments}
-            />
-          </Section>
-
-          {!isDesktop && (
-            <AccelerateButton
-              background="light"
-              className="-mt-2"
-              tenantId={userDashboardData.tenant_id}
-            />
-          )}
-        </main>
-      </ResponsiveContainer>
-
-      <DashboardMobileAction />
-      <SurveyModalSuspense
-        surveyEligibilityPromise={userDashboardSurveyEligibility}
-      />
+          </main>
+        </ResponsiveContainer>
+        <SurveyToast />
+        <DashboardMobileAction />
+        <SurveyModal />
+      </SurveyContextProvider>
     </UserDashboardContextProvider>
   );
 };

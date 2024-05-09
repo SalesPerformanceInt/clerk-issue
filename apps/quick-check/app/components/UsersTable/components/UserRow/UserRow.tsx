@@ -1,12 +1,6 @@
 import { useEffect, useState, type FC } from "react";
 import type { SerializeFrom } from "@remix-run/node";
-import {
-  Link,
-  Navigation,
-  SubmitFunction,
-  useNavigation,
-  useSubmit,
-} from "@remix-run/react";
+import { Link, useNavigation, useSubmit } from "@remix-run/react";
 
 import {
   faArrowsRotate,
@@ -14,10 +8,8 @@ import {
   faKey,
   faRightToBracket,
   faSpinner,
-  faTrash,
 } from "@fortawesome/pro-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { isEmpty } from "remeda";
 import { twMerge } from "tailwind-merge";
 
 import { Button, supportedLngs } from "quickcheck-shared";

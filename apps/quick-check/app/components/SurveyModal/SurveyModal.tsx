@@ -13,7 +13,7 @@ import { grow } from "~qcs/config/animations";
 import { useIsDesktop } from "~qcs/index";
 import { AnimatePresence, motion } from "framer-motion";
 import { TypedAwait } from "remix-typedjson";
-import { ValidatedForm } from "remix-validated-form";
+import { FormProps, ValidatedForm } from "remix-validated-form";
 import { twMerge } from "tailwind-merge";
 import { infer, z } from "zod";
 
@@ -21,6 +21,7 @@ import { Button } from "~qcs/components";
 
 import { SurveyChoice } from "./SurveyChoice";
 import { SurveyComment } from "./SurveyComment";
+import { useSurveyContext } from "./SurveyContext";
 import { SurveySubmitButton } from "./SurveySubmitButton";
 
 const surveySchema = z.object({
@@ -32,49 +33,14 @@ export const surveyValidator = withZod(surveySchema);
 
 export type SurveyResponse = z.infer<typeof surveySchema>;
 
-type SurveyModalSuspenseProps = {
-  surveyEligibilityPromise: Promise<boolean>;
-};
-
-export const SurveyModalSuspense: FC<SurveyModalSuspenseProps> = ({
-  surveyEligibilityPromise,
-}) => {
-  return (
-    <Suspense>
-      <TypedAwait resolve={surveyEligibilityPromise}>
-        {(show) => <SurveyModal show={show} />}
-      </TypedAwait>
-    </Suspense>
-  );
-};
-
 interface SurveyModalProps {
   show: boolean;
 }
 
-export const SurveyModal: FC<SurveyModalProps> = ({ show }) => {
+export const SurveyModal: FC = () => {
   const { t } = useTranslation();
-  const [open, setOpen] = useState(show);
-  const fetcher = useFetcher();
 
-  const prevShow = usePrevious(show);
-
-  useEffect(() => {
-    if (show !== prevShow && show && !open) setOpen(show);
-  }, [show, open]);
-
-  const onClose = () => setOpen(false);
-
-  const makeOnDismiss = (sleep: boolean) => () => {
-    fetcher.submit(
-      { sleep },
-      {
-        method: "POST",
-        action: "/dismissSurvey",
-      },
-    );
-    onClose();
-  };
+  const { open, onSubmit, makeOnDismiss } = useSurveyContext();
 
   const isDesktop = useIsDesktop();
 
@@ -129,14 +95,7 @@ export const SurveyModal: FC<SurveyModalProps> = ({ show }) => {
             <ValidatedForm
               validator={surveyValidator}
               method="post"
-              onSubmit={(data, event) => {
-                event.preventDefault();
-                fetcher.submit(data, {
-                  method: "POST",
-                  action: "/survey",
-                });
-                onClose();
-              }}
+              onSubmit={onSubmit}
               className="flex flex-col gap-4"
             >
               <h1 className="text-center text-base font-bold leading-6 text-contrast">

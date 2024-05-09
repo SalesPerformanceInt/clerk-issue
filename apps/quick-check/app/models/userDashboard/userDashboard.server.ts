@@ -16,8 +16,6 @@ export const getUserDashboard = async (request: Request) => {
     userApolloClient.getUserActiveEnrollments();
   const userDashboardCompletedEnrollments =
     userApolloClient.getUserCompletedEnrollments();
-  const userDashboardSurveyEligibility =
-    userApolloClient.getSurveyEligibility();
 
   return {
     userDashboardData,
@@ -25,7 +23,6 @@ export const getUserDashboard = async (request: Request) => {
     userDashboardAchievements,
     userDashboardActiveEnrollments,
     userDashboardCompletedEnrollments,
-    userDashboardSurveyEligibility,
   };
 };
 

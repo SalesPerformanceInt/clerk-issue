@@ -43,6 +43,8 @@ export async function getUserDashboardData(
 
     if (!result.data?.user_by_pk) return null;
 
+    const surveyEligibility = await this.getSurveyEligibility(proxyData);
+
     const dashboard_data = { ...result.data.user_by_pk };
 
     const activeEnrollments =
@@ -53,6 +55,7 @@ export async function getUserDashboardData(
     return {
       ...dashboard_data,
       total_enrollments: activeEnrollments + completedEnrollments,
+      surveyEligibility,
       ...flattenUserActiveQuestionsData(dashboard_data),
     };
   } catch (error) {

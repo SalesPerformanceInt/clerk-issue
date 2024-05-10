@@ -28,6 +28,14 @@ const useSurvey = (show: boolean) => {
     if (show !== prevShow && show && !open) setOpen(show);
   }, [show, open]);
 
+  useEffect(() => {
+    document.body.style.overflow = open ? "hidden" : "initial";
+
+    return () => {
+      document.body.style.overflow = "initial";
+    };
+  }, [open]);
+
   const onClose = () => setOpen(false);
 
   useEffect(() => {

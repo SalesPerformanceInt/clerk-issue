@@ -1,5 +1,6 @@
-import { json, redirect, type LoaderFunctionArgs } from "@remix-run/node";
-import { useLoaderData } from "@remix-run/react";
+import { redirect, type LoaderFunctionArgs } from "@remix-run/node";
+
+import { typedjson, useTypedLoaderData } from "remix-typedjson";
 
 import { invariant } from "quickcheck-shared";
 
@@ -31,14 +32,15 @@ export const loader = async ({ params, request }: LoaderFunctionArgs) => {
       enrollment,
     );
 
-    return json({ enrollment, enrollmentLeaderboard });
+    return typedjson({ enrollment, enrollmentLeaderboard });
   } catch (error) {
     throw redirect("/");
   }
 };
 
 export default function UserEnrollmentPage() {
-  const { enrollment, enrollmentLeaderboard } = useLoaderData<typeof loader>();
+  const { enrollment, enrollmentLeaderboard } =
+    useTypedLoaderData<typeof loader>();
 
   return (
     <Enrollment enrollment={enrollment} leaderboard={enrollmentLeaderboard} />

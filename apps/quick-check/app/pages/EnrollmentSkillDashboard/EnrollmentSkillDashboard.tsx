@@ -1,11 +1,7 @@
 import type { FC } from "react";
 import { useTranslation } from "react-i18next";
 
-import {
-  PageTitle,
-  ResponsiveContainer,
-  useIsDesktop,
-} from "quickcheck-shared";
+import { PageTitle, ResponsiveContainer } from "quickcheck-shared";
 
 import { EnrollmentSkillDashboard as EnrollmentSkillDashboardData } from "~/models/enrollmentSkill";
 
@@ -33,7 +29,6 @@ export const EnrollmentSkillDashboard: FC<EnrollmentSkillDashboardProps> = ({
   enrollmentSkillDashboard,
 }) => {
   const { t } = useTranslation();
-  const isDesktop = useIsDesktop();
 
   const { enrollmentSkillDashboardData, enrollmentSkillDashboardQuestions } =
     enrollmentSkillDashboard;

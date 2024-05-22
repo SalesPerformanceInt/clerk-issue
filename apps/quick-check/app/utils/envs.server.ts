@@ -24,6 +24,11 @@ export const HASURA_JWT_OFFSET = process.env.HASURA_JWT_OFFSET;
 
 export const SESSION_SECRET = process.env.SESSION_SECRET ?? "";
 
+export const TEMPORAL_CRT = process.env.TEMPORAL_CRT ?? "";
+export const TEMPORAL_KEY = process.env.TEMPORAL_KEY ?? "";
+export const TEMPORAL_ADDRESS = process.env.TEMPORAL_ADDRESS ?? "";
+export const TEMPORAL_NAMESPACE = process.env.TEMPORAL_NAMESPACE ?? "";
+
 export const HONEYBADGER_API_KEY = process.env.HONEYBADGER_API_KEY ?? "";
 
 export const NODE_ENV = process.env.NODE_ENV ?? "";
@@ -38,7 +43,8 @@ export const SENDGRID_FROM = process.env.SENDGRID_FROM ?? "";
 
 export const AWS_SES_REGION = process.env.AWS_SES_REGION ?? "us-east-1";
 export const POSTMARK_API_KEY = process.env.POSTMARK_API_KEY ?? "";
-export const POSTMARK_MESSAGE_STREAM = process.env.POSTMARK_MESSAGE_STREAM ?? "outbound";
+export const POSTMARK_MESSAGE_STREAM =
+  process.env.POSTMARK_MESSAGE_STREAM ?? "outbound";
 export const EMAIL_FROM = process.env.EMAIL_FROM ?? "";
 
 export const SPLIT_API_KEY = process.env.SPLIT_API_KEY ?? "";

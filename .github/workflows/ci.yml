@@ -21,6 +21,18 @@ jobs:
         with:
           version: 8
           run_install: false
+      - name: Creating .npmrc
+        run: |
+          cat << EOF > "$HOME/.npmrc"
+            @fortawesome:registry=https://npm.fontawesome.com/
+            //npm.fontawesome.com/:_authToken=511A81C5-CF83-49F0-9B43-50835315F8AE
+
+            @salesperformanceint:registry=https://npm.pkg.github.com/
+            //npm.pkg.github.com/:_authToken=$GITHUB_TOKEN
+          EOF
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: PNPM install Dependencies
         run: pnpm install --no-frozen-lockfile
       - name: Eslint

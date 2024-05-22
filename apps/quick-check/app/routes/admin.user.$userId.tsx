@@ -113,11 +113,24 @@ export const action = async ({ request, params }: ActionFunctionArgs) => {
       return json({ ok: true, ...enrollmentActionResponse });
     }
 
-    if (userAction?.type === "UNENROLL" && userAction?.enrollmentId) {
-      await adminApolloClient.unenrollUser(userAction?.enrollmentId, {
-        userId,
+    if (
+      user &&
+      userAction?.type === "UNENROLL" &&
+      userAction?.enrollmentId &&
+      userAction?.taxonomyId
+    ) {
+      const enrollmentActionResponse = await handleUserEnrollment({
+        request,
+        user: { userId, tenantId: user.tenant_id },
+        enrollmentNewData: {
+          enrollment_id: userAction.enrollmentId,
+          start_date: null,
+          expiration_date: null,
+        },
+        taxonomyId: userAction.taxonomyId,
       });
-      return json({ ok: true });
+
+      return json({ ok: true, ...enrollmentActionResponse });
     }
 
     return performAdminAction(requestForAdminAction);

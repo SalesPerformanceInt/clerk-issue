@@ -2,7 +2,7 @@ import { json, type ActionFunctionArgs } from "@remix-run/node";
 
 import { invariant, simpleErrorResponse } from "quickcheck-shared";
 
-import { sendEmailTemplate } from "~/utils/email/sendEmailTemplate.server";
+import { sendNotification } from "~/models/notification/notificationSender";
 
 export const config = {
   maxDuration: 300,
@@ -13,7 +13,7 @@ export const action = async ({ request, params }: ActionFunctionArgs) => {
     const { userId } = params;
     invariant(userId, "Missing User ID");
 
-    const result = await sendEmailTemplate(request, userId);
+    const result = await sendNotification({ request, userId });
 
     return json({ userId, ...result });
   } catch (error) {

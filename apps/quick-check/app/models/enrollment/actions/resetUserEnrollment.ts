@@ -1,5 +1,7 @@
 import { getAdminApolloClientFromRequest } from "~/graphql";
 
+import { getNotificationHandle } from "~/models/notification/notificationService";
+
 import type { EnrollmentActionFn } from "../enrollment.types";
 import {
   prepareEnrollmentError,
@@ -41,6 +43,13 @@ export const resetUserEnrollment: EnrollmentActionFn = async ({
       new_expiration_date: enrollmentNewData.expiration_date,
     },
   });
+
+  const notificationWorkflow = await getNotificationHandle({
+    name: "NewEnrollment",
+    id: enrollmentNewData.enrollment_id,
+  });
+
+  if (notificationWorkflow.workflowId) await notificationWorkflow.cancel();
 
   await syncUserEnrollment({
     request,

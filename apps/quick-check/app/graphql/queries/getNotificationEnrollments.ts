@@ -43,16 +43,9 @@ export async function getNotificationEnrollments(
       fetchPolicy: "no-cache",
     });
 
-    const newEnrollments = data?.new_enrollments.filter(
-      ({ created_at }) => DateTime.fromISO(created_at).toISODate()! < today,
-    );
-
     const completedEnrollments = data?.completed_enrollments;
 
-    return {
-      newEnrollments,
-      completedEnrollments,
-    };
+    return { completedEnrollments };
   } catch (error) {
     logError({ error, log: "getNotificationEnrollments" });
     return {};

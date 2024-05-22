@@ -1,5 +1,6 @@
 import { logError } from "quickcheck-shared";
 
+import { getContentStackLanguage } from "~/contentstack";
 import {
   flattenUserActiveQuestionsData,
   graphql,
@@ -59,9 +60,11 @@ export async function getUserEmailData(
     if (!data?.user_by_pk) return null;
 
     const { user_by_pk } = data;
+    const { language_preference, ...user_data } = user_by_pk;
 
     return {
-      ...user_by_pk,
+      ...user_data,
+      language_preference: getContentStackLanguage(language_preference),
       last_user_answer: user_by_pk.user_answers[0],
       user_question_activated_today:
         user_by_pk.user_question_activated_today[0],

@@ -1,9 +1,10 @@
 import { json, type LoaderFunctionArgs } from "@remix-run/node";
 
-import { generateTokenAndSendSMS } from "~/notifications/twilio.server";
 import { simpleErrorResponse } from "~qcs/index";
 
 import { getAdminApolloClientFromRequest } from "~/graphql";
+
+import { generateTokenAndSendSMS } from "~/models/notification/twilio.server";
 
 export const config = {
   maxDuration: 300,

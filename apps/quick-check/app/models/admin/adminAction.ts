@@ -1,14 +1,15 @@
 import { json, redirect } from "@remix-run/node";
 
-import { generateTokenAndSendSMS } from "~/notifications/twilio.server";
 import { z } from "zod";
 
 import { invariant, supportedLngs } from "quickcheck-shared";
 
 import { getAdminApolloClientFromRequest } from "~/graphql";
 
-import { sendEmailTemplate } from "~/utils/email/sendEmailTemplate.server";
 import { parseSchema } from "~/utils/parseSchema";
+
+import { sendNotification } from "~/models/notification/notificationSender";
+import { generateTokenAndSendSMS } from "~/models/notification/twilio.server";
 
 import { getDeleteCookieHeaders } from "../session";
 
@@ -92,7 +93,7 @@ export const performAdminAction = async (request: Request) => {
   }
 
   if (adminAction?.type === "SEND_QUESTION_EMAIL") {
-    await sendEmailTemplate(request, adminAction.userId);
+    await sendNotification({ request, userId: adminAction.userId });
   }
 
   if (adminAction?.type === "CHANGE_LANGUAGE" && adminAction.language) {

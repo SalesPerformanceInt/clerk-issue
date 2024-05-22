@@ -9,8 +9,7 @@ import { validationError } from "remix-validated-form";
 
 import { getAdminApolloClientFromRequest } from "~/graphql";
 
-import { sendEmailTemplate } from "~/utils/email/sendEmailTemplate.server";
-
+import { sendNotification } from "~/models/notification/notificationSender";
 import {
   getAdminDataFromFromSession,
   getDeleteCookieHeaders,
@@ -50,9 +49,13 @@ export const action = async ({ request }: ActionFunctionArgs) => {
   if (user) {
     const [now] = await getAdminDataFromFromSession(request);
 
-    await sendEmailTemplate(request, user.user_id, now, {
-      type: "RequestedLink",
-      data: null,
+    await sendNotification({
+      now,
+      request,
+      userId: user.user_id,
+      template: {
+        notificationType: "RequestedLink",
+      },
     });
   }
 

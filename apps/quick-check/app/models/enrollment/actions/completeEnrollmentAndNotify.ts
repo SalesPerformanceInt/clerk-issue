@@ -3,8 +3,7 @@ import {
   type NotificationUserEnrollmentFragment,
 } from "~/graphql";
 
-import { sendEmailTemplate } from "~/utils/email/sendEmailTemplate.server";
-
+import { sendNotification } from "~/models/notification/notificationSender";
 import { getAdminDataFromFromSession } from "~/models/session";
 
 export const completeEnrollmentAndNotify = async (
@@ -15,9 +14,14 @@ export const completeEnrollmentAndNotify = async (
 
   const adminApolloClient = await getAdminApolloClientFromRequest(request);
 
-  await sendEmailTemplate(request, enrollment.user_id, now, {
-    type: "CompletedEnrollment",
-    data: { enrollment },
+  await sendNotification({
+    now,
+    request,
+    userId: enrollment.user_id,
+    template: {
+      notificationType: "CompletedEnrollment",
+      notificationEnrollment: enrollment,
+    },
   });
 
   await adminApolloClient.createEvent(

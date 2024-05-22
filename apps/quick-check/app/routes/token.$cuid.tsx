@@ -7,8 +7,7 @@ import {
   getUnauthenticatedApolloClient,
 } from "~/graphql";
 
-import { sendEmailTemplate } from "~/utils/email/sendEmailTemplate.server";
-
+import { sendNotification } from "~/models/notification/notificationSender";
 import {
   createUserSession,
   getAdminDataFromFromSession,
@@ -57,9 +56,14 @@ export const loader = async ({ params, request }: LoaderFunctionArgs) => {
     if (!token.active) {
       if (request.method === "GET") {
         const [now] = await getAdminDataFromFromSession(request);
-        await sendEmailTemplate(request, token.user_id, now, {
-          type: "RequestedLink",
-          data: null,
+
+        await sendNotification({
+          now,
+          request,
+          userId: token.user_id,
+          template: {
+            notificationType: "RequestedLink",
+          },
         });
       }
       return redirect("/login?expired=true");

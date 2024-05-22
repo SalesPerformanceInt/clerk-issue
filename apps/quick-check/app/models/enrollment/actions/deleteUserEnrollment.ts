@@ -1,5 +1,7 @@
 import { getAdminApolloClientFromRequest } from "~/graphql";
 
+import { getNotificationHandle } from "~/models/notification/notificationService";
+
 import type { EnrollmentActionFn } from "../enrollment.types";
 import {
   prepareEnrollmentError,
@@ -27,6 +29,13 @@ export const deleteUserEnrollment: EnrollmentActionFn = async ({
   if (!deletedEnrollment) return enrollmentErrorResponse;
 
   logEnrollmentEvent({ type: "EnrollmentDeleted" });
+
+  const notificationWorkflow = await getNotificationHandle({
+    name: "NewEnrollment",
+    id: enrollmentNewData.enrollment_id,
+  });
+
+  await notificationWorkflow.cancel();
 
   return prepareEnrollmentResponse({
     status: 200,

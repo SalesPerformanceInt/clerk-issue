@@ -2,8 +2,7 @@ import { redirect, type LoaderFunctionArgs } from "@remix-run/node";
 
 import { invariant, logError } from "quickcheck-shared";
 
-import { sendEmailTemplate } from "~/utils/email/sendEmailTemplate.server";
-
+import { sendNotification } from "~/models/notification/notificationSender";
 import { getSession, SessionKeys } from "~/models/session";
 
 export const config = {
@@ -22,7 +21,7 @@ export const loader = async ({ request, params }: LoaderFunctionArgs) => {
     const session = await getSession(request);
     const now = session.get(SessionKeys.NOW);
 
-    sendEmailTemplate(request, userId, now);
+    sendNotification({ request, userId, now });
 
     return redirect(redirectTo);
   } catch (error) {

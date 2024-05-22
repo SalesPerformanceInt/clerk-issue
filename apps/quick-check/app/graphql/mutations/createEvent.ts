@@ -7,8 +7,9 @@ import {
   type GraphQLClient,
 } from "~/graphql";
 
-import { Template } from "~/utils/email/emailTemplatesMap";
 import { capturePosthogEvent } from "~/utils/posthog";
+
+import type { NotificationTemplate } from "~/models/notification/notificationSender/utils/notificationTemplates.types";
 
 export type Events = {
   EnrollmentAdded: {
@@ -43,7 +44,7 @@ export type Events = {
     enrollment_id?: string;
     message: string;
     channel: "email";
-    template: Template;
+    template: NotificationTemplate["notificationType"];
     token: string;
   };
   Authenticated: {

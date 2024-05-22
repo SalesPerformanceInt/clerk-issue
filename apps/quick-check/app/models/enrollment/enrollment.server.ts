@@ -14,7 +14,7 @@ import type {
 
 type HandleUserEnrollmentProps = Omit<
   EnrollmentActionProps,
-  "enrollmentNewData"
+  "enrollmentNewData" | "currentEnrollment" | "enrollmentResponseMessage"
 > & {
   enrollmentNewData: Omit<
     EnrollmentActionProps["enrollmentNewData"],

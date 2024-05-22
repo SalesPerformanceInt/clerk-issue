@@ -14,7 +14,7 @@
     "resolveJsonModule": true,
     "skipLibCheck": true,
     "strict": true,
-    "target": "ESNext",
+    "target": "ESNext"
   },
   "exclude": [
     "**/dist",
@@ -26,5 +26,6 @@
     "**/.cache",
     "**/api/index.js",
     "**/*.js",
-  ],
+    "**/*.cjs"
+  ]
 }

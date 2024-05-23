@@ -9,7 +9,7 @@ export const rejectUserEnrollment: EnrollmentActionFn = async ({
   logEnrollmentEvent,
   enrollmentResponseMessage,
 }) => {
-  logEnrollmentEvent({ type: "EnrollmentRejected" });
+  await logEnrollmentEvent({ type: "EnrollmentRejected" });
 
   return prepareEnrollmentRejected(enrollmentResponseMessage);
 };

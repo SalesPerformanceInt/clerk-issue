@@ -34,7 +34,7 @@ export const resetUserEnrollment: EnrollmentActionFn = async ({
 
   if (!resetEnrollment) return enrollmentErrorResponse;
 
-  logEnrollmentEvent({
+  await logEnrollmentEvent({
     type: "EnrollmentReset",
     data: {
       previous_start_date: currentEnrollment.start_date,
@@ -44,12 +44,12 @@ export const resetUserEnrollment: EnrollmentActionFn = async ({
     },
   });
 
-  const notificationWorkflow = await getNotificationHandle({
+  const notificationHandle = await getNotificationHandle({
     name: "NewEnrollment",
     id: enrollmentNewData.enrollment_id,
   });
 
-  if (notificationWorkflow.workflowId) await notificationWorkflow.cancel();
+  if (notificationHandle) await notificationHandle.cancel();
 
   await syncUserEnrollment({
     request,

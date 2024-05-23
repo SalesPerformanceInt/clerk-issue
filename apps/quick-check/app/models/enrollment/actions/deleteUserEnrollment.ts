@@ -28,14 +28,14 @@ export const deleteUserEnrollment: EnrollmentActionFn = async ({
 
   if (!deletedEnrollment) return enrollmentErrorResponse;
 
-  logEnrollmentEvent({ type: "EnrollmentDeleted" });
+  await logEnrollmentEvent({ type: "EnrollmentDeleted" });
 
-  const notificationWorkflow = await getNotificationHandle({
+  const notificationHandle = await getNotificationHandle({
     name: "NewEnrollment",
     id: enrollmentNewData.enrollment_id,
   });
 
-  await notificationWorkflow.cancel();
+  if (notificationHandle) await notificationHandle.cancel();
 
   return prepareEnrollmentResponse({
     status: 200,

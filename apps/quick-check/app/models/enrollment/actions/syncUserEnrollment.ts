@@ -32,9 +32,9 @@ export const syncUserEnrollment: EnrollmentActionFn = async ({
 
   if (!syncedEnrollment) return enrollmentErrorResponse;
 
-  logEnrollmentEvent({ type: "EnrollmentAdded" });
+  await logEnrollmentEvent({ type: "EnrollmentAdded" });
 
-  notifyUserEnrollment({ request, user, enrollment: syncedEnrollment });
+  await notifyUserEnrollment({ request, user, enrollment: syncedEnrollment });
 
   return prepareEnrollmentResponse({ status: 201 });
 };

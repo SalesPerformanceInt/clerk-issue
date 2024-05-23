@@ -9,7 +9,7 @@ export const ignoreUserEnrollment: EnrollmentActionFn = async ({
   logEnrollmentEvent,
   enrollmentResponseMessage,
 }) => {
-  logEnrollmentEvent({ type: "EnrollmentIgnored" });
+  await logEnrollmentEvent({ type: "EnrollmentIgnored" });
 
   return prepareEnrollmentIgnored(enrollmentResponseMessage);
 };

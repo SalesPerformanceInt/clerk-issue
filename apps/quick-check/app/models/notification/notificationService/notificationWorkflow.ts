@@ -10,6 +10,12 @@ import { getNotificationClient } from "./getNotificationClient";
 import type { WorkflowID } from "./notification.types";
 
 /**
+ * Workflow ID
+ */
+
+const getWorkflowId = ({ name, id }: WorkflowID) => `${name}-${id}`;
+
+/**
  * Start Notification Workflow
  */
 
@@ -29,7 +35,7 @@ export const startNotificationWorkflow = async ({
 
   const notificationHandle = await notificationClient.startWorkflow({
     workflow: "notificationWorkflow",
-    workflowId: `${workflowId.name}-${workflowId.id}`,
+    workflowId: getWorkflowId(workflowId),
     workflowArgs,
     taskQueue:
       taskQueue ??
@@ -41,11 +47,11 @@ export const startNotificationWorkflow = async ({
   return notificationHandle;
 };
 
-export const getNotificationHandle = async ({ id, name }: WorkflowID) => {
+export const getNotificationHandle = async (workflowId: WorkflowID) => {
   const notificationClient = await getNotificationClient();
 
   const notificationHandle = await notificationClient.getWorkflowHandle({
-    workflowId: `${name}-${id}`,
+    workflowId: getWorkflowId(workflowId),
   });
 
   return notificationHandle;

@@ -57,7 +57,7 @@ export const createLogEnrollmentEvent =
       },
     };
 
-    adminApolloClient.createEvent(enrollmentEventData, {
+    await adminApolloClient.createEvent(enrollmentEventData, {
       userId: curriedData.user_id,
       tenantId: tenant_id,
     });

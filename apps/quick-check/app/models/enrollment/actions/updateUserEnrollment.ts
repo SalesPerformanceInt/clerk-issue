@@ -28,7 +28,7 @@ export const updateUserEnrollment: EnrollmentActionFn = async ({
 
   if (!updatedEnrollment) return enrollmentErrorResponse;
 
-  logEnrollmentEvent({
+  await logEnrollmentEvent({
     type: "EnrollmentUpdated",
     data: {
       previous_expiration_date: currentEnrollment.expiration_date ?? null,

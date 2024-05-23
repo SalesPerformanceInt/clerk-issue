@@ -27,15 +27,14 @@ export interface UserRowProps {
   link?: boolean;
 }
 
-export const useMakeUserAction =
-  (user: UserRowProps["user"]) =>
-  (
+export const useMakeUserAction = (user: UserRowProps["user"]) => {
+  const submit = useSubmit();
+
+  return (
     type: AdminAction["type"],
     callback?: () => void,
     other?: Omit<AdminAction, "type" | "userId" | "tenantId">,
   ) => {
-    const submit = useSubmit();
-
     return () => {
       callback?.();
       const payload: AdminAction = {
@@ -52,6 +51,7 @@ export const useMakeUserAction =
       submit(formData, { method: "POST" });
     };
   };
+};
 
 export const useIsLoading = (user: UserRowProps["user"]) => {
   const { state, formData } = useNavigation();

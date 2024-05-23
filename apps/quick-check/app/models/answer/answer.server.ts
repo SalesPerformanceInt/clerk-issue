@@ -53,19 +53,15 @@ const prepareAnswerData = async (
 export const saveAnswer = async (request: Request) => {
   const { currentAnswer } = await getCurrentAnswer(request);
 
-  const { reviewedAnswer, userQuestion } = await prepareAnswerData(
-    request,
-    currentAnswer,
-  ).then(async (answerData) => {
-    await Promise.all([
-      saveUserAnswer(request, answerData),
-      updateUserFromAnswer(request, answerData),
-    ]);
+  const answerData = await prepareAnswerData(request, currentAnswer);
 
-    updateTaxonomyEnrollmentsRanks(request, answerData);
+  await Promise.all([
+    saveUserAnswer(request, answerData),
+    updateUserFromAnswer(request, answerData),
+    updateTaxonomyEnrollmentsRanks(request, answerData),
+  ]);
 
-    return answerData;
-  });
+  const { reviewedAnswer, userQuestion } = answerData;
 
   const totalScore = userQuestion.user_enrollment.score + reviewedAnswer.score;
 

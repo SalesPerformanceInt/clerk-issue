@@ -30,7 +30,7 @@ export const updateUserFromAnswer = async (
   );
 
   if (retiredOn) {
-    userApolloClient.createEvent({
+    await userApolloClient.createEvent({
       type: "QuestionRetired",
       data: {
         enrollment_id: userQuestion.user_enrollment.id,
@@ -40,7 +40,7 @@ export const updateUserFromAnswer = async (
       },
     });
   } else {
-    userApolloClient.createEvent({
+    await userApolloClient.createEvent({
       type: "QuestionScheduled",
       data: {
         enrollment_id: userQuestion.user_enrollment.id,
@@ -61,7 +61,7 @@ export const updateUserFromAnswer = async (
     await completeEnrollmentAndNotify(request, updatedEnrollment);
   }
 
-  userApolloClient.createEvent({
+  await userApolloClient.createEvent({
     type: "EnrollmentScored",
     data: {
       enrollment_id: userQuestion.user_enrollment.id,

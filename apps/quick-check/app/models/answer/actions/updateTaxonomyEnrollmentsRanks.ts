@@ -28,7 +28,8 @@ export const updateTaxonomyEnrollmentsRanks = async (
     [userQuestion.user_enrollment.taxonomy_id],
     { tenantId: user.tenant_id },
   );
-  if (!enrollments) return null;
+
+  if (!enrollments) return;
 
   const taxonomyEnrollments = await prepareTaxonomyEnrollments(
     enrollments,
@@ -37,5 +38,5 @@ export const updateTaxonomyEnrollmentsRanks = async (
 
   const rankedEnrollments = getTaxonomyRankedEnrollments(taxonomyEnrollments);
 
-  adminApolloClient.updateUserEnrollmentsRanks(rankedEnrollments);
+  await adminApolloClient.updateUserEnrollmentsRanks(rankedEnrollments);
 };

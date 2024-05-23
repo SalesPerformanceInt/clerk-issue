@@ -27,13 +27,13 @@ export const notifyUserEnrollment = async ({
 
   const firstQuestion = enrollment?.first_question[0];
 
-  if (enrollment && firstQuestion?.active_on) {
+  if (firstQuestion?.active_on) {
     const schedule: Schedule =
       firstQuestion.active_on > today
         ? { scheduledDate: firstQuestion.active_on }
         : { now: true };
 
-    sendNotification({
+    await sendNotification({
       now,
       request,
       schedule,

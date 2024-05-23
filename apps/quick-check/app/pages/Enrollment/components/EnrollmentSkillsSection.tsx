@@ -68,7 +68,7 @@ export const EnrollmentSkillsSection: FC = () => {
           skillsCompleted.map(({ completed, ...skill }) => (
             <EnrollmentSkillCard
               key={skill.skill}
-              categories={["baseline", "current"]}
+              categories={["baseline", "final"]}
               className="flow h-fit w-full flex-grow overflow-hidden md:w-1/2-gap-8"
               onClick={(skillId) => goToEnrollmentSkill(skillId)}
               loading={enrollmentSkillNavigation === skill.id}

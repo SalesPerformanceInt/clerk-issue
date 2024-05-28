@@ -252,6 +252,12 @@ importers:
       '@splitsoftware/splitio-react':
         specifier: ^1.9.0
         version: 1.11.0(react@18.3.0-canary-08cd087ca-20240110)
+      '@vercel/functions':
+        specifier: ^1.0.2
+        version: 1.0.2
+      '@vercel/remix':
+        specifier: 2.9.2-patch.2
+        version: 2.9.2-patch.2(@remix-run/dev@2.8.0(@remix-run/serve@2.8.0(typescript@5.4.5))(@types/node@20.11.24)(terser@5.31.0)(ts-node@10.9.2(@swc/core@1.5.7(@swc/helpers@0.5.2))(@types/node@20.11.24)(typescript@5.4.5))(typescript@5.4.5)(vite@5.1.4(@types/node@20.11.24)(terser@5.31.0)))(@remix-run/node@2.8.0(typescript@5.4.5))(@remix-run/server-runtime@2.8.0(typescript@5.4.5))(react-dom@18.3.0-canary-08cd087ca-20240110(react@18.3.0-canary-08cd087ca-20240110))(react@18.3.0-canary-08cd087ca-20240110)
       dotenv-load:
         specifier: ^3.0.0
         version: 3.0.0
@@ -759,9 +765,6 @@ importers:
       remix-i18next:
         specifier: ^5.5.0
         version: 5.5.0(@remix-run/react@2.8.0(react-dom@18.3.0-canary-08cd087ca-20240110(react@18.3.0-canary-08cd087ca-20240110))(react@18.3.0-canary-08cd087ca-20240110)(typescript@5.3.3))(@remix-run/server-runtime@2.8.0(typescript@5.3.3))(i18next@23.10.0)(react-i18next@14.0.5(i18next@23.10.0)(react-dom@18.3.0-canary-08cd087ca-20240110(react@18.3.0-canary-08cd087ca-20240110))(react@18.3.0-canary-08cd087ca-20240110))(react@18.3.0-canary-08cd087ca-20240110)
-      remix-typedjson:
-        specifier: ^0.4.1
-        version: 0.4.1(@remix-run/react@2.8.0(react-dom@18.3.0-canary-08cd087ca-20240110(react@18.3.0-canary-08cd087ca-20240110))(react@18.3.0-canary-08cd087ca-20240110)(typescript@5.3.3))(@remix-run/server-runtime@2.8.0(typescript@5.3.3))(react@18.3.0-canary-08cd087ca-20240110)
       shadcn-ui:
         specifier: ^0.7.0
         version: 0.7.0(typescript@5.3.3)
@@ -5116,6 +5119,9 @@ packages:
     peerDependencies:
       '@testing-library/dom': '>=7.21.4'
 
+  '@ts-morph/common@0.11.1':
+    resolution: {integrity: sha512-7hWZS0NRpEsNV8vWJzg7FEz6V8MaLNeJOmwmghqUXTpzk16V1LLZhdo+4QvE/+zv4cVci0OviuJFnqhEfoV3+g==}
+
   '@ts-morph/common@0.19.0':
     resolution: {integrity: sha512-Unz/WHmd4pGax91rdIKWi51wnVUW11QttMEPpBiBgIewnc9UQIX7UDLxr5vRlqeByXCwhkF6VabSsI0raWcyAQ==}
 
@@ -5650,6 +5656,23 @@ packages:
   '@vanilla-extract/private@1.0.3':
     resolution: {integrity: sha512-17kVyLq3ePTKOkveHxXuIJZtGYs+cSoev7BlP+Lf4916qfDhk/HBjvlYDe8egrea7LNPHKwSZJK/bzZC+Q6AwQ==}
 
+  '@vercel/functions@1.0.2':
+    resolution: {integrity: sha512-j3udyHOv/05Y8o3WQ/ANMWa1aYagsY5B3ouImiwgYsz5z4CBUHTY5dk74oQAXYr+bgoVDpdDlmxkpnxGzKEdLQ==}
+    engines: {node: '>= 16'}
+
+  '@vercel/remix@2.9.2-patch.2':
+    resolution: {integrity: sha512-sKSeBFqTj0HSYsf7KpxA84ixrb4AkuoDm0G7hlrWUnRtCy9Fa65YX8fbHoewdVbc8uTBa2XAiBCjPMmtohas9w==}
+    engines: {node: '>=18.0.0'}
+    peerDependencies:
+      '@remix-run/dev': 2.9.2
+      '@remix-run/node': 2.9.2
+      '@remix-run/server-runtime': 2.9.2
+      react: '*'
+      react-dom: '*'
+
+  '@vercel/static-config@3.0.0':
+    resolution: {integrity: sha512-2qtvcBJ1bGY0dYGYh3iM7yGKkk971FujLEDXzuW5wcZsPr1GSEjO/w2iSr3qve6nDDtBImsGoDEnus5FI4+fIw==}
+
   '@vitejs/plugin-react@3.1.0':
     resolution: {integrity: sha512-AfgcRL8ZBhAlc3BFdigClmTUMISmmzHn7sB2h9U1odvc5U/MjWXsAaz18b/WoppUTDBzxOJwo2VdClfUcItu9g==}
     engines: {node: ^14.18.0 || >=16.0.0}
@@ -5916,6 +5939,9 @@ packages:
 
   ajv@8.13.0:
     resolution: {integrity: sha512-PRA911Blj99jR5RMeTunVbNXMF6Lp4vZXnk5GQjcnUWUTsrXtekg/pnmFFI2u/I36Y/2bITGS30GZCXei6uNkA==}
+
+  ajv@8.6.3:
+    resolution: {integrity: sha512-SMJOdDP6LqTkD0Uq8qLi+gMwSt0imXLSV080qFVwJCpH9U6Mb+SUGHAXM0KNbcBPguytWyvFxcHgMLe2D2XSpw==}
 
   ansi-escapes@4.3.2:
     resolution: {integrity: sha512-gKXj5ALrKWQLsYG9jlTRmR/xKluxHV+Z9QEwNIgCfM1/uwPMCuzVVnh5mwTd+OuBZcwSIMbqssNWRm1lE51QaQ==}
@@ -6534,6 +6560,9 @@ packages:
   cluster-key-slot@1.1.2:
     resolution: {integrity: sha512-RMr0FhtfXemyinomL4hrWcYJxmX6deFdCxpJzhDttxgO1+bcCnkk+9drydLVDmAMG7NE6aN/fl4F7ucU/90gAA==}
     engines: {node: '>=0.10.0'}
+
+  code-block-writer@10.1.1:
+    resolution: {integrity: sha512-67ueh2IRGst/51p0n6FvPrnRjAGHY5F8xdjkgrYE7DDzpJe6qA07RYQ9VcoUeo5ATOjSOiWpSL3SWBRRbempMw==}
 
   code-block-writer@12.0.0:
     resolution: {integrity: sha512-q4dMFMlXtKR3XNBHyMHt/3pwYNA69EDk00lloMOaaUMKPUXBw6lpXtbu3MMVG6/uOihGnRDOlkyqsONEUj60+w==}
@@ -8550,6 +8579,10 @@ packages:
   isarray@2.0.5:
     resolution: {integrity: sha512-xHjhDr3cNBK0BzdUJSPXZntQUx/mwMS5Rw4A7lPJ90XGAO6ISP/ePDNuo0vhqOZU+UD5JoodwCAAoZQd3FeAKw==}
 
+  isbot@3.8.0:
+    resolution: {integrity: sha512-vne1mzQUTR+qsMLeCBL9+/tgnDXRyc2pygLGl/WsgA+EZKIiB5Ehu0CiVTHIIk30zhJ24uGz4M5Ppse37aR0Hg==}
+    engines: {node: '>=12'}
+
   isbot@4.4.0:
     resolution: {integrity: sha512-8ZvOWUA68kyJO4hHJdWjyreq7TYNWTS9y15IzeqVdKxR9pPr3P/3r9AHcoIv9M0Rllkao5qWz2v1lmcyKIVCzQ==}
     engines: {node: '>=18'}
@@ -8707,6 +8740,9 @@ packages:
 
   json-schema-ref-resolver@1.0.1:
     resolution: {integrity: sha512-EJAj1pgHc1hxF6vo2Z3s69fMjO1INq6eGHXZ8Z6wCQeldCuwxGK9Sxf4/cScGn3FZubCVUehfWtcDM/PLteCQw==}
+
+  json-schema-to-ts@1.6.4:
+    resolution: {integrity: sha512-pR4yQ9DHz6itqswtHCm26mw45FSNfQ9rEQjosaZErhn5J3J2sIViQiz8rDaezjKAhFGpmsoczYVBgGHzFw/stA==}
 
   json-schema-traverse@0.4.1:
     resolution: {integrity: sha512-xbbCH5dCYU5T8LcEhhuh7HJ88HXuW3qsI3Y0zOZFKfZEHcpWiHU/Jxzk629Brsab/mMiHQti9wMP+845RPe3Vg==}
@@ -11695,6 +11731,9 @@ packages:
   ts-log@2.2.5:
     resolution: {integrity: sha512-PGcnJoTBnVGy6yYNFxWVNkdcAuAMstvutN9MgDJIV6L0oG8fB+ZNNy1T+wJzah8RPGor1mZuPQkVfXNDpy9eHA==}
 
+  ts-morph@12.0.0:
+    resolution: {integrity: sha512-VHC8XgU2fFW7yO1f/b3mxKDje1vmyzFXHWzOYmKEkCEwcLjDtbdLgBQviqj4ZwP4MJkQtRo6Ha2I29lq/B+VxA==}
+
   ts-morph@18.0.0:
     resolution: {integrity: sha512-Kg5u0mk19PIIe4islUI/HWRvm9bC1lHejK4S0oh1zaZ77TMZAEmQC0sHQYiu2RgCQFZKXz1fMVi/7nOOeirznA==}
 
@@ -11714,6 +11753,9 @@ packages:
 
   ts-pattern@5.1.2:
     resolution: {integrity: sha512-u+ElKUIWnqisjpRBhv6Y89yNq7Pmz6xL0v7pTSckrVZ0+5Vf32oh/3jmxWl80rAOGcnbBa7fCyeqNdP4yXzWWg==}
+
+  ts-toolbelt@6.15.5:
+    resolution: {integrity: sha512-FZIXf1ksVyLcfr7M317jbB67XFJhOO1YqdTcuGaq9q5jLUoTikukZ+98TPjKiP2jC5CgmYdWWYs0s2nLSU0/1A==}
 
   tsconfig-paths@3.15.0:
     resolution: {integrity: sha512-2Ac2RgzDe/cn48GvOe3M+o82pEFewD3UPbyoUHHdKasHwJKjds4fLXWf/Ux5kATBKN20oaFGu+jbElp1pos0mg==}
@@ -18878,6 +18920,13 @@ snapshots:
     dependencies:
       '@testing-library/dom': 9.3.4
 
+  '@ts-morph/common@0.11.1':
+    dependencies:
+      fast-glob: 3.3.2
+      minimatch: 3.1.2
+      mkdirp: 1.0.4
+      path-browserify: 1.0.1
+
   '@ts-morph/common@0.19.0':
     dependencies:
       fast-glob: 3.3.2
@@ -19685,6 +19734,25 @@ snapshots:
 
   '@vanilla-extract/private@1.0.3': {}
 
+  '@vercel/functions@1.0.2': {}
+
+  '@vercel/remix@2.9.2-patch.2(@remix-run/dev@2.8.0(@remix-run/serve@2.8.0(typescript@5.4.5))(@types/node@20.11.24)(terser@5.31.0)(ts-node@10.9.2(@swc/core@1.5.7(@swc/helpers@0.5.2))(@types/node@20.11.24)(typescript@5.4.5))(typescript@5.4.5)(vite@5.1.4(@types/node@20.11.24)(terser@5.31.0)))(@remix-run/node@2.8.0(typescript@5.4.5))(@remix-run/server-runtime@2.8.0(typescript@5.4.5))(react-dom@18.3.0-canary-08cd087ca-20240110(react@18.3.0-canary-08cd087ca-20240110))(react@18.3.0-canary-08cd087ca-20240110)':
+    dependencies:
+      '@remix-run/dev': 2.8.0(@remix-run/serve@2.8.0(typescript@5.4.5))(@types/node@20.11.24)(terser@5.31.0)(ts-node@10.9.2(@swc/core@1.5.7(@swc/helpers@0.5.2))(@types/node@20.11.24)(typescript@5.4.5))(typescript@5.4.5)(vite@5.1.4(@types/node@20.11.24)(terser@5.31.0))
+      '@remix-run/node': 2.8.0(typescript@5.4.5)
+      '@remix-run/server-runtime': 2.8.0(typescript@5.4.5)
+      '@vercel/static-config': 3.0.0
+      isbot: 3.8.0
+      react: 18.3.0-canary-08cd087ca-20240110
+      react-dom: 18.3.0-canary-08cd087ca-20240110(react@18.3.0-canary-08cd087ca-20240110)
+      ts-morph: 12.0.0
+
+  '@vercel/static-config@3.0.0':
+    dependencies:
+      ajv: 8.6.3
+      json-schema-to-ts: 1.6.4
+      ts-morph: 12.0.0
+
   '@vitejs/plugin-react@3.1.0(vite@5.1.4(@types/node@20.11.24)(terser@5.31.0))':
     dependencies:
       '@babel/core': 7.24.0
@@ -20016,6 +20084,13 @@ snapshots:
       uri-js: 4.4.1
 
   ajv@8.13.0:
+    dependencies:
+      fast-deep-equal: 3.1.3
+      json-schema-traverse: 1.0.0
+      require-from-string: 2.0.2
+      uri-js: 4.4.1
+
+  ajv@8.6.3:
     dependencies:
       fast-deep-equal: 3.1.3
       json-schema-traverse: 1.0.0
@@ -20759,6 +20834,8 @@ snapshots:
   clsx@2.1.0: {}
 
   cluster-key-slot@1.1.2: {}
+
+  code-block-writer@10.1.1: {}
 
   code-block-writer@12.0.0: {}
 
@@ -23432,6 +23509,8 @@ snapshots:
 
   isarray@2.0.5: {}
 
+  isbot@3.8.0: {}
+
   isbot@4.4.0: {}
 
   isexe@2.0.0: {}
@@ -23617,6 +23696,11 @@ snapshots:
   json-schema-ref-resolver@1.0.1:
     dependencies:
       fast-deep-equal: 3.1.3
+
+  json-schema-to-ts@1.6.4:
+    dependencies:
+      '@types/json-schema': 7.0.15
+      ts-toolbelt: 6.15.5
 
   json-schema-traverse@0.4.1: {}
 
@@ -27226,6 +27310,11 @@ snapshots:
 
   ts-log@2.2.5: {}
 
+  ts-morph@12.0.0:
+    dependencies:
+      '@ts-morph/common': 0.11.1
+      code-block-writer: 10.1.1
+
   ts-morph@18.0.0:
     dependencies:
       '@ts-morph/common': 0.19.0
@@ -27291,6 +27380,8 @@ snapshots:
     optional: true
 
   ts-pattern@5.1.2: {}
+
+  ts-toolbelt@6.15.5: {}
 
   tsconfig-paths@3.15.0:
     dependencies:

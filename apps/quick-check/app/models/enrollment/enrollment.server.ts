@@ -40,7 +40,7 @@ export const handleUserEnrollment = async ({
     enrollmentNewData.enrollment_id,
   );
 
-  const logEnrollmentEvent = await createLogEnrollmentEvent({
+  const logEnrollmentEvent = createLogEnrollmentEvent({
     request,
     enrollment_id: enrollmentNewData.enrollment_id,
     user_id: user.userId,

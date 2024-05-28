@@ -1,9 +1,9 @@
+import { useLoaderData } from "@remix-run/react";
 import {
   json,
   type ActionFunctionArgs,
   type LoaderFunctionArgs,
-} from "@remix-run/node";
-import { useLoaderData } from "@remix-run/react";
+} from "@vercel/remix";
 
 import { validationError } from "remix-validated-form";
 

@@ -1,4 +1,4 @@
-import { redirect, type Session } from "@remix-run/node";
+import { redirect, type Session } from "@vercel/remix";
 
 import { invariant, type Expand } from "quickcheck-shared";
 

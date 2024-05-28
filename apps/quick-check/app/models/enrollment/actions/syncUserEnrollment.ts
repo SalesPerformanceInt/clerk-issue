@@ -1,3 +1,5 @@
+import { waitUntil } from "@vercel/functions";
+
 import { getAdminApolloClientFromRequest } from "~/graphql";
 
 import type { EnrollmentActionFn } from "../enrollment.types";
@@ -32,9 +34,12 @@ export const syncUserEnrollment: EnrollmentActionFn = async ({
 
   if (!syncedEnrollment) return enrollmentErrorResponse;
 
-  await logEnrollmentEvent({ type: "EnrollmentAdded" });
-
-  await notifyUserEnrollment({ request, user, enrollment: syncedEnrollment });
+  waitUntil(
+    Promise.all([
+      logEnrollmentEvent({ type: "EnrollmentAdded" }),
+      notifyUserEnrollment({ request, user, enrollment: syncedEnrollment }),
+    ]),
+  );
 
   return prepareEnrollmentResponse({ status: 201 });
 };

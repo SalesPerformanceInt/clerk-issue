@@ -1,4 +1,4 @@
-import { LoaderFunctionArgs, type ActionFunctionArgs } from "@remix-run/node";
+import { LoaderFunctionArgs, type ActionFunctionArgs } from "@vercel/remix";
 
 import { invariant, simpleErrorResponse } from "quickcheck-shared";
 

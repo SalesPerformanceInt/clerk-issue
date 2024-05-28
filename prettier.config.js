@@ -16,6 +16,7 @@ const config = {
   importOrder: [
     "^(react(.*)/(.*)$)|^(react(.*)$)",
     "^(@remix-run/(.*)$)|^(@remix-run$)",
+    "^(@vercel/(.*)$)|^(@vercel$)",
     "",
     "<THIRD_PARTY_MODULES>",
     "",

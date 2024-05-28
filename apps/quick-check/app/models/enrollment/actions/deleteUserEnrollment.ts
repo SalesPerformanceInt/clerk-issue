@@ -1,3 +1,5 @@
+import { waitUntil } from "@vercel/functions";
+
 import { getAdminApolloClientFromRequest } from "~/graphql";
 
 import { getNotificationHandle } from "~/models/notification/notificationService";
@@ -28,14 +30,14 @@ export const deleteUserEnrollment: EnrollmentActionFn = async ({
 
   if (!deletedEnrollment) return enrollmentErrorResponse;
 
-  await logEnrollmentEvent({ type: "EnrollmentDeleted" });
+  waitUntil(logEnrollmentEvent({ type: "EnrollmentDeleted" }));
 
-  const notificationHandle = await getNotificationHandle({
+  const notificationWorkflow = await getNotificationHandle({
     name: "NewEnrollment",
     id: enrollmentNewData.enrollment_id,
   });
 
-  if (notificationHandle) await notificationHandle.cancel();
+  if (notificationWorkflow) await notificationWorkflow.cancel();
 
   return prepareEnrollmentResponse({
     status: 200,

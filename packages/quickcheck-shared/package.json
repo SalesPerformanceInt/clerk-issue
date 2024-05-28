@@ -51,7 +51,6 @@
     "react-dom": "18.3.0-canary-08cd087ca-20240110",
     "react-i18next": "^14.0.0",
     "remix-i18next": "^5.5.0",
-    "remix-typedjson": "^0.4.1",
     "shadcn-ui": "^0.7.0",
     "storybook": "^7.6.8",
     "tailwind-merge": "^2.2.0",

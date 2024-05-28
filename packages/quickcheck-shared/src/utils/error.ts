@@ -1,7 +1,5 @@
 import { json } from "@remix-run/node";
 
-import { typedjson } from "remix-typedjson";
-
 import { logError } from "./logger";
 
 export type ErrorWithMessage = {

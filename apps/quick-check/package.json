@@ -27,6 +27,8 @@
     "@sendgrid/mail": "^7.7.0",
     "@splitsoftware/splitio": "^10.23.1",
     "@splitsoftware/splitio-react": "^1.9.0",
+    "@vercel/functions": "^1.0.2",
+    "@vercel/remix": "2.9.2-patch.2",
     "dotenv-load": "^3.0.0",
     "emails": "workspace:*",
     "framer-motion": "^10.18.0",

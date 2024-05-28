@@ -1,3 +1,5 @@
+import { waitUntil } from "@vercel/functions";
+
 import type { EnrollmentActionFn } from "../enrollment.types";
 import { prepareEnrollmentRejected } from "../handlers/prepareEnrollmentResponse";
 
@@ -9,7 +11,7 @@ export const rejectUserEnrollment: EnrollmentActionFn = async ({
   logEnrollmentEvent,
   enrollmentResponseMessage,
 }) => {
-  await logEnrollmentEvent({ type: "EnrollmentRejected" });
+  waitUntil(logEnrollmentEvent({ type: "EnrollmentRejected" }));
 
   return prepareEnrollmentRejected(enrollmentResponseMessage);
 };

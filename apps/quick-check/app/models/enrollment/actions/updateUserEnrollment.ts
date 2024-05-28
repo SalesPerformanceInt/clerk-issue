@@ -1,3 +1,5 @@
+import { waitUntil } from "@vercel/functions";
+
 import { getAdminApolloClientFromRequest } from "~/graphql";
 
 import type { EnrollmentActionFn } from "../enrollment.types";
@@ -28,13 +30,15 @@ export const updateUserEnrollment: EnrollmentActionFn = async ({
 
   if (!updatedEnrollment) return enrollmentErrorResponse;
 
-  await logEnrollmentEvent({
-    type: "EnrollmentUpdated",
-    data: {
-      previous_expiration_date: currentEnrollment.expiration_date ?? null,
-      new_expiration_date: enrollmentNewData.expiration_date,
-    },
-  });
+  waitUntil(
+    logEnrollmentEvent({
+      type: "EnrollmentUpdated",
+      data: {
+        previous_expiration_date: currentEnrollment.expiration_date ?? null,
+        new_expiration_date: enrollmentNewData.expiration_date,
+      },
+    }),
+  );
 
   return prepareEnrollmentResponse({ status: 200 });
 };

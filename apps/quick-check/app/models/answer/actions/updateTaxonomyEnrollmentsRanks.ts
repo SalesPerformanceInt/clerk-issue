@@ -1,3 +1,5 @@
+import { waitUntil } from "@vercel/functions";
+
 import { getAdminApolloClientFromRequest } from "~/graphql";
 
 import { prepareTaxonomyEnrollments } from "~/models/leaderboard/handlers/prepareTaxonomyEnrollments";
@@ -38,5 +40,5 @@ export const updateTaxonomyEnrollmentsRanks = async (
 
   const rankedEnrollments = getTaxonomyRankedEnrollments(taxonomyEnrollments);
 
-  await adminApolloClient.updateUserEnrollmentsRanks(rankedEnrollments);
+  waitUntil(adminApolloClient.updateUserEnrollmentsRanks(rankedEnrollments));
 };

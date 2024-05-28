@@ -1,6 +1,6 @@
 import { useEffect, useState, type FC } from "react";
-import type { SerializeFrom } from "@remix-run/node";
 import { Link, useNavigation, useSubmit } from "@remix-run/react";
+import type { SerializeFrom } from "@vercel/remix";
 
 import {
   faArrowsRotate,

@@ -1,10 +1,10 @@
+import { useLoaderData, useSubmit } from "@remix-run/react";
 import {
   json,
   redirectDocument,
   type ActionFunctionArgs,
   type LoaderFunctionArgs,
-} from "@remix-run/node";
-import { useLoaderData, useSubmit } from "@remix-run/react";
+} from "@vercel/remix";
 
 import { logError } from "quickcheck-shared";
 

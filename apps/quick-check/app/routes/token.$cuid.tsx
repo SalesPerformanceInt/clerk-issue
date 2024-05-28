@@ -1,4 +1,4 @@
-import { redirect, type LoaderFunctionArgs } from "@remix-run/node";
+import { redirect, type LoaderFunctionArgs } from "@vercel/remix";
 
 import { invariant, logError } from "quickcheck-shared";
 

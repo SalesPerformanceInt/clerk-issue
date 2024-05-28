@@ -1,18 +1,18 @@
 import { Suspense } from "react";
 import { CSVLink } from "react-csv";
 import {
-  defer,
-  json,
-  type ActionFunctionArgs,
-  type LoaderFunctionArgs,
-} from "@remix-run/node";
-import {
   Await,
   Link,
   useLoaderData,
   useNavigation,
   useSubmit,
 } from "@remix-run/react";
+import {
+  defer,
+  json,
+  type ActionFunctionArgs,
+  type LoaderFunctionArgs,
+} from "@vercel/remix";
 
 import { faTrash } from "@fortawesome/pro-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";

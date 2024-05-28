@@ -1,14 +1,14 @@
 import {
-  json,
-  type ActionFunctionArgs,
-  type LoaderFunctionArgs,
-} from "@remix-run/node";
-import {
   useLoaderData,
   useNavigate,
   useNavigation,
   useSubmit,
 } from "@remix-run/react";
+import {
+  json,
+  type ActionFunctionArgs,
+  type LoaderFunctionArgs,
+} from "@vercel/remix";
 
 import {
   faArrowsRotate,

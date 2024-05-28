@@ -1,6 +1,6 @@
 import { useCallback, useState } from "react";
-import { json, type LoaderFunctionArgs } from "@remix-run/node";
 import { useLoaderData, useNavigate, useSearchParams } from "@remix-run/react";
+import { json, type LoaderFunctionArgs } from "@vercel/remix";
 
 import { getContentStackClient } from "~/contentstack.server";
 

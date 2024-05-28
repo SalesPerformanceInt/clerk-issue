@@ -1,3 +1,5 @@
+import { waitUntil } from "@vercel/functions";
+
 import {
   getAdminApolloClientFromRequest,
   type EventInput,
@@ -57,10 +59,12 @@ export const createLogEnrollmentEvent =
       },
     };
 
-    await adminApolloClient.createEvent(enrollmentEventData, {
-      userId: curriedData.user_id,
-      tenantId: tenant_id,
-    });
+    waitUntil(
+      adminApolloClient.createEvent(enrollmentEventData, {
+        userId: curriedData.user_id,
+        tenantId: tenant_id,
+      }),
+    );
   };
 
 /**

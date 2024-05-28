@@ -1,3 +1,5 @@
+import { waitUntil } from "@vercel/functions";
+
 import { getUserApolloClientFromRequest } from "~/graphql";
 
 import { completeEnrollmentAndNotify } from "~/models/enrollment/actions/completeEnrollmentAndNotify";
@@ -29,27 +31,27 @@ export const updateUserFromAnswer = async (
     },
   );
 
+  const questionEventData = {
+    enrollment_id: userQuestion.user_enrollment.id,
+    question_id: userQuestion.id,
+    taxonomy_id: userQuestion.user_enrollment.taxonomy_id,
+    attempts: updatedUserQuestion?.attempts.aggregate?.count ?? 0,
+  };
+
   if (retiredOn) {
-    await userApolloClient.createEvent({
-      type: "QuestionRetired",
-      data: {
-        enrollment_id: userQuestion.user_enrollment.id,
-        question_id: userQuestion.id,
-        taxonomy_id: userQuestion.user_enrollment.taxonomy_id,
-        attempts: updatedUserQuestion?.attempts.aggregate?.count ?? 0,
-      },
-    });
+    waitUntil(
+      userApolloClient.createEvent({
+        type: "QuestionRetired",
+        data: { ...questionEventData },
+      }),
+    );
   } else {
-    await userApolloClient.createEvent({
-      type: "QuestionScheduled",
-      data: {
-        enrollment_id: userQuestion.user_enrollment.id,
-        question_id: userQuestion.id,
-        taxonomy_id: userQuestion.user_enrollment.taxonomy_id,
-        attempts: updatedUserQuestion?.attempts.aggregate?.count ?? 0,
-        scheduled: userQuestionNextActiveDate,
-      },
-    });
+    waitUntil(
+      userApolloClient.createEvent({
+        type: "QuestionScheduled",
+        data: { ...questionEventData, scheduled: userQuestionNextActiveDate },
+      }),
+    );
   }
 
   const updatedEnrollment = await userApolloClient.updateUserEnrollment(
@@ -58,19 +60,21 @@ export const updateUserFromAnswer = async (
   );
 
   if (updatedEnrollment?.unretired_questions.aggregate?.count === 0) {
-    await completeEnrollmentAndNotify(request, updatedEnrollment);
+    waitUntil(completeEnrollmentAndNotify(request, updatedEnrollment));
   }
 
-  await userApolloClient.createEvent({
-    type: "EnrollmentScored",
-    data: {
-      enrollment_id: userQuestion.user_enrollment.id,
-      question_id: userQuestion.id,
-      points: reviewedAnswer.score,
-      score: updatedEnrollment?.score ?? 0,
-      rank: updatedEnrollment?.rank ?? 0,
-    },
-  });
+  waitUntil(
+    userApolloClient.createEvent({
+      type: "EnrollmentScored",
+      data: {
+        enrollment_id: userQuestion.user_enrollment.id,
+        question_id: userQuestion.id,
+        points: reviewedAnswer.score,
+        score: updatedEnrollment?.score ?? 0,
+        rank: updatedEnrollment?.rank ?? 0,
+      },
+    }),
+  );
 
   return updatedEnrollment;
 };

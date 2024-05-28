@@ -1,10 +1,4 @@
 import {
-  json,
-  redirect,
-  type ActionFunctionArgs,
-  type LoaderFunctionArgs,
-} from "@remix-run/node";
-import {
   useActionData,
   useLoaderData,
   useNavigate,
@@ -12,6 +6,12 @@ import {
   useSubmit,
   type ShouldRevalidateFunction,
 } from "@remix-run/react";
+import {
+  json,
+  redirect,
+  type ActionFunctionArgs,
+  type LoaderFunctionArgs,
+} from "@vercel/remix";
 
 import { invariant, Question, type OnSubmit } from "quickcheck-shared";
 

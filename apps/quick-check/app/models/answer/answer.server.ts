@@ -1,3 +1,5 @@
+import { waitUntil } from "@vercel/functions";
+
 import { invariant } from "quickcheck-shared";
 
 import { getUserApolloClientFromRequest } from "~/graphql";
@@ -58,8 +60,9 @@ export const saveAnswer = async (request: Request) => {
   await Promise.all([
     saveUserAnswer(request, answerData),
     updateUserFromAnswer(request, answerData),
-    updateTaxonomyEnrollmentsRanks(request, answerData),
   ]);
+
+  waitUntil(updateTaxonomyEnrollmentsRanks(request, answerData));
 
   const { reviewedAnswer, userQuestion } = answerData;
 

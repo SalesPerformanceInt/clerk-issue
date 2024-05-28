@@ -1,11 +1,5 @@
 import { useTranslation } from "react-i18next";
 import {
-  json,
-  type LinksFunction,
-  type LoaderFunctionArgs,
-  type MetaFunction,
-} from "@remix-run/node";
-import {
   Links,
   LiveReload,
   Meta,
@@ -14,6 +8,12 @@ import {
   ScrollRestoration,
   useLoaderData,
 } from "@remix-run/react";
+import {
+  json,
+  type LinksFunction,
+  type LoaderFunctionArgs,
+  type MetaFunction,
+} from "@vercel/remix";
 
 import fontAwesome from "@fortawesome/fontawesome-svg-core/styles.css";
 import tailwind from "~/tailwind.css";

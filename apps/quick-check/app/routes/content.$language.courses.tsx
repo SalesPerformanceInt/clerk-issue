@@ -1,5 +1,5 @@
-import { json, type LoaderFunctionArgs } from "@remix-run/node";
 import { Link, useLoaderData, useNavigate } from "@remix-run/react";
+import { json, type LoaderFunctionArgs } from "@vercel/remix";
 
 import { getContentStackClient } from "~/contentstack.server";
 import { first, isArray, sortBy } from "remeda";

@@ -1,9 +1,9 @@
+import { useLoaderData, useNavigate, useParams } from "@remix-run/react";
 import {
   json,
   type ActionFunctionArgs,
   type LoaderFunctionArgs,
-} from "@remix-run/node";
-import { useLoaderData, useNavigate, useParams } from "@remix-run/react";
+} from "@vercel/remix";
 
 import { faChevronLeft } from "@fortawesome/pro-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";

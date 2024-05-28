@@ -1,4 +1,4 @@
-import { redirect, type LoaderFunctionArgs } from "@remix-run/node";
+import { redirect, type LoaderFunctionArgs } from "@vercel/remix";
 
 export const loader = async ({ request }: LoaderFunctionArgs) => {
   return redirect("/content/en-us/courses");

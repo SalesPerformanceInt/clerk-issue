@@ -1,3 +1,5 @@
+import { waitUntil } from "@vercel/functions";
+
 import { getAdminApolloClientFromRequest } from "~/graphql";
 
 import { getNotificationHandle } from "~/models/notification/notificationService";
@@ -34,22 +36,24 @@ export const resetUserEnrollment: EnrollmentActionFn = async ({
 
   if (!resetEnrollment) return enrollmentErrorResponse;
 
-  await logEnrollmentEvent({
-    type: "EnrollmentReset",
-    data: {
-      previous_start_date: currentEnrollment.start_date,
-      new_start_date: enrollmentNewData.start_date,
-      previous_expiration_date: currentEnrollment.expiration_date ?? null,
-      new_expiration_date: enrollmentNewData.expiration_date,
-    },
-  });
+  waitUntil(
+    logEnrollmentEvent({
+      type: "EnrollmentReset",
+      data: {
+        previous_start_date: currentEnrollment.start_date,
+        new_start_date: enrollmentNewData.start_date,
+        previous_expiration_date: currentEnrollment.expiration_date ?? null,
+        new_expiration_date: enrollmentNewData.expiration_date,
+      },
+    }),
+  );
 
-  const notificationHandle = await getNotificationHandle({
+  const notificationWorkflow = await getNotificationHandle({
     name: "NewEnrollment",
     id: enrollmentNewData.enrollment_id,
   });
 
-  if (notificationHandle) await notificationHandle.cancel();
+  if (notificationWorkflow) await notificationWorkflow.cancel();
 
   await syncUserEnrollment({
     request,

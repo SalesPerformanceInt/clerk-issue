@@ -1,4 +1,4 @@
-import { LoaderFunctionArgs, type ActionFunctionArgs } from "@remix-run/node";
+import { LoaderFunctionArgs, type ActionFunctionArgs } from "@vercel/remix";
 
 import { z } from "zod";
 
@@ -6,9 +6,9 @@ import { invariant, simpleErrorResponse } from "quickcheck-shared";
 
 import { getAdminApolloClientFromRequest } from "~/graphql";
 
-import { verifyApiRequest } from "~/models/api";
-
 import { corsResponse } from "~/utils/cors";
+
+import { verifyApiRequest } from "~/models/api";
 
 const teamsSchema = z.object({
   userId: z.string().uuid(),
@@ -43,8 +43,7 @@ export const action = async ({ request }: ActionFunctionArgs) => {
 
     invariant(tenant_id === accountSubdomain, "Invalid account subdomain");
 
-    return await corsResponse(request, {weeklyStreak, calendar});
-    
+    return await corsResponse(request, { weeklyStreak, calendar });
   } catch (error) {
     return simpleErrorResponse(error);
   }

@@ -14,9 +14,7 @@ export const GET_SURVEY_ELIGIBILITY = graphql(/* GraphQL */ `
       __typename
       user_id
       user_enrollments {
-        id
-        start_date
-        expiration_date
+        ...UserEnrollmentWithCounts
       }
       product_surveys_aggregate {
         aggregate {
@@ -59,7 +57,7 @@ export async function getSurveyEligibility(
       return false;
 
     const eligible = data.user_enrollments.some(
-      ({ start_date, expiration_date }) => {
+      ({ start_date, expiration_date, total, retired }) => {
         if (!expiration_date) return false;
         const startDate = DateTime.fromISO(start_date);
         const expirationDate = DateTime.fromISO(expiration_date);
@@ -73,7 +71,13 @@ export async function getSurveyEligibility(
 
         if (!enrollmentDays || !elapsedDays) return false;
 
-        return elapsedDays > 0.75 * enrollmentDays;
+        const nearExpiration = elapsedDays > 0.75 * enrollmentDays;
+
+        const totalQuestions = total.aggregate?.count ?? 0;
+        const retiredQuestions = retired.aggregate?.count ?? 0;
+        const enoughRetired = retiredQuestions / totalQuestions > 0.25;
+
+        return nearExpiration || enoughRetired;
       },
     );
 

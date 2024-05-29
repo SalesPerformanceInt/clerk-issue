@@ -5,7 +5,10 @@ import { POSTHOG_HOST, POSTHOG_KEY } from "./envs.server";
 
 export const posthog = new PostHog(POSTHOG_KEY, { host: POSTHOG_HOST });
 
-export const capturePosthogEvent: PostHog["capture"] = async (eventMessage) => {
+// Type not directly exported from posthog-node
+type EventMessage = Parameters<PostHog["capture"]>[0];
+
+export const capturePosthogEvent = async (eventMessage: EventMessage) => {
   try {
     posthog.capture(eventMessage);
     await posthog.flushAsync();
@@ -14,9 +17,7 @@ export const capturePosthogEvent: PostHog["capture"] = async (eventMessage) => {
   }
 };
 
-export const capturePosthogEvents = async (
-  eventMessages: Parameters<PostHog["capture"]>[0][],
-) => {
+export const capturePosthogEvents = async (eventMessages: EventMessage[]) => {
   try {
     for (const eventMessage of eventMessages) {
       posthog.capture(eventMessage);

@@ -1,7 +1,7 @@
-import { getRemixI18next } from "quickcheck-shared";
+import { getRemixI18next } from "quickcheck-shared"
 
-import { getCSENV } from "./env.server";
+import { getCSENV } from "./env.server"
 
-const contenstackEnvs = getCSENV();
+const contenstackEnvs = getCSENV()
 
-export const remixI18next = getRemixI18next(contenstackEnvs);
+export const remixI18next = getRemixI18next(contenstackEnvs)

@@ -1,19 +1,19 @@
-import React from "react";
+import React from "react"
 
-import { faArrowRight } from "@fortawesome/pro-light-svg-icons";
-import type { Meta, StoryObj } from "@storybook/react";
-import { ProgressIcon } from "~qcs/images";
+import { faArrowRight } from "@fortawesome/pro-light-svg-icons"
+import type { Meta, StoryObj } from "@storybook/react"
+import { ProgressIcon } from "~qcs/images"
 
-import { Button as ButtonComponent } from "./Button";
-import { ButtonDecorator } from "./Button.template";
+import { Button as ButtonComponent } from "./Button"
+import { ButtonDecorator } from "./Button.template"
 
 const meta = {
   component: ButtonComponent,
   title: "ui/Button",
   decorators: [ButtonDecorator],
-} satisfies Meta<typeof ButtonComponent>;
+} satisfies Meta<typeof ButtonComponent>
 
-type Story = StoryObj<typeof meta>;
+type Story = StoryObj<typeof meta>
 
 export const Button = {
   args: {
@@ -38,6 +38,6 @@ export const Button = {
       options: ["primary", "secondary"],
     },
   },
-} satisfies Story;
+} satisfies Story
 
-export default meta;
+export default meta

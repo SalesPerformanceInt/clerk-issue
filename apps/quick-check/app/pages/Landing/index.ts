@@ -1,2 +1,2 @@
-export * from "./Landing";
-export * from "./Landing.types";
+export * from "./Landing"
+export * from "./Landing.types"

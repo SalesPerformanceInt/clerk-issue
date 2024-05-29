@@ -1,20 +1,18 @@
-import * as contentStack from "contentstack";
+import * as contentStack from "contentstack"
 
 /**
  * ContentStack Client Props
  */
 
 type ContentStackClientProps = {
-  environment?: string;
-};
+  environment?: string
+}
 
 /**
  * ContentStack Client
  */
 
-export const contentStackClient = ({
-  environment,
-}: ContentStackClientProps = {}) =>
+export const contentStackClient = ({ environment }: ContentStackClientProps = {}) =>
   contentStack.Stack({
     api_key: ENV.QC_CONTENTSTACK_STACK_KEY,
     delivery_token: ENV.QC_CONTENTSTACK_DELIVERY_TOKEN,
@@ -24,4 +22,4 @@ export const contentStackClient = ({
       management_token: ENV.QC_CONTENTSTACK_MANAGEMENT_TOKEN,
       host: "api.contentstack.io",
     },
-  });
+  })

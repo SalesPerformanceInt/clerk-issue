@@ -1,18 +1,10 @@
-import { logError } from "quickcheck-shared";
+import { logError } from "quickcheck-shared"
 
-import { graphql, type GQLProxyData, type GraphQLClient } from "~/graphql";
+import { graphql, type GQLProxyData, type GraphQLClient } from "~/graphql"
 
 export const GET_TEAM_ENROLLMENTS = graphql(/* GraphQL */ `
-  query GetTeamEnrollments(
-    $enrollmentIds: [uuid!]!
-    $accountSubdomain: String!
-  ) {
-    user_enrollment(
-      where: {
-        id: { _in: $enrollmentIds }
-        user: { tenant_id: { _eq: $accountSubdomain } }
-      }
-    ) {
+  query GetTeamEnrollments($enrollmentIds: [uuid!]!, $accountSubdomain: String!) {
+    user_enrollment(where: { id: { _in: $enrollmentIds }, user: { tenant_id: { _eq: $accountSubdomain } } }) {
       ...UserEnrollmentWithCounts
       user_questions_aggregate {
         aggregate {
@@ -23,7 +15,7 @@ export const GET_TEAM_ENROLLMENTS = graphql(/* GraphQL */ `
       }
     }
   }
-`);
+`)
 
 export async function getTeamEnrollments(
   this: GraphQLClient,
@@ -36,24 +28,20 @@ export async function getTeamEnrollments(
       query: GET_TEAM_ENROLLMENTS,
       variables: { enrollmentIds, accountSubdomain },
       fetchPolicy: "no-cache",
-    });
+    })
 
     return data?.user_enrollment.map((enrollment) => ({
       userId: enrollment.user_id,
       enrollmentId: enrollment.id,
-      lastResponse:
-        enrollment.user_questions_aggregate.aggregate?.max?.last_answered_on ??
-        null,
+      lastResponse: enrollment.user_questions_aggregate.aggregate?.max?.last_answered_on ?? null,
       totalQuestions: enrollment.total.aggregate?.count ?? 0,
       questionsRetired: enrollment.retired.aggregate?.count ?? 0,
       questionsAttempted: enrollment.attempted.aggregate?.count ?? 0,
-    }));
+    }))
   } catch (error) {
-    logError({ error, log: "getTeamEnrollments" });
-    return null;
+    logError({ error, log: "getTeamEnrollments" })
+    return null
   }
 }
 
-export type TeamEnrollmentsData = NonNullable<
-  Awaited<ReturnType<typeof getTeamEnrollments>>
->;
+export type TeamEnrollmentsData = NonNullable<Awaited<ReturnType<typeof getTeamEnrollments>>>

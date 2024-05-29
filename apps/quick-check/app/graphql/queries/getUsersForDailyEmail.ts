@@ -1,6 +1,6 @@
-import { logError } from "quickcheck-shared";
+import { logError } from "quickcheck-shared"
 
-import { graphql, type GQLProxyData, type GraphQLClient } from "~/graphql";
+import { graphql, type GQLProxyData, type GraphQLClient } from "~/graphql"
 
 export const GET_USER_FOR_DAILY_EMAIL = graphql(/* GraphQL */ `
   query GetUsersForDailyEmail {
@@ -8,21 +8,18 @@ export const GET_USER_FOR_DAILY_EMAIL = graphql(/* GraphQL */ `
       user_id
     }
   }
-`);
+`)
 
-export async function getUsersForDailyEmail(
-  this: GraphQLClient,
-  _proxyData: GQLProxyData,
-) {
+export async function getUsersForDailyEmail(this: GraphQLClient, _proxyData: GQLProxyData) {
   try {
     const result = await this.query({
       query: GET_USER_FOR_DAILY_EMAIL,
       fetchPolicy: "network-only",
-    });
+    })
 
-    return result?.data?.user;
+    return result?.data?.user
   } catch (error) {
-    logError({ error, log: "getUsersForDailyEmail" });
-    return null;
+    logError({ error, log: "getUsersForDailyEmail" })
+    return null
   }
 }

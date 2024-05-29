@@ -1,36 +1,31 @@
-import React from "react";
+import React from "react"
 
-import { useIsDesktop, useQuestionContext } from "~qcs/index";
-import { AnimatePresence, motion } from "framer-motion";
-import parse from "html-react-parser";
-import { twMerge } from "tailwind-merge";
+import { useIsDesktop, useQuestionContext } from "~qcs/index"
+import { AnimatePresence, motion } from "framer-motion"
+import parse from "html-react-parser"
+import { twMerge } from "tailwind-merge"
 
-import type { QuestionItemChoice } from "~qcs/contentstack";
+import type { QuestionItemChoice } from "~qcs/contentstack"
 
-import type { Expand } from "~qcs/utils/expand";
+import type { Expand } from "~qcs/utils/expand"
 
 export type ChoiceProps = Expand<
   {
-    isSelected?: boolean;
-    disabled?: boolean;
-    onClick: () => void;
+    isSelected?: boolean
+    disabled?: boolean
+    onClick: () => void
   } & Pick<QuestionItemChoice, "choice">
->;
+>
 
-export const Choice = ({
-  onClick,
-  isSelected,
-  disabled,
-  choice,
-}: ChoiceProps) => {
-  const { selected, submitted } = useQuestionContext();
-  const isDesktop = useIsDesktop();
+export const Choice = ({ onClick, isSelected, disabled, choice }: ChoiceProps) => {
+  const { selected, submitted } = useQuestionContext()
+  const isDesktop = useIsDesktop()
 
-  if (!choice) return null;
+  if (!choice) return null
 
-  const correctlyAnswered = submitted && isSelected && selected?.correct;
-  const incorrectlyAnswered = submitted && isSelected && !selected?.correct;
-  const actualAnswer = submitted && !isSelected && choice.correct;
+  const correctlyAnswered = submitted && isSelected && selected?.correct
+  const incorrectlyAnswered = submitted && isSelected && !selected?.correct
+  const actualAnswer = submitted && !isSelected && choice.correct
 
   return (
     <button
@@ -39,10 +34,8 @@ export const Choice = ({
       onClick={onClick}
       className={twMerge(
         "relative flex w-full items-center border-t border-primary-25 bg-background-secondary px-4 py-6 text-left transition last:border-b hover:border-primary disabled:hover:border-primary-25 sm:rounded-sm sm:border sm:border-highlight sm:px-8 sm:shadow-card",
-        isSelected &&
-          "bg-background hover:border-primary-25 sm:hover:border-primary",
-        correctlyAnswered &&
-          "border-t-0 bg-success-50 disabled:hover:bg-success-50 sm:border-t",
+        isSelected && "bg-background hover:border-primary-25 sm:hover:border-primary",
+        correctlyAnswered && "border-t-0 bg-success-50 disabled:hover:bg-success-50 sm:border-t",
         incorrectlyAnswered && "bg-highlight",
       )}
       {...choice.$?.body}
@@ -69,5 +62,5 @@ export const Choice = ({
       </AnimatePresence>
       {parse(choice.body)}
     </button>
-  );
-};
+  )
+}

@@ -1,6 +1,6 @@
 /* eslint-disable */
 
-import type { Config } from "tailwindcss";
+import type { Config } from "tailwindcss"
 
 const config = {
   // darkMode: "class",
@@ -195,8 +195,8 @@ const config = {
       },
     },
   },
-} satisfies Config;
+} satisfies Config
 
-export const { theme } = config;
+export const { theme } = config
 
-export default config;
+export default config

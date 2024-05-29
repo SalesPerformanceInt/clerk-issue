@@ -1,30 +1,22 @@
-import { waitUntil } from "@vercel/functions";
+import { waitUntil } from "@vercel/functions"
 
-import {
-  getAdminApolloClientFromRequest,
-  type GetUserEmailData,
-} from "~/graphql";
+import { getAdminApolloClientFromRequest, type GetUserEmailData } from "~/graphql"
 
-import type { sendNotificationWorkflow } from "./sendNotificationWorkflow";
+import type { sendNotificationWorkflow } from "./sendNotificationWorkflow"
 
 /**
  * Log Notification Event
  */
 
 type LogNotificationEventProps = {
-  request: Request;
-  user: GetUserEmailData;
-  token: string;
-  notificationLog: Awaited<ReturnType<typeof sendNotificationWorkflow>>;
-};
+  request: Request
+  user: GetUserEmailData
+  token: string
+  notificationLog: Awaited<ReturnType<typeof sendNotificationWorkflow>>
+}
 
-export const logNotificationEvent = async ({
-  request,
-  user,
-  token,
-  notificationLog,
-}: LogNotificationEventProps) => {
-  const adminApolloClient = await getAdminApolloClientFromRequest(request);
+export const logNotificationEvent = async ({ request, user, token, notificationLog }: LogNotificationEventProps) => {
+  const adminApolloClient = await getAdminApolloClientFromRequest(request)
 
   waitUntil(
     adminApolloClient.createEvent(
@@ -38,5 +30,5 @@ export const logNotificationEvent = async ({
       },
       { userId: user.user_id, tenantId: user.tenant_id },
     ),
-  );
-};
+  )
+}

@@ -1,12 +1,9 @@
-import { waitUntil } from "@vercel/functions";
+import { waitUntil } from "@vercel/functions"
 
-import { getAdminApolloClientFromRequest } from "~/graphql";
+import { getAdminApolloClientFromRequest } from "~/graphql"
 
-import type { EnrollmentActionFn } from "../enrollment.types";
-import {
-  prepareEnrollmentError,
-  prepareEnrollmentResponse,
-} from "../handlers/prepareEnrollmentResponse";
+import type { EnrollmentActionFn } from "../enrollment.types"
+import { prepareEnrollmentError, prepareEnrollmentResponse } from "../handlers/prepareEnrollmentResponse"
 
 /**
  * Update UserEnrollment
@@ -18,17 +15,16 @@ export const updateUserEnrollment: EnrollmentActionFn = async ({
   currentEnrollment,
   logEnrollmentEvent,
 }) => {
-  const enrollmentErrorResponse = prepareEnrollmentError();
+  const enrollmentErrorResponse = prepareEnrollmentError()
 
-  if (!currentEnrollment) return enrollmentErrorResponse;
+  if (!currentEnrollment) return enrollmentErrorResponse
 
-  const adminApolloClient = await getAdminApolloClientFromRequest(request);
-  const updatedEnrollment = await adminApolloClient.updateUserEnrollment(
-    enrollmentNewData.enrollment_id,
-    { set: { expiration_date: enrollmentNewData.expiration_date } },
-  );
+  const adminApolloClient = await getAdminApolloClientFromRequest(request)
+  const updatedEnrollment = await adminApolloClient.updateUserEnrollment(enrollmentNewData.enrollment_id, {
+    set: { expiration_date: enrollmentNewData.expiration_date },
+  })
 
-  if (!updatedEnrollment) return enrollmentErrorResponse;
+  if (!updatedEnrollment) return enrollmentErrorResponse
 
   waitUntil(
     logEnrollmentEvent({
@@ -38,7 +34,7 @@ export const updateUserEnrollment: EnrollmentActionFn = async ({
         new_expiration_date: enrollmentNewData.expiration_date,
       },
     }),
-  );
+  )
 
-  return prepareEnrollmentResponse({ status: 200 });
-};
+  return prepareEnrollmentResponse({ status: 200 })
+}

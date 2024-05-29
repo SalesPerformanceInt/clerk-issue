@@ -5,7 +5,7 @@ import type {
   RequestedLinkTemplateProps,
   UserAwayTemplateProps,
   UserInactiveTemplateProps,
-} from "../templates";
+} from "../templates"
 
 /**
  * Notification Templates
@@ -17,4 +17,4 @@ export type NotificationTemplate =
   | QuestionTemplateProps
   | RequestedLinkTemplateProps
   | UserAwayTemplateProps
-  | UserInactiveTemplateProps;
+  | UserInactiveTemplateProps

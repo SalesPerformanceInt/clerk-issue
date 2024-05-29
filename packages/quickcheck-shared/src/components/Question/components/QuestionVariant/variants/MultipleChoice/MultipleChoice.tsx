@@ -1,28 +1,27 @@
-import React, { type FC } from "react";
+import React, { type FC } from "react"
 
-import { MCQuestion } from "~qcs/contentstack";
+import { MCQuestion } from "~qcs/contentstack"
 
-import { useDeterministicallyRandomizeChoices } from "~qcs/utils/deterministicallyRandomizeChoices";
+import { useDeterministicallyRandomizeChoices } from "~qcs/utils/deterministicallyRandomizeChoices"
 
-import { ResponsiveContainer } from "~qcs/components";
-import { QuestionTitle } from "~qcs/components/Question/components";
-import { Choice } from "~qcs/components/Question/components/QuestionVariant/components/Choice";
+import { ResponsiveContainer } from "~qcs/components"
+import { QuestionTitle } from "~qcs/components/Question/components"
+import { Choice } from "~qcs/components/Question/components/QuestionVariant/components/Choice"
 
-import { Stem } from "../../components";
+import { Stem } from "../../components"
 
-import { useMultipleChoices } from "./hooks/useMultipleChoice";
+import { useMultipleChoices } from "./hooks/useMultipleChoice"
 
 export type MultipleChoiceProps = {
-  mcquestion: MCQuestion["mcquestion"];
-};
+  mcquestion: MCQuestion["mcquestion"]
+}
 
 export const MultipleChoice: FC<MultipleChoiceProps> = ({ mcquestion }) => {
   const { choices, onChoiceSelect, selected, submitted } = useMultipleChoices({
     mcquestion,
-  });
+  })
 
-  const deterministicallyRandomizedChoices =
-    useDeterministicallyRandomizeChoices(choices);
+  const deterministicallyRandomizedChoices = useDeterministicallyRandomizeChoices(choices)
 
   return (
     <main>
@@ -31,10 +30,7 @@ export const MultipleChoice: FC<MultipleChoiceProps> = ({ mcquestion }) => {
         <Stem content={mcquestion.stem} />
       </ResponsiveContainer>
       <ResponsiveContainer className="bg-background-secondary">
-        <div
-          className="flex flex-col sm:grid sm:grid-cols-2 sm:gap-8 sm:py-12"
-          data-testid="QuestionItem-Choices"
-        >
+        <div className="flex flex-col sm:grid sm:grid-cols-2 sm:gap-8 sm:py-12" data-testid="QuestionItem-Choices">
           {deterministicallyRandomizedChoices.map(({ choice }, index) => (
             <Choice
               key={choice._metadata.uid}
@@ -47,5 +43,5 @@ export const MultipleChoice: FC<MultipleChoiceProps> = ({ mcquestion }) => {
         </div>
       </ResponsiveContainer>
     </main>
-  );
-};
+  )
+}

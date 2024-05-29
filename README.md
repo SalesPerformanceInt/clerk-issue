@@ -22,7 +22,6 @@ This Monorepo uses [pnpm](https://pnpm.io/) and [turborepo](https://turborepo.or
     /stepDefinitions
 ```
 
-
 ## QuickCheck
 
 ### Built with:
@@ -30,7 +29,6 @@ This Monorepo uses [pnpm](https://pnpm.io/) and [turborepo](https://turborepo.or
 - [Remix](https://remix.run/)
 - [Typescript](https://www.typescriptlang.org/)
 - [Tailwind](https://tailwindcss.com/)
-
 
 ## QuickCheck Shared
 
@@ -78,7 +76,6 @@ $ pnpm i
 ### Packages
 
 - [QuickCheck Shared](https://github.com/SalesPerformanceInt/accelerate-quick-check/tree/main/packages/quickcheck-shared)
-
 
 ## Testing
 

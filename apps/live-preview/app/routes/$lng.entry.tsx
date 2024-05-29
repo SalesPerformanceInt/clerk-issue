@@ -1,27 +1,27 @@
-import { redirect, type LoaderFunctionArgs } from "@remix-run/node";
+import { redirect, type LoaderFunctionArgs } from "@remix-run/node"
 
-import { typedjson, useTypedLoaderData } from "remix-typedjson";
+import { typedjson, useTypedLoaderData } from "remix-typedjson"
 
-import { getEntryFromRequest } from "~/models/entry";
+import { getEntryFromRequest } from "~/models/entry"
 
 /**
  * Loader
  */
 
 export const loader = async ({ request, params }: LoaderFunctionArgs) => {
-  const { entryRoute } = await getEntryFromRequest({ request });
+  const { entryRoute } = await getEntryFromRequest({ request })
 
-  if (!entryRoute) return typedjson({});
+  if (!entryRoute) return typedjson({})
 
-  return redirect(`/${params.lng}/${entryRoute}`);
-};
+  return redirect(`/${params.lng}/${entryRoute}`)
+}
 
 /**
  * Route Component
  */
 
 export default function TaxonomyRoute() {
-  const {} = useTypedLoaderData<typeof loader>();
+  const {} = useTypedLoaderData<typeof loader>()
 
-  return <></>;
+  return <></>
 }

@@ -1,8 +1,8 @@
-import { z } from "zod";
+import { z } from "zod"
 
-import { variants } from "quickcheck-shared";
+import { variants } from "quickcheck-shared"
 
-import { parseSchema } from "~/utils/parseSchema";
+import { parseSchema } from "~/utils/parseSchema"
 
 /**
  * Schemas
@@ -15,6 +15,6 @@ export const answerSchema = z.object({
   variant: z.enum(variants),
   uid: z.string(),
   now: z.string(),
-});
+})
 
-export const parseAnswer = (value: unknown) => parseSchema(value, answerSchema);
+export const parseAnswer = (value: unknown) => parseSchema(value, answerSchema)

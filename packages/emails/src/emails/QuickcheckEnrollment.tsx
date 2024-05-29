@@ -1,10 +1,10 @@
-import type { Taxon, UserData } from "quickcheck-shared";
+import type { Taxon, UserData } from "quickcheck-shared"
 
-import { QuickcheckBasicEmail } from "../templates/QuickcheckBasicEmail";
-import { i18n } from "../utils/i18n";
+import { QuickcheckBasicEmail } from "../templates/QuickcheckBasicEmail"
+import { i18n } from "../utils/i18n"
 
 const QuickcheckEnrollmentPreview = () => {
-  const t = i18n.getFixedT("en-us");
+  const t = i18n.getFixedT("en-us")
 
   return (
     <QuickcheckBasicEmail
@@ -20,17 +20,17 @@ const QuickcheckEnrollmentPreview = () => {
         text: t("emails.enrollment.button"),
       }}
     />
-  );
-};
+  )
+}
 
-export default QuickcheckEnrollmentPreview;
+export default QuickcheckEnrollmentPreview
 
 const userDataMock: UserData = {
   unanswered_questions: 24,
   active_enrollments: 3,
   first_name: "Tim",
   last_name: "Johnson",
-};
+}
 
 const enrollmentTaxonomyMock = {
   _version: 1,
@@ -132,4 +132,4 @@ const enrollmentTaxonomyMock = {
     maintain_revisions: true,
     _version: 8,
   },
-} as Taxon;
+} as Taxon

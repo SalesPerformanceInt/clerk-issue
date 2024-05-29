@@ -1,27 +1,18 @@
-import { invariant, logError } from "quickcheck-shared";
+import { invariant, logError } from "quickcheck-shared"
 
-import { graphql, type GQLProxyUserData, type GraphQLClient } from "~/graphql";
-import { GET_USER } from "~/graphql/queries";
+import { graphql, type GQLProxyUserData, type GraphQLClient } from "~/graphql"
+import { GET_USER } from "~/graphql/queries"
 
 export const TOGGLE_USER_SHOW_LEADERBOARD = graphql(/* GraphQL */ `
-  mutation ToggleUserShowLeaderboard(
-    $userId: uuid!
-    $show_leaderboard: Boolean
-  ) {
-    update_user_by_pk(
-      pk_columns: { user_id: $userId }
-      _set: { show_leaderboard: $show_leaderboard }
-    ) {
+  mutation ToggleUserShowLeaderboard($userId: uuid!, $show_leaderboard: Boolean) {
+    update_user_by_pk(pk_columns: { user_id: $userId }, _set: { show_leaderboard: $show_leaderboard }) {
       ...BaseUser
     }
   }
-`);
+`)
 
-export async function toggleUserShowLeaderboard(
-  this: GraphQLClient,
-  proxyData: GQLProxyUserData,
-) {
-  const { userId } = proxyData;
+export async function toggleUserShowLeaderboard(this: GraphQLClient, proxyData: GQLProxyUserData) {
+  const { userId } = proxyData
 
   try {
     const {
@@ -29,11 +20,11 @@ export async function toggleUserShowLeaderboard(
     } = await this.query({
       query: GET_USER,
       variables: { userId },
-    });
+    })
 
-    invariant(user_by_pk, "No user found");
+    invariant(user_by_pk, "No user found")
 
-    const show_leaderboard = !user_by_pk?.show_leaderboard;
+    const show_leaderboard = !user_by_pk?.show_leaderboard
 
     const { data } = await this.mutate({
       mutation: TOGGLE_USER_SHOW_LEADERBOARD,
@@ -41,11 +32,11 @@ export async function toggleUserShowLeaderboard(
       optimisticResponse: {
         update_user_by_pk: { ...user_by_pk, show_leaderboard },
       },
-    });
+    })
 
-    return data?.update_user_by_pk?.show_leaderboard ?? null;
+    return data?.update_user_by_pk?.show_leaderboard ?? null
   } catch (error) {
-    logError({ error, log: "toggleUserShowLeaderboard" });
-    return null;
+    logError({ error, log: "toggleUserShowLeaderboard" })
+    return null
   }
 }

@@ -9,10 +9,10 @@ export const workflowIDs = [
   "NewEnrollment",
   "QuestionMC",
   "RequestedLink",
-] as const;
-export type WorkflowIDs = (typeof workflowIDs)[number];
+] as const
+export type WorkflowIDs = (typeof workflowIDs)[number]
 
 export type WorkflowID = {
-  name: WorkflowIDs;
-  id: string;
-};
+  name: WorkflowIDs
+  id: string
+}

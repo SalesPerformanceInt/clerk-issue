@@ -1,13 +1,8 @@
-import type { Edge } from "reactflow";
+import type { Edge } from "reactflow"
 
-import { isArray } from "remeda";
+import { isArray } from "remeda"
 
-import type {
-  EntryToEdge,
-  TaxonLivePreview,
-  TaxonomyTreeProps,
-  ValidBottomUpTaxon,
-} from "../taxonomy.types";
+import type { EntryToEdge, TaxonLivePreview, TaxonomyTreeProps, ValidBottomUpTaxon } from "../taxonomy.types"
 
 /**
  * Edge Tree Shared Config
@@ -18,15 +13,11 @@ const entryToEdge = ({ sourceId, targetId }: EntryToEdge) =>
     id: `${sourceId}-${targetId}`,
     source: sourceId,
     target: targetId,
-  };
+  }
 
 const taxonGuard = (taxon: TaxonLivePreview): taxon is ValidBottomUpTaxon => {
-  return !!(
-    taxon.parent_taxonomy &&
-    isArray(taxon.parent_taxonomy) &&
-    taxon.parent_taxonomy.length
-  );
-};
+  return !!(taxon.parent_taxonomy && isArray(taxon.parent_taxonomy) && taxon.parent_taxonomy.length)
+}
 
 /**
  * Taxonomy Edges
@@ -37,53 +28,43 @@ const getTaxonomyEdges = ({
   taxonomyChildren,
 }: Pick<TaxonomyTreeProps, "taxonomyData" | "taxonomyChildren">) => {
   const taxonomyRootEdges = taxonGuard(taxonomyData)
-    ? taxonomyData.parent_taxonomy.map((taxon) =>
-        entryToEdge({ sourceId: taxon.uid, targetId: taxonomyData.uid }),
-      )
-    : [];
+    ? taxonomyData.parent_taxonomy.map((taxon) => entryToEdge({ sourceId: taxon.uid, targetId: taxonomyData.uid }))
+    : []
 
   const taxonomyChildrenEdges = taxonomyChildren.map((taxon) =>
     entryToEdge({ sourceId: taxonomyData.uid, targetId: taxon.uid }),
-  );
+  )
 
-  const taxonomyEdges = [...taxonomyRootEdges, ...taxonomyChildrenEdges];
+  const taxonomyEdges = [...taxonomyRootEdges, ...taxonomyChildrenEdges]
 
-  return { taxonomyEdges };
-};
+  return { taxonomyEdges }
+}
 
 /**
  * Question Item Edges
  */
 
-const getQuestionItemEdges = ({
-  questionItemsData,
-}: Pick<TaxonomyTreeProps, "questionItemsData">) => {
+const getQuestionItemEdges = ({ questionItemsData }: Pick<TaxonomyTreeProps, "questionItemsData">) => {
   const questionItemEdges = questionItemsData.flatMap((questionItem) =>
-    questionItem.topic.map((topic) =>
-      entryToEdge({ sourceId: topic.uid, targetId: questionItem.uid }),
-    ),
-  );
+    questionItem.topic.map((topic) => entryToEdge({ sourceId: topic.uid, targetId: questionItem.uid })),
+  )
 
-  return { questionItemEdges };
-};
+  return { questionItemEdges }
+}
 
 /**
  * Taxonomy Tree Edges
  */
 
-export const mountTaxonomyTreeEdges = ({
-  taxonomyData,
-  taxonomyChildren,
-  questionItemsData,
-}: TaxonomyTreeProps) => {
+export const mountTaxonomyTreeEdges = ({ taxonomyData, taxonomyChildren, questionItemsData }: TaxonomyTreeProps) => {
   const { taxonomyEdges } = getTaxonomyEdges({
     taxonomyData,
     taxonomyChildren,
-  });
+  })
 
-  const { questionItemEdges } = getQuestionItemEdges({ questionItemsData });
+  const { questionItemEdges } = getQuestionItemEdges({ questionItemsData })
 
-  const taxonomyTreeEdges = [...taxonomyEdges, ...questionItemEdges];
+  const taxonomyTreeEdges = [...taxonomyEdges, ...questionItemEdges]
 
-  return { taxonomyTreeEdges };
-};
+  return { taxonomyTreeEdges }
+}

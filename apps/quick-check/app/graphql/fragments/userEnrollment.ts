@@ -1,4 +1,4 @@
-import { graphql } from "~/graphql";
+import { graphql } from "~/graphql"
 
 export const BaseUserEnrollment = graphql(/* GraphQL */ `
   fragment BaseUserEnrollment on user_enrollment {
@@ -12,7 +12,7 @@ export const BaseUserEnrollment = graphql(/* GraphQL */ `
     start_date
     expiration_date
   }
-`);
+`)
 
 export const NotificationUserEnrollment = graphql(/* GraphQL */ `
   fragment NotificationUserEnrollment on user_enrollment {
@@ -29,34 +29,26 @@ export const NotificationUserEnrollment = graphql(/* GraphQL */ `
       ...BaseUserQuestion
     }
   }
-`);
+`)
 
 export const UserEnrollmentWithCounts = graphql(/* GraphQL */ `
   fragment UserEnrollmentWithCounts on user_enrollment {
     ...BaseUserEnrollment
     attempted: user_questions_aggregate(
-      where: {
-        _or: [{ retired_on: { _is_null: true } }]
-        user_answers_aggregate: { count: { predicate: { _gt: 0 } } }
-      }
+      where: { _or: [{ retired_on: { _is_null: true } }], user_answers_aggregate: { count: { predicate: { _gt: 0 } } } }
     ) {
       aggregate {
         count
       }
     }
     unattempted: user_questions_aggregate(
-      where: {
-        _or: [{ retired_on: { _is_null: true } }]
-        user_answers_aggregate: { count: { predicate: { _eq: 0 } } }
-      }
+      where: { _or: [{ retired_on: { _is_null: true } }], user_answers_aggregate: { count: { predicate: { _eq: 0 } } } }
     ) {
       aggregate {
         count
       }
     }
-    retired: user_questions_aggregate(
-      where: { retired_on: { _is_null: false } }
-    ) {
+    retired: user_questions_aggregate(where: { retired_on: { _is_null: false } }) {
       aggregate {
         count
       }
@@ -67,7 +59,7 @@ export const UserEnrollmentWithCounts = graphql(/* GraphQL */ `
       }
     }
   }
-`);
+`)
 
 export const UserEnrollmentSkillWithCounts = graphql(/* GraphQL */ `
   fragment UserEnrollmentSkillWithCounts on user_enrollment {
@@ -101,12 +93,10 @@ export const UserEnrollmentSkillWithCounts = graphql(/* GraphQL */ `
         count
       }
     }
-    total_by_skill: user_questions_aggregate(
-      where: { taxonomy_id: { _eq: $skillId } }
-    ) {
+    total_by_skill: user_questions_aggregate(where: { taxonomy_id: { _eq: $skillId } }) {
       aggregate {
         count
       }
     }
   }
-`);
+`)

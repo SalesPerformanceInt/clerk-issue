@@ -1,2 +1,2 @@
-export * from "./taxonomy.server";
-export * from "./taxonomy.types";
+export * from "./taxonomy.server"
+export * from "./taxonomy.types"

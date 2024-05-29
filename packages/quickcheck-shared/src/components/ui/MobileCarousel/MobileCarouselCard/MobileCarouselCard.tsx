@@ -1,23 +1,16 @@
-import React, { type FC, type ReactNode } from "react";
+import React, { type FC, type ReactNode } from "react"
 
-import {
-  Card,
-  CardTitleSkeleton,
-  type CardProps,
-  type CardTitleSkeletonProps,
-} from "~qcs/components/ui/Card";
-import { cn } from "~qcs/utils";
+import { cn } from "~qcs/utils"
+
+import { Card, CardTitleSkeleton, type CardProps, type CardTitleSkeletonProps } from "~qcs/components/ui/Card"
 
 /**
  * Mobile Carousel Card Component
  */
 
-export type MobileCarouselCardProps = CardProps;
+export type MobileCarouselCardProps = CardProps
 
-export const MobileCarouselCard: FC<MobileCarouselCardProps> = ({
-  children,
-  className,
-}) => {
+export const MobileCarouselCard: FC<MobileCarouselCardProps> = ({ children, className }) => {
   return (
     <Card
       className={cn(
@@ -30,25 +23,28 @@ export const MobileCarouselCard: FC<MobileCarouselCardProps> = ({
     >
       {children}
     </Card>
-  );
-};
+  )
+}
 
 /**
  * Mobile Carousel Card Skeleton Component
  */
 
 export type MobileCarouselCardSkeletonProps = CardTitleSkeletonProps & {
-  children?: ReactNode;
-};
+  children?: ReactNode
+}
 
-export const MobileCarouselCardSkeleton: FC<
-  MobileCarouselCardSkeletonProps
-> = ({ className, qty, title, children }) => {
+export const MobileCarouselCardSkeleton: FC<MobileCarouselCardSkeletonProps> = ({
+  className,
+  qty,
+  title,
+  children,
+}) => {
   return (
     <MobileCarouselCard className={className}>
       <CardTitleSkeleton qty={qty} title={title} />
 
       {children}
     </MobileCarouselCard>
-  );
-};
+  )
+}

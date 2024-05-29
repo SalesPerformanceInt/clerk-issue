@@ -1,6 +1,6 @@
-import { logError } from "quickcheck-shared";
+import { logError } from "quickcheck-shared"
 
-import { graphql, type GQLProxyData, type GraphQLClient } from "~/graphql";
+import { graphql, type GQLProxyData, type GraphQLClient } from "~/graphql"
 
 export const GET_USER_QUESTION = graphql(/* GraphQL */ `
   query GetUserQuestion($id: uuid!) {
@@ -8,23 +8,19 @@ export const GET_USER_QUESTION = graphql(/* GraphQL */ `
       ...BaseUserQuestion
     }
   }
-`);
+`)
 
-export async function getUserQuestion(
-  this: GraphQLClient,
-  id: string,
-  _proxyData: GQLProxyData,
-) {
+export async function getUserQuestion(this: GraphQLClient, id: string, _proxyData: GQLProxyData) {
   try {
     const { data } = await this.query({
       query: GET_USER_QUESTION,
       variables: { id },
       fetchPolicy: "no-cache",
-    });
+    })
 
-    return data?.user_question_by_pk ?? null;
+    return data?.user_question_by_pk ?? null
   } catch (error) {
-    logError({ error, log: "getUserQuestion" });
-    return null;
+    logError({ error, log: "getUserQuestion" })
+    return null
   }
 }

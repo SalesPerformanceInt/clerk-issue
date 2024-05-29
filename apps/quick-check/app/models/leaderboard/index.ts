@@ -1,2 +1,2 @@
-export * from "./leaderboard.server";
-export * from "./leaderboard";
+export * from "./leaderboard.server"
+export * from "./leaderboard"

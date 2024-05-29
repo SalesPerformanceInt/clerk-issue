@@ -1,4 +1,4 @@
-import { graphql } from "~/graphql";
+import { graphql } from "~/graphql"
 
 export const UserWithActiveToken = graphql(/* GraphQL */ `
   fragment UserWithActiveToken on user {
@@ -7,7 +7,7 @@ export const UserWithActiveToken = graphql(/* GraphQL */ `
       ...BaseLinkToken
     }
   }
-`);
+`)
 
 export const AdminUserData = graphql(/* GraphQL */ `
   fragment AdminUserData on user {
@@ -19,7 +19,7 @@ export const AdminUserData = graphql(/* GraphQL */ `
       created_at
     }
   }
-`);
+`)
 
 export const BaseUser = graphql(/* GraphQL */ `
   fragment BaseUser on user {
@@ -40,7 +40,7 @@ export const BaseUser = graphql(/* GraphQL */ `
     show_leaderboard
     survey_dismissed
   }
-`);
+`)
 
 export const UserUnansweredQuestions = graphql(/* GraphQL */ `
   fragment UserUnansweredQuestions on user {
@@ -48,12 +48,7 @@ export const UserUnansweredQuestions = graphql(/* GraphQL */ `
       where: {
         retired_on: { _is_null: true }
         active_on: { _is_null: false, _lte: $today }
-        user_enrollment: {
-          _or: [
-            { expiration_date: { _is_null: true } }
-            { expiration_date: { _gt: $today } }
-          ]
-        }
+        user_enrollment: { _or: [{ expiration_date: { _is_null: true } }, { expiration_date: { _gt: $today } }] }
       }
     ) {
       aggregate {
@@ -61,7 +56,7 @@ export const UserUnansweredQuestions = graphql(/* GraphQL */ `
       }
     }
   }
-`);
+`)
 
 export const UserActiveQuestionsData = graphql(/* GraphQL */ `
   fragment UserActiveQuestionsData on user {
@@ -74,12 +69,7 @@ export const UserActiveQuestionsData = graphql(/* GraphQL */ `
             filter: {
               retired_on: { _is_null: true }
               active_on: { _is_null: false }
-              user_enrollment: {
-                _or: [
-                  { expiration_date: { _is_null: true } }
-                  { expiration_date: { _gt: $today } }
-                ]
-              }
+              user_enrollment: { _or: [{ expiration_date: { _is_null: true } }, { expiration_date: { _gt: $today } }] }
             }
           }
         }
@@ -90,4 +80,4 @@ export const UserActiveQuestionsData = graphql(/* GraphQL */ `
       }
     }
   }
-`);
+`)

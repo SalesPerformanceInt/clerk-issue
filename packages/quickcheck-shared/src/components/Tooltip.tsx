@@ -1,37 +1,29 @@
-import React, {
-  Fragment,
-  isValidElement,
-  type FC,
-  type ReactElement,
-} from "react";
-import { useTranslation } from "react-i18next";
+import React, { Fragment, isValidElement, type FC, type ReactElement } from "react"
+import { useTranslation } from "react-i18next"
 
-import {
-  faCircleInfo,
-  faCircleQuestion,
-} from "@fortawesome/pro-light-svg-icons";
-import * as RadixPopover from "@radix-ui/react-popover";
-import * as RadixTooltip from "@radix-ui/react-tooltip";
-import { twMerge } from "tailwind-merge";
+import { faCircleInfo, faCircleQuestion } from "@fortawesome/pro-light-svg-icons"
+import * as RadixPopover from "@radix-ui/react-popover"
+import * as RadixTooltip from "@radix-ui/react-tooltip"
+import { twMerge } from "tailwind-merge"
 
-import { useIsDesktop } from "~qcs/utils/useIsDesktop";
+import { useIsDesktop } from "~qcs/utils/useIsDesktop"
 
-import { Icon } from "./Icon";
+import { Icon } from "./Icon"
 
 export type TooltipProps = {
-  texts: (string | ReactElement)[];
-  triggerClassName?: string;
-  contentClassName?: string;
-  ariaLabel: string;
-  type?: "info" | "question";
-  closeButton?: boolean;
-};
+  texts: (string | ReactElement)[]
+  triggerClassName?: string
+  contentClassName?: string
+  ariaLabel: string
+  type?: "info" | "question"
+  closeButton?: boolean
+}
 
 const parseText = (text: string | ReactElement) => {
-  const Wrapper = isValidElement(text) ? Fragment : "p";
+  const Wrapper = isValidElement(text) ? Fragment : "p"
 
-  return <Wrapper key={text.toString()}>{text}</Wrapper>;
-};
+  return <Wrapper key={text.toString()}>{text}</Wrapper>
+}
 
 export const Tooltip: FC<TooltipProps> = ({
   texts,
@@ -41,12 +33,12 @@ export const Tooltip: FC<TooltipProps> = ({
   closeButton = true,
   type = "info",
 }) => {
-  const isDesktop = useIsDesktop();
-  const { t } = useTranslation();
+  const isDesktop = useIsDesktop()
+  const { t } = useTranslation()
 
-  if (!texts.length) return null;
+  if (!texts.length) return null
 
-  const icon = type === "info" ? faCircleInfo : faCircleQuestion;
+  const icon = type === "info" ? faCircleInfo : faCircleQuestion
 
   return (
     <>
@@ -114,5 +106,5 @@ export const Tooltip: FC<TooltipProps> = ({
         </RadixPopover.Root>
       )}
     </>
-  );
-};
+  )
+}

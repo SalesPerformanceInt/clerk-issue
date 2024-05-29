@@ -1,1 +1,1 @@
-export * from "./enrollmentSkill.server";
+export * from "./enrollmentSkill.server"

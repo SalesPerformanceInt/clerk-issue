@@ -1,48 +1,37 @@
-import React, { type FC, type HTMLAttributes, type ReactNode } from "react";
+import React, { type FC, type HTMLAttributes, type ReactNode } from "react"
 
-import { cn } from "~qcs/utils";
+import { cn } from "~qcs/utils"
 
-import { CardTitleSkeleton, type CardTitleSkeletonProps } from "./CardTitle";
+import { CardTitleSkeleton, type CardTitleSkeletonProps } from "./CardTitle"
 
 /**
  * Card Component
  */
 
-export type CardProps = HTMLAttributes<HTMLDivElement>;
+export type CardProps = HTMLAttributes<HTMLDivElement>
 
 export const Card: FC<CardProps> = ({ children, className, ...props }) => {
   return (
-    <div
-      className={cn(
-        "flex flex-col rounded bg-background shadow-card",
-        className,
-      )}
-      {...props}
-    >
+    <div className={cn("flex flex-col rounded bg-background shadow-card", className)} {...props}>
       {children}
     </div>
-  );
-};
+  )
+}
 
 /**
  * Card Skeleton Component
  */
 
 export type CardSkeletonProps = CardTitleSkeletonProps & {
-  children?: ReactNode;
-};
+  children?: ReactNode
+}
 
-export const CardSkeleton: FC<CardSkeletonProps> = ({
-  className,
-  qty,
-  title,
-  children,
-}) => {
+export const CardSkeleton: FC<CardSkeletonProps> = ({ className, qty, title, children }) => {
   return (
     <Card className={className}>
       <CardTitleSkeleton qty={qty} title={title} />
 
       {children}
     </Card>
-  );
-};
+  )
+}

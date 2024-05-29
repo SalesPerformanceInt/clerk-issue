@@ -1,6 +1,6 @@
-import { logError } from "quickcheck-shared";
+import { logError } from "quickcheck-shared"
 
-import { graphql, type GQLProxyData, type GraphQLClient } from "~/graphql";
+import { graphql, type GQLProxyData, type GraphQLClient } from "~/graphql"
 
 export const GET_USER_BY_EMAIL = graphql(/* GraphQL */ `
   query GetUserByEmail($email: String!) {
@@ -8,27 +8,23 @@ export const GET_USER_BY_EMAIL = graphql(/* GraphQL */ `
       ...BaseUser
     }
   }
-`);
+`)
 
-export async function getUserByEmail(
-  this: GraphQLClient,
-  email: string,
-  _proxyData: GQLProxyData,
-) {
+export async function getUserByEmail(this: GraphQLClient, email: string, _proxyData: GQLProxyData) {
   try {
     const { data } = await this.query({
       query: GET_USER_BY_EMAIL,
       variables: { email },
       fetchPolicy: "no-cache",
-    });
+    })
 
-    const user = data?.user[0];
+    const user = data?.user[0]
 
-    if (!user) return null;
+    if (!user) return null
 
-    return user;
+    return user
   } catch (error) {
-    logError({ error, log: "getUserByEmail" });
-    return null;
+    logError({ error, log: "getUserByEmail" })
+    return null
   }
 }

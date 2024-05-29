@@ -1,12 +1,12 @@
-import { useTranslation } from "react-i18next";
+import { useTranslation } from "react-i18next"
 
-import { Card, ProgressItem } from "quickcheck-shared";
+import { Card, ProgressItem } from "quickcheck-shared"
 
-import { useEnrollmentContext } from "~/pages/Enrollment";
+import { useEnrollmentContext } from "~/pages/Enrollment"
 
 export const EnrollmentProgress = () => {
-  const { t } = useTranslation();
-  const { enrollment } = useEnrollmentContext();
+  const { t } = useTranslation()
+  const { enrollment } = useEnrollmentContext()
 
   return (
     <Card className="w-full">
@@ -20,5 +20,5 @@ export const EnrollmentProgress = () => {
         ariaLabel={t("enrollment.dashboard.progress_bar.aria_label")}
       />
     </Card>
-  );
-};
+  )
+}

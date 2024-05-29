@@ -1,6 +1,6 @@
-import { MatchedMap } from "quickcheck-shared";
+import { MatchedMap } from "quickcheck-shared"
 
-import type { EnrollmentBreakdown } from "../enrollment.types";
+import type { EnrollmentBreakdown } from "../enrollment.types"
 
 /**
  * Define Enrollment Action Type
@@ -13,24 +13,20 @@ export const EnrollmentActionType = {
   Delete: "EnrollmentDelete",
   Reject: "EnrollmentReject",
   Ignore: "EnrollmentIgnore",
-} as const;
+} as const
 
-export type EnrollmentActionType =
-  (typeof EnrollmentActionType)[keyof typeof EnrollmentActionType];
+export type EnrollmentActionType = (typeof EnrollmentActionType)[keyof typeof EnrollmentActionType]
 
 type EnrollmentValidation = {
-  type: EnrollmentActionType;
-  message?: string;
-};
+  type: EnrollmentActionType
+  message?: string
+}
 
 /**
  * Enrollment Validation Map
  */
 
-export const enrollmentValidationMap = new MatchedMap<
-  EnrollmentBreakdown,
-  EnrollmentValidation
->([
+export const enrollmentValidationMap = new MatchedMap<EnrollmentBreakdown, EnrollmentValidation>([
   /**
    * Prohibited Updates
    */
@@ -58,16 +54,14 @@ export const enrollmentValidationMap = new MatchedMap<
     { newEnrollment: true, startDateStatus: null, expirationDateStatus: null },
     {
       type: EnrollmentActionType.Reject,
-      message:
-        "Invalid Data: Cannot create an enrollment without a start date and expiration date",
+      message: "Invalid Data: Cannot create an enrollment without a start date and expiration date",
     },
   ],
   [
     { newEnrollment: true, startDateStatus: "New", expirationDateStatus: null },
     {
       type: EnrollmentActionType.Reject,
-      message:
-        "Invalid Data: Cannot create an enrollment without an expiration date",
+      message: "Invalid Data: Cannot create an enrollment without an expiration date",
     },
   ],
   [
@@ -126,4 +120,4 @@ export const enrollmentValidationMap = new MatchedMap<
    */
 
   ["_", { type: EnrollmentActionType.Reject, message: "Invalid Data" }],
-]);
+])

@@ -1,4 +1,4 @@
 export type BasicUserData = {
-  userId: string;
-  tenantId: string;
-};
+  userId: string
+  tenantId: string
+}

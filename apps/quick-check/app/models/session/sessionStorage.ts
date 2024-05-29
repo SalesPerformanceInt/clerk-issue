@@ -1,10 +1,10 @@
-import { createCookieSessionStorage } from "@vercel/remix";
+import { createCookieSessionStorage } from "@vercel/remix"
 
-import { invariant } from "quickcheck-shared";
+import { invariant } from "quickcheck-shared"
 
-import { SESSION_SECRET } from "~/utils/envs.server";
+import { SESSION_SECRET } from "~/utils/envs.server"
 
-invariant(SESSION_SECRET, "SESSION_SECRET must be set");
+invariant(SESSION_SECRET, "SESSION_SECRET must be set")
 
 /**
  * Session Definition
@@ -18,17 +18,14 @@ export enum SessionKeys {
 }
 
 export type SessionData = {
-  [SessionKeys.USER_ID]: string;
-  [SessionKeys.TENANT_ID]: string;
-  [SessionKeys.NOW]?: string;
-  [SessionKeys.ADMIN]?: boolean;
-};
-export type SessionFlashData = { error: string };
+  [SessionKeys.USER_ID]: string
+  [SessionKeys.TENANT_ID]: string
+  [SessionKeys.NOW]?: string
+  [SessionKeys.ADMIN]?: boolean
+}
+export type SessionFlashData = { error: string }
 
-export const sessionStorage = createCookieSessionStorage<
-  SessionData,
-  SessionFlashData
->({
+export const sessionStorage = createCookieSessionStorage<SessionData, SessionFlashData>({
   cookie: {
     name: "__session",
     httpOnly: true,
@@ -37,4 +34,4 @@ export const sessionStorage = createCookieSessionStorage<
     secrets: [SESSION_SECRET],
     secure: process.env.NODE_ENV === "production",
   },
-});
+})

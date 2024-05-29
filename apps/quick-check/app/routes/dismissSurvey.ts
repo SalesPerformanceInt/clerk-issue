@@ -1,26 +1,26 @@
-import { json, type ActionFunctionArgs } from "@vercel/remix";
+import { json, type ActionFunctionArgs } from "@vercel/remix"
 
-import { logError, simpleErrorResponse } from "quickcheck-shared";
+import { logError, simpleErrorResponse } from "quickcheck-shared"
 
-import { getUserApolloClientFromRequest } from "~/graphql";
+import { getUserApolloClientFromRequest } from "~/graphql"
 
-import { getToday } from "~/utils/date";
-import { SURVEY_ID } from "~/utils/envs.server";
-import { capturePosthogEvent } from "~/utils/posthog";
+import { getToday } from "~/utils/date"
+import { SURVEY_ID } from "~/utils/envs.server"
+import { capturePosthogEvent } from "~/utils/posthog"
 
-import { getUserDataFromSession } from "~/models/session";
+import { getUserDataFromSession } from "~/models/session"
 
 export const config = {
   maxDuration: 300,
-};
+}
 
 export const action = async ({ request }: ActionFunctionArgs) => {
   try {
-    const [now, userId] = await getUserDataFromSession(request);
-    const today = getToday(now);
+    const [now, userId] = await getUserDataFromSession(request)
+    const today = getToday(now)
 
-    const formData = await request.formData();
-    const sleep = formData.get("sleep") === "true";
+    const formData = await request.formData()
+    const sleep = formData.get("sleep") === "true"
 
     if (userId) {
       await capturePosthogEvent({
@@ -29,17 +29,17 @@ export const action = async ({ request }: ActionFunctionArgs) => {
         properties: {
           $survey_id: SURVEY_ID,
         },
-      });
+      })
     }
 
     if (sleep) {
-      const userApolloClient = await getUserApolloClientFromRequest(request);
-      await userApolloClient.updateUser({ survey_dismissed: today });
+      const userApolloClient = await getUserApolloClientFromRequest(request)
+      await userApolloClient.updateUser({ survey_dismissed: today })
     }
 
-    return json({}, { status: 200 });
+    return json({}, { status: 200 })
   } catch (error) {
-    logError({ error, log: "/dismissSurvey" });
-    return simpleErrorResponse(error);
+    logError({ error, log: "/dismissSurvey" })
+    return simpleErrorResponse(error)
   }
-};
+}

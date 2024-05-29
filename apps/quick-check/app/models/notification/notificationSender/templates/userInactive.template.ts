@@ -1,30 +1,24 @@
-import { invariant } from "quickcheck-shared";
+import { invariant } from "quickcheck-shared"
 
-import { generateNextQuestionForUser } from "~/models/user";
+import { generateNextQuestionForUser } from "~/models/user"
 
-import {
-  type NotificationTemplateProps,
-  type NotificationTemplateReturn,
-} from "../utils/notificationData";
+import { type NotificationTemplateProps, type NotificationTemplateReturn } from "../utils/notificationData"
 
 /**
  * User Inactive Notification Template
  */
 
 export type UserInactiveTemplateProps = {
-  notificationType: "UserInactive";
-};
+  notificationType: "UserInactive"
+}
 
 type UserInactiveTemplate = (
   props: UserInactiveTemplateProps & NotificationTemplateProps,
-) => Promise<NotificationTemplateReturn>;
+) => Promise<NotificationTemplateReturn>
 
-export const userInactiveTemplate: UserInactiveTemplate = async ({
-  request,
-  user,
-}) => {
-  const nextQuestion = await generateNextQuestionForUser(request, user.user_id);
-  invariant(nextQuestion, "Next question not found");
+export const userInactiveTemplate: UserInactiveTemplate = async ({ request, user }) => {
+  const nextQuestion = await generateNextQuestionForUser(request, user.user_id)
+  invariant(nextQuestion, "Next question not found")
 
   return {
     workflowId: { name: "UserInactive", id: user.user_id },
@@ -35,5 +29,5 @@ export const userInactiveTemplate: UserInactiveTemplate = async ({
         variantData: { uid: nextQuestion.id },
       },
     },
-  };
-};
+  }
+}

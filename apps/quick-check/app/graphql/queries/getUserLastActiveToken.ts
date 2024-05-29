@@ -1,16 +1,12 @@
-import { DateTime } from "luxon";
+import { DateTime } from "luxon"
 
-import { logError } from "quickcheck-shared";
+import { logError } from "quickcheck-shared"
 
-import { graphql, type GQLProxyUserData, type GraphQLClient } from "~/graphql";
+import { graphql, type GQLProxyUserData, type GraphQLClient } from "~/graphql"
 
 export const GET_USER_LAST_ACTIVE_TOKEN = graphql(/* GraphQL */ `
   query GetUserLastActiveToken($userId: uuid!) {
-    link_token(
-      where: { user_id: { _eq: $userId }, active: { _eq: true } }
-      order_by: { created_at: desc }
-      limit: 1
-    ) {
+    link_token(where: { user_id: { _eq: $userId }, active: { _eq: true } }, order_by: { created_at: desc }, limit: 1) {
       id
       user_id
       tenant_id
@@ -18,33 +14,28 @@ export const GET_USER_LAST_ACTIVE_TOKEN = graphql(/* GraphQL */ `
       active
     }
   }
-`);
+`)
 
-export async function getUserLastActiveToken(
-  this: GraphQLClient,
-  proxyData: GQLProxyUserData,
-) {
-  const { userId } = proxyData;
+export async function getUserLastActiveToken(this: GraphQLClient, proxyData: GQLProxyUserData) {
+  const { userId } = proxyData
 
   try {
     const { data } = await this.query({
       query: GET_USER_LAST_ACTIVE_TOKEN,
       variables: { userId },
-    });
+    })
 
-    const token = data.link_token[0];
+    const token = data.link_token[0]
 
-    if (!token) return null;
+    if (!token) return null
 
-    const { hours } = DateTime.now()
-      .diff(DateTime.fromISO(token.created_at), "hours")
-      .toObject();
+    const { hours } = DateTime.now().diff(DateTime.fromISO(token.created_at), "hours").toObject()
 
-    if (!hours || hours >= 24) return null;
+    if (!hours || hours >= 24) return null
 
-    return token;
+    return token
   } catch (error) {
-    logError({ error, log: "getUserLastActiveToken" });
-    return null;
+    logError({ error, log: "getUserLastActiveToken" })
+    return null
   }
 }

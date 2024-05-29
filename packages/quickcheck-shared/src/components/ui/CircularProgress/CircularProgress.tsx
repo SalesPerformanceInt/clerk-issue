@@ -1,21 +1,16 @@
-import React, { type FC } from "react";
-import { CircularProgressbarWithChildren } from "react-circular-progressbar";
+import React, { type FC } from "react"
+import { CircularProgressbarWithChildren } from "react-circular-progressbar"
 
-import { twMerge } from "tailwind-merge";
+import { twMerge } from "tailwind-merge"
 
 export type CircularProgressProps = {
-  className?: string;
-  text: string;
-  percentage: number;
-  pathClassName?: string;
-};
+  className?: string
+  text: string
+  percentage: number
+  pathClassName?: string
+}
 
-export const CircularProgress: FC<CircularProgressProps> = ({
-  className,
-  pathClassName,
-  text,
-  percentage,
-}) => {
+export const CircularProgress: FC<CircularProgressProps> = ({ className, pathClassName, text, percentage }) => {
   return (
     <CircularProgressbarWithChildren
       value={percentage}
@@ -30,5 +25,5 @@ export const CircularProgress: FC<CircularProgressProps> = ({
     >
       <p className="fill-primary-25 text-xxl font-semibold text-text">{text}</p>
     </CircularProgressbarWithChildren>
-  );
-};
+  )
+}

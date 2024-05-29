@@ -1,14 +1,14 @@
-import { type FC } from "react";
-import { useTranslation } from "react-i18next";
+import { type FC } from "react"
+import { useTranslation } from "react-i18next"
 
-import RichardsonLogomark from "~/images/richardson_logomark.svg";
-import { twMerge } from "tailwind-merge";
+import RichardsonLogomark from "~/images/richardson_logomark.svg"
+import { twMerge } from "tailwind-merge"
 
-import { useLandingContext } from "../LandingContext";
+import { useLandingContext } from "../LandingContext"
 
 export const LandingFooter: FC = () => {
-  const { t } = useTranslation();
-  const { footerRef } = useLandingContext();
+  const { t } = useTranslation()
+  const { footerRef } = useLandingContext()
 
   return (
     <footer
@@ -21,5 +21,5 @@ export const LandingFooter: FC = () => {
       <img src={RichardsonLogomark} className="h-6" />
       <div className="">{t("common.copyright")}</div>
     </footer>
-  );
-};
+  )
+}

@@ -1,13 +1,14 @@
-import React, { type FC } from "react";
+import React, { type FC } from "react"
 
-import { CalendarDay, type Week } from "~qcs/components";
-import { twMerge } from "tailwind-merge";
+import { twMerge } from "tailwind-merge"
+
+import { CalendarDay, type Week } from "~qcs/components"
 
 type CalendarWeekProps = {
-  week: Week;
-  now: string;
-  className?: string;
-};
+  week: Week
+  now: string
+  className?: string
+}
 
 const CalendarWeek: FC<CalendarWeekProps> = ({ week, now, className }) => (
   <div className={twMerge("flex justify-between", className)}>
@@ -15,6 +16,6 @@ const CalendarWeek: FC<CalendarWeekProps> = ({ week, now, className }) => (
       <CalendarDay key={day.date.toISODate()} day={day} now={now} />
     ))}
   </div>
-);
+)
 
-export { CalendarWeek };
+export { CalendarWeek }

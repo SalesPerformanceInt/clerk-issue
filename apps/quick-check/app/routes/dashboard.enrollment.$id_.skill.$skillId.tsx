@@ -1,39 +1,35 @@
-import type { LoaderFunctionArgs } from "@vercel/remix";
+import type { LoaderFunctionArgs } from "@vercel/remix"
 
-import { redirect, typeddefer, useTypedLoaderData } from "remix-typedjson";
+import { redirect, typeddefer, useTypedLoaderData } from "remix-typedjson"
 
-import { invariant } from "quickcheck-shared";
+import { invariant } from "quickcheck-shared"
 
-import { getEnrollmentSkillDashboard } from "~/models/enrollmentSkill";
+import { getEnrollmentSkillDashboard } from "~/models/enrollmentSkill"
 
-import { EnrollmentSkillDashboard } from "~/pages/EnrollmentSkillDashboard";
+import { EnrollmentSkillDashboard } from "~/pages/EnrollmentSkillDashboard"
 
 export const config = {
   maxDuration: 300,
-};
+}
 
 export const loader = async ({ params, request }: LoaderFunctionArgs) => {
   try {
-    const { id: enrollmentId, skillId } = params;
-    invariant(enrollmentId, "Enrollment ID not found");
-    invariant(skillId, "Skill ID not found");
+    const { id: enrollmentId, skillId } = params
+    invariant(enrollmentId, "Enrollment ID not found")
+    invariant(skillId, "Skill ID not found")
 
-    const enrollmentSkillDashboard = await getEnrollmentSkillDashboard(
-      request,
-      { enrollmentId, skillId },
-    );
+    const enrollmentSkillDashboard = await getEnrollmentSkillDashboard(request, { enrollmentId, skillId })
 
-    return typeddefer({ ...enrollmentSkillDashboard });
+    return typeddefer({ ...enrollmentSkillDashboard })
   } catch (error) {
-    throw redirect("/");
+    throw redirect("/")
   }
-};
+}
 
 export default function UserEnrollmentSkillPage() {
-  const { enrollmentSkillDashboardData, ...enrollmentSkillDashboard } =
-    useTypedLoaderData<typeof loader>();
+  const { enrollmentSkillDashboardData, ...enrollmentSkillDashboard } = useTypedLoaderData<typeof loader>()
 
-  if (!enrollmentSkillDashboardData) return redirect("/login");
+  if (!enrollmentSkillDashboardData) return redirect("/login")
 
   return (
     <EnrollmentSkillDashboard
@@ -42,5 +38,5 @@ export default function UserEnrollmentSkillPage() {
         ...enrollmentSkillDashboard,
       }}
     />
-  );
+  )
 }

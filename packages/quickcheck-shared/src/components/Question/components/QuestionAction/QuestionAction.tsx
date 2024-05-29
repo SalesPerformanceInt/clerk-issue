@@ -1,19 +1,19 @@
-import React, { type FC } from "react";
-import { useMeasure } from "react-use";
+import React, { type FC } from "react"
+import { useMeasure } from "react-use"
 
-import { activateBackground } from "~qcs/config/animations";
-import { motion } from "framer-motion";
-import { twMerge } from "tailwind-merge";
+import { activateBackground } from "~qcs/config/animations"
+import { motion } from "framer-motion"
+import { twMerge } from "tailwind-merge"
 
-import { useQuestionContext } from "~qcs/components/Question";
+import { useQuestionContext } from "~qcs/components/Question"
 
-import { QuestionActionButton } from "./QuestionActionButton";
-import { QuestionFeedback } from "./QuestionFeedback";
+import { QuestionActionButton } from "./QuestionActionButton"
+import { QuestionFeedback } from "./QuestionFeedback"
 
 export const QuestionAction: FC = () => {
-  const { offset, submitted } = useQuestionContext();
+  const { offset, submitted } = useQuestionContext()
 
-  const [ref, { height }] = useMeasure<HTMLDivElement>();
+  const [ref, { height }] = useMeasure<HTMLDivElement>()
 
   return (
     <>
@@ -32,17 +32,12 @@ export const QuestionAction: FC = () => {
           >
             <QuestionFeedback />
 
-            <div
-              className={twMerge(
-                "flex items-end justify-end",
-                offset && "justify-end",
-              )}
-            >
+            <div className={twMerge("flex items-end justify-end", offset && "justify-end")}>
               <QuestionActionButton />
             </div>
           </div>
         </div>
       </motion.div>
     </>
-  );
-};
+  )
+}

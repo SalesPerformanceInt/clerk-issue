@@ -1,6 +1,6 @@
-import { Preview } from "@storybook/react";
+import { Preview } from "@storybook/react"
 
-import i18n from "./i18next";
+import i18n from "./i18next"
 
 export const parameters: Preview = {
   // actions: { argTypesRegex: "^on[A-Z].*" },
@@ -19,4 +19,4 @@ export const parameters: Preview = {
   parameters: {
     i18n,
   },
-};
+}

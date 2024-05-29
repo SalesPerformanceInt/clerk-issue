@@ -1,90 +1,66 @@
-import { Suspense, useState, type FC } from "react";
-import { useTranslation } from "react-i18next";
-import { useNavigate } from "@remix-run/react";
+import { Suspense, useState, type FC } from "react"
+import { useTranslation } from "react-i18next"
+import { useNavigate } from "@remix-run/react"
 
-import { TypedAwait } from "remix-typedjson";
+import { TypedAwait } from "remix-typedjson"
 
-import {
-  Card,
-  CardSkeleton,
-  CardTitle,
-  ProgressItem,
-  type CardProps,
-} from "quickcheck-shared";
+import { Card, CardSkeleton, CardTitle, ProgressItem, type CardProps } from "quickcheck-shared"
 
-import type { UserDashboardActiveEnrollments } from "~/graphql";
+import type { UserDashboardActiveEnrollments } from "~/graphql"
 
-import { useUserDashboardContext } from "../context/UserDashboardContext";
+import { useUserDashboardContext } from "../context/UserDashboardContext"
 
 /**
  * Active Enrollments Suspense Component
  */
 
 type ActiveEnrollmentsSuspenseProps = {
-  activeEnrollmentsPromise: Promise<UserDashboardActiveEnrollments | null>;
-};
+  activeEnrollmentsPromise: Promise<UserDashboardActiveEnrollments | null>
+}
 
-export const ActiveEnrollmentsSuspense: FC<ActiveEnrollmentsSuspenseProps> = ({
-  activeEnrollmentsPromise,
-}) => {
+export const ActiveEnrollmentsSuspense: FC<ActiveEnrollmentsSuspenseProps> = ({ activeEnrollmentsPromise }) => {
   return (
-    <Suspense
-      fallback={
-        <CardSkeleton
-          className="flow h-36 w-full flex-grow p-6 md:w-1/2-gap-8"
-          qty
-          title
-        />
-      }
-    >
+    <Suspense fallback={<CardSkeleton className="flow h-36 w-full flex-grow p-6 md:w-1/2-gap-8" qty title />}>
       <TypedAwait resolve={activeEnrollmentsPromise}>
         {(activeEnrollments) => {
-          if (!activeEnrollments) return null;
+          if (!activeEnrollments) return null
 
-          return (
-            <ActiveEnrollmentsCard activeEnrollments={activeEnrollments} />
-          );
+          return <ActiveEnrollmentsCard activeEnrollments={activeEnrollments} />
         }}
       </TypedAwait>
     </Suspense>
-  );
-};
+  )
+}
 
 /**
  * Active Enrollments Card Component
  */
 
 type ActiveEnrollmentsCardProps = CardProps & {
-  activeEnrollments: UserDashboardActiveEnrollments;
-};
+  activeEnrollments: UserDashboardActiveEnrollments
+}
 
-const ActiveEnrollmentsCard: FC<ActiveEnrollmentsCardProps> = ({
-  activeEnrollments,
-}) => {
-  const [enrollmentNavigation, setEnrollmentNavigation] = useState<string>();
+const ActiveEnrollmentsCard: FC<ActiveEnrollmentsCardProps> = ({ activeEnrollments }) => {
+  const [enrollmentNavigation, setEnrollmentNavigation] = useState<string>()
 
-  const { t } = useTranslation();
-  const navigate = useNavigate();
+  const { t } = useTranslation()
+  const navigate = useNavigate()
 
-  if (!activeEnrollments.length) return null;
+  if (!activeEnrollments.length) return null
 
   const goToEnrollment = (id: string) => {
-    setEnrollmentNavigation(id);
+    setEnrollmentNavigation(id)
 
-    navigate(`/dashboard/enrollment/${id}`);
-  };
+    navigate(`/dashboard/enrollment/${id}`)
+  }
 
   const {
     userDashboardData: { show_leaderboard },
-  } = useUserDashboardContext();
+  } = useUserDashboardContext()
 
   return (
     <Card className="flow h-fit w-full flex-grow overflow-hidden md:w-1/2-gap-8">
-      <CardTitle
-        qty={activeEnrollments.length}
-        title={t("user.dashboard.active_enrollments")}
-        className="p-6 pb-0"
-      />
+      <CardTitle qty={activeEnrollments.length} title={t("user.dashboard.active_enrollments")} className="p-6 pb-0" />
 
       {activeEnrollments.map((enrollment) => (
         <ProgressItem
@@ -99,12 +75,10 @@ const ActiveEnrollmentsCard: FC<ActiveEnrollmentsCardProps> = ({
             retired: enrollment.retired.aggregate?.count ?? 0,
             total: enrollment.total.aggregate?.count ?? 0,
           }}
-          ariaLabel={t(
-            "user.dashboard.active_enrollments.progress_bar.aria_label",
-          )}
+          ariaLabel={t("user.dashboard.active_enrollments.progress_bar.aria_label")}
           loading={enrollmentNavigation === enrollment.id}
         />
       ))}
     </Card>
-  );
-};
+  )
+}

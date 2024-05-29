@@ -1,33 +1,24 @@
-import { type FC } from "react";
-import { useTranslation } from "react-i18next";
+import { type FC } from "react"
+import { useTranslation } from "react-i18next"
 
-import { ResponsiveContainer } from "quickcheck-shared";
+import { ResponsiveContainer } from "quickcheck-shared"
 
 import {
   EnrollmentHeader,
   EnrollmentMobileAction,
   EnrollmentOverviewSection,
   EnrollmentSkillsSection,
-} from "./components";
+} from "./components"
 
-import {
-  EnrollmentContextProvider,
-  type EnrollmentContextProps,
-} from "./context/EnrollmentContext";
+import { EnrollmentContextProvider, type EnrollmentContextProps } from "./context/EnrollmentContext"
 
 interface EnrollmentProps extends EnrollmentContextProps {}
 
-export const Enrollment: FC<EnrollmentProps> = ({
-  enrollment,
-  leaderboard,
-}) => {
-  const { t } = useTranslation();
+export const Enrollment: FC<EnrollmentProps> = ({ enrollment, leaderboard }) => {
+  const { t } = useTranslation()
 
   return (
-    <EnrollmentContextProvider
-      enrollment={enrollment}
-      leaderboard={leaderboard}
-    >
+    <EnrollmentContextProvider enrollment={enrollment} leaderboard={leaderboard}>
       <EnrollmentHeader />
 
       <ResponsiveContainer className="p-4" asChild>
@@ -39,5 +30,5 @@ export const Enrollment: FC<EnrollmentProps> = ({
 
       <EnrollmentMobileAction />
     </EnrollmentContextProvider>
-  );
-};
+  )
+}

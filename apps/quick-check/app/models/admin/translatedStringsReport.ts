@@ -1,19 +1,17 @@
-import { getContentStackClient } from "~/contentstack.server";
-import { keys, mergeAll } from "remeda";
+import { getContentStackClient } from "~/contentstack.server"
+import { keys, mergeAll } from "remeda"
 
-import { SupportedLanguage, supportedLngs } from "quickcheck-shared";
+import { SupportedLanguage, supportedLngs } from "quickcheck-shared"
 
-import { DEFAULT_LANGUAGE } from "~/contentstack";
+import { DEFAULT_LANGUAGE } from "~/contentstack"
 
-import { QC_CONTENTSTACK_TRANSLATION_ID } from "~/utils/envs.server";
+import { QC_CONTENTSTACK_TRANSLATION_ID } from "~/utils/envs.server"
 
 export const getTranslatedStringsReport = async () => {
   const translationPromises = supportedLngs.map(async (language) => {
-    const contentStack = getContentStackClient(language);
+    const contentStack = getContentStackClient(language)
 
-    const translation = await contentStack.getTranslatedStrings(
-      QC_CONTENTSTACK_TRANSLATION_ID,
-    );
+    const translation = await contentStack.getTranslatedStrings(QC_CONTENTSTACK_TRANSLATION_ID)
 
     const squashed = translation?.translations.value.reduce(
       (acc, { key, value }) => ({
@@ -21,21 +19,18 @@ export const getTranslatedStringsReport = async () => {
         [key]: value,
       }),
       {} as Record<string, string>,
-    );
+    )
 
     return {
       [language]: squashed ?? null,
-    };
-  });
+    }
+  })
 
-  const translations = await Promise.all(translationPromises);
+  const translations = await Promise.all(translationPromises)
 
-  const merged = mergeAll(translations) as Record<
-    SupportedLanguage,
-    Record<string, string>
-  >;
+  const merged = mergeAll(translations) as Record<SupportedLanguage, Record<string, string>>
 
-  const translationKeys = keys(merged[DEFAULT_LANGUAGE]).sort();
+  const translationKeys = keys(merged[DEFAULT_LANGUAGE]).sort()
 
   const rows = translationKeys.map((key) => ({
     key,
@@ -48,10 +43,10 @@ export const getTranslatedStringsReport = async () => {
     "it-it": merged["it-it"]?.[key] ?? null,
     "tr-tr": merged["tr-tr"]?.[key] ?? null,
     "ja-jp": merged["ja-jp"]?.[key] ?? null,
-  }));
+  }))
 
-  return rows;
-};
+  return rows
+}
 
 export const translatedStringsHeaders = [
   {
@@ -94,4 +89,4 @@ export const translatedStringsHeaders = [
     key: "ja-jp",
     label: "Japanese (ja-jp)",
   },
-];
+]

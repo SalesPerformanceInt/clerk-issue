@@ -1,13 +1,13 @@
-import { type FC } from "react";
+import { type FC } from "react"
 
-import { useOutletContext } from "~/utils/outletContext";
+import { useOutletContext } from "~/utils/outletContext"
 
-import { UserRow } from "./components/UserRow";
+import { UserRow } from "./components/UserRow"
 
-import type { UserTableProps } from "./UsersTable.types";
+import type { UserTableProps } from "./UsersTable.types"
 
 export const UsersTable: FC<UserTableProps> = ({ users, link }) => {
-  const { isAdminEnabled } = useOutletContext();
+  const { isAdminEnabled } = useOutletContext()
 
   return (
     <table className="min-w-full table-auto text-left text-sm">
@@ -57,5 +57,5 @@ export const UsersTable: FC<UserTableProps> = ({ users, link }) => {
         ))}
       </tbody>
     </table>
-  );
-};
+  )
+}

@@ -1,1 +1,1 @@
-export * from "./AccelerateButton";
+export * from "./AccelerateButton"

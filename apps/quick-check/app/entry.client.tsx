@@ -1,19 +1,19 @@
-import React, { startTransition, StrictMode } from "react";
-import ReactDOM from "react-dom";
-import { hydrateRoot } from "react-dom/client";
-import { I18nextProvider, initReactI18next } from "react-i18next";
-import { RemixBrowser } from "@remix-run/react";
+import React, { startTransition, StrictMode } from "react"
+import ReactDOM from "react-dom"
+import { hydrateRoot } from "react-dom/client"
+import { I18nextProvider, initReactI18next } from "react-i18next"
+import { RemixBrowser } from "@remix-run/react"
 
-import i18next from "i18next";
-import LanguageDetector from "i18next-browser-languagedetector";
-import Backend, { HttpBackendOptions } from "i18next-http-backend";
-import { getInitialNamespaces } from "remix-i18next";
+import i18next from "i18next"
+import LanguageDetector from "i18next-browser-languagedetector"
+import Backend, { HttpBackendOptions } from "i18next-http-backend"
+import { getInitialNamespaces } from "remix-i18next"
 
-import { getBackendOptions, i18nConfig } from "quickcheck-shared";
+import { getBackendOptions, i18nConfig } from "quickcheck-shared"
 
 if (process.env.NODE_ENV !== "production") {
-  const axe = require("@axe-core/react");
-  axe(React, ReactDOM, 1000);
+  const axe = require("@axe-core/react")
+  axe(React, ReactDOM, 1000)
 }
 
 async function hydrate() {
@@ -30,7 +30,7 @@ async function hydrate() {
         order: ["htmlTag"],
         caches: [],
       },
-    });
+    })
 
   startTransition(() => {
     hydrateRoot(
@@ -40,14 +40,14 @@ async function hydrate() {
           <RemixBrowser />
         </StrictMode>
       </I18nextProvider>,
-    );
-  });
+    )
+  })
 }
 
 if (window.requestIdleCallback) {
-  window.requestIdleCallback(hydrate);
+  window.requestIdleCallback(hydrate)
 } else {
   // Safari doesn't support requestIdleCallback
   // https://caniuse.com/requestidlecallback
-  window.setTimeout(hydrate, 1);
+  window.setTimeout(hydrate, 1)
 }

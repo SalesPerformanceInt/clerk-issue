@@ -1,20 +1,14 @@
-import { waitUntil } from "@vercel/functions";
+import { waitUntil } from "@vercel/functions"
 
-import {
-  getAdminApolloClientFromRequest,
-  type NotificationUserEnrollmentFragment,
-} from "~/graphql";
+import { getAdminApolloClientFromRequest, type NotificationUserEnrollmentFragment } from "~/graphql"
 
-import { sendNotification } from "~/models/notification/notificationSender";
-import { getAdminDataFromFromSession } from "~/models/session";
+import { sendNotification } from "~/models/notification/notificationSender"
+import { getAdminDataFromFromSession } from "~/models/session"
 
-export const completeEnrollmentAndNotify = async (
-  request: Request,
-  enrollment: NotificationUserEnrollmentFragment,
-) => {
-  const [now] = await getAdminDataFromFromSession(request);
+export const completeEnrollmentAndNotify = async (request: Request, enrollment: NotificationUserEnrollmentFragment) => {
+  const [now] = await getAdminDataFromFromSession(request)
 
-  const adminApolloClient = await getAdminApolloClientFromRequest(request);
+  const adminApolloClient = await getAdminApolloClientFromRequest(request)
 
   waitUntil(
     sendNotification({
@@ -26,7 +20,7 @@ export const completeEnrollmentAndNotify = async (
         notificationEnrollment: enrollment,
       },
     }),
-  );
+  )
 
   waitUntil(
     adminApolloClient.createEvent(
@@ -41,5 +35,5 @@ export const completeEnrollmentAndNotify = async (
       },
       { userId: enrollment.user_id, tenantId: enrollment.user.tenant_id },
     ),
-  );
-};
+  )
+}

@@ -1,4 +1,4 @@
-import React, { FC } from "react";
+import React, { FC } from "react"
 
 import {
   Body,
@@ -13,21 +13,21 @@ import {
   Section,
   Tailwind,
   Text,
-} from "@react-email/components";
-import parse from "html-react-parser";
-import { TFunction } from "i18next";
+} from "@react-email/components"
+import parse from "html-react-parser"
+import { TFunction } from "i18next"
 
-import { theme } from "../../tailwind.config";
+import { theme } from "../../tailwind.config"
 
 interface QuickcheckBasicEmailProps {
-  t: TFunction;
-  greetingsText: string;
-  bodyText: string;
+  t: TFunction
+  greetingsText: string
+  bodyText: string
   button: {
-    text: string;
-    url: string;
-  };
-  footerText?: string;
+    text: string
+    url: string
+  }
+  footerText?: string
 }
 
 export const QuickcheckBasicEmail: FC<QuickcheckBasicEmailProps> = ({
@@ -72,35 +72,22 @@ export const QuickcheckBasicEmail: FC<QuickcheckBasicEmailProps> = ({
               </Row>
             </Section>
             <Section>
-              <Text className="m-0 mt-2 text-base text-text">
-                {greetingsText}
-              </Text>
-              <Text className="m-0 mt-2 text-base text-text">
-                {parse(bodyText)}
-              </Text>
+              <Text className="m-0 mt-2 text-base text-text">{greetingsText}</Text>
+              <Text className="m-0 mt-2 text-base text-text">{parse(bodyText)}</Text>
             </Section>
-            <Section
-              className="mt-4 w-min rounded-sm bg-primary px-6 py-2"
-              align="left"
-              width="quickcheck"
-            >
-              <Button
-                href={button.url}
-                className="whitespace-nowrap text-base leading-[0] text-contrast no-underline"
-              >
+            <Section className="mt-4 w-min rounded-sm bg-primary px-6 py-2" align="left" width="quickcheck">
+              <Button href={button.url} className="whitespace-nowrap text-base leading-[0] text-contrast no-underline">
                 {button.text}
               </Button>
             </Section>
             {footerText && (
               <Section className="mt-4">
-                <Text className="text-base text-text-25">
-                  {parse(footerText)}
-                </Text>
+                <Text className="text-base text-text-25">{parse(footerText)}</Text>
               </Section>
             )}
           </Container>
         </Body>
       </Html>
     </Tailwind>
-  );
-};
+  )
+}

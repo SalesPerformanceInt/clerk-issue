@@ -1,2 +1,2 @@
-export * from "./MultipleChoice";
-export * from "./MultipleChoice.types";
+export * from "./MultipleChoice"
+export * from "./MultipleChoice.types"

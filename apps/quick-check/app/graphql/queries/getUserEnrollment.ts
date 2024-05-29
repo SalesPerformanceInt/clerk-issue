@@ -1,15 +1,10 @@
-import { getContentStackClient } from "~/contentstack.server";
+import { getContentStackClient } from "~/contentstack.server"
 
-import { logError } from "quickcheck-shared";
+import { logError } from "quickcheck-shared"
 
-import {
-  flattenUserActiveQuestionsData,
-  graphql,
-  type GQLProxyData,
-  type GraphQLClient,
-} from "~/graphql";
+import { flattenUserActiveQuestionsData, graphql, type GQLProxyData, type GraphQLClient } from "~/graphql"
 
-import { getToday } from "~/utils/date";
+import { getToday } from "~/utils/date"
 
 export const GET_USER_ENROLLMENT = graphql(/* GraphQL */ `
   query GetUserEnrollment($id: uuid!, $today: date!) {
@@ -31,47 +26,40 @@ export const GET_USER_ENROLLMENT = graphql(/* GraphQL */ `
       }
     }
   }
-`);
+`)
 
-export async function getUserEnrollment(
-  this: GraphQLClient,
-  id: string,
-  proxyData: GQLProxyData,
-) {
-  const { now } = proxyData;
+export async function getUserEnrollment(this: GraphQLClient, id: string, proxyData: GQLProxyData) {
+  const { now } = proxyData
 
-  const today = getToday(now);
+  const today = getToday(now)
 
   try {
     const { data } = await this.query({
       query: GET_USER_ENROLLMENT,
       variables: { id, today },
       fetchPolicy: "no-cache",
-    });
+    })
 
-    const enrollment = data?.user_enrollment_by_pk;
+    const enrollment = data?.user_enrollment_by_pk
 
-    if (!enrollment) return null;
+    if (!enrollment) return null
 
-    const language = enrollment.user.language_preference;
-    const contentStack = getContentStackClient(language);
+    const language = enrollment.user.language_preference
+    const contentStack = getContentStackClient(language)
 
     const user_questions = await Promise.all(
       enrollment.user_questions.map(async (user_question) => {
-        const taxonomy = await contentStack.getTaxonomy(
-          user_question.taxonomy_id,
-        );
+        const taxonomy = await contentStack.getTaxonomy(user_question.taxonomy_id)
         return {
           ...user_question,
           taxonomy,
           taxonomy_name: taxonomy?.display_name ?? "",
-        };
+        }
       }),
-    );
+    )
 
-    const taxonomy = await contentStack.getTaxonomy(enrollment.taxonomy_id);
-    const expired =
-      !!enrollment.expiration_date && today > enrollment.expiration_date;
+    const taxonomy = await contentStack.getTaxonomy(enrollment.taxonomy_id)
+    const expired = !!enrollment.expiration_date && today > enrollment.expiration_date
 
     return {
       ...enrollment,
@@ -79,13 +67,11 @@ export async function getUserEnrollment(
       taxonomy,
       expired,
       ...flattenUserActiveQuestionsData(enrollment.user),
-    };
+    }
   } catch (error) {
-    logError({ error, log: "getUserEnrollment" });
-    return null;
+    logError({ error, log: "getUserEnrollment" })
+    return null
   }
 }
 
-export type EnrollmentData = NonNullable<
-  Awaited<ReturnType<typeof getUserEnrollment>>
->;
+export type EnrollmentData = NonNullable<Awaited<ReturnType<typeof getUserEnrollment>>>

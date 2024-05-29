@@ -1,6 +1,6 @@
-import type { Options } from "tsup";
+import type { Options } from "tsup"
 
-const env = process.env.NODE_ENV;
+const env = process.env.NODE_ENV
 
 export const tsup: Options = {
   dts: true,
@@ -16,4 +16,4 @@ export const tsup: Options = {
   format: ["cjs", "esm"],
   entry: ["src/index.tsx"],
   tsconfig: "tsconfig.build.json",
-};
+}

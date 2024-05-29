@@ -1,27 +1,18 @@
-import { useCallback, useEffect, useMemo } from "react";
+import { useCallback, useEffect, useMemo } from "react"
 
-import { useQuestionContext } from "~qcs/components/Question";
-import { compact, find } from "remeda";
+import { compact, find } from "remeda"
 
-import type { MultipleChoiceProps } from "../MultipleChoice";
-import type { OnMCChoiceSelect } from "../MultipleChoice.types";
+import { useQuestionContext } from "~qcs/components/Question"
 
-type UseMultipleChoiceProps = Pick<MultipleChoiceProps, "mcquestion">;
+import type { MultipleChoiceProps } from "../MultipleChoice"
+import type { OnMCChoiceSelect } from "../MultipleChoice.types"
+
+type UseMultipleChoiceProps = Pick<MultipleChoiceProps, "mcquestion">
 
 export const useMultipleChoices = ({ mcquestion }: UseMultipleChoiceProps) => {
-  const {
-    submitted,
-    onSelection,
-    onGoBackClick,
-    selected,
-    hasSelected,
-    initialChoiceId,
-  } = useQuestionContext();
+  const { submitted, onSelection, onGoBackClick, selected, hasSelected, initialChoiceId } = useQuestionContext()
 
-  const choices = useMemo(
-    () => compact(mcquestion.choices),
-    [mcquestion.choices],
-  );
+  const choices = useMemo(() => compact(mcquestion.choices), [mcquestion.choices])
 
   const onChoiceSelect: OnMCChoiceSelect = useCallback(
     ({ choice }) => {
@@ -30,21 +21,20 @@ export const useMultipleChoices = ({ mcquestion }: UseMultipleChoiceProps) => {
         feedback: choice.feedback,
         feedbackLiveEdit: choice.$?.feedback,
         value: choice._metadata.uid,
-      });
+      })
     },
     [onSelection],
-  );
+  )
 
   const initialChoice = useMemo(
-    () =>
-      find(choices, ({ choice }) => choice._metadata.uid === initialChoiceId),
+    () => find(choices, ({ choice }) => choice._metadata.uid === initialChoiceId),
     [initialChoiceId, choices],
-  );
+  )
 
   useEffect(() => {
-    if (initialChoice) onChoiceSelect(initialChoice);
+    if (initialChoice) onChoiceSelect(initialChoice)
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [])
 
   return {
     submitted,
@@ -53,5 +43,5 @@ export const useMultipleChoices = ({ mcquestion }: UseMultipleChoiceProps) => {
     choices,
     selected,
     hasSelected,
-  };
-};
+  }
+}

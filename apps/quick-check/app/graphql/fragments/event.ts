@@ -1,4 +1,4 @@
-import { graphql } from "~/graphql";
+import { graphql } from "~/graphql"
 
 export const BaseEvent = graphql(/* GraphQL */ `
   fragment BaseEvent on event {
@@ -9,4 +9,4 @@ export const BaseEvent = graphql(/* GraphQL */ `
     data
     type
   }
-`);
+`)

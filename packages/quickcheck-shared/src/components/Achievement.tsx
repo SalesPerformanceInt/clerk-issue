@@ -1,24 +1,17 @@
-import React, { type FC } from "react";
-import { useTranslation } from "react-i18next";
+import React, { type FC } from "react"
+import { useTranslation } from "react-i18next"
 
-import {
-  CircularProgress,
-  type CircularProgressProps,
-} from "~qcs/components/ui";
+import { CircularProgress, type CircularProgressProps } from "~qcs/components/ui"
 
-import { Tooltip, type TooltipProps } from "./Tooltip";
+import { Tooltip, type TooltipProps } from "./Tooltip"
 
 type AchievementProps = Omit<CircularProgressProps, "className"> & {
-  label: string;
-  tooltip?: TooltipProps["texts"];
-};
+  label: string
+  tooltip?: TooltipProps["texts"]
+}
 
-export const Achievement: FC<AchievementProps> = ({
-  label,
-  tooltip,
-  ...props
-}) => {
-  const { t } = useTranslation();
+export const Achievement: FC<AchievementProps> = ({ label, tooltip, ...props }) => {
+  const { t } = useTranslation()
 
   return (
     <div className="max-w-18">
@@ -27,13 +20,8 @@ export const Achievement: FC<AchievementProps> = ({
       <div className="mt-2 text-center text-2xs font-semibold uppercase leading-4">
         {label}
 
-        {tooltip && (
-          <Tooltip
-            texts={tooltip}
-            ariaLabel={t("common.achievement.aria_label")}
-          />
-        )}
+        {tooltip && <Tooltip texts={tooltip} ariaLabel={t("common.achievement.aria_label")} />}
       </div>
     </div>
-  );
-};
+  )
+}

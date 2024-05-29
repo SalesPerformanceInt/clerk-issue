@@ -1,27 +1,18 @@
-import { invariant, logError } from "quickcheck-shared";
+import { invariant, logError } from "quickcheck-shared"
 
-import { graphql, type GQLProxyUserData, type GraphQLClient } from "~/graphql";
-import { GET_USER } from "~/graphql/queries";
+import { graphql, type GQLProxyUserData, type GraphQLClient } from "~/graphql"
+import { GET_USER } from "~/graphql/queries"
 
 export const TOGGLE_USER_DAILY_ENAIL_ENABLED = graphql(/* GraphQL */ `
-  mutation ToggleUserDailyEmailEnabled(
-    $userId: uuid!
-    $daily_email_enabled: Boolean
-  ) {
-    update_user_by_pk(
-      pk_columns: { user_id: $userId }
-      _set: { daily_email_enabled: $daily_email_enabled }
-    ) {
+  mutation ToggleUserDailyEmailEnabled($userId: uuid!, $daily_email_enabled: Boolean) {
+    update_user_by_pk(pk_columns: { user_id: $userId }, _set: { daily_email_enabled: $daily_email_enabled }) {
       ...BaseUser
     }
   }
-`);
+`)
 
-export async function toggleUserDailyEmailEnabled(
-  this: GraphQLClient,
-  proxyData: GQLProxyUserData,
-) {
-  const { userId } = proxyData;
+export async function toggleUserDailyEmailEnabled(this: GraphQLClient, proxyData: GQLProxyUserData) {
+  const { userId } = proxyData
 
   try {
     const {
@@ -29,11 +20,11 @@ export async function toggleUserDailyEmailEnabled(
     } = await this.query({
       query: GET_USER,
       variables: { userId },
-    });
+    })
 
-    invariant(user_by_pk, "No user found");
+    invariant(user_by_pk, "No user found")
 
-    const daily_email_enabled = !user_by_pk?.daily_email_enabled;
+    const daily_email_enabled = !user_by_pk?.daily_email_enabled
 
     const { data } = await this.mutate({
       mutation: TOGGLE_USER_DAILY_ENAIL_ENABLED,
@@ -41,11 +32,11 @@ export async function toggleUserDailyEmailEnabled(
       optimisticResponse: {
         update_user_by_pk: { ...user_by_pk, daily_email_enabled },
       },
-    });
+    })
 
-    return data?.update_user_by_pk?.daily_email_enabled ?? null;
+    return data?.update_user_by_pk?.daily_email_enabled ?? null
   } catch (error) {
-    logError({ error, log: "toggleUserDailyEmailEnabled" });
-    return null;
+    logError({ error, log: "toggleUserDailyEmailEnabled" })
+    return null
   }
 }

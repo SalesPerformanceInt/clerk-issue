@@ -1,1 +1,1 @@
-export * from "./MobileCarouselCard";
+export * from "./MobileCarouselCard"

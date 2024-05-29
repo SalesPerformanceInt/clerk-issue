@@ -1,18 +1,15 @@
-import React from "react";
+import React from "react"
 
-import type { Decorator } from "@storybook/react";
+import type { Decorator } from "@storybook/react"
 
-import type { EnrollmentSkillData } from "./types";
+import type { EnrollmentSkillData } from "./types"
 
-export const EnrollmentSkillCardDecorator: Decorator<EnrollmentSkillData> = (
-  Story,
-  { args },
-) => {
+export const EnrollmentSkillCardDecorator: Decorator<EnrollmentSkillData> = (Story, { args }) => {
   return (
     <Story
       args={{
         ...args,
       }}
     />
-  );
-};
+  )
+}

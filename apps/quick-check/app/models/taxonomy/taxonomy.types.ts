@@ -1,3 +1,3 @@
-import type { DataObj } from "quickcheck-shared";
+import type { DataObj } from "quickcheck-shared"
 
-export type TaxonomyDataObj = DataObj & { title: string; uid: string };
+export type TaxonomyDataObj = DataObj & { title: string; uid: string }

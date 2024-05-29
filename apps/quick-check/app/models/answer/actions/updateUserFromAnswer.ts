@@ -1,11 +1,11 @@
-import { waitUntil } from "@vercel/functions";
+import { waitUntil } from "@vercel/functions"
 
-import { getUserApolloClientFromRequest } from "~/graphql";
+import { getUserApolloClientFromRequest } from "~/graphql"
 
-import { completeEnrollmentAndNotify } from "~/models/enrollment/actions/completeEnrollmentAndNotify";
+import { completeEnrollmentAndNotify } from "~/models/enrollment/actions/completeEnrollmentAndNotify"
 
-import type { SaveAnswerData } from "../answer.type";
-import { getRetiredOn } from "../handlers/retireAnswer";
+import type { SaveAnswerData } from "../answer.type"
+import { getRetiredOn } from "../handlers/retireAnswer"
 
 /**
  * Update User From Answer
@@ -15,28 +15,25 @@ export const updateUserFromAnswer = async (
   request: Request,
   { userQuestion, reviewedAnswer, userQuestionNextActiveDate }: SaveAnswerData,
 ) => {
-  const userApolloClient = await getUserApolloClientFromRequest(request);
+  const userApolloClient = await getUserApolloClientFromRequest(request)
 
-  const retiredOn = getRetiredOn(userQuestion, reviewedAnswer);
+  const retiredOn = getRetiredOn(userQuestion, reviewedAnswer)
 
-  const updatedUserQuestion = await userApolloClient.updateUserQuestion(
-    userQuestion.id,
-    {
-      active_on: userQuestionNextActiveDate,
-      retired_on: retiredOn,
-      latest_review_gap: reviewedAnswer.latestReviewGap,
-      difficulty: reviewedAnswer.difficulty,
-      streak: reviewedAnswer.streak,
-      last_answered_on: reviewedAnswer.answerDate,
-    },
-  );
+  const updatedUserQuestion = await userApolloClient.updateUserQuestion(userQuestion.id, {
+    active_on: userQuestionNextActiveDate,
+    retired_on: retiredOn,
+    latest_review_gap: reviewedAnswer.latestReviewGap,
+    difficulty: reviewedAnswer.difficulty,
+    streak: reviewedAnswer.streak,
+    last_answered_on: reviewedAnswer.answerDate,
+  })
 
   const questionEventData = {
     enrollment_id: userQuestion.user_enrollment.id,
     question_id: userQuestion.id,
     taxonomy_id: userQuestion.user_enrollment.taxonomy_id,
     attempts: updatedUserQuestion?.attempts.aggregate?.count ?? 0,
-  };
+  }
 
   if (retiredOn) {
     waitUntil(
@@ -44,23 +41,22 @@ export const updateUserFromAnswer = async (
         type: "QuestionRetired",
         data: { ...questionEventData },
       }),
-    );
+    )
   } else {
     waitUntil(
       userApolloClient.createEvent({
         type: "QuestionScheduled",
         data: { ...questionEventData, scheduled: userQuestionNextActiveDate },
       }),
-    );
+    )
   }
 
-  const updatedEnrollment = await userApolloClient.updateUserEnrollment(
-    userQuestion.user_enrollment.id,
-    { inc: { score: reviewedAnswer.score } },
-  );
+  const updatedEnrollment = await userApolloClient.updateUserEnrollment(userQuestion.user_enrollment.id, {
+    inc: { score: reviewedAnswer.score },
+  })
 
   if (updatedEnrollment?.unretired_questions.aggregate?.count === 0) {
-    waitUntil(completeEnrollmentAndNotify(request, updatedEnrollment));
+    waitUntil(completeEnrollmentAndNotify(request, updatedEnrollment))
   }
 
   waitUntil(
@@ -74,7 +70,7 @@ export const updateUserFromAnswer = async (
         rank: updatedEnrollment?.rank ?? 0,
       },
     }),
-  );
+  )
 
-  return updatedEnrollment;
-};
+  return updatedEnrollment
+}

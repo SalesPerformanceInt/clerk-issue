@@ -1,59 +1,50 @@
-import type { NotificationWorkflowProps } from "@salesperformanceint/notification-service-js";
-import type { StrictOmit } from "ts-essentials";
+import type { NotificationWorkflowProps } from "@salesperformanceint/notification-service-js"
+import type { StrictOmit } from "ts-essentials"
 
-import type { RestrictQuestionItemVariant } from "quickcheck-shared";
+import type { RestrictQuestionItemVariant } from "quickcheck-shared"
 
-import type { QuestionItem, Taxon } from "~qcs/contentstack";
-import type { GetUserEmailData } from "~/graphql";
+import type { QuestionItem, Taxon } from "~qcs/contentstack"
+import type { GetUserEmailData } from "~/graphql"
 
-import type {
-  Schedule,
-  WorkflowID,
-} from "~/models/notification/notificationService";
+import type { Schedule, WorkflowID } from "~/models/notification/notificationService"
 
-import type { GetLoginDataFromUserProps } from "./notificationUserData";
+import type { GetLoginDataFromUserProps } from "./notificationUserData"
 
 /**
  * Notification Data Types
  */
 
-export type NotificationSharedData = Pick<
-  NotificationWorkflowProps["notificationData"],
-  "loginUrl" | "userData"
-> & { schedule: Schedule };
+export type NotificationSharedData = Pick<NotificationWorkflowProps["notificationData"], "loginUrl" | "userData"> & {
+  schedule: Schedule
+}
 
 export type NotificationTemplateData = StrictOmit<
   NotificationWorkflowProps["notificationData"],
   "loginUrl" | "userData"
 > & {
-  workflowId: WorkflowID;
-};
+  workflowId: WorkflowID
+}
 
-type NotificationTemplateContentData = StrictOmit<
-  NotificationTemplateData,
-  "notificationType" | "workflowId"
->;
+type NotificationTemplateContentData = StrictOmit<NotificationTemplateData, "notificationType" | "workflowId">
 
 /**
  * Notification Template Fn
  */
 
-export type NotificationTemplateProps = GetLoginDataFromUserProps;
-export type NotificationTemplateReturn = NotificationTemplateData;
+export type NotificationTemplateProps = GetLoginDataFromUserProps
+export type NotificationTemplateReturn = NotificationTemplateData
 
-export type NotificationTemplateFn = (
-  props: NotificationTemplateProps,
-) => Promise<NotificationTemplateReturn>;
+export type NotificationTemplateFn = (props: NotificationTemplateProps) => Promise<NotificationTemplateReturn>
 
 /**
  * Notification Shared Data
  */
 
 type PrepareNotificationSharedDataProps = {
-  user: GetUserEmailData;
-  loginUrl: string;
-  schedule?: Schedule;
-};
+  user: GetUserEmailData
+  loginUrl: string
+  schedule?: Schedule
+}
 
 export const prepareNotificationSharedData = ({
   user,
@@ -69,15 +60,15 @@ export const prepareNotificationSharedData = ({
     email: user.email,
     language: user.language_preference,
   },
-});
+})
 
 /**
  * Notification Template Enrollment Data
  */
 
 type PrepareNotificationTemplateEnrollmentDataProps = {
-  enrollment: Taxon;
-};
+  enrollment: Taxon
+}
 
 export const prepareNotificationTemplateEnrollmentData = ({
   enrollment,
@@ -89,17 +80,17 @@ export const prepareNotificationTemplateEnrollmentData = ({
         displayName: enrollment.display_name,
       },
     },
-  }) satisfies NotificationTemplateContentData;
+  }) satisfies NotificationTemplateContentData
 
 /**
  * Notification Template Question Data
  */
 
 type PrepareNotificationTemplateQuestionDataProps = {
-  user: GetUserEmailData;
-  questionItem: QuestionItem;
-  questionVariant: RestrictQuestionItemVariant<"mcquestion">;
-};
+  user: GetUserEmailData
+  questionItem: QuestionItem
+  questionVariant: RestrictQuestionItemVariant<"mcquestion">
+}
 
 export const prepareNotificationTemplateQuestionData = ({
   questionItem,
@@ -122,4 +113,4 @@ export const prepareNotificationTemplateQuestionData = ({
         })),
       },
     },
-  }) satisfies NotificationTemplateContentData;
+  }) satisfies NotificationTemplateContentData

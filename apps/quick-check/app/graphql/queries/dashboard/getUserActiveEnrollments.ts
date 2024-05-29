@@ -1,10 +1,10 @@
-import { getContentStackClient } from "~/contentstack.server";
+import { getContentStackClient } from "~/contentstack.server"
 
-import { logError } from "quickcheck-shared";
+import { logError } from "quickcheck-shared"
 
-import { graphql, type GQLProxyUserData, type GraphQLClient } from "~/graphql";
+import { graphql, type GQLProxyUserData, type GraphQLClient } from "~/graphql"
 
-import { getToday } from "~/utils/date";
+import { getToday } from "~/utils/date"
 
 export const GET_USER_ACTIVE_ENROLLMENTS = graphql(/* GraphQL */ `
   query GetUserActiveEnrollments($userId: uuid!, $today: date!) {
@@ -13,18 +13,10 @@ export const GET_USER_ACTIVE_ENROLLMENTS = graphql(/* GraphQL */ `
       active_user_enrollments: user_enrollments(
         where: {
           _and: [
-            {
-              _or: [
-                { expiration_date: { _is_null: true } }
-                { expiration_date: { _gte: $today } }
-              ]
-            }
+            { _or: [{ expiration_date: { _is_null: true } }, { expiration_date: { _gte: $today } }] }
             {
               user_questions_aggregate: {
-                count: {
-                  predicate: { _gt: 0 }
-                  filter: { _or: [{ retired_on: { _is_null: true } }] }
-                }
+                count: { predicate: { _gt: 0 }, filter: { _or: [{ retired_on: { _is_null: true } }] } }
               }
             }
           ]
@@ -34,47 +26,42 @@ export const GET_USER_ACTIVE_ENROLLMENTS = graphql(/* GraphQL */ `
       }
     }
   }
-`);
+`)
 
-export async function getUserActiveEnrollments(
-  this: GraphQLClient,
-  proxyData: GQLProxyUserData,
-) {
+export async function getUserActiveEnrollments(this: GraphQLClient, proxyData: GQLProxyUserData) {
   try {
-    const { userId, now } = proxyData;
+    const { userId, now } = proxyData
 
-    const today = getToday(now);
+    const today = getToday(now)
 
     const result = await this.query({
       query: GET_USER_ACTIVE_ENROLLMENTS,
       variables: { userId, today },
       fetchPolicy: "no-cache",
-    });
+    })
 
-    if (!result.data?.user_by_pk) return null;
+    if (!result.data?.user_by_pk) return null
 
-    const { user_by_pk } = result.data;
+    const { user_by_pk } = result.data
 
-    const language = user_by_pk.language_preference;
-    const contentStack = getContentStackClient(language);
+    const language = user_by_pk.language_preference
+    const contentStack = getContentStackClient(language)
 
     const active_user_enrollments = await Promise.all(
       user_by_pk.active_user_enrollments.map(async (enrollment) => {
-        const taxonomy = await contentStack.getTaxonomy(enrollment.taxonomy_id);
+        const taxonomy = await contentStack.getTaxonomy(enrollment.taxonomy_id)
         return {
           ...enrollment,
           taxonomy,
-        };
+        }
       }),
-    );
+    )
 
-    return active_user_enrollments;
+    return active_user_enrollments
   } catch (error) {
-    logError({ error, log: "getUserActiveEnrollments" });
-    return null;
+    logError({ error, log: "getUserActiveEnrollments" })
+    return null
   }
 }
 
-export type UserDashboardActiveEnrollments = NonNullable<
-  Awaited<ReturnType<typeof getUserActiveEnrollments>>
->;
+export type UserDashboardActiveEnrollments = NonNullable<Awaited<ReturnType<typeof getUserActiveEnrollments>>>

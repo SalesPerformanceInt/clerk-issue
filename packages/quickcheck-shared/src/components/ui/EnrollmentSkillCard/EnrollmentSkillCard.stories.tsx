@@ -1,15 +1,15 @@
-import type { Meta, StoryObj } from "@storybook/react";
+import type { Meta, StoryObj } from "@storybook/react"
 
-import { EnrollmentSkillCard as EnrollmentSkillCardComponent } from "./EnrollmentSkillCard";
-import { EnrollmentSkillCardDecorator } from "./EnrollmentSkillCard.template";
+import { EnrollmentSkillCard as EnrollmentSkillCardComponent } from "./EnrollmentSkillCard"
+import { EnrollmentSkillCardDecorator } from "./EnrollmentSkillCard.template"
 
 const meta = {
   component: EnrollmentSkillCardComponent,
   title: "ui/EnrollmentSkillCard",
   decorators: [EnrollmentSkillCardDecorator],
-} satisfies Meta<typeof EnrollmentSkillCardComponent>;
+} satisfies Meta<typeof EnrollmentSkillCardComponent>
 
-type Story = StoryObj<typeof meta>;
+type Story = StoryObj<typeof meta>
 
 /**
  * Progress Item
@@ -26,6 +26,6 @@ export const EnrollmentSkillCard = {
     baseline: { control: { type: "range", min: 0, max: 100 } },
     current: { control: { type: "range", min: 0, max: 100 } },
   },
-} satisfies Story;
+} satisfies Story
 
-export default meta;
+export default meta

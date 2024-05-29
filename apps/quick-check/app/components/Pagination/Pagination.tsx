@@ -1,39 +1,33 @@
-import { useState, type FC } from "react";
-import ReactPaginate, { ReactPaginateProps } from "react-paginate";
+import { useState, type FC } from "react"
+import ReactPaginate, { ReactPaginateProps } from "react-paginate"
 
-import { twMerge } from "tailwind-merge";
+import { twMerge } from "tailwind-merge"
 
 export const usePagination = <T,>(items: T[], itemsPerPage = 10) => {
-  const [itemOffset, setItemOffset] = useState(0);
-  const endOffset = itemOffset + itemsPerPage;
-  const currentItems = items.slice(itemOffset, endOffset);
-  const pageCount = Math.ceil(items.length / itemsPerPage);
+  const [itemOffset, setItemOffset] = useState(0)
+  const endOffset = itemOffset + itemsPerPage
+  const currentItems = items.slice(itemOffset, endOffset)
+  const pageCount = Math.ceil(items.length / itemsPerPage)
 
   const onPageChange: PaginationProps["onPageChange"] = ({ selected }) => {
-    const newOffset = (selected * itemsPerPage) % items.length;
-    setItemOffset(newOffset);
-  };
+    const newOffset = (selected * itemsPerPage) % items.length
+    setItemOffset(newOffset)
+  }
 
   return {
     onPageChange,
     currentItems,
     pageCount,
-  };
-};
+  }
+}
 
-export type PaginationProps = Pick<
-  ReactPaginateProps,
-  "onPageChange" | "pageCount"
->;
+export type PaginationProps = Pick<ReactPaginateProps, "onPageChange" | "pageCount">
 
 const pageClassName =
-  "flex items-center justify-center px-6 py-4 text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700";
-const linkClassName = "text-primary-50 -m-4 p-4";
+  "flex items-center justify-center px-6 py-4 text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700"
+const linkClassName = "text-primary-50 -m-4 p-4"
 
-export const Pagination: FC<PaginationProps> = ({
-  onPageChange,
-  pageCount,
-}) => {
+export const Pagination: FC<PaginationProps> = ({ onPageChange, pageCount }) => {
   return (
     <ReactPaginate
       breakLabel="..."
@@ -57,5 +51,5 @@ export const Pagination: FC<PaginationProps> = ({
       breakClassName={pageClassName}
       breakLinkClassName={linkClassName}
     />
-  );
-};
+  )
+}

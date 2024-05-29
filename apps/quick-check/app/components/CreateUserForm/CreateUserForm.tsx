@@ -1,33 +1,33 @@
-import { useFetcher, useParams } from "@remix-run/react";
+import { useFetcher, useParams } from "@remix-run/react"
 
-import { withZod } from "@remix-validated-form/with-zod";
-import { ValidatedForm } from "remix-validated-form";
-import { v4 as uuidv4 } from "uuid";
-import { z } from "zod";
+import { withZod } from "@remix-validated-form/with-zod"
+import { ValidatedForm } from "remix-validated-form"
+import { v4 as uuidv4 } from "uuid"
+import { z } from "zod"
 
-import { Button, invariant } from "quickcheck-shared";
+import { Button, invariant } from "quickcheck-shared"
 
-import { parseCreateUserRequest } from "~/models/api";
+import { parseCreateUserRequest } from "~/models/api"
 
-import { FormInput } from "~/components/FormInput";
+import { FormInput } from "~/components/FormInput"
 
 export const createUserActionSchema = z.object({
   firstName: z.string().min(1, { message: "Required" }),
   lastName: z.string().min(1, { message: "Required" }),
   email: z.string().email(),
-});
+})
 
 export const CreateUserForm = () => {
-  const fetcher = useFetcher();
-  const { tenantId } = useParams();
-  invariant(tenantId, "No Tenant ID found");
+  const fetcher = useFetcher()
+  const { tenantId } = useParams()
+  invariant(tenantId, "No Tenant ID found")
 
   const isLoading = () => {
-    if (fetcher.state === "idle") return false;
-    return !!parseCreateUserRequest(fetcher.formData);
-  };
+    if (fetcher.state === "idle") return false
+    return !!parseCreateUserRequest(fetcher.formData)
+  }
 
-  const validator = withZod(createUserActionSchema);
+  const validator = withZod(createUserActionSchema)
 
   return (
     <ValidatedForm
@@ -35,7 +35,7 @@ export const CreateUserForm = () => {
       validator={validator}
       className="overflow-x-auto sm:-mx-6 desktop:-mx-8"
       onSubmit={(data, event) => {
-        event.preventDefault();
+        event.preventDefault()
         fetcher.submit(
           {
             user_id: uuidv4(),
@@ -47,7 +47,7 @@ export const CreateUserForm = () => {
           {
             method: "POST",
           },
-        );
+        )
       }}
     >
       <div className="inline-block min-w-full py-2 sm:px-6 desktop:px-8">
@@ -85,5 +85,5 @@ export const CreateUserForm = () => {
         </div>
       </div>
     </ValidatedForm>
-  );
-};
+  )
+}

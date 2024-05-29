@@ -1,15 +1,15 @@
-import { type FC } from "react";
-import { useTranslation } from "react-i18next";
+import { type FC } from "react"
+import { useTranslation } from "react-i18next"
 
-import { useControlField } from "remix-validated-form";
+import { useControlField } from "remix-validated-form"
 
-import { FormInput } from "../FormInput";
+import { FormInput } from "../FormInput"
 
-const MAX_LENGTH = 500;
+const MAX_LENGTH = 500
 
 export const SurveyComment: FC = () => {
-  const { t } = useTranslation();
-  const [comment = "", setValue] = useControlField<string>("comment");
+  const { t } = useTranslation()
+  const [comment = "", setValue] = useControlField<string>("comment")
 
   return (
     <div>
@@ -22,5 +22,5 @@ export const SurveyComment: FC = () => {
       />
       <p className="text-right text-xs text-primary-50">{`${comment.length}/${MAX_LENGTH}`}</p>
     </div>
-  );
-};
+  )
+}

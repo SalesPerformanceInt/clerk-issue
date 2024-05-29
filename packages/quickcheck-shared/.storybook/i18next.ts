@@ -1,20 +1,16 @@
-import { initReactI18next } from "react-i18next";
+import { initReactI18next } from "react-i18next"
 
-import i18n from "i18next";
-import Backend, { HttpBackendOptions } from "i18next-http-backend";
+import i18n from "i18next"
+import Backend, { HttpBackendOptions } from "i18next-http-backend"
 
-import { getBackendOptions, i18nConfig } from "../src";
+import { getBackendOptions, i18nConfig } from "../src"
 
 const CONTENTSTACK_ENVS = {
-  QC_CONTENTSTACK_STACK_KEY:
-    import.meta.env.STORYBOOK_QC_CONTENTSTACK_STACK_KEY ?? "",
-  QC_CONTENTSTACK_DELIVERY_TOKEN:
-    import.meta.env.STORYBOOK_QC_CONTENTSTACK_DELIVERY_TOKEN ?? "",
-  QC_CONTENTSTACK_ENVIRONMENT:
-    import.meta.env.STORYBOOK_QC_CONTENTSTACK_ENVIRONMENT ?? "",
-  QC_CONTENTSTACK_TRANSLATION_ID:
-    import.meta.env.STORYBOOK_QC_CONTENTSTACK_TRANSLATION_ID ?? "",
-};
+  QC_CONTENTSTACK_STACK_KEY: import.meta.env.STORYBOOK_QC_CONTENTSTACK_STACK_KEY ?? "",
+  QC_CONTENTSTACK_DELIVERY_TOKEN: import.meta.env.STORYBOOK_QC_CONTENTSTACK_DELIVERY_TOKEN ?? "",
+  QC_CONTENTSTACK_ENVIRONMENT: import.meta.env.STORYBOOK_QC_CONTENTSTACK_ENVIRONMENT ?? "",
+  QC_CONTENTSTACK_TRANSLATION_ID: import.meta.env.STORYBOOK_QC_CONTENTSTACK_TRANSLATION_ID ?? "",
+}
 
 i18n
   .use(initReactI18next)
@@ -27,6 +23,6 @@ i18n
       order: ["htmlTag"],
       caches: [],
     },
-  });
+  })
 
-export default i18n;
+export default i18n

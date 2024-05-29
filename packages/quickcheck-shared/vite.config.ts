@@ -1,10 +1,10 @@
-import { resolve } from "path";
+import { resolve } from "path"
 
-import react from "@vitejs/plugin-react";
-import { defineConfig } from "vite";
-import dts from "vite-plugin-dts";
+import react from "@vitejs/plugin-react"
+import { defineConfig } from "vite"
+import dts from "vite-plugin-dts"
 
-import * as packageJson from "./package.json";
+import * as packageJson from "./package.json"
 
 export default defineConfig({
   plugins: [
@@ -30,4 +30,4 @@ export default defineConfig({
   test: {
     environment: "happy-dom",
   },
-});
+})

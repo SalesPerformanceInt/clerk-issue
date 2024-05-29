@@ -1,16 +1,16 @@
-import type { DataCSLP, QuestionItem } from "~qcs/contentstack";
+import type { DataCSLP, QuestionItem } from "~qcs/contentstack"
 
-export { QuestionItem };
+export { QuestionItem }
 
-export const variants = ["mcquestion"] as const;
+export const variants = ["mcquestion"] as const
 
-export type Variant = (typeof variants)[number];
+export type Variant = (typeof variants)[number]
 
 export type Selection = {
-  correct: boolean;
-  feedback: string;
-  feedbackLiveEdit?: DataCSLP;
-  value: string;
-};
+  correct: boolean
+  feedback: string
+  feedbackLiveEdit?: DataCSLP
+  value: string
+}
 
-export type OnSubmit = (selection: Selection) => void;
+export type OnSubmit = (selection: Selection) => void

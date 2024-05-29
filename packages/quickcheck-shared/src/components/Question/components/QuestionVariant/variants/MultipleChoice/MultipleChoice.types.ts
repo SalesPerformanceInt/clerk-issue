@@ -1,3 +1,3 @@
-import { type QuestionItemChoice } from "~qcs/contentstack";
+import { type QuestionItemChoice } from "~qcs/contentstack"
 
-export type OnMCChoiceSelect = (choice: QuestionItemChoice) => void;
+export type OnMCChoiceSelect = (choice: QuestionItemChoice) => void

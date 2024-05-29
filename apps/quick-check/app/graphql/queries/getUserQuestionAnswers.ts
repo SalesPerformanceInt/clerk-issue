@@ -1,6 +1,6 @@
-import { logError } from "quickcheck-shared";
+import { logError } from "quickcheck-shared"
 
-import { graphql, type GQLProxyUserData, type GraphQLClient } from "~/graphql";
+import { graphql, type GQLProxyUserData, type GraphQLClient } from "~/graphql"
 
 export const GET_USER_QUESTION_ANSWERS = graphql(/* GraphQL */ `
   query GetUserQuestionAnswers($userId: uuid!, $questionId: uuid!) {
@@ -12,25 +12,21 @@ export const GET_USER_QUESTION_ANSWERS = graphql(/* GraphQL */ `
       ...BaseUserAnswer
     }
   }
-`);
+`)
 
-export async function getUserQuestionAnswers(
-  this: GraphQLClient,
-  questionId: string,
-  proxyData: GQLProxyUserData,
-) {
-  const { userId } = proxyData;
+export async function getUserQuestionAnswers(this: GraphQLClient, questionId: string, proxyData: GQLProxyUserData) {
+  const { userId } = proxyData
 
   try {
     const result = await this.query({
       query: GET_USER_QUESTION_ANSWERS,
       variables: { userId, questionId },
       fetchPolicy: "no-cache",
-    });
+    })
 
-    return result.data.user_answer ?? null;
+    return result.data.user_answer ?? null
   } catch (error) {
-    logError({ error, log: "getUserQuestionAnswers" });
-    return null;
+    logError({ error, log: "getUserQuestionAnswers" })
+    return null
   }
 }

@@ -1,23 +1,17 @@
-import type { FC } from "react";
-import { useTranslation } from "react-i18next";
+import type { FC } from "react"
+import { useTranslation } from "react-i18next"
 
-import QCHoldingPhone from "~/images/qc_holding_phone.png";
-import RichardsonWatermark from "~/images/richardson_watermark.png";
+import QCHoldingPhone from "~/images/qc_holding_phone.png"
+import RichardsonWatermark from "~/images/richardson_watermark.png"
 
-import {
-  LandingActionSection,
-  landingActionValidator,
-  LandingBody,
-  LandingFooter,
-  LandingHeader,
-} from "./components";
+import { LandingActionSection, landingActionValidator, LandingBody, LandingFooter, LandingHeader } from "./components"
 
-import { LandingContextProvider } from "./LandingContext";
+import { LandingContextProvider } from "./LandingContext"
 
-export { landingActionValidator };
+export { landingActionValidator }
 
 export const Landing: FC = () => {
-  const { t } = useTranslation();
+  const { t } = useTranslation()
 
   return (
     <LandingContextProvider>
@@ -34,5 +28,5 @@ export const Landing: FC = () => {
       </LandingBody>
       <LandingFooter />
     </LandingContextProvider>
-  );
-};
+  )
+}

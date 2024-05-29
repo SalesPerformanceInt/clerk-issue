@@ -1,23 +1,16 @@
-import { logError } from "quickcheck-shared";
+import { logError } from "quickcheck-shared"
 
-import {
-  graphql,
-  type GQLProxyData,
-  type GraphQLClient,
-  type User_Enrollment_Updates,
-} from "~/graphql";
+import { graphql, type GQLProxyData, type GraphQLClient, type User_Enrollment_Updates } from "~/graphql"
 
 export const UPDATE_USER_ENROLLMENTS_RANKS = graphql(/* GraphQL */ `
-  mutation UpdateUserEnrollmentsRanks(
-    $enrollmentsUpdates: [user_enrollment_updates!]!
-  ) {
+  mutation UpdateUserEnrollmentsRanks($enrollmentsUpdates: [user_enrollment_updates!]!) {
     update_user_enrollment_many(updates: $enrollmentsUpdates) {
       returning {
         ...BaseUserEnrollment
       }
     }
   }
-`);
+`)
 
 export async function updateUserEnrollmentsRanks(
   this: GraphQLClient,
@@ -28,11 +21,11 @@ export async function updateUserEnrollmentsRanks(
     const result = await this.mutate({
       mutation: UPDATE_USER_ENROLLMENTS_RANKS,
       variables: { enrollmentsUpdates },
-    });
+    })
 
-    return result.data?.update_user_enrollment_many ?? null;
+    return result.data?.update_user_enrollment_many ?? null
   } catch (error) {
-    logError({ error, log: "updateUserEnrollmentsRanks" });
-    return null;
+    logError({ error, log: "updateUserEnrollmentsRanks" })
+    return null
   }
 }

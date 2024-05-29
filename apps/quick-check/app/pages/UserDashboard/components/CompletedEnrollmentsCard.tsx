@@ -1,84 +1,64 @@
-import { Suspense, useState, type FC } from "react";
-import { useTranslation } from "react-i18next";
-import { useNavigate } from "@remix-run/react";
+import { Suspense, useState, type FC } from "react"
+import { useTranslation } from "react-i18next"
+import { useNavigate } from "@remix-run/react"
 
-import { TypedAwait } from "remix-typedjson";
+import { TypedAwait } from "remix-typedjson"
 
-import {
-  Card,
-  CardSkeleton,
-  CardTitle,
-  ProgressItem,
-  type CardProps,
-} from "quickcheck-shared";
+import { Card, CardSkeleton, CardTitle, ProgressItem, type CardProps } from "quickcheck-shared"
 
-import type { UserDashboardCompletedEnrollments } from "~/graphql";
+import type { UserDashboardCompletedEnrollments } from "~/graphql"
 
-import { useUserDashboardContext } from "../context/UserDashboardContext";
+import { useUserDashboardContext } from "../context/UserDashboardContext"
 
 /**
  * Completed Enrollments Suspense Component
  */
 
 type CompletedEnrollmentsSuspenseProps = {
-  completedEnrollmentsPromise: Promise<UserDashboardCompletedEnrollments | null>;
-};
+  completedEnrollmentsPromise: Promise<UserDashboardCompletedEnrollments | null>
+}
 
-export const CompletedEnrollmentsSuspense: FC<
-  CompletedEnrollmentsSuspenseProps
-> = ({ completedEnrollmentsPromise }) => {
+export const CompletedEnrollmentsSuspense: FC<CompletedEnrollmentsSuspenseProps> = ({
+  completedEnrollmentsPromise,
+}) => {
   return (
-    <Suspense
-      fallback={
-        <CardSkeleton
-          className="flow h-36 w-full flex-grow p-6 md:w-1/2-gap-8"
-          qty
-          title
-        />
-      }
-    >
+    <Suspense fallback={<CardSkeleton className="flow h-36 w-full flex-grow p-6 md:w-1/2-gap-8" qty title />}>
       <TypedAwait resolve={completedEnrollmentsPromise}>
         {(completedEnrollments) => {
-          if (!completedEnrollments) return null;
+          if (!completedEnrollments) return null
 
-          return (
-            <CompletedEnrollmentsCard
-              completedEnrollments={completedEnrollments}
-            />
-          );
+          return <CompletedEnrollmentsCard completedEnrollments={completedEnrollments} />
         }}
       </TypedAwait>
     </Suspense>
-  );
-};
+  )
+}
 
 /**
  * Completed Enrollments Card Component
  */
 
 type CompletedEnrollmentsCardProps = CardProps & {
-  completedEnrollments: UserDashboardCompletedEnrollments;
-};
+  completedEnrollments: UserDashboardCompletedEnrollments
+}
 
-const CompletedEnrollmentsCard: FC<CompletedEnrollmentsCardProps> = ({
-  completedEnrollments,
-}) => {
-  const [enrollmentNavigation, setEnrollmentNavigation] = useState<string>();
+const CompletedEnrollmentsCard: FC<CompletedEnrollmentsCardProps> = ({ completedEnrollments }) => {
+  const [enrollmentNavigation, setEnrollmentNavigation] = useState<string>()
 
-  const { t } = useTranslation();
-  const navigate = useNavigate();
+  const { t } = useTranslation()
+  const navigate = useNavigate()
 
-  if (!completedEnrollments.length) return null;
+  if (!completedEnrollments.length) return null
 
   const goToEnrollment = (id: string) => {
-    setEnrollmentNavigation(id);
+    setEnrollmentNavigation(id)
 
-    navigate(`/dashboard/enrollment/${id}`);
-  };
+    navigate(`/dashboard/enrollment/${id}`)
+  }
 
   const {
     userDashboardData: { show_leaderboard },
-  } = useUserDashboardContext();
+  } = useUserDashboardContext()
 
   return (
     <Card className="flow h-fit w-full flex-grow overflow-hidden md:w-1/2-gap-8">
@@ -101,12 +81,10 @@ const CompletedEnrollmentsCard: FC<CompletedEnrollmentsCardProps> = ({
             retired: enrollment.retired.aggregate?.count ?? 0,
             total: enrollment.total.aggregate?.count ?? 0,
           }}
-          ariaLabel={t(
-            "user.dashboard.completed_enrollments.progress_bar.aria_label",
-          )}
+          ariaLabel={t("user.dashboard.completed_enrollments.progress_bar.aria_label")}
           loading={enrollmentNavigation === enrollment.id}
         />
       ))}
     </Card>
-  );
-};
+  )
+}

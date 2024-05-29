@@ -1,14 +1,14 @@
-import type { QuestionItem, Taxon, UserData } from "quickcheck-shared";
+import type { QuestionItem, Taxon, UserData } from "quickcheck-shared"
 
-import { QuickcheckQuestionEmail } from "../templates/QuickcheckQuestionEmail";
-import { i18n } from "../utils/i18n";
+import { QuickcheckQuestionEmail } from "../templates/QuickcheckQuestionEmail"
+import { i18n } from "../utils/i18n"
 
-const loginUrl = "http://richardson.com";
+const loginUrl = "http://richardson.com"
 
 const QuickcheckQuestionEmailPreview = () => {
-  const t = i18n.getFixedT("en-us");
+  const t = i18n.getFixedT("en-us")
 
-  const j = t("emails.question.footer.jump_back");
+  const j = t("emails.question.footer.jump_back")
   return (
     <QuickcheckQuestionEmail
       t={t}
@@ -23,15 +23,15 @@ const QuickcheckQuestionEmailPreview = () => {
         }),
       }}
     />
-  );
-};
+  )
+}
 
-export default QuickcheckQuestionEmailPreview;
+export default QuickcheckQuestionEmailPreview
 
 const userData: UserData = {
   unanswered_questions: 24,
   active_enrollments: 3,
-};
+}
 
 const enrollmentTaxonomyMock = {
   _version: 1,
@@ -133,7 +133,7 @@ const enrollmentTaxonomyMock = {
     maintain_revisions: true,
     _version: 8,
   },
-} as Taxon;
+} as Taxon
 
 const questionItemMock = {
   _version: 3,
@@ -976,11 +976,7 @@ const questionItemMock = {
         display_type: "dropdown",
         enum: {
           advanced: false,
-          choices: [
-            { value: "schneider" },
-            { value: "ing" },
-            { value: "comcast" },
-          ],
+          choices: [{ value: "schneider" }, { value: "ing" }, { value: "comcast" }],
         },
         multiple: false,
         uid: "client_list",
@@ -1023,4 +1019,4 @@ const questionItemMock = {
     maintain_revisions: true,
     _version: 23,
   },
-} as QuestionItem;
+} as QuestionItem

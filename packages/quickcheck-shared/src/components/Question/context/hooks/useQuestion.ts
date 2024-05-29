@@ -1,47 +1,44 @@
-import { useState } from "react";
+import { useState } from "react"
 
-import { invariant } from "~qcs/utils/invariant";
+import { invariant } from "~qcs/utils/invariant"
 
-import type { Selection } from "../../Question.types";
-import type { QuestionContextProps } from "../QuestionContext.types";
+import type { Selection } from "../../Question.types"
+import type { QuestionContextProps } from "../QuestionContext.types"
 
-export type useQuestionProps = Pick<
-  QuestionContextProps,
-  "onSubmit" | "onContinue"
->;
+export type useQuestionProps = Pick<QuestionContextProps, "onSubmit" | "onContinue">
 
 export const useQuestion = ({ onSubmit, onContinue }: useQuestionProps) => {
-  const [submitted, setSubmitted] = useState(false);
-  const [continued, setContinued] = useState(false);
-  const [selected, setSelected] = useState<Selection | null>(null);
+  const [submitted, setSubmitted] = useState(false)
+  const [continued, setContinued] = useState(false)
+  const [selected, setSelected] = useState<Selection | null>(null)
 
-  const [showOnCloseModal, toggleShowOnCancelModal] = useState(false);
-  const onCancelClose = () => toggleShowOnCancelModal(false);
-  const onShowOnCloseModal = () => toggleShowOnCancelModal(true);
+  const [showOnCloseModal, toggleShowOnCancelModal] = useState(false)
+  const onCancelClose = () => toggleShowOnCancelModal(false)
+  const onShowOnCloseModal = () => toggleShowOnCancelModal(true)
 
-  const hasSelected = selected !== null;
+  const hasSelected = selected !== null
 
   const submitAnswer = () => {
-    invariant(selected, "Missing selection");
+    invariant(selected, "Missing selection")
 
-    setSubmitted(true);
+    setSubmitted(true)
 
-    onSubmit(selected);
-  };
+    onSubmit(selected)
+  }
 
   const onContinueClick = () => {
-    setContinued(true);
+    setContinued(true)
 
-    onContinue();
-  };
+    onContinue()
+  }
 
   const onSelection = (selection: Selection) => {
-    setSelected(selection);
-  };
+    setSelected(selection)
+  }
 
   const onGoBackClick = () => {
-    setSelected(null);
-  };
+    setSelected(null)
+  }
 
   return {
     submitted,
@@ -55,5 +52,5 @@ export const useQuestion = ({ onSubmit, onContinue }: useQuestionProps) => {
     onShowOnCloseModal,
     onContinueClick,
     continued,
-  };
-};
+  }
+}

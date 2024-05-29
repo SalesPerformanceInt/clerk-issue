@@ -1,18 +1,18 @@
-import { useEffect, type FC } from "react";
-import { useTranslation } from "react-i18next";
+import { useEffect, type FC } from "react"
+import { useTranslation } from "react-i18next"
 
-import { useControlField, useFormContext } from "remix-validated-form";
+import { useControlField, useFormContext } from "remix-validated-form"
 
-import { Button } from "~qcs/components";
+import { Button } from "~qcs/components"
 
-import { Sentiment } from "./SurveyChoice";
+import { Sentiment } from "./SurveyChoice"
 
 export const SurveySubmitButton: FC = () => {
-  const { t } = useTranslation();
-  const { isValid, isSubmitting } = useFormContext();
-  const [value] = useControlField<Sentiment | null>("sentiment");
+  const { t } = useTranslation()
+  const { isValid, isSubmitting } = useFormContext()
+  const [value] = useControlField<Sentiment | null>("sentiment")
 
-  const disabled = isSubmitting || !isValid || !value;
+  const disabled = isSubmitting || !isValid || !value
 
   return (
     <Button
@@ -25,5 +25,5 @@ export const SurveySubmitButton: FC = () => {
     >
       {t("buttons.submit")}
     </Button>
-  );
-};
+  )
+}

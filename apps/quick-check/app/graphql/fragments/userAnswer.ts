@@ -1,4 +1,4 @@
-import { graphql } from "~/graphql";
+import { graphql } from "~/graphql"
 
 export const BaseUserAnswer = graphql(/* GraphQL */ `
   fragment BaseUserAnswer on user_answer {
@@ -7,4 +7,4 @@ export const BaseUserAnswer = graphql(/* GraphQL */ `
     correct
     created_at
   }
-`);
+`)

@@ -1,38 +1,33 @@
-import { json, type ActionFunctionArgs } from "@vercel/remix";
+import { json, type ActionFunctionArgs } from "@vercel/remix"
 
-import { invariant, simpleErrorResponse } from "quickcheck-shared";
+import { invariant, simpleErrorResponse } from "quickcheck-shared"
 
-import { getAdminApolloClientFromRequest } from "~/graphql";
+import { getAdminApolloClientFromRequest } from "~/graphql"
 
-import {
-  formatUserInputFromImport,
-  importUserSchema,
-  verifyApiRequest,
-} from "~/models/api";
+import { formatUserInputFromImport, importUserSchema, verifyApiRequest } from "~/models/api"
 
 export const config = {
   maxDuration: 300,
-};
+}
 
 export const action = async ({ request }: ActionFunctionArgs) => {
   try {
-    const adminApolloClient = await getAdminApolloClientFromRequest(request);
+    const adminApolloClient = await getAdminApolloClientFromRequest(request)
 
-    verifyApiRequest(request);
+    verifyApiRequest(request)
 
-    const body = await request.json();
+    const body = await request.json()
 
-    const importUserData = importUserSchema.parse(body);
+    const importUserData = importUserSchema.parse(body)
 
-    const [userInputData, proxyData] =
-      formatUserInputFromImport(importUserData);
+    const [userInputData, proxyData] = formatUserInputFromImport(importUserData)
 
-    const user = await adminApolloClient.upsertUser(userInputData, proxyData);
+    const user = await adminApolloClient.upsertUser(userInputData, proxyData)
 
-    invariant(user, "User not found for update");
+    invariant(user, "User not found for update")
 
-    return json({ user_id: user.user_id }, { status: 200 });
+    return json({ user_id: user.user_id }, { status: 200 })
   } catch (error) {
-    return simpleErrorResponse(error);
+    return simpleErrorResponse(error)
   }
-};
+}

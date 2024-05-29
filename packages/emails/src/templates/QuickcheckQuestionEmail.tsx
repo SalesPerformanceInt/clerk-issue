@@ -1,4 +1,4 @@
-import React, { FC } from "react";
+import React, { FC } from "react"
 
 import {
   Body,
@@ -13,33 +13,28 @@ import {
   Section,
   Tailwind,
   Text,
-} from "@react-email/components";
-import parse from "html-react-parser";
-import { TFunction } from "i18next";
+} from "@react-email/components"
+import parse from "html-react-parser"
+import { TFunction } from "i18next"
 
-import {
-  deterministicallyRandomizeChoices,
-  getVariant,
-  type QuestionItem,
-  type Taxon,
-} from "quickcheck-shared";
+import { deterministicallyRandomizeChoices, getVariant, type QuestionItem, type Taxon } from "quickcheck-shared"
 
-import { theme } from "../../tailwind.config";
+import { theme } from "../../tailwind.config"
 
 interface QuickcheckQuestionEmailProps {
-  t: TFunction;
-  questionId: string;
-  questionItem: QuestionItem;
-  enrollmentTaxonomy: Taxon;
-  loginUrl: string;
+  t: TFunction
+  questionId: string
+  questionItem: QuestionItem
+  enrollmentTaxonomy: Taxon
+  loginUrl: string
   header?: {
-    text: string;
-    url: string;
-  };
+    text: string
+    url: string
+  }
   footer: {
-    text: string;
-    url: string;
-  };
+    text: string
+    url: string
+  }
 }
 
 export const QuickcheckQuestionEmail: FC<QuickcheckQuestionEmailProps> = ({
@@ -51,14 +46,11 @@ export const QuickcheckQuestionEmail: FC<QuickcheckQuestionEmailProps> = ({
   header,
   footer,
 }) => {
-  const questionVariant = getVariant(questionItem, "mcquestion");
+  const questionVariant = getVariant(questionItem, "mcquestion")
 
-  if (!questionVariant || "mcquestion" in questionVariant === false)
-    return null;
+  if (!questionVariant || "mcquestion" in questionVariant === false) return null
 
-  const deterministicallyRandomizedChoices = deterministicallyRandomizeChoices(
-    questionVariant.mcquestion.choices,
-  );
+  const deterministicallyRandomizedChoices = deterministicallyRandomizeChoices(questionVariant.mcquestion.choices)
 
   return (
     <Tailwind config={{ theme }}>
@@ -100,22 +92,15 @@ export const QuickcheckQuestionEmail: FC<QuickcheckQuestionEmailProps> = ({
             {header && (
               <Section className="pt-2">
                 <Section className="rounded-smd w-full bg-primary p-2">
-                  <Link
-                    href={header.url}
-                    className="w-full leading-[0] text-contrast"
-                  >
-                    <Text className="!inline text-xs leading-4">
-                      {header.text}
-                    </Text>
+                  <Link href={header.url} className="w-full leading-[0] text-contrast">
+                    <Text className="!inline text-xs leading-4">{header.text}</Text>
                   </Link>
                 </Section>
               </Section>
             )}
 
             <Section className="pt-2">
-              <Text className="m-0 text-base font-bold text-primary-75">
-                {enrollmentTaxonomy.display_name}
-              </Text>
+              <Text className="m-0 text-base font-bold text-primary-75">{enrollmentTaxonomy.display_name}</Text>
 
               <Text className="m-0 text-xs font-semibold uppercase text-primary-75">
                 {questionItem.topic[0]?.display_name}
@@ -123,21 +108,16 @@ export const QuickcheckQuestionEmail: FC<QuickcheckQuestionEmailProps> = ({
             </Section>
 
             <Section className="pt-2">
-              <Text className="m-0 text-base text-primary">
-                {parse(questionVariant.mcquestion.stem)}
-              </Text>
+              <Text className="m-0 text-base text-primary">{parse(questionVariant.mcquestion.stem)}</Text>
             </Section>
 
             <Section className="pt-4">
               {deterministicallyRandomizedChoices.map(({ choice }, index) => {
-                const path = `/question/${questionId}?c=${choice._metadata.uid}`;
+                const path = `/question/${questionId}?c=${choice._metadata.uid}`
 
                 return (
                   <Row key={choice._metadata.uid} className="w-full pb-2">
-                    <Column
-                      key={choice._metadata.uid}
-                      className="h-full w-full"
-                    >
+                    <Column key={choice._metadata.uid} className="h-full w-full">
                       <Section className="h-full w-full bg-background-secondary px-4 py-2">
                         <Link
                           href={`${loginUrl}?p=${path}`}
@@ -149,25 +129,19 @@ export const QuickcheckQuestionEmail: FC<QuickcheckQuestionEmailProps> = ({
                               choice.body
                                 .replace("<p>", "")
                                 .replace("</p>", "")
-                                .replace(
-                                  "<ul>",
-                                  '<ul style="line-height: 1.25">',
-                                ),
+                                .replace("<ul>", '<ul style="line-height: 1.25">'),
                             )}
                           </Text>
                         </Link>
                       </Section>
                     </Column>
                   </Row>
-                );
+                )
               })}
             </Section>
 
             <Section className="rounded-smd w-full bg-primary p-2">
-              <Link
-                href={footer.url}
-                className="w-full leading-[0] text-contrast"
-              >
+              <Link href={footer.url} className="w-full leading-[0] text-contrast">
                 <Text className="!inline text-xs leading-4">{footer.text}</Text>
               </Link>
             </Section>
@@ -175,5 +149,5 @@ export const QuickcheckQuestionEmail: FC<QuickcheckQuestionEmailProps> = ({
         </Body>
       </Html>
     </Tailwind>
-  );
-};
+  )
+}

@@ -1,5 +1,5 @@
-import { Query, Stack } from "contentstack";
-import { isEmpty } from "remeda";
+import { Query, Stack } from "contentstack"
+import { isEmpty } from "remeda"
 
 import {
   getCourses,
@@ -9,33 +9,29 @@ import {
   getTaxonomy,
   getTheme,
   getTranslatedStrings,
-} from "~qcs/contentstack/queries";
+} from "~qcs/contentstack/queries"
 
-const BATCH_SIZE = 250;
+const BATCH_SIZE = 250
 
-const getContentStackSDKClient = (
-  deliveryToken: string,
-  apiKey: string,
-  environment: string,
-) => {
+const getContentStackSDKClient = (deliveryToken: string, apiKey: string, environment: string) => {
   return new Stack({
     api_key: apiKey,
     delivery_token: deliveryToken,
     environment: environment,
-  });
-};
+  })
+}
 
 export class ContentStackSDKClient {
-  client: Stack;
-  language: string;
+  client: Stack
+  language: string
 
-  getQuestionItems = getQuestionItems;
-  getQuestionItem = getQuestionItem;
-  getTheme = getTheme;
-  getTaxonomies = getTaxonomies;
-  getTaxonomy = getTaxonomy;
-  getCourses = getCourses;
-  getTranslatedStrings = getTranslatedStrings;
+  getQuestionItems = getQuestionItems
+  getQuestionItem = getQuestionItem
+  getTheme = getTheme
+  getTaxonomies = getTaxonomies
+  getTaxonomy = getTaxonomy
+  getCourses = getCourses
+  getTranslatedStrings = getTranslatedStrings
 
   async getAllEntries<T>(
     type: string,
@@ -43,7 +39,7 @@ export class ContentStackSDKClient {
     batch = 0,
     fetched: T[] = [],
   ): Promise<T[]> {
-    const contentType = this.client.ContentType(type);
+    const contentType = this.client.ContentType(type)
 
     const [result] = (await query(contentType.Query())
       .language(this.language)
@@ -52,23 +48,15 @@ export class ContentStackSDKClient {
       .limit(250)
       .includeContentType()
       .toJSON()
-      .find()) as [T[]];
+      .find()) as [T[]]
 
-    if (isEmpty(result)) return fetched;
+    if (isEmpty(result)) return fetched
 
-    return this.getAllEntries<T>(type, query, batch + 1, [
-      ...fetched,
-      ...result,
-    ]);
+    return this.getAllEntries<T>(type, query, batch + 1, [...fetched, ...result])
   }
 
-  constructor(
-    deliveryToken: string,
-    apiKey: string,
-    environment: string,
-    language: string,
-  ) {
-    this.language = language;
-    this.client = getContentStackSDKClient(deliveryToken, apiKey, environment);
+  constructor(deliveryToken: string, apiKey: string, environment: string, language: string) {
+    this.language = language
+    this.client = getContentStackSDKClient(deliveryToken, apiKey, environment)
   }
 }

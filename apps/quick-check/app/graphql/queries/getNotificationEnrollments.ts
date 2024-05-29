@@ -1,10 +1,10 @@
-import { DateTime } from "luxon";
+import { DateTime } from "luxon"
 
-import { logError } from "quickcheck-shared";
+import { logError } from "quickcheck-shared"
 
-import { graphql, type GQLProxyData, type GraphQLClient } from "~/graphql";
+import { graphql, type GQLProxyData, type GraphQLClient } from "~/graphql"
 
-import { getToday, getYesterday } from "~/utils/date";
+import { getToday, getYesterday } from "~/utils/date"
 
 export const GET_NOTIFICATION_ENROLLMENTS = graphql(/* GraphQL */ `
   query GetNotificationEnrollments($today: date!, $yesterday: date!) {
@@ -14,40 +14,32 @@ export const GET_NOTIFICATION_ENROLLMENTS = graphql(/* GraphQL */ `
     completed_enrollments: user_enrollment(
       where: {
         expiration_date: { _eq: $yesterday }
-        user_questions_aggregate: {
-          count: {
-            predicate: { _gt: 0 }
-            filter: { retired_on: { _is_null: true } }
-          }
-        }
+        user_questions_aggregate: { count: { predicate: { _gt: 0 }, filter: { retired_on: { _is_null: true } } } }
       }
     ) {
       ...NotificationUserEnrollment
     }
   }
-`);
+`)
 
-export async function getNotificationEnrollments(
-  this: GraphQLClient,
-  proxyData: GQLProxyData,
-) {
-  const { now } = proxyData;
+export async function getNotificationEnrollments(this: GraphQLClient, proxyData: GQLProxyData) {
+  const { now } = proxyData
 
-  const today = getToday(now);
-  const yesterday = getYesterday(today);
+  const today = getToday(now)
+  const yesterday = getYesterday(today)
 
   try {
     const { data } = await this.query({
       query: GET_NOTIFICATION_ENROLLMENTS,
       variables: { today, yesterday },
       fetchPolicy: "no-cache",
-    });
+    })
 
-    const completedEnrollments = data?.completed_enrollments;
+    const completedEnrollments = data?.completed_enrollments
 
-    return { completedEnrollments };
+    return { completedEnrollments }
   } catch (error) {
-    logError({ error, log: "getNotificationEnrollments" });
-    return {};
+    logError({ error, log: "getNotificationEnrollments" })
+    return {}
   }
 }

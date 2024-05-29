@@ -1,1 +1,1 @@
-export * from "./Taxonomy";
+export * from "./Taxonomy"

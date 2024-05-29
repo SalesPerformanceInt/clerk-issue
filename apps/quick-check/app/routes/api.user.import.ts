@@ -1,29 +1,28 @@
-import { json, type ActionFunctionArgs } from "@vercel/remix";
+import { json, type ActionFunctionArgs } from "@vercel/remix"
 
-import { simpleErrorResponse } from "quickcheck-shared";
+import { simpleErrorResponse } from "quickcheck-shared"
 
-import { getAdminApolloClientFromRequest } from "~/graphql";
+import { getAdminApolloClientFromRequest } from "~/graphql"
 
-import { formatUserInputFromImport, importUserSchema } from "~/models/api";
+import { formatUserInputFromImport, importUserSchema } from "~/models/api"
 
 export const config = {
   maxDuration: 300,
-};
+}
 
 export const action = async ({ request }: ActionFunctionArgs) => {
   try {
-    const adminApolloClient = await getAdminApolloClientFromRequest(request);
+    const adminApolloClient = await getAdminApolloClientFromRequest(request)
 
-    const body = await request.json();
+    const body = await request.json()
 
-    const importUserData = importUserSchema.parse(body);
-    const [userInputData, proxyData] =
-      formatUserInputFromImport(importUserData);
+    const importUserData = importUserSchema.parse(body)
+    const [userInputData, proxyData] = formatUserInputFromImport(importUserData)
 
-    const user = await adminApolloClient.upsertUser(userInputData, proxyData);
+    const user = await adminApolloClient.upsertUser(userInputData, proxyData)
 
-    return json({ user });
+    return json({ user })
   } catch (error) {
-    return simpleErrorResponse(error);
+    return simpleErrorResponse(error)
   }
-};
+}

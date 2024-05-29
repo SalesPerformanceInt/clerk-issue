@@ -1,43 +1,36 @@
-import { waitUntil } from "@vercel/functions";
+import { waitUntil } from "@vercel/functions"
 
-import { invariant } from "quickcheck-shared";
+import { invariant } from "quickcheck-shared"
 
-import { getUserApolloClientFromRequest } from "~/graphql";
+import { getUserApolloClientFromRequest } from "~/graphql"
 
-import { getCurrentAnswer, getReviewedAnswer } from "./handlers/getAnswers";
-import { saveUserAnswer } from "./actions/saveAnswer";
-import { updateTaxonomyEnrollmentsRanks } from "./actions/updateTaxonomyEnrollmentsRanks";
-import { updateUserFromAnswer } from "./actions/updateUserFromAnswer";
+import { getCurrentAnswer, getReviewedAnswer } from "./handlers/getAnswers"
+import { saveUserAnswer } from "./actions/saveAnswer"
+import { updateTaxonomyEnrollmentsRanks } from "./actions/updateTaxonomyEnrollmentsRanks"
+import { updateUserFromAnswer } from "./actions/updateUserFromAnswer"
 
-import type { Answer, SaveAnswerData } from "./answer.type";
+import type { Answer, SaveAnswerData } from "./answer.type"
 
 /**
  * Prepare Answer Data
  */
 
-const prepareAnswerData = async (
-  request: Request,
-  currentAnswer: Answer,
-): Promise<SaveAnswerData> => {
-  const userApolloClient = await getUserApolloClientFromRequest(request);
+const prepareAnswerData = async (request: Request, currentAnswer: Answer): Promise<SaveAnswerData> => {
+  const userApolloClient = await getUserApolloClientFromRequest(request)
 
-  const user = await userApolloClient.getUser();
-  invariant(user, "User not found");
+  const user = await userApolloClient.getUser()
+  invariant(user, "User not found")
 
-  const userQuestion = await userApolloClient.getUserQuestion(
-    currentAnswer.userQuestionId,
-  );
-  invariant(userQuestion, "Question not found");
+  const userQuestion = await userApolloClient.getUserQuestion(currentAnswer.userQuestionId)
+  invariant(userQuestion, "Question not found")
 
-  const userQuestionAnswers = await userApolloClient.getUserQuestionAnswers(
-    userQuestion.id,
-  );
+  const userQuestionAnswers = await userApolloClient.getUserQuestionAnswers(userQuestion.id)
 
   const { reviewedAnswer, userQuestionNextActiveDate } = getReviewedAnswer(
     userQuestion,
     userQuestionAnswers,
     currentAnswer,
-  );
+  )
 
   return {
     user,
@@ -45,30 +38,27 @@ const prepareAnswerData = async (
     currentAnswer,
     reviewedAnswer,
     userQuestionNextActiveDate,
-  };
-};
+  }
+}
 
 /**
  * Save Answer
  */
 
 export const saveAnswer = async (request: Request) => {
-  const { currentAnswer } = await getCurrentAnswer(request);
+  const { currentAnswer } = await getCurrentAnswer(request)
 
-  const answerData = await prepareAnswerData(request, currentAnswer);
+  const answerData = await prepareAnswerData(request, currentAnswer)
 
-  await Promise.all([
-    saveUserAnswer(request, answerData),
-    updateUserFromAnswer(request, answerData),
-  ]);
+  await Promise.all([saveUserAnswer(request, answerData), updateUserFromAnswer(request, answerData)])
 
-  waitUntil(updateTaxonomyEnrollmentsRanks(request, answerData));
+  waitUntil(updateTaxonomyEnrollmentsRanks(request, answerData))
 
-  const { reviewedAnswer, userQuestion } = answerData;
+  const { reviewedAnswer, userQuestion } = answerData
 
-  const totalScore = userQuestion.user_enrollment.score + reviewedAnswer.score;
+  const totalScore = userQuestion.user_enrollment.score + reviewedAnswer.score
 
-  const userApolloClient = await getUserApolloClientFromRequest(request);
+  const userApolloClient = await getUserApolloClientFromRequest(request)
 
   waitUntil(
     userApolloClient.createEvent({
@@ -84,7 +74,7 @@ export const saveAnswer = async (request: Request) => {
         attempt: userQuestion.attempts.aggregate?.count ?? 0,
       },
     }),
-  );
+  )
 
-  return { currentAnswer, reviewedAnswer, totalScore };
-};
+  return { currentAnswer, reviewedAnswer, totalScore }
+}

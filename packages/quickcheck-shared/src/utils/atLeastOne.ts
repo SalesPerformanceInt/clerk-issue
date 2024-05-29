@@ -1,6 +1,6 @@
 export type AtLeastOne<
   T,
   U = {
-    [K in keyof T]: Pick<T, K>;
+    [K in keyof T]: Pick<T, K>
   },
-> = Partial<T> & U[keyof U];
+> = Partial<T> & U[keyof U]

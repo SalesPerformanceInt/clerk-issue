@@ -1,35 +1,31 @@
-import { type FC } from "react";
-import { useTranslation } from "react-i18next";
+import { type FC } from "react"
+import { useTranslation } from "react-i18next"
 
-import { IconProp } from "@fortawesome/fontawesome-svg-core";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useControlField, useField } from "remix-validated-form";
+import { IconProp } from "@fortawesome/fontawesome-svg-core"
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+import { useControlField, useField } from "remix-validated-form"
 
-export const sentiments = ["good", "neutral", "bad"] as const;
+export const sentiments = ["good", "neutral", "bad"] as const
 
-export type Sentiment = (typeof sentiments)[number];
+export type Sentiment = (typeof sentiments)[number]
 
 interface SurveyChoiceProps {
-  sentiment: Sentiment;
-  icon: IconProp;
-  label: string;
+  sentiment: Sentiment
+  icon: IconProp
+  label: string
 }
 
-export const SurveyChoice: FC<SurveyChoiceProps> = ({
-  sentiment,
-  label,
-  icon,
-}) => {
+export const SurveyChoice: FC<SurveyChoiceProps> = ({ sentiment, label, icon }) => {
   const { getInputProps } = useField("sentiment", {
     validationBehavior: {
       initial: "onChange",
       whenTouched: "onChange",
     },
-  });
+  })
 
-  const [, setValue] = useControlField("sentiment");
+  const [, setValue] = useControlField("sentiment")
 
-  const choiceId = `sentiment_${sentiment}`;
+  const choiceId = `sentiment_${sentiment}`
 
   return (
     <div className="flex-grow sm:flex-1">
@@ -49,10 +45,8 @@ export const SurveyChoice: FC<SurveyChoiceProps> = ({
         <div className="h-6">
           <FontAwesomeIcon icon={icon} className="text-base text-primary" />
         </div>
-        <div className="text-balance   text-base leading-6 text-primary ">
-          {label}
-        </div>
+        <div className="text-balance   text-base leading-6 text-primary ">{label}</div>
       </label>
     </div>
-  );
-};
+  )
+}

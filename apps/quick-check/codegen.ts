@@ -1,11 +1,10 @@
-import type { CodegenConfig } from "@graphql-codegen/cli";
-import dotenv from "dotenv";
+import type { CodegenConfig } from "@graphql-codegen/cli"
+import dotenv from "dotenv"
 
-dotenv.config();
+dotenv.config()
 
-const HASURA_GRAPHQL_ADMIN_SECRET =
-  process.env.HASURA_GRAPHQL_ADMIN_SECRET ?? "";
-const HASURA_API_URL = `${process.env.HASURA_GRAPHQL_ENDPOINT}/v1/graphql`;
+const HASURA_GRAPHQL_ADMIN_SECRET = process.env.HASURA_GRAPHQL_ADMIN_SECRET ?? ""
+const HASURA_API_URL = `${process.env.HASURA_GRAPHQL_ENDPOINT}/v1/graphql`
 
 const config: CodegenConfig = {
   schema: [
@@ -43,6 +42,6 @@ const config: CodegenConfig = {
       plugins: ["introspection"],
     },
   },
-};
+}
 
-module.exports = config;
+module.exports = config

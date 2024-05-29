@@ -1,54 +1,40 @@
-import { json, type ActionFunctionArgs } from "@vercel/remix";
+import { json, type ActionFunctionArgs } from "@vercel/remix"
 
-import { invariant, simpleErrorResponse } from "quickcheck-shared";
+import { invariant, simpleErrorResponse } from "quickcheck-shared"
 
-import { getAdminApolloClientFromRequest } from "~/graphql";
+import { getAdminApolloClientFromRequest } from "~/graphql"
 
-import {
-  formatUserInputFromImport,
-  inputEnrollmentSchema,
-  verifyApiRequest,
-} from "~/models/api";
-import { handleUserEnrollment } from "~/models/enrollment";
+import { formatUserInputFromImport, inputEnrollmentSchema, verifyApiRequest } from "~/models/api"
+import { handleUserEnrollment } from "~/models/enrollment"
 
 export const config = {
   maxDuration: 300,
-};
+}
 
 export const action = async ({ request }: ActionFunctionArgs) => {
   try {
-    const adminApolloClient = await getAdminApolloClientFromRequest(request);
+    const adminApolloClient = await getAdminApolloClientFromRequest(request)
 
-    verifyApiRequest(request);
+    verifyApiRequest(request)
 
-    const body = await request.json();
+    const body = await request.json()
 
-    const importEnrollmentData = inputEnrollmentSchema.parse(body);
+    const importEnrollmentData = inputEnrollmentSchema.parse(body)
 
-    const [userInputData, proxyData] = formatUserInputFromImport(
-      importEnrollmentData.user,
-    );
+    const [userInputData, proxyData] = formatUserInputFromImport(importEnrollmentData.user)
 
-    const user = await adminApolloClient.upsertUser(userInputData, proxyData);
+    const user = await adminApolloClient.upsertUser(userInputData, proxyData)
 
-    invariant(
-      user,
-      () =>
-        `User not returned from upsertUser ${JSON.stringify(userInputData)}`,
-    );
+    invariant(user, () => `User not returned from upsertUser ${JSON.stringify(userInputData)}`)
 
-    const {
-      cms_topic_id,
-      user: _enrollmentUser,
-      ...enrollmentNewData
-    } = importEnrollmentData;
+    const { cms_topic_id, user: _enrollmentUser, ...enrollmentNewData } = importEnrollmentData
 
     const enrollmentActionResponse = await handleUserEnrollment({
       request,
       user: { userId: user.user_id, tenantId: user.tenant_id },
       enrollmentNewData,
       taxonomyId: cms_topic_id,
-    });
+    })
 
     invariant(
       enrollmentActionResponse,
@@ -58,12 +44,12 @@ export const action = async ({ request }: ActionFunctionArgs) => {
           taxonomyId: cms_topic_id,
           enrollmentData: enrollmentNewData,
         })}`,
-    );
+    )
 
-    const { status, ...apiResponse } = enrollmentActionResponse;
+    const { status, ...apiResponse } = enrollmentActionResponse
 
-    return json(apiResponse, { status });
+    return json(apiResponse, { status })
   } catch (error) {
-    return simpleErrorResponse(error);
+    return simpleErrorResponse(error)
   }
-};
+}

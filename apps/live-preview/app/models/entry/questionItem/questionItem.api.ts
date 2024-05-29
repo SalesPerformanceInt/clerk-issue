@@ -1,11 +1,12 @@
-import { addEditableTags } from "@contentstack/utils";
+import { addEditableTags } from "@contentstack/utils"
 
-import { contentStackClient } from "~/utils/server";
-import { getCSENV } from "~/utils/server/env.server";
+import { contentStackClient } from "~/utils/server"
+import { getCSENV } from "~/utils/server/env.server"
 
-import { getEntryQuery } from "../entry.api";
-import type { GetEntryDataProps, GetEntryProps } from "../entry.types";
-import type { QuestionItemLivePreview } from "./questionItem.types";
+import { getEntryQuery } from "../entry.api"
+import type { GetEntryDataProps, GetEntryProps } from "../entry.types"
+
+import type { QuestionItemLivePreview } from "./questionItem.types"
 
 /**
  * Get QuestionItem Data
@@ -14,9 +15,9 @@ import type { QuestionItemLivePreview } from "./questionItem.types";
 const getQuestionItemData = async ({ entryQuery }: GetEntryDataProps) => {
   const contentStackAPI = contentStackClient({
     environment: getCSENV().QC_CONTENTSTACK_ENVIRONMENT,
-  });
+  })
 
-  contentStackAPI.livePreviewQuery(entryQuery);
+  contentStackAPI.livePreviewQuery(entryQuery)
 
   const questionItemData = (await contentStackAPI
     .ContentType(entryQuery.content_type_uid)
@@ -24,45 +25,40 @@ const getQuestionItemData = async ({ entryQuery }: GetEntryDataProps) => {
     .includeContentType()
     .includeReference(["topic", "topic.parent_taxonomy"])
     .toJSON()
-    .fetch()) as QuestionItemLivePreview;
+    .fetch()) as QuestionItemLivePreview
 
-  return { questionItemData };
-};
+  return { questionItemData }
+}
 
 /**
  * Get QuestionItem
  */
 
-export const getQuestionItemFromRequest = async ({
-  request,
-  params,
-}: GetEntryProps) => {
-  const { entryQuery } = getEntryQuery({ request });
+export const getQuestionItemFromRequest = async ({ request, params }: GetEntryProps) => {
+  const { entryQuery } = getEntryQuery({ request })
 
   const { questionItemData } = await getQuestionItemData({
     entryQuery,
     params,
-  });
+  })
 
-  addEditableTags(questionItemData, entryQuery.content_type_uid, true);
+  addEditableTags(questionItemData, entryQuery.content_type_uid, true)
 
-  return { questionItemData };
-};
+  return { questionItemData }
+}
 
 /**
  * Get QuestionItems
  */
 
 type GetQuestionItemsProps = {
-  ids: string[];
-};
+  ids: string[]
+}
 
-export const getQuestionItemsFromIds = async ({
-  ids,
-}: GetQuestionItemsProps) => {
+export const getQuestionItemsFromIds = async ({ ids }: GetQuestionItemsProps) => {
   const contentStackAPI = contentStackClient({
     environment: getCSENV().QC_CONTENTSTACK_ENVIRONMENT,
-  });
+  })
 
   const questionItemsData = (
     await contentStackAPI
@@ -72,7 +68,7 @@ export const getQuestionItemsFromIds = async ({
       .includeContentType()
       .toJSON()
       .find()
-  )[0] as QuestionItemLivePreview[];
+  )[0] as QuestionItemLivePreview[]
 
-  return { questionItemsData };
-};
+  return { questionItemsData }
+}

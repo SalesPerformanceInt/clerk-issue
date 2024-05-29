@@ -1,4 +1,4 @@
-import { graphql } from "~/graphql";
+import { graphql } from "~/graphql"
 
 export const BaseUserQuestion = graphql(/* GraphQL */ `
   fragment BaseUserQuestion on user_question {
@@ -27,7 +27,7 @@ export const BaseUserQuestion = graphql(/* GraphQL */ `
       language_preference
     }
   }
-`);
+`)
 
 export const UserQuestionFirstLastAnswer = graphql(/* GraphQL */ `
   fragment UserQuestionFirstLastAnswer on user_question {
@@ -47,4 +47,4 @@ export const UserQuestionFirstLastAnswer = graphql(/* GraphQL */ `
       }
     }
   }
-`);
+`)

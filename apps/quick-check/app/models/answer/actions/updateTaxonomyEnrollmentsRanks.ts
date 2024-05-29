@@ -1,44 +1,33 @@
-import { waitUntil } from "@vercel/functions";
+import { waitUntil } from "@vercel/functions"
 
-import { getAdminApolloClientFromRequest } from "~/graphql";
+import { getAdminApolloClientFromRequest } from "~/graphql"
 
-import { prepareTaxonomyEnrollments } from "~/models/leaderboard/handlers/prepareTaxonomyEnrollments";
-import { prepareTaxonomyRankedEnrollments } from "~/models/leaderboard/handlers/prepareTaxonomyRankedEnrollments";
-import type { EnrollmentsByTaxonomy } from "~/models/leaderboard/leaderboard.types";
+import { prepareTaxonomyEnrollments } from "~/models/leaderboard/handlers/prepareTaxonomyEnrollments"
+import { prepareTaxonomyRankedEnrollments } from "~/models/leaderboard/handlers/prepareTaxonomyRankedEnrollments"
+import type { EnrollmentsByTaxonomy } from "~/models/leaderboard/leaderboard.types"
 
-import type { SaveAnswerData } from "../answer.type";
+import type { SaveAnswerData } from "../answer.type"
 
 /**
  * Update User Enrollments Ranks
  */
 
-const getTaxonomyRankedEnrollments = (
-  taxonomyEnrollments: EnrollmentsByTaxonomy[],
-) => {
-  return taxonomyEnrollments.flatMap(({ enrollments }) =>
-    prepareTaxonomyRankedEnrollments(enrollments),
-  );
-};
+const getTaxonomyRankedEnrollments = (taxonomyEnrollments: EnrollmentsByTaxonomy[]) => {
+  return taxonomyEnrollments.flatMap(({ enrollments }) => prepareTaxonomyRankedEnrollments(enrollments))
+}
 
-export const updateTaxonomyEnrollmentsRanks = async (
-  request: Request,
-  { userQuestion, user }: SaveAnswerData,
-) => {
-  const adminApolloClient = await getAdminApolloClientFromRequest(request);
+export const updateTaxonomyEnrollmentsRanks = async (request: Request, { userQuestion, user }: SaveAnswerData) => {
+  const adminApolloClient = await getAdminApolloClientFromRequest(request)
 
-  const enrollments = await adminApolloClient.getRankeableEnrollments(
-    [userQuestion.user_enrollment.taxonomy_id],
-    { tenantId: user.tenant_id },
-  );
+  const enrollments = await adminApolloClient.getRankeableEnrollments([userQuestion.user_enrollment.taxonomy_id], {
+    tenantId: user.tenant_id,
+  })
 
-  if (!enrollments) return;
+  if (!enrollments) return
 
-  const taxonomyEnrollments = await prepareTaxonomyEnrollments(
-    enrollments,
-    user.user_id,
-  );
+  const taxonomyEnrollments = await prepareTaxonomyEnrollments(enrollments, user.user_id)
 
-  const rankedEnrollments = getTaxonomyRankedEnrollments(taxonomyEnrollments);
+  const rankedEnrollments = getTaxonomyRankedEnrollments(taxonomyEnrollments)
 
-  waitUntil(adminApolloClient.updateUserEnrollmentsRanks(rankedEnrollments));
-};
+  waitUntil(adminApolloClient.updateUserEnrollmentsRanks(rankedEnrollments))
+}

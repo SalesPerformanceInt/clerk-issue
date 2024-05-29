@@ -1,148 +1,116 @@
-import { Suspense } from "react";
-import { CSVLink } from "react-csv";
-import {
-  Await,
-  Link,
-  useLoaderData,
-  useNavigation,
-  useSubmit,
-} from "@remix-run/react";
-import {
-  defer,
-  json,
-  type ActionFunctionArgs,
-  type LoaderFunctionArgs,
-} from "@vercel/remix";
+import { Suspense } from "react"
+import { CSVLink } from "react-csv"
+import { Await, Link, useLoaderData, useNavigation, useSubmit } from "@remix-run/react"
+import { defer, json, type ActionFunctionArgs, type LoaderFunctionArgs } from "@vercel/remix"
 
-import { faTrash } from "@fortawesome/pro-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { DateTime } from "luxon";
-import { z } from "zod";
+import { faTrash } from "@fortawesome/pro-solid-svg-icons"
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+import { DateTime } from "luxon"
+import { z } from "zod"
 
-import {
-  Button,
-  buttonVariants,
-  cn,
-  simpleErrorResponse,
-  useIsDesktop,
-} from "quickcheck-shared";
+import { Button, buttonVariants, cn, simpleErrorResponse, useIsDesktop } from "quickcheck-shared"
 
-import { DEFAULT_LANGUAGE } from "~/contentstack";
-import { getAdminApolloClientFromRequest } from "~/graphql";
+import { DEFAULT_LANGUAGE } from "~/contentstack"
+import { getAdminApolloClientFromRequest } from "~/graphql"
 
-import { QC_CONTENTSTACK_TRANSLATION_ID } from "~/utils/envs.server";
-import { useOutletContext } from "~/utils/outletContext";
-import { parseSchema } from "~/utils/parseSchema";
+import { QC_CONTENTSTACK_TRANSLATION_ID } from "~/utils/envs.server"
+import { useOutletContext } from "~/utils/outletContext"
+import { parseSchema } from "~/utils/parseSchema"
 
 import {
   contentReportHeaders,
   getContentReport,
   getTranslatedStringsReport,
   translatedStringsHeaders,
-} from "~/models/admin";
-import { authAdminSession } from "~/models/session";
+} from "~/models/admin"
+import { authAdminSession } from "~/models/session"
 
 export const adminTenantListActionSchema = z.object({
   type: z.enum(["DELETE_TENANT"]),
   tenantId: z.string(),
-});
-export type AdminTenantListAction = z.infer<typeof adminTenantListActionSchema>;
+})
+export type AdminTenantListAction = z.infer<typeof adminTenantListActionSchema>
 
 export const parseAdminTenantListActionRequest = (formData?: FormData) => {
-  const data = formData?.get("data");
-  return parseSchema(data, adminTenantListActionSchema);
-};
+  const data = formData?.get("data")
+  return parseSchema(data, adminTenantListActionSchema)
+}
 
 export const config = {
   maxDuration: 300,
-};
+}
 
 export const loader = async ({ request }: LoaderFunctionArgs) => {
   try {
-    const authAdmin = await authAdminSession(request);
-    if (authAdmin) return authAdmin;
+    const authAdmin = await authAdminSession(request)
+    if (authAdmin) return authAdmin
 
-    const adminApolloClient = await getAdminApolloClientFromRequest(request);
+    const adminApolloClient = await getAdminApolloClientFromRequest(request)
 
-    const tenants = (await adminApolloClient.getTenants()) ?? [];
+    const tenants = (await adminApolloClient.getTenants()) ?? []
 
-    const contentReport = getContentReport();
+    const contentReport = getContentReport()
 
-    const translatedStringsReport = getTranslatedStringsReport();
+    const translatedStringsReport = getTranslatedStringsReport()
 
-    return defer(
-      { tenants, contentReport, translatedStringsReport },
-      { status: 200 },
-    );
+    return defer({ tenants, contentReport, translatedStringsReport }, { status: 200 })
   } catch (error) {}
-};
+}
 
 export const action = async ({ request }: ActionFunctionArgs) => {
   try {
-    const adminApolloClient = await getAdminApolloClientFromRequest(request);
-    const formData = await request.formData();
+    const adminApolloClient = await getAdminApolloClientFromRequest(request)
+    const formData = await request.formData()
 
-    const adminAction = parseAdminTenantListActionRequest(formData);
+    const adminAction = parseAdminTenantListActionRequest(formData)
 
     if (adminAction?.type === "DELETE_TENANT") {
-      await adminApolloClient.deleteTenant(adminAction.tenantId);
+      await adminApolloClient.deleteTenant(adminAction.tenantId)
     }
 
-    const { type, tenantId } = adminAction ?? {};
+    const { type, tenantId } = adminAction ?? {}
 
-    return json({ type, tenantId, ...adminAction }, { status: 200 });
+    return json({ type, tenantId, ...adminAction }, { status: 200 })
   } catch (error) {
-    return simpleErrorResponse(error);
+    return simpleErrorResponse(error)
   }
-};
+}
 
 export default function Page() {
-  const { tenants, contentReport, translatedStringsReport } =
-    useLoaderData<typeof loader>();
-  const { isAdminEnabled } = useOutletContext();
-  const isDesktop = useIsDesktop();
+  const { tenants, contentReport, translatedStringsReport } = useLoaderData<typeof loader>()
+  const { isAdminEnabled } = useOutletContext()
+  const isDesktop = useIsDesktop()
 
-  const submit = useSubmit();
-  const { state, formData } = useNavigation();
+  const submit = useSubmit()
+  const { state, formData } = useNavigation()
 
-  const isLoading = (
-    actionType: AdminTenantListAction["type"],
-    tenantId: string,
-  ) => {
-    if (state === "idle") return false;
+  const isLoading = (actionType: AdminTenantListAction["type"], tenantId: string) => {
+    if (state === "idle") return false
 
-    const data = parseAdminTenantListActionRequest(formData);
-    return tenantId === data?.tenantId && actionType === data?.type;
-  };
+    const data = parseAdminTenantListActionRequest(formData)
+    return tenantId === data?.tenantId && actionType === data?.type
+  }
 
-  const makeAdminAction =
-    (
-      type: AdminTenantListAction["type"],
-      tenantId: string,
-      callback?: () => void,
-    ) =>
-    () => {
-      callback?.();
-      const payload: AdminTenantListAction = { type, tenantId };
-      const data = JSON.stringify(payload);
+  const makeAdminAction = (type: AdminTenantListAction["type"], tenantId: string, callback?: () => void) => () => {
+    callback?.()
+    const payload: AdminTenantListAction = { type, tenantId }
+    const data = JSON.stringify(payload)
 
-      const formData = new FormData();
-      formData.append("data", data);
+    const formData = new FormData()
+    formData.append("data", data)
 
-      submit(formData, { method: "POST" });
-    };
+    submit(formData, { method: "POST" })
+  }
 
   const confirmDelete = (tenantId: string) => () => {
-    const confirmAction = window.prompt(
-      "Please type the tenant ID to confirm deletion",
-    );
+    const confirmAction = window.prompt("Please type the tenant ID to confirm deletion")
 
     if (confirmAction !== tenantId) {
-      window.alert("Tenant ID does not match");
+      window.alert("Tenant ID does not match")
 
-      throw new Error("Tenant ID does not match");
+      throw new Error("Tenant ID does not match")
     }
-  };
+  }
 
   return (
     <div className="sm:p-8">
@@ -162,10 +130,7 @@ export default function Page() {
                     </th>
 
                     {isAdminEnabled && (
-                      <th
-                        scope="col"
-                        className="w-1 whitespace-nowrap px-6 py-4"
-                      >
+                      <th scope="col" className="w-1 whitespace-nowrap px-6 py-4">
                         Delete
                       </th>
                     )}
@@ -173,12 +138,7 @@ export default function Page() {
                 </thead>
                 <tbody>
                   {tenants.map((tenant, row) => (
-                    <tr
-                      key={tenant.tenant_id}
-                      className={`border-b ${
-                        row % 2 === 0 ? "bg-neutral-100" : "bg-white"
-                      }`}
-                    >
+                    <tr key={tenant.tenant_id} className={`border-b ${row % 2 === 0 ? "bg-neutral-100" : "bg-white"}`}>
                       <td className="whitespace-nowrap px-6 py-4">
                         <Link
                           className="text-primary-50 hover:text-primary-75 hover:underline"
@@ -193,10 +153,7 @@ export default function Page() {
                       {isAdminEnabled && (
                         <td className="whitespace-nowrap px-6 py-4 text-center">
                           <Button
-                            loading={isLoading(
-                              "DELETE_TENANT",
-                              tenant.tenant_id,
-                            )}
+                            loading={isLoading("DELETE_TENANT", tenant.tenant_id)}
                             onClick={makeAdminAction(
                               "DELETE_TENANT",
                               tenant.tenant_id,
@@ -274,5 +231,5 @@ export default function Page() {
         </div>
       </div>
     </div>
-  );
+  )
 }

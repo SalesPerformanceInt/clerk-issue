@@ -1,7 +1,7 @@
-import { Suspense, type FC } from "react";
-import { useTranslation } from "react-i18next";
+import { Suspense, type FC } from "react"
+import { useTranslation } from "react-i18next"
 
-import { TypedAwait } from "remix-typedjson";
+import { TypedAwait } from "remix-typedjson"
 
 import {
   CardTitle,
@@ -9,75 +9,53 @@ import {
   MobileCarouselCard,
   MobileCarouselCardSkeleton,
   type CardProps,
-} from "quickcheck-shared";
+} from "quickcheck-shared"
 
-import type {
-  UserDashboardActiveEnrollments,
-  UserDashboardCompletedEnrollments,
-} from "~/graphql";
+import type { UserDashboardActiveEnrollments, UserDashboardCompletedEnrollments } from "~/graphql"
 
-import { getUserLeaderboard } from "~/models/leaderboard";
+import { getUserLeaderboard } from "~/models/leaderboard"
 
 /**
  * Leaderboard Suspense Component
  */
 
 type LeaderboardSuspenseProps = {
-  activeEnrollmentsPromise: Promise<UserDashboardActiveEnrollments | null>;
-  completedEnrollmentsPromise: Promise<UserDashboardCompletedEnrollments | null>;
-};
+  activeEnrollmentsPromise: Promise<UserDashboardActiveEnrollments | null>
+  completedEnrollmentsPromise: Promise<UserDashboardCompletedEnrollments | null>
+}
 
 export const LeaderboardSuspense: FC<LeaderboardSuspenseProps> = ({
   activeEnrollmentsPromise,
   completedEnrollmentsPromise,
 }) => {
   return (
-    <Suspense
-      fallback={<MobileCarouselCardSkeleton className="h-64 p-6" title />}
-    >
-      <TypedAwait
-        resolve={Promise.all([
-          activeEnrollmentsPromise,
-          completedEnrollmentsPromise,
-        ])}
-      >
+    <Suspense fallback={<MobileCarouselCardSkeleton className="h-64 p-6" title />}>
+      <TypedAwait resolve={Promise.all([activeEnrollmentsPromise, completedEnrollmentsPromise])}>
         {([activeEnrollments, completedEnrollments]) => {
-          if (!activeEnrollments || !completedEnrollments) return null;
+          if (!activeEnrollments || !completedEnrollments) return null
 
-          return (
-            <LeaderboardCard
-              activeEnrollments={activeEnrollments}
-              completedEnrollments={completedEnrollments}
-            />
-          );
+          return <LeaderboardCard activeEnrollments={activeEnrollments} completedEnrollments={completedEnrollments} />
         }}
       </TypedAwait>
     </Suspense>
-  );
-};
+  )
+}
 
 /**
  * Leaderboard Card Component
  */
 
 type LeaderboardCardProps = CardProps & {
-  activeEnrollments: UserDashboardActiveEnrollments;
-  completedEnrollments: UserDashboardCompletedEnrollments;
-};
+  activeEnrollments: UserDashboardActiveEnrollments
+  completedEnrollments: UserDashboardCompletedEnrollments
+}
 
-const LeaderboardCard: FC<LeaderboardCardProps> = ({
-  activeEnrollments,
-  completedEnrollments,
-  ...props
-}) => {
-  const { t } = useTranslation();
+const LeaderboardCard: FC<LeaderboardCardProps> = ({ activeEnrollments, completedEnrollments, ...props }) => {
+  const { t } = useTranslation()
 
-  const rankedEnrollments = getUserLeaderboard([
-    ...activeEnrollments,
-    ...completedEnrollments,
-  ]);
+  const rankedEnrollments = getUserLeaderboard([...activeEnrollments, ...completedEnrollments])
 
-  if (!rankedEnrollments.length) return null;
+  if (!rankedEnrollments.length) return null
 
   return (
     <MobileCarouselCard {...props}>
@@ -104,5 +82,5 @@ const LeaderboardCard: FC<LeaderboardCardProps> = ({
         ))}
       </section>
     </MobileCarouselCard>
-  );
-};
+  )
+}

@@ -1,2 +1,2 @@
-export * from "./QuickcheckBasicEmail";
-export * from "./QuickcheckQuestionEmail";
+export * from "./QuickcheckBasicEmail"
+export * from "./QuickcheckQuestionEmail"

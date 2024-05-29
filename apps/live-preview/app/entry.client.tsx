@@ -1,17 +1,17 @@
-import { startTransition, StrictMode } from "react";
-import { hydrateRoot } from "react-dom/client";
-import { I18nextProvider, initReactI18next } from "react-i18next";
-import { RemixBrowser } from "@remix-run/react";
+import { startTransition, StrictMode } from "react"
+import { hydrateRoot } from "react-dom/client"
+import { I18nextProvider, initReactI18next } from "react-i18next"
+import { RemixBrowser } from "@remix-run/react"
 
-import contentStackLivePreview from "@contentstack/live-preview-utils";
-import i18next from "i18next";
-import LanguageDetector from "i18next-browser-languagedetector";
-import Backend, { HttpBackendOptions } from "i18next-http-backend";
-import { getInitialNamespaces } from "remix-i18next";
+import contentStackLivePreview from "@contentstack/live-preview-utils"
+import i18next from "i18next"
+import LanguageDetector from "i18next-browser-languagedetector"
+import Backend, { HttpBackendOptions } from "i18next-http-backend"
+import { getInitialNamespaces } from "remix-i18next"
 
-import { getBackendOptions, i18nConfig } from "quickcheck-shared";
+import { getBackendOptions, i18nConfig } from "quickcheck-shared"
 
-void contentStackLivePreview.init();
+void contentStackLivePreview.init()
 
 async function hydrate() {
   await i18next
@@ -27,7 +27,7 @@ async function hydrate() {
         order: ["htmlTag"],
         caches: [],
       },
-    });
+    })
 
   startTransition(() => {
     hydrateRoot(
@@ -37,14 +37,14 @@ async function hydrate() {
           <RemixBrowser />
         </StrictMode>
       </I18nextProvider>,
-    );
-  });
+    )
+  })
 }
 
 if (typeof requestIdleCallback === "function") {
-  requestIdleCallback(hydrate);
+  requestIdleCallback(hydrate)
 } else {
   // Safari doesn't support requestIdleCallback
   // https://caniuse.com/requestidlecallback
-  setTimeout(hydrate, 1);
+  setTimeout(hydrate, 1)
 }

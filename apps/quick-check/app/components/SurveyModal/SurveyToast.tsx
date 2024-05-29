@@ -1,20 +1,20 @@
-import { type FC } from "react";
-import { useTranslation } from "react-i18next";
+import { type FC } from "react"
+import { useTranslation } from "react-i18next"
 
-import { useIsDesktop } from "~qcs/index";
-import { AnimatePresence, motion } from "framer-motion";
-import { twMerge } from "tailwind-merge";
+import { useIsDesktop } from "~qcs/index"
+import { AnimatePresence, motion } from "framer-motion"
+import { twMerge } from "tailwind-merge"
 
-import { useSurveyContext } from "./SurveyContext";
+import { useSurveyContext } from "./SurveyContext"
 
 export const SurveyToast: FC = () => {
-  const { t } = useTranslation();
+  const { t } = useTranslation()
 
-  const { toast, footerHeight } = useSurveyContext();
+  const { toast, footerHeight } = useSurveyContext()
 
-  const isDesktop = useIsDesktop();
+  const isDesktop = useIsDesktop()
 
-  const bottom = `${(isDesktop ? 24 : 8) + footerHeight}px`;
+  const bottom = `${(isDesktop ? 24 : 8) + footerHeight}px`
 
   return (
     <AnimatePresence>
@@ -44,11 +44,9 @@ export const SurveyToast: FC = () => {
           )}
           style={{ bottom }}
         >
-          <h1 className="text-center text-base font-bold leading-6 text-contrast">
-            {t("survey.thank_you")}
-          </h1>
+          <h1 className="text-center text-base font-bold leading-6 text-contrast">{t("survey.thank_you")}</h1>
         </motion.div>
       )}
     </AnimatePresence>
-  );
-};
+  )
+}

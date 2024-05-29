@@ -1,8 +1,8 @@
-import { getContentStackClient } from "~/contentstack.server";
+import { getContentStackClient } from "~/contentstack.server"
 
-import { logError } from "quickcheck-shared";
+import { logError } from "quickcheck-shared"
 
-import { graphql, type GQLProxyData, type GraphQLClient } from "~/graphql";
+import { graphql, type GQLProxyData, type GraphQLClient } from "~/graphql"
 
 export const GET_ENROLLMENT_SKILL_QUESTIONS = graphql(/* GraphQL */ `
   query GetEnrollmentSkillQuestions($enrollmentId: uuid!, $skillId: String) {
@@ -23,7 +23,7 @@ export const GET_ENROLLMENT_SKILL_QUESTIONS = graphql(/* GraphQL */ `
       }
     }
   }
-`);
+`)
 
 export async function getEnrollmentSkillQuestions(
   this: GraphQLClient,
@@ -36,39 +36,35 @@ export async function getEnrollmentSkillQuestions(
       query: GET_ENROLLMENT_SKILL_QUESTIONS,
       variables: { enrollmentId, skillId },
       fetchPolicy: "no-cache",
-    });
+    })
 
-    const enrollment = data?.user_enrollment_by_pk;
+    const enrollment = data?.user_enrollment_by_pk
 
-    if (!enrollment) return null;
+    if (!enrollment) return null
 
-    const language = enrollment.user.language_preference;
-    const contentStack = getContentStackClient(language);
+    const language = enrollment.user.language_preference
+    const contentStack = getContentStackClient(language)
 
-    const skill_taxonomy = await contentStack.getTaxonomy(skillId);
+    const skill_taxonomy = await contentStack.getTaxonomy(skillId)
 
     const user_questions = await Promise.all(
       enrollment.user_questions.map(async (user_question) => {
-        const questionData = await contentStack.getQuestionItem(
-          user_question.question_id,
-        );
+        const questionData = await contentStack.getQuestionItem(user_question.question_id)
 
         return {
           ...user_question,
           questionData,
           taxonomy: skill_taxonomy,
           taxonomy_name: skill_taxonomy?.display_name ?? "",
-        };
+        }
       }),
-    );
+    )
 
-    return user_questions;
+    return user_questions
   } catch (error) {
-    logError({ error, log: "getEnrollmentSkillQuestions" });
-    return null;
+    logError({ error, log: "getEnrollmentSkillQuestions" })
+    return null
   }
 }
 
-export type EnrollmentSkillDashboardQuestions = NonNullable<
-  Awaited<ReturnType<typeof getEnrollmentSkillQuestions>>
->;
+export type EnrollmentSkillDashboardQuestions = NonNullable<Awaited<ReturnType<typeof getEnrollmentSkillQuestions>>>

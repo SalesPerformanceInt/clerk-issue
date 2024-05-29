@@ -1,9 +1,9 @@
-import { getContentStackClient } from "~/contentstack.server";
+import { getContentStackClient } from "~/contentstack.server"
 
-import { invariant, logError } from "quickcheck-shared";
+import { invariant, logError } from "quickcheck-shared"
 
-import { getContentStackLanguage } from "~/contentstack";
-import { graphql, type GQLProxyUserData, type GraphQLClient } from "~/graphql";
+import { getContentStackLanguage } from "~/contentstack"
+import { graphql, type GQLProxyUserData, type GraphQLClient } from "~/graphql"
 
 export const GET_USER_THEME = graphql(/* GraphQL */ `
   query GetUserTheme($userId: uuid!) {
@@ -14,37 +14,34 @@ export const GET_USER_THEME = graphql(/* GraphQL */ `
       }
     }
   }
-`);
+`)
 
-export async function getUserTheme(
-  this: GraphQLClient,
-  proxyData: GQLProxyUserData,
-) {
-  const { userId } = proxyData;
+export async function getUserTheme(this: GraphQLClient, proxyData: GQLProxyUserData) {
+  const { userId } = proxyData
 
   try {
     const result = await this.query({
       query: GET_USER_THEME,
       variables: { userId },
-    });
+    })
 
-    invariant(result?.data?.user_by_pk?.tenant, "User not found");
+    invariant(result?.data?.user_by_pk?.tenant, "User not found")
 
     const {
       tenant: { theme_id },
       language_preference,
-    } = result.data.user_by_pk;
+    } = result.data.user_by_pk
 
-    const contentStack = getContentStackClient(language_preference);
+    const contentStack = getContentStackClient(language_preference)
 
-    const theme = await contentStack.getTheme(theme_id);
+    const theme = await contentStack.getTheme(theme_id)
 
     return {
       theme: theme?.custom_styles ?? null,
       langauge: getContentStackLanguage(language_preference),
-    };
+    }
   } catch (error) {
-    logError({ error, log: "getUserTheme" });
-    return null;
+    logError({ error, log: "getUserTheme" })
+    return null
   }
 }

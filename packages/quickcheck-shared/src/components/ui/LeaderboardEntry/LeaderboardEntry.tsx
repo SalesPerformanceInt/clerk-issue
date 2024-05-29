@@ -1,38 +1,28 @@
-import React, { type FC } from "react";
+import React, { type FC } from "react"
 
-import {
-  faArrowDown,
-  faArrowUp,
-  faDash,
-} from "@fortawesome/pro-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { MatchedMap } from "~qcs/utils/matchedMap";
-import { twMerge } from "tailwind-merge";
+import { faArrowDown, faArrowUp, faDash } from "@fortawesome/pro-solid-svg-icons"
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+import { twMerge } from "tailwind-merge"
+
+import { MatchedMap } from "~qcs/utils/matchedMap"
 
 type LeaderboardEntryProps = {
-  direction?: "up" | "down" | "neutral";
-  rank: number | string;
-  title: string;
-  score?: number;
-  className?: string;
-  featured?: boolean;
-};
+  direction?: "up" | "down" | "neutral"
+  rank: number | string
+  title: string
+  score?: number
+  className?: string
+  featured?: boolean
+}
 
 const directionMap = new MatchedMap([
   ["up", faArrowUp],
   ["down", faArrowDown],
   ["neutral", faDash],
   ["_", faDash],
-]);
+])
 
-const LeaderboardEntry: FC<LeaderboardEntryProps> = ({
-  direction,
-  rank,
-  title,
-  score,
-  className,
-  featured,
-}) => {
+const LeaderboardEntry: FC<LeaderboardEntryProps> = ({ direction, rank, title, score, className, featured }) => {
   return (
     <div
       className={twMerge(
@@ -41,31 +31,17 @@ const LeaderboardEntry: FC<LeaderboardEntryProps> = ({
         className,
       )}
     >
-      {direction && (
-        <FontAwesomeIcon
-          icon={directionMap.get(direction)}
-          className="basis-6"
-        />
-      )}
+      {direction && <FontAwesomeIcon icon={directionMap.get(direction)} className="basis-6" />}
 
-      <div
-        className={twMerge("basis-8", [
-          !!direction && "mr-2 text-right",
-          featured === undefined && "font-bold",
-        ])}
-      >
+      <div className={twMerge("basis-8", [!!direction && "mr-2 text-right", featured === undefined && "font-bold"])}>
         #{rank}
       </div>
 
       <h3 className="flex-[6]"> {title} </h3>
 
-      {score && (
-        <span className="text-right">
-          {new Intl.NumberFormat("en-US").format(score)}
-        </span>
-      )}
+      {score && <span className="text-right">{new Intl.NumberFormat("en-US").format(score)}</span>}
     </div>
-  );
-};
+  )
+}
 
-export { LeaderboardEntry, type LeaderboardEntryProps };
+export { LeaderboardEntry, type LeaderboardEntryProps }

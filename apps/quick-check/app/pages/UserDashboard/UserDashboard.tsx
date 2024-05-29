@@ -1,24 +1,13 @@
-import type { FC } from "react";
-import { useTranslation } from "react-i18next";
+import type { FC } from "react"
+import { useTranslation } from "react-i18next"
 
-import { faArrowUpRightDots } from "@fortawesome/pro-light-svg-icons";
+import { faArrowUpRightDots } from "@fortawesome/pro-light-svg-icons"
 
-import {
-  MobileCarousel,
-  ProgressIcon,
-  ResponsiveContainer,
-  Section,
-  useIsDesktop,
-} from "quickcheck-shared";
+import { MobileCarousel, ProgressIcon, ResponsiveContainer, Section, useIsDesktop } from "quickcheck-shared"
 
-import { UserDashboard as UserDashboardData } from "~/models/userDashboard";
+import { UserDashboard as UserDashboardData } from "~/models/userDashboard"
 
-import {
-  AccelerateButton,
-  SurveyContextProvider,
-  SurveyModal,
-  SurveyToast,
-} from "~/components";
+import { AccelerateButton, SurveyContextProvider, SurveyModal, SurveyToast } from "~/components"
 
 import {
   AchievementsSuspense,
@@ -29,24 +18,21 @@ import {
   LeaderboardSuspense,
   UserDashboardNoEnrollments,
   WeeklyStreakSuspense,
-} from "./components";
+} from "./components"
 
-import {
-  UserDashboardContextProvider,
-  type UserDashboardContextProps,
-} from "./context/UserDashboardContext";
+import { UserDashboardContextProvider, type UserDashboardContextProps } from "./context/UserDashboardContext"
 
 /**
  * UserDashboard Component
  */
 
 type UserDashboardProps = {
-  userDashboard: UserDashboardData & UserDashboardContextProps;
-};
+  userDashboard: UserDashboardData & UserDashboardContextProps
+}
 
 export const UserDashboard: FC<UserDashboardProps> = ({ userDashboard }) => {
-  const { t } = useTranslation();
-  const isDesktop = useIsDesktop();
+  const { t } = useTranslation()
+  const isDesktop = useIsDesktop()
 
   const {
     userDashboardData,
@@ -54,7 +40,7 @@ export const UserDashboard: FC<UserDashboardProps> = ({ userDashboard }) => {
     userDashboardAchievements,
     userDashboardActiveEnrollments,
     userDashboardCompletedEnrollments,
-  } = userDashboard;
+  } = userDashboard
 
   if (userDashboardData.total_enrollments === 0) {
     return (
@@ -65,7 +51,7 @@ export const UserDashboard: FC<UserDashboardProps> = ({ userDashboard }) => {
           <UserDashboardNoEnrollments />
         </main>
       </UserDashboardContextProvider>
-    );
+    )
   }
 
   return (
@@ -75,44 +61,27 @@ export const UserDashboard: FC<UserDashboardProps> = ({ userDashboard }) => {
 
         <ResponsiveContainer className="p-4 pb-8" asChild>
           <main>
-            <MobileCarousel
-              title={t("common.activity")}
-              icon={faArrowUpRightDots}
-            >
-              <WeeklyStreakSuspense
-                weeklyStreakPromise={userDashboardWeeklyStreakCalendar}
-              />
+            <MobileCarousel title={t("common.activity")} icon={faArrowUpRightDots}>
+              <WeeklyStreakSuspense weeklyStreakPromise={userDashboardWeeklyStreakCalendar} />
 
-              <AchievementsSuspense
-                achievementsPromise={userDashboardAchievements}
-              />
+              <AchievementsSuspense achievementsPromise={userDashboardAchievements} />
 
               {userDashboardData.show_leaderboard && (
                 <LeaderboardSuspense
                   activeEnrollmentsPromise={userDashboardActiveEnrollments}
-                  completedEnrollmentsPromise={
-                    userDashboardCompletedEnrollments
-                  }
+                  completedEnrollmentsPromise={userDashboardCompletedEnrollments}
                 />
               )}
             </MobileCarousel>
 
             <Section title={t("common.progress")} icon={<ProgressIcon />}>
-              <ActiveEnrollmentsSuspense
-                activeEnrollmentsPromise={userDashboardActiveEnrollments}
-              />
+              <ActiveEnrollmentsSuspense activeEnrollmentsPromise={userDashboardActiveEnrollments} />
 
-              <CompletedEnrollmentsSuspense
-                completedEnrollmentsPromise={userDashboardCompletedEnrollments}
-              />
+              <CompletedEnrollmentsSuspense completedEnrollmentsPromise={userDashboardCompletedEnrollments} />
             </Section>
 
             {!isDesktop && (
-              <AccelerateButton
-                background="light"
-                className="-mt-2"
-                tenantId={userDashboardData.tenant_id}
-              />
+              <AccelerateButton background="light" className="-mt-2" tenantId={userDashboardData.tenant_id} />
             )}
           </main>
         </ResponsiveContainer>
@@ -121,5 +90,5 @@ export const UserDashboard: FC<UserDashboardProps> = ({ userDashboard }) => {
         <SurveyModal />
       </SurveyContextProvider>
     </UserDashboardContextProvider>
-  );
-};
+  )
+}

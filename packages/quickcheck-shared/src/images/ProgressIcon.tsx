@@ -1,18 +1,11 @@
-import React, { type FC } from "react";
+import React, { type FC } from "react"
 
 interface ProgressIconProps {
-  className?: string;
+  className?: string
 }
 
 export const ProgressIcon: FC<ProgressIconProps> = ({ className }) => (
-  <svg
-    className={className}
-    width="16"
-    height="16"
-    viewBox="0 0 16 16"
-    fill="none"
-    xmlns="http://www.w3.org/2000/svg"
-  >
+  <svg className={className} width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
     <path
       id="Union"
       fillRule="evenodd"
@@ -21,4 +14,4 @@ export const ProgressIcon: FC<ProgressIconProps> = ({ className }) => (
       className="fill-primary-50"
     />
   </svg>
-);
+)

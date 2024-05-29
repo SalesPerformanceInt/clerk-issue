@@ -1,1 +1,1 @@
-export type ReverseMap<T> = T[keyof T];
+export type ReverseMap<T> = T[keyof T]

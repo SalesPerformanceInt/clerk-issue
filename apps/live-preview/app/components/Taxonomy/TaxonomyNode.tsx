@@ -1,6 +1,6 @@
-import { Handle, NodeProps, NodeToolbar, Position } from "reactflow";
+import { Handle, NodeProps, NodeToolbar, Position } from "reactflow"
 
-import { cn } from "quickcheck-shared";
+import { cn } from "quickcheck-shared"
 
 export const TaxonomyNode = ({ data }: NodeProps) => {
   return (
@@ -28,5 +28,5 @@ export const TaxonomyNode = ({ data }: NodeProps) => {
       <Handle type="target" position={Position.Left} />
       <Handle type="source" position={Position.Right} />
     </>
-  );
-};
+  )
+}

@@ -1,21 +1,21 @@
-import React, { type FC } from "react";
-import { useTranslation } from "react-i18next";
+import React, { type FC } from "react"
+import { useTranslation } from "react-i18next"
 
-import { faArrowRight } from "@fortawesome/pro-light-svg-icons";
+import { faArrowRight } from "@fortawesome/pro-light-svg-icons"
 
-import { Button } from "~qcs/components";
+import { Button } from "~qcs/components"
 
-import { Card, type CardProps } from "../Card";
+import { Card, type CardProps } from "../Card"
 
-import { Chart } from "./Chart";
-import type { EnrollmentSkillData } from "./types";
+import { Chart } from "./Chart"
+import type { EnrollmentSkillData } from "./types"
 
 type EnrollmentSkillCardProps = Omit<CardProps, "onClick"> &
   EnrollmentSkillData & {
-    categories: ("baseline" | "current" | "final")[];
-    loading?: boolean;
-    onClick?: (id: string) => void;
-  };
+    categories: ("baseline" | "current" | "final")[]
+    loading?: boolean
+    onClick?: (id: string) => void
+  }
 
 export const EnrollmentSkillCard: FC<EnrollmentSkillCardProps> = ({
   categories,
@@ -25,9 +25,8 @@ export const EnrollmentSkillCard: FC<EnrollmentSkillCardProps> = ({
   children,
   ...props
 }) => {
-  const { skill, baseline, current, unanswered, id, completed, ...other } =
-    props;
-  const { t } = useTranslation();
+  const { skill, baseline, current, unanswered, id, completed, ...other } = props
+  const { t } = useTranslation()
 
   return (
     <Card key={skill} className={className} {...other}>
@@ -36,9 +35,7 @@ export const EnrollmentSkillCard: FC<EnrollmentSkillCardProps> = ({
           <div className="flex w-full flex-col justify-center gap-2">
             {children ?? (
               <div className="flex items-center gap-2">
-                <p className="truncate text-base font-normal leading-6">
-                  {skill}
-                </p>
+                <p className="truncate text-base font-normal leading-6">{skill}</p>
               </div>
             )}
 
@@ -51,13 +48,8 @@ export const EnrollmentSkillCard: FC<EnrollmentSkillCardProps> = ({
                 <div className="flex h-33 justify-start gap-4">
                   <div className="flex h-full w-16 flex-col justify-center gap-4 pr-2">
                     {categories.map((label) => (
-                      <div
-                        key={label}
-                        className="flex h-6 flex-col justify-center"
-                      >
-                        <p className="text-xs font-semibold uppercase text-text-50">
-                          {t(`common.${label}`)}
-                        </p>
+                      <div key={label} className="flex h-6 flex-col justify-center">
+                        <p className="text-xs font-semibold uppercase text-text-50">{t(`common.${label}`)}</p>
                       </div>
                     ))}
                   </div>
@@ -68,10 +60,7 @@ export const EnrollmentSkillCard: FC<EnrollmentSkillCardProps> = ({
                   <div className="w-16 "></div>
                   <div className="flex flex-1 justify-between">
                     {[0, 25, 50, 75, 100].map((p) => (
-                      <div
-                        key={`percent-${p}`}
-                        className="flex w-8 justify-center"
-                      >
+                      <div key={`percent-${p}`} className="flex w-8 justify-center">
                         <p className="text-xs font-semibold leading-4 text-text-50">{`${p}%`}</p>
                       </div>
                     ))}
@@ -96,5 +85,5 @@ export const EnrollmentSkillCard: FC<EnrollmentSkillCardProps> = ({
         )}
       </div>
     </Card>
-  );
-};
+  )
+}

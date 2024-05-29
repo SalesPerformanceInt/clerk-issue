@@ -1,34 +1,31 @@
-import { logError } from "quickcheck-shared";
+import { logError } from "quickcheck-shared"
 
-import { graphql, type GQLProxyUserData, type GraphQLClient } from "~/graphql";
+import { graphql, type GQLProxyUserData, type GraphQLClient } from "~/graphql"
 
 export const UPDATE_NEXT_QUESTION_ID = graphql(/* GraphQL */ `
   mutation UpdateNextQuestionId($userId: uuid!, $nextUserQuestionId: uuid) {
-    update_user_by_pk(
-      pk_columns: { user_id: $userId }
-      _set: { next_user_question_id: $nextUserQuestionId }
-    ) {
+    update_user_by_pk(pk_columns: { user_id: $userId }, _set: { next_user_question_id: $nextUserQuestionId }) {
       ...BaseUser
     }
   }
-`);
+`)
 
 export async function updateNextQuestionId(
   this: GraphQLClient,
   nextUserQuestionId: string | null,
   proxyData: GQLProxyUserData,
 ) {
-  const { userId } = proxyData;
+  const { userId } = proxyData
 
   try {
     const { data } = await this.mutate({
       mutation: UPDATE_NEXT_QUESTION_ID,
       variables: { userId, nextUserQuestionId },
-    });
+    })
 
-    return data?.update_user_by_pk ?? null;
+    return data?.update_user_by_pk ?? null
   } catch (error) {
-    logError({ error, log: "updateNextQuestionId" });
-    return null;
+    logError({ error, log: "updateNextQuestionId" })
+    return null
   }
 }

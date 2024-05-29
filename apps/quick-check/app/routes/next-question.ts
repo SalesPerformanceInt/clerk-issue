@@ -1,22 +1,22 @@
-import { redirect, type LoaderFunctionArgs } from "@vercel/remix";
+import { redirect, type LoaderFunctionArgs } from "@vercel/remix"
 
-import { invariant, logError } from "quickcheck-shared";
+import { invariant, logError } from "quickcheck-shared"
 
-import { generateNextQuestionFromRequest } from "~/models/user";
+import { generateNextQuestionFromRequest } from "~/models/user"
 
 export const config = {
   maxDuration: 300,
-};
+}
 
 export const loader = async ({ request }: LoaderFunctionArgs) => {
   try {
-    const nextQuestionId = await generateNextQuestionFromRequest(request);
+    const nextQuestionId = await generateNextQuestionFromRequest(request)
 
-    invariant(nextQuestionId, "next question not found");
+    invariant(nextQuestionId, "next question not found")
 
-    return redirect(`/question/${nextQuestionId}`);
+    return redirect(`/question/${nextQuestionId}`)
   } catch (error) {
-    logError({ error, log: "/next-question" });
-    return redirect(`/`);
+    logError({ error, log: "/next-question" })
+    return redirect(`/`)
   }
-};
+}

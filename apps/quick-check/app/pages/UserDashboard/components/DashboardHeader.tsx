@@ -1,43 +1,33 @@
-import { useState, type FC } from "react";
-import { useNavigate } from "@remix-run/react";
+import { useState, type FC } from "react"
+import { useNavigate } from "@remix-run/react"
 
-import {
-  Header,
-  HeaderUnansweredQuestions,
-  RichardsonLogo,
-  Support,
-  useIsDesktop,
-} from "quickcheck-shared";
+import { Header, HeaderUnansweredQuestions, RichardsonLogo, Support, useIsDesktop } from "quickcheck-shared"
 
-import { useUserDashboardContext } from "~/pages/UserDashboard";
+import { useUserDashboardContext } from "~/pages/UserDashboard"
 
-import { AccelerateButton } from "~/components";
+import { AccelerateButton } from "~/components"
 
 export const DashboardHeader: FC = () => {
-  const [start, setStart] = useState(false);
+  const [start, setStart] = useState(false)
 
-  const navigate = useNavigate();
+  const navigate = useNavigate()
 
-  const { userDashboardData } = useUserDashboardContext();
+  const { userDashboardData } = useUserDashboardContext()
 
-  const isDesktop = useIsDesktop();
+  const isDesktop = useIsDesktop()
 
   const startQuestions = () => {
-    setStart(true);
+    setStart(true)
 
-    navigate("/next-question");
-  };
+    navigate("/next-question")
+  }
 
   if (isDesktop)
     return (
       <Header
         right={
           userDashboardData.total_enrollments > 0 && (
-            <HeaderUnansweredQuestions
-              userData={userDashboardData}
-              onStart={() => startQuestions()}
-              loading={start}
-            />
+            <HeaderUnansweredQuestions userData={userDashboardData} onStart={() => startQuestions()} loading={start} />
           )
         }
         left={
@@ -47,7 +37,7 @@ export const DashboardHeader: FC = () => {
           </div>
         }
       />
-    );
+    )
 
-  return <Header right={<Support />} left={<RichardsonLogo />} />;
-};
+  return <Header right={<Support />} left={<RichardsonLogo />} />
+}

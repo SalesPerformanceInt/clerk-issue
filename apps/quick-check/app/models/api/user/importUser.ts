@@ -1,8 +1,8 @@
-import { z } from "zod";
+import { z } from "zod"
 
-import { GQLUserTenantData, type UpsertUserInput } from "~/graphql";
+import { GQLUserTenantData, type UpsertUserInput } from "~/graphql"
 
-import { parseSchema } from "~/utils/parseSchema";
+import { parseSchema } from "~/utils/parseSchema"
 
 export const importUserSchema = z.object({
   user_id: z.string().uuid(),
@@ -13,9 +13,9 @@ export const importUserSchema = z.object({
   language: z.string().optional(),
   phone_number: z.string().optional(),
   show_leaderboard: z.boolean().optional(),
-});
+})
 
-export type ImportUserData = z.infer<typeof importUserSchema>;
+export type ImportUserData = z.infer<typeof importUserSchema>
 
 export const formatUserInputFromImport = ({
   language,
@@ -32,10 +32,10 @@ export const formatUserInputFromImport = ({
       userId: data.user_id,
       tenantId: account_subdomain,
     },
-  ];
-};
+  ]
+}
 
 export const parseCreateUserRequest = (formData?: FormData) => {
-  const data = formData && Object.fromEntries([...formData.entries()]);
-  return parseSchema(data, importUserSchema);
-};
+  const data = formData && Object.fromEntries([...formData.entries()])
+  return parseSchema(data, importUserSchema)
+}

@@ -1,6 +1,6 @@
-import { logError } from "quickcheck-shared";
+import { logError } from "quickcheck-shared"
 
-import { graphql, type GQLProxyUserData, type GraphQLClient } from "~/graphql";
+import { graphql, type GQLProxyUserData, type GraphQLClient } from "~/graphql"
 
 export const GET_ADMIN_USER_DATA = graphql(/* GraphQL */ `
   query GetAdminUserData($userId: uuid!) {
@@ -20,9 +20,7 @@ export const GET_ADMIN_USER_DATA = graphql(/* GraphQL */ `
           }
         }
       }
-      user_questions(
-        order_by: [{ active_on: asc, retired_on: asc_nulls_first }]
-      ) {
+      user_questions(order_by: [{ active_on: asc, retired_on: asc_nulls_first }]) {
         id
         taxonomy_id
         question_id
@@ -48,26 +46,23 @@ export const GET_ADMIN_USER_DATA = graphql(/* GraphQL */ `
       }
     }
   }
-`);
+`)
 
-export async function getAdminUserData(
-  this: GraphQLClient,
-  proxyData: GQLProxyUserData,
-) {
-  const { userId } = proxyData;
+export async function getAdminUserData(this: GraphQLClient, proxyData: GQLProxyUserData) {
+  const { userId } = proxyData
 
   try {
     const { data } = await this.query({
       query: GET_ADMIN_USER_DATA,
       variables: { userId },
       fetchPolicy: "no-cache",
-    });
+    })
 
-    if (!data?.user_by_pk) return null;
+    if (!data?.user_by_pk) return null
 
-    return data.user_by_pk;
+    return data.user_by_pk
   } catch (error) {
-    logError({ error, log: "getAdminUserData" });
-    return null;
+    logError({ error, log: "getAdminUserData" })
+    return null
   }
 }

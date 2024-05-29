@@ -1,18 +1,18 @@
-import React, { type FC } from "react";
+import React, { type FC } from "react"
 
-import { useQuestionContext } from "~qcs/components/Question";
-import { getVariant } from "~qcs/utils/getVariant";
+import { getVariant } from "~qcs/utils/getVariant"
 
-import { MultipleChoice } from "./variants";
+import { useQuestionContext } from "~qcs/components/Question"
+
+import { MultipleChoice } from "./variants"
 
 export const QuestionVariant: FC = () => {
-  const { questionItem, variant } = useQuestionContext();
+  const { questionItem, variant } = useQuestionContext()
 
-  const questionVariant = getVariant(questionItem, variant);
-  if (!questionVariant) return null;
+  const questionVariant = getVariant(questionItem, variant)
+  if (!questionVariant) return null
 
-  if ("mcquestion" in questionVariant)
-    return <MultipleChoice mcquestion={questionVariant.mcquestion} />;
+  if ("mcquestion" in questionVariant) return <MultipleChoice mcquestion={questionVariant.mcquestion} />
 
-  return null;
-};
+  return null
+}

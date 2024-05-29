@@ -1,35 +1,29 @@
-import { invariant } from "quickcheck-shared";
+import { invariant } from "quickcheck-shared"
 
-import type {
-  BaseUserAnswerFragment,
-  BaseUserQuestionFragment,
-} from "~/graphql";
+import type { BaseUserAnswerFragment, BaseUserQuestionFragment } from "~/graphql"
 
-import {
-  REVIEW_CORRECT,
-  REVIEW_DIFFICULTY_BASE,
-  REVIEW_WRONG,
-} from "~/utils/constants";
-import { getNextValidBusinessDate } from "~/utils/date";
+import { REVIEW_CORRECT, REVIEW_DIFFICULTY_BASE, REVIEW_WRONG } from "~/utils/constants"
+import { getNextValidBusinessDate } from "~/utils/date"
 
-import type { Answer, AnswerToReview } from "../answer.type";
-import { parseAnswer } from "./parseAnswer";
-import { reviewAnswer } from "./reviewAnswer";
-import { scoreAnswer } from "./scoreAnswer";
+import type { Answer, AnswerToReview } from "../answer.type"
+
+import { parseAnswer } from "./parseAnswer"
+import { reviewAnswer } from "./reviewAnswer"
+import { scoreAnswer } from "./scoreAnswer"
 
 /**
  * Get Answers
  */
 
 export const getCurrentAnswer = async (request: Request) => {
-  const formData = await request.formData();
+  const formData = await request.formData()
 
-  const currentAnswer = parseAnswer(formData.get("data"));
+  const currentAnswer = parseAnswer(formData.get("data"))
 
-  invariant(currentAnswer, "Answer not found");
+  invariant(currentAnswer, "Answer not found")
 
-  return { currentAnswer };
-};
+  return { currentAnswer }
+}
 
 /**
  * Get Reviewed Answer
@@ -48,17 +42,17 @@ export const getReviewedAnswer = (
     difficulty: userQuestion.difficulty || REVIEW_DIFFICULTY_BASE,
     streak: userQuestion.streak || 0,
     score: scoreAnswer(userQuestionAnswers, currentAnswer),
-  };
+  }
 
-  const reviewedAnswer = reviewAnswer(answerToReview);
+  const reviewedAnswer = reviewAnswer(answerToReview)
 
   const userQuestionNextActiveDate = getNextValidBusinessDate(
     new Date(currentAnswer.now),
     reviewedAnswer.latestReviewGap,
-  );
+  )
 
   return {
     reviewedAnswer,
     userQuestionNextActiveDate,
-  };
-};
+  }
+}

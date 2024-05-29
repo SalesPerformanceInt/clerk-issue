@@ -1,7 +1,7 @@
-import { Suspense, type FC } from "react";
-import { useTranslation } from "react-i18next";
+import { Suspense, type FC } from "react"
+import { useTranslation } from "react-i18next"
 
-import { TypedAwait } from "remix-typedjson";
+import { TypedAwait } from "remix-typedjson"
 
 import {
   Achievement,
@@ -9,49 +9,42 @@ import {
   MobileCarouselCard,
   MobileCarouselCardSkeleton,
   type CardProps,
-} from "quickcheck-shared";
+} from "quickcheck-shared"
 
-import type { UserDashboardAchievements } from "~/graphql";
+import type { UserDashboardAchievements } from "~/graphql"
 
 /**
  * Achievements Suspense Component
  */
 
 type AchievementsSuspenseProps = {
-  achievementsPromise: Promise<UserDashboardAchievements | null>;
-};
+  achievementsPromise: Promise<UserDashboardAchievements | null>
+}
 
-export const AchievementsSuspense: FC<AchievementsSuspenseProps> = ({
-  achievementsPromise,
-}) => {
+export const AchievementsSuspense: FC<AchievementsSuspenseProps> = ({ achievementsPromise }) => {
   return (
-    <Suspense
-      fallback={<MobileCarouselCardSkeleton className="h-64 p-6" title />}
-    >
+    <Suspense fallback={<MobileCarouselCardSkeleton className="h-64 p-6" title />}>
       <TypedAwait resolve={achievementsPromise}>
         {(achievementsData) => {
-          if (!achievementsData) return null;
+          if (!achievementsData) return null
 
-          return <AchievementsCard achievementsData={achievementsData} />;
+          return <AchievementsCard achievementsData={achievementsData} />
         }}
       </TypedAwait>
     </Suspense>
-  );
-};
+  )
+}
 
 /**
  * Achievements Card Component
  */
 
 type AchievementsCardProps = CardProps & {
-  achievementsData: UserDashboardAchievements;
-};
+  achievementsData: UserDashboardAchievements
+}
 
-const AchievementsCard: FC<AchievementsCardProps> = ({
-  achievementsData,
-  ...props
-}) => {
-  const { t } = useTranslation();
+const AchievementsCard: FC<AchievementsCardProps> = ({ achievementsData, ...props }) => {
+  const { t } = useTranslation()
 
   const {
     attemptedSkills,
@@ -60,7 +53,7 @@ const AchievementsCard: FC<AchievementsCardProps> = ({
     completedEnrollmentsPercentage,
     retiredQuestions,
     retiredQuestionsPercentage,
-  } = achievementsData;
+  } = achievementsData
 
   return (
     <MobileCarouselCard {...props}>
@@ -72,9 +65,7 @@ const AchievementsCard: FC<AchievementsCardProps> = ({
           text={`${attemptedSkills}`}
           pathClassName="stroke-chart-1"
           label={t("user.dashboard.achievements.skills_attempted")}
-          tooltip={[
-            t("user.dashboard.achievements.questions_attempted.tooltip"),
-          ]}
+          tooltip={[t("user.dashboard.achievements.questions_attempted.tooltip")]}
         />
         <Achievement
           percentage={completedEnrollmentsPercentage}
@@ -91,5 +82,5 @@ const AchievementsCard: FC<AchievementsCardProps> = ({
         />
       </section>
     </MobileCarouselCard>
-  );
-};
+  )
+}

@@ -1,5 +1,5 @@
-import type { TaxonomyTree } from "~/models/entry/taxonomy";
+import type { TaxonomyTree } from "~/models/entry/taxonomy"
 
 export type TaxonomyLivePreviewProps = {
-  taxonomyTree: TaxonomyTree;
-};
+  taxonomyTree: TaxonomyTree
+}

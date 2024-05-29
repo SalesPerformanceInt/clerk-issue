@@ -1,5 +1,5 @@
-export type Uuid = string;
-export type Jsonb = Record<string, unknown>;
-export type TimestampTZ = string;
-export type Numeric = number;
-export type ISODate = string;
+export type Uuid = string
+export type Jsonb = Record<string, unknown>
+export type TimestampTZ = string
+export type Numeric = number
+export type ISODate = string

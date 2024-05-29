@@ -1,14 +1,14 @@
-import { type LoaderFunctionArgs } from "@vercel/remix";
+import { type LoaderFunctionArgs } from "@vercel/remix"
 
-import { redirect, typeddefer, useTypedLoaderData } from "remix-typedjson";
+import { redirect, typeddefer, useTypedLoaderData } from "remix-typedjson"
 
-import { getUserDashboard } from "~/models/userDashboard";
+import { getUserDashboard } from "~/models/userDashboard"
 
-import { UserDashboard } from "~/pages";
+import { UserDashboard } from "~/pages"
 
 export const config = {
   maxDuration: 300,
-};
+}
 
 /**
  * Loader
@@ -16,25 +16,22 @@ export const config = {
 
 export const loader = async ({ request }: LoaderFunctionArgs) => {
   try {
-    const userDashboard = await getUserDashboard(request);
+    const userDashboard = await getUserDashboard(request)
 
-    return typeddefer({ ...userDashboard });
+    return typeddefer({ ...userDashboard })
   } catch (error) {
-    throw redirect("/login");
+    throw redirect("/login")
   }
-};
+}
 
 /**
  * Route Component
  */
 
 export default function Page() {
-  const { userDashboardData, ...userDashboard } =
-    useTypedLoaderData<typeof loader>();
+  const { userDashboardData, ...userDashboard } = useTypedLoaderData<typeof loader>()
 
-  if (!userDashboardData) return redirect("/login");
+  if (!userDashboardData) return redirect("/login")
 
-  return (
-    <UserDashboard userDashboard={{ userDashboardData, ...userDashboard }} />
-  );
+  return <UserDashboard userDashboard={{ userDashboardData, ...userDashboard }} />
 }

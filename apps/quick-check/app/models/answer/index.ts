@@ -1,2 +1,2 @@
-export * from "./answer.type";
-export * from "./answer.server";
+export * from "./answer.type"
+export * from "./answer.server"

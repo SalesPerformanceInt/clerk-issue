@@ -1,19 +1,19 @@
-import { SplitFactory } from "@splitsoftware/splitio";
-import { times } from "remeda";
+import { SplitFactory } from "@splitsoftware/splitio"
+import { times } from "remeda"
 
-import { invariant } from "quickcheck-shared";
+import { invariant } from "quickcheck-shared"
 
-import { getUserDataFromSession } from "~/models/session/userSession.server";
+import { getUserDataFromSession } from "~/models/session/userSession.server"
 
-import { SPLIT_API_KEY } from "./envs.server";
+import { SPLIT_API_KEY } from "./envs.server"
 
-const FEATUREFLAG = { ON: "on", OFF: "off" };
+const FEATUREFLAG = { ON: "on", OFF: "off" }
 
 export const getSplit = async (request: Request, treatments: string[]) => {
   try {
-    const [_now, userId, tenant] = await getUserDataFromSession(request);
+    const [_now, userId, tenant] = await getUserDataFromSession(request)
 
-    if (!userId || !tenant) return [false];
+    if (!userId || !tenant) return [false]
 
     const SplitObj = SplitFactory({
       core: {
@@ -27,26 +27,22 @@ export const getSplit = async (request: Request, treatments: string[]) => {
         eventsPushRate: 2,
       },
       debug: false,
-    });
+    })
 
-    let client = SplitObj.client();
-    await client.ready();
+    let client = SplitObj.client()
+    await client.ready()
 
     const attrs = {
       tenant,
       subdomain: request.url.split(".")[0] ?? "",
-    };
+    }
 
     const treatmentResults = treatments.map((treatmentName) => {
-      const flagResult = client.getTreatmentWithConfig(
-        userId,
-        treatmentName,
-        attrs,
-      );
+      const flagResult = client.getTreatmentWithConfig(userId, treatmentName, attrs)
       try {
         // Primary Flag use, off | on returns a boolean
         // if (flagResult.config === null)
-        return flagResult.treatment === FEATUREFLAG.ON;
+        return flagResult.treatment === FEATUREFLAG.ON
         // Secondary Flag use, special config object returned
         // return JSON.parse(flagResult.config);
       } catch (err) {
@@ -54,16 +50,16 @@ export const getSplit = async (request: Request, treatments: string[]) => {
           err,
           flagResult,
           treatmentName,
-        });
+        })
         // fallthru: return boolean false
-        return false;
+        return false
       }
-    });
+    })
 
-    client.destroy();
+    client.destroy()
 
-    return treatmentResults;
+    return treatmentResults
   } catch (error) {
-    return times(treatments.length, () => false);
+    return times(treatments.length, () => false)
   }
-};
+}

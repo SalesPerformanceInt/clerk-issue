@@ -1,4 +1,4 @@
 export type LandingActionResponse = {
-  email: string;
-  ok: boolean;
-};
+  email: string
+  ok: boolean
+}

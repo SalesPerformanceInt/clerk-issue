@@ -1,48 +1,44 @@
-import { Suspense, useEffect, useState, type FC } from "react";
-import { useTranslation } from "react-i18next";
-import { usePrevious } from "react-use";
-import { useFetcher } from "@remix-run/react";
+import { Suspense, useEffect, useState, type FC } from "react"
+import { useTranslation } from "react-i18next"
+import { usePrevious } from "react-use"
+import { useFetcher } from "@remix-run/react"
 
-import {
-  faFaceDiagonalMouth,
-  faFaceSmileBeam,
-  faFaceWorried,
-} from "@fortawesome/pro-light-svg-icons";
-import { withZod } from "@remix-validated-form/with-zod";
-import { grow } from "~qcs/config/animations";
-import { useIsDesktop } from "~qcs/index";
-import { AnimatePresence, motion } from "framer-motion";
-import { TypedAwait } from "remix-typedjson";
-import { FormProps, ValidatedForm } from "remix-validated-form";
-import { twMerge } from "tailwind-merge";
-import { infer, z } from "zod";
+import { faFaceDiagonalMouth, faFaceSmileBeam, faFaceWorried } from "@fortawesome/pro-light-svg-icons"
+import { withZod } from "@remix-validated-form/with-zod"
+import { grow } from "~qcs/config/animations"
+import { useIsDesktop } from "~qcs/index"
+import { AnimatePresence, motion } from "framer-motion"
+import { TypedAwait } from "remix-typedjson"
+import { FormProps, ValidatedForm } from "remix-validated-form"
+import { twMerge } from "tailwind-merge"
+import { infer, z } from "zod"
 
-import { Button } from "~qcs/components";
+import { Button } from "~qcs/components"
 
-import { SurveyChoice } from "./SurveyChoice";
-import { SurveyComment } from "./SurveyComment";
-import { useSurveyContext } from "./SurveyContext";
-import { SurveySubmitButton } from "./SurveySubmitButton";
+import { SurveyChoice } from "./SurveyChoice"
+import { SurveyComment } from "./SurveyComment"
+import { useSurveyContext } from "./SurveyContext"
+import { SurveySubmitButton } from "./SurveySubmitButton"
 
 const surveySchema = z.object({
   sentiment: z.string(),
   comment: z.string().max(500).optional(),
-});
+})
 
-export const surveyValidator = withZod(surveySchema);
+export const surveyValidator = withZod(surveySchema)
 
-export type SurveyResponse = z.infer<typeof surveySchema>;
+export type SurveyResponse = z.infer<typeof surveySchema>
 
 interface SurveyModalProps {
-  show: boolean;
+  show: boolean
 }
 
 export const SurveyModal: FC = () => {
-  const { t } = useTranslation();
+  const { t } = useTranslation()
 
-  const { open, onSubmit, makeOnDismiss } = useSurveyContext();
+  const { open, onSubmit, makeOnDismiss } = useSurveyContext()
 
-  const isDesktop = useIsDesktop();
+  const isDesktop = useIsDesktop()
 
   return (
     <AnimatePresence>
@@ -98,25 +94,11 @@ export const SurveyModal: FC = () => {
               onSubmit={onSubmit}
               className="flex flex-col gap-4"
             >
-              <h1 className="text-center text-base font-bold leading-6 text-contrast">
-                {t("survey.body")}
-              </h1>
+              <h1 className="text-center text-base font-bold leading-6 text-contrast">{t("survey.body")}</h1>
               <div className="flex gap-4">
-                <SurveyChoice
-                  sentiment="good"
-                  icon={faFaceSmileBeam}
-                  label={t("survey.choices.good")}
-                />
-                <SurveyChoice
-                  sentiment="neutral"
-                  icon={faFaceDiagonalMouth}
-                  label={t("survey.choices.neutral")}
-                />
-                <SurveyChoice
-                  sentiment="bad"
-                  icon={faFaceWorried}
-                  label={t("survey.choices.bad")}
-                />
+                <SurveyChoice sentiment="good" icon={faFaceSmileBeam} label={t("survey.choices.good")} />
+                <SurveyChoice sentiment="neutral" icon={faFaceDiagonalMouth} label={t("survey.choices.neutral")} />
+                <SurveyChoice sentiment="bad" icon={faFaceWorried} label={t("survey.choices.bad")} />
               </div>
               <SurveyComment />
               <div className="flex gap-4">
@@ -136,5 +118,5 @@ export const SurveyModal: FC = () => {
         </motion.div>
       )}
     </AnimatePresence>
-  );
-};
+  )
+}

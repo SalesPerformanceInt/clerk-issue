@@ -1,15 +1,15 @@
-import type { Meta, StoryObj } from "@storybook/react";
+import type { Meta, StoryObj } from "@storybook/react"
 
-import { Avatar as AvatarComponent } from "./";
-import { AvatarDecorator } from "./Avatar.template";
+import { Avatar as AvatarComponent } from "./"
+import { AvatarDecorator } from "./Avatar.template"
 
 const meta = {
   component: AvatarComponent,
   title: "ui/Avatar",
   decorators: [AvatarDecorator],
-} satisfies Meta<typeof AvatarComponent>;
+} satisfies Meta<typeof AvatarComponent>
 
-type Story = StoryObj<typeof meta>;
+type Story = StoryObj<typeof meta>
 
 export const Avatar = {
   args: {
@@ -31,6 +31,6 @@ export const Avatar = {
       },
     },
   },
-} satisfies Story;
+} satisfies Story
 
-export default meta;
+export default meta

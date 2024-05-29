@@ -1,20 +1,17 @@
-import { startNotificationWorkflow } from "~/models/notification/notificationService";
+import { startNotificationWorkflow } from "~/models/notification/notificationService"
 
-import type {
-  NotificationSharedData,
-  NotificationTemplateData,
-} from "../utils/notificationData";
-import type { NotificationTemplate } from "../utils/notificationTemplates.types";
+import type { NotificationSharedData, NotificationTemplateData } from "../utils/notificationData"
+import type { NotificationTemplate } from "../utils/notificationTemplates.types"
 
 /**
  * Send Notification Workflow
  */
 
 type SendNotificationWorkflowProps = {
-  notificationSharedData: NotificationSharedData;
-  notificationTemplateData: NotificationTemplateData;
-  notificationType: NotificationTemplate["notificationType"];
-};
+  notificationSharedData: NotificationSharedData
+  notificationTemplateData: NotificationTemplateData
+  notificationType: NotificationTemplate["notificationType"]
+}
 
 export const sendNotificationWorkflow = async ({
   notificationSharedData: { schedule, ...notificationSharedData },
@@ -32,10 +29,10 @@ export const sendNotificationWorkflow = async ({
         },
       },
     ],
-  });
+  })
 
   return {
     message: "Notification Workflow started from sendNotification",
     template: notificationType,
-  };
-};
+  }
+}

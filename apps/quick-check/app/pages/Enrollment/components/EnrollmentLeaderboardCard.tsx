@@ -1,18 +1,16 @@
-import { type FC } from "react";
-import { useTranslation } from "react-i18next";
+import { type FC } from "react"
+import { useTranslation } from "react-i18next"
 
-import { Card, CardTitle, LeaderboardEntry } from "quickcheck-shared";
+import { Card, CardTitle, LeaderboardEntry } from "quickcheck-shared"
 
-import { useEnrollmentContext } from "../context/EnrollmentContext";
+import { useEnrollmentContext } from "../context/EnrollmentContext"
 
-type EnrollmentLeaderboardCardProps = {};
+type EnrollmentLeaderboardCardProps = {}
 
-export const EnrollmentLeaderboardCard: FC<
-  EnrollmentLeaderboardCardProps
-> = () => {
-  const { t } = useTranslation();
+export const EnrollmentLeaderboardCard: FC<EnrollmentLeaderboardCardProps> = () => {
+  const { t } = useTranslation()
 
-  const { leaderboard, enrollment } = useEnrollmentContext();
+  const { leaderboard, enrollment } = useEnrollmentContext()
 
   return (
     <Card className="w-full">
@@ -31,5 +29,5 @@ export const EnrollmentLeaderboardCard: FC<
         ))}
       </section>
     </Card>
-  );
-};
+  )
+}

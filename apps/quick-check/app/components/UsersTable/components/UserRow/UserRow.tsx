@@ -1,34 +1,28 @@
-import { useEffect, useState, type FC } from "react";
-import { Link, useNavigation, useSubmit } from "@remix-run/react";
-import type { SerializeFrom } from "@vercel/remix";
+import { useEffect, useState, type FC } from "react"
+import { Link, useNavigation, useSubmit } from "@remix-run/react"
+import type { SerializeFrom } from "@vercel/remix"
 
-import {
-  faArrowsRotate,
-  faEnvelope,
-  faKey,
-  faRightToBracket,
-  faSpinner,
-} from "@fortawesome/pro-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { twMerge } from "tailwind-merge";
+import { faArrowsRotate, faEnvelope, faKey, faRightToBracket, faSpinner } from "@fortawesome/pro-solid-svg-icons"
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+import { twMerge } from "tailwind-merge"
 
-import { Button, supportedLngs } from "quickcheck-shared";
+import { Button, supportedLngs } from "quickcheck-shared"
 
-import { getContentStackLanguage } from "~/contentstack";
-import type { AdminUserDataFragment } from "~/graphql";
+import { getContentStackLanguage } from "~/contentstack"
+import type { AdminUserDataFragment } from "~/graphql"
 
-import { useOutletContext } from "~/utils/outletContext";
+import { useOutletContext } from "~/utils/outletContext"
 
-import { parseAdminActionRequest, type AdminAction } from "~/models/admin";
+import { parseAdminActionRequest, type AdminAction } from "~/models/admin"
 
 export interface UserRowProps {
-  user: SerializeFrom<AdminUserDataFragment>;
-  row: number;
-  link?: boolean;
+  user: SerializeFrom<AdminUserDataFragment>
+  row: number
+  link?: boolean
 }
 
 export const useMakeUserAction = (user: UserRowProps["user"]) => {
-  const submit = useSubmit();
+  const submit = useSubmit()
 
   return (
     type: AdminAction["type"],
@@ -36,63 +30,56 @@ export const useMakeUserAction = (user: UserRowProps["user"]) => {
     other?: Omit<AdminAction, "type" | "userId" | "tenantId">,
   ) => {
     return () => {
-      callback?.();
+      callback?.()
       const payload: AdminAction = {
         type,
         userId: user.user_id,
         tenantId: user.tenant_id,
         ...other,
-      };
-      const data = JSON.stringify(payload);
+      }
+      const data = JSON.stringify(payload)
 
-      const formData = new FormData();
-      formData.append("data", data);
+      const formData = new FormData()
+      formData.append("data", data)
 
-      submit(formData, { method: "POST" });
-    };
-  };
-};
+      submit(formData, { method: "POST" })
+    }
+  }
+}
 
 export const useIsLoading = (user: UserRowProps["user"]) => {
-  const { state, formData } = useNavigation();
+  const { state, formData } = useNavigation()
 
   return (actionType: AdminAction["type"]) => {
-    if (state === "idle") return false;
-    const data = parseAdminActionRequest(formData);
-    return data?.userId === user.user_id && actionType === data?.type;
-  };
-};
+    if (state === "idle") return false
+    const data = parseAdminActionRequest(formData)
+    return data?.userId === user.user_id && actionType === data?.type
+  }
+}
 
 export const UserRow: FC<UserRowProps> = ({ user, row, link }) => {
-  const { isAdminEnabled } = useOutletContext();
+  const { isAdminEnabled } = useOutletContext()
 
-  const [dailyEmailEnabled, setDailyEmailEnabled] = useState(
-    user.daily_email_enabled,
-  );
-  const [showLeaderboard, setShowLeaderboard] = useState(user.show_leaderboard);
-  const [language, setLanguage] = useState(
-    getContentStackLanguage(user.language_preference),
-  );
+  const [dailyEmailEnabled, setDailyEmailEnabled] = useState(user.daily_email_enabled)
+  const [showLeaderboard, setShowLeaderboard] = useState(user.show_leaderboard)
+  const [language, setLanguage] = useState(getContentStackLanguage(user.language_preference))
 
   useEffect(() => {
-    setDailyEmailEnabled(user.daily_email_enabled);
-  }, [user.daily_email_enabled]);
+    setDailyEmailEnabled(user.daily_email_enabled)
+  }, [user.daily_email_enabled])
 
-  const isLoading = useIsLoading(user);
-  const makeUserAction = useMakeUserAction(user);
+  const isLoading = useIsLoading(user)
+  const makeUserAction = useMakeUserAction(user)
 
-  const activeToken = user.active_tokens[0]?.id ?? "";
+  const activeToken = user.active_tokens[0]?.id ?? ""
 
-  const fullName = `${user.first_name} ${user.last_name}`;
+  const fullName = `${user.first_name} ${user.last_name}`
 
   return (
     <tr className={`border-b ${row % 2 === 0 ? "bg-neutral-100" : "bg-white"}`}>
       <td className="whitespace-nowrap p-4">
         {link ? (
-          <Link
-            className="text-primary-50 hover:text-primary-75 hover:underline"
-            to={`/admin/user/${user.user_id}`}
-          >
+          <Link className="text-primary-50 hover:text-primary-75 hover:underline" to={`/admin/user/${user.user_id}`}>
             {fullName}
           </Link>
         ) : (
@@ -109,9 +96,7 @@ export const UserRow: FC<UserRowProps> = ({ user, row, link }) => {
           className="h-4 w-4 rounded border-gray-300 bg-gray-100 text-blue-600"
           disabled={!isAdminEnabled}
           {...(isAdminEnabled && {
-            onChange: makeUserAction("TOGGLE_SHOW_LEADERBOARD", () =>
-              setShowLeaderboard(!showLeaderboard),
-            ),
+            onChange: makeUserAction("TOGGLE_SHOW_LEADERBOARD", () => setShowLeaderboard(!showLeaderboard)),
           })}
         />
       </td>
@@ -124,9 +109,7 @@ export const UserRow: FC<UserRowProps> = ({ user, row, link }) => {
           className="h-4 w-4 rounded border-gray-300 bg-gray-100 text-blue-600"
           disabled={!isAdminEnabled}
           {...(isAdminEnabled && {
-            onChange: makeUserAction("TOGGLE_SMS_ENABLED", () =>
-              setDailyEmailEnabled(!dailyEmailEnabled),
-            ),
+            onChange: makeUserAction("TOGGLE_SMS_ENABLED", () => setDailyEmailEnabled(!dailyEmailEnabled)),
           })}
         />
       </td>
@@ -134,26 +117,17 @@ export const UserRow: FC<UserRowProps> = ({ user, row, link }) => {
       {isAdminEnabled ? (
         <td className="relative whitespace-nowrap p-4 text-center">
           {isLoading("CHANGE_LANGUAGE") && (
-            <FontAwesomeIcon
-              icon={faSpinner}
-              spinPulse
-              className="absolute bottom-0 left-0 right-0 top-0 m-auto"
-            />
+            <FontAwesomeIcon icon={faSpinner} spinPulse className="absolute bottom-0 left-0 right-0 top-0 m-auto" />
           )}
           <select
             value={getContentStackLanguage(user.language_preference)}
-            className={twMerge(
-              "rounded-sm border px-2 py-2",
-              isLoading("CHANGE_LANGUAGE") && "text-transparent",
-            )}
+            className={twMerge("rounded-sm border px-2 py-2", isLoading("CHANGE_LANGUAGE") && "text-transparent")}
             disabled={isLoading("CHANGE_LANGUAGE")}
             onChange={({ target: { value } }) => {
-              const languageSelection = getContentStackLanguage(value);
-              makeUserAction(
-                "CHANGE_LANGUAGE",
-                () => setLanguage(languageSelection),
-                { language: getContentStackLanguage(languageSelection) },
-              )();
+              const languageSelection = getContentStackLanguage(value)
+              makeUserAction("CHANGE_LANGUAGE", () => setLanguage(languageSelection), {
+                language: getContentStackLanguage(languageSelection),
+              })()
             }}
           >
             <FontAwesomeIcon icon={faSpinner} spinPulse />
@@ -165,9 +139,7 @@ export const UserRow: FC<UserRowProps> = ({ user, row, link }) => {
           </select>
         </td>
       ) : (
-        <td className="relative whitespace-nowrap p-4 text-center">
-          {language}
-        </td>
+        <td className="relative whitespace-nowrap p-4 text-center">{language}</td>
       )}
 
       {isAdminEnabled && (
@@ -217,5 +189,5 @@ export const UserRow: FC<UserRowProps> = ({ user, row, link }) => {
         </>
       )}
     </tr>
-  );
-};
+  )
+}

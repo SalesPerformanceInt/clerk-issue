@@ -1,28 +1,29 @@
-import React, { type FC } from "react";
-import { useTranslation } from "react-i18next";
+import React, { type FC } from "react"
+import { useTranslation } from "react-i18next"
 
-import { faAward, faRankingStar } from "@fortawesome/pro-light-svg-icons";
-import { faChevronRight } from "@fortawesome/pro-regular-svg-icons";
-import { faSpinner } from "@fortawesome/pro-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { Progress, ProgressIndicator } from "@radix-ui/react-progress";
-import { cn } from "~qcs/utils";
+import { faAward, faRankingStar } from "@fortawesome/pro-light-svg-icons"
+import { faChevronRight } from "@fortawesome/pro-regular-svg-icons"
+import { faSpinner } from "@fortawesome/pro-solid-svg-icons"
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+import { Progress, ProgressIndicator } from "@radix-ui/react-progress"
+
+import { cn } from "~qcs/utils"
 
 type ProgressItemProps = {
-  id: string;
-  title?: string;
-  ranking?: string | number | null | false;
-  score?: string | number | null;
+  id: string
+  title?: string
+  ranking?: string | number | null | false
+  score?: string | number | null
   progress: {
-    attempted: number;
-    retired: number;
-    total: number;
-  };
-  ariaLabel: string;
-  loading?: boolean;
-  onClick?: (id: string) => void;
-  className?: string;
-};
+    attempted: number
+    retired: number
+    total: number
+  }
+  ariaLabel: string
+  loading?: boolean
+  onClick?: (id: string) => void
+  className?: string
+}
 
 const ProgressItem: FC<ProgressItemProps> = ({
   id,
@@ -35,12 +36,12 @@ const ProgressItem: FC<ProgressItemProps> = ({
   loading,
   className,
 }) => {
-  const { t } = useTranslation();
+  const { t } = useTranslation()
 
   const progressBarValues = {
     retired: (progress.retired / progress.total) * 100,
     attempted: (progress.attempted / progress.total) * 100,
-  };
+  }
 
   return (
     <div
@@ -51,12 +52,7 @@ const ProgressItem: FC<ProgressItemProps> = ({
       )}
       onClick={() => onClick?.(id)}
     >
-      <div
-        className={cn(
-          "flex w-full flex-col gap-2 overflow-hidden",
-          !title && "gap-4",
-        )}
-      >
+      <div className={cn("flex w-full flex-col gap-2 overflow-hidden", !title && "gap-4")}>
         {title && (
           <div className="flex items-center justify-between font-normal text-text">
             <h3 className="flex-[2] truncate">{title}</h3>
@@ -98,15 +94,11 @@ const ProgressItem: FC<ProgressItemProps> = ({
           <div className="flex items-center gap-4">
             <div className="flex items-center gap-1">
               <div className="h-2 w-2 rounded-full bg-success" />
-              <span>
-                {t("user.dashboard.retired", { count: progress.retired })}
-              </span>
+              <span>{t("user.dashboard.retired", { count: progress.retired })}</span>
             </div>
             <div className="flex items-center gap-1">
               <div className="h-2 w-2 rounded-full bg-primary" />
-              <span>
-                {t("user.dashboard.attempted", { count: progress.attempted })}
-              </span>
+              <span>{t("user.dashboard.attempted", { count: progress.attempted })}</span>
             </div>
           </div>
           <span>{t("user.dashboard.total", { count: progress.total })}</span>
@@ -115,26 +107,17 @@ const ProgressItem: FC<ProgressItemProps> = ({
 
       {!!onClick && loading && (
         <div>
-          <FontAwesomeIcon
-            icon={faSpinner}
-            size="lg"
-            className="text-text-75"
-            spinPulse
-          />
+          <FontAwesomeIcon icon={faSpinner} size="lg" className="text-text-75" spinPulse />
         </div>
       )}
 
       {!!onClick && !loading && (
         <div>
-          <FontAwesomeIcon
-            icon={faChevronRight}
-            size="xl"
-            className="text-text-75"
-          />
+          <FontAwesomeIcon icon={faChevronRight} size="xl" className="text-text-75" />
         </div>
       )}
     </div>
-  );
-};
+  )
+}
 
-export { ProgressItem, type ProgressItemProps };
+export { ProgressItem, type ProgressItemProps }

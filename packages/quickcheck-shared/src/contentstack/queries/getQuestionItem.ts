@@ -1,14 +1,11 @@
-import type { QuestionItem } from "~qcs/contentstack";
-import type { ContentStackSDKClient } from "~qcs/contentstack/client";
+import type { QuestionItem } from "~qcs/contentstack"
+import type { ContentStackSDKClient } from "~qcs/contentstack/client"
 
-import { logError } from "~qcs/utils/logger";
+import { logError } from "~qcs/utils/logger"
 
-export async function getQuestionItem(
-  this: ContentStackSDKClient,
-  uid: string,
-) {
+export async function getQuestionItem(this: ContentStackSDKClient, uid: string) {
   try {
-    const contentType = this.client.ContentType("questionitem");
+    const contentType = this.client.ContentType("questionitem")
 
     const entry = contentType
       .Entry(uid)
@@ -16,10 +13,10 @@ export async function getQuestionItem(
       .includeFallback()
       .includeContentType()
       .includeReference(["topic", "topic.parent_taxonomy"])
-      .toJSON();
-    return (await entry.fetch()) as QuestionItem;
+      .toJSON()
+    return (await entry.fetch()) as QuestionItem
   } catch (error) {
-    logError({ error, log: "getQuestionItem" });
-    return null;
+    logError({ error, log: "getQuestionItem" })
+    return null
   }
 }

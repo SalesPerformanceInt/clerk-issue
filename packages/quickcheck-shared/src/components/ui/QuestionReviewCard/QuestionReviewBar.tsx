@@ -1,35 +1,29 @@
-import React, { type FC } from "react";
-import { useTranslation } from "react-i18next";
+import React, { type FC } from "react"
+import { useTranslation } from "react-i18next"
 
-import { Progress, ProgressIndicator } from "@radix-ui/react-progress";
+import { Progress, ProgressIndicator } from "@radix-ui/react-progress"
 
-import type { QuestionItem } from "~qcs/components/Question";
+import type { QuestionItem } from "~qcs/components/Question"
 
 /**
  * Question Review Bar Props
  */
 
 export type QuestionReviewBarProps = {
-  questionItem: QuestionItem;
-  correctAnswers: number;
-  incorrectAnswers: number;
-};
+  questionItem: QuestionItem
+  correctAnswers: number
+  incorrectAnswers: number
+}
 
 /**
  * Question Review Bar Component
  */
 
-export const QuestionReviewBar: FC<QuestionReviewBarProps> = ({
-  questionItem,
-  correctAnswers,
-  incorrectAnswers,
-}) => {
-  const { t } = useTranslation();
+export const QuestionReviewBar: FC<QuestionReviewBarProps> = ({ questionItem, correctAnswers, incorrectAnswers }) => {
+  const { t } = useTranslation()
 
-  const correctAnswersPercentage =
-    (correctAnswers / (correctAnswers + incorrectAnswers)) * 100;
-  const incorrectAnswersPercentage =
-    (incorrectAnswers / (correctAnswers + incorrectAnswers)) * 100;
+  const correctAnswersPercentage = (correctAnswers / (correctAnswers + incorrectAnswers)) * 100
+  const incorrectAnswersPercentage = (incorrectAnswers / (correctAnswers + incorrectAnswers)) * 100
 
   return (
     <header className="flex flex-col items-center justify-between gap-2 sm:flex-row sm:gap-6">
@@ -63,5 +57,5 @@ export const QuestionReviewBar: FC<QuestionReviewBarProps> = ({
         <span>{t("enrollment.skill.times", { count: incorrectAnswers })}</span>
       </label>
     </header>
-  );
-};
+  )
+}

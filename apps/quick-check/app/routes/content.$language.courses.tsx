@@ -1,48 +1,41 @@
-import { Link, useLoaderData, useNavigate } from "@remix-run/react";
-import { json, type LoaderFunctionArgs } from "@vercel/remix";
+import { Link, useLoaderData, useNavigate } from "@remix-run/react"
+import { json, type LoaderFunctionArgs } from "@vercel/remix"
 
-import { getContentStackClient } from "~/contentstack.server";
-import { first, isArray, sortBy } from "remeda";
+import { getContentStackClient } from "~/contentstack.server"
+import { first, isArray, sortBy } from "remeda"
 
-import {
-  invariant,
-  simpleErrorResponse,
-  supportedLngs,
-} from "quickcheck-shared";
+import { invariant, simpleErrorResponse, supportedLngs } from "quickcheck-shared"
 
-import { Pagination, usePagination } from "~/components";
+import { Pagination, usePagination } from "~/components"
 
 export const loader = async ({ params, request }: LoaderFunctionArgs) => {
   try {
-    const { language } = params;
-    invariant(language, "Language not found");
+    const { language } = params
+    invariant(language, "Language not found")
 
-    const contentStack = getContentStackClient(language);
-    const allCourses = (await contentStack.getCourses()) ?? [];
+    const contentStack = getContentStackClient(language)
+    const allCourses = (await contentStack.getCourses()) ?? []
 
     const courses = allCourses.filter(
-      ({ metadata }) =>
-        isArray(metadata.quickcheck_taxonomy) &&
-        first(metadata.quickcheck_taxonomy),
-    );
+      ({ metadata }) => isArray(metadata.quickcheck_taxonomy) && first(metadata.quickcheck_taxonomy),
+    )
 
     return json({
       courses,
       language,
-    });
+    })
   } catch (error) {
-    throw simpleErrorResponse(error);
+    throw simpleErrorResponse(error)
   }
-};
+}
 
 export default function CoursesPage() {
-  const { courses, language } = useLoaderData<typeof loader>();
-  const navigate = useNavigate();
+  const { courses, language } = useLoaderData<typeof loader>()
+  const navigate = useNavigate()
 
-  const orderedCorses = sortBy(courses, (c) => c.metadata.display_title);
+  const orderedCorses = sortBy(courses, (c) => c.metadata.display_title)
 
-  const { onPageChange, currentItems, pageCount } =
-    usePagination(orderedCorses);
+  const { onPageChange, currentItems, pageCount } = usePagination(orderedCorses)
 
   return (
     <div className="sm:p-8">
@@ -55,9 +48,7 @@ export default function CoursesPage() {
               <div>
                 <select
                   value={language}
-                  onChange={(e) =>
-                    navigate(`/content/${e.target.value}/courses`)
-                  }
+                  onChange={(e) => navigate(`/content/${e.target.value}/courses`)}
                   className="rounded-sm border px-2 py-2"
                 >
                   {supportedLngs.map((lng) => (
@@ -83,12 +74,7 @@ export default function CoursesPage() {
                 </thead>
                 <tbody>
                   {currentItems.map((course, row) => (
-                    <tr
-                      key={course.uid}
-                      className={`border-b ${
-                        row % 2 === 0 ? "bg-neutral-100" : "bg-white"
-                      }`}
-                    >
+                    <tr key={course.uid} className={`border-b ${row % 2 === 0 ? "bg-neutral-100" : "bg-white"}`}>
                       <td className="whitespace-nowrap px-6 py-4">
                         <Link
                           className="text-primary-50 hover:text-primary-75 hover:underline"
@@ -112,5 +98,5 @@ export default function CoursesPage() {
         </div>
       </div>
     </div>
-  );
+  )
 }

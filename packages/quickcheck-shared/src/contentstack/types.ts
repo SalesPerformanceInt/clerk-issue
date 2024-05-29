@@ -1,9 +1,9 @@
-import { Expand } from "..";
-import type { WithLiveData } from "./utilities";
+import { Expand } from ".."
+import type { WithLiveData } from "./utilities"
 
 export type Metadata = {
-  uid: string;
-};
+  uid: string
+}
 
 /**
  * Multiple Choice
@@ -11,23 +11,23 @@ export type Metadata = {
 
 export type QuestionItemChoice = WithLiveData<{
   choice: {
-    correct: boolean;
-    _metadata: Metadata;
-    points?: number | null;
-    body: string;
-    feedback: string;
-  };
-}>;
+    correct: boolean
+    _metadata: Metadata
+    points?: number | null
+    body: string
+    feedback: string
+  }
+}>
 
 export type MCQuestion = WithLiveData<{
   mcquestion: {
-    prompt?: string;
-    _metadata: Metadata;
-    stem: string;
-    instruction: string;
-    choices: QuestionItemChoice[];
-  };
-}>;
+    prompt?: string
+    _metadata: Metadata
+    stem: string
+    instruction: string
+    choices: QuestionItemChoice[]
+  }
+}>
 
 /**
  * True Or False
@@ -35,18 +35,18 @@ export type MCQuestion = WithLiveData<{
 
 export type TFQuestion = WithLiveData<{
   tfquestion: {
-    prompt?: string;
-    _metadata: Metadata;
-    stem: string;
-    instruction: string;
-    truthy_label: string;
-    falsey_label: string;
-    correct: boolean;
-    points: number;
-    feedback: string;
-    incorrect_feedback: string;
-  };
-}>;
+    prompt?: string
+    _metadata: Metadata
+    stem: string
+    instruction: string
+    truthy_label: string
+    falsey_label: string
+    correct: boolean
+    points: number
+    feedback: string
+    incorrect_feedback: string
+  }
+}>
 
 /**
  * Fill Blanks
@@ -54,23 +54,23 @@ export type TFQuestion = WithLiveData<{
 
 export type FillBlanksQuestionWord = WithLiveData<{
   draggable_word: {
-    _metadata: Metadata;
-    word: string;
-    order: number;
-  };
-}>;
+    _metadata: Metadata
+    word: string
+    order: number
+  }
+}>
 
 export type FillBlanksQuestion = WithLiveData<{
   fillblanksquestion: {
-    prompt?: string;
-    _metadata: Metadata;
-    instruction: string;
-    stem: string;
-    draggable_words: FillBlanksQuestionWord[];
-    feedback: string;
-    incorrect_feedback: string;
-  };
-}>;
+    prompt?: string
+    _metadata: Metadata
+    instruction: string
+    stem: string
+    draggable_words: FillBlanksQuestionWord[]
+    feedback: string
+    incorrect_feedback: string
+  }
+}>
 
 /**
  * Reorder List
@@ -78,23 +78,23 @@ export type FillBlanksQuestion = WithLiveData<{
 
 export type ReorderListQuestionItem = WithLiveData<{
   item: {
-    _metadata: Metadata;
-    text: string;
-    order: number;
-  };
-}>;
+    _metadata: Metadata
+    text: string
+    order: number
+  }
+}>
 
 export type ReorderListQuestion = WithLiveData<{
   reorderlistquestion: {
-    prompt?: string;
-    _metadata: Metadata;
-    stem: string;
-    instruction: string;
-    feedback: string;
-    incorrect_feedback: string;
-    list: ReorderListQuestionItem[];
-  };
-}>;
+    prompt?: string
+    _metadata: Metadata
+    stem: string
+    instruction: string
+    feedback: string
+    incorrect_feedback: string
+    list: ReorderListQuestionItem[]
+  }
+}>
 
 /**
  * Reorder Words
@@ -102,14 +102,14 @@ export type ReorderListQuestion = WithLiveData<{
 
 export type ReorderWordsQuestion = WithLiveData<{
   reorderwordsquestion: {
-    prompt?: string;
-    _metadata: Metadata;
-    stem: string;
-    instruction: string;
-    feedback: string;
-    incorrect_feedback: string;
-  };
-}>;
+    prompt?: string
+    _metadata: Metadata
+    stem: string
+    instruction: string
+    feedback: string
+    incorrect_feedback: string
+  }
+}>
 
 /**
  * Question Item
@@ -120,54 +120,54 @@ export type QuestionItemVariant =
   | TFQuestion
   | FillBlanksQuestion
   | ReorderListQuestion
-  | ReorderWordsQuestion;
+  | ReorderWordsQuestion
 
 export type QuestionItem = WithLiveData<{
-  title: string;
-  uid: string;
-  locale: string;
-  created_at: string;
-  variants: QuestionItemVariant[];
-  topic: Taxon[];
-}>;
+  title: string
+  uid: string
+  locale: string
+  created_at: string
+  variants: QuestionItemVariant[]
+  topic: Taxon[]
+}>
 
 export type QuestionItemByTaxonomy = Expand<
   Omit<QuestionItem, "topic"> & {
-    topic: Taxon;
+    topic: Taxon
   }
->;
+>
 
 export type Taxon = WithLiveData<{
-  title: string;
-  uid: string;
-  locale: string;
-  display_name: string;
-  parent_taxonomy?: Taxon[];
-}>;
+  title: string
+  uid: string
+  locale: string
+  display_name: string
+  parent_taxonomy?: Taxon[]
+}>
 
 export type QuickcheckTheme = WithLiveData<{
-  title: string;
-  uid: string;
-  css_theme: string;
-  custom_styles: string;
-}>;
+  title: string
+  uid: string
+  css_theme: string
+  custom_styles: string
+}>
 
 export type Course = WithLiveData<{
-  uid: string;
-  title: string;
+  uid: string
+  title: string
   metadata: {
-    display_title: string;
-    quickcheck_taxonomy?: Taxon[];
-  };
-}>;
+    display_title: string
+    quickcheck_taxonomy?: Taxon[]
+  }
+}>
 
-export type ContentType = QuestionItem | Taxon;
+export type ContentType = QuestionItem | Taxon
 
 export type TranslatedStrings = WithLiveData<{
-  locale: "en-us";
-  uid: "blt37f4a4753e3711ad";
-  title: string;
+  locale: "en-us"
+  uid: "blt37f4a4753e3711ad"
+  title: string
   translations: {
-    value: { key: string; value: string }[];
-  };
-}>;
+    value: { key: string; value: string }[]
+  }
+}>

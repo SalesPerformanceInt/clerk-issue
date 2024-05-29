@@ -1,39 +1,31 @@
-import { useState, type FC } from "react";
-import { useNavigate } from "@remix-run/react";
+import { useState, type FC } from "react"
+import { useNavigate } from "@remix-run/react"
 
-import {
-  Header,
-  HeaderReturn,
-  HeaderUnansweredQuestions,
-  Support,
-  useIsDesktop,
-} from "quickcheck-shared";
+import { Header, HeaderReturn, HeaderUnansweredQuestions, Support, useIsDesktop } from "quickcheck-shared"
 
-import { useEnrollmentSkillDashboardContext } from "~/pages/EnrollmentSkillDashboard";
+import { useEnrollmentSkillDashboardContext } from "~/pages/EnrollmentSkillDashboard"
 
 export const EnrollmentSkillDashboardHeader: FC = () => {
-  const [start, setStart] = useState(false);
+  const [start, setStart] = useState(false)
 
-  const navigate = useNavigate();
+  const navigate = useNavigate()
 
-  const { enrollmentSkillDashboardData } = useEnrollmentSkillDashboardContext();
+  const { enrollmentSkillDashboardData } = useEnrollmentSkillDashboardContext()
 
-  const isDesktop = useIsDesktop();
+  const isDesktop = useIsDesktop()
 
   const startQuestions = () => {
-    setStart(true);
+    setStart(true)
 
-    navigate("/next-question");
-  };
+    navigate("/next-question")
+  }
 
   return (
     <Header
       left={
         <HeaderReturn
           label={enrollmentSkillDashboardData.enrollment_taxonomy?.display_name}
-          onClose={() =>
-            navigate(`/dashboard/enrollment/${enrollmentSkillDashboardData.id}`)
-          }
+          onClose={() => navigate(`/dashboard/enrollment/${enrollmentSkillDashboardData.id}`)}
         />
       }
       right={
@@ -48,5 +40,5 @@ export const EnrollmentSkillDashboardHeader: FC = () => {
         )
       }
     />
-  );
-};
+  )
+}

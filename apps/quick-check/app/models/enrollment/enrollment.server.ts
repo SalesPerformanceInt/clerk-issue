@@ -1,12 +1,9 @@
-import { getAdminApolloClientFromRequest } from "~/graphql";
+import { getAdminApolloClientFromRequest } from "~/graphql"
 
-import { getEnrollmentAction } from "./handlers/getEnrollmentAction";
-import { createLogEnrollmentEvent } from "./handlers/logEnrollmentEvent";
+import { getEnrollmentAction } from "./handlers/getEnrollmentAction"
+import { createLogEnrollmentEvent } from "./handlers/logEnrollmentEvent"
 
-import type {
-  EnrollmentActionProps,
-  EnrollmentActionResponse,
-} from "./enrollment.types";
+import type { EnrollmentActionProps, EnrollmentActionResponse } from "./enrollment.types"
 
 /**
  * Handle UserEnrollment
@@ -16,29 +13,24 @@ type HandleUserEnrollmentProps = Omit<
   EnrollmentActionProps,
   "enrollmentNewData" | "currentEnrollment" | "enrollmentResponseMessage"
 > & {
-  enrollmentNewData: Omit<
-    EnrollmentActionProps["enrollmentNewData"],
-    "user_id" | "topic_id"
-  >;
-};
+  enrollmentNewData: Omit<EnrollmentActionProps["enrollmentNewData"], "user_id" | "topic_id">
+}
 
 export const handleUserEnrollment = async ({
   enrollmentNewData: _enrollmentNewData,
   ...props
 }: HandleUserEnrollmentProps): Promise<EnrollmentActionResponse> => {
-  const { request, user, taxonomyId } = props;
+  const { request, user, taxonomyId } = props
 
   const enrollmentNewData: EnrollmentActionProps["enrollmentNewData"] = {
     ..._enrollmentNewData,
     user_id: user.userId,
     topic_id: taxonomyId,
-  };
+  }
 
-  const adminApolloClient = await getAdminApolloClientFromRequest(request);
+  const adminApolloClient = await getAdminApolloClientFromRequest(request)
 
-  const currentEnrollment = await adminApolloClient.getUserEnrollment(
-    enrollmentNewData.enrollment_id,
-  );
+  const currentEnrollment = await adminApolloClient.getUserEnrollment(enrollmentNewData.enrollment_id)
 
   const logEnrollmentEvent = createLogEnrollmentEvent({
     request,
@@ -46,14 +38,12 @@ export const handleUserEnrollment = async ({
     user_id: user.userId,
     tenant_id: user.tenantId,
     taxonomy_id: taxonomyId,
-  });
+  })
 
-  const { enrollmentActionFn, enrollmentResponseMessage } = getEnrollmentAction(
-    {
-      enrollmentNewData,
-      currentEnrollment,
-    },
-  );
+  const { enrollmentActionFn, enrollmentResponseMessage } = getEnrollmentAction({
+    enrollmentNewData,
+    currentEnrollment,
+  })
 
   const enrollmentActionResponse = await enrollmentActionFn({
     ...props,
@@ -61,11 +51,11 @@ export const handleUserEnrollment = async ({
     currentEnrollment,
     logEnrollmentEvent,
     enrollmentResponseMessage,
-  });
+  })
 
   return {
     ...enrollmentActionResponse,
     user_id: user.userId,
     enrollment_id: enrollmentNewData.enrollment_id,
-  };
-};
+  }
+}

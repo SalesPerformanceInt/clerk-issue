@@ -1,19 +1,14 @@
-import { type FC } from "react";
-import { useNavigate } from "@remix-run/react";
+import { type FC } from "react"
+import { useNavigate } from "@remix-run/react"
 
-import { MobileMenu } from "quickcheck-shared";
+import { MobileMenu } from "quickcheck-shared"
 
-import { useEnrollmentContext } from "~/pages/Enrollment";
+import { useEnrollmentContext } from "~/pages/Enrollment"
 
 export const EnrollmentMobileAction: FC = () => {
-  const navigate = useNavigate();
+  const navigate = useNavigate()
 
-  const { enrollment } = useEnrollmentContext();
+  const { enrollment } = useEnrollmentContext()
 
-  return (
-    <MobileMenu
-      userData={enrollment}
-      onStart={() => navigate("/next-question")}
-    />
-  );
-};
+  return <MobileMenu userData={enrollment} onStart={() => navigate("/next-question")} />
+}

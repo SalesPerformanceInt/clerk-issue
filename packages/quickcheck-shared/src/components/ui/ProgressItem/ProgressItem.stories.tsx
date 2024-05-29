@@ -1,18 +1,19 @@
-import React from "react";
+import React from "react"
 
-import type { Meta, StoryObj } from "@storybook/react";
-import { Card, CardTitle } from "~qcs/components/ui/Card";
+import type { Meta, StoryObj } from "@storybook/react"
 
-import { ProgressItem as ProgressItemComponent } from "./ProgressItem";
-import { ProgressItemDecorator } from "./ProgressItem.template";
+import { Card, CardTitle } from "~qcs/components/ui/Card"
+
+import { ProgressItem as ProgressItemComponent } from "./ProgressItem"
+import { ProgressItemDecorator } from "./ProgressItem.template"
 
 const meta = {
   component: ProgressItemComponent,
   title: "ui/Progress",
   decorators: [ProgressItemDecorator],
-} satisfies Meta<typeof ProgressItemComponent>;
+} satisfies Meta<typeof ProgressItemComponent>
 
-type Story = StoryObj<typeof meta>;
+type Story = StoryObj<typeof meta>
 
 /**
  * Progress Item
@@ -31,7 +32,7 @@ export const ProgressItem = {
     },
   },
   argTypes: {},
-} satisfies Story;
+} satisfies Story
 
 /**
  * Progress Card
@@ -60,6 +61,6 @@ export const ProgressCard = {
     },
   },
   argTypes: {},
-} satisfies Story;
+} satisfies Story
 
-export default meta;
+export default meta

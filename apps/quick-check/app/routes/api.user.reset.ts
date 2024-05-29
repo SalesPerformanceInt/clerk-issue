@@ -1,37 +1,37 @@
-import { json, type ActionFunctionArgs } from "@vercel/remix";
+import { json, type ActionFunctionArgs } from "@vercel/remix"
 
-import { invariant, simpleErrorResponse } from "quickcheck-shared";
+import { invariant, simpleErrorResponse } from "quickcheck-shared"
 
-import { getAdminApolloClientFromRequest } from "~/graphql";
+import { getAdminApolloClientFromRequest } from "~/graphql"
 
-import { getUserSchema, verifyApiRequest } from "~/models/api";
+import { getUserSchema, verifyApiRequest } from "~/models/api"
 
 export const config = {
   maxDuration: 300,
-};
+}
 
 export const action = async ({ request }: ActionFunctionArgs) => {
   try {
-    const adminApolloClient = await getAdminApolloClientFromRequest(request);
+    const adminApolloClient = await getAdminApolloClientFromRequest(request)
 
-    verifyApiRequest(request);
+    verifyApiRequest(request)
 
-    const body = await request.json();
+    const body = await request.json()
 
-    const userData = getUserSchema.parse(body);
-    const user = await adminApolloClient.getUser(userData);
+    const userData = getUserSchema.parse(body)
+    const user = await adminApolloClient.getUser(userData)
 
-    invariant(user, `User not found for id: ${userData.userId}`);
+    invariant(user, `User not found for id: ${userData.userId}`)
 
-    await adminApolloClient.resetUser({ userId: user.user_id });
+    await adminApolloClient.resetUser({ userId: user.user_id })
 
     const response = {
       id: user.user_id,
       reset: true,
-    };
+    }
 
-    return json(response);
+    return json(response)
   } catch (error) {
-    return simpleErrorResponse(error);
+    return simpleErrorResponse(error)
   }
-};
+}

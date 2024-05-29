@@ -1,6 +1,6 @@
-import { logError } from "quickcheck-shared";
+import { logError } from "quickcheck-shared"
 
-import { graphql, type GQLProxyData, type GraphQLClient } from "~/graphql";
+import { graphql, type GQLProxyData, type GraphQLClient } from "~/graphql"
 
 export const GET_TENANTS = graphql(/* GraphQL */ `
   query GetTenants {
@@ -13,21 +13,18 @@ export const GET_TENANTS = graphql(/* GraphQL */ `
       }
     }
   }
-`);
+`)
 
-export async function getTenants(
-  this: GraphQLClient,
-  _proxyData: GQLProxyData,
-) {
+export async function getTenants(this: GraphQLClient, _proxyData: GQLProxyData) {
   try {
     const result = await this.query({
       query: GET_TENANTS,
       fetchPolicy: "network-only",
-    });
+    })
 
-    return result?.data?.tenant;
+    return result?.data?.tenant
   } catch (error) {
-    logError({ error, log: "getTenants" });
-    return null;
+    logError({ error, log: "getTenants" })
+    return null
   }
 }

@@ -1,10 +1,10 @@
-import { invariant } from "quickcheck-shared";
+import { invariant } from "quickcheck-shared"
 
-import { getUserDataFromSession } from "~/models/session";
+import { getUserDataFromSession } from "~/models/session"
 
-import { GraphQLClient } from "./genericApolloClient";
-import { getHasuraJWT, getJWTHeader } from "./jwt";
-import { createGraphQLProxy, type ProxyGraphQLClient } from "./proxy";
+import { GraphQLClient } from "./genericApolloClient"
+import { getHasuraJWT, getJWTHeader } from "./jwt"
+import { createGraphQLProxy, type ProxyGraphQLClient } from "./proxy"
 
 /**
  * User Apollo Client Declaration
@@ -12,49 +12,44 @@ import { createGraphQLProxy, type ProxyGraphQLClient } from "./proxy";
 
 class UserGraphQLClient extends GraphQLClient {
   constructor(jwt: string) {
-    super(getJWTHeader(jwt));
+    super(getJWTHeader(jwt))
   }
 }
 
-const getUserApolloClient = async (
-  userId: string,
-  tenantId: string,
-  now: string,
-) => {
+const getUserApolloClient = async (userId: string, tenantId: string, now: string) => {
   const jwt = await getHasuraJWT({
     "x-hasura-default-role": "user",
     "x-hasura-allowed-roles": ["user"],
     "x-hasura-user-id": userId,
     "x-hasura-tenant-id": tenantId,
-  });
+  })
 
-  const userApolloClient = new UserGraphQLClient(jwt);
+  const userApolloClient = new UserGraphQLClient(jwt)
 
-  return createGraphQLProxy<
-    UserGraphQLClient,
-    ProxyGraphQLClient<UserGraphQLClient, "User">
-  >(userApolloClient, { now, userId, tenantId });
-};
+  return createGraphQLProxy<UserGraphQLClient, ProxyGraphQLClient<UserGraphQLClient, "User">>(userApolloClient, {
+    now,
+    userId,
+    tenantId,
+  })
+}
 
 /**
  * User Apollo Client Callers
  */
 
 export const getUserApolloClientFromRequest = async (request: Request) => {
-  const [now, userId, tenantId] = await getUserDataFromSession(request);
+  const [now, userId, tenantId] = await getUserDataFromSession(request)
 
-  invariant(userId, "Missing User ID");
-  invariant(tenantId, "Missing Tenant ID");
+  invariant(userId, "Missing User ID")
+  invariant(tenantId, "Missing Tenant ID")
 
-  return getUserApolloClient(userId, tenantId, now);
-};
+  return getUserApolloClient(userId, tenantId, now)
+}
 
-export const getOptionalUserApolloClientFromRequest = async (
-  request: Request,
-) => {
-  const [now, userId, tenantId] = await getUserDataFromSession(request);
+export const getOptionalUserApolloClientFromRequest = async (request: Request) => {
+  const [now, userId, tenantId] = await getUserDataFromSession(request)
 
-  if (!userId || !tenantId) return null;
+  if (!userId || !tenantId) return null
 
-  return getUserApolloClient(userId, tenantId, now);
-};
+  return getUserApolloClient(userId, tenantId, now)
+}

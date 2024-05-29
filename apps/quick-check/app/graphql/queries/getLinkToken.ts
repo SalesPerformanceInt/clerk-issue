@@ -1,6 +1,6 @@
-import { logError } from "quickcheck-shared";
+import { logError } from "quickcheck-shared"
 
-import { graphql, type GQLProxyData, type GraphQLClient } from "~/graphql";
+import { graphql, type GQLProxyData, type GraphQLClient } from "~/graphql"
 
 export const GET_LINK_TOKEN = graphql(/* GraphQL */ `
   query GetLinkToken($id: String!) {
@@ -12,24 +12,20 @@ export const GET_LINK_TOKEN = graphql(/* GraphQL */ `
       active
     }
   }
-`);
+`)
 
-export async function getLinkToken(
-  this: GraphQLClient,
-  id: string,
-  _proxyData?: GQLProxyData,
-) {
+export async function getLinkToken(this: GraphQLClient, id: string, _proxyData?: GQLProxyData) {
   try {
     const { data } = await this.query({
       query: GET_LINK_TOKEN,
       variables: { id },
-    });
+    })
 
-    if (!data?.link_token_by_pk) return null;
+    if (!data?.link_token_by_pk) return null
 
-    return data.link_token_by_pk;
+    return data.link_token_by_pk
   } catch (error) {
-    logError({ error, log: "getLinkToken" });
-    return null;
+    logError({ error, log: "getLinkToken" })
+    return null
   }
 }

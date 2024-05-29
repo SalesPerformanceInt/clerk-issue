@@ -1,38 +1,33 @@
-import { useState, type FC } from "react";
-import { useTranslation } from "react-i18next";
-import { useNavigate } from "@remix-run/react";
+import { useState, type FC } from "react"
+import { useTranslation } from "react-i18next"
+import { useNavigate } from "@remix-run/react"
 
-import { isEmpty } from "remeda";
+import { isEmpty } from "remeda"
 
-import { EnrollmentSkillCard, Section } from "quickcheck-shared";
+import { EnrollmentSkillCard, Section } from "quickcheck-shared"
 
-import { getEnrollmentSkills } from "~/models/enrollment/handlers/getEnrollmentSkills";
+import { getEnrollmentSkills } from "~/models/enrollment/handlers/getEnrollmentSkills"
 
-import { useEnrollmentContext } from "~/pages/Enrollment";
+import { useEnrollmentContext } from "~/pages/Enrollment"
 
 export const EnrollmentSkillsSection: FC = () => {
-  const [enrollmentSkillNavigation, setEnrollmentSkillNavigation] =
-    useState<string>();
+  const [enrollmentSkillNavigation, setEnrollmentSkillNavigation] = useState<string>()
 
-  const { enrollment } = useEnrollmentContext();
+  const { enrollment } = useEnrollmentContext()
 
-  const { t } = useTranslation();
-  const navigate = useNavigate();
+  const { t } = useTranslation()
+  const navigate = useNavigate()
 
-  const skills = getEnrollmentSkills(enrollment.user_questions);
+  const skills = getEnrollmentSkills(enrollment.user_questions)
 
   const goToEnrollmentSkill = (skillId: string) => {
-    setEnrollmentSkillNavigation(skillId);
+    setEnrollmentSkillNavigation(skillId)
 
-    navigate(`/dashboard/enrollment/${enrollment.id}/skill/${skillId}`);
-  };
+    navigate(`/dashboard/enrollment/${enrollment.id}/skill/${skillId}`)
+  }
 
-  const skillsInProgress = skills.filter(
-    ({ completed }) => !enrollment.expired && !completed,
-  );
-  const skillsCompleted = skills.filter(
-    ({ completed }) => enrollment.expired || completed,
-  );
+  const skillsInProgress = skills.filter(({ completed }) => !enrollment.expired && !completed)
+  const skillsCompleted = skills.filter(({ completed }) => enrollment.expired || completed)
 
   return (
     <>
@@ -79,5 +74,5 @@ export const EnrollmentSkillsSection: FC = () => {
         )}
       </Section>
     </>
-  );
-};
+  )
+}

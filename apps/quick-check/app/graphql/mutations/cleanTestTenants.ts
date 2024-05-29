@@ -1,6 +1,6 @@
-import { logError } from "quickcheck-shared";
+import { logError } from "quickcheck-shared"
 
-import { graphql, type GQLProxyData, type GraphQLClient } from "~/graphql";
+import { graphql, type GQLProxyData, type GraphQLClient } from "~/graphql"
 
 export const CLEAN_TEST_TENANTS = graphql(/* GraphQL */ `
   mutation CleanTestTenants {
@@ -12,20 +12,17 @@ export const CLEAN_TEST_TENANTS = graphql(/* GraphQL */ `
       }
     }
   }
-`);
+`)
 
-export async function cleanTestTenants(
-  this: GraphQLClient,
-  _proxyData: GQLProxyData,
-) {
+export async function cleanTestTenants(this: GraphQLClient, _proxyData: GQLProxyData) {
   try {
     const result = await this.mutate({
       mutation: CLEAN_TEST_TENANTS,
-    });
+    })
 
-    return result.data?.delete_tenant ?? null;
+    return result.data?.delete_tenant ?? null
   } catch (error) {
-    logError({ error, log: "cleanTestTenants" });
-    return null;
+    logError({ error, log: "cleanTestTenants" })
+    return null
   }
 }

@@ -11,5 +11,5 @@ export default function Index() {
         <a href="/preview"> preview </a>
       </button>
     </section>
-  );
+  )
 }

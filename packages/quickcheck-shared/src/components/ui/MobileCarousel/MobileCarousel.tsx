@@ -1,20 +1,16 @@
-import React, { type FC, type HTMLAttributes, type ReactNode } from "react";
+import React, { type FC, type HTMLAttributes, type ReactNode } from "react"
 
-import { Icon, IconProps } from "~qcs/components";
-import { cn } from "~qcs/utils";
+import { cn } from "~qcs/utils"
+
+import { Icon, IconProps } from "~qcs/components"
 
 type MobileCarouselProps = HTMLAttributes<HTMLDivElement> & {
-  children: ReactNode | ReactNode[];
-  title: string;
-  icon?: IconProps["icon"];
-};
+  children: ReactNode | ReactNode[]
+  title: string
+  icon?: IconProps["icon"]
+}
 
-const MobileCarousel: FC<MobileCarouselProps> = ({
-  children,
-  className,
-  icon,
-  title,
-}) => {
+const MobileCarousel: FC<MobileCarouselProps> = ({ children, className, icon, title }) => {
   return (
     <section className="flex flex-col items-center gap-4">
       <div className="flex w-full items-center">
@@ -33,7 +29,7 @@ const MobileCarousel: FC<MobileCarouselProps> = ({
         {children}
       </div>
     </section>
-  );
-};
+  )
+}
 
-export { MobileCarousel, type MobileCarouselProps };
+export { MobileCarousel, type MobileCarouselProps }

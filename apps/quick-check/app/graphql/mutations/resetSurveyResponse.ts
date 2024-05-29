@@ -1,6 +1,6 @@
-import { logError } from "quickcheck-shared";
+import { logError } from "quickcheck-shared"
 
-import { graphql, type GQLProxyUserData, type GraphQLClient } from "~/graphql";
+import { graphql, type GQLProxyUserData, type GraphQLClient } from "~/graphql"
 
 export const RESET_SURVEY_RESPONSE = graphql(/* GraphQL */ `
   mutation ResetSurveyResponse($userId: uuid!) {
@@ -8,23 +8,20 @@ export const RESET_SURVEY_RESPONSE = graphql(/* GraphQL */ `
       affected_rows
     }
   }
-`);
+`)
 
-export async function resetSurveyResponse(
-  this: GraphQLClient,
-  proxyData: GQLProxyUserData,
-) {
-  const { userId } = proxyData;
+export async function resetSurveyResponse(this: GraphQLClient, proxyData: GQLProxyUserData) {
+  const { userId } = proxyData
 
   try {
     const result = await this.mutate({
       mutation: RESET_SURVEY_RESPONSE,
       variables: { userId },
-    });
+    })
 
-    return result.data?.delete_product_survey?.affected_rows;
+    return result.data?.delete_product_survey?.affected_rows
   } catch (error) {
-    logError({ error, log: "resetSurveyResponse" });
-    return null;
+    logError({ error, log: "resetSurveyResponse" })
+    return null
   }
 }

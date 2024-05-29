@@ -1,18 +1,18 @@
-import { MatchedMap } from "quickcheck-shared";
+import { MatchedMap } from "quickcheck-shared"
 
-import type { BaseUserAnswerFragment } from "~/graphql";
+import type { BaseUserAnswerFragment } from "~/graphql"
 
-import type { Answer } from "../answer.type";
+import type { Answer } from "../answer.type"
 
 /**
  * Scoring Map
  */
 
 type AnswerAttempts = {
-  first: boolean;
-  second?: boolean;
-  third?: boolean;
-};
+  first: boolean
+  second?: boolean
+  third?: boolean
+}
 
 const answerScoringMap = new MatchedMap<AnswerAttempts, number>([
   [{ first: true }, 25],
@@ -26,28 +26,24 @@ const answerScoringMap = new MatchedMap<AnswerAttempts, number>([
   [{ first: false, second: false, third: true }, 10],
 
   ["_", 0],
-]);
+])
 
 /**
  * Score Answer
  */
 
-export const scoreAnswer = (
-  userQuestionAnswers: BaseUserAnswerFragment[] | null,
-  currentAnswer: Answer,
-) => {
-  if (!userQuestionAnswers)
-    return answerScoringMap.get({ first: currentAnswer.correct });
+export const scoreAnswer = (userQuestionAnswers: BaseUserAnswerFragment[] | null, currentAnswer: Answer) => {
+  if (!userQuestionAnswers) return answerScoringMap.get({ first: currentAnswer.correct })
 
-  const [first, second] = userQuestionAnswers;
+  const [first, second] = userQuestionAnswers
 
   const answerAttempts: AnswerAttempts = {
     first: first?.correct ?? currentAnswer.correct,
     ...(first && { second: second?.correct ?? currentAnswer.correct }),
     ...(second && { third: currentAnswer.correct }),
-  };
+  }
 
-  const answerScore = answerScoringMap.get(answerAttempts);
+  const answerScore = answerScoringMap.get(answerAttempts)
 
-  return answerScore;
-};
+  return answerScore
+}

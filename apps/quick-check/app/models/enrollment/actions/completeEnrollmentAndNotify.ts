@@ -1,3 +1,5 @@
+import { waitUntil } from "@vercel/functions";
+
 import {
   getAdminApolloClientFromRequest,
   type NotificationUserEnrollmentFragment,
@@ -14,26 +16,30 @@ export const completeEnrollmentAndNotify = async (
 
   const adminApolloClient = await getAdminApolloClientFromRequest(request);
 
-  await sendNotification({
-    now,
-    request,
-    userId: enrollment.user_id,
-    template: {
-      notificationType: "CompletedEnrollment",
-      notificationEnrollment: enrollment,
-    },
-  });
-
-  await adminApolloClient.createEvent(
-    {
-      type: "EnrollmentCompleted",
-      data: {
-        enrollment_id: enrollment.id,
-        score: enrollment.score,
-        rank: enrollment.rank ?? 0,
-        taxonomy_id: enrollment.taxonomy_id,
+  waitUntil(
+    sendNotification({
+      now,
+      request,
+      userId: enrollment.user_id,
+      template: {
+        notificationType: "CompletedEnrollment",
+        notificationEnrollment: enrollment,
       },
-    },
-    { userId: enrollment.user_id, tenantId: enrollment.user.tenant_id },
+    }),
+  );
+
+  waitUntil(
+    adminApolloClient.createEvent(
+      {
+        type: "EnrollmentCompleted",
+        data: {
+          enrollment_id: enrollment.id,
+          score: enrollment.score,
+          rank: enrollment.rank ?? 0,
+          taxonomy_id: enrollment.taxonomy_id,
+        },
+      },
+      { userId: enrollment.user_id, tenantId: enrollment.user.tenant_id },
+    ),
   );
 };

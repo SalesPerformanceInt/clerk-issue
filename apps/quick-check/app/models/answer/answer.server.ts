@@ -69,19 +69,22 @@ export const saveAnswer = async (request: Request) => {
   const totalScore = userQuestion.user_enrollment.score + reviewedAnswer.score;
 
   const userApolloClient = await getUserApolloClientFromRequest(request);
-  userApolloClient.createEvent({
-    type: "QuestionAnswered",
-    data: {
-      enrollment_id: userQuestion.user_enrollment.id,
-      question_id: userQuestion.id,
-      taxonomy_id: userQuestion.user_enrollment.taxonomy_id,
-      variant: currentAnswer.variant,
-      choices: [currentAnswer.uid],
-      points: reviewedAnswer.score,
-      correct: currentAnswer.correct,
-      attempt: userQuestion.attempts.aggregate?.count ?? 0,
-    },
-  });
+
+  waitUntil(
+    userApolloClient.createEvent({
+      type: "QuestionAnswered",
+      data: {
+        enrollment_id: userQuestion.user_enrollment.id,
+        question_id: userQuestion.id,
+        taxonomy_id: userQuestion.user_enrollment.taxonomy_id,
+        variant: currentAnswer.variant,
+        choices: [currentAnswer.uid],
+        points: reviewedAnswer.score,
+        correct: currentAnswer.correct,
+        attempt: userQuestion.attempts.aggregate?.count ?? 0,
+      },
+    }),
+  );
 
   return { currentAnswer, reviewedAnswer, totalScore };
 };

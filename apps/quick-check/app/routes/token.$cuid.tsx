@@ -1,3 +1,4 @@
+import { waitUntil } from "@vercel/functions";
 import { redirect, type LoaderFunctionArgs } from "@vercel/remix";
 
 import { invariant, logError } from "quickcheck-shared";
@@ -43,14 +44,16 @@ export const loader = async ({ params, request }: LoaderFunctionArgs) => {
     const redirectTo = path ?? "/next-question";
 
     const adminApolloClient = await getAdminApolloClientFromRequest(request);
-    await adminApolloClient.createEvent(
-      {
-        type: "Authenticated",
-        data: {
-          token: token.id,
+    waitUntil(
+      adminApolloClient.createEvent(
+        {
+          type: "Authenticated",
+          data: {
+            token: token.id,
+          },
         },
-      },
-      { userId: token.user_id, tenantId: token.tenant_id },
+        { userId: token.user_id, tenantId: token.tenant_id },
+      ),
     );
 
     if (!token.active) {

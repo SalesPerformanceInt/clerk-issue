@@ -1,3 +1,5 @@
+import { waitUntil } from "@vercel/functions";
+
 import {
   getAdminApolloClientFromRequest,
   type GetUserEmailData,
@@ -24,15 +26,17 @@ export const logNotificationEvent = async ({
 }: LogNotificationEventProps) => {
   const adminApolloClient = await getAdminApolloClientFromRequest(request);
 
-  await adminApolloClient.createEvent(
-    {
-      type: "NotificationSent",
-      data: {
-        token,
-        channel: "email",
-        ...notificationLog,
+  waitUntil(
+    adminApolloClient.createEvent(
+      {
+        type: "NotificationSent",
+        data: {
+          token,
+          channel: "email",
+          ...notificationLog,
+        },
       },
-    },
-    { userId: user.user_id, tenantId: user.tenant_id },
+      { userId: user.user_id, tenantId: user.tenant_id },
+    ),
   );
 };

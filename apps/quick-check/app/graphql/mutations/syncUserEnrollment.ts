@@ -1,3 +1,4 @@
+import { waitUntil } from "@vercel/functions";
 import { getContentStackClient } from "~/contentstack.server";
 import { DateTime } from "luxon";
 import { pipe, shuffle } from "remeda";
@@ -230,7 +231,8 @@ export async function syncUserEnrollment(
         },
       }),
     );
-    await this.createEvents(questionScheduledEvents, proxyData);
+
+    waitUntil(this.createEvents(questionScheduledEvents, proxyData));
 
     return enrollment ?? null;
   } catch (error) {

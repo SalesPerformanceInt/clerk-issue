@@ -67,17 +67,19 @@ export const prepareNotificationSharedData = ({
  */
 
 type PrepareNotificationTemplateEnrollmentDataProps = {
-  enrollment: Taxon
+  enrollmentId: string
+  enrollmentTaxonomy: Taxon
 }
 
 export const prepareNotificationTemplateEnrollmentData = ({
-  enrollment,
+  enrollmentId,
+  enrollmentTaxonomy,
 }: PrepareNotificationTemplateEnrollmentDataProps) =>
   ({
     enrollment: {
-      uid: enrollment.uid,
+      uid: enrollmentId,
       taxon: {
-        displayName: enrollment.display_name,
+        displayName: enrollmentTaxonomy.display_name,
       },
     },
   }) satisfies NotificationTemplateContentData
@@ -88,11 +90,13 @@ export const prepareNotificationTemplateEnrollmentData = ({
 
 type PrepareNotificationTemplateQuestionDataProps = {
   user: GetUserEmailData
+  questionId: string
   questionItem: QuestionItem
   questionVariant: RestrictQuestionItemVariant<"mcquestion">
 }
 
 export const prepareNotificationTemplateQuestionData = ({
+  questionId,
   questionItem,
   questionVariant,
 }: PrepareNotificationTemplateQuestionDataProps) =>
@@ -100,7 +104,7 @@ export const prepareNotificationTemplateQuestionData = ({
     question: {
       variantName: "question_mc" as const,
       variantData: {
-        uid: questionItem.uid,
+        uid: questionId,
         instruction: questionVariant!.mcquestion.instruction,
         prompt: questionVariant!.mcquestion.prompt || "",
         stem: questionVariant!.mcquestion.stem,

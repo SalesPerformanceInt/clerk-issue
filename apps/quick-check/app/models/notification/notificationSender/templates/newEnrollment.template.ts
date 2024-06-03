@@ -33,7 +33,8 @@ export const newEnrollmentTemplate: NewEnrollmentTemplate = async ({ user, notif
   invariant(enrollmentTaxonomy, "No taxonomy found")
 
   const { enrollment } = prepareNotificationTemplateEnrollmentData({
-    enrollment: enrollmentTaxonomy,
+    enrollmentId: notificationEnrollment.id,
+    enrollmentTaxonomy,
   })
 
   return {

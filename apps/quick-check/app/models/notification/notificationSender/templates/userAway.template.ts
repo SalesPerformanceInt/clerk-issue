@@ -32,11 +32,13 @@ export const userAwayTemplate: UserAwayTemplate = async ({ request, user }) => {
   invariant(questionVariant, "Question Variant not found")
 
   const { enrollment } = prepareNotificationTemplateEnrollmentData({
-    enrollment: enrollmentTaxonomy,
+    enrollmentId: nextQuestion.user_enrollment.id,
+    enrollmentTaxonomy,
   })
 
   const { question } = prepareNotificationTemplateQuestionData({
     user,
+    questionId: nextQuestion.id,
     questionItem,
     questionVariant,
   })

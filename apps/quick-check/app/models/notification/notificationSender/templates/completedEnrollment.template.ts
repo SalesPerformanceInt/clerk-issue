@@ -34,7 +34,7 @@ export const completedEnrollmentTemplate: CompletedEnrollmentTemplate = async ({
   })
 
   return {
-    workflowId: { name: "CompletedEnrollment", id: enrollment.uid },
+    workflowId: { name: "CompletedEnrollment", id: notificationEnrollment.id },
     notificationType: "CompletedEnrollment",
     contentData: {
       unansweredQuestions: user.unanswered_questions,

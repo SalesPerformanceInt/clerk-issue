@@ -40,7 +40,7 @@ export const questionTemplate: QuestionTemplate = async ({ request, user }) => {
   })
 
   return {
-    workflowId: { name: "QuestionMC", id: questionItem.uid },
+    workflowId: { name: "QuestionMC", id: user.user_question_activated_today.id },
     notificationType: "Question",
     contentData: {
       unansweredQuestions: user.unanswered_questions,

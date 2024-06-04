@@ -4,7 +4,7 @@ import { redirect, typeddefer, useTypedLoaderData } from "remix-typedjson"
 
 import { invariant } from "quickcheck-shared"
 
-import { getEnrollmentSkillDashboard } from "~/models/enrollmentSkill"
+import { getEnrollmentSkillDashboard } from "~/models/dashboard/enrollmentSkillDashboard.server"
 
 import { EnrollmentSkillDashboard } from "~/pages/EnrollmentSkillDashboard"
 

@@ -4,9 +4,8 @@ import { z } from "zod"
 
 import { invariant, simpleErrorResponse } from "quickcheck-shared"
 
-import { getAdminApolloClientFromRequest } from "~/graphql"
-
 import { verifyApiRequest } from "~/models/api"
+import { getUserEnrollment } from "~/models/enrollment"
 import { getEnrollmentSkills } from "~/models/enrollment/handlers/getEnrollmentSkills"
 
 const teamsSchema = z.object({
@@ -20,15 +19,13 @@ export const config = {
 
 export const action = async ({ request }: ActionFunctionArgs) => {
   try {
-    const adminApolloClient = await getAdminApolloClientFromRequest(request)
-
     verifyApiRequest(request)
 
     const body = await request.json()
 
     const { enrollmentId, accountSubdomain } = teamsSchema.parse(body)
 
-    const enrollment = await adminApolloClient.getUserEnrollment(enrollmentId)
+    const enrollment = await getUserEnrollment({ request, enrollmentId })
 
     invariant(enrollment, "Error fetching enrollment")
 

@@ -1,7 +1,7 @@
 import { DateTime } from "luxon"
 import { isDefined } from "remeda"
 
-import type { EnrollmentData } from "~/graphql"
+import type { UserEnrollment } from "~/models/enrollment"
 
 import type { EnrollmentBreakdown, EnrollmentNewData } from "../enrollment.types"
 
@@ -47,7 +47,7 @@ const getProhibitedUpdateStatus = ({
 
 export type BreakdownEnrollmentProps = {
   enrollmentNewData: EnrollmentNewData
-  currentEnrollment: EnrollmentData | null
+  currentEnrollment: UserEnrollment | null
 }
 
 export const breakdownEnrollment = ({

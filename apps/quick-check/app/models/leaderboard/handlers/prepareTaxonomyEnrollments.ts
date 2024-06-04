@@ -4,7 +4,7 @@ import { groupBy, pipe } from "remeda"
 import { invariant } from "quickcheck-shared"
 
 import { DEFAULT_LANGUAGE } from "~/contentstack"
-import type { RankeableEnrollment } from "~/graphql"
+import type { TaxonomyRankedEnrollment } from "~/graphql"
 
 import type {
   EnrollmentsByTaxonomy,
@@ -16,11 +16,11 @@ import type {
  * Taxonomy Enrollments Pipes
  */
 
-const filterEnrollmentsByScore = (enrollments: RankeableEnrollment[]) => {
+const filterEnrollmentsByScore = (enrollments: TaxonomyRankedEnrollment[]) => {
   return enrollments.filter((enrollment) => enrollment.score)
 }
 
-const groupEnrollmentsByTaxonomy = (enrollments: RankeableEnrollment[]) => {
+const groupEnrollmentsByTaxonomy = (enrollments: TaxonomyRankedEnrollment[]) => {
   return groupBy(enrollments, (enrollment) => enrollment.taxonomy_id)
 }
 
@@ -50,7 +50,7 @@ const mapEnrollmentsWithTaxonomy = async (mappedEnrollments: MappedEnrollmentsBy
  * Prepare Taxonomy Enrollments
  */
 
-export const prepareTaxonomyEnrollments = (enrollments: RankeableEnrollment[], userId: string) => {
+export const prepareTaxonomyEnrollments = (enrollments: TaxonomyRankedEnrollment[], userId: string) => {
   return pipe(
     enrollments,
     filterEnrollmentsByScore,

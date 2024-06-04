@@ -1,42 +1,40 @@
-import { redirect, type LoaderFunctionArgs } from "@vercel/remix"
+import type { LoaderFunctionArgs } from "@vercel/remix"
 
-import { typedjson, useTypedLoaderData } from "remix-typedjson"
+import { redirect, typeddefer, useTypedLoaderData } from "remix-typedjson"
 
 import { invariant } from "quickcheck-shared"
 
-import { getUserApolloClientFromRequest } from "~/graphql"
+import { getEnrollmentDashboard } from "~/models/dashboard/enrollmentDashboard.server"
 
-import { getEnrollmentLeaderboard } from "~/models/leaderboard"
-import { requireUserSession } from "~/models/session"
-
-import { Enrollment } from "~/pages/Enrollment"
+import { EnrollmentDashboard } from "~/pages/EnrollmentDashboard"
 
 export const config = {
   maxDuration: 300,
 }
 
+/**
+ * Loader
+ */
+
 export const loader = async ({ params, request }: LoaderFunctionArgs) => {
   try {
-    await requireUserSession(request)
+    const { id: enrollmentId } = params
+    invariant(enrollmentId, "Enrollment ID not found")
 
-    const { id } = params
-    invariant(id, "ID not found")
+    const enrollmentDashboard = await getEnrollmentDashboard({ request, enrollmentId })
 
-    const userApolloClient = await getUserApolloClientFromRequest(request)
-
-    const enrollment = await userApolloClient.getUserEnrollment(id)
-    invariant(enrollment, "user enrollment not found")
-
-    const enrollmentLeaderboard = await getEnrollmentLeaderboard(request, enrollment)
-
-    return typedjson({ enrollment, enrollmentLeaderboard })
+    return typeddefer({ ...enrollmentDashboard })
   } catch (error) {
     throw redirect("/")
   }
 }
 
-export default function UserEnrollmentPage() {
-  const { enrollment, enrollmentLeaderboard } = useTypedLoaderData<typeof loader>()
+/**
+ * Route Component
+ */
 
-  return <Enrollment enrollment={enrollment} leaderboard={enrollmentLeaderboard} />
+export default function EnrollmentDashboardPage() {
+  const enrollmentDashboard = useTypedLoaderData<typeof loader>()
+
+  return <EnrollmentDashboard enrollmentDashboard={enrollmentDashboard} />
 }

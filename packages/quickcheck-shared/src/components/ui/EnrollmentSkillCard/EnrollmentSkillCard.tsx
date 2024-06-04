@@ -4,11 +4,15 @@ import { useTranslation } from "react-i18next"
 import { faArrowRight } from "@fortawesome/pro-light-svg-icons"
 
 import { Button } from "~qcs/components"
-
-import { Card, type CardProps } from "../Card"
+import { Card, CardSkeleton, type CardProps } from "~qcs/components/ui/Card"
+import { Skeleton } from "~qcs/components/ui/Skeleton"
 
 import { Chart } from "./Chart"
 import type { EnrollmentSkillData } from "./types"
+
+/**
+ * EnrollmentSkill Card Component
+ */
 
 type EnrollmentSkillCardProps = Omit<CardProps, "onClick"> &
   EnrollmentSkillData & {
@@ -85,5 +89,31 @@ export const EnrollmentSkillCard: FC<EnrollmentSkillCardProps> = ({
         )}
       </div>
     </Card>
+  )
+}
+
+/**
+ * EnrollmentSkill Card Skeleton
+ */
+
+export const EnrollmentSkillCardSkeleton: FC = () => {
+  return (
+    <CardSkeleton className="h-64 w-full flex-grow p-4 md:w-1/2-gap-8" title>
+      <div className="flex h-full flex-col justify-between">
+        <div className="flex flex-col gap-4 pt-10">
+          <div className="flex gap-6">
+            <Skeleton className="h-5 w-16" />
+            <Skeleton className="h-5 w-56" />
+          </div>
+
+          <div className="flex gap-6">
+            <Skeleton className="h-5 w-16" />
+            <Skeleton className="h-5 w-56" />
+          </div>
+        </div>
+
+        <Skeleton className="h-11 w-full md:ml-auto md:w-32" />
+      </div>
+    </CardSkeleton>
   )
 }

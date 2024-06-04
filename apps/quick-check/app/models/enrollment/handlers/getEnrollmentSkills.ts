@@ -2,9 +2,9 @@ import { filter, groupBy, length, mapValues, pipe, prop, reduce, values } from "
 
 import { EnrollmentSkillData } from "quickcheck-shared"
 
-import type { EnrollmentData } from "~/graphql"
+import type { UserEnrollment } from "~/models/enrollment"
 
-type UserQuestion = EnrollmentData["user_questions"][number]
+type UserQuestion = UserEnrollment["user_questions"][number]
 
 const getSkillData = (questions: UserQuestion[], skill: string | number | symbol): EnrollmentSkillData => {
   const questionsCount = length(questions)

@@ -6,16 +6,10 @@ import { flattenUserActiveQuestionsData, graphql, type GQLProxyData, type GraphQ
 
 import { getToday } from "~/utils/date"
 
-export const GET_USER_ENROLLMENT = graphql(/* GraphQL */ `
-  query GetUserEnrollment($id: uuid!, $today: date!) {
-    user_enrollment_by_pk(id: $id) {
+export const GET_ENROLLMENT_DASHBOARD_DATA = graphql(/* GraphQL */ `
+  query GetEnrollmentDashboardData($enrollmentId: uuid!, $today: date!) {
+    user_enrollment_by_pk(id: $enrollmentId) {
       ...UserEnrollmentWithCounts
-      user_questions {
-        id
-        taxonomy_id
-        retired_on
-        ...UserQuestionFirstLastAnswer
-      }
       user {
         ...UserActiveQuestionsData
         first_name
@@ -28,50 +22,37 @@ export const GET_USER_ENROLLMENT = graphql(/* GraphQL */ `
   }
 `)
 
-export async function getUserEnrollment(this: GraphQLClient, id: string, proxyData: GQLProxyData) {
+export async function getEnrollmentDashboardData(this: GraphQLClient, enrollmentId: string, proxyData: GQLProxyData) {
   const { now } = proxyData
 
   const today = getToday(now)
 
   try {
     const { data } = await this.query({
-      query: GET_USER_ENROLLMENT,
-      variables: { id, today },
+      query: GET_ENROLLMENT_DASHBOARD_DATA,
+      variables: { enrollmentId, today },
       fetchPolicy: "no-cache",
     })
 
     const enrollment = data?.user_enrollment_by_pk
-
     if (!enrollment) return null
 
     const language = enrollment.user.language_preference
     const contentStack = getContentStackClient(language)
-
-    const user_questions = await Promise.all(
-      enrollment.user_questions.map(async (user_question) => {
-        const taxonomy = await contentStack.getTaxonomy(user_question.taxonomy_id)
-        return {
-          ...user_question,
-          taxonomy,
-          taxonomy_name: taxonomy?.display_name ?? "",
-        }
-      }),
-    )
 
     const taxonomy = await contentStack.getTaxonomy(enrollment.taxonomy_id)
     const expired = !!enrollment.expiration_date && today > enrollment.expiration_date
 
     return {
       ...enrollment,
-      user_questions,
       taxonomy,
       expired,
       ...flattenUserActiveQuestionsData(enrollment.user),
     }
   } catch (error) {
-    logError({ error, log: "getUserEnrollment" })
+    logError({ error, log: "getEnrollmentDashboardData" })
     return null
   }
 }
 
-export type EnrollmentData = NonNullable<Awaited<ReturnType<typeof getUserEnrollment>>>
+export type EnrollmentDashboardData = NonNullable<Awaited<ReturnType<typeof getEnrollmentDashboardData>>>

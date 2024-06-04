@@ -26,12 +26,14 @@ import {
   getActiveUserQuestion,
   getAdminUserData,
   getAllUsers,
+  getEnrollmentDashboardData,
+  getEnrollmentQuestions,
   getEnrollmentSkillDashboardData,
   getEnrollmentSkillQuestions,
   getLinkToken,
   getNotificationEnrollments,
-  getRankeableEnrollments,
   getSurveyEligibility,
+  getTaxonomyRankedEnrollments,
   getTeamEnrollments,
   getTenants,
   getTenantUsers,
@@ -43,7 +45,6 @@ import {
   getUserCompletedEnrollments,
   getUserDashboardData,
   getUserEmailData,
-  getUserEnrollment,
   getUserLanguage,
   getUserLastActiveToken,
   getUserNextQuestion,
@@ -120,9 +121,7 @@ export class GraphQLClient {
   createUserAnswer = createUserAnswer
   getActiveUserQuestion = getActiveUserQuestion
   updateUserEnrollment = updateUserEnrollment
-  getRankeableEnrollments = getRankeableEnrollments
   updateUser = updateUser
-  getUserEnrollment = getUserEnrollment
   updateUserEnrollmentsRanks = updateUserEnrollmentsRanks
   getUserWeeklyStreak = getUserWeeklyStreak
   upsertUser = upsertUser
@@ -152,6 +151,9 @@ export class GraphQLClient {
   getSurveyEligibility = getSurveyEligibility
   createSurveyResponse = createSurveyResponse
   resetSurveyResponse = resetSurveyResponse
+  getEnrollmentDashboardData = getEnrollmentDashboardData
+  getTaxonomyRankedEnrollments = getTaxonomyRankedEnrollments
+  getEnrollmentQuestions = getEnrollmentQuestions
 
   mutate: ApolloClient<NormalizedCacheObject>["mutate"] = async (...args) => {
     const result = await this.client.mutate(...args)

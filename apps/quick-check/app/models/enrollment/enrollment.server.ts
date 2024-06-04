@@ -6,6 +6,30 @@ import { createLogEnrollmentEvent } from "./handlers/logEnrollmentEvent"
 import type { EnrollmentActionProps, EnrollmentActionResponse } from "./enrollment.types"
 
 /**
+ * Get UserEnrollment
+ */
+
+type GetUserEnrollmentProps = {
+  request: Request
+  enrollmentId: string
+}
+
+export const getUserEnrollment = async ({ request, enrollmentId }: GetUserEnrollmentProps) => {
+  const adminApolloClient = await getAdminApolloClientFromRequest(request)
+
+  const [enrollment, user_questions] = await Promise.all([
+    adminApolloClient.getEnrollmentDashboardData(enrollmentId),
+    adminApolloClient.getEnrollmentQuestions(enrollmentId),
+  ])
+
+  if (!enrollment || !user_questions) return null
+
+  return { ...enrollment, user_questions }
+}
+
+export type UserEnrollment = NonNullable<Awaited<ReturnType<typeof getUserEnrollment>>>
+
+/**
  * Handle UserEnrollment
  */
 
@@ -28,9 +52,7 @@ export const handleUserEnrollment = async ({
     topic_id: taxonomyId,
   }
 
-  const adminApolloClient = await getAdminApolloClientFromRequest(request)
-
-  const currentEnrollment = await adminApolloClient.getUserEnrollment(enrollmentNewData.enrollment_id)
+  const currentEnrollment = await getUserEnrollment({ request, enrollmentId: enrollmentNewData.enrollment_id })
 
   const logEnrollmentEvent = createLogEnrollmentEvent({
     request,

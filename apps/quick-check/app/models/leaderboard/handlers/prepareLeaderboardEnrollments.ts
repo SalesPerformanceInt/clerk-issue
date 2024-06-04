@@ -1,4 +1,6 @@
-import type { EnrollmentData, RankeableEnrollment } from "~/graphql"
+import { DateTime } from "luxon"
+
+import type { EnrollmentDashboardData, TaxonomyRankedEnrollment } from "~/graphql"
 
 import type { LeaderboardEnrollment } from "../leaderboard.types"
 
@@ -6,37 +8,32 @@ import type { LeaderboardEnrollment } from "../leaderboard.types"
  * Leaderboard Enrollments Helpers
  */
 
-const ITEM_LIMIT = 5
-
-const isLeaderboardEnrollment = (enrollment: RankeableEnrollment): enrollment is LeaderboardEnrollment =>
+const isLeaderboardEnrollment = (enrollment: TaxonomyRankedEnrollment): enrollment is LeaderboardEnrollment =>
   !!enrollment.rank
-
-const sliceEnrollments = (enrollments: LeaderboardEnrollment[], userEnrollmentIndex: number) => {
-  const LAST_THRESHOLD = enrollments.length - ITEM_LIMIT
-
-  if (userEnrollmentIndex < ITEM_LIMIT) return enrollments.slice(0, ITEM_LIMIT)
-  if (userEnrollmentIndex >= LAST_THRESHOLD) return enrollments.slice(-ITEM_LIMIT)
-
-  return enrollments.slice(userEnrollmentIndex - 2, userEnrollmentIndex + (ITEM_LIMIT - 2))
-}
 
 /**
  * Prepare Leaderboard Enrollments
  */
 
-export const prepareLeaderboardEnrollments = (enrollments: RankeableEnrollment[], userEnrollment: EnrollmentData) => {
+export const prepareLeaderboardEnrollments = (
+  enrollments: TaxonomyRankedEnrollment[],
+  userEnrollment: EnrollmentDashboardData,
+) => {
   if (!enrollments.length) return null
+  if (!userEnrollment.rank || !userEnrollment.score) return null
+
+  const userEnrollmentDate = DateTime.fromISO(userEnrollment.start_date)
 
   const filteredEnrollments = enrollments.filter(isLeaderboardEnrollment)
 
-  const userEnrollmentIndex = filteredEnrollments.findIndex(
-    (enrollment) => enrollment.user_id === userEnrollment.user_id,
-  )
+  const allTimeLeaderboard = filteredEnrollments
+  const focusedLeaderboard = allTimeLeaderboard
+    .filter((enrollment) => {
+      const enrollmentDate = DateTime.fromISO(enrollment.start_date)
 
-  if (filteredEnrollments.length <= ITEM_LIMIT) return filteredEnrollments
-  if (!userEnrollment.rank || userEnrollmentIndex === -1) return null
+      return Math.abs(enrollmentDate.diff(userEnrollmentDate, "days").days) <= 10
+    })
+    .sort((a, b) => b.score - a.score)
 
-  const leaderboardEnrollments = sliceEnrollments(filteredEnrollments, userEnrollmentIndex)
-
-  return leaderboardEnrollments
+  return { allTimeLeaderboard, focusedLeaderboard }
 }

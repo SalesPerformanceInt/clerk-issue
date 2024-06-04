@@ -1,10 +1,12 @@
 import type { Expand } from "quickcheck-shared"
 
-import type { EnrollmentData, EnrollUserEnrollment } from "~/graphql"
+import type { EnrollUserEnrollment } from "~/graphql"
 
 import type { BasicUserData } from "~/models/user"
 
 import type { LogEnrollmentEvent } from "./handlers/logEnrollmentEvent"
+
+import type { UserEnrollment } from "./enrollment.server"
 
 /**
  * Enrollment New Data
@@ -37,7 +39,7 @@ export type EnrollmentActionProps = {
   user: BasicUserData
   taxonomyId: string
   enrollmentNewData: EnrollmentNewData
-  currentEnrollment?: EnrollmentData | null
+  currentEnrollment?: UserEnrollment | null
   enrollmentResponseMessage?: string
 }
 

@@ -3,13 +3,18 @@ import { useNavigate } from "@remix-run/react"
 
 import { Header, HeaderReturn, HeaderUnansweredQuestions, Support, useIsDesktop } from "quickcheck-shared"
 
-import { useEnrollmentContext } from "../context/EnrollmentContext"
+import { useEnrollmentDashboardContext } from "~/pages/EnrollmentDashboard"
+
+/**
+ * EnrollmentDashboard Header Component
+ */
 
 export const EnrollmentHeader: FC = () => {
   const [start, setStart] = useState(false)
 
   const navigate = useNavigate()
-  const { enrollment } = useEnrollmentContext()
+
+  const { enrollmentDashboardData } = useEnrollmentDashboardContext()
 
   const isDesktop = useIsDesktop()
 
@@ -24,7 +29,11 @@ export const EnrollmentHeader: FC = () => {
       left={<HeaderReturn onClose={() => navigate("/")} />}
       right={
         isDesktop ? (
-          <HeaderUnansweredQuestions userData={enrollment} onStart={() => startQuestions()} loading={start} />
+          <HeaderUnansweredQuestions
+            userData={enrollmentDashboardData}
+            onStart={() => startQuestions()}
+            loading={start}
+          />
         ) : (
           <Support />
         )

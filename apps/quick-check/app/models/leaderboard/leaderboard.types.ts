@@ -1,6 +1,6 @@
 import type { Expand } from "quickcheck-shared"
 
-import type { RankeableEnrollment } from "~/graphql"
+import type { TaxonomyRankedEnrollment } from "~/graphql"
 
 /**
  * Enrollments By Taxonomy
@@ -12,12 +12,12 @@ type Taxonomy = {
   title: string
 }
 
-export type EnrollmentsByTaxonomyId = Record<string, RankeableEnrollment[]>
-export type MappedEnrollmentsByTaxonomyId = [string, RankeableEnrollment[]][]
+export type EnrollmentsByTaxonomyId = Record<string, TaxonomyRankedEnrollment[]>
+export type MappedEnrollmentsByTaxonomyId = [string, TaxonomyRankedEnrollment[]][]
 
 export type EnrollmentsByTaxonomy = {
   taxonomy: Taxonomy
-  enrollments: RankeableEnrollment[]
+  enrollments: TaxonomyRankedEnrollment[]
 }
 
 /**
@@ -26,7 +26,7 @@ export type EnrollmentsByTaxonomy = {
 
 export type LeaderboardEnrollment = {
   rank: number
-} & Expand<Omit<RankeableEnrollment, "rank">>
+} & Expand<Omit<TaxonomyRankedEnrollment, "rank">>
 
 /**
  * Leaderboard User Enrollment
@@ -35,3 +35,10 @@ export type LeaderboardEnrollment = {
 export type LeaderboardUserEnrollment = {
   displayName: string
 } & LeaderboardEnrollment
+
+/**
+ * Leaderboard View
+ */
+
+export const leaderboardView = ["AllTime", "Focused"] as const
+export type LeaderboardView = (typeof leaderboardView)[number]

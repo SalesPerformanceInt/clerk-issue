@@ -72,7 +72,7 @@ const LeaderboardCard: FC<LeaderboardCardProps> = ({ activeEnrollments, complete
         ]}
       />
 
-      <section className="flex flex-col gap-4 p-6">
+      <section className="fancy-scrollbar flex max-h-56 flex-col gap-4 overflow-y-auto p-6">
         {rankedEnrollments.map((enrollment) => (
           <LeaderboardEntry
             key={enrollment.id}

@@ -1,2 +1,2 @@
 export * from "./UserDashboard"
-export * from "./Enrollment"
+export * from "./EnrollmentDashboard"

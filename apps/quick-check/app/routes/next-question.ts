@@ -1,6 +1,6 @@
 import { redirect, type LoaderFunctionArgs } from "@vercel/remix"
 
-import { invariant, logError } from "quickcheck-shared"
+import { invariant } from "quickcheck-shared"
 
 import { generateNextQuestionFromRequest } from "~/models/user"
 
@@ -16,7 +16,6 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
 
     return redirect(`/question/${nextQuestionId}`)
   } catch (error) {
-    logError({ error, log: "/next-question" })
     return redirect(`/`)
   }
 }

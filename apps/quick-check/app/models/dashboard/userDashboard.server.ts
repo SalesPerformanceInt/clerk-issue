@@ -1,3 +1,5 @@
+import { invariant } from "quickcheck-shared"
+
 import { getUserApolloClientFromRequest } from "~/graphql"
 
 /**
@@ -8,6 +10,7 @@ export const getUserDashboard = async (request: Request) => {
   const userApolloClient = await getUserApolloClientFromRequest(request)
 
   const userDashboardData = await userApolloClient.getUserDashboardData()
+  invariant(userDashboardData, "UserDashboard Data not found")
 
   const userDashboardWeeklyStreakCalendar = userApolloClient.getUserWeeklyStreakCalendar()
   const userDashboardAchievements = userApolloClient.getUserAchievements()

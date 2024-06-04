@@ -2,12 +2,8 @@ import { logError } from "quickcheck-shared"
 
 import { graphql, type GQLProxyTenantData, type GraphQLClient } from "~/graphql"
 
-/**
- * GraphQL
- */
-
-export const GET_RANKEABLE_ENROLLMENTS = graphql(/* GraphQL */ `
-  query GetRankeableEnrollments($taxonomyIds: [String!], $tenantId: String!) {
+export const GET_TAXONOMY_RANKED_ENROLLMENTS = graphql(/* GraphQL */ `
+  query GetTaxonomyRankedEnrollments($taxonomyIds: [String!], $tenantId: String!) {
     user_enrollment(
       where: {
         taxonomy_id: { _in: $taxonomyIds }
@@ -27,11 +23,7 @@ export const GET_RANKEABLE_ENROLLMENTS = graphql(/* GraphQL */ `
   }
 `)
 
-/**
- * Get Rankeable Enrollments
- */
-
-export async function getRankeableEnrollments(
+export async function getTaxonomyRankedEnrollments(
   this: GraphQLClient,
   taxonomyIds: string[],
   proxyData: GQLProxyTenantData,
@@ -40,16 +32,16 @@ export async function getRankeableEnrollments(
 
   try {
     const { data } = await this.query({
-      query: GET_RANKEABLE_ENROLLMENTS,
+      query: GET_TAXONOMY_RANKED_ENROLLMENTS,
       variables: { taxonomyIds, tenantId },
       fetchPolicy: "no-cache",
     })
 
     return data.user_enrollment
   } catch (error) {
-    logError({ error, log: "getRankeableEnrollments" })
+    logError({ error, log: "getTaxonomyRankedEnrollments" })
     return null
   }
 }
 
-export type RankeableEnrollment = NonNullable<Awaited<ReturnType<typeof getRankeableEnrollments>>>[number]
+export type TaxonomyRankedEnrollment = NonNullable<Awaited<ReturnType<typeof getTaxonomyRankedEnrollments>>>[number]

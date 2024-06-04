@@ -2,7 +2,7 @@ import { type LoaderFunctionArgs } from "@vercel/remix"
 
 import { redirect, typeddefer, useTypedLoaderData } from "remix-typedjson"
 
-import { getUserDashboard } from "~/models/userDashboard"
+import { getUserDashboard } from "~/models/dashboard/userDashboard.server"
 
 import { UserDashboard } from "~/pages"
 
@@ -29,9 +29,7 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
  */
 
 export default function Page() {
-  const { userDashboardData, ...userDashboard } = useTypedLoaderData<typeof loader>()
+  const userDashboard = useTypedLoaderData<typeof loader>()
 
-  if (!userDashboardData) return redirect("/login")
-
-  return <UserDashboard userDashboard={{ userDashboardData, ...userDashboard }} />
+  return <UserDashboard userDashboard={userDashboard} />
 }

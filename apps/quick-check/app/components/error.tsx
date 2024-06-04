@@ -1,24 +1,29 @@
 import { isRouteErrorResponse, useLocation, useRouteError } from "@remix-run/react"
 
+import { isError, isObject } from "remeda"
+
 import Honeybadger from "../utils/honeybadger"
 
 export const makeErrorBoundary = (props: unknown) => () => {
-  const error = useRouteError() as any
+  const error = useRouteError()
   const location = useLocation()
   Honeybadger.setContext({
     location,
     error,
     props,
   })
-  Honeybadger.notify(`${error?.status} ${error?.statusText}  - ${error?.message}`)
+
+  const message = isObject(error) && "message" in error ? error.message : null
 
   if (isRouteErrorResponse(error)) {
+    Honeybadger.notify(`${error?.status} ${error?.statusText} - ${message}`)
+
     return (
       <div>
         <h1>
           {error.status} {error.statusText}
         </h1>
-        <p>{error.data}</p>
+        <p>{JSON.stringify(error.data)}</p>
       </div>
     )
   } else if (error instanceof Error) {
@@ -30,7 +35,7 @@ export const makeErrorBoundary = (props: unknown) => () => {
         <pre>{error.stack}</pre>
       </div>
     )
-  } else {
-    return <h1>Unknown Error</h1>
   }
+
+  return <div>{`Unknown Error: ${JSON.stringify(error)}`}</div>
 }

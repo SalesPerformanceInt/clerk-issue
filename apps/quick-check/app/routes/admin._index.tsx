@@ -1,19 +1,18 @@
 import { Suspense } from "react"
 import { CSVLink } from "react-csv"
-import { Await, Link, useLoaderData, useNavigation, useSubmit } from "@remix-run/react"
-import { defer, json, type ActionFunctionArgs, type LoaderFunctionArgs } from "@vercel/remix"
+import { Await, Link, useNavigation, useSubmit } from "@remix-run/react"
+import { json, type ActionFunctionArgs, type LoaderFunctionArgs } from "@vercel/remix"
 
 import { faTrash } from "@fortawesome/pro-solid-svg-icons"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { DateTime } from "luxon"
+import { typeddefer, useTypedLoaderData } from "remix-typedjson"
 import { z } from "zod"
 
 import { Button, buttonVariants, cn, simpleErrorResponse, useIsDesktop } from "quickcheck-shared"
 
-import { DEFAULT_LANGUAGE } from "~/contentstack"
 import { getAdminApolloClientFromRequest } from "~/graphql"
 
-import { QC_CONTENTSTACK_TRANSLATION_ID } from "~/utils/envs.server"
 import { useOutletContext } from "~/utils/outletContext"
 import { parseSchema } from "~/utils/parseSchema"
 
@@ -24,6 +23,8 @@ import {
   translatedStringsHeaders,
 } from "~/models/admin"
 import { authAdminSession } from "~/models/session"
+
+import { getPaginationFromRequest, getSearchFromRequest, Pagination, SearchBar } from "~/components"
 
 export const adminTenantListActionSchema = z.object({
   type: z.enum(["DELETE_TENANT"]),
@@ -41,20 +42,24 @@ export const config = {
 }
 
 export const loader = async ({ request }: LoaderFunctionArgs) => {
+  const authAdmin = await authAdminSession(request)
+  if (authAdmin) throw authAdmin
+
   try {
-    const authAdmin = await authAdminSession(request)
-    if (authAdmin) return authAdmin
+    const pagination = getPaginationFromRequest(request)
+    const search = getSearchFromRequest(request)
 
     const adminApolloClient = await getAdminApolloClientFromRequest(request)
-
-    const tenants = (await adminApolloClient.getTenants()) ?? []
+    const { tenants, count } = await adminApolloClient.getTenants(pagination, search)
 
     const contentReport = getContentReport()
 
     const translatedStringsReport = getTranslatedStringsReport()
 
-    return defer({ tenants, contentReport, translatedStringsReport }, { status: 200 })
-  } catch (error) {}
+    return typeddefer({ tenants, count, contentReport, translatedStringsReport })
+  } catch (error) {
+    throw simpleErrorResponse(error)
+  }
 }
 
 export const action = async ({ request }: ActionFunctionArgs) => {
@@ -77,7 +82,7 @@ export const action = async ({ request }: ActionFunctionArgs) => {
 }
 
 export default function Page() {
-  const { tenants, contentReport, translatedStringsReport } = useLoaderData<typeof loader>()
+  const { tenants, contentReport, count, translatedStringsReport } = useTypedLoaderData<typeof loader>()
   const { isAdminEnabled } = useOutletContext()
   const isDesktop = useIsDesktop()
 
@@ -118,6 +123,7 @@ export default function Page() {
         <div className="overflow-x-auto sm:-mx-6 desktop:-mx-8">
           <div className="inline-block min-w-full sm:px-6 desktop:px-8">
             <div className="overflow-hidden">
+              <SearchBar />
               <table className="min-w-full table-auto text-left text-sm">
                 <thead className="border-b bg-white font-medium">
                   <tr>
@@ -169,6 +175,7 @@ export default function Page() {
                   ))}
                 </tbody>
               </table>
+              <Pagination count={count} />
               <div className="mt-6 flex space-x-4 px-4 sm:px-0">
                 <Suspense
                   fallback={

@@ -11,7 +11,7 @@ import { invariant, simpleErrorResponse } from "quickcheck-shared"
 import { getTranslatedQuestionsFromTaxon } from "~/models/question"
 import { buildTaxonTrees, getTaxon } from "~/models/taxonomy"
 
-import { Pagination, usePagination } from "~/components"
+import { getPaginationFromRequest, Pagination } from "~/components"
 
 export const loader = async ({ params, request }: LoaderFunctionArgs) => {
   try {
@@ -32,12 +32,18 @@ export const loader = async ({ params, request }: LoaderFunctionArgs) => {
     const taxonTrees = await buildTaxonTrees()
     const taxon = await getTaxon(quickcheckTaxonomyId, taxonTrees)
 
-    const questions = await getTranslatedQuestionsFromTaxon(language, taxon)
+    const { offset, endOffset } = getPaginationFromRequest(request)
+
+    const allQuestions = await getTranslatedQuestionsFromTaxon(language, taxon)
+    const count = allQuestions.length
+
+    const questions = allQuestions.slice(offset, endOffset)
 
     return json({
       course,
       questions,
       language,
+      count,
     })
   } catch (error) {
     throw simpleErrorResponse(error)
@@ -45,10 +51,8 @@ export const loader = async ({ params, request }: LoaderFunctionArgs) => {
 }
 
 export default function CoursePage() {
-  const { course, questions, language } = useLoaderData<typeof loader>()
+  const { course, questions, count, language } = useLoaderData<typeof loader>()
   const navigate = useNavigate()
-
-  const { onPageChange, currentItems, pageCount } = usePagination(questions)
 
   return (
     <div className="sm:p-8">
@@ -80,7 +84,7 @@ export default function CoursePage() {
                   </tr>
                 </thead>
                 <tbody>
-                  {currentItems.map((question, row) => (
+                  {questions.map((question, row) => (
                     <tr key={question.uid} className={`border-b ${row % 2 === 0 ? "bg-neutral-100" : "bg-white"}`}>
                       <td className="whitespace-nowrap px-6 py-4">
                         <Link
@@ -97,7 +101,7 @@ export default function CoursePage() {
                   ))}
                 </tbody>
               </table>
-              <Pagination onPageChange={onPageChange} pageCount={pageCount} />
+              <Pagination count={count} />
             </div>
           </div>
         </div>

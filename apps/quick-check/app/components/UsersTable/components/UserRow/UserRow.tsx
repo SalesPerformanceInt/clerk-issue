@@ -130,7 +130,6 @@ export const UserRow: FC<UserRowProps> = ({ user, row, link }) => {
               })()
             }}
           >
-            <FontAwesomeIcon icon={faSpinner} spinPulse />
             {supportedLngs.map((lng) => (
               <option key={lng} value={lng}>
                 {lng}

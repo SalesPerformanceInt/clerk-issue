@@ -20,12 +20,12 @@ const getSkillData = (questions: UserQuestion[], skill: string | number | symbol
 
   const baselineCount = pipe(
     questions,
-    filter((x) => x.first_answer[0]?.correct === true),
+    filter((question) => question.first_answer[0]?.correct === true),
     length(),
   )
   const currentCount = pipe(
     questions,
-    filter((x) => x.current_answer[0]?.correct === true),
+    filter((question) => question.current_answer[0]?.correct === true),
     length(),
   )
 

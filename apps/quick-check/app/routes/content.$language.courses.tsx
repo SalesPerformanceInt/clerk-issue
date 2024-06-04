@@ -2,27 +2,36 @@ import { Link, useLoaderData, useNavigate } from "@remix-run/react"
 import { json, type LoaderFunctionArgs } from "@vercel/remix"
 
 import { getContentStackClient } from "~/contentstack.server"
-import { first, isArray, sortBy } from "remeda"
+import { filter, first, isArray, pipe, sortBy } from "remeda"
 
 import { invariant, simpleErrorResponse, supportedLngs } from "quickcheck-shared"
 
-import { Pagination, usePagination } from "~/components"
+import { getPaginationFromRequest, Pagination } from "~/components"
 
 export const loader = async ({ params, request }: LoaderFunctionArgs) => {
   try {
+    const { offset, perPage, endOffset } = getPaginationFromRequest(request)
+
     const { language } = params
     invariant(language, "Language not found")
 
     const contentStack = getContentStackClient(language)
     const allCourses = (await contentStack.getCourses()) ?? []
 
-    const courses = allCourses.filter(
-      ({ metadata }) => isArray(metadata.quickcheck_taxonomy) && first(metadata.quickcheck_taxonomy),
+    const filteredCourses = pipe(
+      allCourses,
+      filter(({ metadata }) => isArray(metadata.quickcheck_taxonomy) && !!first(metadata.quickcheck_taxonomy)),
+      sortBy(({ metadata }) => metadata.display_title),
     )
+
+    const count = filteredCourses.length
+
+    const courses = filteredCourses.slice(offset, endOffset)
 
     return json({
       courses,
       language,
+      count,
     })
   } catch (error) {
     throw simpleErrorResponse(error)
@@ -30,12 +39,8 @@ export const loader = async ({ params, request }: LoaderFunctionArgs) => {
 }
 
 export default function CoursesPage() {
-  const { courses, language } = useLoaderData<typeof loader>()
+  const { courses, language, count } = useLoaderData<typeof loader>()
   const navigate = useNavigate()
-
-  const orderedCorses = sortBy(courses, (c) => c.metadata.display_title)
-
-  const { onPageChange, currentItems, pageCount } = usePagination(orderedCorses)
 
   return (
     <div className="sm:p-8">
@@ -73,7 +78,7 @@ export default function CoursesPage() {
                   </tr>
                 </thead>
                 <tbody>
-                  {currentItems.map((course, row) => (
+                  {courses.map((course, row) => (
                     <tr key={course.uid} className={`border-b ${row % 2 === 0 ? "bg-neutral-100" : "bg-white"}`}>
                       <td className="whitespace-nowrap px-6 py-4">
                         <Link
@@ -92,7 +97,7 @@ export default function CoursesPage() {
                   ))}
                 </tbody>
               </table>
-              <Pagination onPageChange={onPageChange} pageCount={pageCount} />
+              <Pagination count={count} />
             </div>
           </div>
         </div>

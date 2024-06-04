@@ -14,7 +14,7 @@ import { performAdminAction } from "~/models/admin"
 import { formatUserInputFromImport, parseCreateUserRequest } from "~/models/api"
 import { authAdminSession } from "~/models/session"
 
-import { CreateUserForm, UsersTable } from "~/components"
+import { getPaginationFromRequest, getSearchFromRequest, Pagination, SearchBar, UsersTable } from "~/components"
 
 export const config = {
   maxDuration: 300,
@@ -29,8 +29,11 @@ export const loader = async ({ request, params }: LoaderFunctionArgs) => {
 
   const adminApolloClient = await getAdminApolloClientFromRequest(request)
 
-  const users = (await adminApolloClient.getTenantUsers({ tenantId })) ?? []
-  return json({ users }, { status: 200 })
+  const pagination = getPaginationFromRequest(request)
+  const search = getSearchFromRequest(request)
+
+  const { users, count } = (await adminApolloClient.getTenantUsers(pagination, search, { tenantId })) ?? []
+  return json({ users, count }, { status: 200 })
 }
 
 export const action = async ({ request, params }: ActionFunctionArgs) => {
@@ -59,11 +62,9 @@ export const action = async ({ request, params }: ActionFunctionArgs) => {
 }
 
 export default function Page() {
-  const { users } = useLoaderData<typeof loader>()
+  const { users, count } = useLoaderData<typeof loader>()
   const { tenantId } = useParams()
   const navigate = useNavigate()
-
-  const { isAdminEnabled } = useOutletContext()
 
   return (
     <div className="sm:p-8">
@@ -83,10 +84,10 @@ export default function Page() {
             </div>
 
             <div className="mb-8 overflow-hidden">
+              <SearchBar />
               <UsersTable users={users} link />
+              <Pagination count={count} />
             </div>
-
-            {isAdminEnabled && <CreateUserForm />}
           </div>
         </div>
       </div>

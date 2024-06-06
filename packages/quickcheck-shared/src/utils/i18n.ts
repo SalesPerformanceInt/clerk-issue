@@ -13,11 +13,14 @@ export type ContentStackEnvs = {
 }
 
 interface TranslatedStrings {
-  entry: {
-    translations: {
-      value: Record<string, string>[]
-    }
-  }
+  entries: [
+    {
+      namespace: string
+      translations: {
+        value: Record<string, string>[]
+      }
+    },
+  ]
 }
 
 export const supportedLngs = [
@@ -40,7 +43,7 @@ export const fallbackLng = "en-us"
 export const i18nConfig = {
   supportedLngs,
   fallbackLng,
-  defaultNS: "translation",
+  defaultNS: "quickcheck",
   react: { useSuspense: false },
   lowerCaseLng: true,
   load: "currentOnly" as const,
@@ -48,14 +51,15 @@ export const i18nConfig = {
 
 export const getBackendOptions = (envs: ContentStackEnvs): HttpBackendOptions => ({
   loadPath: function (_lngs, _namespaces) {
-    const path = `https://${CONTENTSTACK_BASE_URL}/v3/content_types/${TRANSLATION_CONTENT_TYPE}/entries/${envs.QC_CONTENTSTACK_TRANSLATION_ID}?environment=${envs.QC_CONTENTSTACK_ENVIRONMENT}&locale={{lng}}&include_fallback=true`
+    const path = `https://${CONTENTSTACK_BASE_URL}/v3/content_types/${TRANSLATION_CONTENT_TYPE}/entries?environment=${envs.QC_CONTENTSTACK_ENVIRONMENT}&locale={{lng}}&include_fallback=true&query={"namespace":"{{ns}}"}`
     return path
   },
   parse: (data) => {
+    console.log("getBackendOptions - parse", data)
     return pipe(
       data,
       (data) => JSON.parse(data) as TranslatedStrings,
-      ({ entry }) => entry.translations.value,
+      ({ entries }) => entries[0]?.translations.value,
       map(({ key, value }) => [key, value] as [string, string]),
       (data) => fromPairs(data),
     )

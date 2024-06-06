@@ -1,3 +1,4 @@
+import { InitOptions } from "i18next"
 import Backend, { type HttpBackendOptions } from "i18next-http-backend"
 import { fromPairs, map, pipe } from "remeda"
 import { RemixI18Next } from "remix-i18next"
@@ -40,13 +41,14 @@ export type SupportedLanguage = (typeof supportedLngs)[number]
 
 export const fallbackLng = "en-us"
 
-export const i18nConfig = {
+export const i18nConfig: InitOptions = {
   supportedLngs,
   fallbackLng,
   defaultNS: "quickcheck",
   react: { useSuspense: false },
   lowerCaseLng: true,
   load: "currentOnly" as const,
+  ns: ["quickcheck"],
 }
 
 export const getBackendOptions = (envs: ContentStackEnvs): HttpBackendOptions => ({
@@ -55,7 +57,6 @@ export const getBackendOptions = (envs: ContentStackEnvs): HttpBackendOptions =>
     return path
   },
   parse: (data) => {
-    console.log("getBackendOptions - parse", data)
     return pipe(
       data,
       (data) => JSON.parse(data) as TranslatedStrings,

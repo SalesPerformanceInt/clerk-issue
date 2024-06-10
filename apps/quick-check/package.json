@@ -30,7 +30,6 @@
     "@vercel/functions": "^1.0.2",
     "@vercel/remix": "2.9.2-patch.2",
     "dotenv-load": "^3.0.0",
-    "emails": "workspace:*",
     "framer-motion": "^10.18.0",
     "fs-extra": "^11.2.0",
     "glob": "^10.3.10",

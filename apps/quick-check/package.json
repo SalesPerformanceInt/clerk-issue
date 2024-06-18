@@ -64,6 +64,7 @@
     "twilio": "^4.11.1",
     "use-resize-observer": "^9.1.0",
     "uuid": "^9.0.1",
+    "validator": "^13.12.0",
     "zipyai": "^1.7.5",
     "zod": "^3.22.4",
     "zod-form-data": "^2.0.2"
@@ -87,6 +88,7 @@
     "@types/react-csv": "^1.1.10",
     "@types/react-dom": "^18.0.11",
     "@types/uuid": "^9.0.6",
+    "@types/validator": "^13.11.10",
     "autoprefixer": "^10.4.16",
     "concurrently": "^8.2.2",
     "contentstack": "^3.17.2",

@@ -1,3 +1,5 @@
+import { escape } from "validator"
+
 import { logError } from "quickcheck-shared"
 
 import { GQLProxyUserData, graphql, type GraphQLClient, type Product_Survey_Insert_Input } from "~/graphql"
@@ -21,13 +23,14 @@ export const CREATE_SURVEY_RESPONSE = graphql(/* GraphQL */ `
 
 export async function createSurveyResponse(
   this: GraphQLClient,
-  surveyResponse: SurveyResponse,
+  { sentiment, comment }: SurveyResponse,
   proxyData: GQLProxyUserData,
 ) {
   const { userId } = proxyData
 
   const response: Product_Survey_Insert_Input = {
-    ...surveyResponse,
+    sentiment,
+    comment: comment && escape(comment),
     user_id: userId,
   }
 
@@ -42,8 +45,8 @@ export async function createSurveyResponse(
       event: "survey sent",
       properties: {
         $survey_id: SURVEY_ID,
-        $survey_response: surveyResponse.sentiment,
-        $survey_response_1: surveyResponse.comment,
+        $survey_response: sentiment,
+        $survey_response_1: comment,
       },
     })
 

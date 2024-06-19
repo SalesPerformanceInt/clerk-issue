@@ -37,5 +37,3 @@ jobs:
         run: pnpm exec playwright install chromium
       - name: Run Playwright Test Suite
         run: pnpm run test:cu
-        env:
-          CUKE_BASE_URL: ${{ secrets.GREEN_DEPLOYMENT_URL }}

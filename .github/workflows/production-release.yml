@@ -1,0 +1,56 @@
+name: Production Release
+on:
+  workflow_dispatch:
+jobs:
+  playwright_green_test:
+    uses: ./.github/workflows/playwrite-green-test.yml
+  migrate_production_hasura_databases:
+    name: Hasura migrations to production
+    needs: playwright_green_test
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repo
+        uses: actions/checkout@v3
+      - name: Apply hasura migrations EU
+        uses: tibotiber/hasura-action@master # use a tagged version instead of master
+        with:
+          args: migrate apply --database-name quickcheck
+        env:
+          HASURA_ENDPOINT: "https://hasura-eu.richardsonaccelerate.com/"
+          HASURA_ADMIN_SECRET: ${{ secrets.HASURA_ADMIN_SECRET_EU }}
+          HASURA_WORKDIR: apps/quick-check/hasura
+      - name: Apply hasura metadata EU
+        uses: tibotiber/hasura-action@master # use a tagged version instead of master
+        with:
+          args: metadata apply
+        env:
+          HASURA_ENDPOINT: "https://hasura-eu.richardsonaccelerate.com/"
+          HASURA_ADMIN_SECRET: ${{ secrets.HASURA_ADMIN_SECRET_EU }}
+          HASURA_WORKDIR: apps/quick-check/hasura
+      - name: Apply hasura migrations US
+        uses: tibotiber/hasura-action@master # use a tagged version instead of master
+        with:
+          args: migrate apply --database-name quickcheck
+        env:
+          HASURA_ENDPOINT: "https://hasura-us.richardsonaccelerate.com/"
+          HASURA_ADMIN_SECRET: ${{ secrets.HASURA_ADMIN_SECRET_US }}
+          HASURA_WORKDIR: apps/quick-check/hasura
+      - name: Apply hasura metadata US
+        uses: tibotiber/hasura-action@master # use a tagged version instead of master
+        with:
+          args: metadata apply
+        env:
+          HASURA_ENDPOINT: "https://hasura-us.richardsonaccelerate.com/"
+          HASURA_ADMIN_SECRET: ${{ secrets.HASURA_ADMIN_SECRET_US }}
+          HASURA_WORKDIR: apps/quick-check/hasura
+  merge_to_production:
+    needs: migrate_production_hasura_databases
+    runs-on: ubuntu-latest
+    steps:
+      - name: Merge main -> production
+        uses: devmasx/merge-branch@master
+        with:
+          type: now
+          from_branch: main
+          target_branch: production
+          github_token: ${{ secrets.TIMS_GITHUB_TOKEN }}

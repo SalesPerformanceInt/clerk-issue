@@ -1,17 +1,12 @@
-name: Continuous Integration
+name: Playwrite Green Test
 on:
-  push:
-    branches-ignore:
-      - "release/**"
-      - "e2e-**"
-      - main
-      - green
   workflow_call:
 jobs:
-  lint-build-test:
+  playwright_green_test:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - name: Checkout
+        uses: actions/checkout@v3
       - uses: actions/setup-node@v4
         with:
           node-version: 20
@@ -35,11 +30,7 @@ jobs:
           NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: PNPM install Dependencies
         run: pnpm install --no-frozen-lockfile
-      - name: Eslint
-        run: pnpm lint
-      # - name: Typecheck
-      #   run: pnpm typecheck
-      - name: Build packages + apps
-        run: pnpm build
-      - name: Tests
-        run: pnpm test
+      - name: Install Chromium
+        run: pnpm exec playwright install chromium
+      - name: Run Playwright Test Suite
+        run: pnpm run test:cu

@@ -36,5 +36,5 @@ jobs:
   playwright_green_test:
     uses: ./.github/workflows/playwrite-green-test.yml
     secrets:
-      CUKE_BASE_URL: ${{ secrets.CUKE_BASE_URL }}
+      CUKE_BASE_URL: ${{ secrets.GREEN_DEPLOYMENT_URL }}
     needs: deploy_to_staging

@@ -1,6 +1,9 @@
 name: Playwrite Green Test
 on:
   workflow_call:
+    secrets:
+      CUKE_BASE_URL:
+        required: true
 jobs:
   playwright_green_test:
     runs-on: ubuntu-latest

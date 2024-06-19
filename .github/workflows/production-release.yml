@@ -1,4 +1,7 @@
 name: Production Release
+env:
+  CUKE_BASE_URL: ${{ secrets.GREEN_DEPLOYMENT_URL }}
+  IMPORT_SECRET_KEY: ${{ secrets.QUICKCHECK_IMPORT_SECRET_KEY}}
 on:
   workflow_dispatch:
 jobs:

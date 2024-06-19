@@ -8,7 +8,7 @@ jobs:
   playwright_green_test:
     uses: ./.github/workflows/playwrite-green-test.yml
     secrets:
-      CUKE_BASE_URL: ${{ secrets.GREEN_DEPLOYMENT_URL }}
+      CUKE_BASE_URL: ${{ secrets.CUKE_BASE_URL }}
   migrate_production_hasura_databases:
     name: Hasura migrations to production
     needs: playwright_green_test

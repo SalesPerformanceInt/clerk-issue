@@ -1,7 +1,4 @@
 name: Playwrite Green Test
-env:
-  CUKE_BASE_URL: ${{ secrets.GREEN_DEPLOYMENT_URL }}
-  IMPORT_SECRET_KEY: ${{ secrets.QUICKCHECK_IMPORT_SECRET_KEY}}
 on:
   workflow_call:
 jobs:
@@ -37,3 +34,5 @@ jobs:
         run: pnpm exec playwright install chromium
       - name: Run Playwright Test Suite
         run: pnpm run test:cu
+        env:
+          CUKE_BASE_URL: ${{ secrets.GREEN_DEPLOYMENT_URL }}

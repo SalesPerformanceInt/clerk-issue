@@ -5,24 +5,24 @@ import { SupportedLanguage, supportedLngs } from "quickcheck-shared"
 
 import { DEFAULT_LANGUAGE } from "~/contentstack"
 
-import { QC_CONTENTSTACK_TRANSLATION_ID } from "~/utils/envs.server"
-
 export const getTranslatedStringsReport = async () => {
   const translationPromises = supportedLngs.map(async (language) => {
     const contentStack = getContentStackClient(language)
 
-    const translation = await contentStack.getTranslatedStrings(QC_CONTENTSTACK_TRANSLATION_ID)
+    const namespaces = await contentStack.getTranslatedStrings()
 
-    const squashed = translation?.translations.value.reduce(
-      (acc, { key, value }) => ({
-        ...acc,
-        [key]: value,
-      }),
-      {} as Record<string, string>,
+    const squashed = namespaces?.map(({ translations, namespace }) =>
+      translations.value.reduce(
+        (acc, { key, value }) => ({
+          ...acc,
+          [`${namespace}:${key}`]: value,
+        }),
+        {} as Record<string, string>,
+      ),
     )
 
     return {
-      [language]: squashed ?? null,
+      [language]: squashed ? mergeAll(squashed) : null,
     }
   })
 

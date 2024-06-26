@@ -167,6 +167,7 @@ export type TranslatedStrings = WithLiveData<{
   locale: "en-us"
   uid: "blt37f4a4753e3711ad"
   title: string
+  namespace: string
   translations: {
     value: { key: string; value: string }[]
   }

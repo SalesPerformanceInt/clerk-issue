@@ -10,7 +10,6 @@ export type ContentStackEnvs = {
   QC_CONTENTSTACK_DELIVERY_TOKEN: string
   QC_CONTENTSTACK_STACK_KEY: string
   QC_CONTENTSTACK_ENVIRONMENT: string
-  QC_CONTENTSTACK_TRANSLATION_ID: string
 }
 
 interface TranslatedStrings {

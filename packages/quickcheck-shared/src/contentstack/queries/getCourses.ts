@@ -10,10 +10,10 @@ import { Course } from "../types"
 
 export async function getCourses(this: ContentStackSDKClient, query: (query: Query) => Query = (query) => query) {
   try {
-    const level2Courses = await this.getAllEntries<Course>("level_2_course", (q) =>
-      query(q.includeReference(["metadata.quickcheck_taxonomy"])),
-    )
-    const level3Courses = await this.getAllEntries<Course>("level_3_course", query)
+    const withQuickcheckTaxonomy = (q: Query) => query(q.includeReference(["metadata.quickcheck_taxonomy"]))
+
+    const level2Courses = await this.getAllEntries<Course>("level_2_course", withQuickcheckTaxonomy)
+    const level3Courses = await this.getAllEntries<Course>("level_3_course", withQuickcheckTaxonomy)
 
     return [...level2Courses, ...level3Courses]
   } catch (error) {

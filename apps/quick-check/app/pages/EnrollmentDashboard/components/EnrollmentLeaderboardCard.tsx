@@ -3,7 +3,7 @@ import { useTranslation } from "react-i18next"
 
 import { TypedAwait } from "remix-typedjson"
 
-import { Button, Card, CardSkeleton, cn, LeaderboardEntry, LeaderboardEntrySkeleton } from "quickcheck-shared"
+import { Button, Card, CardSkeleton, cn, LeaderboardEntry, LeaderboardEntrySkeleton, Tooltip } from "quickcheck-shared"
 
 import type { TaxonomyRankedEnrollment } from "~/graphql"
 
@@ -68,9 +68,8 @@ const EnrollmentLeaderboardCard: FC<EnrollmentLeaderboardCardProps> = ({ rankedE
   const enrollmentLeaderboard = getEnrollmentLeaderboard({ rankedEnrollments, userEnrollment: enrollmentDashboardData })
   if (!enrollmentLeaderboard) return null
 
-  const currentLeaderboard = leaderboardView === "AllTime"
-    ? enrollmentLeaderboard.allTimeLeaderboard
-    : enrollmentLeaderboard.focusedLeaderboard
+  const currentLeaderboard =
+    leaderboardView === "AllTime" ? enrollmentLeaderboard.allTimeLeaderboard : enrollmentLeaderboard.focusedLeaderboard
 
   useEffect(() => {
     if (!userPosition.current) return
@@ -78,11 +77,19 @@ const EnrollmentLeaderboardCard: FC<EnrollmentLeaderboardCardProps> = ({ rankedE
     userPosition.current.scrollIntoView({ behavior: "auto", block: "center" })
   }, [currentLeaderboard, userPosition])
 
-  // TODO: Translated Strings
   return (
     <Card className="w-full">
       <div className="flex flex-col items-start justify-between gap-6 px-4 pb-6 pt-4 md:flex-row md:items-center">
-        <h2 className="text-base text-text">{t("common.leaderboard")}</h2>
+        <div className="flex items-center gap-2">
+          <h2 className="text-base text-text">{t("common.leaderboard")}</h2>
+          <Tooltip
+            texts={[
+              t("enrollment.dashboard.leaderboard.tooltip.focused"),
+              t("enrollment.dashboard.leaderboard.tooltip.all_time"),
+            ]}
+            ariaLabel={t("common.leaderboard")}
+          />
+        </div>
 
         <div className="flex w-full items-center md:w-fit">
           <Button
@@ -92,7 +99,7 @@ const EnrollmentLeaderboardCard: FC<EnrollmentLeaderboardCardProps> = ({ rankedE
             )}
             onClick={() => setLeaderboardView("Focused")}
           >
-            Focused
+            {t("enrollment.dashboard.leaderboard.focused")}
           </Button>
 
           <Button
@@ -102,7 +109,7 @@ const EnrollmentLeaderboardCard: FC<EnrollmentLeaderboardCardProps> = ({ rankedE
             )}
             onClick={() => setLeaderboardView("AllTime")}
           >
-            All Time
+            {t("enrollment.dashboard.leaderboard.all_time")}
           </Button>
         </div>
       </div>

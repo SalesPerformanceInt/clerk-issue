@@ -20,7 +20,12 @@ export const Achievement: FC<AchievementProps> = ({ label, tooltip, ...props }) 
       <div className="mt-2 text-center text-2xs font-semibold uppercase leading-4">
         {label}
 
-        {tooltip && <Tooltip texts={tooltip} ariaLabel={t("common.achievement.aria_label")} />}
+        {tooltip && (
+          <>
+            {" "}
+            <Tooltip texts={tooltip} ariaLabel={t("common.achievement.aria_label")} triggerClassName="text-2xs" />
+          </>
+        )}
       </div>
     </div>
   )

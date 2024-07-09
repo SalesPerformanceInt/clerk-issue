@@ -28,7 +28,7 @@
     "@splitsoftware/splitio": "^10.23.1",
     "@splitsoftware/splitio-react": "^1.9.0",
     "@vercel/functions": "^1.0.2",
-    "@vercel/remix": "2.9.2-patch.2",
+    "@vercel/remix": "^2.10.0",
     "dotenv-load": "^3.0.0",
     "framer-motion": "^10.18.0",
     "fs-extra": "^11.2.0",

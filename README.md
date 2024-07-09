@@ -6,7 +6,7 @@ This is a Turborepo containing both a `Storybook React Components library` (quic
 
 This Monorepo uses [pnpm](https://pnpm.io/) and [turborepo](https://turborepo.org/) to manage both the `apps` and `packages` folder.
 
-### Monorepo Structure
+### Monorepo
 
 ```
 /apps

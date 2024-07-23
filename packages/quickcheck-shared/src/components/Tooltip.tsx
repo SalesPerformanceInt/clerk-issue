@@ -1,6 +1,6 @@
 import React, { Fragment, isValidElement, type FC, type ReactElement } from "react"
 import { useTranslation } from "react-i18next"
-
+import isMobile from 'is-mobile'
 import { faCircleInfo, faCircleQuestion } from "@fortawesome/pro-light-svg-icons"
 import * as RadixPopover from "@radix-ui/react-popover"
 import * as RadixTooltip from "@radix-ui/react-tooltip"
@@ -33,7 +33,8 @@ export const Tooltip: FC<TooltipProps> = ({
   closeButton = true,
   type = "info",
 }) => {
-  const isDesktop = useIsDesktop()
+  const popover = isMobile({ featureDetect: true, tablet: true })
+
   const { t } = useTranslation()
 
   if (!texts.length) return null
@@ -42,7 +43,7 @@ export const Tooltip: FC<TooltipProps> = ({
 
   return (
     <>
-      {texts && isDesktop && (
+      {texts && !popover && (
         <RadixTooltip.Provider>
           <RadixTooltip.Root delayDuration={0}>
             <RadixTooltip.Trigger
@@ -59,7 +60,7 @@ export const Tooltip: FC<TooltipProps> = ({
                 align="start"
                 alignOffset={-60}
                 className={twMerge(
-                  "flex flex-col gap-2 rounded-sm bg-text p-2 text-xs font-semibold text-contrast",
+                  "flex max-w-screen-sm flex-col gap-2 rounded-sm bg-text p-2 text-xs font-semibold text-contrast",
                   contentClassName,
                 )}
               >
@@ -72,7 +73,7 @@ export const Tooltip: FC<TooltipProps> = ({
         </RadixTooltip.Provider>
       )}
 
-      {texts && !isDesktop && (
+      {texts && popover && (
         <RadixPopover.Root>
           <RadixPopover.Trigger
             className={twMerge("cursor-default text-xs", triggerClassName)}
@@ -87,6 +88,7 @@ export const Tooltip: FC<TooltipProps> = ({
               sideOffset={2}
               align="start"
               alignOffset={-60}
+              collisionPadding={8}
               className={twMerge(
                 "flex max-w-[280px] flex-col gap-3 rounded-sm bg-text p-2 text-xs font-semibold text-contrast",
                 contentClassName,

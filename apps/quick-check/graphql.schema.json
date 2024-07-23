@@ -14,6 +14,7 @@
         "kind": "SCALAR",
         "name": "Boolean",
         "description": "The `Boolean` scalar type represents `true` or `false`.",
+        "isOneOf": null,
         "fields": null,
         "inputFields": null,
         "interfaces": null,
@@ -24,6 +25,7 @@
         "kind": "INPUT_OBJECT",
         "name": "Boolean_comparison_exp",
         "description": "Boolean expression to compare columns of type \"Boolean\". All fields are combined with logical 'AND'.",
+        "isOneOf": false,
         "fields": null,
         "inputFields": [
           {
@@ -159,6 +161,7 @@
         "kind": "SCALAR",
         "name": "Float",
         "description": "The `Float` scalar type represents signed double-precision fractional values as specified by [IEEE 754](https://en.wikipedia.org/wiki/IEEE_floating_point).",
+        "isOneOf": null,
         "fields": null,
         "inputFields": null,
         "interfaces": null,
@@ -169,6 +172,7 @@
         "kind": "SCALAR",
         "name": "Int",
         "description": "The `Int` scalar type represents non-fractional signed whole numeric values. Int can represent values between -(2^31) and 2^31 - 1.",
+        "isOneOf": null,
         "fields": null,
         "inputFields": null,
         "interfaces": null,
@@ -179,6 +183,7 @@
         "kind": "INPUT_OBJECT",
         "name": "Int_comparison_exp",
         "description": "Boolean expression to compare columns of type \"Int\". All fields are combined with logical 'AND'.",
+        "isOneOf": false,
         "fields": null,
         "inputFields": [
           {
@@ -314,6 +319,7 @@
         "kind": "SCALAR",
         "name": "String",
         "description": "The `String` scalar type represents textual data, represented as UTF-8 character sequences. The String type is most often used by GraphQL to represent free-form human-readable text.",
+        "isOneOf": null,
         "fields": null,
         "inputFields": null,
         "interfaces": null,
@@ -324,6 +330,7 @@
         "kind": "INPUT_OBJECT",
         "name": "String_comparison_exp",
         "description": "Boolean expression to compare columns of type \"String\". All fields are combined with logical 'AND'.",
+        "isOneOf": false,
         "fields": null,
         "inputFields": [
           {
@@ -579,6 +586,7 @@
         "kind": "OBJECT",
         "name": "__Directive",
         "description": "A Directive provides a way to describe alternate runtime execution and type validation behavior in a GraphQL document.\n\nIn some cases, you need to provide options to alter GraphQL's execution behavior in ways field arguments will not suffice, such as conditionally including or skipping a field. Directives provide this by describing additional information to the executor.",
+        "isOneOf": null,
         "fields": [
           {
             "name": "name",
@@ -695,6 +703,7 @@
         "kind": "ENUM",
         "name": "__DirectiveLocation",
         "description": "A Directive can be adjacent to many parts of the GraphQL language, a __DirectiveLocation describes one such possible adjacencies.",
+        "isOneOf": null,
         "fields": null,
         "inputFields": null,
         "interfaces": null,
@@ -820,6 +829,7 @@
         "kind": "OBJECT",
         "name": "__EnumValue",
         "description": "One possible value for a given Enum. Enum values are unique values, not a placeholder for a string or numeric value. However an Enum value is returned in a JSON response as a string.",
+        "isOneOf": null,
         "fields": [
           {
             "name": "name",
@@ -887,6 +897,7 @@
         "kind": "OBJECT",
         "name": "__Field",
         "description": "Object and Interface types are described by a list of Fields, each of which has a name, potentially a list of arguments, and a return type.",
+        "isOneOf": null,
         "fields": [
           {
             "name": "name",
@@ -1007,6 +1018,7 @@
         "kind": "OBJECT",
         "name": "__InputValue",
         "description": "Arguments provided to Fields or Directives and the input fields of an InputObject are represented as Input Values which describe their type and optionally a default value.",
+        "isOneOf": null,
         "fields": [
           {
             "name": "name",
@@ -1102,6 +1114,7 @@
         "kind": "OBJECT",
         "name": "__Schema",
         "description": "A GraphQL Schema defines the capabilities of a GraphQL server. It exposes all available types and directives on the server, as well as the entry points for query, mutation, and subscription operations.",
+        "isOneOf": null,
         "fields": [
           {
             "name": "description",
@@ -1213,6 +1226,7 @@
         "kind": "OBJECT",
         "name": "__Type",
         "description": "The fundamental unit of any GraphQL Schema is the type. There are many kinds of types in GraphQL as represented by the `__TypeKind` enum.\n\nDepending on the kind of a type, certain fields describe information about that type. Scalar types provide no information beyond a name, description and optional `specifiedByURL`, while Enum types provide their values. Object and Interface types provide the fields they describe. Abstract types, Union and Interface, provide the Object types possible at runtime. List and NonNull types compose other types.",
+        "isOneOf": null,
         "fields": [
           {
             "name": "kind",
@@ -1416,6 +1430,18 @@
             },
             "isDeprecated": false,
             "deprecationReason": null
+          },
+          {
+            "name": "isOneOf",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "Boolean",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
           }
         ],
         "inputFields": null,
@@ -1427,6 +1453,7 @@
         "kind": "ENUM",
         "name": "__TypeKind",
         "description": "An enum describing what kind of type a given `__Type` is.",
+        "isOneOf": null,
         "fields": null,
         "inputFields": null,
         "interfaces": null,
@@ -1486,6 +1513,7 @@
         "kind": "ENUM",
         "name": "cursor_ordering",
         "description": "ordering argument of a cursor",
+        "isOneOf": null,
         "fields": null,
         "inputFields": null,
         "interfaces": null,
@@ -1509,6 +1537,7 @@
         "kind": "SCALAR",
         "name": "date",
         "description": null,
+        "isOneOf": null,
         "fields": null,
         "inputFields": null,
         "interfaces": null,
@@ -1519,6 +1548,7 @@
         "kind": "INPUT_OBJECT",
         "name": "date_comparison_exp",
         "description": "Boolean expression to compare columns of type \"date\". All fields are combined with logical 'AND'.",
+        "isOneOf": false,
         "fields": null,
         "inputFields": [
           {
@@ -1654,6 +1684,7 @@
         "kind": "OBJECT",
         "name": "event",
         "description": "columns and relationships of \"event\"",
+        "isOneOf": null,
         "fields": [
           {
             "name": "created_at",
@@ -1758,6 +1789,7 @@
         "kind": "OBJECT",
         "name": "event_aggregate",
         "description": "aggregated selection of \"event\"",
+        "isOneOf": null,
         "fields": [
           {
             "name": "aggregate",
@@ -1805,6 +1837,7 @@
         "kind": "OBJECT",
         "name": "event_aggregate_fields",
         "description": "aggregate fields of \"event\"",
+        "isOneOf": null,
         "fields": [
           {
             "name": "count",
@@ -1889,6 +1922,7 @@
         "kind": "INPUT_OBJECT",
         "name": "event_append_input",
         "description": "append existing jsonb value of filtered columns with new jsonb value",
+        "isOneOf": false,
         "fields": null,
         "inputFields": [
           {
@@ -1912,6 +1946,7 @@
         "kind": "INPUT_OBJECT",
         "name": "event_bool_exp",
         "description": "Boolean expression to filter rows from the table \"event\". All fields are combined with a logical 'AND'.",
+        "isOneOf": false,
         "fields": null,
         "inputFields": [
           {
@@ -2035,6 +2070,7 @@
         "kind": "ENUM",
         "name": "event_constraint",
         "description": "unique or primary key constraints on table \"event\"",
+        "isOneOf": null,
         "fields": null,
         "inputFields": null,
         "interfaces": null,
@@ -2052,6 +2088,7 @@
         "kind": "INPUT_OBJECT",
         "name": "event_delete_at_path_input",
         "description": "delete the field or element with specified path (for JSON arrays, negative integers count from the end)",
+        "isOneOf": false,
         "fields": null,
         "inputFields": [
           {
@@ -2083,6 +2120,7 @@
         "kind": "INPUT_OBJECT",
         "name": "event_delete_elem_input",
         "description": "delete the array element with specified index (negative integers count from the end). throws an error if top level container is not an array",
+        "isOneOf": false,
         "fields": null,
         "inputFields": [
           {
@@ -2106,6 +2144,7 @@
         "kind": "INPUT_OBJECT",
         "name": "event_delete_key_input",
         "description": "delete key/value pair or string element. key/value pairs are matched based on their key value",
+        "isOneOf": false,
         "fields": null,
         "inputFields": [
           {
@@ -2129,6 +2168,7 @@
         "kind": "INPUT_OBJECT",
         "name": "event_insert_input",
         "description": "input type for inserting data into table \"event\"",
+        "isOneOf": false,
         "fields": null,
         "inputFields": [
           {
@@ -2200,6 +2240,7 @@
         "kind": "OBJECT",
         "name": "event_max_fields",
         "description": "aggregate max on columns",
+        "isOneOf": null,
         "fields": [
           {
             "name": "created_at",
@@ -2259,6 +2300,7 @@
         "kind": "OBJECT",
         "name": "event_min_fields",
         "description": "aggregate min on columns",
+        "isOneOf": null,
         "fields": [
           {
             "name": "created_at",
@@ -2318,6 +2360,7 @@
         "kind": "OBJECT",
         "name": "event_mutation_response",
         "description": "response of any mutation on the table \"event\"",
+        "isOneOf": null,
         "fields": [
           {
             "name": "affected_rows",
@@ -2369,6 +2412,7 @@
         "kind": "INPUT_OBJECT",
         "name": "event_on_conflict",
         "description": "on_conflict condition type for table \"event\"",
+        "isOneOf": false,
         "fields": null,
         "inputFields": [
           {
@@ -2432,6 +2476,7 @@
         "kind": "INPUT_OBJECT",
         "name": "event_order_by",
         "description": "Ordering options when selecting data from \"event\".",
+        "isOneOf": false,
         "fields": null,
         "inputFields": [
           {
@@ -2503,6 +2548,7 @@
         "kind": "INPUT_OBJECT",
         "name": "event_pk_columns_input",
         "description": "primary key columns input for table: event",
+        "isOneOf": false,
         "fields": null,
         "inputFields": [
           {
@@ -2530,6 +2576,7 @@
         "kind": "INPUT_OBJECT",
         "name": "event_prepend_input",
         "description": "prepend existing jsonb value of filtered columns with new jsonb value",
+        "isOneOf": false,
         "fields": null,
         "inputFields": [
           {
@@ -2553,6 +2600,7 @@
         "kind": "ENUM",
         "name": "event_select_column",
         "description": "select columns of table \"event\"",
+        "isOneOf": null,
         "fields": null,
         "inputFields": null,
         "interfaces": null,
@@ -2594,6 +2642,7 @@
         "kind": "INPUT_OBJECT",
         "name": "event_set_input",
         "description": "input type for updating data in table \"event\"",
+        "isOneOf": false,
         "fields": null,
         "inputFields": [
           {
@@ -2665,6 +2714,7 @@
         "kind": "INPUT_OBJECT",
         "name": "event_stream_cursor_input",
         "description": "Streaming cursor of the table \"event\"",
+        "isOneOf": false,
         "fields": null,
         "inputFields": [
           {
@@ -2704,6 +2754,7 @@
         "kind": "INPUT_OBJECT",
         "name": "event_stream_cursor_value_input",
         "description": "Initial value of the column from where the streaming should start",
+        "isOneOf": false,
         "fields": null,
         "inputFields": [
           {
@@ -2775,6 +2826,7 @@
         "kind": "ENUM",
         "name": "event_update_column",
         "description": "update columns of table \"event\"",
+        "isOneOf": null,
         "fields": null,
         "inputFields": null,
         "interfaces": null,
@@ -2816,6 +2868,7 @@
         "kind": "INPUT_OBJECT",
         "name": "event_updates",
         "description": null,
+        "isOneOf": false,
         "fields": null,
         "inputFields": [
           {
@@ -2915,6 +2968,7 @@
         "kind": "SCALAR",
         "name": "jsonb",
         "description": null,
+        "isOneOf": null,
         "fields": null,
         "inputFields": null,
         "interfaces": null,
@@ -2925,6 +2979,7 @@
         "kind": "INPUT_OBJECT",
         "name": "jsonb_cast_exp",
         "description": null,
+        "isOneOf": false,
         "fields": null,
         "inputFields": [
           {
@@ -2948,6 +3003,7 @@
         "kind": "INPUT_OBJECT",
         "name": "jsonb_comparison_exp",
         "description": "Boolean expression to compare columns of type \"jsonb\". All fields are combined with logical 'AND'.",
+        "isOneOf": false,
         "fields": null,
         "inputFields": [
           {
@@ -3171,6 +3227,7 @@
         "kind": "OBJECT",
         "name": "link_token",
         "description": "columns and relationships of \"link_token\"",
+        "isOneOf": null,
         "fields": [
           {
             "name": "active",
@@ -3278,6 +3335,7 @@
         "kind": "OBJECT",
         "name": "link_token_aggregate",
         "description": "aggregated selection of \"link_token\"",
+        "isOneOf": null,
         "fields": [
           {
             "name": "aggregate",
@@ -3325,6 +3383,7 @@
         "kind": "INPUT_OBJECT",
         "name": "link_token_aggregate_bool_exp",
         "description": null,
+        "isOneOf": false,
         "fields": null,
         "inputFields": [
           {
@@ -3372,6 +3431,7 @@
         "kind": "INPUT_OBJECT",
         "name": "link_token_aggregate_bool_exp_bool_and",
         "description": null,
+        "isOneOf": false,
         "fields": null,
         "inputFields": [
           {
@@ -3439,6 +3499,7 @@
         "kind": "INPUT_OBJECT",
         "name": "link_token_aggregate_bool_exp_bool_or",
         "description": null,
+        "isOneOf": false,
         "fields": null,
         "inputFields": [
           {
@@ -3506,6 +3567,7 @@
         "kind": "INPUT_OBJECT",
         "name": "link_token_aggregate_bool_exp_count",
         "description": null,
+        "isOneOf": false,
         "fields": null,
         "inputFields": [
           {
@@ -3577,6 +3639,7 @@
         "kind": "OBJECT",
         "name": "link_token_aggregate_fields",
         "description": "aggregate fields of \"link_token\"",
+        "isOneOf": null,
         "fields": [
           {
             "name": "count",
@@ -3661,6 +3724,7 @@
         "kind": "INPUT_OBJECT",
         "name": "link_token_aggregate_order_by",
         "description": "order by aggregate values of table \"link_token\"",
+        "isOneOf": false,
         "fields": null,
         "inputFields": [
           {
@@ -3708,6 +3772,7 @@
         "kind": "INPUT_OBJECT",
         "name": "link_token_arr_rel_insert_input",
         "description": "input type for inserting array relation for remote table \"link_token\"",
+        "isOneOf": false,
         "fields": null,
         "inputFields": [
           {
@@ -3755,6 +3820,7 @@
         "kind": "INPUT_OBJECT",
         "name": "link_token_bool_exp",
         "description": "Boolean expression to filter rows from the table \"link_token\". All fields are combined with a logical 'AND'.",
+        "isOneOf": false,
         "fields": null,
         "inputFields": [
           {
@@ -3890,6 +3956,7 @@
         "kind": "ENUM",
         "name": "link_token_constraint",
         "description": "unique or primary key constraints on table \"link_token\"",
+        "isOneOf": null,
         "fields": null,
         "inputFields": null,
         "interfaces": null,
@@ -3907,6 +3974,7 @@
         "kind": "INPUT_OBJECT",
         "name": "link_token_insert_input",
         "description": "input type for inserting data into table \"link_token\"",
+        "isOneOf": false,
         "fields": null,
         "inputFields": [
           {
@@ -3990,6 +4058,7 @@
         "kind": "OBJECT",
         "name": "link_token_max_fields",
         "description": "aggregate max on columns",
+        "isOneOf": null,
         "fields": [
           {
             "name": "created_at",
@@ -4049,6 +4118,7 @@
         "kind": "INPUT_OBJECT",
         "name": "link_token_max_order_by",
         "description": "order by max() on columns of table \"link_token\"",
+        "isOneOf": false,
         "fields": null,
         "inputFields": [
           {
@@ -4108,6 +4178,7 @@
         "kind": "OBJECT",
         "name": "link_token_min_fields",
         "description": "aggregate min on columns",
+        "isOneOf": null,
         "fields": [
           {
             "name": "created_at",
@@ -4167,6 +4238,7 @@
         "kind": "INPUT_OBJECT",
         "name": "link_token_min_order_by",
         "description": "order by min() on columns of table \"link_token\"",
+        "isOneOf": false,
         "fields": null,
         "inputFields": [
           {
@@ -4226,6 +4298,7 @@
         "kind": "OBJECT",
         "name": "link_token_mutation_response",
         "description": "response of any mutation on the table \"link_token\"",
+        "isOneOf": null,
         "fields": [
           {
             "name": "affected_rows",
@@ -4277,6 +4350,7 @@
         "kind": "INPUT_OBJECT",
         "name": "link_token_on_conflict",
         "description": "on_conflict condition type for table \"link_token\"",
+        "isOneOf": false,
         "fields": null,
         "inputFields": [
           {
@@ -4340,6 +4414,7 @@
         "kind": "INPUT_OBJECT",
         "name": "link_token_order_by",
         "description": "Ordering options when selecting data from \"link_token\".",
+        "isOneOf": false,
         "fields": null,
         "inputFields": [
           {
@@ -4423,6 +4498,7 @@
         "kind": "INPUT_OBJECT",
         "name": "link_token_pk_columns_input",
         "description": "primary key columns input for table: link_token",
+        "isOneOf": false,
         "fields": null,
         "inputFields": [
           {
@@ -4450,6 +4526,7 @@
         "kind": "ENUM",
         "name": "link_token_select_column",
         "description": "select columns of table \"link_token\"",
+        "isOneOf": null,
         "fields": null,
         "inputFields": null,
         "interfaces": null,
@@ -4491,6 +4568,7 @@
         "kind": "ENUM",
         "name": "link_token_select_column_link_token_aggregate_bool_exp_bool_and_arguments_columns",
         "description": "select \"link_token_aggregate_bool_exp_bool_and_arguments_columns\" columns of table \"link_token\"",
+        "isOneOf": null,
         "fields": null,
         "inputFields": null,
         "interfaces": null,
@@ -4508,6 +4586,7 @@
         "kind": "ENUM",
         "name": "link_token_select_column_link_token_aggregate_bool_exp_bool_or_arguments_columns",
         "description": "select \"link_token_aggregate_bool_exp_bool_or_arguments_columns\" columns of table \"link_token\"",
+        "isOneOf": null,
         "fields": null,
         "inputFields": null,
         "interfaces": null,
@@ -4525,6 +4604,7 @@
         "kind": "INPUT_OBJECT",
         "name": "link_token_set_input",
         "description": "input type for updating data in table \"link_token\"",
+        "isOneOf": false,
         "fields": null,
         "inputFields": [
           {
@@ -4596,6 +4676,7 @@
         "kind": "INPUT_OBJECT",
         "name": "link_token_stream_cursor_input",
         "description": "Streaming cursor of the table \"link_token\"",
+        "isOneOf": false,
         "fields": null,
         "inputFields": [
           {
@@ -4635,6 +4716,7 @@
         "kind": "INPUT_OBJECT",
         "name": "link_token_stream_cursor_value_input",
         "description": "Initial value of the column from where the streaming should start",
+        "isOneOf": false,
         "fields": null,
         "inputFields": [
           {
@@ -4706,6 +4788,7 @@
         "kind": "ENUM",
         "name": "link_token_update_column",
         "description": "update columns of table \"link_token\"",
+        "isOneOf": null,
         "fields": null,
         "inputFields": null,
         "interfaces": null,
@@ -4747,6 +4830,7 @@
         "kind": "INPUT_OBJECT",
         "name": "link_token_updates",
         "description": null,
+        "isOneOf": false,
         "fields": null,
         "inputFields": [
           {
@@ -4786,6 +4870,7 @@
         "kind": "OBJECT",
         "name": "mutation_root",
         "description": "mutation root",
+        "isOneOf": null,
         "fields": [
           {
             "name": "delete_event",
@@ -7133,6 +7218,7 @@
         "kind": "SCALAR",
         "name": "numeric",
         "description": null,
+        "isOneOf": null,
         "fields": null,
         "inputFields": null,
         "interfaces": null,
@@ -7143,6 +7229,7 @@
         "kind": "INPUT_OBJECT",
         "name": "numeric_comparison_exp",
         "description": "Boolean expression to compare columns of type \"numeric\". All fields are combined with logical 'AND'.",
+        "isOneOf": false,
         "fields": null,
         "inputFields": [
           {
@@ -7278,6 +7365,7 @@
         "kind": "ENUM",
         "name": "order_by",
         "description": "column ordering options",
+        "isOneOf": null,
         "fields": null,
         "inputFields": null,
         "interfaces": null,
@@ -7325,6 +7413,7 @@
         "kind": "OBJECT",
         "name": "product_survey",
         "description": "columns and relationships of \"product_survey\"",
+        "isOneOf": null,
         "fields": [
           {
             "name": "comment",
@@ -7432,6 +7521,7 @@
         "kind": "OBJECT",
         "name": "product_survey_aggregate",
         "description": "aggregated selection of \"product_survey\"",
+        "isOneOf": null,
         "fields": [
           {
             "name": "aggregate",
@@ -7479,6 +7569,7 @@
         "kind": "INPUT_OBJECT",
         "name": "product_survey_aggregate_bool_exp",
         "description": null,
+        "isOneOf": false,
         "fields": null,
         "inputFields": [
           {
@@ -7502,6 +7593,7 @@
         "kind": "INPUT_OBJECT",
         "name": "product_survey_aggregate_bool_exp_count",
         "description": null,
+        "isOneOf": false,
         "fields": null,
         "inputFields": [
           {
@@ -7573,6 +7665,7 @@
         "kind": "OBJECT",
         "name": "product_survey_aggregate_fields",
         "description": "aggregate fields of \"product_survey\"",
+        "isOneOf": null,
         "fields": [
           {
             "name": "count",
@@ -7657,6 +7750,7 @@
         "kind": "INPUT_OBJECT",
         "name": "product_survey_aggregate_order_by",
         "description": "order by aggregate values of table \"product_survey\"",
+        "isOneOf": false,
         "fields": null,
         "inputFields": [
           {
@@ -7704,6 +7798,7 @@
         "kind": "INPUT_OBJECT",
         "name": "product_survey_arr_rel_insert_input",
         "description": "input type for inserting array relation for remote table \"product_survey\"",
+        "isOneOf": false,
         "fields": null,
         "inputFields": [
           {
@@ -7751,6 +7846,7 @@
         "kind": "INPUT_OBJECT",
         "name": "product_survey_bool_exp",
         "description": "Boolean expression to filter rows from the table \"product_survey\". All fields are combined with a logical 'AND'.",
+        "isOneOf": false,
         "fields": null,
         "inputFields": [
           {
@@ -7886,6 +7982,7 @@
         "kind": "ENUM",
         "name": "product_survey_constraint",
         "description": "unique or primary key constraints on table \"product_survey\"",
+        "isOneOf": null,
         "fields": null,
         "inputFields": null,
         "interfaces": null,
@@ -7903,6 +8000,7 @@
         "kind": "INPUT_OBJECT",
         "name": "product_survey_insert_input",
         "description": "input type for inserting data into table \"product_survey\"",
+        "isOneOf": false,
         "fields": null,
         "inputFields": [
           {
@@ -7986,6 +8084,7 @@
         "kind": "OBJECT",
         "name": "product_survey_max_fields",
         "description": "aggregate max on columns",
+        "isOneOf": null,
         "fields": [
           {
             "name": "comment",
@@ -8057,6 +8156,7 @@
         "kind": "INPUT_OBJECT",
         "name": "product_survey_max_order_by",
         "description": "order by max() on columns of table \"product_survey\"",
+        "isOneOf": false,
         "fields": null,
         "inputFields": [
           {
@@ -8128,6 +8228,7 @@
         "kind": "OBJECT",
         "name": "product_survey_min_fields",
         "description": "aggregate min on columns",
+        "isOneOf": null,
         "fields": [
           {
             "name": "comment",
@@ -8199,6 +8300,7 @@
         "kind": "INPUT_OBJECT",
         "name": "product_survey_min_order_by",
         "description": "order by min() on columns of table \"product_survey\"",
+        "isOneOf": false,
         "fields": null,
         "inputFields": [
           {
@@ -8270,6 +8372,7 @@
         "kind": "OBJECT",
         "name": "product_survey_mutation_response",
         "description": "response of any mutation on the table \"product_survey\"",
+        "isOneOf": null,
         "fields": [
           {
             "name": "affected_rows",
@@ -8321,6 +8424,7 @@
         "kind": "INPUT_OBJECT",
         "name": "product_survey_on_conflict",
         "description": "on_conflict condition type for table \"product_survey\"",
+        "isOneOf": false,
         "fields": null,
         "inputFields": [
           {
@@ -8384,6 +8488,7 @@
         "kind": "INPUT_OBJECT",
         "name": "product_survey_order_by",
         "description": "Ordering options when selecting data from \"product_survey\".",
+        "isOneOf": false,
         "fields": null,
         "inputFields": [
           {
@@ -8467,6 +8572,7 @@
         "kind": "INPUT_OBJECT",
         "name": "product_survey_pk_columns_input",
         "description": "primary key columns input for table: product_survey",
+        "isOneOf": false,
         "fields": null,
         "inputFields": [
           {
@@ -8494,6 +8600,7 @@
         "kind": "ENUM",
         "name": "product_survey_select_column",
         "description": "select columns of table \"product_survey\"",
+        "isOneOf": null,
         "fields": null,
         "inputFields": null,
         "interfaces": null,
@@ -8535,6 +8642,7 @@
         "kind": "INPUT_OBJECT",
         "name": "product_survey_set_input",
         "description": "input type for updating data in table \"product_survey\"",
+        "isOneOf": false,
         "fields": null,
         "inputFields": [
           {
@@ -8606,6 +8714,7 @@
         "kind": "INPUT_OBJECT",
         "name": "product_survey_stream_cursor_input",
         "description": "Streaming cursor of the table \"product_survey\"",
+        "isOneOf": false,
         "fields": null,
         "inputFields": [
           {
@@ -8645,6 +8754,7 @@
         "kind": "INPUT_OBJECT",
         "name": "product_survey_stream_cursor_value_input",
         "description": "Initial value of the column from where the streaming should start",
+        "isOneOf": false,
         "fields": null,
         "inputFields": [
           {
@@ -8716,6 +8826,7 @@
         "kind": "ENUM",
         "name": "product_survey_update_column",
         "description": "update columns of table \"product_survey\"",
+        "isOneOf": null,
         "fields": null,
         "inputFields": null,
         "interfaces": null,
@@ -8757,6 +8868,7 @@
         "kind": "INPUT_OBJECT",
         "name": "product_survey_updates",
         "description": null,
+        "isOneOf": false,
         "fields": null,
         "inputFields": [
           {
@@ -8796,6 +8908,7 @@
         "kind": "OBJECT",
         "name": "query_root",
         "description": null,
+        "isOneOf": null,
         "fields": [
           {
             "name": "event",
@@ -10591,6 +10704,7 @@
         "kind": "OBJECT",
         "name": "subscription_root",
         "description": null,
+        "isOneOf": null,
         "fields": [
           {
             "name": "event",
@@ -12970,6 +13084,7 @@
         "kind": "OBJECT",
         "name": "tenant",
         "description": "columns and relationships of \"tenant\"",
+        "isOneOf": null,
         "fields": [
           {
             "name": "tenant_id",
@@ -13207,6 +13322,7 @@
         "kind": "OBJECT",
         "name": "tenant_aggregate",
         "description": "aggregated selection of \"tenant\"",
+        "isOneOf": null,
         "fields": [
           {
             "name": "aggregate",
@@ -13254,6 +13370,7 @@
         "kind": "OBJECT",
         "name": "tenant_aggregate_fields",
         "description": "aggregate fields of \"tenant\"",
+        "isOneOf": null,
         "fields": [
           {
             "name": "count",
@@ -13338,6 +13455,7 @@
         "kind": "INPUT_OBJECT",
         "name": "tenant_bool_exp",
         "description": "Boolean expression to filter rows from the table \"tenant\". All fields are combined with a logical 'AND'.",
+        "isOneOf": false,
         "fields": null,
         "inputFields": [
           {
@@ -13449,6 +13567,7 @@
         "kind": "ENUM",
         "name": "tenant_constraint",
         "description": "unique or primary key constraints on table \"tenant\"",
+        "isOneOf": null,
         "fields": null,
         "inputFields": null,
         "interfaces": null,
@@ -13466,6 +13585,7 @@
         "kind": "INPUT_OBJECT",
         "name": "tenant_insert_input",
         "description": "input type for inserting data into table \"tenant\"",
+        "isOneOf": false,
         "fields": null,
         "inputFields": [
           {
@@ -13513,6 +13633,7 @@
         "kind": "OBJECT",
         "name": "tenant_max_fields",
         "description": "aggregate max on columns",
+        "isOneOf": null,
         "fields": [
           {
             "name": "tenant_id",
@@ -13548,6 +13669,7 @@
         "kind": "OBJECT",
         "name": "tenant_min_fields",
         "description": "aggregate min on columns",
+        "isOneOf": null,
         "fields": [
           {
             "name": "tenant_id",
@@ -13583,6 +13705,7 @@
         "kind": "OBJECT",
         "name": "tenant_mutation_response",
         "description": "response of any mutation on the table \"tenant\"",
+        "isOneOf": null,
         "fields": [
           {
             "name": "affected_rows",
@@ -13634,6 +13757,7 @@
         "kind": "INPUT_OBJECT",
         "name": "tenant_obj_rel_insert_input",
         "description": "input type for inserting object relation for remote table \"tenant\"",
+        "isOneOf": false,
         "fields": null,
         "inputFields": [
           {
@@ -13673,6 +13797,7 @@
         "kind": "INPUT_OBJECT",
         "name": "tenant_on_conflict",
         "description": "on_conflict condition type for table \"tenant\"",
+        "isOneOf": false,
         "fields": null,
         "inputFields": [
           {
@@ -13736,6 +13861,7 @@
         "kind": "INPUT_OBJECT",
         "name": "tenant_order_by",
         "description": "Ordering options when selecting data from \"tenant\".",
+        "isOneOf": false,
         "fields": null,
         "inputFields": [
           {
@@ -13783,6 +13909,7 @@
         "kind": "INPUT_OBJECT",
         "name": "tenant_pk_columns_input",
         "description": "primary key columns input for table: tenant",
+        "isOneOf": false,
         "fields": null,
         "inputFields": [
           {
@@ -13810,6 +13937,7 @@
         "kind": "ENUM",
         "name": "tenant_select_column",
         "description": "select columns of table \"tenant\"",
+        "isOneOf": null,
         "fields": null,
         "inputFields": null,
         "interfaces": null,
@@ -13833,6 +13961,7 @@
         "kind": "INPUT_OBJECT",
         "name": "tenant_set_input",
         "description": "input type for updating data in table \"tenant\"",
+        "isOneOf": false,
         "fields": null,
         "inputFields": [
           {
@@ -13868,6 +13997,7 @@
         "kind": "INPUT_OBJECT",
         "name": "tenant_stream_cursor_input",
         "description": "Streaming cursor of the table \"tenant\"",
+        "isOneOf": false,
         "fields": null,
         "inputFields": [
           {
@@ -13907,6 +14037,7 @@
         "kind": "INPUT_OBJECT",
         "name": "tenant_stream_cursor_value_input",
         "description": "Initial value of the column from where the streaming should start",
+        "isOneOf": false,
         "fields": null,
         "inputFields": [
           {
@@ -13942,6 +14073,7 @@
         "kind": "ENUM",
         "name": "tenant_update_column",
         "description": "update columns of table \"tenant\"",
+        "isOneOf": null,
         "fields": null,
         "inputFields": null,
         "interfaces": null,
@@ -13965,6 +14097,7 @@
         "kind": "INPUT_OBJECT",
         "name": "tenant_updates",
         "description": null,
+        "isOneOf": false,
         "fields": null,
         "inputFields": [
           {
@@ -14004,6 +14137,7 @@
         "kind": "SCALAR",
         "name": "timestamptz",
         "description": null,
+        "isOneOf": null,
         "fields": null,
         "inputFields": null,
         "interfaces": null,
@@ -14014,6 +14148,7 @@
         "kind": "INPUT_OBJECT",
         "name": "timestamptz_comparison_exp",
         "description": "Boolean expression to compare columns of type \"timestamptz\". All fields are combined with logical 'AND'.",
+        "isOneOf": false,
         "fields": null,
         "inputFields": [
           {
@@ -14149,6 +14284,7 @@
         "kind": "OBJECT",
         "name": "user",
         "description": "columns and relationships of \"user\"",
+        "isOneOf": null,
         "fields": [
           {
             "name": "created_at",
@@ -15366,6 +15502,7 @@
         "kind": "OBJECT",
         "name": "user_aggregate",
         "description": "aggregated selection of \"user\"",
+        "isOneOf": null,
         "fields": [
           {
             "name": "aggregate",
@@ -15413,6 +15550,7 @@
         "kind": "INPUT_OBJECT",
         "name": "user_aggregate_bool_exp",
         "description": null,
+        "isOneOf": false,
         "fields": null,
         "inputFields": [
           {
@@ -15460,6 +15598,7 @@
         "kind": "INPUT_OBJECT",
         "name": "user_aggregate_bool_exp_bool_and",
         "description": null,
+        "isOneOf": false,
         "fields": null,
         "inputFields": [
           {
@@ -15527,6 +15666,7 @@
         "kind": "INPUT_OBJECT",
         "name": "user_aggregate_bool_exp_bool_or",
         "description": null,
+        "isOneOf": false,
         "fields": null,
         "inputFields": [
           {
@@ -15594,6 +15734,7 @@
         "kind": "INPUT_OBJECT",
         "name": "user_aggregate_bool_exp_count",
         "description": null,
+        "isOneOf": false,
         "fields": null,
         "inputFields": [
           {
@@ -15665,6 +15806,7 @@
         "kind": "OBJECT",
         "name": "user_aggregate_fields",
         "description": "aggregate fields of \"user\"",
+        "isOneOf": null,
         "fields": [
           {
             "name": "count",
@@ -15749,6 +15891,7 @@
         "kind": "INPUT_OBJECT",
         "name": "user_aggregate_order_by",
         "description": "order by aggregate values of table \"user\"",
+        "isOneOf": false,
         "fields": null,
         "inputFields": [
           {
@@ -15796,6 +15939,7 @@
         "kind": "OBJECT",
         "name": "user_answer",
         "description": "columns and relationships of \"user_answer\"",
+        "isOneOf": null,
         "fields": [
           {
             "name": "correct",
@@ -15919,6 +16063,7 @@
         "kind": "OBJECT",
         "name": "user_answer_aggregate",
         "description": "aggregated selection of \"user_answer\"",
+        "isOneOf": null,
         "fields": [
           {
             "name": "aggregate",
@@ -15966,6 +16111,7 @@
         "kind": "INPUT_OBJECT",
         "name": "user_answer_aggregate_bool_exp",
         "description": null,
+        "isOneOf": false,
         "fields": null,
         "inputFields": [
           {
@@ -16013,6 +16159,7 @@
         "kind": "INPUT_OBJECT",
         "name": "user_answer_aggregate_bool_exp_bool_and",
         "description": null,
+        "isOneOf": false,
         "fields": null,
         "inputFields": [
           {
@@ -16080,6 +16227,7 @@
         "kind": "INPUT_OBJECT",
         "name": "user_answer_aggregate_bool_exp_bool_or",
         "description": null,
+        "isOneOf": false,
         "fields": null,
         "inputFields": [
           {
@@ -16147,6 +16295,7 @@
         "kind": "INPUT_OBJECT",
         "name": "user_answer_aggregate_bool_exp_count",
         "description": null,
+        "isOneOf": false,
         "fields": null,
         "inputFields": [
           {
@@ -16218,6 +16367,7 @@
         "kind": "OBJECT",
         "name": "user_answer_aggregate_fields",
         "description": "aggregate fields of \"user_answer\"",
+        "isOneOf": null,
         "fields": [
           {
             "name": "count",
@@ -16302,6 +16452,7 @@
         "kind": "INPUT_OBJECT",
         "name": "user_answer_aggregate_order_by",
         "description": "order by aggregate values of table \"user_answer\"",
+        "isOneOf": false,
         "fields": null,
         "inputFields": [
           {
@@ -16349,6 +16500,7 @@
         "kind": "INPUT_OBJECT",
         "name": "user_answer_arr_rel_insert_input",
         "description": "input type for inserting array relation for remote table \"user_answer\"",
+        "isOneOf": false,
         "fields": null,
         "inputFields": [
           {
@@ -16396,6 +16548,7 @@
         "kind": "INPUT_OBJECT",
         "name": "user_answer_bool_exp",
         "description": "Boolean expression to filter rows from the table \"user_answer\". All fields are combined with a logical 'AND'.",
+        "isOneOf": false,
         "fields": null,
         "inputFields": [
           {
@@ -16543,6 +16696,7 @@
         "kind": "ENUM",
         "name": "user_answer_constraint",
         "description": "unique or primary key constraints on table \"user_answer\"",
+        "isOneOf": null,
         "fields": null,
         "inputFields": null,
         "interfaces": null,
@@ -16560,6 +16714,7 @@
         "kind": "INPUT_OBJECT",
         "name": "user_answer_insert_input",
         "description": "input type for inserting data into table \"user_answer\"",
+        "isOneOf": false,
         "fields": null,
         "inputFields": [
           {
@@ -16655,6 +16810,7 @@
         "kind": "OBJECT",
         "name": "user_answer_max_fields",
         "description": "aggregate max on columns",
+        "isOneOf": null,
         "fields": [
           {
             "name": "created_at",
@@ -16714,6 +16870,7 @@
         "kind": "INPUT_OBJECT",
         "name": "user_answer_max_order_by",
         "description": "order by max() on columns of table \"user_answer\"",
+        "isOneOf": false,
         "fields": null,
         "inputFields": [
           {
@@ -16773,6 +16930,7 @@
         "kind": "OBJECT",
         "name": "user_answer_min_fields",
         "description": "aggregate min on columns",
+        "isOneOf": null,
         "fields": [
           {
             "name": "created_at",
@@ -16832,6 +16990,7 @@
         "kind": "INPUT_OBJECT",
         "name": "user_answer_min_order_by",
         "description": "order by min() on columns of table \"user_answer\"",
+        "isOneOf": false,
         "fields": null,
         "inputFields": [
           {
@@ -16891,6 +17050,7 @@
         "kind": "OBJECT",
         "name": "user_answer_mutation_response",
         "description": "response of any mutation on the table \"user_answer\"",
+        "isOneOf": null,
         "fields": [
           {
             "name": "affected_rows",
@@ -16942,6 +17102,7 @@
         "kind": "INPUT_OBJECT",
         "name": "user_answer_on_conflict",
         "description": "on_conflict condition type for table \"user_answer\"",
+        "isOneOf": false,
         "fields": null,
         "inputFields": [
           {
@@ -17005,6 +17166,7 @@
         "kind": "INPUT_OBJECT",
         "name": "user_answer_order_by",
         "description": "Ordering options when selecting data from \"user_answer\".",
+        "isOneOf": false,
         "fields": null,
         "inputFields": [
           {
@@ -17100,6 +17262,7 @@
         "kind": "INPUT_OBJECT",
         "name": "user_answer_pk_columns_input",
         "description": "primary key columns input for table: user_answer",
+        "isOneOf": false,
         "fields": null,
         "inputFields": [
           {
@@ -17127,6 +17290,7 @@
         "kind": "ENUM",
         "name": "user_answer_select_column",
         "description": "select columns of table \"user_answer\"",
+        "isOneOf": null,
         "fields": null,
         "inputFields": null,
         "interfaces": null,
@@ -17168,6 +17332,7 @@
         "kind": "ENUM",
         "name": "user_answer_select_column_user_answer_aggregate_bool_exp_bool_and_arguments_columns",
         "description": "select \"user_answer_aggregate_bool_exp_bool_and_arguments_columns\" columns of table \"user_answer\"",
+        "isOneOf": null,
         "fields": null,
         "inputFields": null,
         "interfaces": null,
@@ -17185,6 +17350,7 @@
         "kind": "ENUM",
         "name": "user_answer_select_column_user_answer_aggregate_bool_exp_bool_or_arguments_columns",
         "description": "select \"user_answer_aggregate_bool_exp_bool_or_arguments_columns\" columns of table \"user_answer\"",
+        "isOneOf": null,
         "fields": null,
         "inputFields": null,
         "interfaces": null,
@@ -17202,6 +17368,7 @@
         "kind": "INPUT_OBJECT",
         "name": "user_answer_set_input",
         "description": "input type for updating data in table \"user_answer\"",
+        "isOneOf": false,
         "fields": null,
         "inputFields": [
           {
@@ -17273,6 +17440,7 @@
         "kind": "INPUT_OBJECT",
         "name": "user_answer_stream_cursor_input",
         "description": "Streaming cursor of the table \"user_answer\"",
+        "isOneOf": false,
         "fields": null,
         "inputFields": [
           {
@@ -17312,6 +17480,7 @@
         "kind": "INPUT_OBJECT",
         "name": "user_answer_stream_cursor_value_input",
         "description": "Initial value of the column from where the streaming should start",
+        "isOneOf": false,
         "fields": null,
         "inputFields": [
           {
@@ -17383,6 +17552,7 @@
         "kind": "ENUM",
         "name": "user_answer_update_column",
         "description": "update columns of table \"user_answer\"",
+        "isOneOf": null,
         "fields": null,
         "inputFields": null,
         "interfaces": null,
@@ -17424,6 +17594,7 @@
         "kind": "INPUT_OBJECT",
         "name": "user_answer_updates",
         "description": null,
+        "isOneOf": false,
         "fields": null,
         "inputFields": [
           {
@@ -17463,6 +17634,7 @@
         "kind": "INPUT_OBJECT",
         "name": "user_arr_rel_insert_input",
         "description": "input type for inserting array relation for remote table \"user\"",
+        "isOneOf": false,
         "fields": null,
         "inputFields": [
           {
@@ -17510,6 +17682,7 @@
         "kind": "INPUT_OBJECT",
         "name": "user_bool_exp",
         "description": "Boolean expression to filter rows from the table \"user\". All fields are combined with a logical 'AND'.",
+        "isOneOf": false,
         "fields": null,
         "inputFields": [
           {
@@ -17885,6 +18058,7 @@
         "kind": "ENUM",
         "name": "user_constraint",
         "description": "unique or primary key constraints on table \"user\"",
+        "isOneOf": null,
         "fields": null,
         "inputFields": null,
         "interfaces": null,
@@ -17902,6 +18076,7 @@
         "kind": "OBJECT",
         "name": "user_enrollment",
         "description": "columns and relationships of \"user_enrollment\"",
+        "isOneOf": null,
         "fields": [
           {
             "name": "created_at",
@@ -18243,6 +18418,7 @@
         "kind": "OBJECT",
         "name": "user_enrollment_aggregate",
         "description": "aggregated selection of \"user_enrollment\"",
+        "isOneOf": null,
         "fields": [
           {
             "name": "aggregate",
@@ -18290,6 +18466,7 @@
         "kind": "INPUT_OBJECT",
         "name": "user_enrollment_aggregate_bool_exp",
         "description": null,
+        "isOneOf": false,
         "fields": null,
         "inputFields": [
           {
@@ -18313,6 +18490,7 @@
         "kind": "INPUT_OBJECT",
         "name": "user_enrollment_aggregate_bool_exp_count",
         "description": null,
+        "isOneOf": false,
         "fields": null,
         "inputFields": [
           {
@@ -18384,6 +18562,7 @@
         "kind": "OBJECT",
         "name": "user_enrollment_aggregate_fields",
         "description": "aggregate fields of \"user_enrollment\"",
+        "isOneOf": null,
         "fields": [
           {
             "name": "avg",
@@ -18564,6 +18743,7 @@
         "kind": "INPUT_OBJECT",
         "name": "user_enrollment_aggregate_order_by",
         "description": "order by aggregate values of table \"user_enrollment\"",
+        "isOneOf": false,
         "fields": null,
         "inputFields": [
           {
@@ -18707,6 +18887,7 @@
         "kind": "INPUT_OBJECT",
         "name": "user_enrollment_arr_rel_insert_input",
         "description": "input type for inserting array relation for remote table \"user_enrollment\"",
+        "isOneOf": false,
         "fields": null,
         "inputFields": [
           {
@@ -18754,6 +18935,7 @@
         "kind": "OBJECT",
         "name": "user_enrollment_avg_fields",
         "description": "aggregate avg on columns",
+        "isOneOf": null,
         "fields": [
           {
             "name": "rank",
@@ -18789,6 +18971,7 @@
         "kind": "INPUT_OBJECT",
         "name": "user_enrollment_avg_order_by",
         "description": "order by avg() on columns of table \"user_enrollment\"",
+        "isOneOf": false,
         "fields": null,
         "inputFields": [
           {
@@ -18824,6 +19007,7 @@
         "kind": "INPUT_OBJECT",
         "name": "user_enrollment_bool_exp",
         "description": "Boolean expression to filter rows from the table \"user_enrollment\". All fields are combined with a logical 'AND'.",
+        "isOneOf": false,
         "fields": null,
         "inputFields": [
           {
@@ -19019,6 +19203,7 @@
         "kind": "ENUM",
         "name": "user_enrollment_constraint",
         "description": "unique or primary key constraints on table \"user_enrollment\"",
+        "isOneOf": null,
         "fields": null,
         "inputFields": null,
         "interfaces": null,
@@ -19036,6 +19221,7 @@
         "kind": "INPUT_OBJECT",
         "name": "user_enrollment_inc_input",
         "description": "input type for incrementing numeric columns in table \"user_enrollment\"",
+        "isOneOf": false,
         "fields": null,
         "inputFields": [
           {
@@ -19071,6 +19257,7 @@
         "kind": "INPUT_OBJECT",
         "name": "user_enrollment_insert_input",
         "description": "input type for inserting data into table \"user_enrollment\"",
+        "isOneOf": false,
         "fields": null,
         "inputFields": [
           {
@@ -19202,6 +19389,7 @@
         "kind": "OBJECT",
         "name": "user_enrollment_max_fields",
         "description": "aggregate max on columns",
+        "isOneOf": null,
         "fields": [
           {
             "name": "created_at",
@@ -19309,6 +19497,7 @@
         "kind": "INPUT_OBJECT",
         "name": "user_enrollment_max_order_by",
         "description": "order by max() on columns of table \"user_enrollment\"",
+        "isOneOf": false,
         "fields": null,
         "inputFields": [
           {
@@ -19416,6 +19605,7 @@
         "kind": "OBJECT",
         "name": "user_enrollment_min_fields",
         "description": "aggregate min on columns",
+        "isOneOf": null,
         "fields": [
           {
             "name": "created_at",
@@ -19523,6 +19713,7 @@
         "kind": "INPUT_OBJECT",
         "name": "user_enrollment_min_order_by",
         "description": "order by min() on columns of table \"user_enrollment\"",
+        "isOneOf": false,
         "fields": null,
         "inputFields": [
           {
@@ -19630,6 +19821,7 @@
         "kind": "OBJECT",
         "name": "user_enrollment_mutation_response",
         "description": "response of any mutation on the table \"user_enrollment\"",
+        "isOneOf": null,
         "fields": [
           {
             "name": "affected_rows",
@@ -19681,6 +19873,7 @@
         "kind": "INPUT_OBJECT",
         "name": "user_enrollment_obj_rel_insert_input",
         "description": "input type for inserting object relation for remote table \"user_enrollment\"",
+        "isOneOf": false,
         "fields": null,
         "inputFields": [
           {
@@ -19720,6 +19913,7 @@
         "kind": "INPUT_OBJECT",
         "name": "user_enrollment_on_conflict",
         "description": "on_conflict condition type for table \"user_enrollment\"",
+        "isOneOf": false,
         "fields": null,
         "inputFields": [
           {
@@ -19783,6 +19977,7 @@
         "kind": "INPUT_OBJECT",
         "name": "user_enrollment_order_by",
         "description": "Ordering options when selecting data from \"user_enrollment\".",
+        "isOneOf": false,
         "fields": null,
         "inputFields": [
           {
@@ -19914,6 +20109,7 @@
         "kind": "INPUT_OBJECT",
         "name": "user_enrollment_pk_columns_input",
         "description": "primary key columns input for table: user_enrollment",
+        "isOneOf": false,
         "fields": null,
         "inputFields": [
           {
@@ -19941,6 +20137,7 @@
         "kind": "ENUM",
         "name": "user_enrollment_select_column",
         "description": "select columns of table \"user_enrollment\"",
+        "isOneOf": null,
         "fields": null,
         "inputFields": null,
         "interfaces": null,
@@ -20000,6 +20197,7 @@
         "kind": "INPUT_OBJECT",
         "name": "user_enrollment_set_input",
         "description": "input type for updating data in table \"user_enrollment\"",
+        "isOneOf": false,
         "fields": null,
         "inputFields": [
           {
@@ -20107,6 +20305,7 @@
         "kind": "OBJECT",
         "name": "user_enrollment_stddev_fields",
         "description": "aggregate stddev on columns",
+        "isOneOf": null,
         "fields": [
           {
             "name": "rank",
@@ -20142,6 +20341,7 @@
         "kind": "INPUT_OBJECT",
         "name": "user_enrollment_stddev_order_by",
         "description": "order by stddev() on columns of table \"user_enrollment\"",
+        "isOneOf": false,
         "fields": null,
         "inputFields": [
           {
@@ -20177,6 +20377,7 @@
         "kind": "OBJECT",
         "name": "user_enrollment_stddev_pop_fields",
         "description": "aggregate stddev_pop on columns",
+        "isOneOf": null,
         "fields": [
           {
             "name": "rank",
@@ -20212,6 +20413,7 @@
         "kind": "INPUT_OBJECT",
         "name": "user_enrollment_stddev_pop_order_by",
         "description": "order by stddev_pop() on columns of table \"user_enrollment\"",
+        "isOneOf": false,
         "fields": null,
         "inputFields": [
           {
@@ -20247,6 +20449,7 @@
         "kind": "OBJECT",
         "name": "user_enrollment_stddev_samp_fields",
         "description": "aggregate stddev_samp on columns",
+        "isOneOf": null,
         "fields": [
           {
             "name": "rank",
@@ -20282,6 +20485,7 @@
         "kind": "INPUT_OBJECT",
         "name": "user_enrollment_stddev_samp_order_by",
         "description": "order by stddev_samp() on columns of table \"user_enrollment\"",
+        "isOneOf": false,
         "fields": null,
         "inputFields": [
           {
@@ -20317,6 +20521,7 @@
         "kind": "INPUT_OBJECT",
         "name": "user_enrollment_stream_cursor_input",
         "description": "Streaming cursor of the table \"user_enrollment\"",
+        "isOneOf": false,
         "fields": null,
         "inputFields": [
           {
@@ -20356,6 +20561,7 @@
         "kind": "INPUT_OBJECT",
         "name": "user_enrollment_stream_cursor_value_input",
         "description": "Initial value of the column from where the streaming should start",
+        "isOneOf": false,
         "fields": null,
         "inputFields": [
           {
@@ -20463,6 +20669,7 @@
         "kind": "OBJECT",
         "name": "user_enrollment_sum_fields",
         "description": "aggregate sum on columns",
+        "isOneOf": null,
         "fields": [
           {
             "name": "rank",
@@ -20498,6 +20705,7 @@
         "kind": "INPUT_OBJECT",
         "name": "user_enrollment_sum_order_by",
         "description": "order by sum() on columns of table \"user_enrollment\"",
+        "isOneOf": false,
         "fields": null,
         "inputFields": [
           {
@@ -20533,6 +20741,7 @@
         "kind": "ENUM",
         "name": "user_enrollment_update_column",
         "description": "update columns of table \"user_enrollment\"",
+        "isOneOf": null,
         "fields": null,
         "inputFields": null,
         "interfaces": null,
@@ -20592,6 +20801,7 @@
         "kind": "INPUT_OBJECT",
         "name": "user_enrollment_updates",
         "description": null,
+        "isOneOf": false,
         "fields": null,
         "inputFields": [
           {
@@ -20643,6 +20853,7 @@
         "kind": "OBJECT",
         "name": "user_enrollment_var_pop_fields",
         "description": "aggregate var_pop on columns",
+        "isOneOf": null,
         "fields": [
           {
             "name": "rank",
@@ -20678,6 +20889,7 @@
         "kind": "INPUT_OBJECT",
         "name": "user_enrollment_var_pop_order_by",
         "description": "order by var_pop() on columns of table \"user_enrollment\"",
+        "isOneOf": false,
         "fields": null,
         "inputFields": [
           {
@@ -20713,6 +20925,7 @@
         "kind": "OBJECT",
         "name": "user_enrollment_var_samp_fields",
         "description": "aggregate var_samp on columns",
+        "isOneOf": null,
         "fields": [
           {
             "name": "rank",
@@ -20748,6 +20961,7 @@
         "kind": "INPUT_OBJECT",
         "name": "user_enrollment_var_samp_order_by",
         "description": "order by var_samp() on columns of table \"user_enrollment\"",
+        "isOneOf": false,
         "fields": null,
         "inputFields": [
           {
@@ -20783,6 +20997,7 @@
         "kind": "OBJECT",
         "name": "user_enrollment_variance_fields",
         "description": "aggregate variance on columns",
+        "isOneOf": null,
         "fields": [
           {
             "name": "rank",
@@ -20818,6 +21033,7 @@
         "kind": "INPUT_OBJECT",
         "name": "user_enrollment_variance_order_by",
         "description": "order by variance() on columns of table \"user_enrollment\"",
+        "isOneOf": false,
         "fields": null,
         "inputFields": [
           {
@@ -20853,6 +21069,7 @@
         "kind": "INPUT_OBJECT",
         "name": "user_insert_input",
         "description": "input type for inserting data into table \"user\"",
+        "isOneOf": false,
         "fields": null,
         "inputFields": [
           {
@@ -21116,6 +21333,7 @@
         "kind": "OBJECT",
         "name": "user_max_fields",
         "description": "aggregate max on columns",
+        "isOneOf": null,
         "fields": [
           {
             "name": "created_at",
@@ -21259,6 +21477,7 @@
         "kind": "INPUT_OBJECT",
         "name": "user_max_order_by",
         "description": "order by max() on columns of table \"user\"",
+        "isOneOf": false,
         "fields": null,
         "inputFields": [
           {
@@ -21402,6 +21621,7 @@
         "kind": "OBJECT",
         "name": "user_min_fields",
         "description": "aggregate min on columns",
+        "isOneOf": null,
         "fields": [
           {
             "name": "created_at",
@@ -21545,6 +21765,7 @@
         "kind": "INPUT_OBJECT",
         "name": "user_min_order_by",
         "description": "order by min() on columns of table \"user\"",
+        "isOneOf": false,
         "fields": null,
         "inputFields": [
           {
@@ -21688,6 +21909,7 @@
         "kind": "OBJECT",
         "name": "user_mutation_response",
         "description": "response of any mutation on the table \"user\"",
+        "isOneOf": null,
         "fields": [
           {
             "name": "affected_rows",
@@ -21739,6 +21961,7 @@
         "kind": "INPUT_OBJECT",
         "name": "user_obj_rel_insert_input",
         "description": "input type for inserting object relation for remote table \"user\"",
+        "isOneOf": false,
         "fields": null,
         "inputFields": [
           {
@@ -21778,6 +22001,7 @@
         "kind": "INPUT_OBJECT",
         "name": "user_on_conflict",
         "description": "on_conflict condition type for table \"user\"",
+        "isOneOf": false,
         "fields": null,
         "inputFields": [
           {
@@ -21841,6 +22065,7 @@
         "kind": "INPUT_OBJECT",
         "name": "user_order_by",
         "description": "Ordering options when selecting data from \"user\".",
+        "isOneOf": false,
         "fields": null,
         "inputFields": [
           {
@@ -22104,6 +22329,7 @@
         "kind": "INPUT_OBJECT",
         "name": "user_pk_columns_input",
         "description": "primary key columns input for table: user",
+        "isOneOf": false,
         "fields": null,
         "inputFields": [
           {
@@ -22131,6 +22357,7 @@
         "kind": "OBJECT",
         "name": "user_question",
         "description": "columns and relationships of \"user_question\"",
+        "isOneOf": null,
         "fields": [
           {
             "name": "active_on",
@@ -22560,6 +22787,7 @@
         "kind": "OBJECT",
         "name": "user_question_aggregate",
         "description": "aggregated selection of \"user_question\"",
+        "isOneOf": null,
         "fields": [
           {
             "name": "aggregate",
@@ -22607,6 +22835,7 @@
         "kind": "INPUT_OBJECT",
         "name": "user_question_aggregate_bool_exp",
         "description": null,
+        "isOneOf": false,
         "fields": null,
         "inputFields": [
           {
@@ -22630,6 +22859,7 @@
         "kind": "INPUT_OBJECT",
         "name": "user_question_aggregate_bool_exp_count",
         "description": null,
+        "isOneOf": false,
         "fields": null,
         "inputFields": [
           {
@@ -22701,6 +22931,7 @@
         "kind": "OBJECT",
         "name": "user_question_aggregate_fields",
         "description": "aggregate fields of \"user_question\"",
+        "isOneOf": null,
         "fields": [
           {
             "name": "avg",
@@ -22881,6 +23112,7 @@
         "kind": "INPUT_OBJECT",
         "name": "user_question_aggregate_order_by",
         "description": "order by aggregate values of table \"user_question\"",
+        "isOneOf": false,
         "fields": null,
         "inputFields": [
           {
@@ -23024,6 +23256,7 @@
         "kind": "INPUT_OBJECT",
         "name": "user_question_arr_rel_insert_input",
         "description": "input type for inserting array relation for remote table \"user_question\"",
+        "isOneOf": false,
         "fields": null,
         "inputFields": [
           {
@@ -23071,6 +23304,7 @@
         "kind": "OBJECT",
         "name": "user_question_avg_fields",
         "description": "aggregate avg on columns",
+        "isOneOf": null,
         "fields": [
           {
             "name": "difficulty",
@@ -23118,6 +23352,7 @@
         "kind": "INPUT_OBJECT",
         "name": "user_question_avg_order_by",
         "description": "order by avg() on columns of table \"user_question\"",
+        "isOneOf": false,
         "fields": null,
         "inputFields": [
           {
@@ -23165,6 +23400,7 @@
         "kind": "INPUT_OBJECT",
         "name": "user_question_bool_exp",
         "description": "Boolean expression to filter rows from the table \"user_question\". All fields are combined with a logical 'AND'.",
+        "isOneOf": false,
         "fields": null,
         "inputFields": [
           {
@@ -23432,6 +23668,7 @@
         "kind": "ENUM",
         "name": "user_question_constraint",
         "description": "unique or primary key constraints on table \"user_question\"",
+        "isOneOf": null,
         "fields": null,
         "inputFields": null,
         "interfaces": null,
@@ -23449,6 +23686,7 @@
         "kind": "INPUT_OBJECT",
         "name": "user_question_inc_input",
         "description": "input type for incrementing numeric columns in table \"user_question\"",
+        "isOneOf": false,
         "fields": null,
         "inputFields": [
           {
@@ -23496,6 +23734,7 @@
         "kind": "INPUT_OBJECT",
         "name": "user_question_insert_input",
         "description": "input type for inserting data into table \"user_question\"",
+        "isOneOf": false,
         "fields": null,
         "inputFields": [
           {
@@ -23699,6 +23938,7 @@
         "kind": "OBJECT",
         "name": "user_question_max_fields",
         "description": "aggregate max on columns",
+        "isOneOf": null,
         "fields": [
           {
             "name": "active_on",
@@ -23866,6 +24106,7 @@
         "kind": "INPUT_OBJECT",
         "name": "user_question_max_order_by",
         "description": "order by max() on columns of table \"user_question\"",
+        "isOneOf": false,
         "fields": null,
         "inputFields": [
           {
@@ -24033,6 +24274,7 @@
         "kind": "OBJECT",
         "name": "user_question_min_fields",
         "description": "aggregate min on columns",
+        "isOneOf": null,
         "fields": [
           {
             "name": "active_on",
@@ -24200,6 +24442,7 @@
         "kind": "INPUT_OBJECT",
         "name": "user_question_min_order_by",
         "description": "order by min() on columns of table \"user_question\"",
+        "isOneOf": false,
         "fields": null,
         "inputFields": [
           {
@@ -24367,6 +24610,7 @@
         "kind": "OBJECT",
         "name": "user_question_mutation_response",
         "description": "response of any mutation on the table \"user_question\"",
+        "isOneOf": null,
         "fields": [
           {
             "name": "affected_rows",
@@ -24418,6 +24662,7 @@
         "kind": "INPUT_OBJECT",
         "name": "user_question_obj_rel_insert_input",
         "description": "input type for inserting object relation for remote table \"user_question\"",
+        "isOneOf": false,
         "fields": null,
         "inputFields": [
           {
@@ -24457,6 +24702,7 @@
         "kind": "INPUT_OBJECT",
         "name": "user_question_on_conflict",
         "description": "on_conflict condition type for table \"user_question\"",
+        "isOneOf": false,
         "fields": null,
         "inputFields": [
           {
@@ -24520,6 +24766,7 @@
         "kind": "INPUT_OBJECT",
         "name": "user_question_order_by",
         "description": "Ordering options when selecting data from \"user_question\".",
+        "isOneOf": false,
         "fields": null,
         "inputFields": [
           {
@@ -24723,6 +24970,7 @@
         "kind": "INPUT_OBJECT",
         "name": "user_question_pk_columns_input",
         "description": "primary key columns input for table: user_question",
+        "isOneOf": false,
         "fields": null,
         "inputFields": [
           {
@@ -24750,6 +24998,7 @@
         "kind": "ENUM",
         "name": "user_question_select_column",
         "description": "select columns of table \"user_question\"",
+        "isOneOf": null,
         "fields": null,
         "inputFields": null,
         "interfaces": null,
@@ -24839,6 +25088,7 @@
         "kind": "INPUT_OBJECT",
         "name": "user_question_set_input",
         "description": "input type for updating data in table \"user_question\"",
+        "isOneOf": false,
         "fields": null,
         "inputFields": [
           {
@@ -25006,6 +25256,7 @@
         "kind": "OBJECT",
         "name": "user_question_stddev_fields",
         "description": "aggregate stddev on columns",
+        "isOneOf": null,
         "fields": [
           {
             "name": "difficulty",
@@ -25053,6 +25304,7 @@
         "kind": "INPUT_OBJECT",
         "name": "user_question_stddev_order_by",
         "description": "order by stddev() on columns of table \"user_question\"",
+        "isOneOf": false,
         "fields": null,
         "inputFields": [
           {
@@ -25100,6 +25352,7 @@
         "kind": "OBJECT",
         "name": "user_question_stddev_pop_fields",
         "description": "aggregate stddev_pop on columns",
+        "isOneOf": null,
         "fields": [
           {
             "name": "difficulty",
@@ -25147,6 +25400,7 @@
         "kind": "INPUT_OBJECT",
         "name": "user_question_stddev_pop_order_by",
         "description": "order by stddev_pop() on columns of table \"user_question\"",
+        "isOneOf": false,
         "fields": null,
         "inputFields": [
           {
@@ -25194,6 +25448,7 @@
         "kind": "OBJECT",
         "name": "user_question_stddev_samp_fields",
         "description": "aggregate stddev_samp on columns",
+        "isOneOf": null,
         "fields": [
           {
             "name": "difficulty",
@@ -25241,6 +25496,7 @@
         "kind": "INPUT_OBJECT",
         "name": "user_question_stddev_samp_order_by",
         "description": "order by stddev_samp() on columns of table \"user_question\"",
+        "isOneOf": false,
         "fields": null,
         "inputFields": [
           {
@@ -25288,6 +25544,7 @@
         "kind": "INPUT_OBJECT",
         "name": "user_question_stream_cursor_input",
         "description": "Streaming cursor of the table \"user_question\"",
+        "isOneOf": false,
         "fields": null,
         "inputFields": [
           {
@@ -25327,6 +25584,7 @@
         "kind": "INPUT_OBJECT",
         "name": "user_question_stream_cursor_value_input",
         "description": "Initial value of the column from where the streaming should start",
+        "isOneOf": false,
         "fields": null,
         "inputFields": [
           {
@@ -25494,6 +25752,7 @@
         "kind": "OBJECT",
         "name": "user_question_sum_fields",
         "description": "aggregate sum on columns",
+        "isOneOf": null,
         "fields": [
           {
             "name": "difficulty",
@@ -25541,6 +25800,7 @@
         "kind": "INPUT_OBJECT",
         "name": "user_question_sum_order_by",
         "description": "order by sum() on columns of table \"user_question\"",
+        "isOneOf": false,
         "fields": null,
         "inputFields": [
           {
@@ -25588,6 +25848,7 @@
         "kind": "ENUM",
         "name": "user_question_update_column",
         "description": "update columns of table \"user_question\"",
+        "isOneOf": null,
         "fields": null,
         "inputFields": null,
         "interfaces": null,
@@ -25677,6 +25938,7 @@
         "kind": "INPUT_OBJECT",
         "name": "user_question_updates",
         "description": null,
+        "isOneOf": false,
         "fields": null,
         "inputFields": [
           {
@@ -25728,6 +25990,7 @@
         "kind": "OBJECT",
         "name": "user_question_var_pop_fields",
         "description": "aggregate var_pop on columns",
+        "isOneOf": null,
         "fields": [
           {
             "name": "difficulty",
@@ -25775,6 +26038,7 @@
         "kind": "INPUT_OBJECT",
         "name": "user_question_var_pop_order_by",
         "description": "order by var_pop() on columns of table \"user_question\"",
+        "isOneOf": false,
         "fields": null,
         "inputFields": [
           {
@@ -25822,6 +26086,7 @@
         "kind": "OBJECT",
         "name": "user_question_var_samp_fields",
         "description": "aggregate var_samp on columns",
+        "isOneOf": null,
         "fields": [
           {
             "name": "difficulty",
@@ -25869,6 +26134,7 @@
         "kind": "INPUT_OBJECT",
         "name": "user_question_var_samp_order_by",
         "description": "order by var_samp() on columns of table \"user_question\"",
+        "isOneOf": false,
         "fields": null,
         "inputFields": [
           {
@@ -25916,6 +26182,7 @@
         "kind": "OBJECT",
         "name": "user_question_variance_fields",
         "description": "aggregate variance on columns",
+        "isOneOf": null,
         "fields": [
           {
             "name": "difficulty",
@@ -25963,6 +26230,7 @@
         "kind": "INPUT_OBJECT",
         "name": "user_question_variance_order_by",
         "description": "order by variance() on columns of table \"user_question\"",
+        "isOneOf": false,
         "fields": null,
         "inputFields": [
           {
@@ -26010,6 +26278,7 @@
         "kind": "ENUM",
         "name": "user_select_column",
         "description": "select columns of table \"user\"",
+        "isOneOf": null,
         "fields": null,
         "inputFields": null,
         "interfaces": null,
@@ -26105,6 +26374,7 @@
         "kind": "ENUM",
         "name": "user_select_column_user_aggregate_bool_exp_bool_and_arguments_columns",
         "description": "select \"user_aggregate_bool_exp_bool_and_arguments_columns\" columns of table \"user\"",
+        "isOneOf": null,
         "fields": null,
         "inputFields": null,
         "interfaces": null,
@@ -26134,6 +26404,7 @@
         "kind": "ENUM",
         "name": "user_select_column_user_aggregate_bool_exp_bool_or_arguments_columns",
         "description": "select \"user_aggregate_bool_exp_bool_or_arguments_columns\" columns of table \"user\"",
+        "isOneOf": null,
         "fields": null,
         "inputFields": null,
         "interfaces": null,
@@ -26163,6 +26434,7 @@
         "kind": "INPUT_OBJECT",
         "name": "user_set_input",
         "description": "input type for updating data in table \"user\"",
+        "isOneOf": false,
         "fields": null,
         "inputFields": [
           {
@@ -26342,6 +26614,7 @@
         "kind": "INPUT_OBJECT",
         "name": "user_stream_cursor_input",
         "description": "Streaming cursor of the table \"user\"",
+        "isOneOf": false,
         "fields": null,
         "inputFields": [
           {
@@ -26381,6 +26654,7 @@
         "kind": "INPUT_OBJECT",
         "name": "user_stream_cursor_value_input",
         "description": "Initial value of the column from where the streaming should start",
+        "isOneOf": false,
         "fields": null,
         "inputFields": [
           {
@@ -26560,6 +26834,7 @@
         "kind": "ENUM",
         "name": "user_update_column",
         "description": "update columns of table \"user\"",
+        "isOneOf": null,
         "fields": null,
         "inputFields": null,
         "interfaces": null,
@@ -26655,6 +26930,7 @@
         "kind": "INPUT_OBJECT",
         "name": "user_updates",
         "description": null,
+        "isOneOf": false,
         "fields": null,
         "inputFields": [
           {
@@ -26694,6 +26970,7 @@
         "kind": "SCALAR",
         "name": "uuid",
         "description": null,
+        "isOneOf": null,
         "fields": null,
         "inputFields": null,
         "interfaces": null,
@@ -26704,6 +26981,7 @@
         "kind": "INPUT_OBJECT",
         "name": "uuid_comparison_exp",
         "description": "Boolean expression to compare columns of type \"uuid\". All fields are combined with logical 'AND'.",
+        "isOneOf": false,
         "fields": null,
         "inputFields": [
           {

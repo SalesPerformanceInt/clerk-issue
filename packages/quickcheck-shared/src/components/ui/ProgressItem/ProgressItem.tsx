@@ -80,7 +80,7 @@ const ProgressItem: FC<ProgressItemProps> = ({
           <ProgressIndicator
             className="absolute h-full w-full bg-primary"
             style={{
-              transform: `translateX(-${100 - progressBarValues.attempted}%)`,
+              transform: `translateX(-${100 - progressBarValues.attempted - progressBarValues.retired}%)`,
             }}
           />
           <ProgressIndicator

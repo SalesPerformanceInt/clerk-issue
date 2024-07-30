@@ -76,6 +76,22 @@ jobs:
           HASURA_ENDPOINT: "https://hasura-us.richardsonaccelerate.com/"
           HASURA_ADMIN_SECRET: ${{ secrets.HASURA_ADMIN_SECRET_US }}
           HASURA_WORKDIR: apps/quick-check/hasura
+      - name: Apply hasura migrations DEMO
+        uses: tibotiber/hasura-action@master # use a tagged version instead of master
+        with:
+          args: migrate apply --database-name quickcheck
+        env:
+          HASURA_ENDPOINT: "https://hasura-demo.richardsonaccelerate.com/"
+          HASURA_ADMIN_SECRET: ${{ secrets.HASURA_ADMIN_SECRET_DEMO }}
+          HASURA_WORKDIR: apps/quick-check/hasura
+      - name: Apply hasura metadata DEMO
+        uses: tibotiber/hasura-action@master # use a tagged version instead of master
+        with:
+          args: metadata apply
+        env:
+          HASURA_ENDPOINT: "https://hasura-demo.richardsonaccelerate.com/"
+          HASURA_ADMIN_SECRET: ${{ secrets.HASURA_ADMIN_SECRET_DEMO }}
+          HASURA_WORKDIR: apps/quick-check/hasura
   merge_to_production:
     needs: migrate_production_hasura_databases
     runs-on: ubuntu-latest

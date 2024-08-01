@@ -20,7 +20,13 @@ export const meta: MetaFunction = () => [
   },
 ];
 
-export const loader: LoaderFunction = (args) => rootAuthLoader(args);
+export const loader: LoaderFunction = (args) =>
+  rootAuthLoader(args, async ({ request }) => {
+    const x = new Promise((resolve, reject) => {
+      setTimeout(() => resolve("resolved!"), 500);
+    });
+    return { test: "foo" };
+  });
 
 export function Layout({ children }: { children: React.ReactNode }) {
   return (

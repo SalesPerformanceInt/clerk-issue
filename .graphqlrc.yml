@@ -1,2 +1,0 @@
-schema: "apps/quick-check/graphql.schema.json"
-documents: "apps/quick-check/app/graphql/**/*.ts"

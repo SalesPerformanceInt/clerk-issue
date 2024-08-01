@@ -1,2 +1,0 @@
-tests/behaviour/features/enrollment_api.feature
-tests/behaviour/features/daily_reminder.feature

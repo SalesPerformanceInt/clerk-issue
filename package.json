@@ -3,29 +3,15 @@
   "version": "0.0.0",
   "private": true,
   "workspaces": [
-    "apps/*",
-    "packages/*"
+    "apps/*"
   ],
   "scripts": {
-    "sb:qc-shared": "turbo run sb --filter=quickcheck-shared",
-    "dev:qc-shared": "turbo run dev --filter=quickcheck-shared",
     "dev:qc": "turbo run dev --filter=quick-check...",
-    "dev:live": "turbo run dev --filter=live-preview...",
-    "build": "turbo run build --filter=!react-email-client",
-    "build:qc": "turbo run build --filter=quick-check...",
-    "build:live": "turbo run build --filter=live-preview...",
-    "test": "vitest",
-    "test:cu": "cucumber-js --retry 2 --require tests/behaviour/cucumber.conf.js --require tests/behaviour/stepDefinitions/**/*.js --format @cucumber/pretty-formatter tests/behaviour/features/@order.txt ",
-    "lint": "turbo run lint",
-    "typecheck": "turbo run typecheck",
-    "format": "prettier --write \"**/*.{ts,tsx,md}\""
+    "build": "turbo run build",
+    "build:qc": "turbo run build --filter=quick-check..."
   },
   "devDependencies": {
-    "@cucumber/cucumber": "^10.0.1",
-    "@cucumber/pretty-formatter": "^1.0.0",
     "@ianvs/prettier-plugin-sort-imports": "^4.1.1",
-    "@playwright/test": "^1.39.0",
-    "@testing-library/react": "^14.1.2",
     "@types/eslint": "^8.56.2",
     "@types/node": "^20.11.0",
     "@typescript-eslint/eslint-plugin": "^6.18.1",
@@ -34,15 +20,10 @@
     "eslint": "^8.56.0",
     "eslint-config-prettier": "^9.1.0",
     "happy-dom": "^12.10.3",
-    "nanoid": "^3.3.7",
     "npm-run-all": "^4.1.5",
-    "playwright": "^1.39.0",
     "prettier": "^3.2.2",
-    "prettier-plugin-tailwindcss": "^0.5.11",
     "turbo": "1.11.3",
-    "typescript": "^5.3.3",
-    "uuid": "^9.0.1",
-    "vitest": "^0.34.6"
+    "typescript": "^5.3.3"
   },
   "engines": {
     "node": ">=18"

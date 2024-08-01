@@ -1,7 +1,0 @@
-version: 3
-# endpoint: https://hasura-staging.richardsonaccelerate.com/
-# admin_secret: 24bd366b41f6b0c6b76856b999244520
-metadata_directory: metadata
-actions:
-  kind: synchronous
-  handler_webhook_baseurl: http://localhost:3001

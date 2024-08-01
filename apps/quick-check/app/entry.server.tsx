@@ -1,77 +1,62 @@
-import { PassThrough } from "stream"
-import { renderToPipeableStream } from "react-dom/server"
-import { I18nextProvider, initReactI18next } from "react-i18next"
-import { createReadableStreamFromReadable, type EntryContext } from "@remix-run/node"
-import { RemixServer } from "@remix-run/react"
+import { PassThrough } from "stream";
+import { renderToPipeableStream } from "react-dom/server";
+import {
+  createReadableStreamFromReadable,
+  type EntryContext,
+} from "@remix-run/node";
+import { RemixServer } from "@remix-run/react";
 
-import { createInstance } from "i18next"
-import Backend, { HttpBackendOptions } from "i18next-http-backend"
-import { isbot } from "isbot"
+import { isbot } from "isbot";
 
-import { getBackendOptions, i18nConfig } from "quickcheck-shared"
-
-import { CONTENTSTACK_ENVS } from "./utils/envs.server"
-import { remixI18next } from "./utils/i18next.server"
-
-const ABORT_DELAY = 5000
+const ABORT_DELAY = 5000;
 
 export default async function handleRequest(
   request: Request,
   responseStatusCode: number,
   responseHeaders: Headers,
-  remixContext: EntryContext,
+  remixContext: EntryContext
 ) {
-  const callbackName = isbot(request.headers.get("user-agent") ?? "") ? "onAllReady" : "onShellReady"
-
-  const instance = createInstance()
-  const lng = await remixI18next.getLocale(request)
-  const ns = remixI18next.getRouteNamespaces(remixContext)
-
-  await instance
-    .use(initReactI18next)
-    .use(Backend)
-    .init<HttpBackendOptions>({
-      ...i18nConfig,
-      lng,
-      ns,
-      backend: getBackendOptions(CONTENTSTACK_ENVS),
-    })
+  const callbackName = isbot(request.headers.get("user-agent") ?? "")
+    ? "onAllReady"
+    : "onShellReady";
 
   return new Promise((resolve, reject) => {
-    let didError = false
+    let didError = false;
 
     // eslint-disable-next-line @typescript-eslint/unbound-method
     const { pipe, abort } = renderToPipeableStream(
-      <I18nextProvider i18n={instance}>
-        <RemixServer context={remixContext} url={request.url} abortDelay={ABORT_DELAY} />
-      </I18nextProvider>,
+      <RemixServer
+        context={remixContext}
+        url={request.url}
+        abortDelay={ABORT_DELAY}
+      />,
       {
         [callbackName]: () => {
-          const body = new PassThrough()
-          const stream = createReadableStreamFromReadable(body)
+          const body = new PassThrough();
+          const stream = createReadableStreamFromReadable(body);
 
-          responseHeaders.set("Content-Type", "text/html")
+          responseHeaders.set("Content-Type", "text/html");
 
           resolve(
             new Response(stream, {
               headers: responseHeaders,
               status: didError ? 500 : responseStatusCode,
-            }),
-          )
+            })
+          );
 
-          pipe(body)
+          pipe(body);
         },
         onShellError(error: unknown) {
-          reject(error)
+          reject(error);
         },
         onError(error: unknown) {
-          didError = true
+          didError = true;
 
-          console.error(error)
+          console.error(error);
         },
-      },
-    )
+      }
+    );
 
-    setTimeout(abort, ABORT_DELAY)
-  })
+    setTimeout(abort, ABORT_DELAY);
+  });
 }

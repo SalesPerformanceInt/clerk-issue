@@ -8,15 +8,8 @@
     "outDir": "./dist",
     "paths": {
       "~/*": ["./app/*"],
-      "~qcs/*": ["../../packages/quickcheck-shared/src/*"],
-      "quickcheck-shared": ["../../packages/quickcheck-shared/src"],
     },
   },
-  "references": [
-    {
-      "path": "../../packages/quickcheck-shared",
-    },
-  ],
   "files": ["./app/root.tsx"],
   "include": [
     "remix.env.d.ts",

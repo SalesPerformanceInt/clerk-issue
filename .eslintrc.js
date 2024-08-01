@@ -35,7 +35,6 @@ const config = {
     ".eslintrc.js",
     "**/*.config.js",
     "**/*.config.cjs",
-    "packages/config/**",
     "**/generated.d.ts",
   ],
 };

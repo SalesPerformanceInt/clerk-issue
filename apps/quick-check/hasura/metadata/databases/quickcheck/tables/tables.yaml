@@ -1,8 +1,0 @@
-- "!include public_event.yaml"
-- "!include public_link_token.yaml"
-- "!include public_product_survey.yaml"
-- "!include public_tenant.yaml"
-- "!include public_user.yaml"
-- "!include public_user_answer.yaml"
-- "!include public_user_enrollment.yaml"
-- "!include public_user_question.yaml"

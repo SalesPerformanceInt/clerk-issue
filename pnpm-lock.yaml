@@ -57,8 +57,8 @@ importers:
         specifier: ^4.8.1
         version: 4.9.1
       '@clerk/remix':
-        specifier: ^4.2.8
-        version: 4.2.8(@remix-run/react@2.10.3(react-dom@18.3.0-canary-08cd087ca-20240110(react@18.3.0-canary-08cd087ca-20240110))(react@18.3.0-canary-08cd087ca-20240110)(typescript@5.5.4))(@remix-run/server-runtime@2.10.3(typescript@5.5.4))(react-dom@18.3.0-canary-08cd087ca-20240110(react@18.3.0-canary-08cd087ca-20240110))(react@18.3.0-canary-08cd087ca-20240110)
+        specifier: 4.2.7
+        version: 4.2.7(@remix-run/react@2.10.3(react-dom@18.3.0-canary-08cd087ca-20240110(react@18.3.0-canary-08cd087ca-20240110))(react@18.3.0-canary-08cd087ca-20240110)(typescript@5.5.4))(@remix-run/server-runtime@2.10.3(typescript@5.5.4))(react-dom@18.3.0-canary-08cd087ca-20240110(react@18.3.0-canary-08cd087ca-20240110))(react@18.3.0-canary-08cd087ca-20240110)
       '@parcel/watcher':
         specifier: ^2.4.0
         version: 2.4.1
@@ -476,19 +476,19 @@ packages:
     resolution: {integrity: sha512-YTnYtra7W9e6/oAZEHj0bJehPRUlLH9/fbpT5LfB0NhQXyALCRkRs3zH9v07IYhkgpqX6Z78FnuccZr/l4Fs4Q==}
     engines: {node: '>=6.9.0'}
 
-  '@clerk/backend@1.5.0':
-    resolution: {integrity: sha512-uJUcA4oIDfTkjhjcjnlnarjuLXp5rVvtXB1/HtFKLXfvm8SveH5D3w97IeiUDNMvggxBo1Q/faBDBjEJxTV9Cw==}
+  '@clerk/backend@1.4.3':
+    resolution: {integrity: sha512-wj4qsZO6iNiY9vF7vLH5v1f3oLh1yCLgFa0PedLzJAIJgepZl23C1/ubrRm7vyewjQEMHZwod4816mZlHDfoqA==}
     engines: {node: '>=18.17.0'}
 
-  '@clerk/clerk-react@5.3.0':
-    resolution: {integrity: sha512-sKJrIHwkfeemSolI4pU+jwNFYFG+HfwZ+Anx1JvnvlLDELUrsQMFCVOKCE7TOEs+Y/9loEK7xFdanzvxL+uasA==}
+  '@clerk/clerk-react@5.2.10':
+    resolution: {integrity: sha512-qJZ79aiB80cUuqccKqhk6QImGIji4y1bjK1xbGnqiAthtMegxFShLJwEsrF7nl0Rw5yM9cphiwETEqBWfIPL4Q==}
     engines: {node: '>=18.17.0'}
     peerDependencies:
       react: '>=18 || >=19.0.0-beta'
       react-dom: '>=18 || >=19.0.0-beta'
 
-  '@clerk/remix@4.2.8':
-    resolution: {integrity: sha512-0YmTz4DjHbBy6r3SOkUXVHNo7kqVytY1WOOt1AL89F6wWLhmZwSYuTfYK7VHdT/u9iDHaUCo6irSW0AACOo13g==}
+  '@clerk/remix@4.2.7':
+    resolution: {integrity: sha512-5VTNQ1NqKxWzAHXqE7DspMMxd96ttOXK0QjfqegYn6laYyWBdmlm+IFf50oOyDqEl1TAhg4AlEk/B4QKprjBKg==}
     engines: {node: '>=18.17.0'}
     peerDependencies:
       '@remix-run/react': ^2.0.0
@@ -496,8 +496,8 @@ packages:
       react: '>=18'
       react-dom: '>=18'
 
-  '@clerk/shared@2.4.2':
-    resolution: {integrity: sha512-8AZg7Qus7nGBwhbdJINV1NR0vAbOYtv/m8C9VdASHW/DzamNJvyf9d61E1DLZGTTjQw/Fja9zolq9CcWT5d6NA==}
+  '@clerk/shared@2.4.1':
+    resolution: {integrity: sha512-sApuz6hDRIai4Jwo/fBcihX74+DdrKLt08LkEVrooh/7zc0ipDOSGlqmAy15yNuKPaxpemp/9nW4T8gq6uIr9Q==}
     engines: {node: '>=18.17.0'}
     peerDependencies:
       react: '>=18 || >=19.0.0-beta'
@@ -508,8 +508,8 @@ packages:
       react-dom:
         optional: true
 
-  '@clerk/types@4.10.0':
-    resolution: {integrity: sha512-Yy4m+aCrvVHT8BVNGDi40hcSUTwMf5o+cBHhAQQTofzCikc+DRI6yL7aYT6nf2YJ5gfm7WdeUwPM8Zz08TDzNA==}
+  '@clerk/types@4.9.1':
+    resolution: {integrity: sha512-fCmqzPBFh0rH9TlUVPpvPW225DtGJDuCv5GecwuuzD8hcgwGetTfRSDRNl5Dub5aJuqYWGQQCCnKfnfCrhZvrA==}
     engines: {node: '>=18.17.0'}
 
   '@cspotcode/source-map-support@0.8.1':
@@ -5246,10 +5246,10 @@ snapshots:
       '@babel/helper-validator-identifier': 7.24.7
       to-fast-properties: 2.0.0
 
-  '@clerk/backend@1.5.0(react-dom@18.3.0-canary-08cd087ca-20240110(react@18.3.0-canary-08cd087ca-20240110))(react@18.3.0-canary-08cd087ca-20240110)':
+  '@clerk/backend@1.4.3(react-dom@18.3.0-canary-08cd087ca-20240110(react@18.3.0-canary-08cd087ca-20240110))(react@18.3.0-canary-08cd087ca-20240110)':
     dependencies:
-      '@clerk/shared': 2.4.2(react-dom@18.3.0-canary-08cd087ca-20240110(react@18.3.0-canary-08cd087ca-20240110))(react@18.3.0-canary-08cd087ca-20240110)
-      '@clerk/types': 4.10.0
+      '@clerk/shared': 2.4.1(react-dom@18.3.0-canary-08cd087ca-20240110(react@18.3.0-canary-08cd087ca-20240110))(react@18.3.0-canary-08cd087ca-20240110)
+      '@clerk/types': 4.9.1
       cookie: 0.5.0
       snakecase-keys: 5.4.4
       tslib: 2.4.1
@@ -5257,20 +5257,20 @@ snapshots:
       - react
       - react-dom
 
-  '@clerk/clerk-react@5.3.0(react-dom@18.3.0-canary-08cd087ca-20240110(react@18.3.0-canary-08cd087ca-20240110))(react@18.3.0-canary-08cd087ca-20240110)':
+  '@clerk/clerk-react@5.2.10(react-dom@18.3.0-canary-08cd087ca-20240110(react@18.3.0-canary-08cd087ca-20240110))(react@18.3.0-canary-08cd087ca-20240110)':
     dependencies:
-      '@clerk/shared': 2.4.2(react-dom@18.3.0-canary-08cd087ca-20240110(react@18.3.0-canary-08cd087ca-20240110))(react@18.3.0-canary-08cd087ca-20240110)
-      '@clerk/types': 4.10.0
+      '@clerk/shared': 2.4.1(react-dom@18.3.0-canary-08cd087ca-20240110(react@18.3.0-canary-08cd087ca-20240110))(react@18.3.0-canary-08cd087ca-20240110)
+      '@clerk/types': 4.9.1
       react: 18.3.0-canary-08cd087ca-20240110
       react-dom: 18.3.0-canary-08cd087ca-20240110(react@18.3.0-canary-08cd087ca-20240110)
       tslib: 2.4.1
 
-  '@clerk/remix@4.2.8(@remix-run/react@2.10.3(react-dom@18.3.0-canary-08cd087ca-20240110(react@18.3.0-canary-08cd087ca-20240110))(react@18.3.0-canary-08cd087ca-20240110)(typescript@5.5.4))(@remix-run/server-runtime@2.10.3(typescript@5.5.4))(react-dom@18.3.0-canary-08cd087ca-20240110(react@18.3.0-canary-08cd087ca-20240110))(react@18.3.0-canary-08cd087ca-20240110)':
+  '@clerk/remix@4.2.7(@remix-run/react@2.10.3(react-dom@18.3.0-canary-08cd087ca-20240110(react@18.3.0-canary-08cd087ca-20240110))(react@18.3.0-canary-08cd087ca-20240110)(typescript@5.5.4))(@remix-run/server-runtime@2.10.3(typescript@5.5.4))(react-dom@18.3.0-canary-08cd087ca-20240110(react@18.3.0-canary-08cd087ca-20240110))(react@18.3.0-canary-08cd087ca-20240110)':
     dependencies:
-      '@clerk/backend': 1.5.0(react-dom@18.3.0-canary-08cd087ca-20240110(react@18.3.0-canary-08cd087ca-20240110))(react@18.3.0-canary-08cd087ca-20240110)
-      '@clerk/clerk-react': 5.3.0(react-dom@18.3.0-canary-08cd087ca-20240110(react@18.3.0-canary-08cd087ca-20240110))(react@18.3.0-canary-08cd087ca-20240110)
-      '@clerk/shared': 2.4.2(react-dom@18.3.0-canary-08cd087ca-20240110(react@18.3.0-canary-08cd087ca-20240110))(react@18.3.0-canary-08cd087ca-20240110)
-      '@clerk/types': 4.10.0
+      '@clerk/backend': 1.4.3(react-dom@18.3.0-canary-08cd087ca-20240110(react@18.3.0-canary-08cd087ca-20240110))(react@18.3.0-canary-08cd087ca-20240110)
+      '@clerk/clerk-react': 5.2.10(react-dom@18.3.0-canary-08cd087ca-20240110(react@18.3.0-canary-08cd087ca-20240110))(react@18.3.0-canary-08cd087ca-20240110)
+      '@clerk/shared': 2.4.1(react-dom@18.3.0-canary-08cd087ca-20240110(react@18.3.0-canary-08cd087ca-20240110))(react@18.3.0-canary-08cd087ca-20240110)
+      '@clerk/types': 4.9.1
       '@remix-run/react': 2.10.3(react-dom@18.3.0-canary-08cd087ca-20240110(react@18.3.0-canary-08cd087ca-20240110))(react@18.3.0-canary-08cd087ca-20240110)(typescript@5.5.4)
       '@remix-run/server-runtime': 2.10.3(typescript@5.5.4)
       cookie: 0.5.0
@@ -5278,9 +5278,9 @@ snapshots:
       react-dom: 18.3.0-canary-08cd087ca-20240110(react@18.3.0-canary-08cd087ca-20240110)
       tslib: 2.4.1
 
-  '@clerk/shared@2.4.2(react-dom@18.3.0-canary-08cd087ca-20240110(react@18.3.0-canary-08cd087ca-20240110))(react@18.3.0-canary-08cd087ca-20240110)':
+  '@clerk/shared@2.4.1(react-dom@18.3.0-canary-08cd087ca-20240110(react@18.3.0-canary-08cd087ca-20240110))(react@18.3.0-canary-08cd087ca-20240110)':
     dependencies:
-      '@clerk/types': 4.10.0
+      '@clerk/types': 4.9.1
       glob-to-regexp: 0.4.1
       js-cookie: 3.0.5
       std-env: 3.7.0
@@ -5289,7 +5289,7 @@ snapshots:
       react: 18.3.0-canary-08cd087ca-20240110
       react-dom: 18.3.0-canary-08cd087ca-20240110(react@18.3.0-canary-08cd087ca-20240110)
 
-  '@clerk/types@4.10.0':
+  '@clerk/types@4.9.1':
     dependencies:
       csstype: 3.1.1
 
@@ -5737,8 +5737,8 @@ snapshots:
       '@typescript-eslint/parser': 5.62.0(eslint@8.57.0)(typescript@5.5.4)
       eslint: 8.57.0
       eslint-import-resolver-node: 0.3.7
-      eslint-import-resolver-typescript: 3.6.1(@typescript-eslint/parser@5.62.0(eslint@8.57.0)(typescript@5.5.4))(eslint-import-resolver-node@0.3.7)(eslint-plugin-import@2.29.1)(eslint@8.57.0)
-      eslint-plugin-import: 2.29.1(@typescript-eslint/parser@5.62.0(eslint@8.57.0)(typescript@5.5.4))(eslint-import-resolver-typescript@3.6.1)(eslint@8.57.0)
+      eslint-import-resolver-typescript: 3.6.1(@typescript-eslint/parser@5.62.0(eslint@8.57.0)(typescript@5.5.4))(eslint-import-resolver-node@0.3.7)(eslint-plugin-import@2.29.1(@typescript-eslint/parser@5.62.0(eslint@8.57.0)(typescript@5.5.4))(eslint@8.57.0))(eslint@8.57.0)
+      eslint-plugin-import: 2.29.1(@typescript-eslint/parser@5.62.0(eslint@8.57.0)(typescript@5.5.4))(eslint-import-resolver-typescript@3.6.1(@typescript-eslint/parser@5.62.0(eslint@8.57.0)(typescript@5.5.4))(eslint-import-resolver-node@0.3.7)(eslint-plugin-import@2.29.1(@typescript-eslint/parser@5.62.0(eslint@8.57.0)(typescript@5.5.4))(eslint@8.57.0))(eslint@8.57.0))(eslint@8.57.0)
       eslint-plugin-jest: 26.9.0(@typescript-eslint/eslint-plugin@5.62.0(@typescript-eslint/parser@5.62.0(eslint@8.57.0)(typescript@5.5.4))(eslint@8.57.0)(typescript@5.5.4))(eslint@8.57.0)(typescript@5.5.4)
       eslint-plugin-jest-dom: 4.0.3(eslint@8.57.0)
       eslint-plugin-jsx-a11y: 6.9.0(eslint@8.57.0)
@@ -7291,13 +7291,13 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  eslint-import-resolver-typescript@3.6.1(@typescript-eslint/parser@5.62.0(eslint@8.57.0)(typescript@5.5.4))(eslint-import-resolver-node@0.3.7)(eslint-plugin-import@2.29.1)(eslint@8.57.0):
+  eslint-import-resolver-typescript@3.6.1(@typescript-eslint/parser@5.62.0(eslint@8.57.0)(typescript@5.5.4))(eslint-import-resolver-node@0.3.7)(eslint-plugin-import@2.29.1(@typescript-eslint/parser@5.62.0(eslint@8.57.0)(typescript@5.5.4))(eslint@8.57.0))(eslint@8.57.0):
     dependencies:
       debug: 4.3.6
       enhanced-resolve: 5.17.1
       eslint: 8.57.0
-      eslint-module-utils: 2.8.1(@typescript-eslint/parser@5.62.0(eslint@8.57.0)(typescript@5.5.4))(eslint-import-resolver-node@0.3.7)(eslint-import-resolver-typescript@3.6.1(@typescript-eslint/parser@5.62.0(eslint@8.57.0)(typescript@5.5.4))(eslint-import-resolver-node@0.3.7)(eslint-plugin-import@2.29.1)(eslint@8.57.0))(eslint@8.57.0)
-      eslint-plugin-import: 2.29.1(@typescript-eslint/parser@5.62.0(eslint@8.57.0)(typescript@5.5.4))(eslint-import-resolver-typescript@3.6.1)(eslint@8.57.0)
+      eslint-module-utils: 2.8.1(@typescript-eslint/parser@5.62.0(eslint@8.57.0)(typescript@5.5.4))(eslint-import-resolver-node@0.3.7)(eslint-import-resolver-typescript@3.6.1(@typescript-eslint/parser@5.62.0(eslint@8.57.0)(typescript@5.5.4))(eslint-import-resolver-node@0.3.7)(eslint-plugin-import@2.29.1(@typescript-eslint/parser@5.62.0(eslint@8.57.0)(typescript@5.5.4))(eslint@8.57.0))(eslint@8.57.0))(eslint@8.57.0)
+      eslint-plugin-import: 2.29.1(@typescript-eslint/parser@5.62.0(eslint@8.57.0)(typescript@5.5.4))(eslint-import-resolver-typescript@3.6.1(@typescript-eslint/parser@5.62.0(eslint@8.57.0)(typescript@5.5.4))(eslint-import-resolver-node@0.3.7)(eslint-plugin-import@2.29.1(@typescript-eslint/parser@5.62.0(eslint@8.57.0)(typescript@5.5.4))(eslint@8.57.0))(eslint@8.57.0))(eslint@8.57.0)
       fast-glob: 3.3.2
       get-tsconfig: 4.7.6
       is-core-module: 2.15.0
@@ -7308,25 +7308,25 @@ snapshots:
       - eslint-import-resolver-webpack
       - supports-color
 
-  eslint-module-utils@2.8.1(@typescript-eslint/parser@5.62.0(eslint@8.57.0)(typescript@5.5.4))(eslint-import-resolver-node@0.3.7)(eslint-import-resolver-typescript@3.6.1(@typescript-eslint/parser@5.62.0(eslint@8.57.0)(typescript@5.5.4))(eslint-import-resolver-node@0.3.7)(eslint-plugin-import@2.29.1)(eslint@8.57.0))(eslint@8.57.0):
+  eslint-module-utils@2.8.1(@typescript-eslint/parser@5.62.0(eslint@8.57.0)(typescript@5.5.4))(eslint-import-resolver-node@0.3.7)(eslint-import-resolver-typescript@3.6.1(@typescript-eslint/parser@5.62.0(eslint@8.57.0)(typescript@5.5.4))(eslint-import-resolver-node@0.3.7)(eslint-plugin-import@2.29.1(@typescript-eslint/parser@5.62.0(eslint@8.57.0)(typescript@5.5.4))(eslint@8.57.0))(eslint@8.57.0))(eslint@8.57.0):
     dependencies:
       debug: 3.2.7
     optionalDependencies:
       '@typescript-eslint/parser': 5.62.0(eslint@8.57.0)(typescript@5.5.4)
       eslint: 8.57.0
       eslint-import-resolver-node: 0.3.7
-      eslint-import-resolver-typescript: 3.6.1(@typescript-eslint/parser@5.62.0(eslint@8.57.0)(typescript@5.5.4))(eslint-import-resolver-node@0.3.7)(eslint-plugin-import@2.29.1)(eslint@8.57.0)
+      eslint-import-resolver-typescript: 3.6.1(@typescript-eslint/parser@5.62.0(eslint@8.57.0)(typescript@5.5.4))(eslint-import-resolver-node@0.3.7)(eslint-plugin-import@2.29.1(@typescript-eslint/parser@5.62.0(eslint@8.57.0)(typescript@5.5.4))(eslint@8.57.0))(eslint@8.57.0)
     transitivePeerDependencies:
       - supports-color
 
-  eslint-module-utils@2.8.1(@typescript-eslint/parser@5.62.0(eslint@8.57.0)(typescript@5.5.4))(eslint-import-resolver-node@0.3.9)(eslint-import-resolver-typescript@3.6.1(@typescript-eslint/parser@5.62.0(eslint@8.57.0)(typescript@5.5.4))(eslint-import-resolver-node@0.3.7)(eslint-plugin-import@2.29.1)(eslint@8.57.0))(eslint@8.57.0):
+  eslint-module-utils@2.8.1(@typescript-eslint/parser@5.62.0(eslint@8.57.0)(typescript@5.5.4))(eslint-import-resolver-node@0.3.9)(eslint-import-resolver-typescript@3.6.1(@typescript-eslint/parser@5.62.0(eslint@8.57.0)(typescript@5.5.4))(eslint-import-resolver-node@0.3.7)(eslint-plugin-import@2.29.1(@typescript-eslint/parser@5.62.0(eslint@8.57.0)(typescript@5.5.4))(eslint@8.57.0))(eslint@8.57.0))(eslint@8.57.0):
     dependencies:
       debug: 3.2.7
     optionalDependencies:
       '@typescript-eslint/parser': 5.62.0(eslint@8.57.0)(typescript@5.5.4)
       eslint: 8.57.0
       eslint-import-resolver-node: 0.3.9
-      eslint-import-resolver-typescript: 3.6.1(@typescript-eslint/parser@5.62.0(eslint@8.57.0)(typescript@5.5.4))(eslint-import-resolver-node@0.3.7)(eslint-plugin-import@2.29.1)(eslint@8.57.0)
+      eslint-import-resolver-typescript: 3.6.1(@typescript-eslint/parser@5.62.0(eslint@8.57.0)(typescript@5.5.4))(eslint-import-resolver-node@0.3.7)(eslint-plugin-import@2.29.1(@typescript-eslint/parser@5.62.0(eslint@8.57.0)(typescript@5.5.4))(eslint@8.57.0))(eslint@8.57.0)
     transitivePeerDependencies:
       - supports-color
 
@@ -7336,7 +7336,7 @@ snapshots:
       eslint-utils: 2.1.0
       regexpp: 3.2.0
 
-  eslint-plugin-import@2.29.1(@typescript-eslint/parser@5.62.0(eslint@8.57.0)(typescript@5.5.4))(eslint-import-resolver-typescript@3.6.1)(eslint@8.57.0):
+  eslint-plugin-import@2.29.1(@typescript-eslint/parser@5.62.0(eslint@8.57.0)(typescript@5.5.4))(eslint-import-resolver-typescript@3.6.1(@typescript-eslint/parser@5.62.0(eslint@8.57.0)(typescript@5.5.4))(eslint-import-resolver-node@0.3.7)(eslint-plugin-import@2.29.1(@typescript-eslint/parser@5.62.0(eslint@8.57.0)(typescript@5.5.4))(eslint@8.57.0))(eslint@8.57.0))(eslint@8.57.0):
     dependencies:
       array-includes: 3.1.8
       array.prototype.findlastindex: 1.2.5
@@ -7346,7 +7346,7 @@ snapshots:
       doctrine: 2.1.0
       eslint: 8.57.0
       eslint-import-resolver-node: 0.3.9
-      eslint-module-utils: 2.8.1(@typescript-eslint/parser@5.62.0(eslint@8.57.0)(typescript@5.5.4))(eslint-import-resolver-node@0.3.9)(eslint-import-resolver-typescript@3.6.1(@typescript-eslint/parser@5.62.0(eslint@8.57.0)(typescript@5.5.4))(eslint-import-resolver-node@0.3.7)(eslint-plugin-import@2.29.1)(eslint@8.57.0))(eslint@8.57.0)
+      eslint-module-utils: 2.8.1(@typescript-eslint/parser@5.62.0(eslint@8.57.0)(typescript@5.5.4))(eslint-import-resolver-node@0.3.9)(eslint-import-resolver-typescript@3.6.1(@typescript-eslint/parser@5.62.0(eslint@8.57.0)(typescript@5.5.4))(eslint-import-resolver-node@0.3.7)(eslint-plugin-import@2.29.1(@typescript-eslint/parser@5.62.0(eslint@8.57.0)(typescript@5.5.4))(eslint@8.57.0))(eslint@8.57.0))(eslint@8.57.0)
       hasown: 2.0.2
       is-core-module: 2.15.0
       is-glob: 4.0.3

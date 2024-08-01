@@ -1,4 +1,4 @@
-import { type LoaderFunction, type MetaFunction } from "@vercel/remix";
+import { json, type LoaderFunction, type MetaFunction } from "@vercel/remix";
 
 import {
   Links,
@@ -25,7 +25,7 @@ export const loader: LoaderFunction = (args) =>
     const x = new Promise((resolve, reject) => {
       setTimeout(() => resolve("resolved!"), 500);
     });
-    return { test: "foo" };
+    return json({ test: "foo" });
   });
 
 export function Layout({ children }: { children: React.ReactNode }) {

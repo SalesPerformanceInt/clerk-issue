@@ -1,0 +1,31 @@
+{
+  "compilerOptions": {
+    "allowJs": true,
+    "checkJs": true,
+    "composite": true,
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+    "isolatedModules": true,
+    "jsx": "preserve",
+    "lib": ["DOM", "DOM.iterable", "ESNext"],
+    "module": "ESNext",
+    "moduleResolution": "node",
+    "noUncheckedIndexedAccess": true,
+    "resolveJsonModule": true,
+    "skipLibCheck": true,
+    "strict": true,
+    "target": "ESNext"
+  },
+  "exclude": [
+    "**/dist",
+    "**/node_modules",
+    "**/.turbo",
+    "**/cache",
+    "**/public",
+    "**/build",
+    "**/.cache",
+    "**/api/index.js",
+    "**/*.js",
+    "**/*.cjs"
+  ]
+}

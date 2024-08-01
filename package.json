@@ -1,0 +1,31 @@
+{
+  "name": "accelerate_quick_check",
+  "version": "0.0.0",
+  "private": true,
+  "workspaces": [
+    "apps/*"
+  ],
+  "scripts": {
+    "dev:qc": "turbo run dev --filter=quick-check...",
+    "build": "turbo run build",
+    "build:qc": "turbo run build --filter=quick-check..."
+  },
+  "devDependencies": {
+    "@ianvs/prettier-plugin-sort-imports": "^4.1.1",
+    "@types/eslint": "^8.56.2",
+    "@types/node": "^20.11.0",
+    "@typescript-eslint/eslint-plugin": "^6.18.1",
+    "@typescript-eslint/parser": "^6.18.1",
+    "dotenv": "^16.3.1",
+    "eslint": "^8.56.0",
+    "eslint-config-prettier": "^9.1.0",
+    "happy-dom": "^12.10.3",
+    "npm-run-all": "^4.1.5",
+    "prettier": "^3.2.2",
+    "turbo": "1.11.3",
+    "typescript": "^5.3.3"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}
